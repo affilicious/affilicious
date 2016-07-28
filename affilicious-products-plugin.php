@@ -17,6 +17,8 @@ use Affilicious\ProductsPlugin\Product\ProductSetup;
 use Affilicious\ProductsPlugin\Product\Field\FieldGroupSetup;
 use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
 
+if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+
 final class AffiliciousProductsPlugin
 {
     const PLUGIN_NAME = 'affilicious-products';

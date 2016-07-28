@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\ProductsPlugin;
 
+if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+
 /**
  * Register all actions and filters for the plugin.
  */
