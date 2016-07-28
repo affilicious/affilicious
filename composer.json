@@ -1,0 +1,19 @@
+{
+  "name": "alexba/affilicious-products-plugin",
+  "license": "MIT",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "wordpress",
+    "affiliate",
+    "produkte"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Affilicious\\ProductsPlugin\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.3",
+    "htmlburger/carbon-fields": "^1.2"
+  }
+}

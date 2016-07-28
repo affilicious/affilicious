@@ -13,6 +13,9 @@
  * Domain Path: /languages
  */
 use Affilicious\ProductsPlugin\Loader;
+use Affilicious\ProductsPlugin\Product\ProductSetup;
+use Affilicious\ProductsPlugin\Product\Field\FieldGroupSetup;
+use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
 
 final class AffiliciousProductsPlugin
 {
@@ -33,8 +36,13 @@ final class AffiliciousProductsPlugin
      */
     public function __construct()
     {
-        spl_autoload_register(array($this, 'autoload'));
-
+        require_once(self::PLUGIN_SOURCE_DIR . 'Product/functions.php');
+        if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+            require(__DIR__ . '/vendor/autoload.php');
+        } else {
+            spl_autoload_register(array($this, 'autoload'));
+        }
+        
         $this->loader = new Loader();
     }
 
@@ -89,6 +97,10 @@ final class AffiliciousProductsPlugin
     public function loaded()
     {
         $this->registerTextdomain();
+
+        new ProductSetup();
+        new FieldGroupSetup();
+        new DetailGroupSetup();
     }
 
     /**
