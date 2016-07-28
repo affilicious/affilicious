@@ -1,5 +1,4 @@
 *.log
-tmp/
 wp-config.php
 wp-content/advanced-cache.php
 wp-content/backup-db/
@@ -11,6 +10,8 @@ wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
 
+/vendor/
+/tmp/
 /.htaccess
 /license.txt
 /readme.html
