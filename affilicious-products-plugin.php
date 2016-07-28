@@ -36,13 +36,13 @@ final class AffiliciousProductsPlugin
      */
     public function __construct()
     {
-        require_once(self::PLUGIN_SOURCE_DIR . 'Product/functions.php');
+        require_once(self::PLUGIN_SOURCE_DIR . 'functions.php');
         if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
             require(__DIR__ . '/vendor/autoload.php');
         } else {
             spl_autoload_register(array($this, 'autoload'));
         }
-        
+
         $this->loader = new Loader();
     }
 

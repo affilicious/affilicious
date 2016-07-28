@@ -8,11 +8,16 @@ use Affilicious\ProductsPlugin\Product\Detail\DetailGroup;
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 /**
- * @param int|\WP_Post $post
+ * Get the product
+ * @param int|\WP_Post|Product $post
  * @return Product
  */
-function ap_get_product($post = null)
+function affilicious_get_product($post = null)
 {
+    if ($post instanceof Product) {
+        return $post;
+    }
+
     $post = PostHelper::getPost($post);
     $productFactory = new ProductFactory();
     $product = $productFactory->create($post);
@@ -21,28 +26,28 @@ function ap_get_product($post = null)
 }
 
 /**
+ * Get the product field groups
  * @param Product|null $product
  * @return FieldGroup[]
  */
-function ap_get_product_field_groups(Product $product = null)
+function affilicious_get_product_field_groups($product = null)
 {
     if ($product === null) {
-        $post = PostHelper::getPost();
-        $product = $post;
+        $product = ap_get_product($product);
     }
 
     return $product->getFieldGroups();
 }
 
 /**
+ * Get the product detail groups
  * @param Product|null $product
  * @return DetailGroup[]
  */
-function ap_get_product_detail_groups(Product $product = null)
+function affilicious_get_product_detail_groups($product = null)
 {
     if ($product === null) {
-        $post = PostHelper::getPost();
-        $product = $post;
+        $product = ap_get_product($product);
     }
 
     return $product->getDetailGroups();

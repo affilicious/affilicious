@@ -116,4 +116,13 @@ class Product
     {
         return $this->detailGroups;
     }
+
+    /**
+     * Get the raw post
+     * @return \WP_Post
+     */
+    public function getRawPost()
+    {
+        return $this->post;
+    }
 }

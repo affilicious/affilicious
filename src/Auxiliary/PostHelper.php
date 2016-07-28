@@ -1,6 +1,10 @@
 <?php
 namespace Affilicious\ProductsPlugin\Auxiliary;
 
+use Affilicious\ProductsPlugin\Product\Product;
+
+if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+
 class PostHelper
 {
     /**
@@ -13,7 +17,7 @@ class PostHelper
     }
 
     /**
-     * @param int|string|\WP_Post $post
+     * @param int|string|\WP_Post|Product $post
      * @return \WP_Post
      * @throws \Exception
      */
@@ -23,9 +27,11 @@ class PostHelper
             return $post;
         }
 
+        if($post instanceof Product) {
+            return $post->getRawPost();
+        }
+
         if (is_int($post)) {
-            $post = get_post($post);
-        } elseif (is_string($post)) {
             $post = get_post($post);
         } else {
             $post = get_post();
