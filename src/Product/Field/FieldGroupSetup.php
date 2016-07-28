@@ -128,7 +128,8 @@ class FieldGroupSetup
     public function getProductCategories()
     {
         // Get all product categories
-        if (is_version('4.5')) {
+        global $wp_version;
+        if (version_compare($wp_version, '4.5', '>=')) {
             $terms = get_terms(array(
                 'taxonomy' => Product::TAXONOMY,
                 'orderby' => 'name',
