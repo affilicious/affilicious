@@ -66,10 +66,25 @@ class Product
     /**
      * Check if the product has the field group with the given ID
      * @param int $id
+     * @return bool
      */
     public function hasFieldGroup($id)
     {
-        unset($this->fieldGroups[$id]);
+        return isset($this->fieldGroups[$id]);
+    }
+
+    /**
+     * Get the field group by the id
+     * @param int $id
+     * @return FieldGroup|null
+     */
+    public function getFieldGroup($id)
+    {
+        if (!$this->hasFieldGroup($id)) {
+            return null;
+        }
+
+        return $this->fieldGroups[$id];
     }
 
     /**
@@ -79,6 +94,15 @@ class Product
     public function getFieldGroups()
     {
         return $this->fieldGroups;
+    }
+
+    /**
+     * Count all field groups
+     * @return int
+     */
+    public function countFieldGroups()
+    {
+        return count($this->fieldGroups);
     }
 
     /**
@@ -102,10 +126,25 @@ class Product
     /**
      * Check if the product has the detail group with the given ID
      * @param int $id
+     * @return bool
      */
     public function hasDetailGroup($id)
     {
-        unset($this->detailGroups[$id]);
+        return isset($this->detailGroups[$id]);
+    }
+
+    /**
+     * Get the detail group by the id
+     * @param int $id
+     * @return DetailGroup|null
+     */
+    public function getDetailGroup($id)
+    {
+        if (!$this->hasDetailGroup($id)) {
+            return null;
+        }
+
+        return $this->detailGroups[$id];
     }
 
     /**
@@ -115,6 +154,15 @@ class Product
     public function getDetailGroups()
     {
         return $this->detailGroups;
+    }
+
+    /**
+     * Count all detail groups
+     * @return int
+     */
+    public function countDetailGroups()
+    {
+        return count($this->detailGroups);
     }
 
     /**

@@ -19,7 +19,7 @@ use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
-final class AffiliciousProductsPlugin
+class AffiliciousProductsPlugin
 {
     const PLUGIN_NAME = 'affilicious-products';
     const PLUGIN_VERSION = '0.1';
@@ -32,6 +32,15 @@ final class AffiliciousProductsPlugin
      * @var Loader
      */
     private $loader;
+
+    /**
+     * Get the root dir of the plugin
+     * @return string
+     */
+    public static function getRootDir()
+    {
+        return plugin_dir_path( __FILE__ );
+    }
 
     /**
      * Prepare the plugin with for usage with Wordpress and namespaces

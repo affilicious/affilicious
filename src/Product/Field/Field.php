@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Field;
 
+use Affilicious\ProductsPlugin\Exception\InvalidOptionException;
+
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class Field
@@ -56,6 +58,8 @@ class Field
         $this->key = $key;
         $this->type = $type;
         $this->label = $label;
+
+        $this->assertValidType($type);
     }
 
     /**
@@ -155,5 +159,17 @@ class Field
     public function setHelpText($helpText)
     {
         $this->helpText = $helpText;
+    }
+
+    /**
+     * Throw an error if the type is invalid
+     * @param string $type
+     * @throws \Exception
+     */
+    private function assertValidType($type)
+    {
+        if(!isset(self::$types[$type])) {
+            throw new InvalidOptionException($type, self::$types);
+        }
     }
 }

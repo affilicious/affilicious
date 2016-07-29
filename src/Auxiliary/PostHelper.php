@@ -33,12 +33,17 @@ class PostHelper
 
         if (is_int($post)) {
             $post = get_post($post);
+        } elseif (is_string($post)) {
+            $post = get_post(intval($post));
         } else {
             $post = get_post();
         }
 
         if ($post === null) {
-            throw new \Exception( __('Failed to find the product group'));
+            throw new \Exception( sprintf(
+                __('Failed to find the product #%s', 'affiliciousproducts'),
+                $post
+            ));
         }
 
         return $post;

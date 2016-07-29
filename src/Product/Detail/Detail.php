@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Detail;
 
+use Affilicious\ProductsPlugin\Exception\InvalidOptionException;
+
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class Detail
@@ -50,14 +52,7 @@ class Detail
         $this->label = $label;
         $this->value = $value;
 
-        // Throw an error if the type is not valid
-        if(!isset(self::$types[$type])) {
-            throw new \Exception(sprintf(
-                __('The given type %s is not valid. Please choose one of the following types: %s.', 'projektaffiliatetheme'),
-                $type,
-                implode(', ', self::$types)
-            ));
-        }
+        $this->assertValidType($type);
     }
 
     /**
@@ -142,6 +137,22 @@ class Detail
         $fileId = $this->getValue();
         $fileUrl = \wp_get_attachment_image_url($fileId);
 
+        if (empty($fileUrl)) {
+            return null;
+        }
+
         return $fileUrl;
+    }
+
+    /**
+     * Throw an error if the type is invalid
+     * @param string $type
+     * @throws \Exception
+     */
+    private function assertValidType($type)
+    {
+        if(!isset(self::$types[$type])) {
+            throw new InvalidOptionException($type, self::$types);
+        }
     }
 }
