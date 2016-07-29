@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # See https://github.com/wp-cli/wp-cli/blob/master/templates/install-wp-tests.sh
+# See https://github.com/htmlburger/carbon-fields/blob/master/tests/bin/install.sh
 
 # MySQL settings
 if [ $# -lt 3 ]; then
@@ -87,16 +88,13 @@ install_test_suite() {
 	# Download base configuration file
 	download http://develop.svn.wordpress.org/${testsurl}/wp-tests-config-sample.php wp-tests-config.php
 
-	# Make sure colons are escaped (they might exist in Windows environments)
-	#WP_CORE_DIR=$(echo $WP_CORE_DIR | sed -r 's/:/\\:/g')
-
 	# Replace variables in the config file
 	sed $ioption "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR':" wp-tests-config.php 2> /dev/null
 	sed $ioption "s/youremptytestdbnamehere/$DB_NAME/" wp-tests-config.php 2> /dev/null
 	sed $ioption "s/yourusernamehere/$DB_USER/" wp-tests-config.php 2> /dev/null
 	sed $ioption "s/yourpasswordhere/$DB_PASS/" wp-tests-config.php 2> /dev/null
-	sed $ioption "s|localhost|${DB_HOST}|" wp-tests-config.php 2> /dev/null
-	sed $ioption "s/Test Blog/Carbon Fields Unit Tests/" wp-tests-config.php 2> /dev/null
+	sed $ioption "s/localhost/${DB_HOST}|" wp-tests-config.php 2> /dev/null
+	sed $ioption "s/Test Blog/Affilicious Products Unit Tests/" wp-tests-config.php 2> /dev/null
 }
 
 install_autoloader
