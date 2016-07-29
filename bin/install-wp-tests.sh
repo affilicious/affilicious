@@ -11,7 +11,7 @@ fi
 DB_NAME=$1
 DB_USER=$2
 DB_PASS=$3
-DB_HOST=${4-localhost}
+DB_HOST=${4-localhost:8889}
 WP_VERSION=${5-latest}
 BASEDIR="${PWD}"
 
