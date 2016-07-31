@@ -2,6 +2,7 @@
 namespace Affilicious\ProductsPlugin\Auxiliary;
 
 use Affilicious\ProductsPlugin\Product\Product;
+use Affilicious\ProductsPlugin\Exception\PostNotFoundException;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -17,33 +18,30 @@ class PostHelper
     }
 
     /**
-     * @param int|string|\WP_Post|Product $post
+     * @param int|string|\WP_Post|Product $postOrId
      * @return \WP_Post
      * @throws \Exception
      */
-    public static function getPost($post = null)
+    public static function getPost($postOrId = null)
     {
-        if($post instanceof \WP_Post) {
-            return $post;
+        if($postOrId instanceof \WP_Post) {
+            return $postOrId;
         }
 
-        if($post instanceof Product) {
-            return $post->getRawPost();
+        if($postOrId instanceof Product) {
+            return $postOrId->getRawPost();
         }
 
-        if (is_int($post)) {
-            $post = get_post($post);
-        } elseif (is_string($post)) {
-            $post = get_post(intval($post));
+        if (is_int($postOrId)) {
+            $post = get_post($postOrId);
+        } elseif (is_string($postOrId)) {
+            $post = get_post(intval($postOrId));
         } else {
             $post = get_post();
         }
 
         if ($post === null) {
-            throw new \Exception( sprintf(
-                __('Failed to find the product #%s', 'affiliciousproducts'),
-                $post
-            ));
+            throw new PostNotFoundException($postOrId);
         }
 
         return $post;
