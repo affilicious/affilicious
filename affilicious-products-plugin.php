@@ -16,6 +16,7 @@ use Affilicious\ProductsPlugin\Loader;
 use Affilicious\ProductsPlugin\Product\ProductSetup;
 use Affilicious\ProductsPlugin\Product\Field\FieldGroupSetup;
 use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
+use Affilicious\ProductsPlugin\Product\Shop\ShopSetup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -110,6 +111,7 @@ class AffiliciousProductsPlugin
         $this->registerTextdomain();
 
         new ProductSetup();
+        new ShopSetup();
         new FieldGroupSetup();
         new DetailGroupSetup();
     }

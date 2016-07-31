@@ -14,7 +14,7 @@
   },
   "require": {
     "php": ">=5.3",
-    "htmlburger/carbon-fields": "^1.2"
+    "htmlburger/carbon-fields": "1.3"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.7"

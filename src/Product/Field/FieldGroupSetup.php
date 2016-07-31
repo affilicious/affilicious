@@ -64,7 +64,7 @@ class FieldGroupSetup
             'menu_icon' => false,
             'show_ui' => true,
             '_builtin' => false,
-            'menu_position' => 6,
+            'menu_position' => 4,
             'capability_type' => 'page',
             'hierarchical' => true,
             'rewrite' => false,
