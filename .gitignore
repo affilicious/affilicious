@@ -12,6 +12,8 @@ wp-content/plugins/hello.php
 
 /vendor/
 /tmp/
+/assets/.sass-cache
+/assets/js/*.js.map
 /.htaccess
 /license.txt
 /readme.html

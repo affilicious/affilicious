@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Shop;
+namespace Affilicious\ProductsPlugin\Shop;
 
 use Affilicious\ProductsPlugin\Product\Product;
 use Carbon_Fields\Container as CarbonContainer;
@@ -16,6 +16,8 @@ class ShopSetup
     {
         add_action('init', array($this, 'init'), 2);
         add_action('init', array($this, 'render'), 3);
+        add_filter('manage_shops_posts_columns', array($this, 'columnsHead'), 9, 2);
+        add_action('manage_shops_posts_custom_column', array($this, 'columnsContent'), 10, 2);
     }
 
     /**
@@ -24,7 +26,7 @@ class ShopSetup
     public function init()
     {
         $labels = array(
-            'name' => _x('Shop', 'affiliciousproducts'),
+            'name' => _x('Shops', 'affiliciousproducts'),
             'singular_name' => _x('Shop', 'affiliciousproducts'),
             'menu_name' => __('Shop', 'affiliciousproducts'),
             'name_admin_bar' => __('Shop', 'affiliciousproducts'),
@@ -44,7 +46,7 @@ class ShopSetup
             'set_featured_image' => __('Set Logo', 'affiliciousproducts'),
             'remove_featured_image' => __('Remove Logo', 'affiliciousproducts'),
             'use_featured_image' => __('Use As Logo', 'affiliciousproducts'),
-            'insert_into_item' => __('Insert into item', 'affiliciousproducts'),
+            'insert_into_item' => __('Insert Into Shop', 'affiliciousproducts'),
             'uploaded_to_this_item' => __('Uploaded To This Shop', 'affiliciousproducts'),
             'items_list' => __('Shop', 'affiliciousproducts'),
             'items_list_navigation' => __('Shop Navigation', 'affiliciousproducts'),
@@ -54,8 +56,8 @@ class ShopSetup
         register_post_type(Shop::POST_TYPE, array(
             'labels' => $labels,
             'public' => false,
-            'menu_icon' => false,
-            'supports' => array('title', 'thumbnail', 'revisions'),
+            'menu_icon' => 'dashicons-cart',
+            'supports' => array('title', 'editor', 'thumbnail', 'revisions'),
             'show_ui' => true,
             '_builtin' => false,
             'menu_position' => 5,
@@ -63,7 +65,7 @@ class ShopSetup
             'hierarchical' => true,
             'rewrite' => false,
             'query_var' => Shop::POST_TYPE,
-            'show_in_menu' => 'edit.php?post_type=product',
+            'show_in_menu' => true,
         ));
     }
 
@@ -99,39 +101,51 @@ class ShopSetup
     }
 
     /**
-     * Get all product categories
+     * Add a column header for the logo
+     * @param array $defaults
      * @return array
-     * @throws \Exception
      */
-    public function getProductCategories()
+    public function columnsHead($defaults)
     {
-        // Get all product categories
-        global $wp_version;
-        if (version_compare($wp_version, '4.5', '>=')) {
-            $terms = get_terms(array(
-                'taxonomy' => Product::TAXONOMY,
-                'orderby' => 'name',
-                'hide_empty' => false,
-                'parent' => 0,
-            ));
-        } else {
-            $terms = get_terms(Product::TAXONOMY, array(
-                'orderby' => 'name',
-                'hide_empty' => false,
-                'parent' => 0,
-            ));
+        $new = array();
+        foreach($defaults as $key => $title) {
+            // Put the logo column before the date column
+            if ($key=='date') {
+                $new['logo'] = __('Logo', 'affiliciousproducts');
+            }
+            $new[$key] = $title;
+        }
+        return $new;
+    }
+
+    /**
+     * Add a column for the logo
+     * @param string $columnName
+     * @param int $shopId
+     */
+    public function columnsContent($columnName, $shopId)
+    {
+        if ($columnName == 'logo') {
+            $shopLogo = $this->getLogo($shopId);
+            if ($shopLogo) {
+                echo '<img src="' . $shopLogo . '" />';
+            }
+        }
+    }
+
+    /**
+     * Get the logo by the shop ID
+     * @param int $shopId
+     * @return null|string
+     */
+    private function getLogo($shopId)
+    {
+        $shopLogoId = get_post_thumbnail_id($shopId);
+        if (!$shopLogoId) {
+            return null;
         }
 
-        if ($terms instanceof \WP_Error) {
-            throw new \Exception('Failed to find the terms for the taxonomy ' . Product::TAXONOMY . '.');
-        }
-
-        $categories = array();
-        $categories[FieldGroup::CARBON_CATEGORY_NONE] = __('None', 'projektaffiliatetheme');
-        foreach ($terms as $term) {
-            $categories[$term->slug] = $term->name;
-        }
-
-        return $categories;
+        $shopLogo = wp_get_attachment_image_src($shopLogoId, 'featured_preview');
+        return $shopLogo[0];
     }
 }

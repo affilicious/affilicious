@@ -16,7 +16,8 @@ use Affilicious\ProductsPlugin\Loader;
 use Affilicious\ProductsPlugin\Product\ProductSetup;
 use Affilicious\ProductsPlugin\Product\Field\FieldGroupSetup;
 use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
-use Affilicious\ProductsPlugin\Product\Shop\ShopSetup;
+use Affilicious\ProductsPlugin\Shop\ShopSetup;
+use Affilicious\ProductsPlugin\Assets;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -35,12 +36,19 @@ class AffiliciousProductsPlugin
     private $loader;
 
     /**
+     * Register all assets like styles and scripts
+     * for the public and admin area
+     * @var Assets
+     */
+    private $assets;
+
+    /**
      * Get the root dir of the plugin
      * @return string
      */
     public static function getRootDir()
     {
-        return plugin_dir_path( __FILE__ );
+        return plugin_dir_url( __FILE__ );
     }
 
     /**
@@ -56,6 +64,7 @@ class AffiliciousProductsPlugin
         }
 
         $this->loader = new Loader();
+        $this->assets = new Assets();
     }
 
     /**
@@ -67,9 +76,9 @@ class AffiliciousProductsPlugin
         register_deactivation_hook( __FILE__, array($this, 'deactivate'));
         $this->loader->add_action('plugins_loaded', $this, 'loaded');
 
-        $this->loader->run();
         $this->registerPublicHooks();
         $this->registerAdminHooks();
+        $this->loader->run();
     }
 
     /**
@@ -133,6 +142,8 @@ class AffiliciousProductsPlugin
      */
     public function registerPublicHooks()
     {
+        $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicScripts');
+        $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicScripts');
     }
 
     /**
@@ -140,6 +151,8 @@ class AffiliciousProductsPlugin
      */
     public function registerAdminHooks()
     {
+        $this->loader->add_action('admin_enqueue_scripts', $this->assets, 'addAdminStyles');
+        $this->loader->add_action('admin_enqueue_scripts', $this->assets, 'addAdminScripts');
     }
 }
 

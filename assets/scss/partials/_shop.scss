@@ -1,0 +1,22 @@
+@import "variables";
+
+.post-type-shops {
+  .wp-list-table {
+    .column {
+      &-title {
+        width: $shop-column-title-width;
+      }
+      &-logo {
+        width: $shop-column-logo-width;
+
+        img {
+          width: $shop-column-logo-thumbail-width;
+          height: auto;
+        }
+      }
+      &-date {
+        width: $shop-column-date-width;
+      }
+    }
+  }
+}
