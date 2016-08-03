@@ -10,25 +10,13 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
  */
 class FieldGroup
 {
-    const POST_TYPE = 'product_fields';
-    const CATEGORY = 'at_product_fields_category';
-    const CARBON_CATEGORY_NONE = 'category_none';
-    const FIELDS = 'at_product_fields';
+    const POST_TYPE = 'affilicious_product_field_groups';
+    const FIELDS = 'affilicious_product_field_groups';
 
     /**
-     * @var int
+     * @var \WP_Post
      */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $title;
-
-    /**
-     * @var string
-     */
-    private $category;
+    private $post;
 
     /**
      * @var Field[]
@@ -36,15 +24,11 @@ class FieldGroup
     private $fields;
 
     /**
-     * @param int $id
-     * @param string $title
-     * @param string $category
+     * @param \WP_Post $post
      */
-    public function __construct($id, $title, $category)
+    public function __construct(\WP_Post $post)
     {
-        $this->id = $id;
-        $this->title = $title;
-        $this->category = $category;
+        $this->post = $post;
         $this->fields = array();
     }
 
@@ -53,7 +37,7 @@ class FieldGroup
      */
     public function getId()
     {
-        return $this->id;
+        return $this->post->ID;
     }
 
     /**
@@ -61,15 +45,7 @@ class FieldGroup
      */
     public function getTitle()
     {
-        return $this->title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCategory()
-    {
-        return $this->category;
+        return $this->post->post_title;
     }
 
     /**

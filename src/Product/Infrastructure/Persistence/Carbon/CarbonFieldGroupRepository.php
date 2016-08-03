@@ -61,12 +61,7 @@ class CarbonFieldGroupRepository implements FieldGroupRepositoryInterface
             throw new InvalidPostTypeException($post->post_type, FieldGroup::POST_TYPE);
         }
 
-        $id = $post->ID;
-        $title = $post->post_title;
-        $category = carbon_get_post_meta($id, FieldGroup::CATEGORY);
-        $category = !empty($category) ? $category: FieldGroup::CARBON_CATEGORY_NONE;
-
-        $fieldGroup = new FieldGroup($id, $title, $category);
+        $fieldGroup = new FieldGroup($post);
         $rawFields = carbon_get_post_meta(get_the_ID(), FieldGroup::FIELDS, 'complex');
 
         foreach ($rawFields as $rawField) {
