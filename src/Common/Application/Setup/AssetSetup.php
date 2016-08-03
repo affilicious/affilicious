@@ -6,11 +6,29 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class AssetSetup
 {
     /**
+     * Get the path to the style directory
+     * @return string
+     */
+    public static function getStylesDir()
+    {
+        return \AffiliciousProductsPlugin::getRootDir() . '/assets/css/';
+    }
+
+    /**
+     * Get the path to the script directory
+     * @return string
+     */
+    public static function getScriptDir()
+    {
+        return \AffiliciousProductsPlugin::getRootDir() . '/assets/js/';
+    }
+
+    /**
      * Add the public styles for the front end
      */
     public function addPublicStyles()
     {
-        wp_enqueue_style('affilicious-products', \AffiliciousProductsPlugin::getRootDir() . '/assets/css/style.css', array(), '0.1.0');
+        wp_enqueue_style('affilicious-products', self::getStylesDir() . 'style.css', array(), '0.1.0');
     }
 
     /**
@@ -18,7 +36,7 @@ class AssetSetup
      */
     public function addAdminStyles()
     {
-        wp_enqueue_style('affilicious-products-admin', \AffiliciousProductsPlugin::getRootDir() . '/assets/css/admin.css', array(), '0.1.0');
+        wp_enqueue_style('affilicious-products-admin', self::getStylesDir() . 'admin.css', array(), '0.1.0');
     }
 
     /**
@@ -26,7 +44,7 @@ class AssetSetup
      */
     public function addPublicScripts()
     {
-        wp_enqueue_script('affilicious-products', \AffiliciousProductsPlugin::getRootDir() . '/assets/js/script.js', array('jquery'), '0.1.0', true);
+        wp_enqueue_script('affilicious-products', self::getScriptDir() . 'script.js', array('jquery'), '0.1.0', true);
     }
 
     /**
@@ -34,6 +52,6 @@ class AssetSetup
      */
     public function addAdminScripts()
     {
-        wp_enqueue_script('affilicious-products-admin', \AffiliciousProductsPlugin::getRootDir() . '/assets/js/admin.js', array('jquery'), '0.1.0', true);
+        wp_enqueue_script('affilicious-products-admin', self::getScriptDir() . 'admin.js', array('jquery'), '0.1.0', true);
     }
 }
