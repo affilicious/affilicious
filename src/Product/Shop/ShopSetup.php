@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Shop;
+namespace Affilicious\ProductsPlugin\Product\Shop;
 
 use Affilicious\ProductsPlugin\Product\PriceComparison;
 use Affilicious\ProductsPlugin\Product\Product;
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class ShopSetup
 {
     /**
-     * @var ShopFactoryInterface
+     * @var ShopFactory
      */
     private $shopFactory;
 
@@ -73,7 +73,7 @@ class ShopSetup
             'hierarchical' => true,
             'rewrite' => false,
             'query_var' => Shop::POST_TYPE,
-            'show_in_menu' => true,
+            'show_in_menu' => 'edit.php?post_type=product',
         ));
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Shop;
+namespace Affilicious\ProductsPlugin\Product\Shop;
 
 use Affilicious\ProductsPlugin\Exception\InvalidPostTypeException;
 

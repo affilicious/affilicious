@@ -16,7 +16,7 @@ use Affilicious\ProductsPlugin\Loader;
 use Affilicious\ProductsPlugin\Product\ProductSetup;
 use Affilicious\ProductsPlugin\Product\Field\FieldGroupSetup;
 use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
-use Affilicious\ProductsPlugin\Shop\ShopSetup;
+use Affilicious\ProductsPlugin\Product\Shop\ShopSetup;
 use Affilicious\ProductsPlugin\Assets;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
