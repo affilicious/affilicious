@@ -1,9 +1,9 @@
 <?php
-use Affilicious\ProductsPlugin\Product\Product;
-use Affilicious\ProductsPlugin\Auxiliary\PostHelper;
-use Affilicious\ProductsPlugin\Product\ProductFactory;
-use Affilicious\ProductsPlugin\Product\Field\FieldGroup;
-use Affilicious\ProductsPlugin\Product\Detail\DetailGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
+use Affilicious\ProductsPlugin\Product\Domain\Helper\PostHelper;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -19,8 +19,8 @@ function affilicious_get_product($post = null)
     }
 
     $post = PostHelper::getPost($post);
-    $productFactory = new ProductFactory();
-    $product = $productFactory->create($post);
+    $productFactory = new CarbonProductRepository();
+    $product = $productFactory->findById($post->ID);
 
     return $product;
 }
