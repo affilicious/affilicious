@@ -1,10 +1,7 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupFactory;
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
 use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
-use Affilicious\ProductsPlugin\Product\Domain\Model\PriceComparison;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ProductRepositoryInterface;
 
@@ -12,9 +9,9 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class CarbonProductRepository implements ProductRepositoryInterface
 {
-    const PRICE_COMPARISON_DEFAULT_POSITION = 'affilicious_price_comparison_default_position';
-    const PRICE_COMPARISON_EAN = 'affilicious_price_comparison_ean';
-    const PRICE_COMPARISON_SHOPS = 'affilicious_price_comparison_shops';
+    const PRODUCT_EAN = 'affilicious_product_ean';
+    const PRODUCT_SHOPS = 'affilicious_product_shops';
+    const PRODUCT_FIELD_GROUPS = 'affilicious_product_field_groups';
 
     /**
      * @var FieldGroupRepositoryInterface
@@ -22,17 +19,11 @@ class CarbonProductRepository implements ProductRepositoryInterface
     private $fieldGroupRepository;
 
     /**
-     * @var DetailGroupFactory
-     */
-    private $detailGroupFactory;
-
-    /**
      * CarbonProductRepository constructor.
      */
     public function __construct()
     {
         $this->fieldGroupRepository = new CarbonFieldGroupRepository();
-        $this->detailGroupFactory = new DetailGroupFactory();
     }
 
     /**
@@ -84,43 +75,19 @@ class CarbonProductRepository implements ProductRepositoryInterface
     {
         $product = new Product($post);
 
-        // Setup the price comparison
-        $defaultPosition = carbon_get_post_meta($post->ID, self::PRICE_COMPARISON_DEFAULT_POSITION);
-        $priceComparison = new PriceComparison($defaultPosition);
-
-        $ean = carbon_get_post_meta($post->ID, self::PRICE_COMPARISON_EAN);
+        $ean = carbon_get_post_meta($post->ID, self::PRODUCT_EAN);
         if (!empty($ean)) {
-            $priceComparison->setEan($ean);
+            $product->setEan($ean);
         }
 
-        $shops = carbon_get_post_meta($post->ID, self::PRICE_COMPARISON_SHOPS, 'complex');
+        $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
         if (!empty($shops)) {
-            $priceComparison->setShops($shops);
+            $product->setShops($shops);
         }
 
-        $product->setPriceComparison($priceComparison);
-
-        $query = new \WP_Query(array(
-            'post_type' => FieldGroup::POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-        ));
-
-        if($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-
-                $fieldGroup = $this->fieldGroupRepository->findById($query->post->ID);
-                $product->addFieldGroup($fieldGroup);
-
-                $title = $fieldGroup->getTitle();
-                if(!empty($title)) {
-                    $detailGroup = $this->detailGroupFactory->create($product, $fieldGroup);
-                    $product->addDetailGroup($detailGroup);
-                }
-            }
-
-            wp_reset_postdata();
+        $fieldGroups = carbon_get_post_meta($post->ID, self::PRODUCT_FIELD_GROUPS, 'complex');
+        if (!empty($fieldGroups)) {
+            $product->setFieldGroups($fieldGroups);
         }
 
         return $product;

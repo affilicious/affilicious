@@ -3,7 +3,6 @@ namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
 use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
 use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
@@ -74,15 +73,6 @@ class FieldGroupSetup implements SetupInterface
      */
     public function render()
     {
-        $categories = $this->getProductCategories();
-
-        CarbonContainer::make('post_meta', __('Category', 'projektaffiliatetheme'))
-            ->show_on_post_type(FieldGroup::POST_TYPE)
-            ->add_fields(array(
-                CarbonField::make("select", FieldGroup::CATEGORY, __("Category", 'projektaffiliatetheme'))
-                    ->add_options($categories),
-            ));
-
         CarbonContainer::make('post_meta', __('Fields', 'projektaffiliatetheme'))
             ->show_on_post_type(FieldGroup::POST_TYPE)
             ->add_fields(array(
@@ -113,42 +103,5 @@ class FieldGroupSetup implements SetupInterface
                         )
                     )
             ));
-    }
-
-    /**
-     * Get all product categories
-     * @return array
-     * @throws \Exception
-     */
-    public function getProductCategories()
-    {
-        // Get all product categories
-        global $wp_version;
-        if (version_compare($wp_version, '4.5', '>=')) {
-            $terms = get_terms(array(
-                'taxonomy' => Product::TAXONOMY,
-                'orderby' => 'name',
-                'hide_empty' => false,
-                'parent' => 0,
-            ));
-        } else {
-            $terms = get_terms(Product::TAXONOMY, array(
-                'orderby' => 'name',
-                'hide_empty' => false,
-                'parent' => 0,
-            ));
-        }
-
-        if ($terms instanceof \WP_Error) {
-            throw new \Exception('Failed to find the terms for the taxonomy ' . Product::TAXONOMY . '.');
-        }
-
-        $categories = array();
-        $categories[FieldGroup::CARBON_CATEGORY_NONE] = __('None', 'projektaffiliatetheme');
-        foreach ($terms as $term) {
-            $categories[$term->slug] = $term->name;
-        }
-
-        return $categories;
     }
 }

@@ -2,8 +2,6 @@
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Helper\PostHelper;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -28,7 +26,7 @@ function affilicious_get_product($post = null)
 /**
  * Get the product field groups
  * @param Product|null $product
- * @return FieldGroup[]
+ * @return array
  */
 function affilicious_get_product_field_groups($product = null)
 {
@@ -37,27 +35,4 @@ function affilicious_get_product_field_groups($product = null)
     }
 
     return $product->getFieldGroups();
-}
-
-/**
- * Get the product detail groups
- * @param Product|null $product
- * @return DetailGroup[]
- */
-function affilicious_get_product_detail_groups($product = null)
-{
-    if ($product === null) {
-        $product = affilicious_get_product();
-    }
-
-    return $product->getDetailGroups();
-}
-
-function affilicious_get_price_comparison($product = null)
-{
-    if ($product === null) {
-        $product = affilicious_get_product();
-    }
-
-    $product->getPriceComparison();
 }

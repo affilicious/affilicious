@@ -15,9 +15,17 @@ class Product
     private $post;
 
     /**
-     * @var PriceComparison
+     * European Article Number (EAN) is a unique ID used for identification of retail products
+     * @var string
      */
-    private $priceComparison;
+    private $ean;
+
+    /**
+     * The specific shops with all information for the price comparison like Amazon, Affilinet or Ebay.
+     * It's stored as an array where each entry is another key-value array for the specific shop
+     * @var array
+     */
+    private $shops;
 
     /**
      * @var FieldGroup[]
@@ -25,17 +33,12 @@ class Product
     private $fieldGroups;
 
     /**
-     * @var DetailGroup[]
-     */
-    private $detailGroups;
-
-    /**
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
     {
         $this->post = $post;
-        $this->detailGroups = array();
+        $this->shops = array();
         $this->fieldGroups = array();
     }
 
@@ -48,67 +51,66 @@ class Product
     }
 
     /**
-     * Get the price comparison
-     * @return PriceComparison
+     * @return string
      */
-    public function getPriceComparison()
+    public function getTitle()
     {
-        return $this->priceComparison;
+        return $this->post->post_title;
     }
 
     /**
-     * Set the price comparison
-     * @param PriceComparison $priceComparison
+     * @return string
      */
-    public function setPriceComparison(PriceComparison $priceComparison)
+    public function getContent()
     {
-        $this->priceComparison = $priceComparison;
+        return $this->post->post_content;
     }
 
     /**
-     * Add a field group to the product
-     * @param FieldGroup $fieldGroup
-     */
-    public function addFieldGroup(FieldGroup $fieldGroup)
-    {
-        $this->fieldGroups[$fieldGroup->getId()] = $fieldGroup;
-    }
-
-    /**
-     * Remove a field group from the product by the given ID
-     * @param int $id
-     */
-    public function removeFieldGroup($id)
-    {
-        unset($this->fieldGroups[$id]);
-    }
-
-    /**
-     * Check if the product has the field group with the given ID
-     * @param int $id
+     * Check if the price comparision has any European Article Number (EAN)
      * @return bool
      */
-    public function hasFieldGroup($id)
+    public function hasEan()
     {
-        return isset($this->fieldGroups[$id]);
+        return $this->ean !== null;
     }
 
     /**
-     * Get the field group by the id
-     * @param int $id
-     * @return FieldGroup|null
+     * Get the European Article Number (EAN)
+     * @return string
      */
-    public function getFieldGroup($id)
+    public function getEan()
     {
-        if (!$this->hasFieldGroup($id)) {
-            return null;
-        }
-
-        return $this->fieldGroups[$id];
+        return $this->ean;
     }
 
     /**
-     * Get all field groups from the product
+     * Set the European Article Number (EAN)
+     * @param string $ean
+     */
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+    }
+
+    /**
+     * @return array
+     */
+    public function getShops()
+    {
+        return $this->shops;
+    }
+
+    /**
+     * @param array $shops
+     */
+    public function setShops(array $shops)
+    {
+        $this->shops = $shops;
+    }
+
+    /**
+     * Get all field groups
      * @return FieldGroup[]
      */
     public function getFieldGroups()
@@ -117,72 +119,13 @@ class Product
     }
 
     /**
-     * Count all field groups
-     * @return int
+     * Set the field groups
+     * @param array $fieldGroups
+     * @return FieldGroup|null
      */
-    public function countFieldGroups()
+    public function setFieldGroups(array $fieldGroups)
     {
-        return count($this->fieldGroups);
-    }
-
-    /**
-     * Add a detail group to the product
-     * @param DetailGroup $detailGroup
-     */
-    public function addDetailGroup(DetailGroup $detailGroup)
-    {
-        $this->detailGroups[$detailGroup->getId()] = $detailGroup;
-    }
-
-    /**
-     * Remove a detail group from the product by the given ID
-     * @param int $id
-     */
-    public function removeDetailGroup($id)
-    {
-        unset($this->detailGroups[$id]);
-    }
-
-    /**
-     * Check if the product has the detail group with the given ID
-     * @param int $id
-     * @return bool
-     */
-    public function hasDetailGroup($id)
-    {
-        return isset($this->detailGroups[$id]);
-    }
-
-    /**
-     * Get the detail group by the id
-     * @param int $id
-     * @return DetailGroup|null
-     */
-    public function getDetailGroup($id)
-    {
-        if (!$this->hasDetailGroup($id)) {
-            return null;
-        }
-
-        return $this->detailGroups[$id];
-    }
-
-    /**
-     * Get all detail groups from the product
-     * @return DetailGroup[]
-     */
-    public function getDetailGroups()
-    {
-        return $this->detailGroups;
-    }
-
-    /**
-     * Count all detail groups
-     * @return int
-     */
-    public function countDetailGroups()
-    {
-        return count($this->detailGroups);
+        $this->fieldGroups = $fieldGroups;
     }
 
     /**

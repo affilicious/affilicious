@@ -1,18 +1,33 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
+use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
+use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonFieldGroupRepository;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Carbon_Fields\Container as CarbonContainer;
+use Carbon_Fields\Field as CarbonField;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class ProductSetup implements SetupInterface
 {
     /**
+     * @var FieldGroupRepositoryInterface
+     */
+    private $fieldGroupRepository;
+
+    /**
      * Hook into the required Wordpress actions
      */
     public function __construct()
     {
         add_action('init', array($this, 'init'), 0);
+        add_action('init', array($this, 'render'), 1);
+
+        $this->fieldGroupRepository = new CarbonFieldGroupRepository();
     }
 
     /**
@@ -101,6 +116,56 @@ class ProductSetup implements SetupInterface
      */
     public function render()
     {
+        $query = new \WP_Query(array(
+            'post_type' => FieldGroup::POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+        ));
 
+        if(!$query->have_posts()) {
+            return;
+        }
+
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_FIELD_GROUPS, __('Field Groups', 'affiliciousproducts'))
+            ->set_layout('tabbed');
+
+        while ($query->have_posts()) {
+            $query->the_post();
+
+            $fieldGroup = $this->fieldGroupRepository->findById($query->post->ID);
+            $title = $fieldGroup->getTitle();
+
+            if (empty($title)) {
+                continue;
+            }
+
+            $details = array();
+            $fields = $fieldGroup->getFields();
+            foreach ($fields as $field) {
+                // Carbon doesn't contain a number field. That's why we have to convert into a text field
+                $type = $field->isNumber() ? Field::TYPE_TEXT : $field->getType();
+
+                $detail = CarbonField::make($type, $field->getKey(), $field->getLabel());
+
+                if ($field->hasDefaultValue()) {
+                    $detail->default_value($field->getDefaultValue());
+                }
+
+                if ($field->getHelpText()) {
+                    $detail->help_text($field->getHelpText());
+                }
+
+                $details[] = $detail;
+            }
+
+            if (!empty($details)) {
+                $tabs->add_fields($fieldGroup->getTitle(), $details);
+            }
+        }
+
+        CarbonContainer::make('post_meta', __('Information', 'affiliciousproducts'))
+            ->show_on_post_type(Product::POST_TYPE)
+            ->set_priority('default')
+            ->add_fields(array($tabs));
     }
 }

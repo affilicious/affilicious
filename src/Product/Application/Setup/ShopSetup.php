@@ -5,6 +5,7 @@ use Affilicious\ProductsPlugin\Product\Domain\Model\PriceComparison;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
@@ -94,7 +95,7 @@ class ShopSetup implements SetupInterface
             ),
         ));
 
-        $tabs = CarbonField::make('complex', 'affilicious_price_comparison_shops', __('Shops', 'affiliciousproducts'))
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affiliciousproducts'))
             ->set_layout('tabbed');
 
         if($query->have_posts()) {
@@ -128,17 +129,8 @@ class ShopSetup implements SetupInterface
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array(
-                CarbonField::make('text', 'affilicious_price_comparison_ean', __('EAN', 'affiliciousproducts'))
+                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affiliciousproducts'))
                     ->help_text(__('Unique ID for the price comparison', 'affiliciousproducts')),
-                CarbonField::make('select', 'affilicious_price_comparison_default_position', __('Default Position', 'affiliciousproducts'))
-                    ->set_required(true)
-                    ->add_options(array(
-                        PriceComparison::DEFAULT_POSITION_BOTH => __('Both', 'affiliciousproducts'),
-                        PriceComparison::DEFAULT_POSITION_TOP => __('Top', 'affiliciousproducts'),
-                        PriceComparison::DEFAULT_POSITION_BOTTOM => __('Bottom', 'affiliciousproducts'),
-                        PriceComparison::DEFAULT_POSITION_NONE => __('None', 'affiliciousproducts'),
-                    ))
-                    ->help_text(__('Set the visible default position on the product page.', 'affiliciousproducts')),
                 $tabs
             ));
     }
