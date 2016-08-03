@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\ProductsPlugin\Shop;
 
+use Affilicious\ProductsPlugin\Product\PriceComparison;
 use Affilicious\ProductsPlugin\Product\Product;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
@@ -10,6 +11,11 @@ if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class ShopSetup
 {
     /**
+     * @var ShopFactoryInterface
+     */
+    private $shopFactory;
+
+    /**
      * Hook into the required Wordpress actions
      */
     public function __construct()
@@ -18,6 +24,8 @@ class ShopSetup
         add_action('init', array($this, 'render'), 3);
         add_filter('manage_shops_posts_columns', array($this, 'columnsHead'), 9, 2);
         add_action('manage_shops_posts_custom_column', array($this, 'columnsContent'), 10, 2);
+
+        $this->shopFactory = new ShopFactory();
     }
 
     /**
@@ -74,30 +82,62 @@ class ShopSetup
      */
     public function render()
     {
-        /*CarbonContainer::make('post_meta', __('Shops', 'affiliciousproducts'))
+        $query = new \WP_Query(array(
+            'post_type' => Shop::POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => array(
+                'post_title' => 'ASC',
+            ),
+        ));
+
+        $tabs = CarbonField::make('complex', 'affilicious_price_comparison_shops', __('Shops', 'affiliciousproducts'))
+            ->set_layout('tabbed');
+
+        if($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $shop = $this->shopFactory->create($query->post);
+
+                $tabs->add_fields($shop->getTitle(), array(
+                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affiliciousproducts'))
+                        ->set_required(true)
+                        ->set_value($shop->getId()),
+                    CarbonField::make('text', 'price', __('Price', 'affiliciousproducts'))
+                        ->set_required(true),
+                    CarbonField::make('text', 'old_price', __('Old Price', 'affiliciousproducts')),
+                    CarbonField::make('select', 'currency', __('Currency', 'affiliciousproducts'))
+                        ->set_required(true)
+                        ->add_options(array(
+                            'Euro' => __('Euro', 'affiliciousproducts'),
+                            'US-Dollar' => __('US-Dollar', 'affiliciousproducts'),
+                        )),
+                    CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affiliciousproducts'))
+                        ->help_text(__('Unique product ID (e.g. Amazon ASIN or Affilinet ID)', 'affiliciousproducts')),
+                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affiliciousproducts')),
+                ));
+            }
+
+            wp_reset_postdata();
+        }
+
+        CarbonContainer::make('post_meta', __('Price Comparison', 'affiliciousproducts'))
             ->show_on_post_type(Product::POST_TYPE)
+            ->set_priority('default')
             ->add_fields(array(
-                CarbonField::make('complex', 'affilicious_shops')
-                    ->set_layout('tabbed')
-                    ->add_fields('amazon', array(
-                        CarbonField::make('text', 'price', __('Price', 'affiliciousproducts')),
-                        CarbonField::make('text', 'old_price', __('Old Price', 'affiliciousproducts')),
-                        CarbonField::make('select', 'currency', __('Currency', 'affiliciousproducts'))
-                            ->add_options(array(
-                                'Euro' => __('Euro', 'affiliciousproducts'),
-                                'US-Dollar' => __('US-Dollar', 'affiliciousproducts'),
-                            ))
+                CarbonField::make('text', 'affilicious_price_comparison_ean', __('EAN', 'affiliciousproducts'))
+                    ->help_text(__('Unique ID for the price comparison', 'affiliciousproducts')),
+                CarbonField::make('select', 'affilicious_price_comparison_default_position', __('Default Position', 'affiliciousproducts'))
+                    ->set_required(true)
+                    ->add_options(array(
+                        PriceComparison::DEFAULT_POSITION_BOTH => __('Both', 'affiliciousproducts'),
+                        PriceComparison::DEFAULT_POSITION_TOP => __('Top', 'affiliciousproducts'),
+                        PriceComparison::DEFAULT_POSITION_BOTTOM => __('Bottom', 'affiliciousproducts'),
+                        PriceComparison::DEFAULT_POSITION_NONE => __('None', 'affiliciousproducts'),
                     ))
-                    ->add_fields('affilinet', array(
-                        CarbonField::make('text', 'price', __('Price', 'affiliciousproducts')),
-                        CarbonField::make('text', 'old_price', __('Old Price', 'affiliciousproducts')),
-                        CarbonField::make('select', 'currency', __('Currency', 'affiliciousproducts'))
-                            ->add_options(array(
-                                'Euro' => __('Euro', 'affiliciousproducts'),
-                                'US-Dollar' => __('US-Dollar', 'affiliciousproducts'),
-                            ))
-                    ))
-            ));*/
+                    ->help_text(__('Set the visible default position on the product page.', 'affiliciousproducts')),
+                $tabs
+            ));
     }
 
     /**

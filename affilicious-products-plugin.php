@@ -62,7 +62,10 @@ class AffiliciousProductsPlugin
         } else {
             spl_autoload_register(array($this, 'autoload'));
         }
+        require_once(self::PLUGIN_SOURCE_DIR . 'CarbonField/CarbonFieldSetup.php');
+        require_once(self::PLUGIN_SOURCE_DIR . 'CarbonField/Hidden_Field.php');
 
+        new \CarbonFieldSetup();
         $this->loader = new Loader();
         $this->assets = new Assets();
     }
@@ -142,7 +145,8 @@ class AffiliciousProductsPlugin
      */
     public function registerPublicHooks()
     {
-        $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicScripts');
+        // Add public assets
+        $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicStyles');
         $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicScripts');
     }
 
@@ -151,6 +155,7 @@ class AffiliciousProductsPlugin
      */
     public function registerAdminHooks()
     {
+        // Add admin assets
         $this->loader->add_action('admin_enqueue_scripts', $this->assets, 'addAdminStyles');
         $this->loader->add_action('admin_enqueue_scripts', $this->assets, 'addAdminScripts');
     }

@@ -18,6 +18,11 @@ class Product
     private $post;
 
     /**
+     * @var PriceComparison
+     */
+    private $priceComparison;
+
+    /**
      * @var FieldGroup[]
      */
     private $fieldGroups;
@@ -43,6 +48,24 @@ class Product
     public function getId()
     {
         return $this->post->ID;
+    }
+
+    /**
+     * Get the price comparison
+     * @return PriceComparison
+     */
+    public function getPriceComparison()
+    {
+        return $this->priceComparison;
+    }
+
+    /**
+     * Set the price comparison
+     * @param PriceComparison $priceComparison
+     */
+    public function setPriceComparison(PriceComparison $priceComparison)
+    {
+        $this->priceComparison = $priceComparison;
     }
 
     /**

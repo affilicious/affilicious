@@ -36,6 +36,22 @@ class ProductFactory
     {
         $product = new Product($post);
 
+        // Setup the price comparison
+        $defaultPosition = carbon_get_post_meta($post->ID, CarbonProductRepository::PRICE_COMPARISON_DEFAULT_POSITION);
+        $priceComparison = new PriceComparison($defaultPosition);
+
+        $ean = carbon_get_post_meta($post->ID, CarbonProductRepository::PRICE_COMPARISON_EAN);
+        if (!empty($ean)) {
+            $priceComparison->setEan($ean);
+        }
+
+        $shops = carbon_get_post_meta($post->ID, CarbonProductRepository::PRICE_COMPARISON_SHOPS, 'complex');
+        if (!empty($shops)) {
+            $priceComparison->setShops($shops);
+        }
+
+        $product->setPriceComparison($priceComparison);
+
         $query = new \WP_Query(array(
             'post_type' => FieldGroup::POST_TYPE,
             'post_status' => 'publish',
