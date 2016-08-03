@@ -7,7 +7,7 @@ class Product
 {
     const POST_TYPE = 'product';
     const TAXONOMY = 'product_category';
-    const SLUG = 'produktkategorie';
+    const SLUG = 'product-category';
 
     /**
      * @var \WP_Post
