@@ -67,6 +67,31 @@ class Product
     }
 
     /**
+     * Check if the product has a thumbnail
+     * @return bool
+     */
+    public function hasThumbnail()
+    {
+        $thumbnailId = get_post_thumbnail_id($this->getId());
+        return $thumbnailId == false ? false : true;
+    }
+
+    /**
+     * Get the product thumbnail
+     * @return null|string
+     */
+    public function getThumbnail()
+    {
+        $thumbnailId = get_post_thumbnail_id($this->getId());
+        if (!$thumbnailId) {
+            return null;
+        }
+
+        $thumbnail = wp_get_attachment_image_src($thumbnailId, 'featured_preview');
+        return $thumbnail[0];
+    }
+
+    /**
      * Check if the price comparision has any European Article Number (EAN)
      * @return bool
      */
