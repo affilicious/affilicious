@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\PriceComparison;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
