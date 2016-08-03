@@ -84,7 +84,7 @@ class ProductSetup implements SetupInterface
             'capability_type' => 'page',
         );
 
-        register_post_type('product', $args);
+        register_post_type(Product::POST_TYPE, $args);
 
         $labels = array(
             'name' => __('Categories', 'projektaffiliatetheme'),
@@ -106,7 +106,7 @@ class ProductSetup implements SetupInterface
             'show_ui' => true,
             'show_admin_column' => true,
             'query_var' => true,
-            'rewrite' => array('slug' => 'category'),
+            'rewrite' => array('slug' => Product::SLUG),
             'public' => true,
         ));
     }

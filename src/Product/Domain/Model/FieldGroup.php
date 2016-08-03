@@ -10,7 +10,7 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
  */
 class FieldGroup
 {
-    const POST_TYPE = 'affilicious_product_field_groups';
+    const POST_TYPE = 'field_groups';
     const FIELDS = 'affilicious_product_field_groups';
 
     /**
