@@ -1,6 +1,9 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
 
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupFactory;
+use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\PriceComparison;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ProductRepositoryInterface;
@@ -12,6 +15,25 @@ class CarbonProductRepository implements ProductRepositoryInterface
     const PRICE_COMPARISON_DEFAULT_POSITION = 'affilicious_price_comparison_default_position';
     const PRICE_COMPARISON_EAN = 'affilicious_price_comparison_ean';
     const PRICE_COMPARISON_SHOPS = 'affilicious_price_comparison_shops';
+
+    /**
+     * @var FieldGroupRepositoryInterface
+     */
+    private $fieldGroupRepository;
+
+    /**
+     * @var DetailGroupFactory
+     */
+    private $detailGroupFactory;
+
+    /**
+     * CarbonProductRepository constructor.
+     */
+    public function __construct()
+    {
+        $this->fieldGroupRepository = new CarbonFieldGroupRepository();
+        $this->detailGroupFactory = new DetailGroupFactory();
+    }
 
     /**
      * @inheritdoc
@@ -77,6 +99,29 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         $product->setPriceComparison($priceComparison);
+
+        $query = new \WP_Query(array(
+            'post_type' => FieldGroup::POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+        ));
+
+        if($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+
+                $fieldGroup = $this->fieldGroupRepository->findById($query->post->ID);
+                $product->addFieldGroup($fieldGroup);
+
+                $title = $fieldGroup->getTitle();
+                if(!empty($title)) {
+                    $detailGroup = $this->detailGroupFactory->create($product, $fieldGroup);
+                    $product->addDetailGroup($detailGroup);
+                }
+            }
+
+            wp_reset_postdata();
+        }
 
         return $product;
     }
