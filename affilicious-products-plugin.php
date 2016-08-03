@@ -12,12 +12,13 @@
  * Text Domain: affiliciousproducts
  * Domain Path: /languages
  */
-use Affilicious\ProductsPlugin\Loader;
-use Affilicious\ProductsPlugin\Product\ProductSetup;
-use Affilicious\ProductsPlugin\Product\Field\FieldGroupSetup;
-use Affilicious\ProductsPlugin\Product\Detail\DetailGroupSetup;
-use Affilicious\ProductsPlugin\Product\Shop\ShopSetup;
-use Affilicious\ProductsPlugin\Assets;
+use Affilicious\ProductsPlugin\Common\Application\Loader\Loader;
+use Affilicious\ProductsPlugin\Common\Application\Setup\AssetSetup;
+use Affilicious\ProductsPlugin\Common\Application\Setup\CarbonSetup;
+use Affilicious\ProductsPlugin\Product\Application\Setup\ProductSetup;
+use Affilicious\ProductsPlugin\Product\Application\Setup\ShopSetup;
+use Affilicious\ProductsPlugin\Product\Application\Setup\FieldGroupSetup;
+use Affilicious\ProductsPlugin\Product\Application\Setup\DetailGroupSetup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -36,11 +37,35 @@ class AffiliciousProductsPlugin
     private $loader;
 
     /**
-     * Register all assets like styles and scripts
-     * for the public and admin area
-     * @var Assets
+     * @var CarbonSetup
      */
-    private $assets;
+    private $carbonSetup;
+
+    /**
+     * @var AssetSetup
+     */
+    private $assetSetup;
+
+    /**
+     * @var ProductSetup
+     */
+    private $productSetup;
+
+    /**
+     * @var ShopSetup
+     */
+    private $shopSetup;
+
+    /**
+     * @var FieldGroupSetup
+     */
+    private $fieldGroupSetup;
+
+    /**
+     * @var DetailGroupSetup
+     */
+    private $detailGroupSetup;
+
 
     /**
      * Get the root dir of the plugin
@@ -62,12 +87,15 @@ class AffiliciousProductsPlugin
         } else {
             spl_autoload_register(array($this, 'autoload'));
         }
-        require_once(self::PLUGIN_SOURCE_DIR . 'CarbonField/CarbonFieldSetup.php');
-        require_once(self::PLUGIN_SOURCE_DIR . 'CarbonField/Hidden_Field.php');
+        require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
 
-        new \CarbonFieldSetup();
         $this->loader = new Loader();
-        $this->assets = new Assets();
+        $this->carbonSetup = new CarbonSetup();
+        $this->assetSetup = new AssetSetup();
+        $this->productSetup = new ProductSetup();
+        $this->shopSetup = new ShopSetup();
+        $this->fieldGroupSetup = new FieldGroupSetup();
+        $this->detailGroupSetup = new DetailGroupSetup();
     }
 
     /**
@@ -121,11 +149,6 @@ class AffiliciousProductsPlugin
     public function loaded()
     {
         $this->registerTextdomain();
-
-        new ProductSetup();
-        new ShopSetup();
-        new FieldGroupSetup();
-        new DetailGroupSetup();
     }
 
     /**
@@ -146,8 +169,8 @@ class AffiliciousProductsPlugin
     public function registerPublicHooks()
     {
         // Add public assets
-        $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicStyles');
-        $this->loader->add_action('wp_enqueue_scripts', $this->assets, 'addPublicScripts');
+        $this->loader->add_action('wp_enqueue_scripts', $this->assetSetup, 'addPublicStyles');
+        $this->loader->add_action('wp_enqueue_scripts', $this->assetSetup, 'addPublicScripts');
     }
 
     /**
@@ -156,8 +179,8 @@ class AffiliciousProductsPlugin
     public function registerAdminHooks()
     {
         // Add admin assets
-        $this->loader->add_action('admin_enqueue_scripts', $this->assets, 'addAdminStyles');
-        $this->loader->add_action('admin_enqueue_scripts', $this->assets, 'addAdminScripts');
+        $this->loader->add_action('admin_enqueue_scripts', $this->assetSetup, 'addAdminStyles');
+        $this->loader->add_action('admin_enqueue_scripts', $this->assetSetup, 'addAdminScripts');
     }
 }
 
