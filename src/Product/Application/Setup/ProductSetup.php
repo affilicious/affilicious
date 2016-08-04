@@ -24,8 +24,8 @@ class ProductSetup implements SetupInterface
      */
     public function __construct()
     {
-        add_action('init', array($this, 'init'), 0);
-        add_action('init', array($this, 'render'), 1);
+        add_action('init', array($this, 'init'), 3);
+        add_action('init', array($this, 'render'), 4);
 
         $this->fieldGroupRepository = new CarbonFieldGroupRepository();
     }
@@ -167,5 +167,22 @@ class ProductSetup implements SetupInterface
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));
+
+        $this->renderRelations();
+    }
+
+    public function renderRelations()
+    {
+        CarbonContainer::make('post_meta', __('Relations', 'affiliciousproducts'))
+            ->show_on_post_type(Product::POST_TYPE)
+            ->set_priority('default')
+            ->add_fields(array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affiliciousproducts'))
+                    ->allow_duplicates(false)
+                    ->set_post_type(Product::POST_TYPE),
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affiliciousproducts'))
+                    ->allow_duplicates(false)
+                    ->set_post_type(Product::POST_TYPE),
+            ));
     }
 }

@@ -33,6 +33,18 @@ class Product
     private $fieldGroups;
 
     /**
+     * Stores the IDs of the related products
+     * @var int[]
+     */
+    private $relatedProducts;
+
+    /**
+     * Stores the IDs of the related accessories
+     * @var int[]
+     */
+    private $relatedAccessories;
+
+    /**
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
@@ -40,6 +52,8 @@ class Product
         $this->post = $post;
         $this->shops = array();
         $this->fieldGroups = array();
+        $this->relatedProducts = array();
+        $this->relatedAccessories = array();
     }
 
     /**
@@ -151,6 +165,38 @@ class Product
     public function setFieldGroups(array $fieldGroups)
     {
         $this->fieldGroups = $fieldGroups;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getRelatedProducts()
+    {
+        return $this->relatedProducts;
+    }
+
+    /**
+     * @param int[] $relatedProducts
+     */
+    public function setRelatedProducts(array $relatedProducts)
+    {
+        $this->relatedProducts = $relatedProducts;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getRelatedAccessories()
+    {
+        return $this->relatedAccessories;
+    }
+
+    /**
+     * @param int[] $relatedAccessories
+     */
+    public function setRelatedAccessories(array $relatedAccessories)
+    {
+        $this->relatedAccessories = $relatedAccessories;
     }
 
     /**

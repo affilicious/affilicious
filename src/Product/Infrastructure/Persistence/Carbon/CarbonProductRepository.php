@@ -12,6 +12,8 @@ class CarbonProductRepository implements ProductRepositoryInterface
     const PRODUCT_EAN = 'affilicious_product_ean';
     const PRODUCT_SHOPS = 'affilicious_product_shops';
     const PRODUCT_FIELD_GROUPS = 'affilicious_product_field_groups';
+    const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
+    const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
 
     /**
      * @var FieldGroupRepositoryInterface
@@ -82,12 +84,41 @@ class CarbonProductRepository implements ProductRepositoryInterface
 
         $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
         if (!empty($shops)) {
+            $shops = array_map(function($shop) {
+                return array(
+                    'affiliate_id' => !empty($shop['affiliate_id']) ? $shop['affiliate_id'] : null,
+                    'affiliate_link' => !empty($shop['affiliate_link']) ? $shop['affiliate_link'] : null,
+                    'currency' => !empty($shop['currency']) ? $shop['currency'] : null,
+                    'old_price' => !empty($shop['old_price']) ? floatval($shop['old_price']) : null,
+                    'price' => !empty($shop['price']) ? floatval($shop['price']) : null,
+                    'shop_id' => !empty($shop['shop_id']) ? intval($shop['shop_id']) : null,
+                );
+            }, $shops);
+
             $product->setShops($shops);
         }
 
         $fieldGroups = carbon_get_post_meta($post->ID, self::PRODUCT_FIELD_GROUPS, 'complex');
         if (!empty($fieldGroups)) {
             $product->setFieldGroups($fieldGroups);
+        }
+
+        $relatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_PRODUCTS);
+        if (!empty($relatedProducts)) {
+            $relatedProducts = array_map(function($value) {
+                return intval($value);
+            }, $relatedProducts);
+
+            $product->setRelatedProducts($relatedProducts);
+        }
+
+        $relatedAccessories = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_ACCESSORIES);
+        if (!empty($relatedAccessories)) {
+            $relatedAccessories = array_map(function($value) {
+                return intval($value);
+            }, $relatedAccessories);
+
+            $product->setRelatedAccessories($relatedAccessories);
         }
 
         return $product;
