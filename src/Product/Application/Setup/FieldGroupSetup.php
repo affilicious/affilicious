@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
 use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonFieldGroupRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
@@ -73,33 +73,33 @@ class FieldGroupSetup implements SetupInterface
      */
     public function render()
     {
-        CarbonContainer::make('post_meta', __('Fields', 'projektaffiliatetheme'))
+        CarbonContainer::make('post_meta', __('Field Setup', 'affiliciousproducts'))
             ->show_on_post_type(FieldGroup::POST_TYPE)
             ->add_fields(array(
-                CarbonField::make('complex', FieldGroup::FIELDS, __('Fields', 'projektaffiliatetheme'))
+                CarbonField::make('complex', CarbonFieldGroupRepository::CARBON_FIELDS, __('Fields', 'affiliciousproducts'))
                     ->add_fields(array(
-                            CarbonField::make('text', Field::CARBON_KEY, __("Field key", 'projektaffiliatetheme'))
+                            CarbonField::make('text', CarbonFieldGroupRepository::CARBON_FIELD_KEY, __('Field key', 'affiliciousproducts'))
                                 ->set_required(true)
-                                ->help_text(__('Create a unique key with non-special characters, numbers and _ only', 'projektaffiliatetheme')),
-                            CarbonField::make("select", Field::CARBON_TYPE, __("Field type", 'projektaffiliatetheme'))
+                                ->help_text(__('Create a unique key with non-special characters, numbers and _ only', 'affiliciousproducts')),
+                            CarbonField::make('select', CarbonFieldGroupRepository::CARBON_FIELD_TYPE, __('Field type', 'affiliciousproducts'))
                                 ->set_required(true)
                                 ->add_options(array(
-                                    'text' => __('Text', 'projektaffiliatetheme'),
-                                    'number' => __('Number', 'projektaffiliatetheme'),
-                                    'file' => __('File', 'projektaffiliatetheme'),
+                                    FieldGroup::FIELD_TYPE_TEXT => __('Text', 'affiliciousproducts'),
+                                    FieldGroup::FIELD_TYPE_NUMBER => __('Number', 'affiliciousproducts'),
+                                    FieldGroup::FIELD_TYPE_FILE => __('File', 'affiliciousproducts'),
                                 )),
-                            CarbonField::make('text', Field::CARBON_LABEL, __("Field label", 'projektaffiliatetheme'))
+                            CarbonField::make('text', CarbonFieldGroupRepository::CARBON_FIELD_LABEL, __('Field label', 'affiliciousproducts'))
                                 ->set_required(true),
-                            CarbonField::make('text', Field::CARBON_DEFAULT_VALUE, __("Field default value", 'projektaffiliatetheme'))
+                            CarbonField::make('text', CarbonFieldGroupRepository::CARBON_FIELD_DEFAULT_VALUE, __('Field default value', 'affiliciousproducts'))
                                 ->set_conditional_logic(array(
-                                    'relation' => 'AND', // Optional, defaults to "AND"
+                                    'relation' => 'AND',
                                     array(
-                                        'field' => Field::CARBON_TYPE,
-                                        'value' => array('text', 'number'), // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
-                                        'compare' => 'IN', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+                                        'field' => CarbonFieldGroupRepository::CARBON_FIELD_TYPE,
+                                        'value' => array(FieldGroup::FIELD_TYPE_TEXT, FieldGroup::FIELD_TYPE_NUMBER),
+                                        'compare' => 'IN',
                                     )
                                 )),
-                            CarbonField::make('text', Field::CARBON_HELP_TEXT, __("Field help text", 'projektaffiliatetheme'))
+                            CarbonField::make('text', CarbonFieldGroupRepository::CARBON_FIELD_HELP_TEXT, __('Field help text', 'affiliciousproducts'))
                         )
                     )
             ));

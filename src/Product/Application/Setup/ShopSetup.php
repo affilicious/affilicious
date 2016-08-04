@@ -112,8 +112,8 @@ class ShopSetup implements SetupInterface
                     CarbonField::make('select', 'currency', __('Currency', 'affiliciousproducts'))
                         ->set_required(true)
                         ->add_options(array(
-                            'Euro' => __('Euro', 'affiliciousproducts'),
-                            'US-Dollar' => __('US-Dollar', 'affiliciousproducts'),
+                            'euro' => __('Euro', 'affiliciousproducts'),
+                            'us-dollar' => __('US-Dollar', 'affiliciousproducts'),
                         )),
                     CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affiliciousproducts'))
                         ->help_text(__('Unique product ID (e.g. Amazon ASIN or Affilinet ID)', 'affiliciousproducts')),

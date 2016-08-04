@@ -10,8 +10,19 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
  */
 class FieldGroup
 {
-    const POST_TYPE = 'field_groups';
-    const FIELDS = 'affilicious_product_field_groups';
+    const POST_TYPE = 'field_group';
+
+    const FIELD_ID = 'field_group_id';
+    const FIELD_KEY = 'key';
+    const FIELD_TYPE = 'type';
+    const FIELD_LABEL = 'label';
+    const FIELD_VALUE = 'value';
+    const FIELD_DEFAULT_VALUE = 'default_value';
+    const FIELD_HELP_TEXT = 'help_text';
+
+    const FIELD_TYPE_TEXT = 'text';
+    const FIELD_TYPE_NUMBER = 'number';
+    const FIELD_TYPE_FILE = 'file';
 
     /**
      * @var \WP_Post
@@ -19,7 +30,7 @@ class FieldGroup
     private $post;
 
     /**
-     * @var Field[]
+     * @var array
      */
     private $fields;
 
@@ -49,12 +60,20 @@ class FieldGroup
     }
 
     /**
-     * Add a new field
-     * @param Field $field
+     * @return string
      */
-    public function addField(Field $field)
+    public function getName()
     {
-        $this->fields[$field->getKey()] = $field;
+        return $this->post->post_name;
+    }
+
+    /**
+     * Add a new field
+     * @param array $field
+     */
+    public function addField(array $field)
+    {
+        $this->fields[] = $field;
     }
 
     /**
@@ -63,7 +82,12 @@ class FieldGroup
      */
     public function removeField($key)
     {
-        unset($this->fields[$key]);
+        foreach ($this->fields as $position => $field) {
+            if (isset($field[self::FIELD_KEY]) && $field[self::FIELD_KEY] === $key) {
+                unset($this->fields[$position]);
+                break;
+            }
+        }
     }
 
     /**
@@ -73,27 +97,35 @@ class FieldGroup
      */
     public function hasField($key)
     {
-        return isset($this->fields[$key]);
+        foreach ($this->fields as $field) {
+            if (isset($field[self::FIELD_KEY]) && $field[self::FIELD_KEY] === $key) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * Get an existing field by the key
      * You don't need to check for the key, but you will get null on non-existence
      * @param string $key
-     * @return null|Field
+     * @return null|array
      */
     public function getField($key)
     {
-        if (!$this->hasField($key)) {
-            return null;
+        foreach ($this->fields as $position => $field) {
+            if (isset($field[self::FIELD_KEY]) && $field[self::FIELD_KEY] === $key) {
+                return $field;
+            }
         }
 
-        return $this->fields[$key];
+        return null;
     }
 
     /**
      * Get all fields
-     * @return Field[]
+     * @return array
      */
     public function getFields()
     {
@@ -101,11 +133,11 @@ class FieldGroup
     }
 
     /**
-     * Count the number of fields
-     * @return int
+     * Set the fields
+     * @param array $fields
      */
-    public function countFields()
+    public function setFields(array $fields)
     {
-        return count($this->getFields());
+        $this->fields = $fields;
     }
 }

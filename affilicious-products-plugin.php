@@ -81,6 +81,7 @@ class AffiliciousProductsPlugin
             spl_autoload_register(array($this, 'autoload'));
         }
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
+        require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
 
         $this->loader = new Loader();
         $this->carbonSetup = new CarbonSetup();

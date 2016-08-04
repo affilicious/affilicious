@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
 
+use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
 use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ProductRepositoryInterface;
@@ -100,7 +101,24 @@ class CarbonProductRepository implements ProductRepositoryInterface
 
         $fieldGroups = carbon_get_post_meta($post->ID, self::PRODUCT_FIELD_GROUPS, 'complex');
         if (!empty($fieldGroups)) {
-            $product->setFieldGroups($fieldGroups);
+            $result = array();
+            foreach ($fieldGroups as $fieldGroup) {
+                $fieldGroupId = intval($fieldGroup[FieldGroup::FIELD_ID]);
+                $fieldGroupObject = $this->fieldGroupRepository->findById($fieldGroupId);
+
+                $temp = array();
+                $temp[Product::FIELD_GROUP_ID] = $fieldGroupId;
+                $temp[Product::FIELD_GROUP_FIELDS] = array_map(function($field) use ($fieldGroup, $fieldGroupId) {
+                    unset($field['_type'], $field[FieldGroup::FIELD_DEFAULT_VALUE], $field[FieldGroup::FIELD_HELP_TEXT]);
+                    $field[Product::FIELD_VALUE] = $fieldGroup[$field[FieldGroup::FIELD_KEY]];
+                    $field[Product::FIELD_VALUE] = $field[Product::FIELD_TYPE] === FieldGroup::FIELD_TYPE_NUMBER ? intval($field[Product::FIELD_VALUE]) : $field[Product::FIELD_VALUE];
+                    return $field;
+                }, $fieldGroupObject->getFields());
+
+                $result[] = $temp;
+            }
+
+            $product->setFieldGroups($result);
         }
 
         $relatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_PRODUCTS);

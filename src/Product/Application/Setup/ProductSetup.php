@@ -134,36 +134,43 @@ class ProductSetup implements SetupInterface
 
             $fieldGroup = $this->fieldGroupRepository->findById($query->post->ID);
             $title = $fieldGroup->getTitle();
+            $name = $fieldGroup->getName();
 
-            if (empty($title)) {
+            if (empty($title) || empty($name)) {
                 continue;
             }
 
-            $details = array();
-            $fields = $fieldGroup->getFields();
-            foreach ($fields as $field) {
-                // Carbon doesn't contain a number field. That's why we have to convert into a text field
-                $type = $field->isNumber() ? Field::TYPE_TEXT : $field->getType();
+            $carbonFields = array_map(function($field) {
+                $carbonField = CarbonField::make(
+                    $field[FieldGroup::FIELD_TYPE],
+                    $field[FieldGroup::FIELD_KEY],
+                    $field[FieldGroup::FIELD_LABEL]
+                );
 
-                $detail = CarbonField::make($type, $field->getKey(), $field->getLabel());
-
-                if ($field->hasDefaultValue()) {
-                    $detail->default_value($field->getDefaultValue());
+                if (!empty($field[FieldGroup::FIELD_DEFAULT_VALUE])) {
+                    $carbonField->set_default_value($field[FieldGroup::FIELD_DEFAULT_VALUE]);
                 }
 
-                if ($field->getHelpText()) {
-                    $detail->help_text($field->getHelpText());
+                if (!empty($field[FieldGroup::FIELD_HELP_TEXT])) {
+                    $carbonField->help_text($field[FieldGroup::FIELD_HELP_TEXT]);
                 }
 
-                $details[] = $detail;
-            }
+                return $carbonField;
+            }, $fieldGroup->getFields());
 
-            if (!empty($details)) {
-                $tabs->add_fields($fieldGroup->getTitle(), $details);
+            if (!empty($carbonFields)) {
+                $carbonFieldGroupId = CarbonField::make('hidden', 'field_group_id')
+                    ->set_value($fieldGroup->getId());
+
+                $carbonFields = array_merge(array(
+                    'field_group_id' => $carbonFieldGroupId,
+                ), $carbonFields);
+
+                $tabs->add_fields($name, $title, $carbonFields);
             }
         }
 
-        CarbonContainer::make('post_meta', __('Information', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Fields', 'affiliciousproducts'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));

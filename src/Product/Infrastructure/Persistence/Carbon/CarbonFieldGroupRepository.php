@@ -4,12 +4,18 @@ namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
 use Affilicious\ProductsPlugin\Product\Domain\Exception\InvalidPostTypeException;
 use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class CarbonFieldGroupRepository implements FieldGroupRepositoryInterface
 {
+    const CARBON_FIELDS = 'affilicious_product_field_group_fields';
+    const CARBON_FIELD_KEY = 'key';
+    const CARBON_FIELD_TYPE = 'type';
+    const CARBON_FIELD_LABEL = 'label';
+    const CARBON_FIELD_DEFAULT_VALUE = 'default_value';
+    const CARBON_FIELD_HELP_TEXT = 'help_text';
+
     /**
      * @inheritdoc
      */
@@ -62,26 +68,15 @@ class CarbonFieldGroupRepository implements FieldGroupRepositoryInterface
         }
 
         $fieldGroup = new FieldGroup($post);
-        $rawFields = carbon_get_post_meta(get_the_ID(), FieldGroup::FIELDS, 'complex');
 
-        foreach ($rawFields as $rawField) {
-            $field = new Field(
-                $rawField[Field::CARBON_KEY],
-                $rawField[Field::CARBON_TYPE],
-                $rawField[Field::CARBON_LABEL]
-            );
+        $fields = carbon_get_post_meta($fieldGroup->getId(), self::CARBON_FIELDS, 'complex');
+        if (!empty($fields)) {
+            $fields = array_map(function ($field) {
+                unset($field['_type']);
+                return $field;
+            }, $fields);
 
-            $defaultValue = $rawField[Field::CARBON_DEFAULT_VALUE];
-            if(!empty($defaultValue)) {
-                $field->setDefaultValue($defaultValue);
-            }
-
-            $helpText = $rawField[Field::CARBON_HELP_TEXT];
-            if(!empty($helpText)) {
-                $field->setHelpText($helpText);
-            }
-
-            $fieldGroup->addField($field);
+            $fieldGroup->setFields($fields);
         }
 
         return $fieldGroup;

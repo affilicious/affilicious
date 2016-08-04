@@ -9,6 +9,13 @@ class Product
     const TAXONOMY = 'product_category';
     const SLUG = 'product';
 
+    const FIELD_GROUP_ID = 'field_group_id';
+    const FIELD_GROUP_FIELDS = 'fields';
+    const FIELD_KEY = 'key';
+    const FIELD_TYPE = 'type';
+    const FIELD_LABEL = 'label';
+    const FIELD_VALUE = 'value';
+
     /**
      * @var \WP_Post
      */
@@ -70,6 +77,14 @@ class Product
     public function getTitle()
     {
         return $this->post->post_title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->post->post_name;
     }
 
     /**
