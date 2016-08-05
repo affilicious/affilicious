@@ -25,8 +25,8 @@ class ShopSetup implements SetupInterface
     {
         add_action('init', array($this, 'init'), 1);
         add_action('init', array($this, 'render'), 2);
-        add_filter('manage_shops_posts_columns', array($this, 'columnsHead'), 9, 2);
-        add_action('manage_shops_posts_custom_column', array($this, 'columnsContent'), 10, 2);
+        add_filter('manage_shop_posts_columns', array($this, 'columnsHead'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array($this, 'columnsContent'), 10, 2);
 
         $this->shopRepository = new WordpressShopRepository();
     }
