@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ProductRepositoryInterface;
 
@@ -12,22 +12,22 @@ class CarbonProductRepository implements ProductRepositoryInterface
 {
     const PRODUCT_EAN = 'affilicious_product_ean';
     const PRODUCT_SHOPS = 'affilicious_product_shops';
-    const PRODUCT_FIELD_GROUPS = 'affilicious_product_field_groups';
+    const PRODUCT_DETAIL_GROUPS = 'affilicious_product_detail_groups';
     const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
     const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
     const PRODUCT_RELATED_POSTS = 'affilicious_product_related_posts';
 
     /**2
-     * @var FieldGroupRepositoryInterface
+     * @var DetailGroupRepositoryInterface
      */
-    private $fieldGroupRepository;
+    private $detailGroupRepository;
 
     /**
      * CarbonProductRepository constructor.
      */
     public function __construct()
     {
-        $this->fieldGroupRepository = new CarbonFieldGroupRepository();
+        $this->detailGroupRepository = new CarbonDetailGroupRepository();
     }
 
     /**
@@ -100,26 +100,26 @@ class CarbonProductRepository implements ProductRepositoryInterface
             $product->setShops($shops);
         }
 
-        $fieldGroups = carbon_get_post_meta($post->ID, self::PRODUCT_FIELD_GROUPS, 'complex');
-        if (!empty($fieldGroups)) {
+        $detailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS, 'complex');
+        if (!empty($detailGroups)) {
             $result = array();
-            foreach ($fieldGroups as $fieldGroup) {
-                $fieldGroupId = intval($fieldGroup[FieldGroup::FIELD_ID]);
-                $fieldGroupObject = $this->fieldGroupRepository->findById($fieldGroupId);
+            foreach ($detailGroups as $detailGroup) {
+                $detailGroupId = intval($detailGroup[DetailGroup::DETAIL_ID]);
+                $detailGroupObject = $this->detailGroupRepository->findById($detailGroupId);
 
                 $temp = array();
-                $temp[Product::FIELD_GROUP_ID] = $fieldGroupId;
-                $temp[Product::FIELD_GROUP_FIELDS] = array_map(function($field) use ($fieldGroup, $fieldGroupId) {
-                    unset($field['_type'], $field[FieldGroup::FIELD_DEFAULT_VALUE], $field[FieldGroup::FIELD_HELP_TEXT]);
-                    $field[Product::FIELD_VALUE] = $fieldGroup[$field[FieldGroup::FIELD_KEY]];
-                    $field[Product::FIELD_VALUE] = $field[Product::FIELD_TYPE] === FieldGroup::FIELD_TYPE_NUMBER ? intval($field[Product::FIELD_VALUE]) : $field[Product::FIELD_VALUE];
-                    return $field;
-                }, $fieldGroupObject->getFields());
+                $temp[Product::DETAIL_GROUP_ID] = $detailGroupId;
+                $temp[Product::DETAIL_GROUP_FIELDS] = array_map(function($detail) use ($detailGroup, $detailGroupId) {
+                    unset($detail['_type'], $detail[DetailGroup::DETAIL_DEFAULT_VALUE], $detail[DetailGroup::DETAIL_HELP_TEXT]);
+                    $detail[Product::DETAIL_VALUE] = $detailGroup[$detail[DetailGroup::DETAIL_KEY]];
+                    $detail[Product::DETAIL_VALUE] = $detail[Product::DETAIL_TYPE] === DetailGroup::DETAIL_TYPE_NUMBER ? intval($detail[Product::DETAIL_VALUE]) : $detail[Product::DETAIL_VALUE];
+                    return $detail;
+                }, $detailGroupObject->getDetails());
 
                 $result[] = $temp;
             }
 
-            $product->setFieldGroups($result);
+            $product->setDetailGroups($result);
         }
 
         $relatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_PRODUCTS);

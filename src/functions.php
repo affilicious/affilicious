@@ -24,11 +24,11 @@ function affilicious_get_product($post = null)
 }
 
 /**
- * Get the product field groups
+ * Get the product detail groups
  * @param int|\WP_Post|Product|null $product
  * @return array
  */
-function affilicious_get_product_field_groups($product = null)
+function affilicious_get_product_detail_groups($product = null)
 {
     if ($product === null) {
         $product = affilicious_get_product();
@@ -36,15 +36,15 @@ function affilicious_get_product_field_groups($product = null)
         $product = affilicious_get_product($product);
     }
 
-    return $product->getFieldGroups();
+    return $product->getDetailGroups();
 }
 
 /**
- * Get the plain product fields of the field groups
+ * Get the plain product details of the detail groups
  * @param int|\WP_Post|Product|null $product
  * @return array
  */
-function affilicious_get_product_fields($product = null)
+function affilicious_get_product_details($product = null)
 {
     if ($product === null) {
         $product = affilicious_get_product();
@@ -53,9 +53,9 @@ function affilicious_get_product_fields($product = null)
     }
 
     $result = array();
-    foreach ($product->getFieldGroups() as $fieldGroup) {
-        if(!empty($fieldGroup[Product::FIELD_GROUP_FIELDS])) {
-            $result = array_merge($result, $fieldGroup[Product::FIELD_GROUP_FIELDS]);
+    foreach ($product->getDetailGroups() as $detailGroup) {
+        if(!empty($detailGroup[Product::DETAIL_GROUP_FIELDS])) {
+            $result = array_merge($result, $detailGroup[Product::DETAIL_GROUP_FIELDS]);
         }
     }
 

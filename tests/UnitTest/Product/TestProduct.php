@@ -1,5 +1,5 @@
 <?php
-use Affilicious\ProductsPlugin\Product\Field\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Field\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Detail\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Product;
 
@@ -79,100 +79,100 @@ class TestProduct extends WP_UnitTestCase
     public function testCountDetailGroups()
     {
         $product = $this->createProduct();
-        $fieldGroup = new DetailGroup('key', 'text', 'label');
+        $detailGroup = new DetailGroup('key', 'text', 'label');
 
         $this->assertCount($product->countDetailGroups(), $product->getDetailGroups());
 
-        $product->addDetailGroup($fieldGroup);
+        $product->addDetailGroup($detailGroup);
         $this->assertCount($product->countDetailGroups(), $product->getDetailGroups());
 
-        $product->removeDetailGroup($fieldGroup->getId());
+        $product->removeDetailGroup($detailGroup->getId());
         $this->assertCount($product->countDetailGroups(), $product->getDetailGroups());
     }
 
     /**
-     * @covers Product::addFieldGroup
+     * @covers Product::addDetailGroup
      */
-    public function testAddFieldGroup()
+    public function testAddDetailGroup()
     {
         $product = $this->createProduct();
-        $fieldGroup = new FieldGroup('key', 'text', 'label');
+        $detailGroup = new DetailGroup('key', 'text', 'label');
 
         $this->assertCount(0, $product->getDetailGroups());
 
-        $product->addFieldGroup($fieldGroup);
-        $this->assertCount(1, $product->getFieldGroups());
+        $product->addDetailGroup($detailGroup);
+        $this->assertCount(1, $product->getDetailGroups());
     }
 
     /**
-     * @covers Product::removeFieldGroup
-     * @depends testAddFieldGroup
+     * @covers Product::removeDetailGroup
+     * @depends testAddDetailGroup
      */
-    public function testRemoveFieldGroup()
+    public function testRemoveDetailGroup()
     {
         $product = $this->createProduct();;
-        $fieldGroup = new FieldGroup('key', 'text', 'label');
-        $product->addFieldGroup($fieldGroup);
+        $detailGroup = new DetailGroup('key', 'text', 'label');
+        $product->addDetailGroup($detailGroup);
 
-        $this->assertCount(1, $product->getFieldGroups());
+        $this->assertCount(1, $product->getDetailGroups());
 
-        $product->removeFieldGroup($fieldGroup->getId());
-        $this->assertCount(0, $product->getFieldGroups());
+        $product->removeDetailGroup($detailGroup->getId());
+        $this->assertCount(0, $product->getDetailGroups());
     }
 
     /**
-     * @covers Product::hasFieldGroup
-     * @depends testAddFieldGroup
-     * @depends testRemoveFieldGroup
+     * @covers Product::hasDetailGroup
+     * @depends testAddDetailGroup
+     * @depends testRemoveDetailGroup
      */
-    public function testHasFieldGroup()
+    public function testHasDetailGroup()
     {
         $product = $this->createProduct();
-        $fieldGroup = new FieldGroup('key', 'text', 'label');
+        $detailGroup = new DetailGroup('key', 'text', 'label');
 
-        $product->addFieldGroup($fieldGroup);
-        $this->assertTrue($product->hasFieldGroup($fieldGroup->getId()));
+        $product->addDetailGroup($detailGroup);
+        $this->assertTrue($product->hasDetailGroup($detailGroup->getId()));
 
-        $product->removeFieldGroup($fieldGroup->getId());
-        $this->assertFalse($product->hasFieldGroup($fieldGroup->getId()));
+        $product->removeDetailGroup($detailGroup->getId());
+        $this->assertFalse($product->hasDetailGroup($detailGroup->getId()));
     }
 
     /**
-     * @covers Product::getFieldGroup
-     * @depends testAddFieldGroup
-     * @depends testRemoveFieldGroup
+     * @covers Product::getDetailGroup
+     * @depends testAddDetailGroup
+     * @depends testRemoveDetailGroup
      */
-    public function testGetFieldGroup()
+    public function testGetDetailGroup()
     {
         $product = $this->createProduct();
-        $fieldGroup = new FieldGroup('key', 'text', 'label');
+        $detailGroup = new DetailGroup('key', 'text', 'label');
 
-        $this->assertNull($product->getFieldGroup($fieldGroup->getId()));
+        $this->assertNull($product->getDetailGroup($detailGroup->getId()));
 
-        $product->addFieldGroup($fieldGroup);
-        $this->assertNotNull($product->getFieldGroup($fieldGroup->getId()));
+        $product->addDetailGroup($detailGroup);
+        $this->assertNotNull($product->getDetailGroup($detailGroup->getId()));
 
-        $product->removeFieldGroup($fieldGroup->getId());
-        $this->assertNull($product->getFieldGroup($fieldGroup->getId()));
+        $product->removeDetailGroup($detailGroup->getId());
+        $this->assertNull($product->getDetailGroup($detailGroup->getId()));
     }
 
     /**
-     * @covers Product::countFieldGroups
-     * @depends testAddFieldGroup
-     * @depends testRemoveFieldGroup
+     * @covers Product::countDetailGroups
+     * @depends testAddDetailGroup
+     * @depends testRemoveDetailGroup
      */
-    public function testCountFieldGroups()
+    public function testCountDetailGroups()
     {
         $product = $this->createProduct();
-        $fieldGroup = new FieldGroup('key', 'text', 'label');
+        $detailGroup = new DetailGroup('key', 'text', 'label');
 
-        $this->assertCount($product->countFieldGroups(), $product->getFieldGroups());
+        $this->assertCount($product->countDetailGroups(), $product->getDetailGroups());
 
-        $product->addFieldGroup($fieldGroup);
-        $this->assertCount($product->countFieldGroups(), $product->getFieldGroups());
+        $product->addDetailGroup($detailGroup);
+        $this->assertCount($product->countDetailGroups(), $product->getDetailGroups());
 
-        $product->removeFieldGroup($fieldGroup->getId());
-        $this->assertCount($product->countFieldGroups(), $product->getFieldGroups());
+        $product->removeDetailGroup($detailGroup->getId());
+        $this->assertCount($product->countDetailGroups(), $product->getDetailGroups());
     }
 
     /**

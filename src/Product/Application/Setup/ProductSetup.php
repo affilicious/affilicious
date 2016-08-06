@@ -2,10 +2,10 @@
 namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
 use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroupRepositoryInterface;
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonFieldGroupRepository;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
@@ -15,9 +15,9 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class ProductSetup implements SetupInterface
 {
     /**
-     * @var FieldGroupRepositoryInterface
+     * @var DetailGroupRepositoryInterface
      */
-    private $fieldGroupRepository;
+    private $detailGroupRepository;
 
     /**
      * Hook into the required Wordpress actions
@@ -27,7 +27,7 @@ class ProductSetup implements SetupInterface
         add_action('init', array($this, 'init'), 3);
         add_action('init', array($this, 'render'), 4);
 
-        $this->fieldGroupRepository = new CarbonFieldGroupRepository();
+        $this->detailGroupRepository = new CarbonDetailGroupRepository();
     }
 
     /**
@@ -117,7 +117,7 @@ class ProductSetup implements SetupInterface
     public function render()
     {
         $query = new \WP_Query(array(
-            'post_type' => FieldGroup::POST_TYPE,
+            'post_type' => DetailGroup::POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => -1,
         ));
@@ -126,15 +126,15 @@ class ProductSetup implements SetupInterface
             return;
         }
 
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_FIELD_GROUPS, __('Field Groups', 'affiliciousproducts'))
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_DETAIL_GROUPS, __('Detail Groups', 'affiliciousproducts'))
             ->set_layout('tabbed');
 
         while ($query->have_posts()) {
             $query->the_post();
 
-            $fieldGroup = $this->fieldGroupRepository->findById($query->post->ID);
-            $title = $fieldGroup->getTitle();
-            $name = $fieldGroup->getName();
+            $detailGroup = $this->detailGroupRepository->findById($query->post->ID);
+            $title = $detailGroup->getTitle();
+            $name = $detailGroup->getName();
 
             if (empty($title) || empty($name)) {
                 continue;
@@ -142,35 +142,35 @@ class ProductSetup implements SetupInterface
 
             $carbonFields = array_map(function($field) {
                 $carbonField = CarbonField::make(
-                    $field[FieldGroup::FIELD_TYPE],
-                    $field[FieldGroup::FIELD_KEY],
-                    $field[FieldGroup::FIELD_LABEL]
+                    $field[DetailGroup::DETAIL_TYPE],
+                    $field[DetailGroup::DETAIL_KEY],
+                    $field[DetailGroup::DETAIL_LABEL]
                 );
 
-                if (!empty($field[FieldGroup::FIELD_DEFAULT_VALUE])) {
-                    $carbonField->set_default_value($field[FieldGroup::FIELD_DEFAULT_VALUE]);
+                if (!empty($field[DetailGroup::DETAIL_DEFAULT_VALUE])) {
+                    $carbonField->set_default_value($field[DetailGroup::DETAIL_DEFAULT_VALUE]);
                 }
 
-                if (!empty($field[FieldGroup::FIELD_HELP_TEXT])) {
-                    $carbonField->help_text($field[FieldGroup::FIELD_HELP_TEXT]);
+                if (!empty($field[DetailGroup::DETAIL_HELP_TEXT])) {
+                    $carbonField->help_text($field[DetailGroup::DETAIL_HELP_TEXT]);
                 }
 
                 return $carbonField;
-            }, $fieldGroup->getFields());
+            }, $detailGroup->getDetails());
 
             if (!empty($carbonFields)) {
-                $carbonFieldGroupId = CarbonField::make('hidden', 'field_group_id')
-                    ->set_value($fieldGroup->getId());
+                $carbonDetailGroupId = CarbonField::make('hidden', 'detail_group_id')
+                    ->set_value($detailGroup->getId());
 
                 $carbonFields = array_merge(array(
-                    'field_group_id' => $carbonFieldGroupId,
+                    'detail_group_id' => $carbonDetailGroupId,
                 ), $carbonFields);
 
                 $tabs->add_fields($name, $title, $carbonFields);
             }
         }
 
-        CarbonContainer::make('post_meta', __('Fields', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Details', 'affiliciousproducts'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));

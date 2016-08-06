@@ -5,18 +5,18 @@ use Affilicious\ProductsPlugin\Common\Domain\Model\RepositoryInterface;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
-interface FieldGroupRepositoryInterface extends RepositoryInterface
+interface DetailGroupRepositoryInterface extends RepositoryInterface
 {
     /**
      * Find a field group by the given ID
-     * @param int $fieldGroupId
-     * @return FieldGroup|null
+     * @param int $detailGroupId
+     * @return DetailGroup|null
      */
-    public function findById($fieldGroupId);
+    public function findById($detailGroupId);
 
     /**
      * Find all field groups
-     * @return FieldGroup[]
+     * @return DetailGroup[]
      */
     public function findAll();
 }

@@ -17,7 +17,7 @@ use Affilicious\ProductsPlugin\Common\Application\Setup\AssetSetup;
 use Affilicious\ProductsPlugin\Common\Application\Setup\CarbonSetup;
 use Affilicious\ProductsPlugin\Product\Application\Setup\ProductSetup;
 use Affilicious\ProductsPlugin\Product\Application\Setup\ShopSetup;
-use Affilicious\ProductsPlugin\Product\Application\Setup\FieldGroupSetup;
+use Affilicious\ProductsPlugin\Product\Application\Setup\DetailGroupSetup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -56,9 +56,9 @@ class AffiliciousProductsPlugin
     private $shopSetup;
 
     /**
-     * @var FieldGroupSetup
+     * @var DetailGroupSetup
      */
-    private $fieldGroupSetup;
+    private $detailGroupSetup;
 
     /**
      * Get the root dir of the plugin
@@ -88,7 +88,7 @@ class AffiliciousProductsPlugin
         $this->assetSetup = new AssetSetup();
         $this->productSetup = new ProductSetup();
         $this->shopSetup = new ShopSetup();
-        $this->fieldGroupSetup = new FieldGroupSetup();
+        $this->detailGroupSetup = new DetailGroupSetup();
     }
 
     /**

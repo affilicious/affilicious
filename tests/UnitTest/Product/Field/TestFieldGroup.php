@@ -1,91 +1,91 @@
 <?php
-use Affilicious\ProductsPlugin\Product\Field\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Field\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Field\Field;
 
-class TestFieldGroup extends WP_UnitTestCase
+class TestDetailGroup extends WP_UnitTestCase
 {
     /**
-     * @covers FieldGroup::addField
+     * @covers DetailGroup::addDetail
      */
     public function testAddField()
     {
         $field = new Field('key', 'text', 'label');
-        $fieldGroup = new FieldGroup(1, 'test-title', 'test-category');
+        $detailGroup = new DetailGroup(1, 'test-title', 'test-category');
 
-        $this->assertCount(0, $fieldGroup->getFields());
+        $this->assertCount(0, $detailGroup->getFields());
 
-        $fieldGroup->addField($field);
-        $this->assertCount(1, $fieldGroup->getFields());
+        $detailGroup->addField($field);
+        $this->assertCount(1, $detailGroup->getFields());
     }
 
     /**
-     * @covers FieldGroup::removeField
+     * @covers DetailGroup::removeDetail
      * @depends testAddField
      */
     public function testRemoveField()
     {
         $field = new Field('key', 'text', 'label');
-        $fieldGroup = new FieldGroup(1, 'test-title', 'test-category');
-        $fieldGroup->addField($field);
+        $detailGroup = new DetailGroup(1, 'test-title', 'test-category');
+        $detailGroup->addField($field);
 
-        $this->assertCount(1, $fieldGroup->getFields());
+        $this->assertCount(1, $detailGroup->getFields());
 
-        $fieldGroup->removeField($field->getKey());
-        $this->assertCount(0, $fieldGroup->getFields());
+        $detailGroup->removeField($field->getKey());
+        $this->assertCount(0, $detailGroup->getFields());
     }
 
     /**
-     * @covers FieldGroup::hasField
+     * @covers DetailGroup::hasField
      * @depends testAddField
      * @depends testRemoveField
      */
     public function testHasField()
     {
         $field = new Field('key', 'text', 'label');
-        $fieldGroup = new FieldGroup(1, 'test-title', 'test-category');
+        $detailGroup = new DetailGroup(1, 'test-title', 'test-category');
 
-        $fieldGroup->addField($field);
-        $this->assertTrue($fieldGroup->hasField($field->getKey()));
+        $detailGroup->addField($field);
+        $this->assertTrue($detailGroup->hasField($field->getKey()));
 
-        $fieldGroup->removeField($field->getKey());
-        $this->assertFalse($fieldGroup->hasField($field->getKey()));
+        $detailGroup->removeField($field->getKey());
+        $this->assertFalse($detailGroup->hasField($field->getKey()));
     }
 
     /**
-     * @covers FieldGroup::getField
+     * @covers DetailGroup::getField
      * @depends testAddField
      * @depends testRemoveField
      */
     public function testGetField()
     {
         $field = new Field('key', 'text', 'label');
-        $fieldGroup = new FieldGroup(1, 'test-title', 'test-category');
+        $detailGroup = new DetailGroup(1, 'test-title', 'test-category');
 
-        $this->assertNull($fieldGroup->getField($field->getKey()));
+        $this->assertNull($detailGroup->getField($field->getKey()));
 
-        $fieldGroup->addField($field);
-        $this->assertNotNull($fieldGroup->getField($field->getKey()));
+        $detailGroup->addField($field);
+        $this->assertNotNull($detailGroup->getField($field->getKey()));
 
-        $fieldGroup->removeField($field->getKey());
-        $this->assertNull($fieldGroup->getField($field->getKey()));
+        $detailGroup->removeField($field->getKey());
+        $this->assertNull($detailGroup->getField($field->getKey()));
     }
 
     /**
-     * @covers FieldGroup::countFields
+     * @covers DetailGroup::countFields
      * @depends testAddField
      * @depends testRemoveField
      */
     public function testCountFields()
     {
         $field = new Field('key', 'text', 'label');
-        $fieldGroup = new FieldGroup(1, 'test-title', 'test-category');
+        $detailGroup = new DetailGroup(1, 'test-title', 'test-category');
 
-        $this->assertCount($fieldGroup->countFields(), $fieldGroup->getFields());
+        $this->assertCount($detailGroup->countFields(), $detailGroup->getFields());
 
-        $fieldGroup->addField($field);
-        $this->assertCount($fieldGroup->countFields(), $fieldGroup->getFields());
+        $detailGroup->addField($field);
+        $this->assertCount($detailGroup->countFields(), $detailGroup->getFields());
 
-        $fieldGroup->removeField($field->getKey());
-        $this->assertCount($fieldGroup->countFields(), $fieldGroup->getFields());
+        $detailGroup->removeField($field->getKey());
+        $this->assertCount($detailGroup->countFields(), $detailGroup->getFields());
     }
 }

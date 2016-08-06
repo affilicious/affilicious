@@ -9,12 +9,12 @@ class Product
     const TAXONOMY = 'product_category';
     const SLUG = 'product';
 
-    const FIELD_GROUP_ID = 'field_group_id';
-    const FIELD_GROUP_FIELDS = 'fields';
-    const FIELD_KEY = 'key';
-    const FIELD_TYPE = 'type';
-    const FIELD_LABEL = 'label';
-    const FIELD_VALUE = 'value';
+    const DETAIL_GROUP_ID = 'detail_group_id';
+    const DETAIL_GROUP_FIELDS = 'fields';
+    const DETAIL_KEY = 'key';
+    const DETAIL_TYPE = 'type';
+    const DETAIL_LABEL = 'label';
+    const DETAIL_VALUE = 'value';
 
     /**
      * @var \WP_Post
@@ -35,9 +35,9 @@ class Product
     private $shops;
 
     /**
-     * @var FieldGroup[]
+     * @var DetailGroup[]
      */
-    private $fieldGroups;
+    private $detailGroups;
 
     /**
      * Stores the IDs of the related products
@@ -64,7 +64,7 @@ class Product
     {
         $this->post = $post;
         $this->shops = array();
-        $this->fieldGroups = array();
+        $this->detailGroups = array();
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
         $this->relatedPosts = array();
@@ -171,22 +171,22 @@ class Product
     }
 
     /**
-     * Get all field groups
-     * @return FieldGroup[]
+     * Get all detail groups
+     * @return DetailGroup[]
      */
-    public function getFieldGroups()
+    public function getDetailGroups()
     {
-        return $this->fieldGroups;
+        return $this->detailGroups;
     }
 
     /**
-     * Set the field groups
-     * @param array $fieldGroups
-     * @return FieldGroup|null
+     * Set the detail groups
+     * @param array $detailGroups
+     * @return DetailGroup|null
      */
-    public function setFieldGroups(array $fieldGroups)
+    public function setDetailGroups(array $detailGroups)
     {
-        $this->fieldGroups = $fieldGroups;
+        $this->detailGroups = $detailGroups;
     }
 
     /**

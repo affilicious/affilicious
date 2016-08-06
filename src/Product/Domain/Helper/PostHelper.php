@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Domain\Helper;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\FieldGroup;
+use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Exception\PostNotFoundException;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
@@ -21,7 +21,7 @@ class PostHelper
             return $postOrId;
         }
 
-        if($postOrId instanceof Product || $postOrId instanceof Shop || $postOrId instanceof FieldGroup) {
+        if($postOrId instanceof Product || $postOrId instanceof Shop || $postOrId instanceof DetailGroup) {
             return $postOrId->getRawPost();
         }
 
