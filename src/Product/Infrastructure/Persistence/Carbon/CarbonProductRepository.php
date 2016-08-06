@@ -13,10 +13,14 @@ class CarbonProductRepository implements ProductRepositoryInterface
     const PRODUCT_EAN = 'affilicious_product_ean';
     const PRODUCT_SHOPS = 'affilicious_product_shops';
     const PRODUCT_FIELD_GROUPS = 'affilicious_product_field_groups';
+    const PRODUCT_SHOW_RELATED_PRODUCTS = 'affilicious_product_show_related_products';
     const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
+    const PRODUCT_SHOW_RELATED_ACCESSORIES = 'affilicious_product_show_related_accessories';
     const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
+    const PRODUCT_SHOW_RELATED_POSTS = 'affilicious_product_show_related_posts';
+    const PRODUCT_RELATED_POSTS = 'affilicious_product_related_posts';
 
-    /**
+    /**2
      * @var FieldGroupRepositoryInterface
      */
     private $fieldGroupRepository;
@@ -121,22 +125,43 @@ class CarbonProductRepository implements ProductRepositoryInterface
             $product->setFieldGroups($result);
         }
 
-        $relatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_PRODUCTS);
-        if (!empty($relatedProducts)) {
-            $relatedProducts = array_map(function($value) {
-                return intval($value);
-            }, $relatedProducts);
+        // Related Products
+        $showRelatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_SHOW_RELATED_PRODUCTS);
+        if ($showRelatedProducts === 'yes') {
+            $relatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_PRODUCTS);
+            if (!empty($relatedProducts)) {
+                $relatedProducts = array_map(function ($value) {
+                    return intval($value);
+                }, $relatedProducts);
 
-            $product->setRelatedProducts($relatedProducts);
+                $product->setRelatedProducts($relatedProducts);
+            }
         }
 
-        $relatedAccessories = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_ACCESSORIES);
-        if (!empty($relatedAccessories)) {
-            $relatedAccessories = array_map(function($value) {
-                return intval($value);
-            }, $relatedAccessories);
+        // Related Accessories
+        $showRelatedAccessories = carbon_get_post_meta($post->ID, self::PRODUCT_SHOW_RELATED_ACCESSORIES);
+        if ($showRelatedAccessories === 'yes') {
+            $relatedAccessories = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_ACCESSORIES);
+            if (!empty($relatedAccessories)) {
+                $relatedAccessories = array_map(function ($value) {
+                    return intval($value);
+                }, $relatedAccessories);
 
-            $product->setRelatedAccessories($relatedAccessories);
+                $product->setRelatedAccessories($relatedAccessories);
+            }
+        }
+
+        // Related Posts
+        $showRelatedPosts = carbon_get_post_meta($post->ID, self::PRODUCT_SHOW_RELATED_POSTS);
+        if ($showRelatedPosts === 'yes') {
+            $relatedPosts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_POSTS);
+            if (!empty($relatedPosts)) {
+                $relatedPosts = array_map(function ($value) {
+                    return intval($value);
+                }, $relatedPosts);
+
+                $product->setRelatedPosts($relatedPosts);
+            }
         }
 
         return $product;

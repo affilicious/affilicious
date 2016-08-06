@@ -52,6 +52,12 @@ class Product
     private $relatedAccessories;
 
     /**
+     * Stores the IDs of the related posts
+     * @var int[]
+     */
+    private $relatedPosts;
+
+    /**
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
@@ -61,6 +67,7 @@ class Product
         $this->fieldGroups = array();
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
+        $this->relatedPosts = array();
     }
 
     /**
@@ -212,6 +219,22 @@ class Product
     public function setRelatedAccessories(array $relatedAccessories)
     {
         $this->relatedAccessories = $relatedAccessories;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getRelatedPosts()
+    {
+        return $this->relatedPosts;
+    }
+
+    /**
+     * @param int[] $relatedPosts
+     */
+    public function setRelatedPosts(array $relatedPosts)
+    {
+        $this->relatedPosts = $relatedPosts;
     }
 
     /**
