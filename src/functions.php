@@ -2,8 +2,6 @@
 use Affilicious\ProductsPlugin\Product\Domain\Helper\PostHelper;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 
 if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -17,14 +15,11 @@ if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
  */
 function affilicious_get_product($post = null)
 {
-    if ($post instanceof Product) {
-        return $post;
-    }
+    $container = AffiliciousProductsPlugin::getContainer();
+    $productRepository = $container['product_repository'];
 
     $post = PostHelper::getPost($post);
-
-    $productFactory = new CarbonProductRepository();
-    $product = $productFactory->findById($post->ID);
+    $product = $productRepository->findById($post->ID);
 
     return $product;
 }
@@ -247,14 +242,11 @@ function affilicious_get_product_related_posts_query($post = null, $args = array
  */
 function affilicious_get_shop($post = null)
 {
-    if ($post instanceof Shop) {
-        return $post;
-    }
-
+    $container = AffiliciousProductsPlugin::getContainer();
     $post = PostHelper::getPost($post);
 
-    $shopFactory = new WordpressShopRepository();
-    $shop = $shopFactory->findById($post->ID);
+    $shopRepository = $container['shop_repository'];
+    $shop = $shopRepository->findById($post->ID);
 
     return $shop;
 }

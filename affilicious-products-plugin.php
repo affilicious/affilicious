@@ -18,6 +18,10 @@ use Affilicious\ProductsPlugin\Common\Application\Setup\CarbonSetup;
 use Affilicious\ProductsPlugin\Product\Application\Setup\ProductSetup;
 use Affilicious\ProductsPlugin\Product\Application\Setup\ShopSetup;
 use Affilicious\ProductsPlugin\Product\Application\Setup\DetailGroupSetup;
+use Pimple\Container;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
+use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -31,34 +35,38 @@ class AffiliciousProductsPlugin
 
     /**
      * Register all actions and filters for the plugin.
+     *
      * @var Loader
      */
-    private $loader;
+    private static $loader;
 
     /**
-     * @var CarbonSetup
+     * Register all services and parameters for the pimple dependency injection
+     *
+     * @see http://pimple.sensiolabs.org
+     * @var Container
      */
-    private $carbonSetup;
+    private static $container;
 
     /**
-     * @var AssetSetup
+     * Get a reference to the hooks and filters loader
+     *
+     * @return Loader
      */
-    private $assetSetup;
+    public static function &getLoader()
+    {
+        return self::$loader;
+    }
 
     /**
-     * @var ProductSetup
+     * Get a reference to the dependency injection container
+     *
+     * @return Container
      */
-    private $productSetup;
-
-    /**
-     * @var ShopSetup
-     */
-    private $shopSetup;
-
-    /**
-     * @var DetailGroupSetup
-     */
-    private $detailGroupSetup;
+    public static function &getContainer()
+    {
+        return self::$container;
+    }
 
     /**
      * Get the root dir of the plugin
@@ -83,12 +91,8 @@ class AffiliciousProductsPlugin
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
 
-        $this->loader = new Loader();
-        $this->carbonSetup = new CarbonSetup();
-        $this->assetSetup = new AssetSetup();
-        $this->productSetup = new ProductSetup();
-        $this->shopSetup = new ShopSetup();
-        $this->detailGroupSetup = new DetailGroupSetup();
+        self::$container = new Container();
+        self::$loader = new Loader();
     }
 
     /**
@@ -98,11 +102,16 @@ class AffiliciousProductsPlugin
     {
         register_activation_hook( __FILE__, array($this, 'activate'));
         register_deactivation_hook( __FILE__, array($this, 'deactivate'));
-        $this->loader->add_action('plugins_loaded', $this, 'loaded');
+        self::$loader->add_action('plugins_loaded', $this, 'loaded');
 
+        $this->registerServices();
         $this->registerPublicHooks();
         $this->registerAdminHooks();
-        $this->loader->run();
+
+        self::$container['carbon_setup'];
+
+
+        self::$loader->run();
     }
 
     /**
@@ -145,6 +154,44 @@ class AffiliciousProductsPlugin
     }
 
     /**
+     * Register the services for the dependency injection
+     */
+    public function registerServices()
+    {
+        self::$container['product_repository'] = function ($c) {
+            return new CarbonProductRepository($c['detail_group_repository']);
+        };
+
+        self::$container['shop_repository'] = function () {
+            return new WordpressShopRepository();
+        };
+
+        self::$container['detail_group_repository'] = function () {
+            return new CarbonDetailGroupRepository();
+        };
+
+        self::$container['product_setup'] = function ($c) {
+            return new ProductSetup($c['detail_group_repository']);
+        };
+
+        self::$container['shop_setup'] = function ($c) {
+            return new ShopSetup($c['shop_repository']);
+        };
+
+        self::$container['detail_group_setup'] = function () {
+            return new DetailGroupSetup();
+        };
+
+        self::$container['asset_setup'] = function () {
+            return new AssetSetup();
+        };
+
+        self::$container['carbon_setup'] = function () {
+            return new CarbonSetup();
+        };
+    }
+
+    /**
      * Register the plugin textdomain for internationalization.
      */
     public function registerTextdomain()
@@ -162,8 +209,25 @@ class AffiliciousProductsPlugin
     public function registerPublicHooks()
     {
         // Add public assets
-        $this->loader->add_action('wp_enqueue_scripts', $this->assetSetup, 'addPublicStyles');
-        $this->loader->add_action('wp_enqueue_scripts', $this->assetSetup, 'addPublicScripts');
+        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicStyles');
+        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicScripts');
+
+        // Set up Carbon Fields
+        self::$loader->add_action('after_setup_theme', self::$container['carbon_setup'], 'crb_init_carbon_field_hidden', 15);
+
+        // Set up detail groups
+        self::$loader->add_action('init', self::$container['detail_group_setup'], 'init', 1);
+        self::$loader->add_action('init', self::$container['detail_group_setup'], 'render', 2);
+
+        // Set up products
+        self::$loader->add_action('init', self::$container['product_setup'], 'init', 3);
+        self::$loader->add_action('init', self::$container['product_setup'], 'render', 4);
+
+        // Set up shops
+        self::$loader->add_action('init', self::$container['shop_setup'], 'init', 5);
+        self::$loader->add_action('init', self::$container['shop_setup'], 'render', 6);
+        self::$loader->add_action('manage_shop_posts_columns', self::$container['shop_setup'], 'columnsHead', 9, 2);
+        self::$loader->add_action('manage_shop_posts_custom_column', self::$container['shop_setup'], 'columnsContent', 10, 2);
     }
 
     /**
@@ -172,8 +236,8 @@ class AffiliciousProductsPlugin
     public function registerAdminHooks()
     {
         // Add admin assets
-        $this->loader->add_action('admin_enqueue_scripts', $this->assetSetup, 'addAdminStyles');
-        $this->loader->add_action('admin_enqueue_scripts', $this->assetSetup, 'addAdminScripts');
+        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminStyles');
+        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminScripts');
     }
 }
 

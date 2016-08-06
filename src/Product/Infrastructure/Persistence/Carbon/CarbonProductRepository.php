@@ -23,11 +23,11 @@ class CarbonProductRepository implements ProductRepositoryInterface
     private $detailGroupRepository;
 
     /**
-     * CarbonProductRepository constructor.
+     * @param DetailGroupRepositoryInterface $detailGroupRepository
      */
-    public function __construct()
+    public function __construct(DetailGroupRepositoryInterface $detailGroupRepository)
     {
-        $this->detailGroupRepository = new CarbonDetailGroupRepository();
+        $this->detailGroupRepository = $detailGroupRepository;
     }
 
     /**

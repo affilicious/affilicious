@@ -11,15 +11,6 @@ if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class DetailGroupSetup implements SetupInterface
 {
     /**
-     * Hook into the required Wordpress actions
-     */
-    public function __construct()
-    {
-        add_action('init', array($this, 'init'), 2);
-        add_action('init', array($this, 'render'), 3);
-    }
-
-    /**
      * @inheritdoc
      */
     public function init()

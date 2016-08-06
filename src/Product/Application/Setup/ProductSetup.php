@@ -20,14 +20,11 @@ class ProductSetup implements SetupInterface
     private $detailGroupRepository;
 
     /**
-     * Hook into the required Wordpress actions
+     * @param DetailGroupRepositoryInterface $detailGroupRepository
      */
-    public function __construct()
+    public function __construct(DetailGroupRepositoryInterface $detailGroupRepository)
     {
-        add_action('init', array($this, 'init'), 3);
-        add_action('init', array($this, 'render'), 4);
-
-        $this->detailGroupRepository = new CarbonDetailGroupRepository();
+        $this->detailGroupRepository = $detailGroupRepository;
     }
 
     /**
