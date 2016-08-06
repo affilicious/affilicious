@@ -53,8 +53,8 @@ function affilicious_get_product_details($post = null)
 
     $result = array();
     foreach ($product->getDetailGroups() as $detailGroup) {
-        if (!empty($detailGroup[Product::DETAIL_GROUP_FIELDS])) {
-            $result = array_merge($result, $detailGroup[Product::DETAIL_GROUP_FIELDS]);
+        if (!empty($detailGroup[Product::DETAIL_GROUP_DETAILS])) {
+            $result = array_merge($result, $detailGroup[Product::DETAIL_GROUP_DETAILS]);
         }
     }
 

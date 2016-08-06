@@ -10,7 +10,7 @@ class Product
     const SLUG = 'product';
 
     const DETAIL_GROUP_ID = 'detail_group_id';
-    const DETAIL_GROUP_FIELDS = 'fields';
+    const DETAIL_GROUP_DETAILS = 'details';
     const DETAIL_KEY = 'key';
     const DETAIL_TYPE = 'type';
     const DETAIL_LABEL = 'label';

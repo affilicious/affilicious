@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Domain\Exception;
 
+if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+
 class InvalidOptionException extends \RuntimeException
 {
     /**

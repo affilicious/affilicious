@@ -5,7 +5,6 @@ use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
@@ -92,7 +91,7 @@ class ShopSetup implements SetupInterface
         $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affiliciousproducts'))
             ->set_layout('tabbed');
 
-        if($query->have_posts()) {
+        if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
                 $shop = $this->shopRepository->findById($query->post->ID);
@@ -137,9 +136,9 @@ class ShopSetup implements SetupInterface
     public function columnsHead($defaults)
     {
         $new = array();
-        foreach($defaults as $key => $title) {
+        foreach ($defaults as $key => $title) {
             // Put the logo column before the date column
-            if ($key=='date') {
+            if ($key == 'date') {
                 $new['logo'] = __('Logo', 'affiliciousproducts');
             }
             $new[$key] = $title;

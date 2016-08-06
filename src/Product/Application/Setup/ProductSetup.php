@@ -113,6 +113,15 @@ class ProductSetup implements SetupInterface
      */
     public function render()
     {
+        $this->renderDetails();
+        $this->renderRelations();
+    }
+
+    /**
+     * Render the details
+     */
+    private function renderDetails()
+    {
         $query = new \WP_Query(array(
             'post_type' => DetailGroup::POST_TYPE,
             'post_status' => 'publish',
@@ -171,11 +180,12 @@ class ProductSetup implements SetupInterface
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));
-
-        $this->renderRelations();
     }
 
-    public function renderRelations()
+    /**
+     * Render the relation fields
+     */
+    private function renderRelations()
     {
         CarbonContainer::make('post_meta', __('Relations', 'affiliciousproducts'))
             ->show_on_post_type(Product::POST_TYPE)
