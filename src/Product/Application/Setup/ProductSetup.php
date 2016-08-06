@@ -184,22 +184,16 @@ class ProductSetup implements SetupInterface
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_tab(__('Products'), array(
-                CarbonField::make("checkbox", CarbonProductRepository::PRODUCT_SHOW_RELATED_PRODUCTS, __('Show Related Products', 'affiliciousproducts'))
-                    ->set_option_value('yes'),
                 CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affiliciousproducts'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
             ))
             ->add_tab(__('Accessories'), array(
-                CarbonField::make("checkbox", CarbonProductRepository::PRODUCT_SHOW_RELATED_ACCESSORIES, __('Show Related Accessories', 'affiliciousproducts'))
-                    ->set_option_value('yes'),
                 CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affiliciousproducts'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
             ))
             ->add_tab(__('Posts'), array(
-                CarbonField::make("checkbox", CarbonProductRepository::PRODUCT_SHOW_RELATED_POSTS, __('Show Related Posts', 'affiliciousproducts'))
-                    ->set_option_value('yes'),
                 CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_POSTS, __('Related Posts', 'affiliciousproducts'))
                     ->allow_duplicates(false)
                     ->set_post_type('post'),
