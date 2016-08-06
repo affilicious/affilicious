@@ -73,24 +73,24 @@ class DetailGroupSetup implements SetupInterface
      */
     public function render()
     {
-        CarbonContainer::make('post_meta', __('Field Setup', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Detail Setup', 'affiliciousproducts'))
             ->show_on_post_type(DetailGroup::POST_TYPE)
             ->add_fields(array(
-                CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Fields', 'affiliciousproducts'))
+                CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affiliciousproducts'))
                     ->add_fields(array(
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_KEY, __('Field key', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_KEY, __('Key', 'affiliciousproducts'))
                                 ->set_required(true)
                                 ->help_text(__('Create a unique key with non-special characters, numbers and _ only', 'affiliciousproducts')),
-                            CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Field type', 'affiliciousproducts'))
+                            CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affiliciousproducts'))
                                 ->set_required(true)
                                 ->add_options(array(
                                     DetailGroup::DETAIL_TYPE_TEXT => __('Text', 'affiliciousproducts'),
                                     DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affiliciousproducts'),
                                     DetailGroup::DETAIL_TYPE_FILE => __('File', 'affiliciousproducts'),
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_LABEL, __('Field label', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_LABEL, __('Label', 'affiliciousproducts'))
                                 ->set_required(true),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Field default value', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affiliciousproducts'))
                                 ->set_conditional_logic(array(
                                     'relation' => 'AND',
                                     array(
@@ -99,7 +99,7 @@ class DetailGroupSetup implements SetupInterface
                                         'compare' => 'IN',
                                     )
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Field help text', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affiliciousproducts'))
                         )
                     )
             ));
