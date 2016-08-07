@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Affilicious Produkte
  * Description: Erstelle und verwalte Affilicious Produkte mit den dazugehörigen Feldern und Details in Wordpress
- * Version: 0.1
- * Author: Alexander Barton
+ * Version: 0.3
+ * Author: Affilicious Team
  * Author URI: https://affilicioustheme.de/author/alexander-barton
  * Plugin URI: http://affilicioustheme.de/plugins/products
  * License: MIT
@@ -28,10 +28,14 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class AffiliciousProductsPlugin
 {
     const PLUGIN_NAME = 'affilicious-products';
-    const PLUGIN_VERSION = '0.1';
+    const PLUGIN_VERSION = '0.3';
     const PLUGIN_NAMESPACE = 'Affilicious\\ProductsPlugin\\';
     const PLUGIN_SOURCE_DIR = 'src/';
     const PLUGIN_LANGUAGE_DIR = 'language/';
+    const PLUGIN_STORE_URL = 'http://affilicioustheme.de';
+    const PLUGIN_ITEM_NAME = 'Affilicious Produkte';
+    const PLUGIN_LICENSE_KEY = 'e90a6d1a115da24a292fe0300afc402a';
+    const PLUGIN_AUTHOR = 'Affilicious Team';
 
     /**
      * Register all actions and filters for the plugin.
@@ -48,6 +52,8 @@ class AffiliciousProductsPlugin
      */
     private static $container;
 
+    private static $updater;
+
     /**
      * Get a reference to the hooks and filters loader
      *
@@ -61,6 +67,7 @@ class AffiliciousProductsPlugin
     /**
      * Get a reference to the dependency injection container
      *
+     * @see https://easydigitaldownloads.com/downloads/software-licensing/
      * @return Container
      */
     public static function &getContainer()
@@ -70,6 +77,7 @@ class AffiliciousProductsPlugin
 
     /**
      * Get the root dir of the plugin
+     *
      * @return string
      */
     public static function getRootDir()
@@ -91,8 +99,27 @@ class AffiliciousProductsPlugin
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
 
+        if (!class_exists('EDD_SL_Plugin_Updater')) {
+            include(dirname(__FILE__) . '/affilicious-products-updater.php');
+        }
+
         self::$container = new Container();
         self::$loader = new Loader();
+
+        add_action('admin_init', array($this, 'update'), 0);
+    }
+
+    /**
+     * Update the plugin with the help of the Software Licensing for Easy Digital Downloads
+     */
+    public function update()
+    {
+        new \EDD_SL_Plugin_Updater(self::PLUGIN_STORE_URL, __FILE__, array(
+            'version' => self::PLUGIN_VERSION,
+            'license' => self::PLUGIN_LICENSE_KEY,
+            'item_name' => self::PLUGIN_ITEM_NAME,
+            'author' => self::PLUGIN_AUTHOR,
+        ));
     }
 
     /**
@@ -134,7 +161,23 @@ class AffiliciousProductsPlugin
      */
     public function activate()
     {
-        // Nothing to do here
+        // data to send in our API request
+        $api_params = array(
+            'edd_action'=> 'activate_license',
+            'license' 	=> self::PLUGIN_LICENSE_KEY,
+            'item_name' => urlencode(self::PLUGIN_ITEM_NAME), // the name of our product in EDD
+            'url'       => home_url()
+        );
+
+        // Call the custom API.
+        $response = wp_remote_post(self::PLUGIN_STORE_URL, array(
+            'timeout' => 15,
+            'sslverify' => false,
+            'body' => $api_params
+        ));
+
+        // make sure the response came back okay
+        return is_wp_error($response);
     }
 
     /**
