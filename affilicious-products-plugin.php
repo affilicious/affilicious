@@ -9,8 +9,8 @@
  * License: MIT
  * Requires at least: 4.0
  * Tested up to: 4.6
- * Text Domain: affiliciousproducts
- * Domain Path: /languages
+ * Text Domain: affilicious-products
+ * Domain Path: /languages/
  */
 use Affilicious\ProductsPlugin\Common\Application\Loader\Loader;
 use Affilicious\ProductsPlugin\Common\Application\Setup\AssetSetup;
@@ -31,7 +31,7 @@ class AffiliciousProductsPlugin
     const PLUGIN_VERSION = '0.3';
     const PLUGIN_NAMESPACE = 'Affilicious\\ProductsPlugin\\';
     const PLUGIN_SOURCE_DIR = 'src/';
-    const PLUGIN_LANGUAGE_DIR = 'language/';
+    const PLUGIN_LANGUAGE_DIR = 'languages';
     const PLUGIN_STORE_URL = 'http://affilicioustheme.de';
     const PLUGIN_ITEM_NAME = 'Affilicious Produkte';
     const PLUGIN_LICENSE_KEY = 'e90a6d1a115da24a292fe0300afc402a';
@@ -137,7 +137,6 @@ class AffiliciousProductsPlugin
 
         self::$container['carbon_setup'];
 
-
         self::$loader->run();
     }
 
@@ -239,11 +238,8 @@ class AffiliciousProductsPlugin
      */
     public function registerTextdomain()
     {
-        load_plugin_textdomain(
-            self::PLUGIN_NAME,
-            false,
-            dirname(dirname(plugin_basename( __FILE__ ))) . '/' . self::PLUGIN_LANGUAGE_DIR
-        );
+        $dir = basename( dirname( __FILE__ ) ) . '/' . self::PLUGIN_LANGUAGE_DIR;
+        $loaded = load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
     }
 
     /**

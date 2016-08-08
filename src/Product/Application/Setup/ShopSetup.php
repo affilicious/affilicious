@@ -31,31 +31,31 @@ class ShopSetup implements SetupInterface
     public function init()
     {
         $labels = array(
-            'name' => _x('Shops', 'affiliciousproducts'),
-            'singular_name' => _x('Shop', 'affiliciousproducts'),
-            'menu_name' => __('Shop', 'affiliciousproducts'),
-            'name_admin_bar' => __('Shop', 'affiliciousproducts'),
-            'archives' => __('Shop Archives', 'affiliciousproducts'),
-            'parent_item_colon' => __('Parent Shop:', 'affiliciousproducts'),
-            'all_items' => __('Shops', 'affiliciousproducts'),
-            'add_new_item' => __('Add New Shop', 'affiliciousproducts'),
-            'add_new' => __('Add New', 'affiliciousproducts'),
-            'new_item' => __('New Shop', 'affiliciousproducts'),
-            'edit_item' => __('Edit Shop', 'affiliciousproducts'),
-            'update_item' => __('Update Shop', 'affiliciousproducts'),
-            'view_item' => __('View Shop', 'affiliciousproducts'),
-            'search_items' => __('Search Shop', 'affiliciousproducts'),
-            'not_found' => __('Not Found', 'affiliciousproducts'),
-            'not_found_in_trash' => __('Not Found In Trash', 'affiliciousproducts'),
-            'featured_image' => __('Logo', 'affiliciousproducts'),
-            'set_featured_image' => __('Set Logo', 'affiliciousproducts'),
-            'remove_featured_image' => __('Remove Logo', 'affiliciousproducts'),
-            'use_featured_image' => __('Use As Logo', 'affiliciousproducts'),
-            'insert_into_item' => __('Insert Into Shop', 'affiliciousproducts'),
-            'uploaded_to_this_item' => __('Uploaded To This Shop', 'affiliciousproducts'),
-            'items_list' => __('Shop', 'affiliciousproducts'),
-            'items_list_navigation' => __('Shop Navigation', 'affiliciousproducts'),
-            'filter_items_list' => __('Filter Shops', 'affiliciousproducts'),
+            'name' => __('Shops', 'affilicious-products'),
+            'singular_name' => __('Shop', 'affilicious-products'),
+            'menu_name' => __('Shop', 'affilicious-products'),
+            'name_admin_bar' => __('Shop', 'affilicious-products'),
+            'archives' => __('Shop Archives', 'affilicious-products'),
+            'parent_item_colon' => __('Parent Shop:', 'affilicious-products'),
+            'all_items' => __('Shops', 'affilicious-products'),
+            'add_new_item' => __('Add New Shop', 'affilicious-products'),
+            'add_new' => __('Add New', 'affilicious-products'),
+            'new_item' => __('New Shop', 'affilicious-products'),
+            'edit_item' => __('Edit Shop', 'affilicious-products'),
+            'update_item' => __('Update Shop', 'affilicious-products'),
+            'view_item' => __('View Shop', 'affilicious-products'),
+            'search_items' => __('Search Shop', 'affilicious-products'),
+            'not_found' => __('Not Found', 'affilicious-products'),
+            'not_found_in_trash' => __('Not Found In Trash', 'affilicious-products'),
+            'featured_image' => __('Logo', 'affilicious-products'),
+            'set_featured_image' => __('Set Logo', 'affilicious-products'),
+            'remove_featured_image' => __('Remove Logo', 'affilicious-products'),
+            'use_featured_image' => __('Use As Logo', 'affilicious-products'),
+            'insert_into_item' => __('Insert Into Shop', 'affilicious-products'),
+            'uploaded_to_this_item' => __('Uploaded To This Shop', 'affilicious-products'),
+            'items_list' => __('Shop', 'affilicious-products'),
+            'items_list_navigation' => __('Shop Navigation', 'affilicious-products'),
+            'filter_items_list' => __('Filter Shops', 'affilicious-products'),
         );
 
         register_post_type(Shop::POST_TYPE, array(
@@ -88,7 +88,7 @@ class ShopSetup implements SetupInterface
             ),
         ));
 
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affiliciousproducts'))
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affilicious-products'))
             ->set_layout('tabbed');
 
         if ($query->have_posts()) {
@@ -97,33 +97,33 @@ class ShopSetup implements SetupInterface
                 $shop = $this->shopRepository->findById($query->post->ID);
 
                 $tabs->add_fields($shop->getTitle(), array(
-                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affiliciousproducts'))
+                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious-products'))
                         ->set_required(true)
                         ->set_value($shop->getId()),
-                    CarbonField::make('text', 'price', __('Price', 'affiliciousproducts'))
+                    CarbonField::make('text', 'price', __('Price', 'affilicious-products'))
                         ->set_required(true),
-                    CarbonField::make('text', 'old_price', __('Old Price', 'affiliciousproducts')),
-                    CarbonField::make('select', 'currency', __('Currency', 'affiliciousproducts'))
+                    CarbonField::make('text', 'old_price', __('Old Price', 'affilicious-products')),
+                    CarbonField::make('select', 'currency', __('Currency', 'affilicious-products'))
                         ->set_required(true)
                         ->add_options(array(
-                            'euro' => __('Euro', 'affiliciousproducts'),
-                            'us-dollar' => __('US-Dollar', 'affiliciousproducts'),
+                            'euro' => __('Euro', 'affilicious-products'),
+                            'us-dollar' => __('US-Dollar', 'affilicious-products'),
                         )),
-                    CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affiliciousproducts'))
-                        ->help_text(__('Unique product ID (e.g. Amazon ASIN or Affilinet ID)', 'affiliciousproducts')),
-                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affiliciousproducts')),
+                    CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affilicious-products'))
+                        ->help_text(__('Unique product ID (e.g. Amazon ASIN or Affilinet ID)', 'affilicious-products')),
+                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious-products')),
                 ));
             }
 
             wp_reset_postdata();
         }
 
-        CarbonContainer::make('post_meta', __('Price Comparison', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious-products'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array(
-                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affiliciousproducts'))
-                    ->help_text(__('Unique ID for the price comparison', 'affiliciousproducts')),
+                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affilicious-products'))
+                    ->help_text(__('Unique ID for the price comparison', 'affilicious-products')),
                 $tabs
             ));
     }
@@ -139,7 +139,7 @@ class ShopSetup implements SetupInterface
         foreach ($defaults as $key => $title) {
             // Put the logo column before the date column
             if ($key == 'date') {
-                $new['logo'] = __('Logo', 'affiliciousproducts');
+                $new['logo'] = __('Logo', 'affilicious-products');
             }
             $new[$key] = $title;
         }

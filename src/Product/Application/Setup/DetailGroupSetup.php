@@ -16,31 +16,31 @@ class DetailGroupSetup implements SetupInterface
     public function init()
     {
         $labels = array(
-            'name' => _x('Product Detail Groups', 'affiliciousproducts'),
-            'singular_name' => _x('Product Detail Group', 'affiliciousproducts'),
-            'menu_name' => __('Product Detail Groups', 'affiliciousproducts'),
-            'name_admin_bar' => __('Product Detail Groups', 'affiliciousproducts'),
-            'archives' => __('Product Detail Group Archives', 'affiliciousproducts'),
-            'parent_item_colon' => __('Parent Product Detail Group:', 'affiliciousproducts'),
-            'all_items' => __('Detail Groups', 'affiliciousproducts'),
-            'add_new_item' => __('Add New Product Detail Group', 'affiliciousproducts'),
-            'add_new' => __('Add New', 'affiliciousproducts'),
-            'new_item' => __('New Product Detail Group', 'affiliciousproducts'),
-            'edit_item' => __('Edit Product Detail Group', 'affiliciousproducts'),
-            'update_item' => __('Update Product Detail Group', 'affiliciousproducts'),
-            'view_item' => __('View Product Detail Group', 'affiliciousproducts'),
-            'search_items' => __('Search Product Detail Group', 'affiliciousproducts'),
-            'not_found' => __('Not Found', 'affiliciousproducts'),
-            'not_found_in_trash' => __('Not Found In Trash', 'affiliciousproducts'),
-            'featured_image' => __('Featured Image', 'affiliciousproducts'),
-            'set_featured_image' => __('Set Featured Image', 'affiliciousproducts'),
-            'remove_featured_image' => __('Remove Featured Image', 'affiliciousproducts'),
-            'use_featured_image' => __('Use As Featured Image', 'affiliciousproducts'),
-            'insert_into_item' => __('Insert into item', 'affiliciousproducts'),
-            'uploaded_to_this_item' => __('Uploaded To This Product Detail Group', 'affiliciousproducts'),
-            'items_list' => __('Product Detail Groups', 'affiliciousproducts'),
-            'items_list_navigation' => __('Product Detail Groups Navigation', 'affiliciousproducts'),
-            'filter_items_list' => __('Product Filter Detail Groups', 'affiliciousproducts'),
+            'name' => __('Detail Groups', 'affilicious-products'),
+            'singular_name' => __('Detail Group', 'affilicious-products'),
+            'menu_name' => __('Detail Groups', 'affilicious-products'),
+            'name_admin_bar' => __('Detail Groups', 'affilicious-products'),
+            'archives' => __('Detail Group Archives', 'affilicious-products'),
+            'parent_item_colon' => __('Parent Detail Group:', 'affilicious-products'),
+            'all_items' => __('Detail Groups', 'affilicious-products'),
+            'add_new_item' => __('Add New Detail Group', 'affilicious-products'),
+            'add_new' => __('Add New', 'affilicious-products'),
+            'new_item' => __('New Detail Group', 'affilicious-products'),
+            'edit_item' => __('Edit Detail Group', 'affilicious-products'),
+            'update_item' => __('Update Detail Group', 'affilicious-products'),
+            'view_item' => __('View Detail Group', 'affilicious-products'),
+            'search_items' => __('Search Detail Group', 'affilicious-products'),
+            'not_found' => __('Not Found', 'affilicious-products'),
+            'not_found_in_trash' => __('Not Found In Trash', 'affilicious-products'),
+            'featured_image' => __('Featured Image', 'affilicious-products'),
+            'set_featured_image' => __('Set Featured Image', 'affilicious-products'),
+            'remove_featured_image' => __('Remove Featured Image', 'affilicious-products'),
+            'use_featured_image' => __('Use As Featured Image', 'affilicious-products'),
+            'insert_into_item' => __('Insert into item', 'affilicious-products'),
+            'uploaded_to_this_item' => __('Uploaded To This Detail Group', 'affilicious-products'),
+            'items_list' => __('Detail Groups', 'affilicious-products'),
+            'items_list_navigation' => __('Detail Groups Navigation', 'affilicious-products'),
+            'filter_items_list' => __('Filter Detail Groups', 'affilicious-products'),
         );
 
         register_post_type(DetailGroup::POST_TYPE, array(
@@ -64,24 +64,24 @@ class DetailGroupSetup implements SetupInterface
      */
     public function render()
     {
-        CarbonContainer::make('post_meta', __('Detail Setup', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Detail Setup', 'affilicious-products'))
             ->show_on_post_type(DetailGroup::POST_TYPE)
             ->add_fields(array(
-                CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affiliciousproducts'))
+                CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affilicious-products'))
                     ->add_fields(array(
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_KEY, __('Key', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_KEY, __('Key', 'affilicious-products'))
                                 ->set_required(true)
-                                ->help_text(__('Create a unique key with non-special characters, numbers and _ only', 'affiliciousproducts')),
-                            CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affiliciousproducts'))
+                                ->help_text(__('Create a unique key with non-special characters, numbers, -, @ and _ only (e.g @unique-key_here).', 'affilicious-products')),
+                            CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affilicious-products'))
                                 ->set_required(true)
                                 ->add_options(array(
-                                    DetailGroup::DETAIL_TYPE_TEXT => __('Text', 'affiliciousproducts'),
-                                    DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affiliciousproducts'),
-                                    DetailGroup::DETAIL_TYPE_FILE => __('File', 'affiliciousproducts'),
+                                    DetailGroup::DETAIL_TYPE_TEXT => __('Text', 'affilicious-products'),
+                                    DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affilicious-products'),
+                                    DetailGroup::DETAIL_TYPE_FILE => __('File', 'affilicious-products'),
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_LABEL, __('Label', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_LABEL, __('Label', 'affilicious-products'))
                                 ->set_required(true),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affilicious-products'))
                                 ->set_conditional_logic(array(
                                     'relation' => 'AND',
                                     array(
@@ -90,7 +90,7 @@ class DetailGroupSetup implements SetupInterface
                                         'compare' => 'IN',
                                     )
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affiliciousproducts'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affilicious-products'))
                         )
                     )
             ));

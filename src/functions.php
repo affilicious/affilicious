@@ -266,7 +266,7 @@ function affilicious_get_currency_label($currency)
 
     $currencyLabel = ucwords($currency, '-');
     $currencyLabel = strpos($currencyLabel, 'Us-') === 0 ? str_replace('Us-', 'US-', $currencyLabel) : $currencyLabel;
-    $currencyLabel = __($currencyLabel, 'affiliciousproducts');
+    $currencyLabel = __($currencyLabel, 'affilicious-products');
 
     return $currencyLabel;
 }

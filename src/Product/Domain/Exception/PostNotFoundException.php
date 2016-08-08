@@ -11,7 +11,7 @@ class PostNotFoundException extends \RuntimeException
     public function __construct($postId)
     {
         parent::__construct(sprintf(
-            __("The post #%s wasn't found.", 'affiliciousproducts'),
+            __("The post #%s wasn't found.", 'affilicious-products'),
             $postId
         ));
     }

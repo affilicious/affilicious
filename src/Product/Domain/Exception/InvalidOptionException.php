@@ -12,7 +12,7 @@ class InvalidOptionException extends \RuntimeException
     public function __construct($invalidOption, $validOptions)
     {
         parent::__construct(sprintf(
-            __('Invalid option: %s. Please choose one of the following options: %s.', 'affiliciousproducts'),
+            __('Invalid option: %s. Please choose one of the following options: %s.', 'affilicious-products'),
             $invalidOption,
             implode(', ', $validOptions)
         ));

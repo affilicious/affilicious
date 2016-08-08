@@ -33,36 +33,36 @@ class ProductSetup implements SetupInterface
     public function init()
     {
         $labels = array(
-            'name' => _x('Products', 'projektaffiliatetheme'),
-            'singular_name' => _x('Product', 'projektaffiliatetheme'),
-            'menu_name' => __('Products', 'projektaffiliatetheme'),
-            'name_admin_bar' => __('Product', 'projektaffiliatetheme'),
-            'archives' => __('Item Archives', 'projektaffiliatetheme'),
-            'parent_item_colon' => __('Parent Item:', 'projektaffiliatetheme'),
-            'all_items' => __('All Products', 'projektaffiliatetheme'),
-            'add_new_item' => __('Add New Product', 'projektaffiliatetheme'),
-            'add_new' => __('Add New', 'projektaffiliatetheme'),
-            'new_item' => __('New Product', 'projektaffiliatetheme'),
-            'edit_item' => __('Edit Product', 'projektaffiliatetheme'),
-            'update_item' => __('Update Product', 'projektaffiliatetheme'),
-            'view_item' => __('View Product', 'projektaffiliatetheme'),
-            'search_items' => __('Search Product', 'projektaffiliatetheme'),
-            'not_found' => __('Not found', 'projektaffiliatetheme'),
-            'not_found_in_trash' => __('Not found in Trash', 'projektaffiliatetheme'),
-            'featured_image' => __('Featured Image', 'projektaffiliatetheme'),
-            'set_featured_image' => __('Set featured image', 'projektaffiliatetheme'),
-            'remove_featured_image' => __('Remove featured image', 'projektaffiliatetheme'),
-            'use_featured_image' => __('Use as featured image', 'projektaffiliatetheme'),
-            'insert_into_item' => __('Insert into item', 'projektaffiliatetheme'),
-            'uploaded_to_this_item' => __('Uploaded to this item', 'projektaffiliatetheme'),
-            'items_list' => __('Products list', 'projektaffiliatetheme'),
-            'items_list_navigation' => __('Products list navigation', 'projektaffiliatetheme'),
-            'filter_items_list' => __('Filter items list', 'projektaffiliatetheme'),
+            'name' => __('Products', 'affilicious-products'),
+            'singular_name' => __('Product', 'affilicious-products'),
+            'menu_name' => __('Products', 'affilicious-products'),
+            'name_admin_bar' => __('Product', 'affilicious-products'),
+            'archives' => __('Item Archives', 'affilicious-products'),
+            'parent_item_colon' => __('Parent Item:', 'affilicious-products'),
+            'all_items' => __('All Products', 'affilicious-products'),
+            'add_new_item' => __('Add New Product', 'affilicious-products'),
+            'add_new' => __('Add New', 'affilicious-products'),
+            'new_item' => __('New Product', 'affilicious-products'),
+            'edit_item' => __('Edit Product', 'affilicious-products'),
+            'update_item' => __('Update Product', 'affilicious-products'),
+            'view_item' => __('View Product', 'affilicious-products'),
+            'search_items' => __('Search Product', 'affilicious-products'),
+            'not_found' => __('Not found', 'affilicious-products'),
+            'not_found_in_trash' => __('Not found in Trash', 'affilicious-products'),
+            'featured_image' => __('Featured Image', 'affilicious-products'),
+            'set_featured_image' => __('Set featured image', 'affilicious-products'),
+            'remove_featured_image' => __('Remove featured image', 'affilicious-products'),
+            'use_featured_image' => __('Use as featured image', 'affilicious-products'),
+            'insert_into_item' => __('Insert into item', 'affilicious-products'),
+            'uploaded_to_this_item' => __('Uploaded to this item', 'affilicious-products'),
+            'items_list' => __('Products list', 'affilicious-products'),
+            'items_list_navigation' => __('Products list navigation', 'affilicious-products'),
+            'filter_items_list' => __('Filter items list', 'affilicious-products'),
         );
 
         $args = array(
-            'label' => __('Product', 'projektaffiliatetheme'),
-            'description' => __('Product Type Description', 'projektaffiliatetheme'),
+            'label' => __('Product', 'affilicious-products'),
+            'description' => __('Product Type Description', 'affilicious-products'),
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
             'supports' => array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions'),
@@ -84,17 +84,17 @@ class ProductSetup implements SetupInterface
         register_post_type(Product::POST_TYPE, $args);
 
         $labels = array(
-            'name' => __('Categories', 'projektaffiliatetheme'),
-            'singular_name' => __('Category', 'projektaffiliatetheme'),
-            'search_items' => __('Search categories', 'projektaffiliatetheme'),
-            'all_items' => __('All categories', 'projektaffiliatetheme'),
-            'parent_item' => __('Parent category', 'projektaffiliatetheme'),
-            'parent_item_colon' => __('Parent category:', 'projektaffiliatetheme'),
-            'edit_item' => __('Edit category', 'projektaffiliatetheme'),
-            'update_item' => __('Update category', 'projektaffiliatetheme'),
-            'add_new_item' => __('Add New category', 'projektaffiliatetheme'),
-            'new_item_name' => __('New category name', 'projektaffiliatetheme'),
-            'menu_name' => __('Categories', 'projektaffiliatetheme'),
+            'name' => __('Categories', 'affilicious-products'),
+            'singular_name' => __('Category', 'affilicious-products'),
+            'search_items' => __('Search categories', 'affilicious-products'),
+            'all_items' => __('All categories', 'affilicious-products'),
+            'parent_item' => __('Parent category', 'affilicious-products'),
+            'parent_item_colon' => __('Parent category:', 'affilicious-products'),
+            'edit_item' => __('Edit category', 'affilicious-products'),
+            'update_item' => __('Update category', 'affilicious-products'),
+            'add_new_item' => __('Add New category', 'affilicious-products'),
+            'new_item_name' => __('New category name', 'affilicious-products'),
+            'menu_name' => __('Categories', 'affilicious-products'),
         );
 
         register_taxonomy(Product::TAXONOMY, Product::POST_TYPE, array(
@@ -132,7 +132,7 @@ class ProductSetup implements SetupInterface
             return;
         }
 
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_DETAIL_GROUPS, __('Detail Groups', 'affiliciousproducts'))
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_DETAIL_GROUPS, __('Detail Groups', 'affilicious-products'))
             ->set_layout('tabbed');
 
         while ($query->have_posts()) {
@@ -176,7 +176,7 @@ class ProductSetup implements SetupInterface
             }
         }
 
-        CarbonContainer::make('post_meta', __('Details', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Details', 'affilicious-products'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));
@@ -187,21 +187,21 @@ class ProductSetup implements SetupInterface
      */
     private function renderRelations()
     {
-        CarbonContainer::make('post_meta', __('Relations', 'affiliciousproducts'))
+        CarbonContainer::make('post_meta', __('Relations', 'affilicious-products'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
-            ->add_tab(__('Products'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affiliciousproducts'))
+            ->add_tab(__('Products', 'affilicious-products'), array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affilicious-products'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
             ))
-            ->add_tab(__('Accessories'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affiliciousproducts'))
+            ->add_tab(__('Accessories', 'affilicious-products'), array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affilicious-products'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
             ))
-            ->add_tab(__('Posts'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_POSTS, __('Related Posts', 'affiliciousproducts'))
+            ->add_tab(__('Posts', 'affilicious-products'), array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_POSTS, __('Related Posts', 'affilicious-products'))
                     ->allow_duplicates(false)
                     ->set_post_type('post'),
             ));
