@@ -1,0 +1,211 @@
+@import "compass";
+
+// This file was inspired by Woocommerce. We will make a custom version until the release
+
+@mixin ir() {
+  display: block;
+  text-indent: -9999px;
+  position: relative;
+  height: 1em;
+  width: 1em;
+}
+@mixin icon_dashicons( $glyph: "\f333" ) {
+  font-family: 'Dashicons';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  text-indent: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  content: $glyph;
+}
+
+@mixin iconbefore( $glyph: "\e001" ) {
+  font-family: 'WooCommerce';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  margin-right: .618em;
+  content: $glyph;
+  text-decoration: none;
+}
+
+@mixin iconbeforedashicons( $glyph: "\f333" ) {
+  font-family: 'Dashicons';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  margin-right: .618em;
+  content: $glyph;
+  text-decoration: none;
+}
+
+@mixin iconafter( $glyph: "\e001" ) {
+  font-family: 'WooCommerce';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  margin-left: .618em;
+  content: $glyph;
+  text-decoration: none;
+}
+
+@mixin loader() {
+  &:before {
+    height: 1em;
+    width: 1em;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -.5em;
+    margin-top: -.5em;
+    display: block;
+    content: "";
+    background: url(../images/icons/loader.svg) center center;
+    background-size: cover;
+    line-height: 1;
+    text-align: center;
+    font-size: 2em;
+    color: rgba(#000,0.75);
+  }
+}
+
+.add_product_images {
+  padding: 0 12px 12px;
+}
+
+#product_images_container {
+  padding: 0 0 0 9px;
+
+  ul {
+    @include clearfix();
+    margin: 0;
+    padding: 0;
+
+    li.image,
+    li.add,
+    li.wc-metabox-sortable-placeholder {
+      width: 80px;
+      height: 80px;
+      float: left;
+      cursor: move;
+      border: 1px solid #d5d5d5;
+      margin: 9px 9px 0 0;
+      background: #f7f7f7;
+      @include border-radius(2px);
+      position: relative;
+      box-sizing: border-box;
+
+      img {
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        display: block;
+      }
+    }
+
+    li.wc-metabox-sortable-placeholder {
+      border: 3px dashed #dddddd;
+      position: relative;
+
+      &:after {
+        @include icon_dashicons( "\f161" );
+        font-size: 2.618em;
+        line-height: 72px;
+        color: #ddd;
+      }
+    }
+
+    ul.actions {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      padding: 2px;
+      display: none;
+
+      li {
+        float: right;
+        margin: 0 0 0 2px;
+
+        a {
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          display: block;
+          overflow: hidden;
+
+          &.tips {
+            cursor: pointer;
+          }
+        }
+
+        a.delete {
+          @include ir();
+          font-size: 1.4em;
+
+          &:before {
+            @include icon_dashicons( "\f153" );
+            color: #999;
+          }
+
+          &:hover {
+            &:before {
+              color: grey;
+            }
+          }
+        }
+      }
+    }
+
+    li:hover ul.actions {
+      display: block;
+    }
+  }
+}
+
+
+@mixin ir() {
+  display: block;
+  text-indent: -9999px;
+  position: relative;
+  height: 1em;
+  width: 1em;
+}
+
+@mixin icon( $glyph: "\e001" ) {
+  font-family: 'WooCommerce';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  text-indent: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  content: $glyph;
+}
+

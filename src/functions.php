@@ -92,6 +92,21 @@ function affilicious_get_product_ean($post = null)
 }
 
 /**
+ * Get the product image gallery by the product.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.3
+ * @param int|\WP_Post|Product|null $post
+ * @return array
+ */
+function affilicious_get_product_image_gallery($post = null)
+{
+    $product = affilicious_get_product($post);
+
+    return $product->getImageGallery();
+}
+
+/**
  * Get the product shops.
  * If you pass in nothing as a parameter, the current post will be used.
  *

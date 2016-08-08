@@ -28,7 +28,7 @@ class AssetSetup
      */
     public function addPublicStyles()
     {
-        wp_enqueue_style('affilicious-products', self::getStylesDir() . 'style.css', array(), '0.1.0');
+        wp_enqueue_style('affilicious-products', self::getStylesDir() . 'style.css', array(), '0.3.0');
     }
 
     /**
@@ -36,7 +36,7 @@ class AssetSetup
      */
     public function addAdminStyles()
     {
-        wp_enqueue_style('affilicious-products-admin', self::getStylesDir() . 'admin.css', array(), '0.1.0');
+        wp_enqueue_style('affilicious-products-admin', self::getStylesDir() . 'admin.css', array(), '0.3.0');
     }
 
     /**
@@ -44,7 +44,7 @@ class AssetSetup
      */
     public function addPublicScripts()
     {
-        wp_enqueue_script('affilicious-products', self::getScriptDir() . 'script.js', array('jquery'), '0.1.0', true);
+        wp_enqueue_script('affilicious-products', self::getScriptDir() . 'script.js', array('jquery'), '0.3.0', true);
     }
 
     /**
@@ -52,6 +52,6 @@ class AssetSetup
      */
     public function addAdminScripts()
     {
-        wp_enqueue_script('affilicious-products-admin', self::getScriptDir() . 'admin.js', array('jquery'), '0.1.0', true);
+        wp_enqueue_script('affilicious-products-admin', self::getScriptDir() . 'admin.js', array('jquery'), '0.3.0', true);
     }
 }

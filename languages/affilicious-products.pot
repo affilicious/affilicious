@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious-products\n"
 "POT-Creation-Date: "
-"2016-08-08 18:27+0200\n"
+"2016-08-08 18:46+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -81,6 +81,33 @@ msgstr ""
 
 #: affilicious-products-updater.php:340
 msgid "Error"
+msgstr ""
+
+#: src/Product/Application/MetaBox/MetaBoxManager.php:34
+msgid "Image Gallery"
+msgstr ""
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:49
+msgid "Delete"
+msgstr ""
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:72
+msgid "Add Images"
+msgstr ""
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
+msgid "Add Image"
+msgstr ""
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:75
+msgid "Delete Image"
+msgstr ""
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
+msgid ""
+"Add Images To Image "
+"Gallery"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:19

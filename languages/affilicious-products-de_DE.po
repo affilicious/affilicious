@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious-products\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-08-08 18:28+0200\n"
+"POT-Creation-Date: 2016-08-08 18:46+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -49,6 +49,31 @@ msgstr "Du hast nicht die Berechtigung um Plugin-Updates zu installieren."
 #: affilicious-products-updater.php:340
 msgid "Error"
 msgstr "Fehler"
+
+#: src/Product/Application/MetaBox/MetaBoxManager.php:34
+msgid "Image Gallery"
+msgstr "Bildergallerie"
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:49
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:72
+msgid "Add Images"
+msgstr "Bilder hinzufügen"
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
+msgid "Add Image"
+msgstr "Bild hinzufügen"
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:75
+msgid "Delete Image"
+msgstr "Bild löschen"
+
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
+msgid "Add Images To Image Gallery"
+msgstr "Bilder zur Bildergallerie hinzufügen"
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:19
 #: src/Product/Application/Setup/DetailGroupSetup.php:21
@@ -487,6 +512,9 @@ msgstr "Ungültiges Beitragsformat: %s. Bitte verwende: %s."
 #, php-format
 msgid "The post #%s wasn't found."
 msgstr "Der Beitrag #%s wurde nicht gefunden."
+
+#~ msgid "Product Image Gallery"
+#~ msgstr "Produkt Bildergallerie"
 
 #~ msgid "Create a unique key with non-special characters, numbers and _ only"
 #~ msgstr ""

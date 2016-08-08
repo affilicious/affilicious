@@ -22,6 +22,7 @@ use Pimple\Container;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
+use Affilicious\ProductsPlugin\Product\Application\MetaBox\MetaBoxManager;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -135,6 +136,7 @@ class AffiliciousProductsPlugin
         $this->registerPublicHooks();
         $this->registerAdminHooks();
 
+        new MetaBoxManager(); // This old class will be removed later
         self::$container['carbon_setup'];
 
         self::$loader->run();
@@ -248,8 +250,8 @@ class AffiliciousProductsPlugin
     public function registerPublicHooks()
     {
         // Add public assets
-        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicStyles');
-        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicScripts');
+        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicStyles', 10);
+        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicScripts', 20);
 
         // Set up Carbon Fields
         self::$loader->add_action('after_setup_theme', self::$container['carbon_setup'], 'crb_init_carbon_field_hidden', 15);
@@ -275,8 +277,8 @@ class AffiliciousProductsPlugin
     public function registerAdminHooks()
     {
         // Add admin assets
-        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminStyles');
-        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminScripts');
+        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminStyles', 10);
+        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminScripts', 20);
     }
 }
 

@@ -58,6 +58,12 @@ class Product
     private $relatedPosts;
 
     /**
+     * Stores the IDs of the image gallery attachments
+     * @var int[]
+     */
+    private $imageGallery;
+
+    /**
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
@@ -68,6 +74,7 @@ class Product
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
         $this->relatedPosts = array();
+        $this->imageGallery = array();
     }
 
     /**
@@ -235,6 +242,22 @@ class Product
     public function setRelatedPosts(array $relatedPosts)
     {
         $this->relatedPosts = $relatedPosts;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getImageGallery()
+    {
+        return $this->imageGallery;
+    }
+
+    /**
+     * @param int[] $imageGallery
+     */
+    public function setImageGallery(array $imageGallery)
+    {
+        $this->imageGallery = $imageGallery;
     }
 
     /**

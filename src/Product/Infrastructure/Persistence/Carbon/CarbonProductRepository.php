@@ -16,8 +16,9 @@ class CarbonProductRepository implements ProductRepositoryInterface
     const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
     const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
     const PRODUCT_RELATED_POSTS = 'affilicious_product_related_posts';
+    const PRODUCT_IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
-    /**2
+    /**
      * @var DetailGroupRepositoryInterface
      */
     private $detailGroupRepository;
@@ -147,6 +148,16 @@ class CarbonProductRepository implements ProductRepositoryInterface
             }, $relatedPosts);
 
             $product->setRelatedPosts($relatedPosts);
+        }
+
+        $imageGallery = get_post_meta($post->ID, self::PRODUCT_IMAGE_GALLERY);
+        if (!empty($imageGallery[0])) {
+            $imageGallery = explode(',', $imageGallery[0]);
+            $imageGallery = array_map(function ($value) {
+                return intval($value);
+            }, $imageGallery);
+
+            $product->setImageGallery($imageGallery);
         }
 
         return $product;
