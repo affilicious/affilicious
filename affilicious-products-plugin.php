@@ -53,8 +53,6 @@ class AffiliciousProductsPlugin
      */
     private static $container;
 
-    private static $updater;
-
     /**
      * Get a reference to the hooks and filters loader
      *
@@ -241,7 +239,7 @@ class AffiliciousProductsPlugin
     public function registerTextdomain()
     {
         $dir = basename( dirname( __FILE__ ) ) . '/' . self::PLUGIN_LANGUAGE_DIR;
-        $loaded = load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
+        load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
     }
 
     /**
