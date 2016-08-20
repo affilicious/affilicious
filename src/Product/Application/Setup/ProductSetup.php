@@ -236,16 +236,14 @@ class ProductSetup implements SetupInterface
                 return $carbonField;
             }, $detailGroup->getDetails());
 
-            if (!empty($carbonFields)) {
-                $carbonDetailGroupId = CarbonField::make('hidden', 'detail_group_id')
-                    ->set_value($detailGroup->getId());
+            $carbonDetailGroupId = CarbonField::make('hidden', 'detail_group_id')
+                ->set_value($detailGroup->getId());
 
-                $carbonFields = array_merge(array(
-                    'detail_group_id' => $carbonDetailGroupId,
-                ), $carbonFields);
+            $carbonFields = array_merge(array(
+                'detail_group_id' => $carbonDetailGroupId,
+            ), $carbonFields);
 
-                $tabs->add_fields($name, $title, $carbonFields);
-            }
+            $tabs->add_fields($name, $title, $carbonFields);
         }
 
         CarbonContainer::make('post_meta', __('Details', 'affilicious-products'))
