@@ -23,6 +23,7 @@ class Product
 
     /**
      * European Article Number (EAN) is a unique ID used for identification of retail products
+     *
      * @var string
      */
     private $ean;
@@ -30,6 +31,7 @@ class Product
     /**
      * The specific shops with all information for the price comparison like Amazon, Affilinet or Ebay.
      * It's stored as an array where each entry is another key-value array for the specific shop
+     *
      * @var array
      */
     private $shops;
@@ -41,27 +43,38 @@ class Product
 
     /**
      * Stores the IDs of the related products
+     *
      * @var int[]
      */
     private $relatedProducts;
 
     /**
      * Stores the IDs of the related accessories
+     *
      * @var int[]
      */
     private $relatedAccessories;
 
     /**
      * Stores the IDs of the related posts
+     *
      * @var int[]
      */
     private $relatedPosts;
 
     /**
      * Stores the IDs of the image gallery attachments
+     *
      * @var int[]
      */
     private $imageGallery;
+
+    /**
+     * Stores the name of the product sidebar
+     *
+     * @var string
+     */
+    private $sidebar;
 
     /**
      * @param \WP_Post $post
@@ -292,6 +305,27 @@ class Product
     public function setImageGallery(array $imageGallery)
     {
         $this->imageGallery = $imageGallery;
+    }
+
+    /**
+     * Get the product sidebar
+     *
+     * @return string
+     */
+    public function getSidebar()
+    {
+        return $this->sidebar;
+    }
+
+    /**
+     * Set the name of the product sidebar
+     *
+     * @since 0.3
+     * @param string $sidebar
+     */
+    public function setSidebar($sidebar)
+    {
+        $this->sidebar = $sidebar;
     }
 
     /**

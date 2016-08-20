@@ -23,6 +23,7 @@ use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonP
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\ProductsPlugin\Product\Application\MetaBox\MetaBoxManager;
+use Affilicious\ProductsPlugin\Product\Application\Setup\SidebarSetup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -224,6 +225,10 @@ class AffiliciousProductsPlugin
             return new DetailGroupSetup();
         };
 
+        self::$container['sidebar_setup'] = function () {
+            return new SidebarSetup();
+        };
+
         self::$container['asset_setup'] = function () {
             return new AssetSetup();
         };
@@ -267,6 +272,10 @@ class AffiliciousProductsPlugin
         // Set up products
         self::$loader->add_action('init', self::$container['product_setup'], 'init', 5);
         self::$loader->add_action('init', self::$container['product_setup'], 'render', 6);
+
+        // Set up sidebar
+        self::$loader->add_action('init', self::$container['sidebar_setup'], 'init', 7);
+        self::$loader->add_action('init', self::$container['sidebar_setup'], 'render', 8);
     }
 
     /**

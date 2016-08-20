@@ -1,18 +1,17 @@
 <?php
 namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
+use Affilicious\ProductsPlugin\Product\Application\Sidebar\MainSidebar;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
 use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class ProductSetup implements SetupInterface
 {
@@ -29,6 +28,7 @@ class ProductSetup implements SetupInterface
     /**
      * @param DetailGroupRepositoryInterface $detailGroupRepository
      * @param ShopRepositoryInterface $shopRepository
+     * @since 0.2
      */
     public function __construct(
         DetailGroupRepositoryInterface $detailGroupRepository,
@@ -41,6 +41,7 @@ class ProductSetup implements SetupInterface
 
     /**
      * @inheritdoc
+     * @since 0.2
      */
     public function init()
     {
@@ -122,6 +123,7 @@ class ProductSetup implements SetupInterface
 
     /**
      * @inheritdoc
+     * @since 0.2
      */
     public function render()
     {
@@ -133,6 +135,8 @@ class ProductSetup implements SetupInterface
 
     /**
      * Render the price comparison
+     *
+     * @since 0.3
      */
     private function renderPriceComparison()
     {
@@ -185,6 +189,8 @@ class ProductSetup implements SetupInterface
 
     /**
      * Render the details
+     *
+     * @since 0.3
      */
     private function renderDetails()
     {
@@ -194,7 +200,7 @@ class ProductSetup implements SetupInterface
             'posts_per_page' => -1,
         ));
 
-        if(!$query->have_posts()) {
+        if (!$query->have_posts()) {
             return;
         }
 
@@ -212,7 +218,7 @@ class ProductSetup implements SetupInterface
                 continue;
             }
 
-            $carbonFields = array_map(function($detail) {
+            $carbonFields = array_map(function ($detail) {
                 $carbonField = CarbonField::make(
                     $detail[DetailGroup::DETAIL_TYPE],
                     $detail[DetailGroup::DETAIL_KEY],
@@ -250,6 +256,8 @@ class ProductSetup implements SetupInterface
 
     /**
      * Render the relation fields
+     *
+     * @since 0.3
      */
     private function renderRelations()
     {
@@ -275,14 +283,18 @@ class ProductSetup implements SetupInterface
 
     /**
      * Render the sidebar
+     *
+     * @since 0.3
      */
     private function renderSidebars()
     {
-        CarbonContainer::make('post_meta', __('Post Sidebar', 'affilicious-products'))
+        CarbonContainer::make('post_meta', __('Product Sidebar', 'affilicious-products'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('low')
             ->add_fields(array(
-                CarbonField::make("sidebar", "crb_custom_sidebar", "Select a Sidebar")
+                CarbonField::make('sidebar', CarbonProductRepository::PRODUCT_SIDEBAR, __('Select a Sidebar', 'affilicious-products'))
+                    ->exclude_sidebars(array(MainSidebar::ID))
+                    ->set_help_text(__('The selected product sidebar will be shown above the main sidebar.', 'affilicious-products'))
             ));
     }
 }
