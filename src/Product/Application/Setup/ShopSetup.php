@@ -100,17 +100,15 @@ class ShopSetup implements SetupInterface
                     CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious-products'))
                         ->set_required(true)
                         ->set_value($shop->getId()),
-                    CarbonField::make('text', 'price', __('Price', 'affilicious-products'))
+                    CarbonField::make('number', 'price', __('Price', 'affilicious-products'))
                         ->set_required(true),
-                    CarbonField::make('text', 'old_price', __('Old Price', 'affilicious-products')),
+                    CarbonField::make('number', 'old_price', __('Old Price', 'affilicious-products')),
                     CarbonField::make('select', 'currency', __('Currency', 'affilicious-products'))
                         ->set_required(true)
                         ->add_options(array(
                             'euro' => __('Euro', 'affilicious-products'),
                             'us-dollar' => __('US-Dollar', 'affilicious-products'),
                         )),
-                    CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affilicious-products'))
-                        ->help_text(__('Unique product ID (e.g. Amazon ASIN or Affilinet ID)', 'affilicious-products')),
                     CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious-products')),
                 ));
             }

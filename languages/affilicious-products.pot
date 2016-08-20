@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious-products\n"
 "POT-Creation-Date: "
-"2016-08-20 15:58+0200\n"
+"2016-08-20 17:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -459,7 +459,7 @@ msgid "Search Shop"
 msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:50
-#: src/Product/Application/Setup/ShopSetup.php:142
+#: src/Product/Application/Setup/ShopSetup.php:140
 msgid "Logo"
 msgstr ""
 
@@ -517,29 +517,18 @@ msgid "US-Dollar"
 msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:112
-msgid "Affiliate ID"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:113
-msgid ""
-"Unique product ID (e.g. "
-"Amazon ASIN or Affilinet "
-"ID)"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:114
 msgid "Affiliate Link"
 msgstr ""
 
-#: src/Product/Application/Setup/ShopSetup.php:121
+#: src/Product/Application/Setup/ShopSetup.php:119
 msgid "Price Comparison"
 msgstr ""
 
-#: src/Product/Application/Setup/ShopSetup.php:125
+#: src/Product/Application/Setup/ShopSetup.php:123
 msgid "EAN"
 msgstr ""
 
-#: src/Product/Application/Setup/ShopSetup.php:126
+#: src/Product/Application/Setup/ShopSetup.php:124
 msgid ""
 "Unique ID for the price "
 "comparison"
