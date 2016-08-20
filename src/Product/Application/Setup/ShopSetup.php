@@ -13,19 +13,6 @@ if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class ShopSetup implements SetupInterface
 {
     /**
-     * @var ShopRepositoryInterface
-     */
-    private $shopRepository;
-
-    /**
-     * @param ShopRepositoryInterface $shopRepository
-     */
-    public function __construct(ShopRepositoryInterface $shopRepository)
-    {
-        $this->shopRepository = $shopRepository;
-    }
-
-    /**
      * @inheritdoc
      */
     public function init()
@@ -79,51 +66,6 @@ class ShopSetup implements SetupInterface
      */
     public function render()
     {
-        $query = new \WP_Query(array(
-            'post_type' => Shop::POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'orderby' => array(
-                'post_title' => 'ASC',
-            ),
-        ));
-
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affilicious-products'))
-            ->set_layout('tabbed');
-
-        if ($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-                $shop = $this->shopRepository->findById($query->post->ID);
-
-                $tabs->add_fields($shop->getTitle(), array(
-                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious-products'))
-                        ->set_required(true)
-                        ->set_value($shop->getId()),
-                    CarbonField::make('number', 'price', __('Price', 'affilicious-products'))
-                        ->set_required(true),
-                    CarbonField::make('number', 'old_price', __('Old Price', 'affilicious-products')),
-                    CarbonField::make('select', 'currency', __('Currency', 'affilicious-products'))
-                        ->set_required(true)
-                        ->add_options(array(
-                            'euro' => __('Euro', 'affilicious-products'),
-                            'us-dollar' => __('US-Dollar', 'affilicious-products'),
-                        )),
-                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious-products')),
-                ));
-            }
-
-            wp_reset_postdata();
-        }
-
-        CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious-products'))
-            ->show_on_post_type(Product::POST_TYPE)
-            ->set_priority('default')
-            ->add_fields(array(
-                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affilicious-products'))
-                    ->help_text(__('Unique ID for the price comparison', 'affilicious-products')),
-                $tabs
-            ));
     }
 
     /**

@@ -213,11 +213,11 @@ class AffiliciousProductsPlugin
         };
 
         self::$container['product_setup'] = function ($c) {
-            return new ProductSetup($c['detail_group_repository']);
+            return new ProductSetup($c['detail_group_repository'], $c['shop_repository']);
         };
 
         self::$container['shop_setup'] = function ($c) {
-            return new ShopSetup($c['shop_repository']);
+            return new ShopSetup();
         };
 
         self::$container['detail_group_setup'] = function () {
@@ -254,19 +254,19 @@ class AffiliciousProductsPlugin
         // Set up Carbon Fields
         self::$loader->add_action('after_setup_theme', self::$container['carbon_setup'], 'crb_init_carbon_field_hidden', 15);
 
-        // Set up detail groups
-        self::$loader->add_action('init', self::$container['detail_group_setup'], 'init', 1);
-        self::$loader->add_action('init', self::$container['detail_group_setup'], 'render', 2);
-
-        // Set up products
-        self::$loader->add_action('init', self::$container['product_setup'], 'init', 3);
-        self::$loader->add_action('init', self::$container['product_setup'], 'render', 4);
-
         // Set up shops
-        self::$loader->add_action('init', self::$container['shop_setup'], 'init', 5);
-        self::$loader->add_action('init', self::$container['shop_setup'], 'render', 6);
+        self::$loader->add_action('init', self::$container['shop_setup'], 'init', 1);
+        self::$loader->add_action('init', self::$container['shop_setup'], 'render', 2);
         self::$loader->add_action('manage_shop_posts_columns', self::$container['shop_setup'], 'columnsHead', 9, 2);
         self::$loader->add_action('manage_shop_posts_custom_column', self::$container['shop_setup'], 'columnsContent', 10, 2);
+
+        // Set up detail groups
+        self::$loader->add_action('init', self::$container['detail_group_setup'], 'init', 3);
+        self::$loader->add_action('init', self::$container['detail_group_setup'], 'render', 4);
+
+        // Set up products
+        self::$loader->add_action('init', self::$container['product_setup'], 'init', 5);
+        self::$loader->add_action('init', self::$container['product_setup'], 'render', 6);
     }
 
     /**

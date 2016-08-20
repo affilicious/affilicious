@@ -5,6 +5,8 @@ use Affilicious\ProductsPlugin\Product\Domain\Model\Field;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
+use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
+use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
@@ -20,11 +22,21 @@ class ProductSetup implements SetupInterface
     private $detailGroupRepository;
 
     /**
-     * @param DetailGroupRepositoryInterface $detailGroupRepository
+     * @var ShopRepositoryInterface
      */
-    public function __construct(DetailGroupRepositoryInterface $detailGroupRepository)
+    private $shopRepository;
+
+    /**
+     * @param DetailGroupRepositoryInterface $detailGroupRepository
+     * @param ShopRepositoryInterface $shopRepository
+     */
+    public function __construct(
+        DetailGroupRepositoryInterface $detailGroupRepository,
+        ShopRepositoryInterface $shopRepository
+    )
     {
         $this->detailGroupRepository = $detailGroupRepository;
+        $this->shopRepository = $shopRepository;
     }
 
     /**
@@ -113,9 +125,62 @@ class ProductSetup implements SetupInterface
      */
     public function render()
     {
+        $this->renderPriceComparison();
         $this->renderDetails();
         $this->renderRelations();
         $this->renderSidebars();
+    }
+
+    /**
+     * Render the price comparison
+     */
+    private function renderPriceComparison()
+    {
+        $query = new \WP_Query(array(
+            'post_type' => Shop::POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => array(
+                'post_title' => 'ASC',
+            ),
+        ));
+
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affilicious-products'))
+            ->set_layout('tabbed');
+
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $shop = $this->shopRepository->findById($query->post->ID);
+
+                $tabs->add_fields($shop->getTitle(), array(
+                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious-products'))
+                        ->set_required(true)
+                        ->set_value($shop->getId()),
+                    CarbonField::make('number', 'price', __('Price', 'affilicious-products'))
+                        ->set_required(true),
+                    CarbonField::make('number', 'old_price', __('Old Price', 'affilicious-products')),
+                    CarbonField::make('select', 'currency', __('Currency', 'affilicious-products'))
+                        ->set_required(true)
+                        ->add_options(array(
+                            'euro' => __('Euro', 'affilicious-products'),
+                            'us-dollar' => __('US-Dollar', 'affilicious-products'),
+                        )),
+                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious-products')),
+                ));
+            }
+
+            wp_reset_postdata();
+        }
+
+        CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious-products'))
+            ->show_on_post_type(Product::POST_TYPE)
+            ->set_priority('default')
+            ->add_fields(array(
+                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affilicious-products'))
+                    ->help_text(__('Unique ID for the price comparison', 'affilicious-products')),
+                $tabs
+            ));
     }
 
     /**
@@ -190,7 +255,7 @@ class ProductSetup implements SetupInterface
     {
         CarbonContainer::make('post_meta', __('Relations', 'affilicious-products'))
             ->show_on_post_type(Product::POST_TYPE)
-            ->set_priority('default')
+            ->set_priority('low')
             ->add_tab(__('Products', 'affilicious-products'), array(
                 CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affilicious-products'))
                     ->allow_duplicates(false)
@@ -208,6 +273,9 @@ class ProductSetup implements SetupInterface
             ));
     }
 
+    /**
+     * Render the sidebar
+     */
     private function renderSidebars()
     {
         CarbonContainer::make('post_meta', __('Post Sidebar', 'affilicious-products'))
@@ -216,6 +284,5 @@ class ProductSetup implements SetupInterface
             ->add_fields(array(
                 CarbonField::make("sidebar", "crb_custom_sidebar", "Select a Sidebar")
             ));
-
     }
 }
