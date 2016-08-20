@@ -88,4 +88,18 @@ class ProductHelper
 
         return $shop;
     }
+
+    public static function getPrice(Product $product, $shopOrId = null)
+    {
+        $shop = ProductHelper::getShop($product, $shopOrId);
+        if ($shop === null) {
+            return null;
+        }
+
+        $value = $shop['price'];
+        $currency = $shop['currency'];
+        $price = affilicious_get_price($value, $currency);
+
+        return $price;
+    }
 }

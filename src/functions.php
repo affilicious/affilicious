@@ -1,6 +1,7 @@
 <?php
 use Affilicious\ProductsPlugin\Product\Domain\Helper\ShopHelper;
 use Affilicious\ProductsPlugin\Product\Domain\Helper\ProductHelper;
+use Affilicious\ProductsPlugin\Product\Domain\Helper\PriceHelper;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
 
@@ -281,6 +282,30 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
 }
 
 /**
+ * Get the price with the currency of the product.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a shop, the cheapest shop will be used.
+ *
+ * @param int|\WP_Post|Product|null $productOrId
+ * @param int|\WP_Post|Shop|null $shopOrId
+ * @return null|string
+ */
+function affilicious_get_product_price($productOrId = null, $shopOrId = null)
+{
+    $product = affilicious_get_product($productOrId);
+    $shop = ProductHelper::getShop($product, $shopOrId);
+    if ($shop === null) {
+        return null;
+    }
+
+    $value = $shop['price'];
+    $currency = $shop['currency'];
+    $price = affilicious_get_price($value, $currency);
+
+    return $price;
+}
+
+/**
  * Get the affiliate link by the product and shop
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as a shop, the cheapest shop will be used.
@@ -348,13 +373,7 @@ function affilicious_get_shop_thumbnail($post = null, $size = 'post-thumbnail', 
  */
 function affilicious_get_currency_label($currency)
 {
-    if (!is_string($currency)) {
-        return false;
-    }
-
-    $currencyLabel = ucwords($currency);
-    $currencyLabel = strpos($currencyLabel, 'Us-') === 0 ? str_replace('Us-', 'US-', $currencyLabel) : $currencyLabel;
-    $currencyLabel = __($currencyLabel, 'affilicious-products');
+    $currencyLabel = PriceHelper::getCurrencyLabel($currency);
 
     return $currencyLabel;
 }
@@ -368,12 +387,7 @@ function affilicious_get_currency_label($currency)
  */
 function affilicious_get_currency_symbol($currency)
 {
-    $currencies = array(
-        'euro' => '€',
-        'us-dollar' => '$',
-    );
-
-    $currencySymbol = isset($currencies[$currency]) ? $currencies[$currency] : '';
+    $currencySymbol = PriceHelper::getCurrencySymbol($currency);
 
     return $currencySymbol;
 }
@@ -385,20 +399,11 @@ function affilicious_get_currency_symbol($currency)
  * @since 0.3
  * @param string|int $value
  * @param string $currency
- * @return string|false
+ * @return string|null
  */
 function affilicious_get_price($value, $currency)
 {
-    $currencySymbol = affilicious_get_currency_symbol($currency);
-    if (empty($value) || empty($currencySymbol)) {
-        return false;
-    }
+    $currencySymbol = PriceHelper::getPrice($value, $currency);
 
-    if(!preg_match('/\.(d)*$/', $value)) {
-        $value .= '.00';
-    }
-
-    $price = $value . ' ' . $currencySymbol;
-
-    return $price;
+    return $currencySymbol;
 }
