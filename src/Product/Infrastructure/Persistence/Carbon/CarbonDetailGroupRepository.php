@@ -2,6 +2,7 @@
 namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
 
 use Affilicious\ProductsPlugin\Product\Domain\Exception\InvalidPostTypeException;
+use Affilicious\ProductsPlugin\Product\Domain\Helper\DetailGroupHelper;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 
@@ -71,7 +72,7 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
         $fields = carbon_get_post_meta($detailGroup->getId(), self::CARBON_DETAILS, 'complex');
         if (!empty($fields)) {
             $fields = array_map(function ($field) {
-                $field[DetailGroup::DETAIL_KEY] = sanitize_title($field[DetailGroup::DETAIL_NAME]);
+                $field[DetailGroup::DETAIL_KEY] = DetailGroupHelper::convertNameToKey($field[DetailGroup::DETAIL_NAME]);
                 unset($field['_type']);
                 return $field;
             }, $fields);
