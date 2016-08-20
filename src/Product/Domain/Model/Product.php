@@ -162,6 +162,40 @@ class Product
     }
 
     /**
+     * Get the shop by the ID
+     *
+     * @param int $shopId
+     * @return null|array
+     */
+    public function getShop($shopId)
+    {
+        foreach ($this->shops as $shop) {
+            if ($shop['shop_id'] === $shopId) {
+                return $shop;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the cheapest shop
+     *
+     * @return null|array
+     */
+    public function getCheapestShop()
+    {
+        $cheapestShop = null;
+        foreach ($this->shops as $shop) {
+            if ($cheapestShop === null || $cheapestShop['price'] > $shop['price']) {
+                $cheapestShop = $shop;
+            }
+        }
+
+        return $cheapestShop;
+    }
+
+    /**
      * @return array
      */
     public function getShops()

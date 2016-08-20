@@ -1,25 +1,22 @@
 <?php
-use Affilicious\ProductsPlugin\Product\Domain\Helper\PostHelper;
+use Affilicious\ProductsPlugin\Product\Domain\Helper\ShopHelper;
+use Affilicious\ProductsPlugin\Product\Domain\Helper\ProductHelper;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
 
 if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 /**
- * Get the product by the ID or Wordpress post.
+ * Get the product by the Wordpress ID or post.
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return Product
  */
-function affilicious_get_product($post = null)
+function affilicious_get_product($productOrId = null)
 {
-    $container = AffiliciousProductsPlugin::getContainer();
-    $productRepository = $container['product_repository'];
-
-    $post = PostHelper::getPost($post);
-    $product = $productRepository->findById($post->ID);
+    $product = ProductHelper::getProduct($productOrId);
 
     return $product;
 }
@@ -29,14 +26,15 @@ function affilicious_get_product($post = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return array
  */
-function affilicious_get_product_detail_groups($post = null)
+function affilicious_get_product_detail_groups($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
+    $detailGroups = $product->getDetailGroups();
 
-    return $product->getDetailGroups();
+    return $detailGroups;
 }
 
 /**
@@ -44,33 +42,28 @@ function affilicious_get_product_detail_groups($post = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return array
  */
-function affilicious_get_product_details($post = null)
+function affilicious_get_product_details($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
+    $details = ProductHelper::getDetails($product);
 
-    $result = array();
-    foreach ($product->getDetailGroups() as $detailGroup) {
-        if (!empty($detailGroup[Product::DETAIL_GROUP_DETAILS])) {
-            $result = array_merge($result, $detailGroup[Product::DETAIL_GROUP_DETAILS]);
-        }
-    }
-
-    return $result;
+    return $details;
 }
 
 /**
  * Check if the products has an European Article Number (EAN)
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return bool
  */
-function affilicious_has_product_ean($post = null)
+function affilicious_has_product_ean($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
     $flag = $product->hasEan();
 
     return $flag;
@@ -78,17 +71,18 @@ function affilicious_has_product_ean($post = null)
 
 /**
  * Get the European Article Number (EAN) by the product
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
- * @return bool
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return string
  */
-function affilicious_get_product_ean($post = null)
+function affilicious_get_product_ean($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
     $ean = $product->getEan();
 
-    return apply_filters('affilicious_get_product_ean', $product->getId(), $ean);
+    return $ean;
 }
 
 /**
@@ -96,29 +90,31 @@ function affilicious_get_product_ean($post = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
- * @return array
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return int[]
  */
-function affilicious_get_product_image_gallery($post = null)
+function affilicious_get_product_image_gallery($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
+    $imageGallery = $product->getImageGallery();
 
-    return $product->getImageGallery();
+    return $imageGallery;
 }
 
 /**
- * Get the product shops.
+ * Get the shops by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return array
  */
-function affilicious_get_product_shops($post = null)
+function affilicious_get_product_shops($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
+    $shops = $product->getShops();
 
-    return $product->getShops();
+    return $shops;
 }
 
 /**
@@ -126,34 +122,35 @@ function affilicious_get_product_shops($post = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return int[]
  */
-function affilicious_get_product_related_products($post = null)
+function affilicious_get_product_related_products($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
     $relatedProducts = $product->getRelatedProducts();
 
-    return apply_filters('affilicious_get_product_related_products', $product->getId(), $relatedProducts);
+    return $relatedProducts;
 }
 
 /**
- * Get the query of the related products by the product
+ * Get the query of the related products by the product.
+ * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @param array $args
  * @return null|WP_Query
  */
-function affilicious_get_product_related_products_query($post = null, $args = array())
+function affilicious_get_product_related_products_query($productOrId = null, $args = array())
 {
-    $relatedProductIds = affilicious_get_product_related_products($post);
+    $relatedProductIds = affilicious_get_product_related_products($productOrId);
     if (empty($relatedProductIds)) {
         return null;
     }
 
     $options = wp_parse_args($args, array(
-        'post_type' => array(Product::POST_TYPE),
+        'post_type' => Product::POST_TYPE,
         'post__in' => $relatedProductIds,
         'orderBy' => 'ASC',
     ));
@@ -165,37 +162,38 @@ function affilicious_get_product_related_products_query($post = null, $args = ar
 
 /**
  * Get the related accessories by the product.
- * If you pass in nothing as a parameter, the current post will be used.
+ * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return int[]
  */
-function affilicious_get_product_related_accessories($post = null)
+function affilicious_get_product_related_accessories($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
     $relatedAccessories = $product->getRelatedAccessories();
 
-    return apply_filters('affilicious_get_product_related_accessories', $product->getId(), $relatedAccessories);
+    return $relatedAccessories;
 }
 
 /**
- * Get the query of the related accessories by the product
+ * Get the query of the related accessories by the product.
+ * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @param array $args
  * @return null|WP_Query
  */
-function affilicious_get_product_related_accessories_query($post = null, $args = array())
+function affilicious_get_product_related_accessories_query($productOrId = null, $args = array())
 {
-    $relatedAccessoriesIds = affilicious_get_product_related_accessories($post);
+    $relatedAccessoriesIds = affilicious_get_product_related_accessories($productOrId);
     if (empty($relatedAccessoriesIds)) {
         return null;
     }
 
     $options = wp_parse_args($args, array(
-        'post_type' => array(Product::POST_TYPE),
+        'post_type' => Product::POST_TYPE,
         'post__in' => $relatedAccessoriesIds,
         'orderBy' => 'ASC',
     ));
@@ -210,34 +208,35 @@ function affilicious_get_product_related_accessories_query($post = null, $args =
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @return int[]
  */
-function affilicious_get_product_related_posts($post = null)
+function affilicious_get_product_related_posts($productOrId = null)
 {
-    $product = affilicious_get_product($post);
+    $product = affilicious_get_product($productOrId);
     $relatedPosts = $product->getRelatedPosts();
 
-    return apply_filters('affilicious_get_product_related_posts', $product->getId(), $relatedPosts);
+    return $relatedPosts;
 }
 
 /**
  * Get the query of the related posts by the product
+ * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $post
+ * @param int|\WP_Post|Product|null $productOrId
  * @param array $args
  * @return null|WP_Query
  */
-function affilicious_get_product_related_posts_query($post = null, $args = array())
+function affilicious_get_product_related_posts_query($productOrId = null, $args = array())
 {
-    $relatedPostsIds = affilicious_get_product_related_posts($post);
+    $relatedPostsIds = affilicious_get_product_related_posts($productOrId);
     if (empty($relatedPostsIds)) {
         return null;
     }
 
     $options = wp_parse_args($args, array(
-        'post_type' => array('post'),
+        'post_type' => 'post',
         'post__in' => $relatedPostsIds,
         'orderBy' => 'ASC',
     ));
@@ -248,22 +247,96 @@ function affilicious_get_product_related_posts_query($post = null, $args = array
 }
 
 /**
+ * Get the product link.
+ *
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|string
+ */
+function affilicious_get_product_link($productOrId = null)
+{
+    $product = affilicious_get_product($productOrId);
+    $link = get_permalink($product->getRawPost());
+    if(empty($link)) {
+        return null;
+    }
+
+    return $link;
+}
+
+/**
+ * Get the used shop of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a shop, the cheapest shop will be used.
+ *
+ * @param int|\WP_Post|Product|null $productOrId
+ * @param int|\WP_Post|Shop|null $shopOrId
+ * @return array|null
+ */
+function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
+{
+    $product = affilicious_get_product($productOrId);
+    $shop = ProductHelper::getShop($product, $shopOrId);
+
+    return $shop;
+}
+
+/**
+ * Get the affiliate link by the product and shop
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a shop, the cheapest shop will be used.
+ *
+ * @param int|\WP_Post|Product|null $productOrId
+ * @param int|\WP_Post|Shop|null $shopOrId
+ * @return null|string
+ */
+function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId = null)
+{
+    $shop = affilicious_get_product_shop($productOrId, $shopOrId);
+    $affiliateLink = $shop['affiliate_link'];
+
+    return $affiliateLink;
+}
+
+/**
  * Get the shop by the ID or Wordpress post.
+ * If you pass in nothing as a shop, the current post will be used.
+ *
+ * @since 0.3
+ * @param int|array|\WP_Post|Shop|null $shopOrId
+ * @return Shop
+ */
+function affilicious_get_shop($shopOrId = null)
+{
+    $shop = ShopHelper::getShop($shopOrId);
+
+    return $shop;
+}
+
+/**
+ * Print the shop thumbnail.
  * If you pass in nothing as a parameter, the current post will be used.
+ * This function is just wrapper for get_the_post_thumbnail:
+ * https://developer.wordpress.org/reference/functions/get_the_post_thumbnail/
  *
  * @since 0.3
  * @param int|\WP_Post|Shop|null $post
- * @return Shop
+ * @param string|array $size
+ * @param string|array $attr
+ * @return null|string
  */
-function affilicious_get_shop($post = null)
+function affilicious_get_shop_thumbnail($post = null, $size = 'post-thumbnail', $attr = '')
 {
-    $container = AffiliciousProductsPlugin::getContainer();
-    $post = PostHelper::getPost($post);
+    if ($post instanceof Shop) {
+        $post = $post->getRawPost();
+    }
 
-    $shopRepository = $container['shop_repository'];
-    $shop = $shopRepository->findById($post->ID);
+    if (!($post instanceof WP_Post) && !is_int($post)) {
+        return null;
+    }
 
-    return $shop;
+    $thumbnail = get_the_post_thumbnail($post, $size, $attr);
+
+    return $thumbnail;
 }
 
 /**
@@ -279,9 +352,53 @@ function affilicious_get_currency_label($currency)
         return false;
     }
 
-    $currencyLabel = ucwords($currency, '-');
+    $currencyLabel = ucwords($currency);
     $currencyLabel = strpos($currencyLabel, 'Us-') === 0 ? str_replace('Us-', 'US-', $currencyLabel) : $currencyLabel;
     $currencyLabel = __($currencyLabel, 'affilicious-products');
 
     return $currencyLabel;
+}
+
+/**
+ * Get the symbol for the currency option
+ *
+ * @since 0.3
+ * @param string $currency
+ * @return string
+ */
+function affilicious_get_currency_symbol($currency)
+{
+    $currencies = array(
+        'euro' => '€',
+        'us-dollar' => '$',
+    );
+
+    $currencySymbol = isset($currencies[$currency]) ? $currencies[$currency] : '';
+
+    return $currencySymbol;
+}
+
+/**
+ * Get the price with the correct currency.
+ * If the value or currency is invalid, this functions returns false.
+ *
+ * @since 0.3
+ * @param string|int $value
+ * @param string $currency
+ * @return string|false
+ */
+function affilicious_get_price($value, $currency)
+{
+    $currencySymbol = affilicious_get_currency_symbol($currency);
+    if (empty($value) || empty($currencySymbol)) {
+        return false;
+    }
+
+    if(!preg_match('/\.(d)*$/', $value)) {
+        $value .= '.00';
+    }
+
+    $price = $value . ' ' . $currencySymbol;
+
+    return $price;
 }

@@ -115,6 +115,7 @@ class ProductSetup implements SetupInterface
     {
         $this->renderDetails();
         $this->renderRelations();
+        $this->renderSidebars();
     }
 
     /**
@@ -205,5 +206,16 @@ class ProductSetup implements SetupInterface
                     ->allow_duplicates(false)
                     ->set_post_type('post'),
             ));
+    }
+
+    private function renderSidebars()
+    {
+        CarbonContainer::make('post_meta', __('Post Sidebar', 'affilicious-products'))
+            ->show_on_post_type(Product::POST_TYPE)
+            ->set_priority('low')
+            ->add_fields(array(
+                CarbonField::make("sidebar", "crb_custom_sidebar", "Select a Sidebar")
+            ));
+
     }
 }
