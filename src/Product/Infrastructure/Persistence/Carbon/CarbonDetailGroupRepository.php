@@ -10,9 +10,8 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
 {
     const CARBON_DETAILS = 'affilicious_product_detail_group_fields';
-    const CARBON_DETAIL_KEY = 'key';
+    const CARBON_DETAIL_NAME = 'name';
     const CARBON_DETAIL_TYPE = 'type';
-    const CARBON_DETAIL_LABEL = 'label';
     const CARBON_DETAIL_DEFAULT_VALUE = 'default_value';
     const CARBON_DETAIL_HELP_TEXT = 'help_text';
 
@@ -72,6 +71,7 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
         $fields = carbon_get_post_meta($detailGroup->getId(), self::CARBON_DETAILS, 'complex');
         if (!empty($fields)) {
             $fields = array_map(function ($field) {
+                $field[DetailGroup::DETAIL_KEY] = sanitize_title($field[DetailGroup::DETAIL_NAME]);
                 unset($field['_type']);
                 return $field;
             }, $fields);

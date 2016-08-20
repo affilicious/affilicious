@@ -147,19 +147,19 @@ class ProductSetup implements SetupInterface
                 continue;
             }
 
-            $carbonFields = array_map(function($field) {
+            $carbonFields = array_map(function($detail) {
                 $carbonField = CarbonField::make(
-                    $field[DetailGroup::DETAIL_TYPE],
-                    $field[DetailGroup::DETAIL_KEY],
-                    $field[DetailGroup::DETAIL_LABEL]
+                    $detail[DetailGroup::DETAIL_TYPE],
+                    $detail[DetailGroup::DETAIL_KEY],
+                    $detail[DetailGroup::DETAIL_NAME]
                 );
 
-                if (!empty($field[DetailGroup::DETAIL_DEFAULT_VALUE])) {
-                    $carbonField->set_default_value($field[DetailGroup::DETAIL_DEFAULT_VALUE]);
+                if (!empty($detail[DetailGroup::DETAIL_DEFAULT_VALUE])) {
+                    $carbonField->set_default_value($detail[DetailGroup::DETAIL_DEFAULT_VALUE]);
                 }
 
-                if (!empty($field[DetailGroup::DETAIL_HELP_TEXT])) {
-                    $carbonField->help_text($field[DetailGroup::DETAIL_HELP_TEXT]);
+                if (!empty($detail[DetailGroup::DETAIL_HELP_TEXT])) {
+                    $carbonField->help_text($detail[DetailGroup::DETAIL_HELP_TEXT]);
                 }
 
                 return $carbonField;

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious-products\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-08-08 18:46+0200\n"
+"POT-Creation-Date: 2016-08-20 15:58+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -54,24 +54,24 @@ msgstr "Fehler"
 msgid "Image Gallery"
 msgstr "Bildergallerie"
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:49
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:50
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:72
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
 msgid "Add Images"
 msgstr "Bilder hinzufügen"
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
 msgid "Add Image"
 msgstr "Bild hinzufügen"
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:75
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
 msgid "Delete Image"
 msgstr "Bild löschen"
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:77
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
 
@@ -80,7 +80,7 @@ msgstr "Bilder zur Bildergallerie hinzufügen"
 #: src/Product/Application/Setup/DetailGroupSetup.php:22
 #: src/Product/Application/Setup/DetailGroupSetup.php:25
 #: src/Product/Application/Setup/DetailGroupSetup.php:41
-#: src/Product/Application/Setup/ProductSetup.php:135
+#: src/Product/Application/Setup/ProductSetup.php:136
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
@@ -175,53 +175,41 @@ msgid "Detail Setup"
 msgstr "Details verwalten"
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:70
-#: src/Product/Application/Setup/ProductSetup.php:179
+#: src/Product/Application/Setup/ProductSetup.php:180
 msgid "Details"
 msgstr "Details"
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:72
-msgid "Key"
-msgstr "Schlüssel"
+msgid "Name"
+msgstr "Name"
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:74
-msgid ""
-"Create a unique key with non-special characters, numbers, -, @ and _ only (e."
-"g @unique-key_here)."
-msgstr ""
-"Erstelle eine einmaligen Schlüssel mit nicht speziellen Zeichen, Zahlen , -, "
-"@ und _ (z.B @einmaliger-schluessel)"
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:75
 msgid "Type"
 msgstr "Typ"
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:78
+#: src/Product/Application/Setup/DetailGroupSetup.php:77
 msgid "Text"
 msgstr "Text"
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:79
+#: src/Product/Application/Setup/DetailGroupSetup.php:78
 msgid "Number"
 msgstr "Numerisch"
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:80
+#: src/Product/Application/Setup/DetailGroupSetup.php:79
 msgid "File"
 msgstr "Datei"
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:82
-msgid "Label"
-msgstr "Schlüssel"
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:84
+#: src/Product/Application/Setup/DetailGroupSetup.php:81
 msgid "Default Value"
 msgstr "Standartwert"
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:93
+#: src/Product/Application/Setup/DetailGroupSetup.php:90
 msgid "Help Text"
 msgstr "Hilfstext"
 
 #: src/Product/Application/Setup/ProductSetup.php:36
 #: src/Product/Application/Setup/ProductSetup.php:38
-#: src/Product/Application/Setup/ProductSetup.php:193
+#: src/Product/Application/Setup/ProductSetup.php:194
 msgid "Products"
 msgstr "Produkte"
 
@@ -348,29 +336,33 @@ msgstr "Kategorie erstellen"
 msgid "New category name"
 msgstr "Neuer Kategoriename"
 
-#: src/Product/Application/Setup/ProductSetup.php:190
+#: src/Product/Application/Setup/ProductSetup.php:191
 msgid "Relations"
 msgstr "Beziehungen"
 
-#: src/Product/Application/Setup/ProductSetup.php:194
+#: src/Product/Application/Setup/ProductSetup.php:195
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/Product/Application/Setup/ProductSetup.php:198
+#: src/Product/Application/Setup/ProductSetup.php:199
 msgid "Accessories"
 msgstr "Zubehör"
 
-#: src/Product/Application/Setup/ProductSetup.php:199
+#: src/Product/Application/Setup/ProductSetup.php:200
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/Product/Application/Setup/ProductSetup.php:203
+#: src/Product/Application/Setup/ProductSetup.php:204
 msgid "Posts"
 msgstr "Beiträge"
 
-#: src/Product/Application/Setup/ProductSetup.php:204
+#: src/Product/Application/Setup/ProductSetup.php:205
 msgid "Related Posts"
 msgstr "Ähnliche Beiträge"
+
+#: src/Product/Application/Setup/ProductSetup.php:213
+msgid "Post Sidebar"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:34
 #: src/Product/Application/Setup/ShopSetup.php:40
@@ -512,6 +504,19 @@ msgstr "Ungültiges Beitragsformat: %s. Bitte verwende: %s."
 #, php-format
 msgid "The post #%s wasn't found."
 msgstr "Der Beitrag #%s wurde nicht gefunden."
+
+#~ msgid "Key"
+#~ msgstr "Schlüssel"
+
+#~ msgid ""
+#~ "Create a unique key with non-special characters, numbers, -, @ and _ only "
+#~ "(e.g @unique-key_here)."
+#~ msgstr ""
+#~ "Erstelle eine einmaligen Schlüssel mit nicht speziellen Zeichen, Zahlen , "
+#~ "-, @ und _ (z.B @einmaliger-schluessel)"
+
+#~ msgid "Label"
+#~ msgstr "Schlüssel"
 
 #~ msgid "Product Image Gallery"
 #~ msgstr "Produkt Bildergallerie"

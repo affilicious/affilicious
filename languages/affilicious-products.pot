@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious-products\n"
 "POT-Creation-Date: "
-"2016-08-08 18:46+0200\n"
+"2016-08-20 15:58+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -87,24 +87,24 @@ msgstr ""
 msgid "Image Gallery"
 msgstr ""
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:49
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:50
 msgid "Delete"
 msgstr ""
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:72
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
 msgid "Add Images"
 msgstr ""
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
 msgid "Add Image"
 msgstr ""
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:75
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
 msgid "Delete Image"
 msgstr ""
 
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
+#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:77
 msgid ""
 "Add Images To Image "
 "Gallery"
@@ -115,7 +115,7 @@ msgstr ""
 #: src/Product/Application/Setup/DetailGroupSetup.php:22
 #: src/Product/Application/Setup/DetailGroupSetup.php:25
 #: src/Product/Application/Setup/DetailGroupSetup.php:41
-#: src/Product/Application/Setup/ProductSetup.php:135
+#: src/Product/Application/Setup/ProductSetup.php:136
 msgid "Detail Groups"
 msgstr ""
 
@@ -219,53 +219,41 @@ msgid "Detail Setup"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:70
-#: src/Product/Application/Setup/ProductSetup.php:179
+#: src/Product/Application/Setup/ProductSetup.php:180
 msgid "Details"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:72
-msgid "Key"
+msgid "Name"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:74
-msgid ""
-"Create a unique key with "
-"non-special characters, "
-"numbers, -, @ and _ only "
-"(e.g @unique-key_here)."
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:75
 msgid "Type"
 msgstr ""
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:78
+#: src/Product/Application/Setup/DetailGroupSetup.php:77
 msgid "Text"
 msgstr ""
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:79
+#: src/Product/Application/Setup/DetailGroupSetup.php:78
 msgid "Number"
 msgstr ""
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:80
+#: src/Product/Application/Setup/DetailGroupSetup.php:79
 msgid "File"
 msgstr ""
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:82
-msgid "Label"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:84
+#: src/Product/Application/Setup/DetailGroupSetup.php:81
 msgid "Default Value"
 msgstr ""
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:93
+#: src/Product/Application/Setup/DetailGroupSetup.php:90
 msgid "Help Text"
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:36
 #: src/Product/Application/Setup/ProductSetup.php:38
-#: src/Product/Application/Setup/ProductSetup.php:193
+#: src/Product/Application/Setup/ProductSetup.php:194
 msgid "Products"
 msgstr ""
 
@@ -397,28 +385,32 @@ msgstr ""
 msgid "New category name"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:190
+#: src/Product/Application/Setup/ProductSetup.php:191
 msgid "Relations"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:194
+#: src/Product/Application/Setup/ProductSetup.php:195
 msgid "Related Products"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:198
+#: src/Product/Application/Setup/ProductSetup.php:199
 msgid "Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:199
+#: src/Product/Application/Setup/ProductSetup.php:200
 msgid "Related Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:203
+#: src/Product/Application/Setup/ProductSetup.php:204
 msgid "Posts"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:204
+#: src/Product/Application/Setup/ProductSetup.php:205
 msgid "Related Posts"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:213
+msgid "Post Sidebar"
 msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:34

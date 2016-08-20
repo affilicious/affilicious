@@ -3,11 +3,6 @@ namespace Affilicious\ProductsPlugin\Product\Domain\Model;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
-/**
- * Product fields are like templates for the product details
- * In the admin interface, you can build custom fields, which you can fill up
- * with values in the related product category.
- */
 class DetailGroup
 {
     const POST_TYPE = 'detail_group';
@@ -15,7 +10,7 @@ class DetailGroup
     const DETAIL_ID = 'detail_group_id';
     const DETAIL_KEY = 'key';
     const DETAIL_TYPE = 'type';
-    const DETAIL_LABEL = 'label';
+    const DETAIL_NAME = 'name';
     const DETAIL_VALUE = 'value';
     const DETAIL_DEFAULT_VALUE = 'default_value';
     const DETAIL_HELP_TEXT = 'help_text';
@@ -69,21 +64,23 @@ class DetailGroup
 
     /**
      * Add a new detail
+     *
      * @param array $detail
      */
-    public function addDetail(array $detail)
+    public function addDetail($detail)
     {
         $this->details[] = $detail;
     }
 
     /**
      * Remove an existing detail by the key
+     *
      * @param string $key
      */
     public function removeDetail($key)
     {
         foreach ($this->details as $position => $detail) {
-            if (isset($detail[self::FIELD_KEY]) && $detail[self::FIELD_KEY] === $key) {
+            if (isset($detail[self::DETAIL_KEY]) && $detail[self::DETAIL_KEY] === $key) {
                 unset($this->details[$position]);
                 break;
             }
@@ -92,13 +89,14 @@ class DetailGroup
 
     /**
      * Check if a detail with the given key exists
+     *
      * @param string $key
      * @return bool
      */
     public function hasDetail($key)
     {
         foreach ($this->details as $detail) {
-            if (isset($detail[self::FIELD_KEY]) && $detail[self::FIELD_KEY] === $key) {
+            if (isset($detail[self::DETAIL_KEY]) && $detail[self::DETAIL_KEY] === $key) {
                 return true;
             }
         }
@@ -109,13 +107,14 @@ class DetailGroup
     /**
      * Get an existing detail by the key
      * You don't need to check for the key, but you will get null on non-existence
+     *
      * @param string $key
      * @return null|array
      */
     public function getDetail($key)
     {
         foreach ($this->details as $position => $detail) {
-            if (isset($detail[self::FIELD_KEY]) && $detail[self::FIELD_KEY] === $key) {
+            if (isset($detail[self::DETAIL_KEY]) && $detail[self::DETAIL_KEY] === $key) {
                 return $detail;
             }
         }
@@ -125,6 +124,7 @@ class DetailGroup
 
     /**
      * Get all details
+     *
      * @return array
      */
     public function getDetails()
@@ -134,10 +134,21 @@ class DetailGroup
 
     /**
      * Set the details
+     *
      * @param array $details
      */
-    public function setDetails(array $details)
+    public function setDetails($details)
     {
         $this->details = $details;
+    }
+
+    /**
+     * Get the raw post
+     *
+     * @return \WP_Post
+     */
+    public function getRawPost()
+    {
+        return $this->post;
     }
 }

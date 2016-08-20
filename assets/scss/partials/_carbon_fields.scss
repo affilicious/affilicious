@@ -3,4 +3,12 @@
     display: none !important;
     visibility: hidden !important;
   }
+
+  .carbon-Number {
+    input {
+      width: 100%;
+      margin: 1px;
+      padding: 3px 5px
+    }
+  }
 }

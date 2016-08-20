@@ -69,9 +69,8 @@ class DetailGroupSetup implements SetupInterface
             ->add_fields(array(
                 CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affilicious-products'))
                     ->add_fields(array(
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_KEY, __('Key', 'affilicious-products'))
-                                ->set_required(true)
-                                ->help_text(__('Create a unique key with non-special characters, numbers, -, @ and _ only (e.g @unique-key_here).', 'affilicious-products')),
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_NAME, __('Name', 'affilicious-products'))
+                                ->set_required(true),
                             CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affilicious-products'))
                                 ->set_required(true)
                                 ->add_options(array(
@@ -79,8 +78,6 @@ class DetailGroupSetup implements SetupInterface
                                     DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affilicious-products'),
                                     DetailGroup::DETAIL_TYPE_FILE => __('File', 'affilicious-products'),
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_LABEL, __('Label', 'affilicious-products'))
-                                ->set_required(true),
                             CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affilicious-products'))
                                 ->set_conditional_logic(array(
                                     'relation' => 'AND',
