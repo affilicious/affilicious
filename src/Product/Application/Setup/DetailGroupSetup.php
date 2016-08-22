@@ -65,7 +65,7 @@ class DetailGroupSetup implements SetupInterface
      */
     public function render()
     {
-        $carbonContainer = CarbonContainer::make('post_meta', __('Detail Setup', 'affilicious'))
+        $carbonContainer = CarbonContainer::make('post_meta', __('Fields', 'affilicious'))
             ->show_on_post_type(DetailGroup::POST_TYPE)
             ->add_fields(array(
                 CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affilicious'))
@@ -93,6 +93,6 @@ class DetailGroupSetup implements SetupInterface
                     )
             ));
 
-        apply_filters('affilicious_detail_groups_render_detail_setup', $carbonContainer);
+        apply_filters('affilicious_detail_groups_render_fields', $carbonContainer);
     }
 }
