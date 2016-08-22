@@ -7,6 +7,8 @@ class CarbonSetup
 {
     /**
      * Init the hidden Carbon field
+     *
+     * @since 0.3
      */
     public function crb_init_carbon_field_hidden() {
         if (class_exists("Carbon_Fields\\Field")) {

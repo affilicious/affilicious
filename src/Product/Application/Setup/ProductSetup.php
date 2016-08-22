@@ -28,9 +28,9 @@ class ProductSetup implements SetupInterface
     private $shopRepository;
 
     /**
+     * @since 0.2
      * @param DetailGroupRepositoryInterface $detailGroupRepository
      * @param ShopRepositoryInterface $shopRepository
-     * @since 0.2
      */
     public function __construct(
         DetailGroupRepositoryInterface $detailGroupRepository,
@@ -43,7 +43,6 @@ class ProductSetup implements SetupInterface
 
     /**
      * @inheritdoc
-     * @since 0.2
      */
     public function init()
     {
@@ -125,7 +124,6 @@ class ProductSetup implements SetupInterface
 
     /**
      * @inheritdoc
-     * @since 0.2
      */
     public function render()
     {

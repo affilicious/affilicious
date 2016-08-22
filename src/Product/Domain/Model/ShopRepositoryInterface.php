@@ -9,6 +9,8 @@ interface ShopRepositoryInterface extends RepositoryInterface
 {
     /**
      * Find a shop by the given ID
+     *
+     * @since 0.3
      * @param int $shopId
      * @return Shop|null
      */
@@ -16,6 +18,8 @@ interface ShopRepositoryInterface extends RepositoryInterface
 
     /**
      * Find all shops
+     *
+     * @since 0.3
      * @return Shop[]
      */
     public function findAll();

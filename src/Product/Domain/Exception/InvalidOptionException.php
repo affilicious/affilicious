@@ -6,6 +6,7 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class InvalidOptionException extends \RuntimeException
 {
     /**
+     * @since 0.3
      * @param mixed $invalidOption
      * @param array[] $validOptions
      */

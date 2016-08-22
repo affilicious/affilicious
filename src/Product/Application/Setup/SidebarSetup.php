@@ -30,7 +30,6 @@ class SidebarSetup implements SetupInterface
 
     /**
      * @inheritdoc
-     * @since 0.3
      */
     public function init()
     {
@@ -40,7 +39,6 @@ class SidebarSetup implements SetupInterface
 
     /**
      * @inheritdoc
-     * @since 0.3
      */
     public function render()
     {

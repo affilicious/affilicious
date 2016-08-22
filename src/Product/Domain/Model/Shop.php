@@ -13,6 +13,7 @@ class Shop
     private $post;
 
     /**
+     * @since 0.3
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
@@ -22,6 +23,8 @@ class Shop
 
     /**
      * Get the shop ID
+     *
+     * @since 0.3
      * @return int
      */
     public function getId()
@@ -31,6 +34,8 @@ class Shop
 
     /**
      * Get the shop title
+     *
+     * @since 0.3
      * @return string
      */
     public function getTitle()
@@ -40,6 +45,8 @@ class Shop
 
     /**
      * Get the shop content
+     *
+     * @since 0.3
      * @return string
      */
     public function getContent()
@@ -49,6 +56,8 @@ class Shop
 
     /**
      * Check if the shop has a logo
+     *
+     * @since 0.3
      * @return bool
      */
     public function hasLogo()
@@ -59,6 +68,8 @@ class Shop
 
     /**
      * Get the shop logo
+     *
+     * @since 0.3
      * @return null|string
      */
     public function getLogo()
@@ -74,6 +85,8 @@ class Shop
 
     /**
      * Get the raw Wordpress post
+     *
+     * @since 0.3
      * @return \WP_Post
      */
     public function getRawPost()

@@ -57,7 +57,9 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
     }
 
     /**
-     * Convert the post into a field group
+     * Convert the post into a detail group
+     *
+     * @since 0.3
      * @param \WP_Post $post
      * @return DetailGroup
      */

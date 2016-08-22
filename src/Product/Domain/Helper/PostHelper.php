@@ -11,6 +11,7 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class PostHelper
 {
     /**
+     * @since 0.3
      * @param mixed $postOrId
      * @return \WP_Post
      * @throws PostNotFoundException

@@ -77,6 +77,7 @@ class Product
     private $sidebar;
 
     /**
+     * @since 0.3
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
@@ -91,6 +92,9 @@ class Product
     }
 
     /**
+     * Get the ID
+     *
+     * @since 0.3
      * @return int
      */
     public function getId()
@@ -99,6 +103,9 @@ class Product
     }
 
     /**
+     * Get the title
+     *
+     * @since 0.3
      * @return string
      */
     public function getTitle()
@@ -107,6 +114,9 @@ class Product
     }
 
     /**
+     * Get the name
+     *
+     * @since 0.3
      * @return string
      */
     public function getName()
@@ -115,6 +125,9 @@ class Product
     }
 
     /**
+     * Get the content
+     *
+     * @since 0.3
      * @return string
      */
     public function getContent()
@@ -124,6 +137,8 @@ class Product
 
     /**
      * Check if the product has a thumbnail
+     *
+     * @since 0.3
      * @return bool
      */
     public function hasThumbnail()
@@ -133,7 +148,9 @@ class Product
     }
 
     /**
-     * Get the product thumbnail
+     * Get the thumbnail
+     *
+     * @since 0.3
      * @return null|string
      */
     public function getThumbnail()
@@ -149,6 +166,8 @@ class Product
 
     /**
      * Check if the price comparision has any European Article Number (EAN)
+     *
+     * @since 0.3
      * @return bool
      */
     public function hasEan()
@@ -158,6 +177,8 @@ class Product
 
     /**
      * Get the European Article Number (EAN)
+     *
+     * @since 0.3
      * @return string
      */
     public function getEan()
@@ -167,6 +188,8 @@ class Product
 
     /**
      * Set the European Article Number (EAN)
+     *
+     * @since 0.3
      * @param string $ean
      */
     public function setEan($ean)
@@ -177,6 +200,7 @@ class Product
     /**
      * Get the shop by the ID
      *
+     * @since 0.3
      * @param int $shopId
      * @return null|array
      */
@@ -194,6 +218,7 @@ class Product
     /**
      * Get the cheapest shop
      *
+     * @since 0.3
      * @return null|array
      */
     public function getCheapestShop()
@@ -209,6 +234,9 @@ class Product
     }
 
     /**
+     * Get all shops
+     *
+     * @since 0.3
      * @return array
      */
     public function getShops()
@@ -217,15 +245,21 @@ class Product
     }
 
     /**
+     * Set all shops.
+     * If you do this, the old shops going to be replaced.
+     *
+     * @since 0.3
      * @param array $shops
      */
-    public function setShops(array $shops)
+    public function setShops($shops)
     {
         $this->shops = $shops;
     }
 
     /**
      * Get all detail groups
+     *
+     * @since 0.3
      * @return DetailGroup[]
      */
     public function getDetailGroups()
@@ -235,15 +269,21 @@ class Product
 
     /**
      * Set the detail groups
+     * If you do this, the old detail groups going to be replaced.
+     *
+     * @since 0.3
      * @param array $detailGroups
      * @return DetailGroup|null
      */
-    public function setDetailGroups(array $detailGroups)
+    public function setDetailGroups($detailGroups)
     {
         $this->detailGroups = $detailGroups;
     }
 
     /**
+     * Get the IDs of all related products
+     *
+     * @since 0.3
      * @return int[]
      */
     public function getRelatedProducts()
@@ -252,14 +292,21 @@ class Product
     }
 
     /**
+     * Set the IDs of all related products
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.3
      * @param int[] $relatedProducts
      */
-    public function setRelatedProducts(array $relatedProducts)
+    public function setRelatedProducts($relatedProducts)
     {
         $this->relatedProducts = $relatedProducts;
     }
 
     /**
+     * Get the IDs of all related accessories
+     *
+     * @since 0.3
      * @return int[]
      */
     public function getRelatedAccessories()
@@ -268,14 +315,21 @@ class Product
     }
 
     /**
+     * Set the IDs of all related accessories
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.3
      * @param int[] $relatedAccessories
      */
-    public function setRelatedAccessories(array $relatedAccessories)
+    public function setRelatedAccessories($relatedAccessories)
     {
         $this->relatedAccessories = $relatedAccessories;
     }
 
     /**
+     * Get the IDs of all related posts
+     *
+     * @since 0.3
      * @return int[]
      */
     public function getRelatedPosts()
@@ -284,14 +338,21 @@ class Product
     }
 
     /**
+     * Set the IDs of all related posts
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.3
      * @param int[] $relatedPosts
      */
-    public function setRelatedPosts(array $relatedPosts)
+    public function setRelatedPosts($relatedPosts)
     {
         $this->relatedPosts = $relatedPosts;
     }
 
     /**
+     * Get the IDs of the media attachments for the image gallery
+     *
+     * @since 0.3
      * @return int[]
      */
     public function getImageGallery()
@@ -300,9 +361,13 @@ class Product
     }
 
     /**
+     * Set the IDs of the media attachments for the image gallery
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.3
      * @param int[] $imageGallery
      */
-    public function setImageGallery(array $imageGallery)
+    public function setImageGallery($imageGallery)
     {
         $this->imageGallery = $imageGallery;
     }
@@ -310,6 +375,7 @@ class Product
     /**
      * Get the product sidebar
      *
+     * @since 0.3
      * @return string
      */
     public function getSidebar()
@@ -330,6 +396,8 @@ class Product
 
     /**
      * Get the raw post
+     *
+     * @since 0.3
      * @return \WP_Post
      */
     public function getRawPost()

@@ -30,6 +30,7 @@ class DetailGroup
     private $details;
 
     /**
+     * @since 0.3
      * @param \WP_Post $post
      */
     public function __construct(\WP_Post $post)
@@ -39,6 +40,7 @@ class DetailGroup
     }
 
     /**
+     * @since 0.3
      * @return int
      */
     public function getId()
@@ -47,6 +49,7 @@ class DetailGroup
     }
 
     /**
+     * @since 0.3
      * @return string
      */
     public function getTitle()
@@ -55,6 +58,7 @@ class DetailGroup
     }
 
     /**
+     * @since 0.3
      * @return string
      */
     public function getName()
@@ -65,6 +69,7 @@ class DetailGroup
     /**
      * Add a new detail
      *
+     * @since 0.3
      * @param array $detail
      */
     public function addDetail($detail)
@@ -75,6 +80,7 @@ class DetailGroup
     /**
      * Remove an existing detail by the key
      *
+     * @since 0.3
      * @param string $key
      */
     public function removeDetail($key)
@@ -90,6 +96,7 @@ class DetailGroup
     /**
      * Check if a detail with the given key exists
      *
+     * @since 0.3
      * @param string $key
      * @return bool
      */
@@ -108,6 +115,7 @@ class DetailGroup
      * Get an existing detail by the key
      * You don't need to check for the key, but you will get null on non-existence
      *
+     * @since 0.3
      * @param string $key
      * @return null|array
      */
@@ -125,6 +133,7 @@ class DetailGroup
     /**
      * Get all details
      *
+     * @since 0.3
      * @return array
      */
     public function getDetails()
@@ -135,6 +144,7 @@ class DetailGroup
     /**
      * Set the details
      *
+     * @since 0.3
      * @param array $details
      */
     public function setDetails($details)
@@ -145,6 +155,7 @@ class DetailGroup
     /**
      * Get the raw post
      *
+     * @since 0.3
      * @return \WP_Post
      */
     public function getRawPost()

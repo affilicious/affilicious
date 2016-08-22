@@ -15,6 +15,8 @@ final class MetaBoxManager
 
     /**
      * Construct this object and hook into the required Wordpress actions
+     *
+     * @since 0.3
      */
     public function __construct()
     {
@@ -28,6 +30,8 @@ final class MetaBoxManager
 
     /**
      * Add all available theme meta boxes
+     *
+     * @since 0.3
      */
     public function add_meta_boxes()
     {
@@ -36,6 +40,8 @@ final class MetaBoxManager
 
     /**
      * Update all available theme meta boxes
+     *
+     * @since 0.3
      * @param int $post_id
      * @param \WP_Post $post
      */

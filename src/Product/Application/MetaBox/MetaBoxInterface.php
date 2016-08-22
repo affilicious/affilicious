@@ -10,6 +10,8 @@ interface MetaBoxInterface
 {
     /**
      * Render the html output of the meta box
+     *
+     * @since 0.3
      * @param \WP_Post $post
      * @param array $args
      */
@@ -17,6 +19,8 @@ interface MetaBoxInterface
 
     /**
      * Update the meta box data
+     *
+     * @since 0.3
      * @param int $post_id
      * @param \WP_Post $post
      */

@@ -9,7 +9,6 @@ class MainSidebar implements SidebarInterface
 
     /**
      * @inheritdoc
-     * @since 0.3
      */
     public function init()
     {

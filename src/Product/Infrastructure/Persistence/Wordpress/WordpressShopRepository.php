@@ -50,6 +50,9 @@ class WordpressShopRepository implements ShopRepositoryInterface
     }
 
     /**
+     * Convert the Wordpress post into a shop
+     *
+     * @since 0.3
      * @param \WP_Post $post
      * @return Shop
      * @throws InvalidPostTypeException

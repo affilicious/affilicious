@@ -7,6 +7,8 @@ class AssetSetup
 {
     /**
      * Get the path to the style directory
+     *
+     * @since 0.3
      * @return string
      */
     public static function getStylesDir()
@@ -16,6 +18,8 @@ class AssetSetup
 
     /**
      * Get the path to the script directory
+     *
+     * @since 0.3
      * @return string
      */
     public static function getScriptDir()
@@ -25,6 +29,8 @@ class AssetSetup
 
     /**
      * Add the public styles for the front end
+     *
+     * @since 0.3
      */
     public function addPublicStyles()
     {
@@ -33,6 +39,8 @@ class AssetSetup
 
     /**
      * Add the admin styles for the back end
+     *
+     * @since 0.3
      */
     public function addAdminStyles()
     {
@@ -41,6 +49,8 @@ class AssetSetup
 
     /**
      * Add the public scripts for the front end
+     *
+     * @since 0.3
      */
     public function addPublicScripts()
     {
@@ -49,6 +59,8 @@ class AssetSetup
 
     /**
      * Add the admin scripts for the back end
+     *
+     * @since 0.3
      */
     public function addAdminScripts()
     {

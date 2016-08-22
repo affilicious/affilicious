@@ -2,10 +2,7 @@
 namespace Affilicious\Product\Application\Setup;
 
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Shop;
-use Affilicious\Product\Domain\Model\ShopRepositoryInterface;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
@@ -67,10 +64,13 @@ class ShopSetup implements SetupInterface
      */
     public function render()
     {
+        // Nothing to do here yet
     }
 
     /**
      * Add a column header for the logo
+     *
+     * @since 0.2
      * @param array $defaults
      * @return array
      */
@@ -89,6 +89,8 @@ class ShopSetup implements SetupInterface
 
     /**
      * Add a column for the logo
+     *
+     * @since 0.2
      * @param string $columnName
      * @param int $shopId
      */
@@ -104,6 +106,8 @@ class ShopSetup implements SetupInterface
 
     /**
      * Get the logo by the shop ID
+     *
+     * @since 0.2
      * @param int $shopId
      * @return null|string
      */

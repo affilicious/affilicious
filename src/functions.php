@@ -250,6 +250,7 @@ function affilicious_get_product_related_posts_query($productOrId = null, $args 
 /**
  * Get the product link.
  *
+ * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|string
  */
@@ -269,6 +270,7 @@ function affilicious_get_product_link($productOrId = null)
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as a shop, the cheapest shop will be used.
  *
+ * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
  * @param int|\WP_Post|Shop|null $shopOrId
  * @return array|null
@@ -286,6 +288,7 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as a shop, the cheapest shop will be used.
  *
+ * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
  * @param int|\WP_Post|Shop|null $shopOrId
  * @return null|string
@@ -310,6 +313,7 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as a shop, the cheapest shop will be used.
  *
+ * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
  * @param int|\WP_Post|Shop|null $shopOrId
  * @return null|string

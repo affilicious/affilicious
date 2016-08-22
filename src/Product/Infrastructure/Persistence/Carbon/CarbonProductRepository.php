@@ -74,6 +74,8 @@ class CarbonProductRepository implements ProductRepositoryInterface
 
     /**
      * Convert the Wordpress post into a product
+     *
+     * @since 0.3
      * @param \WP_Post $post
      * @return Product
      */

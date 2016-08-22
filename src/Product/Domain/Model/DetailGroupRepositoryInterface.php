@@ -9,6 +9,8 @@ interface DetailGroupRepositoryInterface extends RepositoryInterface
 {
     /**
      * Find a field group by the given ID
+     *
+     * @since 0.3
      * @param int $detailGroupId
      * @return DetailGroup|null
      */
@@ -16,6 +18,8 @@ interface DetailGroupRepositoryInterface extends RepositoryInterface
 
     /**
      * Find all field groups
+     *
+     * @since 0.3
      * @return DetailGroup[]
      */
     public function findAll();
