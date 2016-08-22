@@ -11,6 +11,8 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class PostHelper
 {
     /**
+     * Get the Wordpress post from the ID, Product, DetailGroup and Shop
+     *
      * @since 0.3
      * @param mixed $postOrId
      * @return \WP_Post
