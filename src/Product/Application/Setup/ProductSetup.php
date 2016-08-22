@@ -2,6 +2,7 @@
 namespace Affilicious\ProductsPlugin\Product\Application\Setup;
 
 use Affilicious\ProductsPlugin\Product\Application\Sidebar\MainSidebar;
+use Affilicious\ProductsPlugin\Product\Domain\Helper\DetailGroupHelper;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
 use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
@@ -212,7 +213,7 @@ class ProductSetup implements SetupInterface
 
             $detailGroup = $this->detailGroupRepository->findById($query->post->ID);
             $title = $detailGroup->getTitle();
-            $name = $detailGroup->getName();
+            $name = DetailGroupHelper::convertNameToKey($title);
 
             if (empty($title) || empty($name)) {
                 continue;
