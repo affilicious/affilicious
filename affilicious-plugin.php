@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Affilicious
- * Description: Erstelle und verwalte Affilicious Produkte in Wordpress mit Preisvergleichen, Details und mehr
+ * Description: Erstelle und verwalte Affiliate Produkte in Wordpress mit Preisvergleichen, Shops, Details und mehr
  * Version: 0.3
  * Author: Affilicious Team
- * Author URI: https://affilicioustheme.de/author/alexander-barton
+ * Author URI: http://affilicioustheme.de/author/alexander-barton
  * Plugin URI: http://affilicioustheme.de/plugins/products
  * License: MIT
  * Requires at least: 4.0
