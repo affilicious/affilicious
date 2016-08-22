@@ -177,7 +177,7 @@ class ProductSetup implements SetupInterface
             wp_reset_postdata();
         }
 
-        CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
+        $carbonContainer = CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array(
@@ -185,6 +185,8 @@ class ProductSetup implements SetupInterface
                     ->help_text(__('Unique ID for the price comparison', 'affilicious')),
                 $tabs
             ));
+
+        apply_filters('affilicious_product_render_price_comparison', $carbonContainer);
     }
 
     /**
@@ -246,10 +248,12 @@ class ProductSetup implements SetupInterface
             $tabs->add_fields($name, $title, $carbonFields);
         }
 
-        CarbonContainer::make('post_meta', __('Details', 'affilicious'))
+        $carbonContainer = CarbonContainer::make('post_meta', __('Details', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));
+
+        apply_filters('affilicious_product_render_details', $carbonContainer);
     }
 
     /**
@@ -259,7 +263,7 @@ class ProductSetup implements SetupInterface
      */
     private function renderRelations()
     {
-        CarbonContainer::make('post_meta', __('Relations', 'affilicious'))
+        $carbonContainer = CarbonContainer::make('post_meta', __('Relations', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('low')
             ->add_tab(__('Products', 'affilicious'), array(
@@ -277,6 +281,8 @@ class ProductSetup implements SetupInterface
                     ->allow_duplicates(false)
                     ->set_post_type('post'),
             ));
+
+        apply_filters('affilicious_product_render_relations', $carbonContainer);
     }
 
     /**
@@ -286,7 +292,7 @@ class ProductSetup implements SetupInterface
      */
     private function renderSidebars()
     {
-        CarbonContainer::make('post_meta', __('Product Sidebar', 'affilicious'))
+        $carbonContainer = CarbonContainer::make('post_meta', __('Product Sidebar', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('low')
             ->add_fields(array(
@@ -294,5 +300,7 @@ class ProductSetup implements SetupInterface
                     ->exclude_sidebars(array(MainSidebar::ID))
                     ->set_help_text(__('The selected product sidebar will be shown above the main sidebar.', 'affilicious'))
             ));
+
+        apply_filters('affilicious_product_render_sidebar', $carbonContainer);
     }
 }
