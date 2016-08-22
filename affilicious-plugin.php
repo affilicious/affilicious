@@ -50,6 +50,7 @@ class AffiliciousPlugin
      * Get a reference to the dependency injection container
      *
      * @see https://easydigitaldownloads.com/downloads/software-licensing/
+     * @since 0.3
      * @return Container
      */
     public static function &getContainer()
@@ -60,6 +61,7 @@ class AffiliciousPlugin
     /**
      * Get the root dir of the plugin
      *
+     * @since 0.3
      * @return string
      */
     public static function getRootDir()
@@ -69,6 +71,8 @@ class AffiliciousPlugin
 
     /**
      * Prepare the plugin with for usage with Wordpress and namespaces
+     *
+     * @since 0.3
      */
     public function __construct()
     {
@@ -92,6 +96,8 @@ class AffiliciousPlugin
 
     /**
      * Update the plugin with the help of the Software Licensing for Easy Digital Downloads
+     *
+     * @since 0.3
      */
     public function update()
     {
@@ -105,6 +111,8 @@ class AffiliciousPlugin
 
     /**
      * Run the loader to execute all of the hooks with WordPress.
+     *
+     * @since 0.3
      */
     public function run()
     {
@@ -122,6 +130,8 @@ class AffiliciousPlugin
 
     /**
      * Make namespaces compatible with the source code of this plugin
+     *
+     * @since 0.3
      * @param string $class
      */
     public function autoload($class)
@@ -137,6 +147,8 @@ class AffiliciousPlugin
 
     /**
      * The code that runs during plugin activation.
+     *
+     * @since 0.3
      */
     public function activate()
     {
@@ -161,6 +173,8 @@ class AffiliciousPlugin
 
     /**
      * The code that runs during plugin deactivation.
+     *
+     * @since 0.3
      */
     public function deactivate()
     {
@@ -169,6 +183,8 @@ class AffiliciousPlugin
 
     /**
      * The code that runs after the plugin is loaded
+     *
+     * @since 0.3
      */
     public function loaded()
     {
@@ -177,6 +193,8 @@ class AffiliciousPlugin
 
     /**
      * Register the services for the dependency injection
+     *
+     * @since 0.3
      */
     public function registerServices()
     {
@@ -219,6 +237,8 @@ class AffiliciousPlugin
 
     /**
      * Register the plugin textdomain for internationalization.
+     *
+     * @since 0.3
      */
     public function registerTextdomain()
     {
@@ -228,6 +248,8 @@ class AffiliciousPlugin
 
     /**
      * Register all of the hooks related to the public-facing functionality
+     *
+     * @since 0.3
      */
     public function registerPublicHooks()
     {
@@ -259,6 +281,8 @@ class AffiliciousPlugin
 
     /**
      * Register all of the hooks related to the admin area functionality
+     *
+     * @since 0.3
      */
     public function registerAdminHooks()
     {
