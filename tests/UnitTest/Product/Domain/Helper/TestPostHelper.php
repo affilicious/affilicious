@@ -1,5 +1,5 @@
 <?php
-use Affilicious\ProductsPlugin\Product\Domain\Helper\PostHelper;
+use Affilicious\Product\Domain\Helper\PostHelper;
 
 class TestPostHelper extends WP_UnitTestCase
 {

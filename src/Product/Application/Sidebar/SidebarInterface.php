@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Application\Sidebar;
+namespace Affilicious\Product\Application\Sidebar;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

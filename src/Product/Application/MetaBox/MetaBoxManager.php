@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Application\MetaBox;
+namespace Affilicious\Product\Application\MetaBox;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -31,7 +31,7 @@ final class MetaBoxManager
      */
     public function add_meta_boxes()
     {
-        add_meta_box('affilicious_product_image_gallery', __('Image Gallery', 'affilicious-products'), __NAMESPACE__ . '\ProductImageGalleryMetaBox::render', 'product', 'side', 'low');
+        add_meta_box('affilicious_image_gallery', __('Image Gallery', 'affilicious'), __NAMESPACE__ . '\ProductImageGalleryMetaBox::render', 'product', 'side', 'low');
     }
 
     /**

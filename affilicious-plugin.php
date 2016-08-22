@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Affilicious Produkte
- * Description: Erstelle und verwalte Affilicious Produkte mit den dazugehörigen Feldern und Details in Wordpress
+ * Plugin Name: Affilicious
+ * Description: Erstelle und verwalte Affilicious Produkte in Wordpress mit Preisvergleichen, Details und mehr
  * Version: 0.3
  * Author: Affilicious Team
  * Author URI: https://affilicioustheme.de/author/alexander-barton
@@ -9,33 +9,33 @@
  * License: MIT
  * Requires at least: 4.0
  * Tested up to: 4.6
- * Text Domain: affilicious-products
+ * Text Domain: affilicious
  * Domain Path: /languages/
  */
-use Affilicious\ProductsPlugin\Common\Application\Loader\Loader;
-use Affilicious\ProductsPlugin\Common\Application\Setup\AssetSetup;
-use Affilicious\ProductsPlugin\Common\Application\Setup\CarbonSetup;
-use Affilicious\ProductsPlugin\Product\Application\Setup\ProductSetup;
-use Affilicious\ProductsPlugin\Product\Application\Setup\ShopSetup;
-use Affilicious\ProductsPlugin\Product\Application\Setup\DetailGroupSetup;
+use Affilicious\Common\Application\Loader\Loader;
+use Affilicious\Common\Application\Setup\AssetSetup;
+use Affilicious\Common\Application\Setup\CarbonSetup;
+use Affilicious\Product\Application\Setup\ProductSetup;
+use Affilicious\Product\Application\Setup\ShopSetup;
+use Affilicious\Product\Application\Setup\DetailGroupSetup;
 use Pimple\Container;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
-use Affilicious\ProductsPlugin\Product\Application\MetaBox\MetaBoxManager;
-use Affilicious\ProductsPlugin\Product\Application\Setup\SidebarSetup;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
+use Affilicious\Product\Application\MetaBox\MetaBoxManager;
+use Affilicious\Product\Application\Setup\SidebarSetup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
-class AffiliciousProductsPlugin
+class AffiliciousPlugin
 {
-    const PLUGIN_NAME = 'affilicious-products';
+    const PLUGIN_NAME = 'affilicious';
     const PLUGIN_VERSION = '0.3';
-    const PLUGIN_NAMESPACE = 'Affilicious\\ProductsPlugin\\';
+    const PLUGIN_NAMESPACE = 'Affilicious\\';
     const PLUGIN_SOURCE_DIR = 'src/';
     const PLUGIN_LANGUAGE_DIR = 'languages';
     const PLUGIN_STORE_URL = 'http://affilicioustheme.de';
-    const PLUGIN_ITEM_NAME = 'Affilicious Produkte';
+    const PLUGIN_ITEM_NAME = 'Affilicious';
     const PLUGIN_LICENSE_KEY = 'e90a6d1a115da24a292fe0300afc402a';
     const PLUGIN_AUTHOR = 'Affilicious Team';
 
@@ -100,7 +100,7 @@ class AffiliciousProductsPlugin
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
 
         if (!class_exists('EDD_SL_Plugin_Updater')) {
-            include(dirname(__FILE__) . '/affilicious-products-updater.php');
+            include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
         }
 
         self::$container = new Container();
@@ -289,5 +289,5 @@ class AffiliciousProductsPlugin
     }
 }
 
-$affiliciousProductsPlugin = new AffiliciousProductsPlugin();
-$affiliciousProductsPlugin->run();
+$affiliciousPlugin = new AffiliciousPlugin();
+$affiliciousPlugin->run();

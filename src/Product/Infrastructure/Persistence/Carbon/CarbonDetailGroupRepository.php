@@ -1,16 +1,16 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
+namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
-use Affilicious\ProductsPlugin\Product\Domain\Exception\InvalidPostTypeException;
-use Affilicious\ProductsPlugin\Product\Domain\Helper\DetailGroupHelper;
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
+use Affilicious\Product\Domain\Exception\InvalidPostTypeException;
+use Affilicious\Product\Domain\Helper\DetailGroupHelper;
+use Affilicious\Product\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Product\Domain\Model\DetailGroup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
 class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
 {
-    const CARBON_DETAILS = 'affilicious_product_detail_group_fields';
+    const CARBON_DETAILS = 'affilicious_detail_group_fields';
     const CARBON_DETAIL_NAME = 'name';
     const CARBON_DETAIL_TYPE = 'type';
     const CARBON_DETAIL_DEFAULT_VALUE = 'default_value';

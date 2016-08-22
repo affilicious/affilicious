@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Common\Application\Setup;
+namespace Affilicious\Common\Application\Setup;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

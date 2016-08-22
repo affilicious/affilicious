@@ -1,8 +1,8 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Application\Setup;
+namespace Affilicious\Product\Application\Setup;
 
-use Affilicious\ProductsPlugin\Product\Application\Sidebar\MainSidebar;
-use Affilicious\ProductsPlugin\Product\Application\Sidebar\ProductSidebar;
+use Affilicious\Product\Application\Sidebar\MainSidebar;
+use Affilicious\Product\Application\Sidebar\ProductSidebar;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

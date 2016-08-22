@@ -1,10 +1,10 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon;
+namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
-use Affilicious\ProductsPlugin\Product\Domain\Model\ProductRepositoryInterface;
+use Affilicious\Product\Domain\Model\DetailGroup;
+use Affilicious\Product\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

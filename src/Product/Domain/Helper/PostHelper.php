@@ -1,10 +1,10 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Domain\Helper;
+namespace Affilicious\Product\Domain\Helper;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
-use Affilicious\ProductsPlugin\Product\Domain\Exception\PostNotFoundException;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
+use Affilicious\Product\Domain\Model\DetailGroup;
+use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Exception\PostNotFoundException;
+use Affilicious\Product\Domain\Model\Shop;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

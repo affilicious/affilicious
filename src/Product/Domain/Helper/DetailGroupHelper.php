@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Domain\Helper;
+namespace Affilicious\Product\Domain\Helper;
 
 class DetailGroupHelper
 {

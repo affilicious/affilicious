@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Common\Domain\Model;
+namespace Affilicious\Common\Domain\Model;
 
 interface RepositoryInterface
 {

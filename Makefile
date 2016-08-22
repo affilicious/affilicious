@@ -11,7 +11,7 @@ clean:
 
 test-install-mamp:
 	if [[ ! -d "vendor/phpunit" ]]; then composer install --dev; fi
-	@./tests/install.sh affilicious-products-plugin-test root root 127.0.0.1:8889
+	@./tests/install.sh affilicious-plugin-test root root 127.0.0.1:8889
 
 test:
 	if [[ ! -d "vendor/phpunit" ]]; then composer install; fi

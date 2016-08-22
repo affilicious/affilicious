@@ -18,7 +18,7 @@ class ComposerStaticInit8a2576b5e52fb270b998f3c8bd278d72
         ),
         'A' => 
         array (
-            'Affilicious\\ProductsPlugin\\' => 27,
+            'Affilicious\\' => 27,
         ),
     );
 
@@ -27,7 +27,7 @@ class ComposerStaticInit8a2576b5e52fb270b998f3c8bd278d72
         array (
             0 => __DIR__ . '/..' . '/htmlburger/carbon-fields/core',
         ),
-        'Affilicious\\ProductsPlugin\\' => 
+        'Affilicious\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

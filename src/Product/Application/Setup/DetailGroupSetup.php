@@ -1,8 +1,8 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Application\Setup;
+namespace Affilicious\Product\Application\Setup;
 
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
+use Affilicious\Product\Domain\Model\DetailGroup;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
@@ -16,31 +16,31 @@ class DetailGroupSetup implements SetupInterface
     public function init()
     {
         $labels = array(
-            'name' => __('Detail Groups', 'affilicious-products'),
-            'singular_name' => __('Detail Group', 'affilicious-products'),
-            'menu_name' => __('Detail Groups', 'affilicious-products'),
-            'name_admin_bar' => __('Detail Groups', 'affilicious-products'),
-            'archives' => __('Detail Group Archives', 'affilicious-products'),
-            'parent_item_colon' => __('Parent Detail Group:', 'affilicious-products'),
-            'all_items' => __('Detail Groups', 'affilicious-products'),
-            'add_new_item' => __('Add New Detail Group', 'affilicious-products'),
-            'add_new' => __('Add New', 'affilicious-products'),
-            'new_item' => __('New Detail Group', 'affilicious-products'),
-            'edit_item' => __('Edit Detail Group', 'affilicious-products'),
-            'update_item' => __('Update Detail Group', 'affilicious-products'),
-            'view_item' => __('View Detail Group', 'affilicious-products'),
-            'search_items' => __('Search Detail Group', 'affilicious-products'),
-            'not_found' => __('Not Found', 'affilicious-products'),
-            'not_found_in_trash' => __('Not Found In Trash', 'affilicious-products'),
-            'featured_image' => __('Featured Image', 'affilicious-products'),
-            'set_featured_image' => __('Set Featured Image', 'affilicious-products'),
-            'remove_featured_image' => __('Remove Featured Image', 'affilicious-products'),
-            'use_featured_image' => __('Use As Featured Image', 'affilicious-products'),
-            'insert_into_item' => __('Insert into item', 'affilicious-products'),
-            'uploaded_to_this_item' => __('Uploaded To This Detail Group', 'affilicious-products'),
-            'items_list' => __('Detail Groups', 'affilicious-products'),
-            'items_list_navigation' => __('Detail Groups Navigation', 'affilicious-products'),
-            'filter_items_list' => __('Filter Detail Groups', 'affilicious-products'),
+            'name' => __('Detail Groups', 'affilicious'),
+            'singular_name' => __('Detail Group', 'affilicious'),
+            'menu_name' => __('Detail Groups', 'affilicious'),
+            'name_admin_bar' => __('Detail Groups', 'affilicious'),
+            'archives' => __('Detail Group Archives', 'affilicious'),
+            'parent_item_colon' => __('Parent Detail Group:', 'affilicious'),
+            'all_items' => __('Detail Groups', 'affilicious'),
+            'add_new_item' => __('Add New Detail Group', 'affilicious'),
+            'add_new' => __('Add New', 'affilicious'),
+            'new_item' => __('New Detail Group', 'affilicious'),
+            'edit_item' => __('Edit Detail Group', 'affilicious'),
+            'update_item' => __('Update Detail Group', 'affilicious'),
+            'view_item' => __('View Detail Group', 'affilicious'),
+            'search_items' => __('Search Detail Group', 'affilicious'),
+            'not_found' => __('Not Found', 'affilicious'),
+            'not_found_in_trash' => __('Not Found In Trash', 'affilicious'),
+            'featured_image' => __('Featured Image', 'affilicious'),
+            'set_featured_image' => __('Set Featured Image', 'affilicious'),
+            'remove_featured_image' => __('Remove Featured Image', 'affilicious'),
+            'use_featured_image' => __('Use As Featured Image', 'affilicious'),
+            'insert_into_item' => __('Insert into item', 'affilicious'),
+            'uploaded_to_this_item' => __('Uploaded To This Detail Group', 'affilicious'),
+            'items_list' => __('Detail Groups', 'affilicious'),
+            'items_list_navigation' => __('Detail Groups Navigation', 'affilicious'),
+            'filter_items_list' => __('Filter Detail Groups', 'affilicious'),
         );
 
         register_post_type(DetailGroup::POST_TYPE, array(
@@ -64,21 +64,21 @@ class DetailGroupSetup implements SetupInterface
      */
     public function render()
     {
-        CarbonContainer::make('post_meta', __('Detail Setup', 'affilicious-products'))
+        CarbonContainer::make('post_meta', __('Detail Setup', 'affilicious'))
             ->show_on_post_type(DetailGroup::POST_TYPE)
             ->add_fields(array(
-                CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affilicious-products'))
+                CarbonField::make('complex', CarbonDetailGroupRepository::CARBON_DETAILS, __('Details', 'affilicious'))
                     ->add_fields(array(
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_NAME, __('Name', 'affilicious-products'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_NAME, __('Name', 'affilicious'))
                                 ->set_required(true),
-                            CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affilicious-products'))
+                            CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affilicious'))
                                 ->set_required(true)
                                 ->add_options(array(
-                                    DetailGroup::DETAIL_TYPE_TEXT => __('Text', 'affilicious-products'),
-                                    DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affilicious-products'),
-                                    DetailGroup::DETAIL_TYPE_FILE => __('File', 'affilicious-products'),
+                                    DetailGroup::DETAIL_TYPE_TEXT => __('Text', 'affilicious'),
+                                    DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affilicious'),
+                                    DetailGroup::DETAIL_TYPE_FILE => __('File', 'affilicious'),
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affilicious-products'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affilicious'))
                                 ->set_conditional_logic(array(
                                     'relation' => 'AND',
                                     array(
@@ -87,7 +87,7 @@ class DetailGroupSetup implements SetupInterface
                                         'compare' => 'IN',
                                     )
                                 )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affilicious-products'))
+                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affilicious'))
                         )
                     )
             ));

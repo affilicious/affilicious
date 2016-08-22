@@ -1,14 +1,14 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Application\Setup;
+namespace Affilicious\Product\Application\Setup;
 
-use Affilicious\ProductsPlugin\Product\Application\Sidebar\MainSidebar;
-use Affilicious\ProductsPlugin\Product\Domain\Helper\DetailGroupHelper;
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroup;
-use Affilicious\ProductsPlugin\Product\Domain\Model\DetailGroupRepositoryInterface;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Product;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
-use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
-use Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\Product\Application\Sidebar\MainSidebar;
+use Affilicious\Product\Domain\Helper\DetailGroupHelper;
+use Affilicious\Product\Domain\Model\DetailGroup;
+use Affilicious\Product\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Shop;
+use Affilicious\Product\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
@@ -47,36 +47,36 @@ class ProductSetup implements SetupInterface
     public function init()
     {
         $labels = array(
-            'name' => __('Products', 'affilicious-products'),
-            'singular_name' => __('Product', 'affilicious-products'),
-            'menu_name' => __('Products', 'affilicious-products'),
-            'name_admin_bar' => __('Product', 'affilicious-products'),
-            'archives' => __('Item Archives', 'affilicious-products'),
-            'parent_item_colon' => __('Parent Item:', 'affilicious-products'),
-            'all_items' => __('All Products', 'affilicious-products'),
-            'add_new_item' => __('Add New Product', 'affilicious-products'),
-            'add_new' => __('Add New', 'affilicious-products'),
-            'new_item' => __('New Product', 'affilicious-products'),
-            'edit_item' => __('Edit Product', 'affilicious-products'),
-            'update_item' => __('Update Product', 'affilicious-products'),
-            'view_item' => __('View Product', 'affilicious-products'),
-            'search_items' => __('Search Product', 'affilicious-products'),
-            'not_found' => __('Not found', 'affilicious-products'),
-            'not_found_in_trash' => __('Not found in Trash', 'affilicious-products'),
-            'featured_image' => __('Featured Image', 'affilicious-products'),
-            'set_featured_image' => __('Set featured image', 'affilicious-products'),
-            'remove_featured_image' => __('Remove featured image', 'affilicious-products'),
-            'use_featured_image' => __('Use as featured image', 'affilicious-products'),
-            'insert_into_item' => __('Insert into item', 'affilicious-products'),
-            'uploaded_to_this_item' => __('Uploaded to this item', 'affilicious-products'),
-            'items_list' => __('Products list', 'affilicious-products'),
-            'items_list_navigation' => __('Products list navigation', 'affilicious-products'),
-            'filter_items_list' => __('Filter items list', 'affilicious-products'),
+            'name' => __('Products', 'affilicious'),
+            'singular_name' => __('Product', 'affilicious'),
+            'menu_name' => __('Products', 'affilicious'),
+            'name_admin_bar' => __('Product', 'affilicious'),
+            'archives' => __('Item Archives', 'affilicious'),
+            'parent_item_colon' => __('Parent Item:', 'affilicious'),
+            'all_items' => __('All Products', 'affilicious'),
+            'add_new_item' => __('Add New Product', 'affilicious'),
+            'add_new' => __('Add New', 'affilicious'),
+            'new_item' => __('New Product', 'affilicious'),
+            'edit_item' => __('Edit Product', 'affilicious'),
+            'update_item' => __('Update Product', 'affilicious'),
+            'view_item' => __('View Product', 'affilicious'),
+            'search_items' => __('Search Product', 'affilicious'),
+            'not_found' => __('Not found', 'affilicious'),
+            'not_found_in_trash' => __('Not found in Trash', 'affilicious'),
+            'featured_image' => __('Featured Image', 'affilicious'),
+            'set_featured_image' => __('Set featured image', 'affilicious'),
+            'remove_featured_image' => __('Remove featured image', 'affilicious'),
+            'use_featured_image' => __('Use as featured image', 'affilicious'),
+            'insert_into_item' => __('Insert into item', 'affilicious'),
+            'uploaded_to_this_item' => __('Uploaded to this item', 'affilicious'),
+            'items_list' => __('Products list', 'affilicious'),
+            'items_list_navigation' => __('Products list navigation', 'affilicious'),
+            'filter_items_list' => __('Filter items list', 'affilicious'),
         );
 
         $args = array(
-            'label' => __('Product', 'affilicious-products'),
-            'description' => __('Product Type Description', 'affilicious-products'),
+            'label' => __('Product', 'affilicious'),
+            'description' => __('Product Type Description', 'affilicious'),
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
             'supports' => array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions'),
@@ -98,17 +98,17 @@ class ProductSetup implements SetupInterface
         register_post_type(Product::POST_TYPE, $args);
 
         $labels = array(
-            'name' => __('Categories', 'affilicious-products'),
-            'singular_name' => __('Category', 'affilicious-products'),
-            'search_items' => __('Search categories', 'affilicious-products'),
-            'all_items' => __('All categories', 'affilicious-products'),
-            'parent_item' => __('Parent category', 'affilicious-products'),
-            'parent_item_colon' => __('Parent category:', 'affilicious-products'),
-            'edit_item' => __('Edit category', 'affilicious-products'),
-            'update_item' => __('Update category', 'affilicious-products'),
-            'add_new_item' => __('Add New category', 'affilicious-products'),
-            'new_item_name' => __('New category name', 'affilicious-products'),
-            'menu_name' => __('Categories', 'affilicious-products'),
+            'name' => __('Categories', 'affilicious'),
+            'singular_name' => __('Category', 'affilicious'),
+            'search_items' => __('Search categories', 'affilicious'),
+            'all_items' => __('All categories', 'affilicious'),
+            'parent_item' => __('Parent category', 'affilicious'),
+            'parent_item_colon' => __('Parent category:', 'affilicious'),
+            'edit_item' => __('Edit category', 'affilicious'),
+            'update_item' => __('Update category', 'affilicious'),
+            'add_new_item' => __('Add New category', 'affilicious'),
+            'new_item_name' => __('New category name', 'affilicious'),
+            'menu_name' => __('Categories', 'affilicious'),
         );
 
         register_taxonomy(Product::TAXONOMY, Product::POST_TYPE, array(
@@ -150,7 +150,7 @@ class ProductSetup implements SetupInterface
             ),
         ));
 
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affilicious-products'))
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affilicious'))
             ->set_layout('tabbed');
 
         if ($query->have_posts()) {
@@ -159,31 +159,31 @@ class ProductSetup implements SetupInterface
                 $shop = $this->shopRepository->findById($query->post->ID);
 
                 $tabs->add_fields($shop->getTitle(), array(
-                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious-products'))
+                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious'))
                         ->set_required(true)
                         ->set_value($shop->getId()),
-                    CarbonField::make('number', 'price', __('Price', 'affilicious-products'))
+                    CarbonField::make('number', 'price', __('Price', 'affilicious'))
                         ->set_required(true),
-                    CarbonField::make('number', 'old_price', __('Old Price', 'affilicious-products')),
-                    CarbonField::make('select', 'currency', __('Currency', 'affilicious-products'))
+                    CarbonField::make('number', 'old_price', __('Old Price', 'affilicious')),
+                    CarbonField::make('select', 'currency', __('Currency', 'affilicious'))
                         ->set_required(true)
                         ->add_options(array(
-                            'euro' => __('Euro', 'affilicious-products'),
-                            'us-dollar' => __('US-Dollar', 'affilicious-products'),
+                            'euro' => __('Euro', 'affilicious'),
+                            'us-dollar' => __('US-Dollar', 'affilicious'),
                         )),
-                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious-products')),
+                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious')),
                 ));
             }
 
             wp_reset_postdata();
         }
 
-        CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious-products'))
+        CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array(
-                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affilicious-products'))
-                    ->help_text(__('Unique ID for the price comparison', 'affilicious-products')),
+                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affilicious'))
+                    ->help_text(__('Unique ID for the price comparison', 'affilicious')),
                 $tabs
             ));
     }
@@ -205,7 +205,7 @@ class ProductSetup implements SetupInterface
             return;
         }
 
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_DETAIL_GROUPS, __('Detail Groups', 'affilicious-products'))
+        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_DETAIL_GROUPS, __('Detail Groups', 'affilicious'))
             ->set_layout('tabbed');
 
         while ($query->have_posts()) {
@@ -247,7 +247,7 @@ class ProductSetup implements SetupInterface
             $tabs->add_fields($name, $title, $carbonFields);
         }
 
-        CarbonContainer::make('post_meta', __('Details', 'affilicious-products'))
+        CarbonContainer::make('post_meta', __('Details', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
             ->add_fields(array($tabs));
@@ -260,21 +260,21 @@ class ProductSetup implements SetupInterface
      */
     private function renderRelations()
     {
-        CarbonContainer::make('post_meta', __('Relations', 'affilicious-products'))
+        CarbonContainer::make('post_meta', __('Relations', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('low')
-            ->add_tab(__('Products', 'affilicious-products'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affilicious-products'))
+            ->add_tab(__('Products', 'affilicious'), array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affilicious'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
             ))
-            ->add_tab(__('Accessories', 'affilicious-products'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affilicious-products'))
+            ->add_tab(__('Accessories', 'affilicious'), array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
             ))
-            ->add_tab(__('Posts', 'affilicious-products'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_POSTS, __('Related Posts', 'affilicious-products'))
+            ->add_tab(__('Posts', 'affilicious'), array(
+                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_POSTS, __('Related Posts', 'affilicious'))
                     ->allow_duplicates(false)
                     ->set_post_type('post'),
             ));
@@ -287,13 +287,13 @@ class ProductSetup implements SetupInterface
      */
     private function renderSidebars()
     {
-        CarbonContainer::make('post_meta', __('Product Sidebar', 'affilicious-products'))
+        CarbonContainer::make('post_meta', __('Product Sidebar', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('low')
             ->add_fields(array(
-                CarbonField::make('sidebar', CarbonProductRepository::PRODUCT_SIDEBAR, __('Select a Sidebar', 'affilicious-products'))
+                CarbonField::make('sidebar', CarbonProductRepository::PRODUCT_SIDEBAR, __('Select a Sidebar', 'affilicious'))
                     ->exclude_sidebars(array(MainSidebar::ID))
-                    ->set_help_text(__('The selected product sidebar will be shown above the main sidebar.', 'affilicious-products'))
+                    ->set_help_text(__('The selected product sidebar will be shown above the main sidebar.', 'affilicious'))
             ));
     }
 }

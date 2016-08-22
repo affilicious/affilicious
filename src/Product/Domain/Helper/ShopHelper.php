@@ -1,8 +1,8 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Domain\Helper;
+namespace Affilicious\Product\Domain\Helper;
 
-use Affilicious\ProductsPlugin\Product\Domain\Exception\PostNotFoundException;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
+use Affilicious\Product\Domain\Exception\PostNotFoundException;
+use Affilicious\Product\Domain\Model\Shop;
 
 class ShopHelper
 {
@@ -17,7 +17,7 @@ class ShopHelper
      */
     public static function getShop($postOrId = null)
     {
-        $container = \AffiliciousProductsPlugin::getContainer();
+        $container = \AffiliciousPlugin::getContainer();
         $shopRepository = $container['shop_repository'];
 
         if ($postOrId instanceof Shop) {

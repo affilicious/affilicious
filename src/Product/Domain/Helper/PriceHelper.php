@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Domain\Helper;
+namespace Affilicious\Product\Domain\Helper;
 
 class PriceHelper
 {
@@ -43,7 +43,7 @@ class PriceHelper
 
         $currencyLabel = ucwords($currency);
         $currencyLabel = strpos($currencyLabel, 'Us-') === 0 ? str_replace('Us-', 'US-', $currencyLabel) : $currencyLabel;
-        $currencyLabel = __($currencyLabel, 'affilicious-products');
+        $currencyLabel = __($currencyLabel, 'affilicious');
 
         return $currencyLabel;
     }

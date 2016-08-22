@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Carbon_Fields\\' => array($vendorDir . '/htmlburger/carbon-fields/core'),
-    'Affilicious\\ProductsPlugin\\' => array($baseDir . '/src'),
+    'Affilicious\\' => array($baseDir . '/src'),
 );

@@ -1,7 +1,7 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Domain\Model;
+namespace Affilicious\Product\Domain\Model;
 
-use Affilicious\ProductsPlugin\Common\Domain\Model\RepositoryInterface;
+use Affilicious\Common\Domain\Model\RepositoryInterface;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

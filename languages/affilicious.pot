@@ -1,79 +1,114 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: affilicious-products\n"
-"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-08-20 22:15+0200\n"
+"Project-Id-Version: "
+"affilicious\n"
+"POT-Creation-Date: "
+"2016-08-20 22:15+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
-"Language: de_DE\n"
+"Last-Translator: Your "
+"Name <you@example.com>\n"
+"Language-Team: "
+"Affilicious Team "
+"<team@affilicioustheme."
+"de>\n"
+"Report-Msgid-Bugs-To: "
+"Translator Name "
+"<translations@example."
+"com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;"
-"esc_attr_x:1,2c;esc_attr_\n"
+"Content-Type: text/"
+"plain; charset=UTF-8\n"
+"Content-Transfer-"
+"Encoding: 8bit\n"
+"Plural-Forms: "
+"nplurals=2; plural=n != "
+"1;\n"
+"X-Textdomain-Support: "
+"yesX-Generator: Poedit "
+"1.6.4\n"
+"X-Poedit-SourceCharset: "
+"UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;esc_html_e;"
+"esc_html__;esc_attr_e;"
+"esc_attr_x:1,2c;"
+"esc_attr_\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.8\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: tests\n"
-"X-Poedit-SearchPathExcluded-1: vendor\n"
-"X-Poedit-SearchPathExcluded-2: assets\n"
+"Language: en_US\n"
+"X-Generator: Poedit "
+"1.8.8\n"
+"X-Poedit-"
+"SearchPath-0: .\n"
+"X-Poedit-"
+"SearchPathExcluded-0: "
+"tests\n"
+"X-Poedit-"
+"SearchPathExcluded-1: "
+"vendor\n"
+"X-Poedit-"
+"SearchPathExcluded-2: "
+"assets\n"
 
-#: affilicious-products-updater.php:189
+#: affilicious-updater.php:189
 #, php-format
 msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+"There is a new version "
+"of %1$s available. "
+"%2$sView version %3$s "
+"details%4$s."
 msgstr ""
-"Eine neue Version von %1$s ist verfügbar. %2$sVersion ansehen %3$s Details"
-"%4$s."
 
-#: affilicious-products-updater.php:197
+#: affilicious-updater.php:197
 #, php-format
 msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
-"or %5$supdate now%6$s."
+"There is a new version "
+"of %1$s available. "
+"%2$sView version %3$s "
+"details%4$s or "
+"%5$supdate now%6$s."
 msgstr ""
-"Eine neue Version von %1$s ist verfügbar. %2$sVersion ansehen %3$s Details"
-"%4$s oder %5$saktualisiere jetzt%6$s."
 
-#: affilicious-products-updater.php:340
-msgid "You do not have permission to install plugin updates"
-msgstr "Du hast nicht die Berechtigung um Plugin-Updates zu installieren."
+#: affilicious-updater.php:340
+msgid ""
+"You do not have "
+"permission to install "
+"plugin updates"
+msgstr ""
 
-#: affilicious-products-updater.php:340
+#: affilicious-updater.php:340
 msgid "Error"
-msgstr "Fehler"
+msgstr ""
 
 #: src/Product/Application/MetaBox/MetaBoxManager.php:34
 msgid "Image Gallery"
-msgstr "Bildergallerie"
+msgstr ""
 
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:50
 msgid "Delete"
-msgstr "Löschen"
+msgstr ""
 
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
 msgid "Add Images"
-msgstr "Bilder hinzufügen"
+msgstr ""
 
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
 msgid "Add Image"
-msgstr "Bild hinzufügen"
+msgstr ""
 
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:75
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
 msgid "Delete Image"
-msgstr "Bild löschen"
+msgstr ""
 
 #: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:77
-msgid "Add Images To Image Gallery"
-msgstr "Bilder zur Bildergallerie hinzufügen"
+msgid ""
+"Add Images To Image "
+"Gallery"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:19
 #: src/Product/Application/Setup/DetailGroupSetup.php:21
@@ -82,505 +117,472 @@ msgstr "Bilder zur Bildergallerie hinzufügen"
 #: src/Product/Application/Setup/DetailGroupSetup.php:41
 #: src/Product/Application/Setup/ProductSetup.php:207
 msgid "Detail Groups"
-msgstr "Detailgruppen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:20
 msgid "Detail Group"
-msgstr "Detailgruppen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:23
-msgid "Detail Group Archives"
-msgstr "Detailgruppen Archive"
+msgid ""
+"Detail Group Archives"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:24
-msgid "Parent Detail Group:"
-msgstr "Elterndetailgruppe"
+msgid ""
+"Parent Detail Group:"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:26
-msgid "Add New Detail Group"
-msgstr "Detailgruppe erstellen"
+msgid ""
+"Add New Detail Group"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:27
 #: src/Product/Application/Setup/ProductSetup.php:57
 #: src/Product/Application/Setup/ShopSetup.php:29
 msgid "Add New"
-msgstr "Erstellen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:28
 msgid "New Detail Group"
-msgstr "Neue Detailgruppe"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:29
 msgid "Edit Detail Group"
-msgstr "Detailgruppe bearbeiten"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:30
 msgid "Update Detail Group"
-msgstr "Detailgruppe aktualisieren"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:31
 msgid "View Detail Group"
-msgstr "Detailgruppe ansehen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:32
 msgid "Search Detail Group"
-msgstr "Detailgruppe suchen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:33
 #: src/Product/Application/Setup/ShopSetup.php:35
 msgid "Not Found"
-msgstr "Nicht gefunden"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:34
 #: src/Product/Application/Setup/ShopSetup.php:36
 msgid "Not Found In Trash"
-msgstr "Nicht gefunden im Papierkorb"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:35
 #: src/Product/Application/Setup/ProductSetup.php:65
 msgid "Featured Image"
-msgstr "Beitragsbild"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:36
 msgid "Set Featured Image"
-msgstr "Beitragsbild setzen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:37
-msgid "Remove Featured Image"
-msgstr "Beitragsbild entfernen"
+msgid ""
+"Remove Featured Image"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:38
-msgid "Use As Featured Image"
-msgstr "Als Beitragsbild benutzen"
+msgid ""
+"Use As Featured Image"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:39
 #: src/Product/Application/Setup/ProductSetup.php:69
 msgid "Insert into item"
-msgstr "In den Artikel einfügen"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:40
-msgid "Uploaded To This Detail Group"
-msgstr "Hochladen zur Detailgruppen"
+msgid ""
+"Uploaded To This Detail "
+"Group"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:42
-msgid "Detail Groups Navigation"
-msgstr "Detailgruppen Navigation"
+msgid ""
+"Detail Groups Navigation"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:43
-msgid "Filter Detail Groups"
-msgstr "Detailgruppen filtern"
+msgid ""
+"Filter Detail Groups"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:67
 msgid "Detail Setup"
-msgstr "Details verwalten"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:70
 #: src/Product/Application/Setup/ProductSetup.php:251
 msgid "Details"
-msgstr "Details"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:72
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:74
 msgid "Type"
-msgstr "Typ"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:77
 msgid "Text"
-msgstr "Text"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:78
 msgid "Number"
-msgstr "Numerisch"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:79
 msgid "File"
-msgstr "Datei"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:81
 msgid "Default Value"
-msgstr "Standartwert"
+msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:90
 msgid "Help Text"
-msgstr "Hilfstext"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:49
 #: src/Product/Application/Setup/ProductSetup.php:51
 #: src/Product/Application/Setup/ProductSetup.php:267
 msgid "Products"
-msgstr "Produkte"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:50
 #: src/Product/Application/Setup/ProductSetup.php:52
 #: src/Product/Application/Setup/ProductSetup.php:77
 msgid "Product"
-msgstr "Produkt"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:53
 msgid "Item Archives"
-msgstr "Artikel Archive"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:54
 msgid "Parent Item:"
-msgstr "Übergeordnetes Item:"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:55
 msgid "All Products"
-msgstr "Alle Produkte"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:56
 msgid "Add New Product"
-msgstr "Erstelle neues Produkt"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:58
 msgid "New Product"
-msgstr "Produkt erstellen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:59
 msgid "Edit Product"
-msgstr "Produkt editieren"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:60
 msgid "Update Product"
-msgstr "Produkt updaten"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:61
 msgid "View Product"
-msgstr "Produkt ansehen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:62
 msgid "Search Product"
-msgstr "Produkt suchen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:63
 msgid "Not found"
-msgstr "Nicht gefunden"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:64
 msgid "Not found in Trash"
-msgstr "Nicht gefunden im Papierkorb"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:66
 msgid "Set featured image"
-msgstr "Beitragsbild setzen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:67
-msgid "Remove featured image"
-msgstr "Beitragsbild entfernen"
+msgid ""
+"Remove featured image"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:68
-msgid "Use as featured image"
-msgstr "Als Beitragsbild benutzen"
+msgid ""
+"Use as featured image"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:70
-msgid "Uploaded to this item"
-msgstr "Zum Artikel hochladen"
+msgid ""
+"Uploaded to this item"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:71
 msgid "Products list"
-msgstr "Produktliste"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:72
-msgid "Products list navigation"
-msgstr "Produktliste Navigation"
+msgid ""
+"Products list navigation"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:73
 msgid "Filter items list"
-msgstr "Artikelliste filtern"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:78
-msgid "Product Type Description"
-msgstr "Produkttyp Beschreibung"
+msgid ""
+"Product Type Description"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:100
 #: src/Product/Application/Setup/ProductSetup.php:110
 msgid "Categories"
-msgstr "Kategorien"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:101
 msgid "Category"
-msgstr "Kategorie"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:102
 msgid "Search categories"
-msgstr "Kategorien suchen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:103
 msgid "All categories"
-msgstr "Alle Kategorien"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:104
 msgid "Parent category"
-msgstr "Elternkategorie"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:105
 msgid "Parent category:"
-msgstr "Elternkategorie:"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:106
 msgid "Edit category"
-msgstr "Kategorie bearbeiten"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:107
 msgid "Update category"
-msgstr "Kategorie aktualisieren"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:108
 msgid "Add New category"
-msgstr "Kategorie erstellen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:109
 msgid "New category name"
-msgstr "Neuer Kategoriename"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:152
 #: src/Product/Application/Setup/ShopSetup.php:21
 #: src/Product/Application/Setup/ShopSetup.php:27
 msgid "Shops"
-msgstr "Shops"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:161
 msgid "Shop ID"
-msgstr "Shop ID"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:164
 msgid "Price"
-msgstr "Preis"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:166
 msgid "Old Price"
-msgstr "Alter Preis"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:167
 msgid "Currency"
-msgstr "Währung"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:170
 msgid "Euro"
-msgstr "Euro"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:171
 msgid "US-Dollar"
-msgstr "US-Dollar"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:173
 msgid "Affiliate Link"
-msgstr "Affiliate Link"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:180
 msgid "Price Comparison"
-msgstr "Preisvergleich"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:184
 msgid "EAN"
-msgstr "EAN"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:185
-msgid "Unique ID for the price comparison"
-msgstr "Einmalige ID für den Preisvergleich"
+msgid ""
+"Unique ID for the price "
+"comparison"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:264
 msgid "Relations"
-msgstr "Beziehungen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:268
 msgid "Related Products"
-msgstr "Ähnliche Produkte"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:272
 msgid "Accessories"
-msgstr "Zubehör"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:273
 msgid "Related Accessories"
-msgstr "Ähnliches Zubehör"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:277
 msgid "Posts"
-msgstr "Beiträge"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:278
 msgid "Related Posts"
-msgstr "Ähnliche Beiträge"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:291
 #: src/Product/Application/Sidebar/ProductSidebar.php:17
 msgid "Product Sidebar"
-msgstr "Produkte-Sidebar"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:295
 msgid "Select a Sidebar"
-msgstr "Sidebar wählen"
+msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:297
-msgid "The selected product sidebar will be shown above the main sidebar."
-msgstr "Die ausgewählte Produkte-Sidebar wird über der Haupt-Sidebar angezeigt"
+msgid ""
+"The selected product "
+"sidebar will be shown "
+"above the main sidebar."
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:22
 #: src/Product/Application/Setup/ShopSetup.php:23
 #: src/Product/Application/Setup/ShopSetup.php:24
 #: src/Product/Application/Setup/ShopSetup.php:43
 msgid "Shop"
-msgstr "Shop"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:25
 msgid "Shop Archives"
-msgstr "Shop Archive"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:26
 msgid "Parent Shop:"
-msgstr "Elternshop"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:28
 msgid "Add New Shop"
-msgstr "Shop erstellen"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:30
 msgid "New Shop"
-msgstr "Neues Shop"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:31
 msgid "Edit Shop"
-msgstr "Shop bearbeiten"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:32
 msgid "Update Shop"
-msgstr "Shop aktualisieren"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:33
 msgid "View Shop"
-msgstr "Shop ansehen"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:34
 msgid "Search Shop"
-msgstr "Shop suchen"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:37
 #: src/Product/Application/Setup/ShopSetup.php:82
 msgid "Logo"
-msgstr "Logo"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:38
 msgid "Set Logo"
-msgstr "Logo setzen"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:39
 msgid "Remove Logo"
-msgstr "Logo entfernen"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:40
 msgid "Use As Logo"
-msgstr "Als Logo verwenden"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:41
 msgid "Insert Into Shop"
-msgstr "In den Shop einsetzen"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:42
-msgid "Uploaded To This Shop"
-msgstr "Zum Shop hochladen"
+msgid ""
+"Uploaded To This Shop"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:44
 msgid "Shop Navigation"
-msgstr "Shop Navigation"
+msgstr ""
 
 #: src/Product/Application/Setup/ShopSetup.php:45
 msgid "Filter Shops"
-msgstr "Shop filtern"
+msgstr ""
 
 #: src/Product/Application/Sidebar/MainSidebar.php:17
 msgid "Main Sidebar"
-msgstr "Haupt-Sidebar"
+msgstr ""
 
 #: src/Product/Application/Sidebar/MainSidebar.php:19
-msgid "Place your widgets into this sidebar, which is visible on every page."
+msgid ""
+"Place your widgets into "
+"this sidebar, which is "
+"visible on every page."
 msgstr ""
-"Platziere deine Widgets in diese Sidebar, die auf jeder Seite sichtbar ist."
 
 #: src/Product/Application/Sidebar/ProductSidebar.php:19
 msgid ""
-"Place your widgets into this sidebar, which is visible on every product page."
+"Place your widgets into "
+"this sidebar, which is "
+"visible on every product "
+"page."
 msgstr ""
-"Platziere deine Widgets in diese Sidebar, die auf jeder Produktseite "
-"sichtbar ist."
 
 #: src/Product/Domain/Exception/InvalidOptionException.php:15
 #, php-format
-msgid "Invalid option: %s. Please choose one of the following options: %s."
-msgstr "Ungültige Option: %s. Bitte nutze eine dieser Optionen: %s."
+msgid ""
+"Invalid option: %s. "
+"Please choose one of the "
+"following options: %s."
+msgstr ""
 
 #: src/Product/Domain/Exception/InvalidPostTypeException.php:15
 #, php-format
-msgid "Invalid post type: %s. It should be: %s"
-msgstr "Ungültiges Beitragsformat: %s. Bitte verwende: %s."
+msgid ""
+"Invalid post type: %s. "
+"It should be: %s"
+msgstr ""
 
 #: src/Product/Domain/Exception/PostNotFoundException.php:14
 #, php-format
-msgid "The post #%s wasn't found."
-msgstr "Der Beitrag #%s wurde nicht gefunden."
-
-#~ msgid "Affiliate ID"
-#~ msgstr "Affiliate ID"
-
-#~ msgid "Unique product ID (e.g. Amazon ASIN or Affilinet ID)"
-#~ msgstr "Einmalige Produkt ID (z.B Amazon ASIN oder Affilinet ID)"
-
-#~ msgid "Key"
-#~ msgstr "Schlüssel"
-
-#~ msgid ""
-#~ "Create a unique key with non-special characters, numbers, -, @ and _ only "
-#~ "(e.g @unique-key_here)."
-#~ msgstr ""
-#~ "Erstelle eine einmaligen Schlüssel mit nicht speziellen Zeichen, Zahlen , "
-#~ "-, @ und _ (z.B @einmaliger-schluessel)"
-
-#~ msgid "Label"
-#~ msgstr "Schlüssel"
-
-#~ msgid "Product Image Gallery"
-#~ msgstr "Produkt Bildergallerie"
-
-#~ msgid "Create a unique key with non-special characters, numbers and _ only"
-#~ msgstr ""
-#~ "Erstelle eine einmaligen Schlüssel mit nicht speziellen Zeichen, Zahlen "
-#~ "und _"
-
-#~ msgid "Product Detail Groups"
-#~ msgstr "Produkt-Detailgruppen"
-
-#~ msgid "Product Detail Group Archives"
-#~ msgstr "Produkt-Detailgruppen Archive"
-
-#~ msgid "Parent Product Detail Group:"
-#~ msgstr "Eltern-Produkt-Detailgruppen"
-
-#~ msgid "Add New Product Detail Group"
-#~ msgstr "Produkt-Detailgruppen erstellen"
-
-#~ msgid "New Product Detail Group"
-#~ msgstr "Produkt-Detailgruppen erstellen"
-
-#~ msgid "Edit Product Detail Group"
-#~ msgstr "Produkt-Detailgruppen bearbeiten"
-
-#~ msgid "Update Product Detail Group"
-#~ msgstr "Produkt-Detailgruppen aktualisieren"
-
-#~ msgid "View Product Detail Group"
-#~ msgstr "Produkt-Detailgruppen ansehen"
-
-#~ msgid "Search Product Detail Group"
-#~ msgstr "Produkt-Detailgruppen suchen"
-
-#~ msgid "Uploaded To This Product Detail Group"
-#~ msgstr "Zur Produkt-Detailgruppe hochladen"
-
-#~ msgid "Product Detail Groups Navigation"
-#~ msgstr "Produkt-Detailgruppe Navigation"
-
-#~ msgid "Product Filter Detail Groups"
-#~ msgstr "Produkt-Detailgruppen filtern"
+msgid ""
+"The post #%s wasn't "
+"found."
+msgstr ""

@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Application\MetaBox;
+namespace Affilicious\Product\Application\MetaBox;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -15,7 +15,7 @@ class ProductImageGalleryMetaBox implements MetaBoxInterface
      * The stored meta key in the database
      */
     const META_KEY = 'product_image_gallery';
-    const STORE_KEY = 'affilicious_product_image_gallery';
+    const STORE_KEY = 'affilicious_image_gallery';
 
     /**
      * @inheritdoc
@@ -46,8 +46,8 @@ class ProductImageGalleryMetaBox implements MetaBoxInterface
                             <?php echo $attachment; ?>
                             <ul class="actions">
                                 <li><a href="#" class="delete tips"
-                                       data-tip="<?php esc_attr__('Delete Image', 'affilicious-products'); ?>">
-                                        <?php __('Delete', 'affilicious-products'); ?>
+                                       data-tip="<?php esc_attr__('Delete Image', 'affilicious'); ?>">
+                                        <?php __('Delete', 'affilicious'); ?>
                                     </a>
                                 </li>
                             </ul>
@@ -70,11 +70,11 @@ class ProductImageGalleryMetaBox implements MetaBoxInterface
         </div>
         <p class="add_product_images hide-if-no-js">
             <a href="#"
-               data-choose="<?php esc_attr_e('Add Images', 'affilicious-products'); ?>"
-               data-update="<?php esc_attr_e('Add Image', 'affilicious-products'); ?>"
-               data-delete="<?php esc_attr_e('Delete Image', 'affilicious-products'); ?>"
-               data-text="<?php esc_attr_e('Delete Image', 'affilicious-products'); ?>">
-                <?php _e('Add Images To Image Gallery', 'affilicious-products'); ?>
+               data-choose="<?php esc_attr_e('Add Images', 'affilicious'); ?>"
+               data-update="<?php esc_attr_e('Add Image', 'affilicious'); ?>"
+               data-delete="<?php esc_attr_e('Delete Image', 'affilicious'); ?>"
+               data-text="<?php esc_attr_e('Delete Image', 'affilicious'); ?>">
+                <?php _e('Add Images To Image Gallery', 'affilicious'); ?>
             </a>
         </p>
         <?php

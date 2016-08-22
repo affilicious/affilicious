@@ -1,9 +1,9 @@
 <?php
-namespace Affilicious\ProductsPlugin\Product\Infrastructure\Persistence\Wordpress;
+namespace Affilicious\Product\Infrastructure\Persistence\Wordpress;
 
-use Affilicious\ProductsPlugin\Product\Domain\Exception\InvalidPostTypeException;
-use Affilicious\ProductsPlugin\Product\Domain\Model\Shop;
-use Affilicious\ProductsPlugin\Product\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Product\Domain\Exception\InvalidPostTypeException;
+use Affilicious\Product\Domain\Model\Shop;
+use Affilicious\Product\Domain\Model\ShopRepositoryInterface;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

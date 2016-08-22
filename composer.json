@@ -1,5 +1,5 @@
 {
-  "name": "alexba/affilicious-products-plugin",
+  "name": "alexba/affilicious-plugin",
   "license": "MIT",
   "type": "wordpress-plugin",
   "keywords": [
@@ -9,7 +9,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Affilicious\\ProductsPlugin\\": "src/"
+      "Affilicious\\": "src/"
     }
   },
   "require": {
