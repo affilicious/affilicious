@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Domain\Helper;
 
+if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+
 class PriceHelper
 {
     /**

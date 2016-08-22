@@ -4,6 +4,8 @@ namespace Affilicious\Product\Domain\Helper;
 use Affilicious\Product\Domain\Exception\PostNotFoundException;
 use Affilicious\Product\Domain\Model\Shop;
 
+if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+
 class ShopHelper
 {
     /**
