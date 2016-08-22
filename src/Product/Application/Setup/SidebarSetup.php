@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Product\Application\Sidebar\MainSidebar;
 use Affilicious\Product\Application\Sidebar\ProductSidebar;
 

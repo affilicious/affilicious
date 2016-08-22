@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Product\Domain\Model\DetailGroup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Carbon_Fields\Container as CarbonContainer;

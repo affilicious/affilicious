@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Shop;
 use Affilicious\Product\Domain\Model\ShopRepositoryInterface;
