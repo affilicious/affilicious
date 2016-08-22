@@ -20,7 +20,7 @@ class ShopHelper
     public static function getShop($postOrId = null)
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
-        $shopRepository = $container['shop_repository'];
+        $shopRepository = $container['affilicious.product.repository.shop'];
 
         if ($postOrId instanceof Shop) {
             $shop = $postOrId;

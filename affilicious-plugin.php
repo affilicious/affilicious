@@ -148,7 +148,7 @@ class AffiliciousPlugin
         $this->registerAdminHooks();
 
         new MetaBoxManager(); // This old class will be removed later
-        $this->container['carbon_setup'];
+        $this->container['affilicious.common.setup.carbon'];
     }
 
     /**
@@ -221,40 +221,40 @@ class AffiliciousPlugin
      */
     public function registerServices()
     {
-        $this->container['product_repository'] = function ($c) {
-            return new CarbonProductRepository($c['detail_group_repository']);
-        };
-
-        $this->container['shop_repository'] = function () {
-            return new WordpressShopRepository();
-        };
-
-        $this->container['detail_group_repository'] = function () {
-            return new CarbonDetailGroupRepository();
-        };
-
-        $this->container['product_setup'] = function ($c) {
-            return new ProductSetup($c['detail_group_repository'], $c['shop_repository']);
-        };
-
-        $this->container['shop_setup'] = function ($c) {
-            return new ShopSetup();
-        };
-
-        $this->container['detail_group_setup'] = function () {
-            return new DetailGroupSetup();
-        };
-
-        $this->container['sidebar_setup'] = function () {
-            return new SidebarSetup();
-        };
-
-        $this->container['asset_setup'] = function () {
+        $this->container['affilicious.common.setup.asset'] = function () {
             return new AssetSetup();
         };
 
-        $this->container['carbon_setup'] = function () {
+        $this->container['affilicious.common.setup.carbon'] = function () {
             return new CarbonSetup();
+        };
+
+        $this->container['affilicious.product.repository.product'] = function ($c) {
+            return new CarbonProductRepository($c['affilicious.product.repository.detail_group']);
+        };
+
+        $this->container['affilicious.product.repository.shop'] = function () {
+            return new WordpressShopRepository();
+        };
+
+        $this->container['affilicious.product.repository.detail_group'] = function () {
+            return new CarbonDetailGroupRepository();
+        };
+
+        $this->container['affilicious.product.setup.product'] = function ($c) {
+            return new ProductSetup($c['affilicious.product.repository.detail_group'], $c['affilicious.product.repository.shop']);
+        };
+
+        $this->container['affilicious.product.setup.shop'] = function () {
+            return new ShopSetup();
+        };
+
+        $this->container['affilicious.product.setup.detail_group'] = function () {
+            return new DetailGroupSetup();
+        };
+
+        $this->container['affilicious.product.setup.sidebar'] = function () {
+            return new SidebarSetup();
         };
     }
 
@@ -277,29 +277,29 @@ class AffiliciousPlugin
     public function registerPublicHooks()
     {
         // Add public assets
-        add_action('wp_enqueue_scripts', array($this->container['asset_setup'], 'addPublicStyles'), 10);
-        add_action('wp_enqueue_scripts', array($this->container['asset_setup'], 'addPublicScripts'), 20);
+        add_action('wp_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addPublicStyles'), 10);
+        add_action('wp_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addPublicScripts'), 20);
 
         // Set up Carbon Fields
-        add_action('after_setup_theme', array($this->container['carbon_setup'], 'crb_init_carbon_field_hidden'), 15);
+        add_action('after_setup_theme', array($this->container['affilicious.common.setup.carbon'], 'crb_init_carbon_field_hidden'), 15);
 
         // Set up shops
-        add_action('init', array($this->container['shop_setup'], 'init'), 1);
-        add_action('init', array($this->container['shop_setup'], 'render'), 2);
-        add_action('manage_shop_posts_columns', array($this->container['shop_setup'], 'columnsHead'), 9, 2);
-        add_action('manage_shop_posts_custom_column', array($this->container['shop_setup'], 'columnsContent'), 10, 2);
+        add_action('init', array($this->container['affilicious.product.setup.shop'], 'init'), 1);
+        add_action('init', array($this->container['affilicious.product.setup.shop'], 'render'), 2);
+        add_action('manage_shop_posts_columns', array($this->container['affilicious.product.setup.shop'], 'columnsHead'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array($this->container['affilicious.product.setup.shop'], 'columnsContent'), 10, 2);
 
         // Set up detail groups
-        add_action('init', array($this->container['detail_group_setup'], 'init'), 3);
-        add_action('init', array($this->container['detail_group_setup'], 'render'), 4);
+        add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'init'), 3);
+        add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'render'), 4);
 
         // Set up products
-        add_action('init', array($this->container['product_setup'], 'init'), 5);
-        add_action('init', array($this->container['product_setup'], 'render'), 6);
+        add_action('init', array($this->container['affilicious.product.setup.product'], 'init'), 5);
+        add_action('init', array($this->container['affilicious.product.setup.product'], 'render'), 6);
 
         // Set up sidebar
-        add_action('init', array($this->container['sidebar_setup'], 'init'), 7);
-        add_action('init', array($this->container['sidebar_setup'], 'render'), 8);
+        add_action('init', array($this->container['affilicious.product.setup.sidebar'], 'init'), 7);
+        add_action('init', array($this->container['affilicious.product.setup.sidebar'], 'render'), 8);
     }
 
     /**
@@ -310,8 +310,8 @@ class AffiliciousPlugin
     public function registerAdminHooks()
     {
         // Add admin assets
-        add_action('admin_enqueue_scripts', array($this->container['asset_setup'], 'addAdminStyles'), 10);
-        add_action('admin_enqueue_scripts', array($this->container['asset_setup'], 'addAdminScripts'), 20);
+        add_action('admin_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addAdminStyles'), 10);
+        add_action('admin_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addAdminScripts'), 20);
     }
 }
 

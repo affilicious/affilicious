@@ -21,7 +21,7 @@ class ProductHelper
     public static function getProduct($postOrId = null)
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
-        $productRepository = $container['product_repository'];
+        $productRepository = $container['affilicious.product.repository.product'];
 
         if ($postOrId instanceof Product) {
             $product = $postOrId;

@@ -16,7 +16,7 @@ class PriceHelper
      */
     public static function getPrice($value, $currency)
     {
-        $currencySymbol = affilicious_get_currency_symbol($currency);
+        $currencySymbol = self::getCurrencySymbol($currency);
         if (empty($value) || empty($currencySymbol)) {
             return null;
         }
