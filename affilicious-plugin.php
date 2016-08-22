@@ -17,12 +17,12 @@ use Affilicious\Common\Application\Setup\CarbonSetup;
 use Affilicious\Product\Application\Setup\ProductSetup;
 use Affilicious\Product\Application\Setup\ShopSetup;
 use Affilicious\Product\Application\Setup\DetailGroupSetup;
-use Pimple\Container;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Product\Application\Setup\SidebarSetup;
+use Pimple\Container;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 
@@ -39,23 +39,34 @@ class AffiliciousPlugin
     const PLUGIN_AUTHOR = 'Affilicious Team';
 
     /**
+     * Stores the singleton instance
+     *
+     * @since 0.3
+     * @var AffiliciousPlugin
+     */
+    private static $instance;
+
+    /**
      * Register all services and parameters for the pimple dependency injection
      *
      * @see http://pimple.sensiolabs.org
      * @var Container
      */
-    private static $container;
+    private $container;
 
     /**
-     * Get a reference to the dependency injection container
+     * Get the instance of the affilicious plugin
      *
-     * @see https://easydigitaldownloads.com/downloads/software-licensing/
      * @since 0.3
-     * @return Container
+     * @return AffiliciousPlugin
      */
-    public static function &getContainer()
+    public static function getInstance()
     {
-        return self::$container;
+        if (self::$instance === null) {
+            self::$instance = new AffiliciousPlugin();
+        }
+
+        return self::$instance;
     }
 
     /**
@@ -74,7 +85,7 @@ class AffiliciousPlugin
      *
      * @since 0.3
      */
-    public function __construct()
+    private function __construct()
     {
         require_once(self::PLUGIN_SOURCE_DIR . 'functions.php');
         if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
@@ -89,9 +100,21 @@ class AffiliciousPlugin
             include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
         }
 
-        self::$container = new Container();
+        $this->container = new Container();
 
         add_action('admin_init', array($this, 'update'), 0);
+    }
+
+    /**
+     * Get a reference to the dependency injection container
+     *
+     * @see https://easydigitaldownloads.com/downloads/software-licensing/
+     * @since 0.3
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
     }
 
     /**
@@ -125,7 +148,7 @@ class AffiliciousPlugin
         $this->registerAdminHooks();
 
         new MetaBoxManager(); // This old class will be removed later
-        self::$container['carbon_setup'];
+        $this->container['carbon_setup'];
     }
 
     /**
@@ -198,39 +221,39 @@ class AffiliciousPlugin
      */
     public function registerServices()
     {
-        self::$container['product_repository'] = function ($c) {
+        $this->container['product_repository'] = function ($c) {
             return new CarbonProductRepository($c['detail_group_repository']);
         };
 
-        self::$container['shop_repository'] = function () {
+        $this->container['shop_repository'] = function () {
             return new WordpressShopRepository();
         };
 
-        self::$container['detail_group_repository'] = function () {
+        $this->container['detail_group_repository'] = function () {
             return new CarbonDetailGroupRepository();
         };
 
-        self::$container['product_setup'] = function ($c) {
+        $this->container['product_setup'] = function ($c) {
             return new ProductSetup($c['detail_group_repository'], $c['shop_repository']);
         };
 
-        self::$container['shop_setup'] = function ($c) {
+        $this->container['shop_setup'] = function ($c) {
             return new ShopSetup();
         };
 
-        self::$container['detail_group_setup'] = function () {
+        $this->container['detail_group_setup'] = function () {
             return new DetailGroupSetup();
         };
 
-        self::$container['sidebar_setup'] = function () {
+        $this->container['sidebar_setup'] = function () {
             return new SidebarSetup();
         };
 
-        self::$container['asset_setup'] = function () {
+        $this->container['asset_setup'] = function () {
             return new AssetSetup();
         };
 
-        self::$container['carbon_setup'] = function () {
+        $this->container['carbon_setup'] = function () {
             return new CarbonSetup();
         };
     }
@@ -254,29 +277,29 @@ class AffiliciousPlugin
     public function registerPublicHooks()
     {
         // Add public assets
-        add_action('wp_enqueue_scripts', array(self::$container['asset_setup'], 'addPublicStyles'), 10);
-        add_action('wp_enqueue_scripts', array(self::$container['asset_setup'], 'addPublicScripts'), 20);
+        add_action('wp_enqueue_scripts', array($this->container['asset_setup'], 'addPublicStyles'), 10);
+        add_action('wp_enqueue_scripts', array($this->container['asset_setup'], 'addPublicScripts'), 20);
 
         // Set up Carbon Fields
-        add_action('after_setup_theme', array(self::$container['carbon_setup'], 'crb_init_carbon_field_hidden'), 15);
+        add_action('after_setup_theme', array($this->container['carbon_setup'], 'crb_init_carbon_field_hidden'), 15);
 
         // Set up shops
-        add_action('init', array(self::$container['shop_setup'], 'init'), 1);
-        add_action('init', array(self::$container['shop_setup'], 'render'), 2);
-        add_action('manage_shop_posts_columns', array(self::$container['shop_setup'], 'columnsHead'), 9, 2);
-        add_action('manage_shop_posts_custom_column', array(self::$container['shop_setup'], 'columnsContent'), 10, 2);
+        add_action('init', array($this->container['shop_setup'], 'init'), 1);
+        add_action('init', array($this->container['shop_setup'], 'render'), 2);
+        add_action('manage_shop_posts_columns', array($this->container['shop_setup'], 'columnsHead'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array($this->container['shop_setup'], 'columnsContent'), 10, 2);
 
         // Set up detail groups
-        add_action('init', array(self::$container['detail_group_setup'], 'init'), 3);
-        add_action('init', array(self::$container['detail_group_setup'], 'render'), 4);
+        add_action('init', array($this->container['detail_group_setup'], 'init'), 3);
+        add_action('init', array($this->container['detail_group_setup'], 'render'), 4);
 
         // Set up products
-        add_action('init', array(self::$container['product_setup'], 'init'), 5);
-        add_action('init', array(self::$container['product_setup'], 'render'), 6);
+        add_action('init', array($this->container['product_setup'], 'init'), 5);
+        add_action('init', array($this->container['product_setup'], 'render'), 6);
 
         // Set up sidebar
-        add_action('init', array(self::$container['sidebar_setup'], 'init'), 7);
-        add_action('init', array(self::$container['sidebar_setup'], 'render'), 8);
+        add_action('init', array($this->container['sidebar_setup'], 'init'), 7);
+        add_action('init', array($this->container['sidebar_setup'], 'render'), 8);
     }
 
     /**
@@ -287,10 +310,10 @@ class AffiliciousPlugin
     public function registerAdminHooks()
     {
         // Add admin assets
-        add_action('admin_enqueue_scripts', array(self::$container['asset_setup'], 'addAdminStyles'), 10);
-        add_action('admin_enqueue_scripts', array(self::$container['asset_setup'], 'addAdminScripts'), 20);
+        add_action('admin_enqueue_scripts', array($this->container['asset_setup'], 'addAdminStyles'), 10);
+        add_action('admin_enqueue_scripts', array($this->container['asset_setup'], 'addAdminScripts'), 20);
     }
 }
 
-$affiliciousPlugin = new AffiliciousPlugin();
+$affiliciousPlugin = AffiliciousPlugin::getInstance();
 $affiliciousPlugin->run();
