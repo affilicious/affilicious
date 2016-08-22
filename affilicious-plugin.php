@@ -12,7 +12,6 @@
  * Text Domain: affilicious
  * Domain Path: /languages/
  */
-use Affilicious\Common\Application\Loader\Loader;
 use Affilicious\Common\Application\Setup\AssetSetup;
 use Affilicious\Common\Application\Setup\CarbonSetup;
 use Affilicious\Product\Application\Setup\ProductSetup;
@@ -40,29 +39,12 @@ class AffiliciousPlugin
     const PLUGIN_AUTHOR = 'Affilicious Team';
 
     /**
-     * Register all actions and filters for the plugin.
-     *
-     * @var Loader
-     */
-    private static $loader;
-
-    /**
      * Register all services and parameters for the pimple dependency injection
      *
      * @see http://pimple.sensiolabs.org
      * @var Container
      */
     private static $container;
-
-    /**
-     * Get a reference to the hooks and filters loader
-     *
-     * @return Loader
-     */
-    public static function &getLoader()
-    {
-        return self::$loader;
-    }
 
     /**
      * Get a reference to the dependency injection container
@@ -104,7 +86,6 @@ class AffiliciousPlugin
         }
 
         self::$container = new Container();
-        self::$loader = new Loader();
 
         add_action('admin_init', array($this, 'update'), 0);
     }
@@ -129,7 +110,7 @@ class AffiliciousPlugin
     {
         register_activation_hook( __FILE__, array($this, 'activate'));
         register_deactivation_hook( __FILE__, array($this, 'deactivate'));
-        self::$loader->add_action('plugins_loaded', $this, 'loaded');
+        add_action('plugins_loaded', array($this, 'loaded'));
 
         $this->registerServices();
         $this->registerPublicHooks();
@@ -137,8 +118,6 @@ class AffiliciousPlugin
 
         new MetaBoxManager(); // This old class will be removed later
         self::$container['carbon_setup'];
-
-        self::$loader->run();
     }
 
     /**
@@ -253,29 +232,29 @@ class AffiliciousPlugin
     public function registerPublicHooks()
     {
         // Add public assets
-        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicStyles', 10);
-        self::$loader->add_action('wp_enqueue_scripts', self::$container['asset_setup'], 'addPublicScripts', 20);
+        add_action('wp_enqueue_scripts', array(self::$container['asset_setup'], 'addPublicStyles'), 10);
+        add_action('wp_enqueue_scripts', array(self::$container['asset_setup'], 'addPublicScripts'), 20);
 
         // Set up Carbon Fields
-        self::$loader->add_action('after_setup_theme', self::$container['carbon_setup'], 'crb_init_carbon_field_hidden', 15);
+        add_action('after_setup_theme', array(self::$container['carbon_setup'], 'crb_init_carbon_field_hidden'), 15);
 
         // Set up shops
-        self::$loader->add_action('init', self::$container['shop_setup'], 'init', 1);
-        self::$loader->add_action('init', self::$container['shop_setup'], 'render', 2);
-        self::$loader->add_action('manage_shop_posts_columns', self::$container['shop_setup'], 'columnsHead', 9, 2);
-        self::$loader->add_action('manage_shop_posts_custom_column', self::$container['shop_setup'], 'columnsContent', 10, 2);
+        add_action('init', array(self::$container['shop_setup'], 'init'), 1);
+        add_action('init', array(self::$container['shop_setup'], 'render'), 2);
+        add_action('manage_shop_posts_columns', array(self::$container['shop_setup'], 'columnsHead'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array(self::$container['shop_setup'], 'columnsContent'), 10, 2);
 
         // Set up detail groups
-        self::$loader->add_action('init', self::$container['detail_group_setup'], 'init', 3);
-        self::$loader->add_action('init', self::$container['detail_group_setup'], 'render', 4);
+        add_action('init', array(self::$container['detail_group_setup'], 'init'), 3);
+        add_action('init', array(self::$container['detail_group_setup'], 'render'), 4);
 
         // Set up products
-        self::$loader->add_action('init', self::$container['product_setup'], 'init', 5);
-        self::$loader->add_action('init', self::$container['product_setup'], 'render', 6);
+        add_action('init', array(self::$container['product_setup'], 'init'), 5);
+        add_action('init', array(self::$container['product_setup'], 'render'), 6);
 
         // Set up sidebar
-        self::$loader->add_action('init', self::$container['sidebar_setup'], 'init', 7);
-        self::$loader->add_action('init', self::$container['sidebar_setup'], 'render', 8);
+        add_action('init', array(self::$container['sidebar_setup'], 'init'), 7);
+        add_action('init', array(self::$container['sidebar_setup'], 'render'), 8);
     }
 
     /**
@@ -284,8 +263,8 @@ class AffiliciousPlugin
     public function registerAdminHooks()
     {
         // Add admin assets
-        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminStyles', 10);
-        self::$loader->add_action('admin_enqueue_scripts', self::$container['asset_setup'], 'addAdminScripts', 20);
+        add_action('admin_enqueue_scripts', array(self::$container['asset_setup'], 'addAdminStyles'), 10);
+        add_action('admin_enqueue_scripts', array(self::$container['asset_setup'], 'addAdminScripts'), 20);
     }
 }
 
