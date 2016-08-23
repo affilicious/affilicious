@@ -352,7 +352,7 @@ function affilicious_is_active_product_sidebar($productOrId = null)
         return false;
     }
 
-    $active = is_active_sidebar($sidebar);
+    $active = is_dynamic_sidebar($sidebar);
 
     return $active;
 }
