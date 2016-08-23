@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Affilicious
  * Description: Erstelle und verwalte Affiliate Produkte in Wordpress mit Preisvergleichen, Shops, Details und mehr
- * Version: 0.3
+ * Version: 0.4.1
  * Author: Affilicious Team
  * Author URI: http://affilicioustheme.de/author/alexander-barton
  * Plugin URI: http://affilicioustheme.de/plugins/products
@@ -29,7 +29,7 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class AffiliciousPlugin
 {
     const PLUGIN_NAME = 'affilicious';
-    const PLUGIN_VERSION = '0.3';
+    const PLUGIN_VERSION = '0.4.1';
     const PLUGIN_NAMESPACE = 'Affilicious\\';
     const PLUGIN_SOURCE_DIR = 'src/';
     const PLUGIN_LANGUAGE_DIR = 'languages';
@@ -90,9 +90,10 @@ class AffiliciousPlugin
         require_once(self::PLUGIN_SOURCE_DIR . 'functions.php');
         if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
             require(__DIR__ . '/vendor/autoload.php');
-        } else {
-            spl_autoload_register(array($this, 'autoload'));
         }
+
+        spl_autoload_register(array($this, 'autoload'));
+
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
         require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
 
