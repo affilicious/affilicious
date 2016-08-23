@@ -2,7 +2,6 @@
 namespace Affilicious\Product\Application\Setup;
 
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Product\Application\Sidebar\MainSidebar;
 use Affilicious\Product\Domain\Helper\DetailGroupHelper;
 use Affilicious\Product\Domain\Model\DetailGroup;
 use Affilicious\Product\Domain\Model\DetailGroupRepositoryInterface;
@@ -293,15 +292,6 @@ class ProductSetup implements SetupInterface
      */
     private function renderSidebars()
     {
-        $carbonContainer = CarbonContainer::make('post_meta', __('Product Sidebar', 'affilicious'))
-            ->show_on_post_type(Product::POST_TYPE)
-            ->set_priority('low')
-            ->add_fields(array(
-                CarbonField::make('sidebar', CarbonProductRepository::PRODUCT_SIDEBAR, __('Select a Sidebar', 'affilicious'))
-                    ->exclude_sidebars(array(MainSidebar::ID))
-                    ->set_help_text(__('The selected product sidebar will be shown above the main sidebar.', 'affilicious'))
-            ));
 
-        apply_filters('affilicious_product_render_sidebar', $carbonContainer);
     }
 }

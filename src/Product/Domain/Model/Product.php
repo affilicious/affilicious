@@ -70,13 +70,6 @@ class Product
     private $imageGallery;
 
     /**
-     * Stores the name of the product sidebar
-     *
-     * @var string
-     */
-    private $sidebar;
-
-    /**
      * @since 0.3
      * @param \WP_Post $post
      */
@@ -370,28 +363,6 @@ class Product
     public function setImageGallery($imageGallery)
     {
         $this->imageGallery = $imageGallery;
-    }
-
-    /**
-     * Get the product sidebar
-     *
-     * @since 0.3
-     * @return string
-     */
-    public function getSidebar()
-    {
-        return $this->sidebar;
-    }
-
-    /**
-     * Set the name of the product sidebar
-     *
-     * @since 0.3
-     * @param string $sidebar
-     */
-    public function setSidebar($sidebar)
-    {
-        $this->sidebar = $sidebar;
     }
 
     /**

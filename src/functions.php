@@ -338,41 +338,6 @@ function affilicious_is_product()
 }
 
 /**
- * Check if the product sidebar is active.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- * @return bool
- */
-function affilicious_is_active_product_sidebar($productOrId = null)
-{
-    $product = affilicious_get_product($productOrId);
-    $sidebar = $product->getSidebar();
-    if ($sidebar === null) {
-        return false;
-    }
-
-    $active = is_dynamic_sidebar($sidebar);
-
-    return $active;
-}
-
-/**
- * Get the product sidebar.
- * This function prints the result directly to the screen.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- */
-function affilicious_get_product_sidebar($productOrId = null)
-{
-    $product = affilicious_get_product($productOrId);
-    $sidebar = $product->getSidebar();
-
-    dynamic_sidebar($sidebar);
-}
-
-/**
  * Get the shop by the ID or Wordpress post.
  * If you pass in nothing as a shop, the current post will be used.
  *
