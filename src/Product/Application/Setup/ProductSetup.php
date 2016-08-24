@@ -97,16 +97,16 @@ class ProductSetup implements SetupInterface
         register_post_type(Product::POST_TYPE, $args);
 
         $labels = array(
-            'name' => __('Categories', 'affilicious'),
-            'singular_name' => __('Category', 'affilicious'),
-            'search_items' => __('Search categories', 'affilicious'),
-            'all_items' => __('All categories', 'affilicious'),
-            'parent_item' => __('Parent category', 'affilicious'),
-            'parent_item_colon' => __('Parent category:', 'affilicious'),
-            'edit_item' => __('Edit category', 'affilicious'),
-            'update_item' => __('Update category', 'affilicious'),
-            'add_new_item' => __('Add New category', 'affilicious'),
-            'new_item_name' => __('New category name', 'affilicious'),
+            'name' => __('Product Categories', 'affilicious'),
+            'singular_name' => __('Product Category', 'affilicious'),
+            'search_items' => __('Search Product Categories', 'affilicious'),
+            'all_items' => __('All Product Categories', 'affilicious'),
+            'parent_item' => __('Parent Product Category', 'affilicious'),
+            'parent_item_colon' => __('Parent Product Category:', 'affilicious'),
+            'edit_item' => __('Edit Product Category', 'affilicious'),
+            'update_item' => __('Update Product Category', 'affilicious'),
+            'add_new_item' => __('Add New Product Category', 'affilicious'),
+            'new_item_name' => __('New Product Category Name', 'affilicious'),
             'menu_name' => __('Categories', 'affilicious'),
         );
 
