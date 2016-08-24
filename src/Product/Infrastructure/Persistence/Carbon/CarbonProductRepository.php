@@ -115,7 +115,12 @@ class CarbonProductRepository implements ProductRepositoryInterface
                 $temp[Product::DETAIL_GROUP_DETAILS] = array_map(function($detail) use ($detailGroup, $detailGroupId) {
                     unset($detail['_type'], $detail[DetailGroup::DETAIL_DEFAULT_VALUE], $detail[DetailGroup::DETAIL_HELP_TEXT]);
                     $detail[Product::DETAIL_VALUE] = $detailGroup[$detail[DetailGroup::DETAIL_KEY]];
-                    $detail[Product::DETAIL_VALUE] = $detail[Product::DETAIL_TYPE] === DetailGroup::DETAIL_TYPE_NUMBER ? intval($detail[Product::DETAIL_VALUE]) : $detail[Product::DETAIL_VALUE];
+
+                    // Convert the string into a float, if the type is numeric
+                    if ($detail[Product::DETAIL_TYPE] === DetailGroup::DETAIL_TYPE_NUMBER) {
+                        $detail[Product::DETAIL_VALUE] = floatval($detail[Product::DETAIL_VALUE]);
+                    }
+
                     return $detail;
                 }, $detailGroupObject->getDetails());
 
