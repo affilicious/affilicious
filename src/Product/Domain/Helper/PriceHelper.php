@@ -21,10 +21,7 @@ class PriceHelper
             return null;
         }
 
-        if(!preg_match('/\.(d)*$/', $value)) {
-            $value .= '.00';
-        }
-
+        $value = number_format($value, 2, '.', '');
         $price = $value . ' ' . $currencySymbol;
 
         return $price;
