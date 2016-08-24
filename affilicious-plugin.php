@@ -2,12 +2,12 @@
 /**
  * Plugin Name: Affilicious
  * Description: Erstelle und verwalte Affiliate Produkte in Wordpress mit Preisvergleichen, Shops, Details und mehr
- * Version: 0.4.2
+ * Version: 0.4.3
  * Author: Affilicious Team
  * Author URI: http://affilicioustheme.de/author/alexander-barton
  * Plugin URI: http://affilicioustheme.de/plugins/products
  * License: MIT
- * Requires at least: 4.0
+ * Requires at least: 4.5
  * Tested up to: 4.6
  * Text Domain: affilicious
  * Domain Path: /languages/
@@ -28,7 +28,7 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class AffiliciousPlugin
 {
     const PLUGIN_NAME = 'affilicious';
-    const PLUGIN_VERSION = '0.4.2';
+    const PLUGIN_VERSION = '0.4.3';
     const PLUGIN_NAMESPACE = 'Affilicious\\';
     const PLUGIN_SOURCE_DIR = 'src/';
     const PLUGIN_LANGUAGE_DIR = 'languages';
