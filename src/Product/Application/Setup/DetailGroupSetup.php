@@ -89,8 +89,12 @@ class DetailGroupSetup implements SetupInterface
                                     )
                                 )),
                             CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affilicious'))
-                        )
-                    )
+                        ))
+                    ->set_header_template('
+                        <# if (' . CarbonDetailGroupRepository::CARBON_DETAIL_NAME . ') { #>
+                            {{ ' . CarbonDetailGroupRepository::CARBON_DETAIL_NAME . ' }}
+                        <# } #>
+                    ')
             ));
 
         apply_filters('affilicious_detail_groups_render_fields', $carbonContainer);
