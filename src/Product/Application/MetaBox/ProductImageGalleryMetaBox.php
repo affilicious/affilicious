@@ -15,7 +15,7 @@ class ProductImageGalleryMetaBox implements MetaBoxInterface
      * The stored meta key in the database
      */
     const META_KEY = 'product_image_gallery';
-    const STORE_KEY = 'affilicious_image_gallery';
+    const STORE_KEY = 'affilicious_product_image_gallery';
 
     /**
      * @inheritdoc
