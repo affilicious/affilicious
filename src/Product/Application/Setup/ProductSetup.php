@@ -78,7 +78,7 @@ class ProductSetup implements SetupInterface
             'description' => __('Product Type Description', 'affilicious'),
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
-            'supports' => array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions'),
+            'supports' => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions'),
             'taxonomies' => array('product_category'),
             'hierarchical' => false,
             'public' => true,
