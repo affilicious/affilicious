@@ -15,6 +15,10 @@ class DetailGroupHelper
     public static function convertNameToKey($name)
     {
         $key = str_replace(' ', '_', $name);
+
+	    // Names cannot contain underscores followed by digits
+	    $key = preg_replace('/_([0-9])/', '$1', $key);
+
         $key = sanitize_title($key);
 
         return $key;
