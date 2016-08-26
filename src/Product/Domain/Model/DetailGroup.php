@@ -12,6 +12,7 @@ class DetailGroup
     const DETAIL_TYPE = 'type';
     const DETAIL_NAME = 'name';
     const DETAIL_VALUE = 'value';
+    const DETAIL_UNIT = 'unit';
     const DETAIL_DEFAULT_VALUE = 'default_value';
     const DETAIL_HELP_TEXT = 'help_text';
 

@@ -13,6 +13,7 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
     const CARBON_DETAILS = 'affilicious_detail_group_fields';
     const CARBON_DETAIL_NAME = 'name';
     const CARBON_DETAIL_TYPE = 'type';
+    const CARBON_DETAIL_UNIT = 'unit';
     const CARBON_DETAIL_DEFAULT_VALUE = 'default_value';
     const CARBON_DETAIL_HELP_TEXT = 'help_text';
 

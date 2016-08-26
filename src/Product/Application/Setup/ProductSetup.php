@@ -130,7 +130,6 @@ class ProductSetup implements SetupInterface
         $this->renderPriceComparison();
         $this->renderDetails();
         $this->renderRelations();
-        $this->renderSidebars();
     }
 
     /**
@@ -221,10 +220,16 @@ class ProductSetup implements SetupInterface
             }
 
             $carbonFields = array_map(function ($detail) {
+            	if(!empty($detail[DetailGroup::DETAIL_UNIT])) {
+		            $fieldName = sprintf( '%s %s', $detail[DetailGroup::DETAIL_NAME], $detail[DetailGroup::DETAIL_UNIT]);
+	            } else {
+	            	$fieldName = $detail[ DetailGroup::DETAIL_NAME];
+	            }
+
                 $carbonField = CarbonField::make(
                     $detail[DetailGroup::DETAIL_TYPE],
                     $detail[DetailGroup::DETAIL_KEY],
-                    $detail[DetailGroup::DETAIL_NAME]
+	                $fieldName
                 );
 
                 if (!empty($detail[DetailGroup::DETAIL_DEFAULT_VALUE])) {
@@ -283,15 +288,5 @@ class ProductSetup implements SetupInterface
             ));
 
         apply_filters('affilicious_product_render_relations', $carbonContainer);
-    }
-
-    /**
-     * Render the sidebar
-     *
-     * @since 0.3
-     */
-    private function renderSidebars()
-    {
-
     }
 }

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-08-24 16:08+0200\n"
+"POT-Creation-Date: 2016-08-26 22:08+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -200,10 +200,14 @@ msgid "File"
 msgstr "Datei"
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:82
+msgid "Unit"
+msgstr "Einheit"
+
+#: src/Product/Application/Setup/DetailGroupSetup.php:91
 msgid "Default Value"
 msgstr "Standartwert"
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:91
+#: src/Product/Application/Setup/DetailGroupSetup.php:100
 msgid "Help Text"
 msgstr "Hilfstext"
 

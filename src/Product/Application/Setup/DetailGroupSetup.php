@@ -79,6 +79,15 @@ class DetailGroupSetup implements SetupInterface
                                     DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affilicious'),
                                     DetailGroup::DETAIL_TYPE_FILE => __('File', 'affilicious'),
                                 )),
+	                        CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_UNIT, __('Unit', 'affilicious'))
+		                        ->set_conditional_logic(array(
+			                        'relation' => 'AND',
+			                        array(
+				                        'field' => CarbonDetailGroupRepository::CARBON_DETAIL_TYPE,
+				                        'value' => array(DetailGroup::DETAIL_TYPE_TEXT, DetailGroup::DETAIL_TYPE_NUMBER),
+				                        'compare' => 'IN',
+			                        )
+		                        )),
                             CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affilicious'))
                                 ->set_conditional_logic(array(
                                     'relation' => 'AND',

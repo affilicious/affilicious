@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious\n"
 "POT-Creation-Date: "
-"2016-08-24 16:08+0200\n"
+"2016-08-26 22:07+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -244,10 +244,14 @@ msgid "File"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:82
-msgid "Default Value"
+msgid "Unit"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:91
+msgid "Default Value"
+msgstr ""
+
+#: src/Product/Application/Setup/DetailGroupSetup.php:100
 msgid "Help Text"
 msgstr ""
 
