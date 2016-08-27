@@ -42,6 +42,13 @@ class Product
     private $detailGroups;
 
 	/**
+	 * Get the number of ratings
+	 *
+	 * @var int
+	 */
+	PRIVATE $numberOfRatings;
+
+	/**
 	 * Stores the number of stars for the rating in 0.5 steps from 0 to 5
 	 *
 	 * @var float
@@ -85,6 +92,7 @@ class Product
         $this->post = $post;
         $this->shops = array();
         $this->detailGroups = array();
+	    $this->numberOfRatings = 0;
 	    $this->starRating = 0;
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
@@ -256,6 +264,28 @@ class Product
     {
         $this->shops = $shops;
     }
+
+	/**
+	 * Get the number of ratings
+	 *
+	 * @since 0.3.4
+	 * @return int
+	 */
+	public function getNumberOfRatings()
+	{
+		return $this->numberOfRatings;
+	}
+
+	/**
+	 * Set the number of ratings
+	 *
+	 * @since 0.3.4
+	 * @param int $numberOfRatings
+	 */
+	public function setNumberOfRatings($numberOfRatings)
+	{
+		$this->numberOfRatings = $numberOfRatings;
+	}
 
 	/**
 	 * Get the star rating from 0 to 5 in 0.5 steps

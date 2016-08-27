@@ -13,6 +13,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
     const PRODUCT_EAN = 'affilicious_product_ean';
     const PRODUCT_SHOPS = 'affilicious_product_shops';
     const PRODUCT_DETAIL_GROUPS = 'affilicious_product_detail_groups';
+    const PRODUCT_NUMBER_RATINGS = 'affilicious_product_number_ratings';
     const PRODUCT_STAR_RATING = 'affilicious_product_star_rating';
     const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
     const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
@@ -130,6 +131,12 @@ class CarbonProductRepository implements ProductRepositoryInterface
 
             $product->setDetailGroups($result);
         }
+
+	    $numberRatings = carbon_get_post_meta($post->ID, self::PRODUCT_NUMBER_RATINGS);
+	    if (!empty($numberRatings)) {
+		    $numberRatings = floatval($numberRatings);
+		    $product->setNumberOfRatings($numberRatings);
+	    }
 
 	    $starRating = carbon_get_post_meta($post->ID, self::PRODUCT_STAR_RATING);
 	    if (!empty($starRating)) {

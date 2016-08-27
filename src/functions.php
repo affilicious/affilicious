@@ -23,6 +23,21 @@ function affilicious_get_product($productOrId = null)
 }
 
 /**
+ * Get the product number of ratings
+ *
+ * @since 0.3.3
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return int
+ */
+function affilicious_get_product_number_of_ratings($productOrId = null)
+{
+	$product = ProductHelper::getProduct($productOrId);
+	$numberOfRatings = $product->getNumberOfRatings();
+
+	return $numberOfRatings;
+}
+
+/**
  * Get the product star rating from 0 to 5 in 0.5 steps
  *
  * @since 0.3.3

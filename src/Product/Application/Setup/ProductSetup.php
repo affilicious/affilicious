@@ -273,6 +273,8 @@ class ProductSetup implements SetupInterface
           ->show_on_post_type(Product::POST_TYPE)
           ->set_priority('default')
           ->add_fields(array(
+	          CarbonField::make('number', CarbonProductRepository::PRODUCT_NUMBER_RATINGS, __('Number of Rating', 'affilicious'))
+                 ->set_help_text(__('If you want to hide this, just leave it empty or set it to 0.', 'affilicious')),
               CarbonField::make('select', CarbonProductRepository::PRODUCT_STAR_RATING, __('Star Rating', 'affilicious'))
                  ->add_options(array(
                      '0' => sprintf(__('%s stars', 'affilicious'), 0),

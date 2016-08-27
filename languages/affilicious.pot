@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious\n"
 "POT-Creation-Date: "
-"2016-08-27 17:43+0200\n"
+"2016-08-27 22:19+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -328,7 +328,7 @@ msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:49
 #: src/Product/Application/Setup/ProductSetup.php:51
-#: src/Product/Application/Setup/ProductSetup.php:305
+#: src/Product/Application/Setup/ProductSetup.php:307
 msgid "Products"
 msgstr ""
 
@@ -524,49 +524,60 @@ msgid "Rating"
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:276
-msgid "Star Rating"
+msgid "Number of Rating"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:277
+msgid ""
+"If you want to hide "
+"this, just leave it "
+"empty or set it to 0."
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:278
-#: src/Product/Application/Setup/ProductSetup.php:279
+msgid "Star Rating"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:280
 #: src/Product/Application/Setup/ProductSetup.php:281
-#: src/Product/Application/Setup/ProductSetup.php:282
 #: src/Product/Application/Setup/ProductSetup.php:283
 #: src/Product/Application/Setup/ProductSetup.php:284
 #: src/Product/Application/Setup/ProductSetup.php:285
 #: src/Product/Application/Setup/ProductSetup.php:286
 #: src/Product/Application/Setup/ProductSetup.php:287
 #: src/Product/Application/Setup/ProductSetup.php:288
+#: src/Product/Application/Setup/ProductSetup.php:289
+#: src/Product/Application/Setup/ProductSetup.php:290
 #, php-format
 msgid "%s stars"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:280
+#: src/Product/Application/Setup/ProductSetup.php:282
 #, php-format
 msgid "%s star"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:302
+#: src/Product/Application/Setup/ProductSetup.php:304
 msgid "Relations"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:306
+#: src/Product/Application/Setup/ProductSetup.php:308
 msgid "Related Products"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:310
+#: src/Product/Application/Setup/ProductSetup.php:312
 msgid "Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:311
+#: src/Product/Application/Setup/ProductSetup.php:313
 msgid "Related Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:315
+#: src/Product/Application/Setup/ProductSetup.php:317
 msgid "Posts"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:316
+#: src/Product/Application/Setup/ProductSetup.php:318
 msgid "Related Posts"
 msgstr ""
 
