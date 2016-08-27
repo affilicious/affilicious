@@ -21,6 +21,7 @@ use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepositor
 use Affilicious\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
+use Affilicious\Common\Application\Setup\FeedbackSetup;
 use Pimple\Container;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
@@ -229,6 +230,10 @@ class AffiliciousPlugin
             return new CarbonSetup();
         };
 
+        $this->container['affilicious.common.setup.feedback'] = function () {
+            return new FeedbackSetup();
+        };
+
         $this->container['affilicious.product.repository.product'] = function ($c) {
             return new CarbonProductRepository($c['affilicious.product.repository.detail_group']);
         };
@@ -304,6 +309,9 @@ class AffiliciousPlugin
         // Add admin assets
         add_action('admin_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addAdminStyles'), 10);
         add_action('admin_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addAdminScripts'), 20);
+
+        // Set up feedback form
+        add_action('admin_menu', array($this->container['affilicious.common.setup.feedback'], 'init'), 30);
     }
 }
 

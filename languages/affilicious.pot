@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious\n"
 "POT-Creation-Date: "
-"2016-08-26 22:07+0200\n"
+"2016-08-27 17:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -83,6 +83,81 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
+#: src/Common/Application/Setup/FeedbackSetup.php:16
+#: src/Common/Application/Setup/FeedbackSetup.php:17
+#: src/Common/Application/Setup/FeedbackSetup.php:37
+msgid "Feedback"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:38
+msgid ""
+"Please fill out the "
+"fields below and click "
+"on submit. As an "
+"alternative, you can "
+"write your feedback to "
+"our german <a href="
+"\"https://www.facebook."
+"com/"
+"groups/1139863846078608/"
+"\">facebook community</a>"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:46
+#: src/Common/Application/Setup/FeedbackSetup.php:50
+#: src/Common/Application/Setup/FeedbackSetup.php:116
+msgid "Email"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:55
+#: src/Common/Application/Setup/FeedbackSetup.php:59
+#: src/Common/Application/Setup/FeedbackSetup.php:117
+#: src/Product/Application/Setup/DetailGroupSetup.php:73
+msgid "Name"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:64
+#: src/Common/Application/Setup/FeedbackSetup.php:68
+#: src/Common/Application/Setup/FeedbackSetup.php:118
+msgid "Subject"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:73
+#: src/Common/Application/Setup/FeedbackSetup.php:77
+msgid "Message"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:84
+msgid "Submit"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:121
+#: src/Common/Application/Setup/FeedbackSetup.php:125
+msgid "Feedback:"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:127
+msgid ""
+"Thanks, your feedback "
+"has been sent! We will "
+"read every single "
+"feedback."
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:131
+msgid ""
+"Failed to send the "
+"email. Please try it "
+"again"
+msgstr ""
+
+#: src/Common/Application/Setup/FeedbackSetup.php:144
+msgid ""
+"Empty fields aren't "
+"allowed. Please fill out "
+"all fields."
+msgstr ""
+
 #: src/Product/Application/MetaBox/MetaBoxManager.php:38
 msgid "Image Gallery"
 msgstr ""
@@ -115,7 +190,7 @@ msgstr ""
 #: src/Product/Application/Setup/DetailGroupSetup.php:23
 #: src/Product/Application/Setup/DetailGroupSetup.php:26
 #: src/Product/Application/Setup/DetailGroupSetup.php:42
-#: src/Product/Application/Setup/ProductSetup.php:209
+#: src/Product/Application/Setup/ProductSetup.php:208
 msgid "Detail Groups"
 msgstr ""
 
@@ -219,12 +294,8 @@ msgid "Fields"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:71
-#: src/Product/Application/Setup/ProductSetup.php:251
+#: src/Product/Application/Setup/ProductSetup.php:256
 msgid "Details"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:73
-msgid "Name"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:75
@@ -257,7 +328,7 @@ msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:49
 #: src/Product/Application/Setup/ProductSetup.php:51
-#: src/Product/Application/Setup/ProductSetup.php:269
+#: src/Product/Application/Setup/ProductSetup.php:274
 msgid "Products"
 msgstr ""
 
@@ -400,75 +471,75 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:152
+#: src/Product/Application/Setup/ProductSetup.php:151
 #: src/Product/Application/Setup/ShopSetup.php:19
 #: src/Product/Application/Setup/ShopSetup.php:25
 msgid "Shops"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:161
+#: src/Product/Application/Setup/ProductSetup.php:160
 msgid "Shop ID"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:164
+#: src/Product/Application/Setup/ProductSetup.php:163
 msgid "Price"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:166
+#: src/Product/Application/Setup/ProductSetup.php:165
 msgid "Old Price"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:167
+#: src/Product/Application/Setup/ProductSetup.php:166
 msgid "Currency"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:170
+#: src/Product/Application/Setup/ProductSetup.php:169
 msgid "Euro"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:171
+#: src/Product/Application/Setup/ProductSetup.php:170
 msgid "US-Dollar"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:173
+#: src/Product/Application/Setup/ProductSetup.php:172
 msgid "Affiliate Link"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:180
+#: src/Product/Application/Setup/ProductSetup.php:179
 msgid "Price Comparison"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:184
+#: src/Product/Application/Setup/ProductSetup.php:183
 msgid "EAN"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:185
+#: src/Product/Application/Setup/ProductSetup.php:184
 msgid ""
 "Unique ID for the price "
 "comparison"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:266
+#: src/Product/Application/Setup/ProductSetup.php:271
 msgid "Relations"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:270
+#: src/Product/Application/Setup/ProductSetup.php:275
 msgid "Related Products"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:274
+#: src/Product/Application/Setup/ProductSetup.php:279
 msgid "Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:275
+#: src/Product/Application/Setup/ProductSetup.php:280
 msgid "Related Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:279
+#: src/Product/Application/Setup/ProductSetup.php:284
 msgid "Posts"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:280
+#: src/Product/Application/Setup/ProductSetup.php:285
 msgid "Related Posts"
 msgstr ""
 
