@@ -129,6 +129,7 @@ class ProductSetup implements SetupInterface
     {
         $this->renderPriceComparison();
         $this->renderDetails();
+	    $this->renderRating();
         $this->renderRelations();
     }
 
@@ -259,6 +260,36 @@ class ProductSetup implements SetupInterface
             ->add_fields(array($tabs));
 
         apply_filters('affilicious_product_render_details', $carbonContainer);
+    }
+
+	/**
+	 * Render the rating
+	 *
+	 * @since 0.3.3
+	 */
+    private function renderRating()
+    {
+	    $carbonContainer = CarbonContainer::make('post_meta', __('Rating', 'affilicious'))
+          ->show_on_post_type(Product::POST_TYPE)
+          ->set_priority('default')
+          ->add_fields(array(
+              CarbonField::make('select', CarbonProductRepository::PRODUCT_STAR_RATING, __('Star Rating', 'affilicious'))
+                 ->add_options(array(
+                     '0' => sprintf(__('%s stars', 'affilicious'), 0),
+                     '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
+                     '1' => sprintf(__('%s star', 'affilicious'), 1),
+                     '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
+                     '2' => sprintf(__('%s stars', 'affilicious'), 2),
+                     '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
+                     '3' => sprintf(__('%s stars', 'affilicious'), 3),
+                     '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
+                     '4' => sprintf(__('%s stars', 'affilicious'), 4),
+                     '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
+                     '5' => sprintf(__('%s stars', 'affilicious'), 5),
+                 )),
+          ));
+
+	    apply_filters('affilicious_product_render_rating', $carbonContainer);
     }
 
     /**

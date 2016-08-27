@@ -23,6 +23,21 @@ function affilicious_get_product($productOrId = null)
 }
 
 /**
+ * Get the product star rating from 0 to 5 in 0.5 steps
+ *
+ * @since 0.3.3
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return float
+ */
+function affilicious_get_product_star_rating($productOrId = null)
+{
+	$product = ProductHelper::getProduct($productOrId);
+	$starRating = $product->getStarRating();
+
+	return $starRating;
+}
+
+/**
  * Get the product detail groups by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *

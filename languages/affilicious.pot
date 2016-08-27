@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious\n"
 "POT-Creation-Date: "
-"2016-08-27 17:03+0200\n"
+"2016-08-27 17:43+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -105,20 +105,20 @@ msgstr ""
 
 #: src/Common/Application/Setup/FeedbackSetup.php:46
 #: src/Common/Application/Setup/FeedbackSetup.php:50
-#: src/Common/Application/Setup/FeedbackSetup.php:116
+#: src/Common/Application/Setup/FeedbackSetup.php:117
 msgid "Email"
 msgstr ""
 
 #: src/Common/Application/Setup/FeedbackSetup.php:55
 #: src/Common/Application/Setup/FeedbackSetup.php:59
-#: src/Common/Application/Setup/FeedbackSetup.php:117
+#: src/Common/Application/Setup/FeedbackSetup.php:118
 #: src/Product/Application/Setup/DetailGroupSetup.php:73
 msgid "Name"
 msgstr ""
 
 #: src/Common/Application/Setup/FeedbackSetup.php:64
 #: src/Common/Application/Setup/FeedbackSetup.php:68
-#: src/Common/Application/Setup/FeedbackSetup.php:118
+#: src/Common/Application/Setup/FeedbackSetup.php:119
 msgid "Subject"
 msgstr ""
 
@@ -131,12 +131,12 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:121
-#: src/Common/Application/Setup/FeedbackSetup.php:125
+#: src/Common/Application/Setup/FeedbackSetup.php:122
+#: src/Common/Application/Setup/FeedbackSetup.php:126
 msgid "Feedback:"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:127
+#: src/Common/Application/Setup/FeedbackSetup.php:128
 msgid ""
 "Thanks, your feedback "
 "has been sent! We will "
@@ -144,14 +144,14 @@ msgid ""
 "feedback."
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:131
+#: src/Common/Application/Setup/FeedbackSetup.php:134
 msgid ""
 "Failed to send the "
 "email. Please try it "
 "again"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:144
+#: src/Common/Application/Setup/FeedbackSetup.php:147
 msgid ""
 "Empty fields aren't "
 "allowed. Please fill out "
@@ -190,7 +190,7 @@ msgstr ""
 #: src/Product/Application/Setup/DetailGroupSetup.php:23
 #: src/Product/Application/Setup/DetailGroupSetup.php:26
 #: src/Product/Application/Setup/DetailGroupSetup.php:42
-#: src/Product/Application/Setup/ProductSetup.php:208
+#: src/Product/Application/Setup/ProductSetup.php:209
 msgid "Detail Groups"
 msgstr ""
 
@@ -294,7 +294,7 @@ msgid "Fields"
 msgstr ""
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:71
-#: src/Product/Application/Setup/ProductSetup.php:256
+#: src/Product/Application/Setup/ProductSetup.php:257
 msgid "Details"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:49
 #: src/Product/Application/Setup/ProductSetup.php:51
-#: src/Product/Application/Setup/ProductSetup.php:274
+#: src/Product/Application/Setup/ProductSetup.php:305
 msgid "Products"
 msgstr ""
 
@@ -471,75 +471,102 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:151
+#: src/Product/Application/Setup/ProductSetup.php:152
 #: src/Product/Application/Setup/ShopSetup.php:19
 #: src/Product/Application/Setup/ShopSetup.php:25
 msgid "Shops"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:160
+#: src/Product/Application/Setup/ProductSetup.php:161
 msgid "Shop ID"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:163
+#: src/Product/Application/Setup/ProductSetup.php:164
 msgid "Price"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:165
+#: src/Product/Application/Setup/ProductSetup.php:166
 msgid "Old Price"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:166
+#: src/Product/Application/Setup/ProductSetup.php:167
 msgid "Currency"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:169
+#: src/Product/Application/Setup/ProductSetup.php:170
 msgid "Euro"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:170
+#: src/Product/Application/Setup/ProductSetup.php:171
 msgid "US-Dollar"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:172
+#: src/Product/Application/Setup/ProductSetup.php:173
 msgid "Affiliate Link"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:179
+#: src/Product/Application/Setup/ProductSetup.php:180
 msgid "Price Comparison"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:183
+#: src/Product/Application/Setup/ProductSetup.php:184
 msgid "EAN"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:184
+#: src/Product/Application/Setup/ProductSetup.php:185
 msgid ""
 "Unique ID for the price "
 "comparison"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:271
-msgid "Relations"
+#: src/Product/Application/Setup/ProductSetup.php:272
+msgid "Rating"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:275
-msgid "Related Products"
+#: src/Product/Application/Setup/ProductSetup.php:276
+msgid "Star Rating"
 msgstr ""
 
+#: src/Product/Application/Setup/ProductSetup.php:278
 #: src/Product/Application/Setup/ProductSetup.php:279
-msgid "Accessories"
+#: src/Product/Application/Setup/ProductSetup.php:281
+#: src/Product/Application/Setup/ProductSetup.php:282
+#: src/Product/Application/Setup/ProductSetup.php:283
+#: src/Product/Application/Setup/ProductSetup.php:284
+#: src/Product/Application/Setup/ProductSetup.php:285
+#: src/Product/Application/Setup/ProductSetup.php:286
+#: src/Product/Application/Setup/ProductSetup.php:287
+#: src/Product/Application/Setup/ProductSetup.php:288
+#, php-format
+msgid "%s stars"
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:280
+#, php-format
+msgid "%s star"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:302
+msgid "Relations"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:306
+msgid "Related Products"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:310
+msgid "Accessories"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:311
 msgid "Related Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:284
+#: src/Product/Application/Setup/ProductSetup.php:315
 msgid "Posts"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:285
+#: src/Product/Application/Setup/ProductSetup.php:316
 msgid "Related Posts"
 msgstr ""
 
