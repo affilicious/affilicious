@@ -22,6 +22,8 @@ use Affilicious\Product\Infrastructure\Persistence\Wordpress\WordpressShopReposi
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Common\Application\Setup\FeedbackSetup;
+use Affilicious\Settings\Application\Setting\AffiliciousSettings;
+use Affilicious\Settings\Application\Setting\ProductSettings;
 use Pimple\Container;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
@@ -257,6 +259,14 @@ class AffiliciousPlugin
         $this->container['affilicious.product.setup.detail_group'] = function () {
             return new DetailGroupSetup();
         };
+
+	    $this->container['affilicious.settings.setting.affilicious'] = function () {
+		    return new AffiliciousSettings();
+	    };
+
+	    $this->container['affilicious.settings.setting.product'] = function () {
+		    return new ProductSettings();
+	    };
     }
 
     /**
@@ -297,6 +307,13 @@ class AffiliciousPlugin
         // Set up products
         add_action('init', array($this->container['affilicious.product.setup.product'], 'init'), 5);
         add_action('init', array($this->container['affilicious.product.setup.product'], 'render'), 6);
+
+	    // Set up the settings
+	    add_action('init', array($this->container['affilicious.settings.setting.affilicious'], 'render'), 10);
+	    add_action('init', array($this->container['affilicious.settings.setting.affilicious'], 'apply'), 11);
+
+	    add_action('init', array($this->container['affilicious.settings.setting.product'], 'render'), 12);
+	    add_action('init', array($this->container['affilicious.settings.setting.product'], 'apply'), 13);
     }
 
     /**

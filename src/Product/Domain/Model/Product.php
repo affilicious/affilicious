@@ -6,7 +6,6 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class Product
 {
     const POST_TYPE = 'product';
-    const TAXONOMY = 'product_category';
     const SLUG = 'product';
 
     const DETAIL_GROUP_ID = 'detail_group_id';
