@@ -18,6 +18,10 @@ class ProductSettings implements SettingsInterface
 	{
 		CarbonContainer::make('theme_options', __('Product', 'affilicious'))
            ->set_page_parent('Affilicious')
+			->add_tab(__('General', 'affilicious'), array(
+				CarbonField::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
+		           ->help_text(__('Used as pretty permalink text (i.e. /slug/). Default is "product". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious')),
+			))
            ->add_tab(__('Taxonomies', 'affilicious'), array(
 	           CarbonField::make('html', 'affilicious_settings_product_taxonomies_description')
 	                ->set_html(sprintf('<p>%s</p>', sprintf(__('Create custom taxonomies to group products together. See this <a href="%s">link</a> for a better description.', 'affilicious'), self::LINK_WHAT_IS_TAXONOMY))),
@@ -28,7 +32,7 @@ class ProductSettings implements SettingsInterface
 		                  	__('The name of the taxonomy. Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved WordPress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'), self::LINK_RESERVED_TERMS))
 		                  ->set_required(true),
 	                  CarbonField::make('text', 'slug', __('Slug', 'affilicious'))
-		                  ->help_text(__('Used as pretty permalink text (i.e. /slug/)', 'affilicious'))
+		                  ->help_text(__('Used as pretty permalink text (i.e. /slug/). To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'))
 		                  ->set_required(true),
                       CarbonField::make('text', 'singular_name', __('Singular Name', 'affilicious'))
 	                      ->set_required(true),

@@ -73,13 +73,17 @@ class ProductSetup implements SetupInterface
             'filter_items_list' => __('Filter items list', 'affilicious'),
         );
 
+	    $slug = carbon_get_theme_option('affilicious_settings_product_general_slug');
+	    if(empty($slug)) {
+	    	$slug = Product::SLUG;
+	    }
+
         $args = array(
             'label' => __('Product', 'affilicious'),
             'description' => __('Product Type Description', 'affilicious'),
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
             'supports' => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions'),
-            'taxonomies' => array('product_category'),
             'hierarchical' => false,
             'public' => true,
             'show_ui' => true,
@@ -92,6 +96,7 @@ class ProductSetup implements SetupInterface
             'exclude_from_search' => false,
             'publicly_queryable' => true,
             'capability_type' => 'page',
+	        'rewrite' => array('slug' => $slug)
         );
 
         register_post_type(Product::POST_TYPE, $args);

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-09-03 21:06+0200\n"
+"POT-Creation-Date: 2016-09-03 21:34+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -144,7 +144,7 @@ msgstr "Bilder zur Bildergallerie hinzufügen"
 #: src/Product/Application/Setup/DetailGroupSetup.php:23
 #: src/Product/Application/Setup/DetailGroupSetup.php:26
 #: src/Product/Application/Setup/DetailGroupSetup.php:42
-#: src/Product/Application/Setup/ProductSetup.php:184
+#: src/Product/Application/Setup/ProductSetup.php:189
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
@@ -239,7 +239,7 @@ msgid "Fields"
 msgstr "Felder"
 
 #: src/Product/Application/Setup/DetailGroupSetup.php:71
-#: src/Product/Application/Setup/ProductSetup.php:232
+#: src/Product/Application/Setup/ProductSetup.php:237
 msgid "Details"
 msgstr "Details"
 
@@ -273,13 +273,13 @@ msgstr "Hilfstext"
 
 #: src/Product/Application/Setup/ProductSetup.php:49
 #: src/Product/Application/Setup/ProductSetup.php:51
-#: src/Product/Application/Setup/ProductSetup.php:282
+#: src/Product/Application/Setup/ProductSetup.php:287
 msgid "Products"
 msgstr "Produkte"
 
 #: src/Product/Application/Setup/ProductSetup.php:50
 #: src/Product/Application/Setup/ProductSetup.php:52
-#: src/Product/Application/Setup/ProductSetup.php:77
+#: src/Product/Application/Setup/ProductSetup.php:82
 #: src/Settings/Application/Setting/ProductSettings.php:19
 msgid "Product"
 msgstr "Produkt"
@@ -356,113 +356,113 @@ msgstr "Produktliste Navigation"
 msgid "Filter items list"
 msgstr "Artikelliste filtern"
 
-#: src/Product/Application/Setup/ProductSetup.php:78
+#: src/Product/Application/Setup/ProductSetup.php:83
 msgid "Product Type Description"
 msgstr "Produkttyp Beschreibung"
 
-#: src/Product/Application/Setup/ProductSetup.php:127
+#: src/Product/Application/Setup/ProductSetup.php:132
 #: src/Product/Application/Setup/ShopSetup.php:19
 #: src/Product/Application/Setup/ShopSetup.php:25
 msgid "Shops"
 msgstr "Shops"
 
-#: src/Product/Application/Setup/ProductSetup.php:136
+#: src/Product/Application/Setup/ProductSetup.php:141
 msgid "Shop ID"
 msgstr "Shop ID"
 
-#: src/Product/Application/Setup/ProductSetup.php:139
+#: src/Product/Application/Setup/ProductSetup.php:144
 msgid "Price"
 msgstr "Preis"
 
-#: src/Product/Application/Setup/ProductSetup.php:141
+#: src/Product/Application/Setup/ProductSetup.php:146
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/Product/Application/Setup/ProductSetup.php:142
+#: src/Product/Application/Setup/ProductSetup.php:147
 msgid "Currency"
 msgstr "Währung"
 
-#: src/Product/Application/Setup/ProductSetup.php:145
+#: src/Product/Application/Setup/ProductSetup.php:150
 msgid "Euro"
 msgstr "Euro"
 
-#: src/Product/Application/Setup/ProductSetup.php:146
+#: src/Product/Application/Setup/ProductSetup.php:151
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/Product/Application/Setup/ProductSetup.php:148
+#: src/Product/Application/Setup/ProductSetup.php:153
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/Product/Application/Setup/ProductSetup.php:155
+#: src/Product/Application/Setup/ProductSetup.php:160
 msgid "Price Comparison"
 msgstr "Preisvergleich"
 
-#: src/Product/Application/Setup/ProductSetup.php:159
+#: src/Product/Application/Setup/ProductSetup.php:164
 msgid "EAN"
 msgstr "EAN"
 
-#: src/Product/Application/Setup/ProductSetup.php:160
+#: src/Product/Application/Setup/ProductSetup.php:165
 msgid "Unique ID for the price comparison"
 msgstr "Einmalige ID für den Preisvergleich"
 
-#: src/Product/Application/Setup/ProductSetup.php:247
+#: src/Product/Application/Setup/ProductSetup.php:252
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/Product/Application/Setup/ProductSetup.php:251
+#: src/Product/Application/Setup/ProductSetup.php:256
 msgid "Number of Rating"
 msgstr "Anzahl der Bewertungen"
 
-#: src/Product/Application/Setup/ProductSetup.php:252
+#: src/Product/Application/Setup/ProductSetup.php:257
 msgid "If you want to hide this, just leave it empty or set it to 0."
 msgstr ""
 "Wenn du diesen Wert verstecken möchtest, lasse ihn leer oder setze ihn auf 0."
 
-#: src/Product/Application/Setup/ProductSetup.php:253
+#: src/Product/Application/Setup/ProductSetup.php:258
 msgid "Star Rating"
 msgstr "Sterne Bewertung"
 
-#: src/Product/Application/Setup/ProductSetup.php:255
-#: src/Product/Application/Setup/ProductSetup.php:256
-#: src/Product/Application/Setup/ProductSetup.php:258
-#: src/Product/Application/Setup/ProductSetup.php:259
 #: src/Product/Application/Setup/ProductSetup.php:260
 #: src/Product/Application/Setup/ProductSetup.php:261
-#: src/Product/Application/Setup/ProductSetup.php:262
 #: src/Product/Application/Setup/ProductSetup.php:263
 #: src/Product/Application/Setup/ProductSetup.php:264
 #: src/Product/Application/Setup/ProductSetup.php:265
+#: src/Product/Application/Setup/ProductSetup.php:266
+#: src/Product/Application/Setup/ProductSetup.php:267
+#: src/Product/Application/Setup/ProductSetup.php:268
+#: src/Product/Application/Setup/ProductSetup.php:269
+#: src/Product/Application/Setup/ProductSetup.php:270
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/Product/Application/Setup/ProductSetup.php:257
+#: src/Product/Application/Setup/ProductSetup.php:262
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/Product/Application/Setup/ProductSetup.php:279
+#: src/Product/Application/Setup/ProductSetup.php:284
 msgid "Relations"
 msgstr "Beziehungen"
 
-#: src/Product/Application/Setup/ProductSetup.php:283
+#: src/Product/Application/Setup/ProductSetup.php:288
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/Product/Application/Setup/ProductSetup.php:287
+#: src/Product/Application/Setup/ProductSetup.php:292
 msgid "Accessories"
 msgstr "Zubehör"
 
-#: src/Product/Application/Setup/ProductSetup.php:288
+#: src/Product/Application/Setup/ProductSetup.php:293
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/Product/Application/Setup/ProductSetup.php:292
+#: src/Product/Application/Setup/ProductSetup.php:297
 msgid "Posts"
 msgstr "Beiträge"
 
-#: src/Product/Application/Setup/ProductSetup.php:293
+#: src/Product/Application/Setup/ProductSetup.php:298
 msgid "Related Posts"
 msgstr "Ähnliche Beiträge"
 
@@ -566,11 +566,29 @@ msgid "Custom JS"
 msgstr "Eigenes JS"
 
 #: src/Settings/Application/Setting/ProductSettings.php:21
-#: src/Settings/Application/Setting/ProductSettings.php:24
+msgid "General"
+msgstr "Allgemein"
+
+#: src/Settings/Application/Setting/ProductSettings.php:22
+#: src/Settings/Application/Setting/ProductSettings.php:34
+msgid "Slug"
+msgstr "Slug"
+
+#: src/Settings/Application/Setting/ProductSettings.php:23
+msgid ""
+"Used as pretty permalink text (i.e. /slug/). Default is \"product\". To "
+"apply this change, please press the save button under Settings > Permalinks."
+msgstr ""
+"Wird als Pretty Permalink benutzt (z.B /slug/). Der Standartwert ist "
+"\"product“. Um diese Änderung wirksam zu machen, musst du den Speichern-"
+"Button unter Einstellungen > Permalinks drücken."
+
+#: src/Settings/Application/Setting/ProductSettings.php:25
+#: src/Settings/Application/Setting/ProductSettings.php:28
 msgid "Taxonomies"
 msgstr "Taxonomien"
 
-#: src/Settings/Application/Setting/ProductSettings.php:23
+#: src/Settings/Application/Setting/ProductSettings.php:27
 #, php-format
 msgid ""
 "Create custom taxonomies to group products together. See this <a href=\"%s"
@@ -579,11 +597,11 @@ msgstr ""
 "Erstelle eigene Taxonomien um Produkte logisch zu gruppieren. Klicke auf "
 "diesen <a href=\"%s\">Link</a> für eine bessere Beschreibung."
 
-#: src/Settings/Application/Setting/ProductSettings.php:26
+#: src/Settings/Application/Setting/ProductSettings.php:30
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: src/Settings/Application/Setting/ProductSettings.php:28
+#: src/Settings/Application/Setting/ProductSettings.php:32
 #, php-format
 msgid ""
 "The name of the taxonomy. Name should only contain lowercase letters and the "
@@ -600,68 +618,72 @@ msgstr ""
 "Anfragenvariablen in Konflikt stehen darf. Hier findest du eine komplette "
 "Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
-#: src/Settings/Application/Setting/ProductSettings.php:30
-msgid "Slug"
-msgstr "Slug"
+#: src/Settings/Application/Setting/ProductSettings.php:35
+msgid ""
+"Used as pretty permalink text (i.e. /slug/). To apply this change, please "
+"press the save button under Settings > Permalinks."
+msgstr ""
+"Wird als Pretty Permalink benutzt (z.B /slug/). Um diese Änderung wirksam zu "
+"machen, musst du den Speichern-Button unter Einstellungen > Permalinks "
+"drücken."
 
-#: src/Settings/Application/Setting/ProductSettings.php:31
-msgid "Used as pretty permalink text (i.e. /slug/)"
-msgstr "Wird als „Pretty Permalink“ Text benutzt (z.B /slug/)"
-
-#: src/Settings/Application/Setting/ProductSettings.php:33
+#: src/Settings/Application/Setting/ProductSettings.php:37
 msgid "Singular Name"
 msgstr "Name im Singular"
 
-#: src/Settings/Application/Setting/ProductSettings.php:35
+#: src/Settings/Application/Setting/ProductSettings.php:39
 msgid "Plural Name"
 msgstr "Name im Plural"
 
-#: src/Settings/Application/Setting/ProductSettings.php:80
-#: src/Settings/Application/Setting/ProductSettings.php:81
-#: src/Settings/Application/Setting/ProductSettings.php:90
+#: src/Settings/Application/Setting/ProductSettings.php:84
+#: src/Settings/Application/Setting/ProductSettings.php:85
+#: src/Settings/Application/Setting/ProductSettings.php:94
 #, php-format
 msgid "%s"
 msgstr "%s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:82
+#: src/Settings/Application/Setting/ProductSettings.php:86
 #, php-format
 msgid "Search %s"
 msgstr "Suche %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:83
+#: src/Settings/Application/Setting/ProductSettings.php:87
 #, php-format
 msgid "All %s"
 msgstr "Alle %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:84
+#: src/Settings/Application/Setting/ProductSettings.php:88
 #, php-format
 msgid "Parent %s"
 msgstr "Eltern %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:85
+#: src/Settings/Application/Setting/ProductSettings.php:89
 #, php-format
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/Settings/Application/Setting/ProductSettings.php:86
+#: src/Settings/Application/Setting/ProductSettings.php:90
 #, php-format
 msgid "Edit %s"
 msgstr "Bearbeite %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:87
+#: src/Settings/Application/Setting/ProductSettings.php:91
 #, php-format
 msgid "Update %s"
 msgstr "Aktualisiere %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:88
+#: src/Settings/Application/Setting/ProductSettings.php:92
 #, php-format
 msgid "Add New %s"
 msgstr "Erstelle %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:89
+#: src/Settings/Application/Setting/ProductSettings.php:93
 #, php-format
 msgid "New %s"
 msgstr "Neue %s"
+
+#~ msgid "Used as pretty permalink text (i.e. /slug/)"
+#~ msgstr "Wird als „Pretty Permalink“ Text benutzt (z.B /slug/)"
 
 #~ msgid "Product Categories"
 #~ msgstr "Produktkategorien"
