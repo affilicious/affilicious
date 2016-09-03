@@ -16,30 +16,38 @@ class ProductSettings implements SettingsInterface
 	 */
 	public function render()
 	{
-		CarbonContainer::make('theme_options', __('Product', 'affilicious'))
+		do_action('affilicious_settings_product_render');
+
+		$generalFields = apply_filters('affilicious_settings_product_general_fields', array(
+			CarbonField::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
+				->help_text(__('Used as pretty permalink text (i.e. /slug/). Default is "product". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious')),
+		));
+
+		$taxonomiesFields = apply_filters('affilicious_settings_product_taxonomies_fields', array(
+			CarbonField::make('html', 'affilicious_settings_product_taxonomies_description')
+	            ->set_html(sprintf('<p>%s</p>', sprintf(__('Create custom taxonomies to group products together. See this <a href="%s">link</a> for a better description.', 'affilicious'), self::LINK_WHAT_IS_TAXONOMY))),
+			CarbonField::make('complex', 'affilicious_settings_product_taxonomies', __('Taxonomies', 'affilicious'))
+	           ->add_fields(array(
+		           CarbonField::make('text', 'taxonomy', __('Taxonomy', 'affilicious'))
+                      ->help_text(sprintf(
+			             __('The name of the taxonomy. Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved WordPress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'), self::LINK_RESERVED_TERMS))
+		              ->set_required(true),
+		           CarbonField::make('text', 'slug', __('Slug', 'affilicious'))
+		              ->help_text(__('Used as pretty permalink text (i.e. /slug/). To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'))
+		              ->set_required(true),
+		           CarbonField::make('text', 'singular_name', __('Singular Name', 'affilicious'))
+			           ->set_required(true),
+		           CarbonField::make('text', 'plural_name', __('Plural Name', 'affilicious'))
+		               ->set_required(true),
+	           ))
+		));
+
+		$container = CarbonContainer::make('theme_options', __('Product', 'affilicious'))
            ->set_page_parent('Affilicious')
-			->add_tab(__('General', 'affilicious'), array(
-				CarbonField::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
-		           ->help_text(__('Used as pretty permalink text (i.e. /slug/). Default is "product". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious')),
-			))
-           ->add_tab(__('Taxonomies', 'affilicious'), array(
-	           CarbonField::make('html', 'affilicious_settings_product_taxonomies_description')
-	                ->set_html(sprintf('<p>%s</p>', sprintf(__('Create custom taxonomies to group products together. See this <a href="%s">link</a> for a better description.', 'affilicious'), self::LINK_WHAT_IS_TAXONOMY))),
-               CarbonField::make('complex', 'affilicious_settings_product_taxonomies', __('Taxonomies', 'affilicious'))
-                  ->add_fields(array(
-	                  CarbonField::make('text', 'taxonomy', __('Taxonomy', 'affilicious'))
-		                  ->help_text(sprintf(
-		                  	__('The name of the taxonomy. Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved WordPress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'), self::LINK_RESERVED_TERMS))
-		                  ->set_required(true),
-	                  CarbonField::make('text', 'slug', __('Slug', 'affilicious'))
-		                  ->help_text(__('Used as pretty permalink text (i.e. /slug/). To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'))
-		                  ->set_required(true),
-                      CarbonField::make('text', 'singular_name', __('Singular Name', 'affilicious'))
-	                      ->set_required(true),
-                      CarbonField::make('text', 'plural_name', __('Plural Name', 'affilicious'))
-	                      ->set_required(true),
-                  ))
-           ));
+           ->add_tab(__('General', 'affilicious'), $generalFields)
+           ->add_tab(__('Taxonomies', 'affilicious'), $taxonomiesFields);
+
+		apply_filters('affilicious_settings_product_container', $container);
 	}
 
 	/**
@@ -48,6 +56,8 @@ class ProductSettings implements SettingsInterface
 	 */
 	public function apply()
 	{
+		do_action('affilicious_settings_product_apply');
+
 		$taxonomies = carbon_get_theme_option('affilicious_settings_product_taxonomies', 'complex');
 		if(!empty($taxonomies)) {
 			foreach ($taxonomies as $taxonomy) {
