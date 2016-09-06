@@ -61,8 +61,8 @@ class ProductHelper
     }
 
     /**
-     * Get the active shop if the product
-     * If you pass in nothing as a shop, the cheapest shop will be used.
+     * Get the active shop of the product
+     * If you pass in nothing as a shop, the first shop will be used.
      *
      * @since 0.3
      * @param Product $product
@@ -72,8 +72,10 @@ class ProductHelper
     public static function getShop(Product $product, $shopOrId = null)
     {
         if ($shopOrId === null) {
-            $cheapestShop = $product->getCheapestShop();
-            return $cheapestShop;
+            $shops = $product->getShops();
+	        $shop = !empty($shops) ? $shops[0] : null;
+
+            return $shop;
         }
 
         if (is_int($shopOrId)) {
@@ -91,6 +93,15 @@ class ProductHelper
         return $shop;
     }
 
+	/**
+	 * Get the price of the product
+	 * If you pass in nothing as a shop, the first shop will be used.
+	 *
+	 * @since 0.3
+	 * @param Product $product
+	 * @param int|\WP_Post|Shop|null $shopOrId
+	 * @return array|null
+	 */
     public static function getPrice(Product $product, $shopOrId = null)
     {
         $shop = ProductHelper::getShop($product, $shopOrId);

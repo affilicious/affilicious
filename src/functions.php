@@ -296,9 +296,9 @@ function affilicious_get_product_link($productOrId = null)
 }
 
 /**
- * Get the used shop of the given product.
+ * Get the shop of the given product.
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the cheapest shop will be used.
+ * If you pass in nothing as a shop, the first shop will be used.
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
@@ -314,9 +314,25 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
 }
 
 /**
+ * Get the cheapest shop of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.5.1
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return array|null
+ */
+function affilicious_get_product_cheapest_shop($productOrId = null)
+{
+	$product = affilicious_get_product($productOrId);
+	$shop = $product->getCheapestShop();
+
+	return $shop;
+}
+
+/**
  * Get the price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the cheapest shop will be used.
+ * If you pass in nothing as a shop, the first shop will be used.
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
@@ -327,7 +343,7 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
 {
     $product = affilicious_get_product($productOrId);
     $shop = ProductHelper::getShop($product, $shopOrId);
-    if ($shop === null) {
+    if (empty($shop)) {
         return null;
     }
 
@@ -339,9 +355,32 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
 }
 
 /**
+ * Get the cheapest price with the currency of the product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.5.1
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|string
+ */
+function affilicious_get_product_cheapest_price($productOrId = null)
+{
+	$product = affilicious_get_product($productOrId);
+	$shop = $product->getCheapestShop();
+	if (empty($shop)) {
+		return null;
+	}
+
+	$value = $shop['price'];
+	$currency = $shop['currency'];
+	$price = affilicious_get_price($value, $currency);
+
+	return $price;
+}
+
+/**
  * Get the affiliate link by the product and shop
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the cheapest shop will be used.
+ * If you pass in nothing as a shop, the first shop will be used.
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
@@ -351,9 +390,33 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
 function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId = null)
 {
     $shop = affilicious_get_product_shop($productOrId, $shopOrId);
+	if(empty($shop)) {
+		return null;
+	}
+
     $affiliateLink = $shop['affiliate_link'];
 
     return $affiliateLink;
+}
+
+/**
+ * Get the affiliate link by the product and shop
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.5.1
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|string
+ */
+function affilicious_get_product_cheapest_affiliate_link($productOrId = null)
+{
+	$shop = affilicious_get_product_cheapest_shop($productOrId);
+	if(empty($shop)) {
+		return null;
+	}
+
+	$affiliateLink = $shop['affiliate_link'];
+
+	return $affiliateLink;
 }
 
 /**
