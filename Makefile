@@ -1,12 +1,24 @@
-install:
+prod:
 	@composer install --no-dev
+	make clean
+
+dev:
+	@composer install
+	@npm install --only=dev
+
+install:
+	@composer install
 
 update:
 	@composer update
 
+npm:
+	@npm install --only=dev
+
 clean:
 	@rm -rf vendor/
 	@rm -rf tmp/
+	@rm -rf node_modules/
 	@composer install --no-dev
 
 test-install-mamp:
