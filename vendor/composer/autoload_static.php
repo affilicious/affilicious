@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit50046ae29a5e5e80f3004cadeb76820f
+class ComposerStaticInita6bce7948a219b1d7272de75479d3475
 {
     public static $files = array (
         '74704c95e6224e3a13dba163dbbb87fa' => __DIR__ . '/..' . '/htmlburger/carbon-fields/carbon-fields.php',
@@ -46,9 +46,9 @@ class ComposerStaticInit50046ae29a5e5e80f3004cadeb76820f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit50046ae29a5e5e80f3004cadeb76820f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit50046ae29a5e5e80f3004cadeb76820f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit50046ae29a5e5e80f3004cadeb76820f::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita6bce7948a219b1d7272de75479d3475::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita6bce7948a219b1d7272de75479d3475::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita6bce7948a219b1d7272de75479d3475::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

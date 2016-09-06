@@ -6,6 +6,9 @@ dev:
 	@composer install
 	@npm install --only=dev
 
+watch:
+	@gulp watch
+
 install:
 	@composer install
 
@@ -18,6 +21,9 @@ npm:
 clean:
 	@rm -rf vendor/
 	@rm -rf tmp/
+	@rm -rf assets/.cache
+	@rm -rf assets/.sass-cache
+	@rm -rf assets/*/*.map
 	@rm -rf node_modules/
 	@composer install --no-dev
 

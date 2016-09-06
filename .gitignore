@@ -13,7 +13,8 @@ wp-content/plugins/hello.php
 /tmp/
 /node_modules/
 /assets/.sass-cache
-/assets/js/*.css.map
+/assets/.cache
+/assets/css/*.css.map
 /assets/js/*.js.map
 /.htaccess
 /license.txt

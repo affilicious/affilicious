@@ -11,3 +11,4 @@ Create and manage affiliate websites in Wordpress with price comparisons, shop, 
 = 0.5.2 =
 * Added support for change logs
 * Many optimizations and cleanups
+* Added Gulp for easier and faster development

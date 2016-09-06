@@ -34,7 +34,7 @@ class AssetSetup
      */
     public function addPublicStyles()
     {
-        wp_enqueue_style('affilicious', self::getStylesDir() . 'style.css', array(), '0.3.0');
+        wp_enqueue_style('affilicious', self::getStylesDir() . 'style.min.css', array(), \AffiliciousPlugin::PLUGIN_VERSION);
     }
 
     /**
@@ -44,7 +44,7 @@ class AssetSetup
      */
     public function addAdminStyles()
     {
-        wp_enqueue_style('affilicious-admin', self::getStylesDir() . 'admin.css', array(), '0.3.0');
+        wp_enqueue_style('affilicious-admin', self::getStylesDir() . 'admin.min.css', array(), \AffiliciousPlugin::PLUGIN_VERSION);
     }
 
     /**
@@ -54,7 +54,7 @@ class AssetSetup
      */
     public function addPublicScripts()
     {
-        wp_enqueue_script('affilicious', self::getScriptDir() . 'script.js', array('jquery'), '0.3.0', true);
+        wp_enqueue_script('affilicious', self::getScriptDir() . 'script.min.js', array('jquery'), \AffiliciousPlugin::PLUGIN_VERSION, true);
     }
 
     /**
@@ -64,6 +64,6 @@ class AssetSetup
      */
     public function addAdminScripts()
     {
-        wp_enqueue_script('affilicious-admin', self::getScriptDir() . 'admin.js', array('jquery'), '0.3.0', true);
+        wp_enqueue_script('affilicious-admin', self::getScriptDir() . 'admin.min.js', array('jquery'), \AffiliciousPlugin::PLUGIN_VERSION, true);
     }
 }
