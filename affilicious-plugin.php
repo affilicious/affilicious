@@ -178,11 +178,11 @@ class AffiliciousPlugin
      */
     public function activate()
     {
-        // data to send in our API request
+        // Data to send in our API request.
         $api_params = array(
             'edd_action'=> 'activate_license',
             'license' 	=> self::PLUGIN_LICENSE_KEY,
-            'item_name' => urlencode(self::PLUGIN_ITEM_NAME), // the name of our product in EDD
+            'item_name' => urlencode(self::PLUGIN_ITEM_NAME),
             'url'       => home_url()
         );
 
@@ -193,8 +193,10 @@ class AffiliciousPlugin
             'body' => $api_params
         ));
 
-        // make sure the response came back okay
-        return is_wp_error($response);
+        // Make sure the response came back okay
+        $isError = is_wp_error($response);
+
+	    return $isError;
     }
 
     /**
@@ -204,7 +206,25 @@ class AffiliciousPlugin
      */
     public function deactivate()
     {
-        // Nothing to do here
+    	// Data to send in our API request.
+	    $api_params = array(
+		    'edd_action'=> 'deactivate_license',
+		    'license' 	=> self::PLUGIN_LICENSE_KEY,
+		    'item_name' => urlencode(self::PLUGIN_ITEM_NAME),
+		    'url'       => home_url()
+	    );
+
+	    // Call the custom API.
+	    $response = wp_remote_post(self::PLUGIN_STORE_URL, array(
+	    	'timeout' => 15,
+		    'sslverify' => false,
+		    'body' => $api_params
+	    ));
+
+	    // Make sure the response came back okay
+	    $isError = is_wp_error($response);
+
+	    return $isError;
     }
 
     /**
