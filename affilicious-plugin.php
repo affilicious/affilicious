@@ -34,7 +34,7 @@ class AffiliciousPlugin
     const PLUGIN_VERSION = '0.5.1';
     const PLUGIN_NAMESPACE = 'Affilicious\\';
     const PLUGIN_SOURCE_DIR = 'src/';
-    const PLUGIN_LANGUAGE_DIR = 'languages';
+    const PLUGIN_LANGUAGE_DIR = 'languages/';
     const PLUGIN_STORE_URL = 'http://affilicioustheme.de';
     const PLUGIN_ITEM_NAME = 'Affilicious';
     const PLUGIN_LICENSE_KEY = 'e90a6d1a115da24a292fe0300afc402a';
@@ -89,23 +89,13 @@ class AffiliciousPlugin
      */
     private function __construct()
     {
-        require_once(self::PLUGIN_SOURCE_DIR . 'functions.php');
         if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
             require(__DIR__ . '/vendor/autoload.php');
         }
 
         spl_autoload_register(array($this, 'autoload'));
 
-        require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
-        require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
-
-        if (!class_exists('EDD_SL_Plugin_Updater')) {
-            include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
-        }
-
         $this->container = new Container();
-
-        add_action('admin_init', array($this, 'update'), 0);
     }
 
     /**
@@ -120,6 +110,27 @@ class AffiliciousPlugin
         return $this->container;
     }
 
+	/**
+	 * Run the loader to execute all of the hooks with WordPress.
+	 *
+	 * @since 0.3
+	 */
+	public function run()
+	{
+		register_activation_hook( __FILE__, array($this, 'activate'));
+		register_deactivation_hook( __FILE__, array($this, 'deactivate'));
+
+		$this->loadIncludes();
+		$this->loadFunctions();
+		$this->registerServices();
+		$this->registerPublicHooks();
+		$this->registerAdminHooks();
+
+		new MetaBoxManager(); // TODO: This old class will be removed later
+		// We have to call the container to the run code inside
+		$this->container['affilicious.common.setup.carbon'];
+	}
+
     /**
      * Update the plugin with the help of the Software Licensing for Easy Digital Downloads
      *
@@ -133,25 +144,6 @@ class AffiliciousPlugin
             'item_name' => self::PLUGIN_ITEM_NAME,
             'author' => self::PLUGIN_AUTHOR,
         ));
-    }
-
-    /**
-     * Run the loader to execute all of the hooks with WordPress.
-     *
-     * @since 0.3
-     */
-    public function run()
-    {
-        register_activation_hook( __FILE__, array($this, 'activate'));
-        register_deactivation_hook( __FILE__, array($this, 'deactivate'));
-        add_action('plugins_loaded', array($this, 'loaded'));
-
-        $this->registerServices();
-        $this->registerPublicHooks();
-        $this->registerAdminHooks();
-
-        new MetaBoxManager(); // This old class will be removed later
-        $this->container['affilicious.common.setup.carbon'];
     }
 
     /**
@@ -228,16 +220,6 @@ class AffiliciousPlugin
     }
 
     /**
-     * The code that runs after the plugin is loaded
-     *
-     * @since 0.3
-     */
-    public function loaded()
-    {
-        $this->registerTextdomain();
-    }
-
-    /**
      * Register the services for the dependency injection
      *
      * @since 0.3
@@ -292,12 +274,37 @@ class AffiliciousPlugin
     /**
      * Register the plugin textdomain for internationalization.
      *
-     * @since 0.3
+     * @since 0.5.1
      */
-    public function registerTextdomain()
+    public function loadTextdomain()
     {
         $dir = basename( dirname( __FILE__ ) ) . '/' . self::PLUGIN_LANGUAGE_DIR;
         load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
+    }
+
+	/**
+	 * Load the includes
+	 *
+	 * @since 0.5.1
+	 */
+    public function loadIncludes()
+    {
+	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
+	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
+
+	    if (!class_exists('EDD_SL_Plugin_Updater')) {
+		    include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
+	    }
+    }
+
+	/**
+	 * Load the simple functions for an easier usage in templates
+	 *
+	 * @since 0.5.1
+	 */
+    public function loadFunctions()
+    {
+	    require_once(__DIR__ . '/src/functions.php');
     }
 
     /**
@@ -307,31 +314,33 @@ class AffiliciousPlugin
      */
     public function registerPublicHooks()
     {
-        // Add public assets
+    	// Hook the text domain
+	    add_action('plugins_loaded', array($this, 'loadTextdomain'));
+
+        // Hook the public assets
         add_action('wp_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addPublicStyles'), 10);
         add_action('wp_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addPublicScripts'), 20);
 
-        // Set up Carbon Fields
+        // Hook the Carbon Fields
         add_action('after_setup_theme', array($this->container['affilicious.common.setup.carbon'], 'crb_init_carbon_field_hidden'), 15);
 
-        // Set up shops
+        // Hook the shops
         add_action('init', array($this->container['affilicious.product.setup.shop'], 'init'), 1);
         add_action('init', array($this->container['affilicious.product.setup.shop'], 'render'), 2);
         add_action('manage_shop_posts_columns', array($this->container['affilicious.product.setup.shop'], 'columnsHead'), 9, 2);
         add_action('manage_shop_posts_custom_column', array($this->container['affilicious.product.setup.shop'], 'columnsContent'), 10, 2);
 
-        // Set up detail groups
+        // Hook the detail groups
         add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'init'), 3);
         add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'render'), 4);
 
-        // Set up products
+        // Hook the products
         add_action('init', array($this->container['affilicious.product.setup.product'], 'init'), 5);
         add_action('init', array($this->container['affilicious.product.setup.product'], 'render'), 6);
 
-	    // Set up the settings
+	    // Hook the settings
 	    add_action('init', array($this->container['affilicious.settings.setting.affilicious'], 'render'), 10);
 	    add_action('init', array($this->container['affilicious.settings.setting.affilicious'], 'apply'), 11);
-
 	    add_action('init', array($this->container['affilicious.settings.setting.product'], 'render'), 12);
 	    add_action('init', array($this->container['affilicious.settings.setting.product'], 'apply'), 13);
     }
@@ -343,11 +352,14 @@ class AffiliciousPlugin
      */
     public function registerAdminHooks()
     {
-        // Add admin assets
+    	// Hook the plugin updater
+	    add_action('admin_init', array($this, 'update'), 0);
+
+        // Hook the admin assets
         add_action('admin_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addAdminStyles'), 10);
         add_action('admin_enqueue_scripts', array($this->container['affilicious.common.setup.asset'], 'addAdminScripts'), 20);
 
-        // Set up feedback form
+        // Hook the feedback form
         add_action('admin_menu', array($this->container['affilicious.common.setup.feedback'], 'init'), 30);
     }
 }
