@@ -6,7 +6,7 @@
  * Author: Affilicious Team
  * Author URI: http://affilicioustheme.de/author/alexander-barton
  * Plugin URI: http://affilicioustheme.de/plugins/products
- * License: MIT
+ * License: GPL-2.0
  * Requires at least: 4.5
  * Tested up to: 4.6
  * Text Domain: affilicious
