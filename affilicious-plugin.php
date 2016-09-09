@@ -1,16 +1,32 @@
 <?php
 /**
  * Plugin Name: Affilicious
- * Description: Erstelle und verwalte Affiliate Produkte in Wordpress mit Preisvergleichen, Shops, Details und mehr
+ * Description: Manage affiliate products in Wordpress with price comparisons, shops, details and more
  * Version: 0.5.2
  * Author: Affilicious Team
- * Author URI: http://affilicioustheme.de/author/alexander-barton
- * Plugin URI: http://affilicioustheme.de/plugins/products
- * License: GPL-2.0
+ * Author URI: http://affilicioustheme.de/
+ * Plugin URI: http://affilicioustheme.de/downloads/affilicious/
+ * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.6
  * Text Domain: affilicious
  * Domain Path: /languages/
+ *
+ * Affilicious Plugin
+ * Copyright (C) 2016, Affilicious - support@affilicioustheme.de
+ *
+ * Affilicious is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * Affilicious is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Affilicious. If not, see <http://www.gnu.org/licenses/>.
  */
 use Affilicious\Common\Application\Setup\AssetSetup;
 use Affilicious\Common\Application\Setup\CarbonSetup;

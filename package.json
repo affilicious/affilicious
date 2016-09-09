@@ -1,9 +1,9 @@
 {
   "name": "affilicious",
   "version": "0.5.2",
-  "description": "Create and manage affiliate websites in Wordpress with price comparisons, shop, details and more.",
+  "description": "Manage affiliate products in Wordpress with price comparisons, shop, details and more.",
   "author": "Affilicious Team",
-  "license": "GPL-2.0",
+  "license": "GPL-2.0 or later",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",

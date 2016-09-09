@@ -1,11 +1,13 @@
 {
-  "name": "alexba/affilicious-plugin",
-  "license": "MIT",
+  "name": "affilicious/affilicious-plugin",
+  "license": "GPL-2.0 or later",
   "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
     "affiliate",
-    "produkte"
+    "produkte",
+    "product",
+    "price comparison"
   ],
   "autoload": {
     "psr-4": {
