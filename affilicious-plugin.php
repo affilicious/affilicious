@@ -31,10 +31,10 @@
 use Affilicious\Common\Application\Setup\AssetSetup;
 use Affilicious\Common\Application\Setup\CarbonSetup;
 use Affilicious\Product\Application\Setup\ProductSetup;
-use Affilicious\Product\Application\Setup\ShopSetup;
+use Affilicious\Shop\Application\Setup\ShopSetup;
 use Affilicious\Product\Application\Setup\DetailGroupSetup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\Product\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
+use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Common\Application\Setup\FeedbackSetup;

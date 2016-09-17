@@ -1,9 +1,9 @@
 <?php
-use Affilicious\Product\Domain\Helper\ShopHelper;
+use Affilicious\Shop\Domain\Helper\ShopHelper;
 use Affilicious\Product\Domain\Helper\ProductHelper;
 use Affilicious\Product\Domain\Helper\PriceHelper;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Domain\Model\Shop;
+use Affilicious\Shop\Domain\Model\Shop;
 
 if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

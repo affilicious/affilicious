@@ -1,8 +1,8 @@
 <?php
-namespace Affilicious\Product\Domain\Helper;
+namespace Affilicious\Shop\Domain\Helper;
 
-use Affilicious\Product\Domain\Exception\PostNotFoundException;
-use Affilicious\Product\Domain\Model\Shop;
+use Affilicious\Common\Domain\Exception\PostNotFoundException;
+use Affilicious\Shop\Domain\Model\Shop;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 

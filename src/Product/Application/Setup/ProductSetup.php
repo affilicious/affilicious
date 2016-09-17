@@ -6,8 +6,9 @@ use Affilicious\Product\Domain\Helper\DetailGroupHelper;
 use Affilicious\Product\Domain\Model\DetailGroup;
 use Affilicious\Product\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Domain\Model\Shop;
-use Affilicious\Product\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Shop\Domain\Model\Shop;
+use Affilicious\Shop\Domain\Model\ShopId;
+use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
@@ -135,7 +136,7 @@ class ProductSetup implements SetupInterface
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
-                $shop = $this->shopRepository->findById($query->post->ID);
+                $shop = $this->shopRepository->findById(new ShopId($query->post->ID));
 
                 $tabs->add_fields($shop->getTitle(), array(
                     CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious'))

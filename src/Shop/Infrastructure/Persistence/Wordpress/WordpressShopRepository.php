@@ -1,21 +1,23 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\Wordpress;
+namespace Affilicious\Shop\Infrastructure\Persistence\Wordpress;
 
 use Affilicious\Product\Domain\Exception\InvalidPostTypeException;
-use Affilicious\Product\Domain\Model\Shop;
-use Affilicious\Product\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Shop\Domain\Model\Shop;
+use Affilicious\Shop\Domain\Model\ShopId;
+use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if (!defined('ABSPATH')) {
+	exit('Not allowed to access pages directly.');
+}
 
 class WordpressShopRepository implements ShopRepositoryInterface
 {
     /**
      * @inheritdoc
      */
-    public function findById($shopId)
+    public function findById(ShopId $id)
     {
-        // The product ID is just a simple post ID, since the product is just a custom post type
-        $post = get_post($shopId);
+        $post = get_post($id->getValue());
         if ($post === null) {
             return null;
         }
