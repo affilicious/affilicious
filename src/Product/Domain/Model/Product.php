@@ -20,6 +20,11 @@ class Product
      */
     private $post;
 
+	/**
+	 * @var Type
+	 */
+	private $type;
+
     /**
      * European Article Number (EAN) is a unique ID used for identification of retail products
      *
@@ -109,6 +114,28 @@ class Product
     {
         return $this->post->ID;
     }
+
+	/**
+	 * Get the product type like simple or complex
+	 *
+	 * @since 0.5.2
+	 * @return Type
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * Set the product type like simple or complex
+	 *
+	 * @since 0.5.2
+	 * @param Type $type
+	 */
+	public function setType(Type $type)
+	{
+		$this->type = $type;
+	}
 
     /**
      * Get the title
