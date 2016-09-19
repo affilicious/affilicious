@@ -1,9 +1,11 @@
 <?php
-namespace Affilicious\Product\Domain\Model;
+namespace Affilicious\Detail\Domain\Model;
 
 use Affilicious\Common\Domain\Model\RepositoryInterface;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if (!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 interface DetailGroupRepositoryInterface extends RepositoryInterface
 {
@@ -11,10 +13,10 @@ interface DetailGroupRepositoryInterface extends RepositoryInterface
      * Find a field group by the given ID
      *
      * @since 0.3
-     * @param int $detailGroupId
+     * @param DetailGroupId $detailGroupId
      * @return DetailGroup|null
      */
-    public function findById($detailGroupId);
+    public function findById(DetailGroupId $detailGroupId);
 
     /**
      * Find all field groups

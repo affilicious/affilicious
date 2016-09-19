@@ -1,13 +1,16 @@
 <?php
-namespace Affilicious\Product\Application\Setup;
+namespace Affilicious\Detail\Application\Setup;
 
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Product\Domain\Model\DetailGroup;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
+use Affilicious\Detail\Domain\Model\Detail\Type;
+use Affilicious\Detail\Domain\Model\DetailGroup;
+use Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
-if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if (!defined('ABSPATH')) {
+	exit('Not allowed to access pages directly.');
+}
 
 class DetailGroupSetup implements SetupInterface
 {
@@ -75,28 +78,19 @@ class DetailGroupSetup implements SetupInterface
                             CarbonField::make('select', CarbonDetailGroupRepository::CARBON_DETAIL_TYPE, __('Type', 'affilicious'))
                                 ->set_required(true)
                                 ->add_options(array(
-                                    DetailGroup::DETAIL_TYPE_TEXT => __('Text', 'affilicious'),
-                                    DetailGroup::DETAIL_TYPE_NUMBER => __('Number', 'affilicious'),
-                                    DetailGroup::DETAIL_TYPE_FILE => __('File', 'affilicious'),
+                                    Type::TEXT => __('Text', 'affilicious'),
+                                    Type::NUMBER => __('Number', 'affilicious'),
+                                    Type::FILE => __('File', 'affilicious'),
                                 )),
 	                        CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_UNIT, __('Unit', 'affilicious'))
 		                        ->set_conditional_logic(array(
 			                        'relation' => 'AND',
 			                        array(
 				                        'field' => CarbonDetailGroupRepository::CARBON_DETAIL_TYPE,
-				                        'value' => array(DetailGroup::DETAIL_TYPE_TEXT, DetailGroup::DETAIL_TYPE_NUMBER),
+				                        'value' => array(Type::TEXT, Type::NUMBER),
 				                        'compare' => 'IN',
 			                        )
 		                        )),
-                            CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_DEFAULT_VALUE, __('Default Value', 'affilicious'))
-                                ->set_conditional_logic(array(
-                                    'relation' => 'AND',
-                                    array(
-                                        'field' => CarbonDetailGroupRepository::CARBON_DETAIL_TYPE,
-                                        'value' => array(DetailGroup::DETAIL_TYPE_TEXT, DetailGroup::DETAIL_TYPE_NUMBER),
-                                        'compare' => 'IN',
-                                    )
-                                )),
                             CarbonField::make('text', CarbonDetailGroupRepository::CARBON_DETAIL_HELP_TEXT, __('Help Text', 'affilicious'))
                         ))
                     ->set_header_template('
