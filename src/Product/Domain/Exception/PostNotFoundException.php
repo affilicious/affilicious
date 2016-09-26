@@ -1,7 +1,9 @@
 <?php
 namespace Affilicious\Product\Domain\Exception;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 class PostNotFoundException extends \RuntimeException
 {

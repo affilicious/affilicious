@@ -5,6 +5,10 @@ use Affilicious\Common\Domain\Exception\DomainException;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Detail\Detail;
 
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
 class DuplicatedDetailException extends DomainException
 {
     /**

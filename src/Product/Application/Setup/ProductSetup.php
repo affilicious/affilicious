@@ -9,7 +9,6 @@ use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Shop\Domain\Model\Shop;
-use Affilicious\Shop\Domain\Model\ShopId;
 use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;

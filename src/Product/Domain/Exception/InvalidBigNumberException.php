@@ -1,6 +1,10 @@
 <?php
 namespace Affilicious\Product\Domain\Exception;
 
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
 class InvalidBigNumberException extends \RuntimeException
 {
     /**
