@@ -1,12 +1,16 @@
 <?php
 namespace Affilicious\Common\Application\Helper;
 
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
 class DatabaseHelper
 {
 	/**
 	 * Converts a text to a key which can be safely stored into the database
 	 *
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @param string $text
 	 * @return string
 	 */

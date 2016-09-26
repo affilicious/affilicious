@@ -1,10 +1,16 @@
 <?php
 namespace Affilicious\Shop\Infrastructure\Persistence\Wordpress;
 
+use Affilicious\Common\Domain\Model\Image\Height;
+use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Common\Domain\Model\Image\ImageId;
+use Affilicious\Common\Domain\Model\Image\Source;
+use Affilicious\Common\Domain\Model\Image\Width;
 use Affilicious\Product\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Shop\Domain\Model\ShopId;
 use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Shop\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -65,7 +71,57 @@ class WordpressShopRepository implements ShopRepositoryInterface
             throw new InvalidPostTypeException($post->post_type, Shop::POST_TYPE);
         }
 
-        $shop = new Shop($post);
+        // ID, Title
+        $shop = new Shop(
+            new ShopId($post->ID),
+            new Title($post->post_title)
+        );
+
+        // Thumbnail
+        $thumbnailId = get_post_thumbnail_id($post->ID);
+        if (!empty($thumbnailId)) {
+            $thumbnail = self::buildImageFromAttachmentId($thumbnailId);
+
+            if($thumbnail !== null) {
+                $shop->setThumbnail($thumbnail);
+            }
+        }
+
         return $shop;
+    }
+
+    /**
+     * @since 0.6
+     * @param int $attachmentId
+     * @return null|Image
+     */
+    private function buildImageFromAttachmentId($attachmentId)
+    {
+        $attachment = wp_get_attachment_image_src($attachmentId);
+        if(empty($attachment) && count($attachment) == 0) {
+            return null;
+        }
+
+        $source = $attachment[0];
+        if(empty($source)) {
+            return null;
+        }
+
+        $image = new Image(
+            new ImageId($attachmentId),
+            new Source($source)
+        );
+
+        $width = $attachment[1];
+        if(!empty($width)) {
+            $image->setWidth(new Width($width));
+        }
+
+        $height = $attachment[2];
+        if(!empty($height)) {
+            $image->setHeight(new Height($height));
+        }
+
+        return $image;
     }
 }

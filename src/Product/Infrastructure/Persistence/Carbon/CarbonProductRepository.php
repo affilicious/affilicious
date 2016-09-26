@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
+use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Image\Height;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Image\ImageId;
@@ -23,7 +24,6 @@ use Affilicious\Product\Domain\Model\Review\Votes;
 use Affilicious\Product\Domain\Model\Shop\AffiliateId;
 use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
 use Affilicious\Product\Domain\Model\Shop\Currency;
-use Affilicious\Product\Domain\Model\Shop\Logo;
 use Affilicious\Product\Domain\Model\Shop\Price;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Shop\ShopId;
@@ -68,7 +68,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
     private $shopRepository;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param DetailGroupRepositoryInterface $detailGroupRepository
      * @param ShopRepositoryInterface $shopRepository
      */
@@ -129,6 +129,10 @@ class CarbonProductRepository implements ProductRepositoryInterface
      */
     private function buildProductFromPost(\WP_Post $post)
     {
+        if($post->post_type !== Product::POST_TYPE) {
+            throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
+        }
+
         // Type
         $type = carbon_get_post_meta($post->ID, self::PRODUCT_TYPE);
         $type = empty($type) ? ProductType::SIMPLE : $type;
@@ -244,7 +248,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param array $rawShop
      * @return null|Shop
      */
@@ -258,7 +262,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         $title = $shopTemplate->getTitle()->getValue();
-        $logo = $shopTemplate->getLogo();
+        $thumbnail = $shopTemplate->getThumbnail();
         $price = !empty($rawShop['price']) ? floatval($rawShop['price']) : null;
         $oldPrice = !empty($rawShop['old_price']) ? floatval($rawShop['old_price']) : null;
         $currency = !empty($rawShop['currency']) ? $rawShop['currency'] : null;
@@ -271,8 +275,8 @@ class CarbonProductRepository implements ProductRepositoryInterface
             new Currency($currency)
         );
 
-        if($shopTemplate->hasLogo()) {
-            $shop->setLogo(new Logo($logo->getValue()));
+        if($shopTemplate->hasThumbnail()) {
+            $shop->setThumbnail($thumbnail);
         }
 
         if(!empty($price)) {
@@ -295,7 +299,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param array $rawDetailGroup
      * @return Detail[]
      */
@@ -343,7 +347,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param int $attachmentId
      * @return null|Image
      */

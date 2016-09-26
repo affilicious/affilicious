@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 class InvalidTypeException extends DomainException
 {
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @param mixed $invalidValue
 	 * @param string $validType
 	 */

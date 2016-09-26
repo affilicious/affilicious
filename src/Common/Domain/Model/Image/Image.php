@@ -30,7 +30,7 @@ class Image extends AbstractAggregate
     protected $height;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param ImageId $id
      * @param Source $source
      */
@@ -43,7 +43,7 @@ class Image extends AbstractAggregate
     /**
      * Get the ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return ImageId
      */
     public function getId()
@@ -54,7 +54,7 @@ class Image extends AbstractAggregate
     /**
      * Get the image source
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Source
      */
     public function getSource()
@@ -65,7 +65,7 @@ class Image extends AbstractAggregate
     /**
      * Check if the image has a defined width
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasWidth()
@@ -76,7 +76,7 @@ class Image extends AbstractAggregate
     /**
      * Get the image width
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Width
      */
     public function getWidth()
@@ -87,7 +87,7 @@ class Image extends AbstractAggregate
     /**
      * Set the image width
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Width $width
      */
     public function setWidth($width)
@@ -98,7 +98,7 @@ class Image extends AbstractAggregate
     /**
      * Check if the image has a defined height
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasHeight()
@@ -109,7 +109,7 @@ class Image extends AbstractAggregate
     /**
      * Get the image height
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Height
      */
     public function getHeight()
@@ -120,7 +120,7 @@ class Image extends AbstractAggregate
     /**
      * Set the image height
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Height $height
      */
     public function setHeight($height)
@@ -130,7 +130,7 @@ class Image extends AbstractAggregate
 
     /**
      * @inheritdoc
-     * @since 0.5.2
+     * @since 0.6
      */
     public function isEqualTo($object)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Shop\Domain\Helper;
+namespace Affilicious\Shop\Application\Helper;
 
 use Affilicious\Common\Domain\Exception\PostNotFoundException;
 use Affilicious\Shop\Domain\Model\Shop;

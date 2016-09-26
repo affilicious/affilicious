@@ -5,13 +5,15 @@ use Affilicious\Common\Application\Helper\DatabaseHelper;
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Detail\Domain\Model\Detail\Detail;
 use Affilicious\Detail\Domain\Model\Detail\HelpText;
-use Affilicious\Detail\Domain\Model\Detail\Key;
+use Affilicious\Detail\Domain\Model\Detail\Key as DetailKey;
 use Affilicious\Detail\Domain\Model\Detail\Name;
 use Affilicious\Detail\Domain\Model\Detail\Type;
 use Affilicious\Detail\Domain\Model\Detail\Unit;
 use Affilicious\Detail\Domain\Model\DetailGroup;
 use Affilicious\Detail\Domain\Model\DetailGroupId;
 use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Detail\Domain\Model\Key;
+use Affilicious\Detail\Domain\Model\Title;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -19,11 +21,11 @@ if(!defined('ABSPATH')) {
 
 class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
 {
-    const CARBON_DETAILS = 'affilicious_detail_group_fields';
-    const CARBON_DETAIL_NAME = 'name';
-    const CARBON_DETAIL_TYPE = 'type';
-    const CARBON_DETAIL_UNIT = 'unit';
-    const CARBON_DETAIL_HELP_TEXT = 'help_text';
+    const DETAILS = 'affilicious_detail_group_fields';
+    const DETAIL_NAME = 'name';
+    const DETAIL_TYPE = 'type';
+    const DETAIL_UNIT = 'unit';
+    const DETAIL_HELP_TEXT = 'help_text';
 
     /**
      * @inheritdoc
@@ -35,7 +37,7 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
             return null;
         }
 
-        $detailGroup = $this->fromPost($post);
+        $detailGroup = $this->buildDetailGroupFromPost($post);
         return $detailGroup;
     }
 
@@ -54,7 +56,7 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
         if($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
-                $detailGroup = self::fromPost($query->post);
+                $detailGroup = self::buildDetailGroupFromPost($query->post);
                 $detailGroups[] = $detailGroup;
             }
 
@@ -71,24 +73,28 @@ class CarbonDetailGroupRepository implements DetailGroupRepositoryInterface
      * @param \WP_Post $post
      * @return DetailGroup
      */
-    private function fromPost(\WP_Post $post)
+    private function buildDetailGroupFromPost(\WP_Post $post)
     {
         if($post->post_type !== DetailGroup::POST_TYPE) {
             throw new InvalidPostTypeException($post->post_type, DetailGroup::POST_TYPE);
         }
 
-        $detailGroup = new DetailGroup($post);
+        $detailGroup = new DetailGroup(
+            new DetailGroupId($post->ID),
+            new Key(DatabaseHelper::convertTextToKey($post->post_title)),
+            new Title($post->post_title)
+        );
 
-        $fields = carbon_get_post_meta($detailGroup->getId()->getValue(), self::CARBON_DETAILS, 'complex');
+        $fields = carbon_get_post_meta($detailGroup->getId()->getValue(), self::DETAILS, 'complex');
         if (!empty($fields)) {
             foreach ($fields as $field) {
-                $name = $field[self::CARBON_DETAIL_NAME];
+                $name = $field[self::DETAIL_NAME];
                 $key = DatabaseHelper::convertTextToKey($name);
-                $type = $field[self::CARBON_DETAIL_TYPE];
-                $unit = $field[self::CARBON_DETAIL_UNIT];
-                $helpText = $field[self::CARBON_DETAIL_HELP_TEXT];
+                $type = $field[self::DETAIL_TYPE];
+                $unit = $field[self::DETAIL_UNIT];
+                $helpText = $field[self::DETAIL_HELP_TEXT];
 
-                $detail = new Detail(new Key($key), new Name($name), new Type($type));
+                $detail = new Detail(new DetailKey($key), new Name($name), new Type($type));
                 if(!empty($unit)) {
                     $detail->setUnit(new Unit($unit));
                 }

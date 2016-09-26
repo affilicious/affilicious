@@ -12,7 +12,7 @@ class Votes extends AbstractValueObject
     /**
      * Get a votes with the min value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Votes
      */
     public static function getMin()
@@ -21,11 +21,15 @@ class Votes extends AbstractValueObject
     }
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param mixed $value
      */
     public function __construct($value)
     {
+        if (is_numeric($value)) {
+            $value = intval($value);
+        }
+
         if (!is_int($value)) {
             throw new InvalidTypeException($value, 'int');
         }

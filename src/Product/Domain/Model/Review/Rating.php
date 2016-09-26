@@ -14,7 +14,7 @@ class Rating extends AbstractValueObject
     /**
      * Get a rating with the min value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Rating
      */
     public static function getMin()
@@ -25,7 +25,7 @@ class Rating extends AbstractValueObject
     /**
      * Get a rating with the max value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Rating
      */
     public static function getMax()
@@ -35,15 +35,19 @@ class Rating extends AbstractValueObject
 
     /**
      * @inheritdoc
-     * @since 0.5.2
+     * @since 0.6
      * @throws InvalidTypeException
      * @throws InvalidSmallNumberException
      * @throws InvalidBigNumberException
      */
     public function __construct($value)
     {
-        if (!is_int($value)) {
-            throw new InvalidTypeException($value, 'int');
+        if (is_numeric($value)) {
+            $value = floatval($value);
+        }
+
+        if (!is_float($value)) {
+            throw new InvalidTypeException($value, 'float');
         }
 
         if($value < self::MIN) {

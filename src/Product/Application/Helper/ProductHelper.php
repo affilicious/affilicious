@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Domain\Helper;
+namespace Affilicious\Product\Application\Helper;
 
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
@@ -80,28 +80,5 @@ class ProductHelper
         $shop = $product->getShop(new ShopId($shopId));
 
         return $shop;
-    }
-
-	/**
-	 * Get the price of the product
-	 * If you pass in nothing as a shop, the first shop will be used.
-	 *
-	 * @since 0.3
-	 * @param Product $product
-	 * @param int|\WP_Post|Shop|null $shopOrId
-	 * @return array|null
-	 */
-    public static function getPrice(Product $product, $shopOrId = null)
-    {
-        $shop = ProductHelper::getShop($product, $shopOrId);
-        if ($shop === null) {
-            return null;
-        }
-
-        $value = $shop['price'];
-        $currency = $shop['currency'];
-        $price = affilicious_get_price($value, $currency);
-
-        return $price;
     }
 }

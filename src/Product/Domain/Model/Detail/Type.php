@@ -15,7 +15,7 @@ class Type extends AbstractValueObject
 	const FILE = 'file';
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Type
 	 */
 	public static function text()
@@ -24,7 +24,7 @@ class Type extends AbstractValueObject
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Type
 	 */
 	public static function number()
@@ -33,7 +33,7 @@ class Type extends AbstractValueObject
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Type
 	 */
 	public static function file()
@@ -43,7 +43,7 @@ class Type extends AbstractValueObject
 
 	/**
 	 * @inheritdoc
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @throws InvalidOptionException
 	 */
 	public function __construct($value)

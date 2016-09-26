@@ -1,12 +1,22 @@
 <?php
-use Affilicious\Product\Domain\Helper\PriceHelper;
-use Affilicious\Product\Domain\Helper\ProductHelper;
+use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Shop\Domain\Helper\ShopHelper;
+use Affilicious\Shop\Application\Helper\ShopHelper;
 use Affilicious\Shop\Domain\Model\Shop;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
+}
+
+/**
+ * Check if the current page is a product.
+ *
+ * @since 0.3
+ * @return bool
+ */
+function affilicious_is_product()
+{
+    return is_singular(Product::POST_TYPE);
 }
 
 /**
@@ -27,7 +37,7 @@ function affilicious_get_product($productOrId = null)
 /**
  * Get the product review rating from 0 to 5
  *
- * @since 0.5.2
+ * @since 0.6
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|float
  */
@@ -48,13 +58,13 @@ function affilicious_get_product_review_rating($productOrId = null)
 /**
  * Get the product review votes
  *
- * @since 0.5.2
+ * @since 0.6
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|int
  */
 function affilicious_get_product_review_votes($productOrId = null)
 {
-	$product = affilicious_get_product($productOrId);
+    $product = affilicious_get_product($productOrId);
     if($product === null || !$product->hasReview()) {
         return null;
     }
@@ -67,7 +77,7 @@ function affilicious_get_product_review_votes($productOrId = null)
     $votes = $review->getVotes();
     $rawVotes = $votes->getValue();
 
-	return $rawVotes;
+    return $rawVotes;
 }
 
 /**
@@ -107,7 +117,7 @@ function affilicious_get_product_details($productOrId = null)
  * Get the product image gallery by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
- * @since 0.5.2
+ * @since 0.6
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|array
  */
@@ -157,10 +167,28 @@ function affilicious_get_product_shops($productOrId = null)
         $rawShop = array(
             'shop_id' =>  $shop->getId()->getValue(),
             'title' =>  $shop->getTitle()->getValue(),
-            'logo' =>  $shop->hasLogo() ? $shop->getLogo()->getValue() : null,
-            'price' => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
-            'old_price' => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
-            'currency' => $shop->getCurrency()->getValue(),
+            'thumbnail' => !$shop->hasThumbnail() ? null : array(
+                'id' => $shop->getThumbnail()->getId()->getValue(),
+                'src' => $shop->getThumbnail()->getSource()->getValue(),
+                'width' => $shop->getThumbnail()->hasWidth() ? $shop->getThumbnail()->getWidth()->getValue() : null,
+                'height' => $shop->getThumbnail()->hasHeight() ? $shop->getThumbnail()->getHeight()->getValue() : null,
+            ),
+            'price' => !$shop->hasPrice() ? null : array(
+                'value' => $shop->getPrice()->getValue(),
+                'currency' => array(
+                    'value' => $shop->getPrice()->getCurrency()->getValue(),
+                    'label' => $shop->getPrice()->getCurrency()->getLabel(),
+                    'symbol' => $shop->getPrice()->getCurrency()->getSymbol(),
+                ),
+            ),
+            'old_price' => !$shop->hasOldPrice() ? null : array(
+                'value' => $shop->getOldPrice()->getValue(),
+                'currency' => array(
+                    'value' => $shop->getOldPrice()->getCurrency()->getValue(),
+                    'label' => $shop->getOldPrice()->getCurrency()->getLabel(),
+                    'symbol' => $shop->getOldPrice()->getCurrency()->getSymbol(),
+                ),
+            ),
             'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
             'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
         );
@@ -324,9 +352,28 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
     $rawShop = array(
         'shop_id' => $shop->getId()->getValue(),
         'title' => $shop->getTitle()->getValue(),
-        'logo' => $shop->hasLogo() ? $shop->getLogo()->getValue() : null,
-        'price' => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
-        'old_price' => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+        'thumbnail' => !$shop->hasThumbnail() ? null : array(
+            'id' => $shop->getThumbnail()->getId()->getValue(),
+            'src' => $shop->getThumbnail()->getSource()->getValue(),
+            'width' => $shop->getThumbnail()->hasWidth() ? $shop->getThumbnail()->getWidth()->getValue() : null,
+            'height' => $shop->getThumbnail()->hasHeight() ? $shop->getThumbnail()->getHeight()->getValue() : null,
+        ),
+        'price' => !$shop->hasPrice() ? null : array(
+            'value' => $shop->getPrice()->getValue(),
+            'currency' => array(
+                'value' => $shop->getPrice()->getCurrency()->getValue(),
+                'label' => $shop->getPrice()->getCurrency()->getLabel(),
+                'symbol' => $shop->getPrice()->getCurrency()->getSymbol(),
+            ),
+        ),
+        'old_price' => !$shop->hasOldPrice() ? null : array(
+            'value' => $shop->getOldPrice()->getValue(),
+            'currency' => array(
+                'value' => $shop->getOldPrice()->getCurrency()->getValue(),
+                'label' => $shop->getOldPrice()->getCurrency()->getLabel(),
+                'symbol' => $shop->getOldPrice()->getCurrency()->getSymbol(),
+            ),
+        ),
         'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
         'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
     );
@@ -344,12 +391,12 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
  */
 function affilicious_get_product_cheapest_shop($productOrId = null)
 {
-	$product = affilicious_get_product($productOrId);
+    $product = affilicious_get_product($productOrId);
     if($product === null) {
         return null;
     }
 
-	$shop = $product->getCheapestShop();
+    $shop = $product->getCheapestShop();
     if($shop === null) {
         return null;
     }
@@ -357,9 +404,28 @@ function affilicious_get_product_cheapest_shop($productOrId = null)
     $rawShop = array(
         'shop_id' => $shop->getId()->getValue(),
         'title' => $shop->getTitle()->getValue(),
-        'logo' => $shop->hasLogo() ? $shop->getLogo()->getValue() : null,
-        'price' => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
-        'old_price' => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+        'thumbnail' => !$shop->hasThumbnail() ? null : array(
+            'id' => $shop->getThumbnail()->getId()->getValue(),
+            'src' => $shop->getThumbnail()->getSource()->getValue(),
+            'width' => $shop->getThumbnail()->hasWidth() ? $shop->getThumbnail()->getWidth()->getValue() : null,
+            'height' => $shop->getThumbnail()->hasHeight() ? $shop->getThumbnail()->getHeight()->getValue() : null,
+        ),
+        'price' => !$shop->hasPrice() ? null : array(
+            'value' => $shop->getPrice()->getValue(),
+            'currency' => array(
+                'value' => $shop->getPrice()->getCurrency()->getValue(),
+                'label' => $shop->getPrice()->getCurrency()->getLabel(),
+                'symbol' => $shop->getPrice()->getCurrency()->getSymbol(),
+            ),
+        ),
+        'old_price' => !$shop->hasOldPrice() ? null : array(
+            'value' => $shop->getOldPrice()->getValue(),
+            'currency' => array(
+                'value' => $shop->getOldPrice()->getCurrency()->getValue(),
+                'label' => $shop->getOldPrice()->getCurrency()->getLabel(),
+                'symbol' => $shop->getOldPrice()->getCurrency()->getSymbol(),
+            ),
+        ),
         'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
         'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
     );
@@ -390,7 +456,11 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
     }
 
     $price = $shop->getPrice();
-    $rawPrice = affilicious_get_price($price->getValue(), $price->getCurrency()->getValue());
+    if($price === null) {
+        return null;
+    }
+
+    $rawPrice = $price->getValue() . ' ' . $price->getCurrency()->getSymbol();
 
     return $rawPrice;
 }
@@ -405,20 +475,24 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
  */
 function affilicious_get_product_cheapest_price($productOrId = null)
 {
-	$product = affilicious_get_product($productOrId);
+    $product = affilicious_get_product($productOrId);
     if($product === null) {
         return null;
     }
 
-	$shop = $product->getCheapestShop();
-	if (empty($shop)) {
-		return null;
-	}
+    $shop = $product->getCheapestShop();
+    if (empty($shop)) {
+        return null;
+    }
 
     $price = $shop->getPrice();
-    $rawPrice = affilicious_get_price($price->getValue(), $price->getCurrency()->getValue());
+    if($price === null) {
+        return null;
+    }
 
-	return $rawPrice;
+    $rawPrice = $price->getValue() . ' ' . $price->getCurrency()->getSymbol();
+
+    return $rawPrice;
 }
 
 /**
@@ -434,9 +508,9 @@ function affilicious_get_product_cheapest_price($productOrId = null)
 function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId = null)
 {
     $shop = affilicious_get_product_shop($productOrId, $shopOrId);
-	if(empty($shop)) {
-		return null;
-	}
+    if(empty($shop)) {
+        return null;
+    }
 
     $affiliateLink = $shop['affiliate_link'];
 
@@ -453,25 +527,14 @@ function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId =
  */
 function affilicious_get_product_cheapest_affiliate_link($productOrId = null)
 {
-	$shop = affilicious_get_product_cheapest_shop($productOrId);
-	if(empty($shop)) {
-		return null;
-	}
+    $shop = affilicious_get_product_cheapest_shop($productOrId);
+    if(empty($shop)) {
+        return null;
+    }
 
-	$affiliateLink = $shop['affiliate_link'];
+    $affiliateLink = $shop['affiliate_link'];
 
-	return $affiliateLink;
-}
-
-/**
- * Check if the current page is a product.
- *
- * @since 0.3
- * @return bool
- */
-function affilicious_is_product()
-{
-    return is_singular(Product::POST_TYPE);
+    return $affiliateLink;
 }
 
 /**
@@ -492,19 +555,24 @@ function affilicious_get_shop($shopOrId = null)
 /**
  * Print the shop thumbnail.
  * If you pass in nothing as a parameter, the current post will be used.
+ *
  * This function is just wrapper for get_the_post_thumbnail:
  * https://developer.wordpress.org/reference/functions/get_the_post_thumbnail/
  *
  * @since 0.3
- * @param int|\WP_Post|Shop|null $post
+ * @param int|\WP_Post|Shop|array|null $post
  * @param string|array $size
  * @param string|array $attr
  * @return null|string
  */
 function affilicious_get_shop_thumbnail($post = null, $size = 'post-thumbnail', $attr = '')
 {
-    if ($post instanceof Shop) {
+    if(method_exists($post, 'getRawPost')) {
         $post = $post->getRawPost();
+    }
+
+    if(is_array($post) && !empty($post['shop_id'])) {
+        $post = get_post($post['shop_id']);
     }
 
     if (!($post instanceof WP_Post) && !is_int($post)) {
@@ -514,48 +582,4 @@ function affilicious_get_shop_thumbnail($post = null, $size = 'post-thumbnail', 
     $thumbnail = get_the_post_thumbnail($post, $size, $attr);
 
     return $thumbnail;
-}
-
-/**
- * Get the label for the currency option.
- *
- * @since 0.3
- * @param string $currency
- * @return bool|string
- */
-function affilicious_get_currency_label($currency)
-{
-    $currencyLabel = PriceHelper::getCurrencyLabel($currency);
-
-    return $currencyLabel;
-}
-
-/**
- * Get the symbol for the currency option
- *
- * @since 0.3
- * @param string $currency
- * @return string
- */
-function affilicious_get_currency_symbol($currency)
-{
-    $currencySymbol = PriceHelper::getCurrencySymbol($currency);
-
-    return $currencySymbol;
-}
-
-/**
- * Get the price with the correct currency.
- * If the value or currency is invalid, this functions returns false.
- *
- * @since 0.3
- * @param string|int $value
- * @param string $currency
- * @return string|null
- */
-function affilicious_get_price($value, $currency)
-{
-    $currencySymbol = PriceHelper::getPrice($value, $currency);
-
-    return $currencySymbol;
 }

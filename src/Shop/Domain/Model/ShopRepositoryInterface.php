@@ -13,7 +13,7 @@ interface ShopRepositoryInterface extends RepositoryInterface
 	 * Find a shop by the given ID.
 	 * The shop ID is just a Wordpress post ID, because a shop is just a custom post type
 	 *
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @param ShopId $id
 	 * @return Shop|null
 	 */

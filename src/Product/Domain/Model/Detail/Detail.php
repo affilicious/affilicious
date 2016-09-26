@@ -35,7 +35,7 @@ class Detail extends AbstractAggregate
     private $value;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param Key $key
      * @param Type $type
      * @param Name $name
@@ -50,7 +50,7 @@ class Detail extends AbstractAggregate
     /**
      * Get the unique key
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Key
      */
     public function getKey()
@@ -61,7 +61,7 @@ class Detail extends AbstractAggregate
     /**
      * Get the type like text, number or file
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Type
      */
     public function getType()
@@ -72,7 +72,7 @@ class Detail extends AbstractAggregate
     /**
      * Get the name
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Name
      */
     public function getName()
@@ -83,7 +83,7 @@ class Detail extends AbstractAggregate
     /**
      * Check if the detail has an unit
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasUnit()
@@ -94,7 +94,7 @@ class Detail extends AbstractAggregate
     /**
      * Get the unit
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Unit
      */
     public function getUnit()
@@ -105,7 +105,7 @@ class Detail extends AbstractAggregate
     /**
      * Set the unit
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Unit $unit
      */
     public function setUnit(Unit $unit)
@@ -116,7 +116,7 @@ class Detail extends AbstractAggregate
     /**
      * Check if the detail has a value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasValue()
@@ -127,7 +127,7 @@ class Detail extends AbstractAggregate
     /**
      * Get the value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Value
      */
     public function getValue()
@@ -138,7 +138,7 @@ class Detail extends AbstractAggregate
     /**
      * Set the value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Value $value
      */
     public function setValue(Value $value)

@@ -6,7 +6,7 @@ if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
 class InvalidValueException extends \RuntimeException
 {
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @param mixed $invalidValue
 	 * @param array $validValues
 	 * @param string $class

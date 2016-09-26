@@ -21,13 +21,6 @@ class Product extends AbstractEntity
     const POST_TYPE = 'product';
     const SLUG = 'product';
 
-    const DETAIL_GROUP_ID = 'detail_group_id';
-    const DETAIL_GROUP_DETAILS = 'details';
-    const DETAIL_KEY = 'key';
-    const DETAIL_TYPE = 'type';
-    const DETAIL_LABEL = 'label';
-    const DETAIL_VALUE = 'value';
-
     /**
      * The type of the product like simple or variants
      *
@@ -99,7 +92,7 @@ class Product extends AbstractEntity
     protected $imageGallery;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param ProductId $id
      * @param Type $type
      * @param Title $title
@@ -119,7 +112,7 @@ class Product extends AbstractEntity
     /**
      * Get the product ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return ProductId
      */
     public function getId()
@@ -130,7 +123,7 @@ class Product extends AbstractEntity
     /**
      * Get the type like simple or complex
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Type
      */
     public function getType()
@@ -141,7 +134,7 @@ class Product extends AbstractEntity
     /**
      * Get the title
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Title
      */
     public function getTitle()
@@ -152,7 +145,7 @@ class Product extends AbstractEntity
     /**
      * Check if the product has any content
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasContent()
@@ -163,7 +156,7 @@ class Product extends AbstractEntity
     /**
      * Get the content
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Content
      */
     public function getContent()
@@ -174,7 +167,7 @@ class Product extends AbstractEntity
     /**
      * Set the content
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Content $content
      */
     public function setContent(Content $content)
@@ -185,7 +178,7 @@ class Product extends AbstractEntity
     /**
      * Check if the product has a thumbnail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasThumbnail()
@@ -196,7 +189,7 @@ class Product extends AbstractEntity
     /**
      * Get the thumbnail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Image
      */
     public function getThumbnail()
@@ -207,7 +200,7 @@ class Product extends AbstractEntity
     /**
      * Set the thumbnail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Image $thumbnail
      */
     public function setThumbnail(Image $thumbnail)
@@ -218,7 +211,7 @@ class Product extends AbstractEntity
     /**
      * Check if the product has a specific shop
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param ShopId $id
      * @return bool
      */
@@ -230,7 +223,7 @@ class Product extends AbstractEntity
     /**
      * Add a new shop
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Shop $shop
      * @throws DuplicatedShopException
      */
@@ -246,7 +239,7 @@ class Product extends AbstractEntity
     /**
      * Remove a shop by the ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param ShopId $id
      */
     public function removeShop(ShopId $id)
@@ -257,7 +250,7 @@ class Product extends AbstractEntity
     /**
      * Get a shop by the ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param ShopId $id
      * @return null|Shop
      */
@@ -271,7 +264,7 @@ class Product extends AbstractEntity
     /**
      * Get the cheapest shop
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return null|Shop
      */
     public function getCheapestShop()
@@ -291,7 +284,7 @@ class Product extends AbstractEntity
     /**
      * Get all shops
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Shop[]
      */
     public function getShops()
@@ -303,7 +296,7 @@ class Product extends AbstractEntity
     /**
      * Set all shops
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Shop[] $shops
      * @throws InvalidTypeException
      */
@@ -320,7 +313,7 @@ class Product extends AbstractEntity
     /**
      * Check if the product has a specific detail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Key $key
      * @return bool
      */
@@ -332,7 +325,7 @@ class Product extends AbstractEntity
     /**
      * Add a new detail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Detail $detail
      * @throws DuplicatedDetailException
      */
@@ -348,7 +341,7 @@ class Product extends AbstractEntity
     /**
      * Remove a detail by the ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Key $key
      */
     public function removeDetail(Key $key)
@@ -359,7 +352,7 @@ class Product extends AbstractEntity
     /**
      * Get a detail by the ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Key $key
      * @return null|Detail
      */
@@ -373,7 +366,7 @@ class Product extends AbstractEntity
     /**
      * Get all details
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Detail[]
      */
     public function getDetails()
@@ -385,7 +378,7 @@ class Product extends AbstractEntity
     /**
      * Set all details
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Detail[] $details
      * @throws InvalidTypeException
      */
@@ -402,7 +395,7 @@ class Product extends AbstractEntity
     /**
      * Check if the product has a review
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasReview()
@@ -413,7 +406,7 @@ class Product extends AbstractEntity
     /**
      * Get the review
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Review
      */
     public function getReview()
@@ -424,7 +417,7 @@ class Product extends AbstractEntity
     /**
      * Set the review
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Review $review
      */
     public function setReview(Review $review)
@@ -435,7 +428,7 @@ class Product extends AbstractEntity
     /**
      * Get the IDs of all related products
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return ProductId[]
      */
     public function getRelatedProducts()
@@ -447,7 +440,7 @@ class Product extends AbstractEntity
      * Set the IDs of all related products
      * If you do this, the old IDs going to be replaced.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param ProductId[] $relatedProducts
      * @throws InvalidTypeException
      */
@@ -465,7 +458,7 @@ class Product extends AbstractEntity
     /**
      * Get the IDs of all related accessories
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return ProductId[]
      */
     public function getRelatedAccessories()
@@ -477,7 +470,7 @@ class Product extends AbstractEntity
      * Set the IDs of all related accessories
      * If you do this, the old IDs going to be replaced.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param ProductId[] $relatedAccessories
      * @throws InvalidTypeException
      */
@@ -495,7 +488,7 @@ class Product extends AbstractEntity
     /**
      * Get the IDs of the media attachments for the image gallery
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Image[]
      */
     public function getImageGallery()
@@ -507,7 +500,7 @@ class Product extends AbstractEntity
      * Set the IDs of the media attachments for the image gallery
      * If you do this, the old images going to be replaced.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Image[] $imageGallery
      * @throws InvalidTypeException
      */
@@ -525,7 +518,7 @@ class Product extends AbstractEntity
     /**
      * Get the raw Wordpress post
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return null|\WP_Post
      */
     public function getRawPost()
@@ -536,51 +529,11 @@ class Product extends AbstractEntity
 
     /**
      * @inheritdoc
-     * @since 0.5.2
+     * @since 0.6
      */
     public function isEqualTo($object)
     {
         return
             $object instanceof self;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Check if the product has a thumbnail
-     *
-     * @since 0.3
-     * @return bool
-     */
-    public function hasThumbnail2()
-    {
-        $thumbnailId = get_post_thumbnail_id($this->getId());
-        return $thumbnailId == false ? false : true;
-    }
-
-    /**
-     * Get the thumbnail
-     *
-     * @since 0.3
-     * @return null|string
-     */
-    public function getThumbnail2()
-    {
-        $thumbnailId = get_post_thumbnail_id($this->getId());
-        if (!$thumbnailId) {
-            return null;
-        }
-
-        $thumbnail = wp_get_attachment_image_src($thumbnailId, 'featured_preview');
-        return $thumbnail[0];
     }
 }

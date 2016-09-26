@@ -8,7 +8,7 @@ use Affilicious\Product\Domain\Model\Shop\Shop;
 class DuplicatedShopException extends DomainException
 {
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param Shop $detail
      * @param Product $product
      */

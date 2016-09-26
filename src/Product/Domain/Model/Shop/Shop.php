@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Domain\Model\Shop;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Model\Image\Image;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -23,9 +24,9 @@ class Shop extends AbstractAggregate
     private $title;
 
     /**
-     * @var Logo
+     * @var Image
      */
-    private $logo;
+    private $thumbnail;
 
     /**
      * @var Price
@@ -38,11 +39,6 @@ class Shop extends AbstractAggregate
     private $oldPrice;
 
     /**
-     * @var Currency
-     */
-    private $currency;
-
-    /**
      * @var AffiliateId
      */
     private $affiliateId;
@@ -53,22 +49,20 @@ class Shop extends AbstractAggregate
     private $affiliateLink;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param ShopId $id
      * @param Title $title
-     * @param Currency $currency
      */
-    public function __construct(ShopId $id, Title $title, Currency $currency)
+    public function __construct(ShopId $id, Title $title)
     {
         $this->id = $id;
         $this->title = $title;
-        $this->currency = $currency;
     }
 
     /**
      * Get the shop ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return ShopId
      */
     public function getId()
@@ -79,7 +73,7 @@ class Shop extends AbstractAggregate
     /**
      * Get the title
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Title
      */
     public function getTitle()
@@ -88,42 +82,42 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Check if the shop has a logo
+     * Check if the shop has a thumbnail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
-    public function hasLogo()
+    public function hasThumbnail()
     {
-        return $this->logo !== null;
+        return $this->thumbnail !== null;
     }
 
     /**
-     * Get the logo
+     * Get the thumbnail
      *
-     * @since 0.5.2
-     * @return Logo
+     * @since 0.6
+     * @return Image
      */
-    public function getLogo()
+    public function getThumbnail()
     {
-        return $this->logo;
+        return $this->thumbnail;
     }
 
     /**
-     * Set the logo
+     * Set the thumbnail
      *
-     * @since 0.5.2
-     * @param Logo $logo
+     * @since 0.6
+     * @param Image $thumbnail
      */
-    public function setLogo(Logo $logo)
+    public function setThumbnail(Image $thumbnail)
     {
-        $this->logo = $logo;
+        $this->thumbnail = $thumbnail;
     }
 
     /**
      * Check if the shop has a price
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasPrice()
@@ -134,7 +128,7 @@ class Shop extends AbstractAggregate
     /**
      * Get the price
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return null|Price
      */
     public function getPrice()
@@ -145,7 +139,7 @@ class Shop extends AbstractAggregate
     /**
      * Set the price or set it to null to keep it empty.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param null|Price $price
      */
     public function setPrice($price)
@@ -156,7 +150,7 @@ class Shop extends AbstractAggregate
     /**
      * Check if the shop has an old price
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasOldPrice()
@@ -167,7 +161,7 @@ class Shop extends AbstractAggregate
     /**
      * Get the old price
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return null|Price
      */
     public function getOldPrice()
@@ -178,7 +172,7 @@ class Shop extends AbstractAggregate
     /**
      * Set the old price or set it to null to keep it empty.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param null|Price $oldPrice
      */
     public function setOldPrice($oldPrice)
@@ -187,20 +181,9 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Get the currency
-     *
-     * @since 0.5.2
-     * @return Currency
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
-    }
-
-    /**
      * Check if the shop has an affiliate ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasAffiliateId()
@@ -211,7 +194,7 @@ class Shop extends AbstractAggregate
     /**
      * Get the affiliate ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return AffiliateId
      */
     public function getAffiliateId()
@@ -222,7 +205,7 @@ class Shop extends AbstractAggregate
     /**
      * Set the affiliate ID
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param AffiliateId $affiliateId
      */
     public function setAffiliateId(AffiliateId $affiliateId)
@@ -233,7 +216,7 @@ class Shop extends AbstractAggregate
     /**
      * Check if the shop has an affiliate link
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasAffiliateLink()
@@ -244,7 +227,7 @@ class Shop extends AbstractAggregate
     /**
      * Get the affiliate link
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return AffiliateLink
      */
     public function getAffiliateLink()
@@ -255,7 +238,7 @@ class Shop extends AbstractAggregate
     /**
      * Set the affiliate link
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param AffiliateLink $affiliateLink
      */
     public function setAffiliateLink(AffiliateLink $affiliateLink)
@@ -272,8 +255,7 @@ class Shop extends AbstractAggregate
             $object instanceof self &&
             $this->getId()->isEqualTo($object->getId()) &&
             $this->getTitle()->isEqualTo($object->getTitle()) &&
-            $this->getCurrency()->isEqualTo($object->getCurrency()) &&
-            ($this->hasLogo() && $this->getLogo()->isEqualTo($object->getLogo()) || !$object->hasLogo()) &&
+            ($this->hasThumbnail() && $this->getThumbnail()->isEqualTo($object->getThumbnail()) || !$object->hasThumbnail()) &&
             ($this->hasAffiliateId() && $this->getAffiliateId()->isEqualTo($object->getAffiliateId()) || !$object->hasAffiliateId()) &&
             ($this->hasAffiliateLink() && $this->getAffiliateLink()->isEqualTo($object->getAffiliateLink()) || !$object->hasAffiliateLink()) &&
             ($this->hasPrice() && $this->getPrice()->isEqualTo($object->getPrice()) || !$object->hasPrice()) &&

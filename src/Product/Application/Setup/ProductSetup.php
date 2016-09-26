@@ -139,14 +139,15 @@ class ProductSetup implements SetupInterface
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
-                $shop = $this->shopRepository->findById(new ShopId($query->post->ID));
 
-                $tabs->add_fields($shop->getTitle(), array(
+                $shopId = $query->post->ID;
+                $title = $query->post->post_title;
+
+                $tabs->add_fields($title, array(
                     CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious'))
                         ->set_required(true)
-                        ->set_value($shop->getId()),
-                    CarbonField::make('number', 'price', __('Price', 'affilicious'))
-                        ->set_required(true),
+                        ->set_value($shopId),
+                    CarbonField::make('number', 'price', __('Price', 'affilicious')),
                     CarbonField::make('number', 'old_price', __('Old Price', 'affilicious')),
                     CarbonField::make('select', 'currency', __('Currency', 'affilicious'))
                         ->set_required(true)
@@ -154,6 +155,8 @@ class ProductSetup implements SetupInterface
                             'euro' => __('Euro', 'affilicious'),
                             'us-dollar' => __('US-Dollar', 'affilicious'),
                         )),
+                    CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affilicious'))
+                        ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
                     CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious')),
                 ));
             }
@@ -260,7 +263,7 @@ class ProductSetup implements SetupInterface
 	/**
 	 * Render the rating
 	 *
-	 * @since 0.5.2
+	 * @since 0.6
 	 */
     private function renderReview()
     {

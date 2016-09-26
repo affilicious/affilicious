@@ -16,7 +16,7 @@ class Currency extends AbstractValueObject
     /**
      * Get a Euro currency
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Currency
      */
     public static function getEuro()
@@ -27,7 +27,7 @@ class Currency extends AbstractValueObject
     /**
      * Get a US-Dollar currency
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Currency
      */
     public static function getUsDollar()
@@ -55,7 +55,7 @@ class Currency extends AbstractValueObject
     /**
      * Get the translated label for the currency
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return string
      */
     public function getLabel()
@@ -65,5 +65,23 @@ class Currency extends AbstractValueObject
         $currencyLabel = __($currencyLabel, 'affilicious');
 
         return $currencyLabel;
+    }
+
+    /**
+     * Get the symbol for the currency
+     *
+     * @since 0.6
+     * @return null|string
+     */
+    public function getSymbol()
+    {
+        $currencies = array(
+            'euro' => '€',
+            'us-dollar' => '$',
+        );
+
+        $currencySymbol = isset($currencies[$this->value]) ? $currencies[$this->value] : null;
+
+        return $currencySymbol;
     }
 }

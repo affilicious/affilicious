@@ -14,25 +14,20 @@ class DetailGroup
 {
     const POST_TYPE = 'detail_group';
 
-    /**
-     * @var \WP_Post
-     */
-    private $post;
-
 	/**
 	 * @var DetailGroupId
 	 */
 	private $id;
 
+    /**
+     * @var Key
+     */
+    private $key;
+
 	/**
 	 * @var Title
 	 */
 	private $title;
-
-	/**
-	 * @var Key
-	 */
-	private $key;
 
     /**
      * @var Detail[]
@@ -40,20 +35,21 @@ class DetailGroup
     private $details;
 
     /**
-     * @since 0.3
-     * @param \WP_Post $post
+     * @since 0.6
+     * @param DetailGroupId $id
+     * @param Key $key
+     * @param Title $title
      */
-    public function __construct(\WP_Post $post)
+    public function __construct(DetailGroupId $id, Key $key, Title $title)
     {
-        $this->post = $post;
-	    $this->id = new DetailGroupId($post->ID);
-	    $this->title = new Title($post->post_title);
-	    $this->key = new Key(DatabaseHelper::convertTextToKey($post->post_title));
+	    $this->id = $id;
+        $this->key = $key;
+        $this->title = $title;
         $this->details = array();
     }
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @return DetailGroupId
      */
     public function getId()
@@ -62,7 +58,7 @@ class DetailGroup
     }
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @return Title
      */
     public function getTitle()
@@ -81,7 +77,7 @@ class DetailGroup
     /**
      * Add a new detail
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Detail $detail
      */
     public function addDetail(Detail $detail)
@@ -92,7 +88,7 @@ class DetailGroup
     /**
      * Remove an existing detail by the key
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param DetailKey $key
      */
     public function removeDetail(DetailKey $key)
@@ -108,7 +104,7 @@ class DetailGroup
     /**
      * Check if a detail with the given key exists
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param DetailKey $key
      * @return bool
      */
@@ -145,7 +141,7 @@ class DetailGroup
     /**
      * Get all details
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Detail[]
      */
     public function getDetails()
@@ -156,7 +152,7 @@ class DetailGroup
     /**
      * Set all details
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param Detail[] $details
      */
     public function setDetails($details)
@@ -171,10 +167,10 @@ class DetailGroup
      * Get the raw post
      *
      * @since 0.3
-     * @return \WP_Post
+     * @return null|\WP_Post
      */
     public function getRawPost()
     {
-        return $this->post;
+        return get_post($this->id->getValue());
     }
 }

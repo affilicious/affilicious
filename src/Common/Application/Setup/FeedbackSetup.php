@@ -1,6 +1,10 @@
 <?php
 namespace Affilicious\Common\Application\Setup;
 
+if(!defined('ABSPATH')) {
+	exit('Not allowed to access pages directly.');
+}
+
 class FeedbackSetup implements SetupInterface
 {
 	const MENU_SLUG = 'feedback';

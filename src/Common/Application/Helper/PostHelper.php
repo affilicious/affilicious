@@ -1,12 +1,11 @@
 <?php
 namespace Affilicious\Common\Application\Helper;
 
-use Affilicious\Product\Domain\Model\DetailGroup;
-use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Exception\PostNotFoundException;
-use Affilicious\Product\Domain\Model\Shop;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 class PostHelper
 {
@@ -24,7 +23,7 @@ class PostHelper
             return $postOrId;
         }
 
-        if($postOrId instanceof Product || $postOrId instanceof Shop || $postOrId instanceof DetailGroup) {
+        if(method_exists($postOrId, 'getRawPost')) {
             return $postOrId->getRawPost();
         }
 

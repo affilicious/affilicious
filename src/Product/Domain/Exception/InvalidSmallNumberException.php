@@ -4,7 +4,7 @@ namespace Affilicious\Product\Domain\Exception;
 class InvalidSmallNumberException extends \RuntimeException
 {
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param int $value
      * @param int $min
      */

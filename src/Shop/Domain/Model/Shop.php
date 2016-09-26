@@ -2,6 +2,7 @@
 namespace Affilicious\Shop\Domain\Model;
 
 use Affilicious\Common\Domain\Model\AbstractEntity;
+use Affilicious\Common\Domain\Model\Image\Image;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -12,42 +13,30 @@ class Shop extends AbstractEntity
 	const POST_TYPE = 'shop';
 
 	/**
-	 * @var \WP_Post
-	 */
-	private $post;
-
-	/**
 	 * @var Title
 	 */
 	private $title;
 
 	/**
-	 * @var Logo
+	 * @var Image
 	 */
-	private $logo;
+	private $thumbnail;
 
-	/**
-	 * @since 0.3
-	 *
-	 * @param \WP_Post $post
-	 */
-	public function __construct(\WP_Post $post)
+    /**
+     * @since 0.6
+     * @param ShopId $id
+     * @param Title $title
+     */
+	public function __construct(ShopId $id, Title $title)
 	{
-		$this->post = $post;
-		$this->id = new ShopId($this->post->ID);
-		$this->title = new Title($this->post->post_title);
-
-		if($logoId = get_post_thumbnail_id()) {
-			$logoSrc = wp_get_attachment_image_src($logoId, 'featured_preview');
-			$logoSrc = $logoSrc[0];
-			$this->logo = new Logo($logoSrc);
-		}
+		$this->id = $id;
+		$this->title = $title;
 	}
 
 	/**
 	 * Get the shop ID
 	 *
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return ShopId
 	 */
 	public function getId()
@@ -58,7 +47,7 @@ class Shop extends AbstractEntity
 	/**
 	 * Get the title
 	 *
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Title
 	 */
 	public function getTitle()
@@ -67,46 +56,59 @@ class Shop extends AbstractEntity
 	}
 
 	/**
-	 * Check if the shop has a logo
+	 * Check if the shop has a thumbnail
 	 *
-	 * @since 0.3
+	 * @since 0.6
 	 * @return bool
 	 */
-	public function hasLogo()
+	public function hasThumbnail()
 	{
-		return $this->logo !== null;
+		return $this->thumbnail !== null;
 	}
 
+    /**
+     * Set the thumbnail image
+     *
+     * @since 0.6
+     * @param Image $thumbnail
+     */
+	public function setThumbnail(Image $thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+    }
+
 	/**
-	 * Get the shop logo
+	 * Get the thumbnail image
 	 *
-	 * @since 0.5.2
-	 * @return null|Logo
+	 * @since 0.6
+	 * @return null|Image
 	 */
-	public function getLogo()
+	public function getThumbnail()
 	{
-		return $this->logo;
+		return $this->thumbnail;
 	}
 
 	/**
 	 * Get the raw Wordpress post
 	 *
 	 * @since 0.3
-	 * @return \WP_Post
+	 * @return null|\WP_Post
 	 */
 	public function getRawPost()
 	{
-		return $this->post;
+		return get_post($this->id->getValue());
 	}
 
 	/**
 	 * @inheritdoc
-	 * @since 0.5.2
+	 * @since 0.6
 	 */
 	public function isEqualTo($object)
 	{
 		return
 			$object instanceof self &&
-	        $this->getId()->isEqualTo($object->getId());
+	        $this->getId()->isEqualTo($object->getId()) &&
+            $this->getTitle()->isEqualTo($object->getTitle()) &&
+            ($this->hasThumbnail() && $this->getThumbnail()->isEqualTo($object->getThumbnail()) || !$object->hasThumbnail());
 	}
 }

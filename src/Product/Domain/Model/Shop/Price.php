@@ -21,7 +21,7 @@ class Price extends AbstractAggregate
     private $currency;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param int|float|double $value
      * @param Currency $currency
      */
@@ -38,7 +38,7 @@ class Price extends AbstractAggregate
     /**
      * Get the price value
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return int
      */
     public function getValue()
@@ -49,7 +49,7 @@ class Price extends AbstractAggregate
     /**
      * Get the price currency
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Currency
      */
     public function getCurrency()
@@ -59,7 +59,7 @@ class Price extends AbstractAggregate
 
     /**
      * @inheritdoc
-     * @since 0.5.2
+     * @since 0.6
      */
     public function isEqualTo($object)
     {
@@ -73,7 +73,7 @@ class Price extends AbstractAggregate
      * Check of the given price is smaller than the current one.
      * Please not that this method always return false on different currencies.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param mixed|Price $price
      * @return bool
      */
@@ -89,7 +89,7 @@ class Price extends AbstractAggregate
      * Check of the given price is greater than the current one.
      * Please not that this method always return false on different currencies.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param mixed|Price $price
      * @return bool
      */
@@ -105,7 +105,7 @@ class Price extends AbstractAggregate
      * Check of the given price is smaller than or equal to the current one.
      * Please not that this method always return false on different currencies.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param mixed|Price $price
      * @return bool
      */
@@ -121,7 +121,7 @@ class Price extends AbstractAggregate
      * Check of the given price is greater than or equal to the current one.
      * Please not that this method always return false on different currencies.
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param mixed|Price $price
      * @return bool
      */
@@ -131,5 +131,24 @@ class Price extends AbstractAggregate
             $price instanceof self &&
             $this->isSmallerThan($price) ||
             $this->isEqualTo($price);
+    }
+
+    /**
+     * Print the price
+     *
+     * @since 0.6
+     * @return null|string
+     */
+    public function __toString()
+    {
+        $currencySymbol = $this->currency->getSymbol();
+        if (empty($value) || empty($currencySymbol)) {
+            return null;
+        }
+
+        $value = number_format($value, 2, '.', '');
+        $price = $value . ' ' . $currencySymbol;
+
+        return $price;
     }
 }

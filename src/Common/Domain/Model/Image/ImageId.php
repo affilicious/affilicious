@@ -12,7 +12,7 @@ class ImageId extends AbstractValueObject
 {
     /**
      * @inheritdoc
-     * @since 0.5.2
+     * @since 0.6
      * @throws InvalidTypeException
      */
     public function __construct($value)

@@ -16,7 +16,7 @@ class Review extends AbstractAggregate
     private $votes;
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param Rating $rating
      */
     public function __construct(Rating $rating)
@@ -27,7 +27,7 @@ class Review extends AbstractAggregate
     /**
      * Get the rating
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return Rating
      */
     public function getRating()
@@ -38,7 +38,7 @@ class Review extends AbstractAggregate
     /**
      * Check if the review has any votes
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return bool
      */
     public function hasVotes()
@@ -49,7 +49,7 @@ class Review extends AbstractAggregate
     /**
      * Get the number of votes
      *
-     * @since 0.5.2
+     * @since 0.6
      * @return null|Votes
      */
     public function getVotes()
@@ -60,7 +60,7 @@ class Review extends AbstractAggregate
     /**
      * Set the number of votes
      *
-     * @since 0.5.2
+     * @since 0.6
      * @param null|Votes $votes
      */
     public function setVotes($votes)

@@ -10,7 +10,7 @@ class Type extends AbstractValueObject
 	const COMPLEX = 'complex';
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Type
 	 */
 	public static function simple()
@@ -19,7 +19,7 @@ class Type extends AbstractValueObject
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Type
 	 */
 	public static function complex()

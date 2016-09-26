@@ -34,11 +34,12 @@ class Detail extends AbstractAggregate
 	 */
 	private $helpText;
 
-	/**
-	 * @since 0.5.2
-	 * @param Name $name
-	 * @param Type $type
-	 */
+    /**
+     * @since 0.6
+     * @param Key $key
+     * @param Name $name
+     * @param Type $type
+     */
 	public function __construct(Key $key, Name $name, Type $type)
 	{
 	    $this->key = $key;
@@ -47,7 +48,7 @@ class Detail extends AbstractAggregate
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Key
 	 */
 	public function getKey()
@@ -56,7 +57,7 @@ class Detail extends AbstractAggregate
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Name
 	 */
 	public function getName()
@@ -65,7 +66,7 @@ class Detail extends AbstractAggregate
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Type
 	 */
 	public function getType()
@@ -74,7 +75,7 @@ class Detail extends AbstractAggregate
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return bool
 	 */
 	public function hasUnit()
@@ -83,7 +84,7 @@ class Detail extends AbstractAggregate
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return Unit
 	 */
 	public function getUnit()
@@ -92,7 +93,7 @@ class Detail extends AbstractAggregate
 	}
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param Unit $unit
      */
     public function setUnit(Unit $unit)
@@ -101,7 +102,7 @@ class Detail extends AbstractAggregate
     }
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return bool
 	 */
 	public function hasHelpText()
@@ -110,7 +111,7 @@ class Detail extends AbstractAggregate
 	}
 
 	/**
-	 * @since 0.5.2
+	 * @since 0.6
 	 * @return HelpText
 	 */
 	public function getHelpText()
@@ -119,7 +120,7 @@ class Detail extends AbstractAggregate
 	}
 
     /**
-     * @since 0.5.2
+     * @since 0.6
      * @param HelpText $helpText
      */
     public function setHelpText(HelpText $helpText)
@@ -129,7 +130,7 @@ class Detail extends AbstractAggregate
 
 	/**
 	 * @inheritdoc
-	 * @since 0.5.2
+	 * @since 0.6
 	 */
 	public function isEqualTo($object)
 	{
