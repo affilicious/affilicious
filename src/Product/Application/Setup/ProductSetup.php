@@ -167,17 +167,7 @@ class ProductSetup implements SetupInterface
         $carbonContainer = CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
-            ->add_fields(array(
-                CarbonField::make('checkbox', CarbonProductRepository::PRODUCT_SHOPS_ENABLED, __('Enable shops', 'affilicious')),
-                $tabs->set_conditional_logic(array(
-                    'relation' => 'AND',
-                    array(
-                        'field' => CarbonProductRepository::PRODUCT_SHOPS_ENABLED,
-                        'value' => 'yes',
-                        'compare' => '=',
-                    )
-                )),
-            ));
+            ->add_fields(array($tabs));
 
         apply_filters('affilicious_product_render_price_comparison', $carbonContainer);
     }
@@ -244,18 +234,7 @@ class ProductSetup implements SetupInterface
         $carbonContainer = CarbonContainer::make('post_meta', __('Details', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
-            ->add_fields(array(
-                CarbonField::make('checkbox', CarbonProductRepository::PRODUCT_DETAIL_GROUPS_ENABLED, __('Enable details', 'affilicious')),
-                $tabs->set_conditional_logic(array(
-                    'relation' => 'AND',
-                    array(
-                        'field' => CarbonProductRepository::PRODUCT_DETAIL_GROUPS_ENABLED,
-                        'value' => 'yes',
-                        'compare' => '=',
-                    )
-                )),
-
-            ));
+            ->add_fields(array($tabs));
 
         apply_filters('affilicious_product_render_details', $carbonContainer);
     }
@@ -271,9 +250,9 @@ class ProductSetup implements SetupInterface
           ->show_on_post_type(Product::POST_TYPE)
           ->set_priority('default')
           ->add_fields(array(
-              CarbonField::make('checkbox', CarbonProductRepository::PRODUCT_REVIEW_ENABLED, __('Enable review', 'affilicious')),
               CarbonField::make('select', CarbonProductRepository::PRODUCT_REVIEW_RATING, __('Rating', 'affilicious'))
                   ->add_options(array(
+                      'none' => sprintf(__('None', 'affilicious'), 0),
                       '0' => sprintf(__('%s stars', 'affilicious'), 0),
                       '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
                       '1' => sprintf(__('%s star', 'affilicious'), 1),
@@ -285,23 +264,15 @@ class ProductSetup implements SetupInterface
                       '4' => sprintf(__('%s stars', 'affilicious'), 4),
                       '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
                       '5' => sprintf(__('%s stars', 'affilicious'), 5),
-                  ))
-                  ->set_conditional_logic(array(
-                      'relation' => 'AND',
-                      array(
-                          'field' => CarbonProductRepository::PRODUCT_REVIEW_ENABLED,
-                          'value' => 'yes',
-                          'compare' => '=',
-                      )
                   )),
 	          CarbonField::make('number', CarbonProductRepository::PRODUCT_REVIEW_VOTES, __('Votes', 'affilicious'))
-                 ->set_help_text(__('If you want to hide this on the front end, just leave it empty.', 'affilicious'))
+                  ->set_help_text(__('If you want to hide the votes, just leave it empty.', 'affilicious'))
                   ->set_conditional_logic(array(
                       'relation' => 'AND',
                       array(
-                          'field' => CarbonProductRepository::PRODUCT_REVIEW_ENABLED,
-                          'value' => 'yes',
-                          'compare' => '=',
+                          'field' => CarbonProductRepository::PRODUCT_REVIEW_RATING,
+                          'value' => 'none',
+                          'compare' => '!=',
                       )
                   )),
           ));

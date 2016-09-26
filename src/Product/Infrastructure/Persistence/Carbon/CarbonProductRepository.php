@@ -161,43 +161,36 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Shops
-        $enabledShops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS_ENABLED);
-        if(!empty($enabledShops) && $enabledShops === 'yes') {
-            $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
-            if (!empty($shops)) {
-                foreach ($shops as $shop) {
-                    $shop = self::buildShopFromArray($shop);
+        $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
+        if (!empty($shops)) {
+            foreach ($shops as $shop) {
+                $shop = self::buildShopFromArray($shop);
 
-                    if ($shop !== null) {
-                        $product->addShop($shop);
-                    }
+                if ($shop !== null) {
+                    $product->addShop($shop);
                 }
             }
         }
 
         // Details
-        $enabledDetailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS_ENABLED);
-        if(!empty($enabledDetailGroups) && $enabledDetailGroups === 'yes') {
-            $detailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS, 'complex');
-            if (!empty($detailGroups)) {
-                foreach ($detailGroups as $detailGroup) {
-                    $details = self::buildDetailsFromArray($detailGroup);
+        $detailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS, 'complex');
+        if (!empty($detailGroups)) {
+            foreach ($detailGroups as $detailGroup) {
+                $details = self::buildDetailsFromArray($detailGroup);
 
-                    if (!empty($details)) {
-                        $product->setDetails($details);
-                    }
+                if (!empty($details)) {
+                    $product->setDetails($details);
                 }
             }
         }
 
         // Review
-        $enabledReview = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_ENABLED);
-        if(!empty($enabledReview) && $enabledReview === 'yes') {
-            $rating = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_RATING);
-            $votes = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_VOTES);
-
+        $rating = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_RATING);
+        if(!empty($rating) && $rating !== 'none') {
             $review = new Review(new Rating($rating));
-            if(!empty($votes)) {
+
+            $votes = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_VOTES);
+            if (!empty($votes)) {
                 $review->setVotes(new Votes($votes));
             }
 
