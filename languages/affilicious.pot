@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: "
 "affilicious\n"
 "POT-Creation-Date: "
-"2016-09-03 21:34+0200\n"
+"2016-09-26 23:54+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -52,6 +52,9 @@ msgstr ""
 "X-Poedit-"
 "SearchPathExcluded-2: "
 "assets\n"
+"X-Poedit-"
+"SearchPathExcluded-3: "
+"node_modules\n"
 
 #: affilicious-plugin-updater.php:189
 #, php-format
@@ -83,13 +86,13 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:16
-#: src/Common/Application/Setup/FeedbackSetup.php:17
-#: src/Common/Application/Setup/FeedbackSetup.php:37
+#: src/Common/Application/Setup/FeedbackSetup.php:20
+#: src/Common/Application/Setup/FeedbackSetup.php:21
+#: src/Common/Application/Setup/FeedbackSetup.php:41
 msgid "Feedback"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:38
+#: src/Common/Application/Setup/FeedbackSetup.php:42
 msgid ""
 "Please fill out the "
 "fields below and click "
@@ -103,40 +106,40 @@ msgid ""
 "\">facebook community</a>"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:46
 #: src/Common/Application/Setup/FeedbackSetup.php:50
-#: src/Common/Application/Setup/FeedbackSetup.php:117
+#: src/Common/Application/Setup/FeedbackSetup.php:54
+#: src/Common/Application/Setup/FeedbackSetup.php:121
 msgid "Email"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:55
 #: src/Common/Application/Setup/FeedbackSetup.php:59
-#: src/Common/Application/Setup/FeedbackSetup.php:118
-#: src/Product/Application/Setup/DetailGroupSetup.php:73
+#: src/Common/Application/Setup/FeedbackSetup.php:63
+#: src/Common/Application/Setup/FeedbackSetup.php:122
+#: src/Detail/Application/Setup/DetailGroupSetup.php:76
 msgid "Name"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:64
 #: src/Common/Application/Setup/FeedbackSetup.php:68
-#: src/Common/Application/Setup/FeedbackSetup.php:119
+#: src/Common/Application/Setup/FeedbackSetup.php:72
+#: src/Common/Application/Setup/FeedbackSetup.php:123
 msgid "Subject"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:73
 #: src/Common/Application/Setup/FeedbackSetup.php:77
+#: src/Common/Application/Setup/FeedbackSetup.php:81
 msgid "Message"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:84
+#: src/Common/Application/Setup/FeedbackSetup.php:88
 msgid "Submit"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:122
 #: src/Common/Application/Setup/FeedbackSetup.php:126
+#: src/Common/Application/Setup/FeedbackSetup.php:130
 msgid "Feedback:"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:128
+#: src/Common/Application/Setup/FeedbackSetup.php:132
 msgid ""
 "Thanks, your feedback "
 "has been sent! We will "
@@ -144,18 +147,155 @@ msgid ""
 "feedback."
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:134
+#: src/Common/Application/Setup/FeedbackSetup.php:138
 msgid ""
 "Failed to send the "
 "email. Please try it "
 "again"
 msgstr ""
 
-#: src/Common/Application/Setup/FeedbackSetup.php:147
+#: src/Common/Application/Setup/FeedbackSetup.php:151
 msgid ""
 "Empty fields aren't "
 "allowed. Please fill out "
 "all fields."
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:23
+#: src/Detail/Application/Setup/DetailGroupSetup.php:25
+#: src/Detail/Application/Setup/DetailGroupSetup.php:26
+#: src/Detail/Application/Setup/DetailGroupSetup.php:45
+#: src/Product/Application/Setup/ProductSetup.php:191
+msgid "Detail Groups"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:24
+msgid "Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:27
+msgid ""
+"Detail Group Archives"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:28
+msgid ""
+"Parent Detail Group:"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:29
+#: src/Detail/Application/Setup/DetailGroupSetup.php:74
+#: src/Product/Application/Setup/ProductSetup.php:233
+msgid "Details"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:30
+msgid ""
+"Add New Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:31
+#: src/Product/Application/Setup/ProductSetup.php:60
+#: src/Shop/Application/Setup/ShopSetup.php:29
+msgid "Add New"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:32
+msgid "New Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:33
+msgid "Edit Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:34
+msgid "Update Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:35
+msgid "View Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:36
+msgid "Search Detail Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:37
+#: src/Shop/Application/Setup/ShopSetup.php:35
+msgid "Not Found"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:38
+#: src/Shop/Application/Setup/ShopSetup.php:36
+msgid "Not Found In Trash"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:39
+#: src/Product/Application/Setup/ProductSetup.php:68
+msgid "Featured Image"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:40
+msgid "Set Featured Image"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:41
+msgid ""
+"Remove Featured Image"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:42
+msgid ""
+"Use As Featured Image"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:43
+#: src/Product/Application/Setup/ProductSetup.php:72
+msgid "Insert into item"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:44
+msgid ""
+"Uploaded To This Detail "
+"Group"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:46
+msgid ""
+"Detail Groups Navigation"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:47
+msgid ""
+"Filter Detail Groups"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:71
+msgid "Fields"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:78
+msgid "Type"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:81
+msgid "Text"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:82
+msgid "Number"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:83
+msgid "File"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:85
+msgid "Unit"
+msgstr ""
+
+#: src/Detail/Application/Setup/DetailGroupSetup.php:94
+msgid "Help Text"
 msgstr ""
 
 #: src/Product/Application/MetaBox/MetaBoxManager.php:38
@@ -185,448 +325,206 @@ msgid ""
 "Gallery"
 msgstr ""
 
-#: src/Product/Application/Setup/DetailGroupSetup.php:20
-#: src/Product/Application/Setup/DetailGroupSetup.php:22
-#: src/Product/Application/Setup/DetailGroupSetup.php:23
-#: src/Product/Application/Setup/DetailGroupSetup.php:26
-#: src/Product/Application/Setup/DetailGroupSetup.php:42
-#: src/Product/Application/Setup/ProductSetup.php:189
-msgid "Detail Groups"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:21
-msgid "Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:24
-msgid ""
-"Detail Group Archives"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:25
-msgid ""
-"Parent Detail Group:"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:27
-msgid ""
-"Add New Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:28
-#: src/Product/Application/Setup/ProductSetup.php:57
-#: src/Product/Application/Setup/ShopSetup.php:27
-msgid "Add New"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:29
-msgid "New Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:30
-msgid "Edit Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:31
-msgid "Update Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:32
-msgid "View Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:33
-msgid "Search Detail Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:34
-#: src/Product/Application/Setup/ShopSetup.php:33
-msgid "Not Found"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:35
-#: src/Product/Application/Setup/ShopSetup.php:34
-msgid "Not Found In Trash"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:36
-#: src/Product/Application/Setup/ProductSetup.php:65
-msgid "Featured Image"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:37
-msgid "Set Featured Image"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:38
-msgid ""
-"Remove Featured Image"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:39
-msgid ""
-"Use As Featured Image"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:40
-#: src/Product/Application/Setup/ProductSetup.php:69
-msgid "Insert into item"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:41
-msgid ""
-"Uploaded To This Detail "
-"Group"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:43
-msgid ""
-"Detail Groups Navigation"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:44
-msgid ""
-"Filter Detail Groups"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:68
-msgid "Fields"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:71
-#: src/Product/Application/Setup/ProductSetup.php:237
-msgid "Details"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:75
-msgid "Type"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:78
-msgid "Text"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:79
-msgid "Number"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:80
-msgid "File"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:82
-msgid "Unit"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:91
-msgid "Default Value"
-msgstr ""
-
-#: src/Product/Application/Setup/DetailGroupSetup.php:100
-msgid "Help Text"
-msgstr ""
-
-#: src/Product/Application/Setup/ProductSetup.php:49
-#: src/Product/Application/Setup/ProductSetup.php:51
-#: src/Product/Application/Setup/ProductSetup.php:287
+#: src/Product/Application/Setup/ProductSetup.php:52
+#: src/Product/Application/Setup/ProductSetup.php:54
+#: src/Product/Application/Setup/ProductSetup.php:292
 msgid "Products"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:50
-#: src/Product/Application/Setup/ProductSetup.php:52
-#: src/Product/Application/Setup/ProductSetup.php:82
-#: src/Settings/Application/Setting/ProductSettings.php:19
+#: src/Product/Application/Setup/ProductSetup.php:53
+#: src/Product/Application/Setup/ProductSetup.php:55
+#: src/Product/Application/Setup/ProductSetup.php:85
+#: src/Settings/Application/Setting/ProductSettings.php:45
 msgid "Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:53
+#: src/Product/Application/Setup/ProductSetup.php:56
 msgid "Item Archives"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:54
+#: src/Product/Application/Setup/ProductSetup.php:57
 msgid "Parent Item:"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:55
+#: src/Product/Application/Setup/ProductSetup.php:58
 msgid "All Products"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:56
+#: src/Product/Application/Setup/ProductSetup.php:59
 msgid "Add New Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:58
+#: src/Product/Application/Setup/ProductSetup.php:61
 msgid "New Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:59
+#: src/Product/Application/Setup/ProductSetup.php:62
 msgid "Edit Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:60
+#: src/Product/Application/Setup/ProductSetup.php:63
 msgid "Update Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:61
+#: src/Product/Application/Setup/ProductSetup.php:64
 msgid "View Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:62
+#: src/Product/Application/Setup/ProductSetup.php:65
 msgid "Search Product"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:63
+#: src/Product/Application/Setup/ProductSetup.php:66
 msgid "Not found"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:64
+#: src/Product/Application/Setup/ProductSetup.php:67
 msgid "Not found in Trash"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:66
+#: src/Product/Application/Setup/ProductSetup.php:69
 msgid "Set featured image"
-msgstr ""
-
-#: src/Product/Application/Setup/ProductSetup.php:67
-msgid ""
-"Remove featured image"
-msgstr ""
-
-#: src/Product/Application/Setup/ProductSetup.php:68
-msgid ""
-"Use as featured image"
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:70
 msgid ""
-"Uploaded to this item"
+"Remove featured image"
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:71
+msgid ""
+"Use as featured image"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:73
+msgid ""
+"Uploaded to this item"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:74
 msgid "Products list"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:72
+#: src/Product/Application/Setup/ProductSetup.php:75
 msgid ""
 "Products list navigation"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:73
+#: src/Product/Application/Setup/ProductSetup.php:76
 msgid "Filter items list"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:83
+#: src/Product/Application/Setup/ProductSetup.php:86
 msgid ""
 "Product Type Description"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:132
-#: src/Product/Application/Setup/ShopSetup.php:19
-#: src/Product/Application/Setup/ShopSetup.php:25
+#: src/Product/Application/Setup/ProductSetup.php:135
+#: src/Shop/Application/Setup/ShopSetup.php:21
+#: src/Shop/Application/Setup/ShopSetup.php:27
 msgid "Shops"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:141
+#: src/Product/Application/Setup/ProductSetup.php:146
 msgid "Shop ID"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:144
+#: src/Product/Application/Setup/ProductSetup.php:149
 msgid "Price"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:146
+#: src/Product/Application/Setup/ProductSetup.php:150
 msgid "Old Price"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:147
+#: src/Product/Application/Setup/ProductSetup.php:151
 msgid "Currency"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:150
+#: src/Product/Application/Setup/ProductSetup.php:154
 msgid "Euro"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:151
+#: src/Product/Application/Setup/ProductSetup.php:155
 msgid "US-Dollar"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:153
+#: src/Product/Application/Setup/ProductSetup.php:157
+msgid "Affiliate ID"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:158
+msgid ""
+"Unique product ID of the "
+"shop like Amazon ASIN, "
+"Affilinet ID, ebay ID, "
+"etc."
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:159
 msgid "Affiliate Link"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:160
+#: src/Product/Application/Setup/ProductSetup.php:166
 msgid "Price Comparison"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:164
-msgid "EAN"
-msgstr ""
-
-#: src/Product/Application/Setup/ProductSetup.php:165
-msgid ""
-"Unique ID for the price "
-"comparison"
+#: src/Product/Application/Setup/ProductSetup.php:248
+msgid "Review"
 msgstr ""
 
 #: src/Product/Application/Setup/ProductSetup.php:252
 msgid "Rating"
 msgstr ""
 
+#: src/Product/Application/Setup/ProductSetup.php:254
+msgid "None"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:255
 #: src/Product/Application/Setup/ProductSetup.php:256
-msgid "Number of Rating"
-msgstr ""
-
-#: src/Product/Application/Setup/ProductSetup.php:257
-msgid ""
-"If you want to hide "
-"this, just leave it "
-"empty or set it to 0."
-msgstr ""
-
 #: src/Product/Application/Setup/ProductSetup.php:258
-msgid "Star Rating"
-msgstr ""
-
+#: src/Product/Application/Setup/ProductSetup.php:259
 #: src/Product/Application/Setup/ProductSetup.php:260
 #: src/Product/Application/Setup/ProductSetup.php:261
+#: src/Product/Application/Setup/ProductSetup.php:262
 #: src/Product/Application/Setup/ProductSetup.php:263
 #: src/Product/Application/Setup/ProductSetup.php:264
 #: src/Product/Application/Setup/ProductSetup.php:265
-#: src/Product/Application/Setup/ProductSetup.php:266
-#: src/Product/Application/Setup/ProductSetup.php:267
-#: src/Product/Application/Setup/ProductSetup.php:268
-#: src/Product/Application/Setup/ProductSetup.php:269
-#: src/Product/Application/Setup/ProductSetup.php:270
 #, php-format
 msgid "%s stars"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:262
+#: src/Product/Application/Setup/ProductSetup.php:257
 #, php-format
 msgid "%s star"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:284
+#: src/Product/Application/Setup/ProductSetup.php:267
+msgid "Votes"
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:268
+msgid ""
+"If you want to hide the "
+"votes, just leave it "
+"empty."
+msgstr ""
+
+#: src/Product/Application/Setup/ProductSetup.php:289
 msgid "Relations"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:288
+#: src/Product/Application/Setup/ProductSetup.php:293
 msgid "Related Products"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:292
+#: src/Product/Application/Setup/ProductSetup.php:297
 msgid "Accessories"
 msgstr ""
 
-#: src/Product/Application/Setup/ProductSetup.php:293
-msgid "Related Accessories"
-msgstr ""
-
-#: src/Product/Application/Setup/ProductSetup.php:297
-msgid "Posts"
-msgstr ""
-
 #: src/Product/Application/Setup/ProductSetup.php:298
-msgid "Related Posts"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:20
-#: src/Product/Application/Setup/ShopSetup.php:21
-#: src/Product/Application/Setup/ShopSetup.php:22
-#: src/Product/Application/Setup/ShopSetup.php:41
-msgid "Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:23
-msgid "Shop Archives"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:24
-msgid "Parent Shop:"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:26
-msgid "Add New Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:28
-msgid "New Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:29
-msgid "Edit Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:30
-msgid "Update Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:31
-msgid "View Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:32
-msgid "Search Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:35
-#: src/Product/Application/Setup/ShopSetup.php:83
-msgid "Logo"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:36
-msgid "Set Logo"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:37
-msgid "Remove Logo"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:38
-msgid "Use As Logo"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:39
-msgid "Insert Into Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:40
-msgid ""
-"Uploaded To This Shop"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:42
-msgid "Shop Navigation"
-msgstr ""
-
-#: src/Product/Application/Setup/ShopSetup.php:43
-msgid "Filter Shops"
-msgstr ""
-
-#: src/Product/Domain/Exception/InvalidOptionException.php:16
-#, php-format
-msgid ""
-"Invalid option: %s. "
-"Please choose one of the "
-"following options: %s."
-msgstr ""
-
-#: src/Product/Domain/Exception/InvalidPostTypeException.php:16
-#, php-format
-msgid ""
-"Invalid post type: %s. "
-"It should be: %s"
-msgstr ""
-
-#: src/Product/Domain/Exception/PostNotFoundException.php:15
-#, php-format
-msgid ""
-"The post #%s wasn't "
-"found."
-msgstr ""
-
-#: src/Settings/Application/Setting/AffiliciousSettings.php:17
-msgid "Scripts"
+msgid "Related Accessories"
 msgstr ""
 
 #: src/Settings/Application/Setting/AffiliciousSettings.php:18
@@ -637,12 +535,12 @@ msgstr ""
 msgid "Custom JS"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:21
-msgid "General"
+#: src/Settings/Application/Setting/AffiliciousSettings.php:24
+msgid "Scripts"
 msgstr ""
 
 #: src/Settings/Application/Setting/ProductSettings.php:22
-#: src/Settings/Application/Setting/ProductSettings.php:34
+#: src/Settings/Application/Setting/ProductSettings.php:35
 msgid "Slug"
 msgstr ""
 
@@ -657,12 +555,7 @@ msgid ""
 "Permalinks."
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:25
 #: src/Settings/Application/Setting/ProductSettings.php:28
-msgid "Taxonomies"
-msgstr ""
-
-#: src/Settings/Application/Setting/ProductSettings.php:27
 #, php-format
 msgid ""
 "Create custom taxonomies "
@@ -672,11 +565,16 @@ msgid ""
 "a better description."
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:30
+#: src/Settings/Application/Setting/ProductSettings.php:29
+#: src/Settings/Application/Setting/ProductSettings.php:48
+msgid "Taxonomies"
+msgstr ""
+
+#: src/Settings/Application/Setting/ProductSettings.php:31
 msgid "Taxonomy"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:32
+#: src/Settings/Application/Setting/ProductSettings.php:33
 #, php-format
 msgid ""
 "The name of the "
@@ -700,7 +598,7 @@ msgid ""
 "a> section."
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:35
+#: src/Settings/Application/Setting/ProductSettings.php:36
 msgid ""
 "Used as pretty permalink "
 "text (i.e. /slug/). To "
@@ -710,57 +608,134 @@ msgid ""
 "Permalinks."
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:37
+#: src/Settings/Application/Setting/ProductSettings.php:38
 msgid "Singular Name"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:39
+#: src/Settings/Application/Setting/ProductSettings.php:40
 msgid "Plural Name"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:84
-#: src/Settings/Application/Setting/ProductSettings.php:85
-#: src/Settings/Application/Setting/ProductSettings.php:94
+#: src/Settings/Application/Setting/ProductSettings.php:47
+msgid "General"
+msgstr ""
+
+#: src/Settings/Application/Setting/ProductSettings.php:97
+#: src/Settings/Application/Setting/ProductSettings.php:98
+#: src/Settings/Application/Setting/ProductSettings.php:107
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:86
+#: src/Settings/Application/Setting/ProductSettings.php:99
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:87
+#: src/Settings/Application/Setting/ProductSettings.php:100
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:88
+#: src/Settings/Application/Setting/ProductSettings.php:101
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:89
+#: src/Settings/Application/Setting/ProductSettings.php:102
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:90
+#: src/Settings/Application/Setting/ProductSettings.php:103
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:91
+#: src/Settings/Application/Setting/ProductSettings.php:104
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:92
+#: src/Settings/Application/Setting/ProductSettings.php:105
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: src/Settings/Application/Setting/ProductSettings.php:93
+#: src/Settings/Application/Setting/ProductSettings.php:106
 #, php-format
 msgid "New %s"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:22
+#: src/Shop/Application/Setup/ShopSetup.php:23
+#: src/Shop/Application/Setup/ShopSetup.php:24
+#: src/Shop/Application/Setup/ShopSetup.php:43
+msgid "Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:25
+msgid "Shop Archives"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:26
+msgid "Parent Shop:"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:28
+msgid "Add New Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:30
+msgid "New Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:31
+msgid "Edit Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:32
+msgid "Update Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:33
+msgid "View Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:34
+msgid "Search Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:37
+#: src/Shop/Application/Setup/ShopSetup.php:85
+msgid "Logo"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:38
+msgid "Set Logo"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:39
+msgid "Remove Logo"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:40
+msgid "Use As Logo"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:41
+msgid "Insert Into Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:42
+msgid ""
+"Uploaded To This Shop"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:44
+msgid "Shop Navigation"
+msgstr ""
+
+#: src/Shop/Application/Setup/ShopSetup.php:45
+msgid "Filter Shops"
 msgstr ""
