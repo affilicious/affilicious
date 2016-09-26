@@ -74,7 +74,7 @@ class Shop extends AbstractEntity
 	 */
 	public function hasLogo()
 	{
-		return $this->logo === null;
+		return $this->logo !== null;
 	}
 
 	/**

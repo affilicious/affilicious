@@ -1,11 +1,13 @@
 <?php
-use Affilicious\Shop\Domain\Helper\ShopHelper;
-use Affilicious\Product\Domain\Helper\ProductHelper;
 use Affilicious\Product\Domain\Helper\PriceHelper;
+use Affilicious\Product\Domain\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Shop\Domain\Helper\ShopHelper;
 use Affilicious\Shop\Domain\Model\Shop;
 
-if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if (!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 /**
  * Get the product by the Wordpress ID or post.
@@ -23,49 +25,49 @@ function affilicious_get_product($productOrId = null)
 }
 
 /**
- * Get the product number of ratings
+ * Get the product review rating from 0 to 5
  *
- * @since 0.3.3
+ * @since 0.5.2
  * @param int|\WP_Post|Product|null $productOrId
- * @return int
+ * @return null|float
  */
-function affilicious_get_product_number_of_ratings($productOrId = null)
-{
-	$product = ProductHelper::getProduct($productOrId);
-	$numberOfRatings = $product->getNumberOfRatings();
-
-	return $numberOfRatings;
-}
-
-/**
- * Get the product star rating from 0 to 5 in 0.5 steps
- *
- * @since 0.3.3
- * @param int|\WP_Post|Product|null $productOrId
- * @return float
- */
-function affilicious_get_product_star_rating($productOrId = null)
-{
-	$product = ProductHelper::getProduct($productOrId);
-	$starRating = $product->getStarRating();
-
-	return $starRating;
-}
-
-/**
- * Get the product detail groups by the product.
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- * @return array
- */
-function affilicious_get_product_detail_groups($productOrId = null)
+function affilicious_get_product_review_rating($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
-    $detailGroups = $product->getDetailGroups();
+    if($product === null || !$product->hasReview()) {
+        return null;
+    }
 
-    return $detailGroups;
+    $review = $product->getReview();
+    $rating = $review->getRating();
+    $rawRating = $rating->getValue();
+
+    return $rawRating;
+}
+
+/**
+ * Get the product review votes
+ *
+ * @since 0.5.2
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|int
+ */
+function affilicious_get_product_review_votes($productOrId = null)
+{
+	$product = affilicious_get_product($productOrId);
+    if($product === null || !$product->hasReview()) {
+        return null;
+    }
+
+    $review = $product->getReview();
+    if(!$review->hasVotes()) {
+        return null;
+    }
+
+    $votes = $review->getVotes();
+    $rawVotes = $votes->getValue();
+
+	return $rawVotes;
 }
 
 /**
@@ -74,62 +76,63 @@ function affilicious_get_product_detail_groups($productOrId = null)
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @return array
+ * @return null|array
  */
 function affilicious_get_product_details($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
-    $details = ProductHelper::getDetails($product);
+    if($product === null) {
+        return null;
+    }
 
-    return $details;
-}
+    $details = $product->getDetails();
 
-/**
- * Check if the products has an European Article Number (EAN)
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- * @return bool
- */
-function affilicious_has_product_ean($productOrId = null)
-{
-    $product = affilicious_get_product($productOrId);
-    $flag = $product->hasEan();
+    $rawDetails = array();
+    foreach ($details as $detail) {
+        $rawDetail = array(
+            'key' => $detail->getKey()->getValue(),
+            'type' => $detail->getType()->getValue(),
+            'name' => $detail->getName()->getValue(),
+            'value' => $detail->hasValue() ? $detail->getValue()->getValue() : null,
+            'unit' => $detail->hasUnit() ? $detail->getUnit()->getValue() : null,
+        );
 
-    return $flag;
-}
+        $rawDetails[] = $rawDetail;
+    }
 
-/**
- * Get the European Article Number (EAN) by the product
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- * @return string
- */
-function affilicious_get_product_ean($productOrId = null)
-{
-    $product = affilicious_get_product($productOrId);
-    $ean = $product->getEan();
-
-    return $ean;
+    return $rawDetails;
 }
 
 /**
  * Get the product image gallery by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
- * @since 0.3
+ * @since 0.5.2
  * @param int|\WP_Post|Product|null $productOrId
- * @return int[]
+ * @return null|array
  */
 function affilicious_get_product_image_gallery($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
-    $imageGallery = $product->getImageGallery();
+    if($product === null) {
+        return null;
+    }
 
-    return $imageGallery;
+    $images = $product->getImageGallery();
+
+    $rawImages = array();
+    foreach ($images as $image) {
+        $rawImage = array(
+            'id' => $image->getId()->getValue(),
+            'src' => $image->getSource()->getValue(),
+            'width' => $image->hasWidth() ? $image->getWidth()->getValue() : null,
+            'height' => $image->hasHeight() ? $image->getHeight()->getValue() : null,
+        );
+
+        $rawImages[] = $rawImage;
+    }
+
+    return $rawImages;
 }
 
 /**
@@ -138,14 +141,34 @@ function affilicious_get_product_image_gallery($productOrId = null)
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @return array
+ * @return null|array
  */
 function affilicious_get_product_shops($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
     $shops = $product->getShops();
 
-    return $shops;
+    $rawShops = array();
+    foreach ($shops as $shop) {
+        $rawShop = array(
+            'shop_id' =>  $shop->getId()->getValue(),
+            'title' =>  $shop->getTitle()->getValue(),
+            'logo' =>  $shop->hasLogo() ? $shop->getLogo()->getValue() : null,
+            'price' => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
+            'old_price' => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+            'currency' => $shop->getCurrency()->getValue(),
+            'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
+            'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
+        );
+
+        $rawShops[] = $rawShop;
+    }
+
+    return $rawShops;
 }
 
 /**
@@ -154,14 +177,24 @@ function affilicious_get_product_shops($productOrId = null)
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @return int[]
+ * @return null|int[]
  */
 function affilicious_get_product_related_products($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
     $relatedProducts = $product->getRelatedProducts();
 
-    return $relatedProducts;
+    $rawRelatedProducts = array();
+    foreach ($relatedProducts as $relatedProduct) {
+        $rawRelatedProduct = $relatedProduct->getValue();
+        $rawRelatedProducts[] = $rawRelatedProduct;
+    }
+
+    return $rawRelatedProducts;
 }
 
 /**
@@ -197,14 +230,24 @@ function affilicious_get_product_related_products_query($productOrId = null, $ar
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @return int[]
+ * @return null|int[]
  */
 function affilicious_get_product_related_accessories($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
     $relatedAccessories = $product->getRelatedAccessories();
 
-    return $relatedAccessories;
+    $rawRelatedAccessories = array();
+    foreach ($relatedAccessories as $relatedAccessory) {
+        $rawRelatedProduct = $relatedAccessory->getValue();
+        $rawRelatedAccessories[] = $rawRelatedProduct;
+    }
+
+    return $rawRelatedAccessories;
 }
 
 /**
@@ -235,49 +278,6 @@ function affilicious_get_product_related_accessories_query($productOrId = null, 
 }
 
 /**
- * Get the related posts by the product.
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- * @return int[]
- */
-function affilicious_get_product_related_posts($productOrId = null)
-{
-    $product = affilicious_get_product($productOrId);
-    $relatedPosts = $product->getRelatedPosts();
-
-    return $relatedPosts;
-}
-
-/**
- * Get the query of the related posts by the product
- * If you pass in nothing as a product, the current post will be used.
- *
- * @since 0.3
- * @param int|\WP_Post|Product|null $productOrId
- * @param array $args
- * @return null|WP_Query
- */
-function affilicious_get_product_related_posts_query($productOrId = null, $args = array())
-{
-    $relatedPostsIds = affilicious_get_product_related_posts($productOrId);
-    if (empty($relatedPostsIds)) {
-        return null;
-    }
-
-    $options = wp_parse_args($args, array(
-        'post_type' => 'post',
-        'post__in' => $relatedPostsIds,
-        'orderBy' => 'ASC',
-    ));
-
-    $query = new \WP_Query($options);
-
-    return $query;
-}
-
-/**
  * Get the product link.
  *
  * @since 0.3
@@ -287,6 +287,10 @@ function affilicious_get_product_related_posts_query($productOrId = null, $args 
 function affilicious_get_product_link($productOrId = null)
 {
     $product = affilicious_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
     $link = get_permalink($product->getRawPost());
     if(empty($link)) {
         return null;
@@ -303,14 +307,31 @@ function affilicious_get_product_link($productOrId = null)
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
  * @param int|\WP_Post|Shop|null $shopOrId
- * @return array|null
+ * @return null|array
  */
 function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
 {
     $product = affilicious_get_product($productOrId);
-    $shop = ProductHelper::getShop($product, $shopOrId);
+    if($product === null) {
+        return null;
+    }
 
-    return $shop;
+    $shop = ProductHelper::getShop($product, $shopOrId);
+    if($shop === null) {
+        return null;
+    }
+
+    $rawShop = array(
+        'shop_id' => $shop->getId()->getValue(),
+        'title' => $shop->getTitle()->getValue(),
+        'logo' => $shop->hasLogo() ? $shop->getLogo()->getValue() : null,
+        'price' => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
+        'old_price' => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+        'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
+        'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
+    );
+
+    return $rawShop;
 }
 
 /**
@@ -319,14 +340,31 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
  *
  * @since 0.5.1
  * @param int|\WP_Post|Product|null $productOrId
- * @return array|null
+ * @return null|array
  */
 function affilicious_get_product_cheapest_shop($productOrId = null)
 {
 	$product = affilicious_get_product($productOrId);
-	$shop = $product->getCheapestShop();
+    if($product === null) {
+        return null;
+    }
 
-	return $shop;
+	$shop = $product->getCheapestShop();
+    if($shop === null) {
+        return null;
+    }
+
+    $rawShop = array(
+        'shop_id' => $shop->getId()->getValue(),
+        'title' => $shop->getTitle()->getValue(),
+        'logo' => $shop->hasLogo() ? $shop->getLogo()->getValue() : null,
+        'price' => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
+        'old_price' => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+        'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
+        'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
+    );
+
+    return $rawShop;
 }
 
 /**
@@ -342,16 +380,19 @@ function affilicious_get_product_cheapest_shop($productOrId = null)
 function affilicious_get_product_price($productOrId = null, $shopOrId = null)
 {
     $product = affilicious_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
     $shop = ProductHelper::getShop($product, $shopOrId);
     if (empty($shop)) {
         return null;
     }
 
-    $value = $shop['price'];
-    $currency = $shop['currency'];
-    $price = affilicious_get_price($value, $currency);
+    $price = $shop->getPrice();
+    $rawPrice = affilicious_get_price($price->getValue(), $price->getCurrency()->getValue());
 
-    return $price;
+    return $rawPrice;
 }
 
 /**
@@ -365,16 +406,19 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
 function affilicious_get_product_cheapest_price($productOrId = null)
 {
 	$product = affilicious_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
 	$shop = $product->getCheapestShop();
 	if (empty($shop)) {
 		return null;
 	}
 
-	$value = $shop['price'];
-	$currency = $shop['currency'];
-	$price = affilicious_get_price($value, $currency);
+    $price = $shop->getPrice();
+    $rawPrice = affilicious_get_price($price->getValue(), $price->getCurrency()->getValue());
 
-	return $price;
+	return $rawPrice;
 }
 
 /**

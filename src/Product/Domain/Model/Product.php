@@ -1,9 +1,22 @@
 <?php
 namespace Affilicious\Product\Domain\Model;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
+use Affilicious\Common\Domain\Model\AbstractEntity;
+use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Product\Domain\Exception\DuplicatedDetailException;
+use Affilicious\Product\Domain\Exception\DuplicatedShopException;
+use Affilicious\Product\Domain\Model\Detail\Detail;
+use Affilicious\Product\Domain\Model\Detail\Key;
+use Affilicious\Product\Domain\Model\Review\Review;
+use Affilicious\Product\Domain\Model\Shop\Shop;
+use Affilicious\Product\Domain\Model\Shop\ShopId;
 
-class Product
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
+class Product extends AbstractEntity
 {
     const POST_TYPE = 'product';
     const SLUG = 'product';
@@ -16,159 +29,531 @@ class Product
     const DETAIL_VALUE = 'value';
 
     /**
-     * @var \WP_Post
-     */
-    private $post;
-
-	/**
-	 * @var Type
-	 */
-	private $type;
-
-    /**
-     * European Article Number (EAN) is a unique ID used for identification of retail products
+     * The type of the product like simple or variants
      *
-     * @var string
+     * @var Type
      */
-    private $ean;
+    protected $type;
 
     /**
-     * The specific shops with all information for the price comparison like Amazon, Affilinet or Ebay.
-     * It's stored as an array where each entry is another key-value array for the specific shop
+     * The title of the product
      *
-     * @var array
+     * @var Title
      */
-    private $shops;
+    protected $title;
 
     /**
-     * @var DetailGroup[]
+     * The content of the product
+     *
+     * @var Content
      */
-    private $detailGroups;
+    protected $content;
 
-	/**
-	 * Get the number of ratings
-	 *
-	 * @var int
-	 */
-	PRIVATE $numberOfRatings;
+    /**
+     * The thumbnail of the product
+     *
+     * @var Image
+     */
+    protected $thumbnail;
 
-	/**
-	 * Stores the number of stars for the rating in 0.5 steps from 0 to 5
-	 *
-	 * @var float
-	 */
-	private $starRating;
+    /**
+     * Holds the shops like Amazon, Affilinet or Ebay.
+     *
+     * @var Shop[]
+     */
+    protected $shops;
+
+    /**
+     * Holds the details of the product
+     *
+     * @var Detail[]
+     */
+    protected $details;
+
+    /**
+     * Stores the rating in 0.5 steps from 0 to 5 and the number of votes
+     *
+     * @var Review
+     */
+    protected $review;
 
     /**
      * Stores the IDs of the related products
      *
      * @var int[]
      */
-    private $relatedProducts;
+    protected $relatedProducts;
 
     /**
      * Stores the IDs of the related accessories
      *
      * @var int[]
      */
-    private $relatedAccessories;
-
-    /**
-     * Stores the IDs of the related posts
-     *
-     * @var int[]
-     */
-    private $relatedPosts;
+    protected $relatedAccessories;
 
     /**
      * Stores the IDs of the image gallery attachments
      *
      * @var int[]
      */
-    private $imageGallery;
+    protected $imageGallery;
 
     /**
-     * @since 0.3
-     * @param \WP_Post $post
+     * @since 0.5.2
+     * @param ProductId $id
+     * @param Type $type
+     * @param Title $title
      */
-    public function __construct(\WP_Post $post)
+    public function __construct(ProductId $id, Type $type, Title $title)
     {
-        $this->post = $post;
+        $this->id = $id;
+        $this->type = $type;
+        $this->title = $title;
         $this->shops = array();
-        $this->detailGroups = array();
-	    $this->numberOfRatings = 0;
-	    $this->starRating = 0;
+        $this->details = array();
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
-        $this->relatedPosts = array();
         $this->imageGallery = array();
     }
 
     /**
-     * Get the ID
+     * Get the product ID
      *
-     * @since 0.3
-     * @return int
+     * @since 0.5.2
+     * @return ProductId
      */
     public function getId()
     {
-        return $this->post->ID;
+        return $this->id;
     }
 
-	/**
-	 * Get the product type like simple or complex
-	 *
-	 * @since 0.5.2
-	 * @return Type
-	 */
-	public function getType()
-	{
-		return $this->type;
-	}
-
-	/**
-	 * Set the product type like simple or complex
-	 *
-	 * @since 0.5.2
-	 * @param Type $type
-	 */
-	public function setType(Type $type)
-	{
-		$this->type = $type;
-	}
+    /**
+     * Get the type like simple or complex
+     *
+     * @since 0.5.2
+     * @return Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Get the title
      *
-     * @since 0.3
-     * @return string
+     * @since 0.5.2
+     * @return Title
      */
     public function getTitle()
     {
-        return $this->post->post_title;
+        return $this->title;
     }
 
     /**
-     * Get the name
+     * Check if the product has any content
      *
-     * @since 0.3
-     * @return string
+     * @since 0.5.2
+     * @return bool
      */
-    public function getName()
+    public function hasContent()
     {
-        return $this->post->post_name;
+        return $this->content !== null;
     }
 
     /**
      * Get the content
      *
-     * @since 0.3
-     * @return string
+     * @since 0.5.2
+     * @return Content
      */
     public function getContent()
     {
-        return $this->post->post_content;
+        return $this->content;
     }
+
+    /**
+     * Set the content
+     *
+     * @since 0.5.2
+     * @param Content $content
+     */
+    public function setContent(Content $content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * Check if the product has a thumbnail
+     *
+     * @since 0.5.2
+     * @return bool
+     */
+    public function hasThumbnail()
+    {
+        return $this->thumbnail !== null;
+    }
+
+    /**
+     * Get the thumbnail
+     *
+     * @since 0.5.2
+     * @return Image
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set the thumbnail
+     *
+     * @since 0.5.2
+     * @param Image $thumbnail
+     */
+    public function setThumbnail(Image $thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+    }
+
+    /**
+     * Check if the product has a specific shop
+     *
+     * @since 0.5.2
+     * @param ShopId $id
+     * @return bool
+     */
+    public function hasShop(ShopId $id)
+    {
+        return isset($this->shops[$id->getValue()]);
+    }
+
+    /**
+     * Add a new shop
+     *
+     * @since 0.5.2
+     * @param Shop $shop
+     * @throws DuplicatedShopException
+     */
+    public function addShop(Shop $shop)
+    {
+        if($this->hasShop($shop->getId())) {
+            throw new DuplicatedShopException($shop, $this);
+        }
+
+        $this->shops[$shop->getId()->getValue()] = $shop;
+    }
+
+    /**
+     * Remove a shop by the ID
+     *
+     * @since 0.5.2
+     * @param ShopId $id
+     */
+    public function removeShop(ShopId $id)
+    {
+        unset($this->shops[$id->getValue()]);
+    }
+
+    /**
+     * Get a shop by the ID
+     *
+     * @since 0.5.2
+     * @param ShopId $id
+     * @return null|Shop
+     */
+    public function getShop(ShopId $id)
+    {
+        $shop = $this->hasShop($id) ? $this->shops[$id->getValue()] : null;
+
+        return $shop;
+    }
+
+    /**
+     * Get the cheapest shop
+     *
+     * @since 0.5.2
+     * @return null|Shop
+     */
+    public function getCheapestShop()
+    {
+        /** @var Shop $cheapestShop */
+        $cheapestShop = null;
+        foreach ($this->shops as $shop) {
+            if ($cheapestShop === null ||
+                ($cheapestShop->hasPrice() && $cheapestShop->getPrice()->isGreaterThan($shop->hasPrice()))) {
+                $cheapestShop = $shop;
+            }
+        }
+
+        return $cheapestShop;
+    }
+
+    /**
+     * Get all shops
+     *
+     * @since 0.5.2
+     * @return Shop[]
+     */
+    public function getShops()
+    {
+        $shops = array_values($this->shops);
+        return $shops;
+    }
+
+    /**
+     * Set all shops
+     *
+     * @since 0.5.2
+     * @param Shop[] $shops
+     * @throws InvalidTypeException
+     */
+    public function setShops($shops)
+    {
+        $this->shops = array();
+
+        // addShops checks for the type
+        foreach ($shops as $shop) {
+            $this->addShop($shop);
+        }
+    }
+
+    /**
+     * Check if the product has a specific detail
+     *
+     * @since 0.5.2
+     * @param Key $key
+     * @return bool
+     */
+    public function hasDetail(Key $key)
+    {
+        return isset($this->details[$key->getValue()]);
+    }
+
+    /**
+     * Add a new detail
+     *
+     * @since 0.5.2
+     * @param Detail $detail
+     * @throws DuplicatedDetailException
+     */
+    public function addDetail(Detail $detail)
+    {
+        if($this->hasDetail($detail->getKey())) {
+            throw new DuplicatedDetailException($detail, $this);
+        }
+
+        $this->details[$detail->getKey()->getValue()] = $detail;
+    }
+
+    /**
+     * Remove a detail by the ID
+     *
+     * @since 0.5.2
+     * @param Key $key
+     */
+    public function removeDetail(Key $key)
+    {
+        unset($this->details[$key->getValue()]);
+    }
+
+    /**
+     * Get a detail by the ID
+     *
+     * @since 0.5.2
+     * @param Key $key
+     * @return null|Detail
+     */
+    public function getDetail(Key $key)
+    {
+        $detail = $this->hasDetail($key) ? $this->details[$key->getValue()] : null;
+
+        return $detail;
+    }
+
+    /**
+     * Get all details
+     *
+     * @since 0.5.2
+     * @return Detail[]
+     */
+    public function getDetails()
+    {
+        $details = array_values($this->details);
+        return $details;
+    }
+
+    /**
+     * Set all details
+     *
+     * @since 0.5.2
+     * @param Detail[] $details
+     * @throws InvalidTypeException
+     */
+    public function setDetails($details)
+    {
+        $this->details = array();
+
+        // addDetail checks for the type
+        foreach ($details as $detail) {
+            $this->addDetail($detail);
+        }
+    }
+
+    /**
+     * Check if the product has a review
+     *
+     * @since 0.5.2
+     * @return bool
+     */
+    public function hasReview()
+    {
+        return $this->review !== null;
+    }
+
+    /**
+     * Get the review
+     *
+     * @since 0.5.2
+     * @return Review
+     */
+    public function getReview()
+    {
+        return $this->review;
+    }
+
+    /**
+     * Set the review
+     *
+     * @since 0.5.2
+     * @param Review $review
+     */
+    public function setReview(Review $review)
+    {
+        $this->review = $review;
+    }
+
+    /**
+     * Get the IDs of all related products
+     *
+     * @since 0.5.2
+     * @return ProductId[]
+     */
+    public function getRelatedProducts()
+    {
+        return $this->relatedProducts;
+    }
+
+    /**
+     * Set the IDs of all related products
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.5.2
+     * @param ProductId[] $relatedProducts
+     * @throws InvalidTypeException
+     */
+    public function setRelatedProducts($relatedProducts)
+    {
+        foreach ($relatedProducts as $relatedProduct) {
+            if (!($relatedProduct instanceof ProductId)) {
+                throw new InvalidTypeException($relatedProduct, get_class(new ProductId(0)));
+            }
+        }
+
+        $this->relatedProducts = $relatedProducts;
+    }
+
+    /**
+     * Get the IDs of all related accessories
+     *
+     * @since 0.5.2
+     * @return ProductId[]
+     */
+    public function getRelatedAccessories()
+    {
+        return $this->relatedAccessories;
+    }
+
+    /**
+     * Set the IDs of all related accessories
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.5.2
+     * @param ProductId[] $relatedAccessories
+     * @throws InvalidTypeException
+     */
+    public function setRelatedAccessories($relatedAccessories)
+    {
+        foreach ($relatedAccessories as $relatedAccessory) {
+            if (!($relatedAccessory instanceof ProductId)) {
+                throw new InvalidTypeException($relatedAccessory, 'Affilicious\Product\Domain\Model\ProductId');
+            }
+        }
+
+        $this->relatedAccessories = $relatedAccessories;
+    }
+
+    /**
+     * Get the IDs of the media attachments for the image gallery
+     *
+     * @since 0.5.2
+     * @return Image[]
+     */
+    public function getImageGallery()
+    {
+        return $this->imageGallery;
+    }
+
+    /**
+     * Set the IDs of the media attachments for the image gallery
+     * If you do this, the old images going to be replaced.
+     *
+     * @since 0.5.2
+     * @param Image[] $imageGallery
+     * @throws InvalidTypeException
+     */
+    public function setImageGallery($imageGallery)
+    {
+        foreach ($imageGallery as $image) {
+            if (!($image instanceof Image)) {
+                throw new InvalidTypeException($image, 'Affilicious\Common\Domain\Model\Image\Image');
+            }
+        }
+
+        $this->imageGallery = $imageGallery;
+    }
+
+    /**
+     * Get the raw Wordpress post
+     *
+     * @since 0.5.2
+     * @return null|\WP_Post
+     */
+    public function getRawPost()
+    {
+        $post = get_post($this->id->getValue());
+        return $post;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.5.2
+     */
+    public function isEqualTo($object)
+    {
+        return
+            $object instanceof self;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Check if the product has a thumbnail
@@ -176,7 +561,7 @@ class Product
      * @since 0.3
      * @return bool
      */
-    public function hasThumbnail()
+    public function hasThumbnail2()
     {
         $thumbnailId = get_post_thumbnail_id($this->getId());
         return $thumbnailId == false ? false : true;
@@ -188,7 +573,7 @@ class Product
      * @since 0.3
      * @return null|string
      */
-    public function getThumbnail()
+    public function getThumbnail2()
     {
         $thumbnailId = get_post_thumbnail_id($this->getId());
         if (!$thumbnailId) {
@@ -197,268 +582,5 @@ class Product
 
         $thumbnail = wp_get_attachment_image_src($thumbnailId, 'featured_preview');
         return $thumbnail[0];
-    }
-
-    /**
-     * Check if the price comparision has any European Article Number (EAN)
-     *
-     * @since 0.3
-     * @return bool
-     */
-    public function hasEan()
-    {
-        return $this->ean !== null;
-    }
-
-    /**
-     * Get the European Article Number (EAN)
-     *
-     * @since 0.3
-     * @return string
-     */
-    public function getEan()
-    {
-        return $this->ean;
-    }
-
-    /**
-     * Set the European Article Number (EAN)
-     *
-     * @since 0.3
-     * @param string $ean
-     */
-    public function setEan($ean)
-    {
-        $this->ean = $ean;
-    }
-
-    /**
-     * Get the shop by the ID
-     *
-     * @since 0.3
-     * @param int $shopId
-     * @return null|array
-     */
-    public function getShop($shopId)
-    {
-        foreach ($this->shops as $shop) {
-            if ($shop['shop_id'] === $shopId) {
-                return $shop;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Get the cheapest shop
-     *
-     * @since 0.3
-     * @return null|array
-     */
-    public function getCheapestShop()
-    {
-        $cheapestShop = null;
-        foreach ($this->shops as $shop) {
-            if ($cheapestShop === null || $cheapestShop['price'] > $shop['price']) {
-                $cheapestShop = $shop;
-            }
-        }
-
-        return $cheapestShop;
-    }
-
-    /**
-     * Get all shops
-     *
-     * @since 0.3
-     * @return array
-     */
-    public function getShops()
-    {
-        return $this->shops;
-    }
-
-    /**
-     * Set all shops.
-     * If you do this, the old shops going to be replaced.
-     *
-     * @since 0.3
-     * @param array $shops
-     */
-    public function setShops($shops)
-    {
-        $this->shops = $shops;
-    }
-
-	/**
-	 * Get the number of ratings
-	 *
-	 * @since 0.3.4
-	 * @return int
-	 */
-	public function getNumberOfRatings()
-	{
-		return $this->numberOfRatings;
-	}
-
-	/**
-	 * Set the number of ratings
-	 *
-	 * @since 0.3.4
-	 * @param int $numberOfRatings
-	 */
-	public function setNumberOfRatings($numberOfRatings)
-	{
-		$this->numberOfRatings = $numberOfRatings;
-	}
-
-	/**
-	 * Get the star rating from 0 to 5 in 0.5 steps
-	 *
-	 * @since 0.3.3
-	 * @return float
-	 */
-	public function getStarRating()
-	{
-		return $this->starRating;
-	}
-
-	/**
-	 * Get the star rating from 0 to 5 in 0.5 steps
-	 *
-	 * @since 0.3.3
-	 * @param float $starRating
-	 */
-	public function setStarRating($starRating)
-	{
-		$this->starRating = $starRating;
-	}
-
-    /**
-     * Get all detail groups
-     *
-     * @since 0.3
-     * @return DetailGroup[]
-     */
-    public function getDetailGroups()
-    {
-        return $this->detailGroups;
-    }
-
-    /**
-     * Set the detail groups
-     * If you do this, the old detail groups going to be replaced.
-     *
-     * @since 0.3
-     * @param array $detailGroups
-     * @return DetailGroup|null
-     */
-    public function setDetailGroups($detailGroups)
-    {
-        $this->detailGroups = $detailGroups;
-    }
-
-    /**
-     * Get the IDs of all related products
-     *
-     * @since 0.3
-     * @return int[]
-     */
-    public function getRelatedProducts()
-    {
-        return $this->relatedProducts;
-    }
-
-    /**
-     * Set the IDs of all related products
-     * If you do this, the old IDs going to be replaced.
-     *
-     * @since 0.3
-     * @param int[] $relatedProducts
-     */
-    public function setRelatedProducts($relatedProducts)
-    {
-        $this->relatedProducts = $relatedProducts;
-    }
-
-    /**
-     * Get the IDs of all related accessories
-     *
-     * @since 0.3
-     * @return int[]
-     */
-    public function getRelatedAccessories()
-    {
-        return $this->relatedAccessories;
-    }
-
-    /**
-     * Set the IDs of all related accessories
-     * If you do this, the old IDs going to be replaced.
-     *
-     * @since 0.3
-     * @param int[] $relatedAccessories
-     */
-    public function setRelatedAccessories($relatedAccessories)
-    {
-        $this->relatedAccessories = $relatedAccessories;
-    }
-
-    /**
-     * Get the IDs of all related posts
-     *
-     * @since 0.3
-     * @return int[]
-     */
-    public function getRelatedPosts()
-    {
-        return $this->relatedPosts;
-    }
-
-    /**
-     * Set the IDs of all related posts
-     * If you do this, the old IDs going to be replaced.
-     *
-     * @since 0.3
-     * @param int[] $relatedPosts
-     */
-    public function setRelatedPosts($relatedPosts)
-    {
-        $this->relatedPosts = $relatedPosts;
-    }
-
-    /**
-     * Get the IDs of the media attachments for the image gallery
-     *
-     * @since 0.3
-     * @return int[]
-     */
-    public function getImageGallery()
-    {
-        return $this->imageGallery;
-    }
-
-    /**
-     * Set the IDs of the media attachments for the image gallery
-     * If you do this, the old IDs going to be replaced.
-     *
-     * @since 0.3
-     * @param int[] $imageGallery
-     */
-    public function setImageGallery($imageGallery)
-    {
-        $this->imageGallery = $imageGallery;
-    }
-
-    /**
-     * Get the raw post
-     *
-     * @since 0.3
-     * @return \WP_Post
-     */
-    public function getRawPost()
-    {
-        return $this->post;
     }
 }

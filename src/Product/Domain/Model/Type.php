@@ -6,8 +6,8 @@ use Affilicious\Product\Domain\Exception\InvalidValueException;
 
 class Type extends AbstractValueObject
 {
-	const SIMPLE = 'SIMPLE';
-	const COMPLEX = 'COMPLEX';
+	const SIMPLE = 'simple';
+	const COMPLEX = 'complex';
 
 	/**
 	 * @since 0.5.2

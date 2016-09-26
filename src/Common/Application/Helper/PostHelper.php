@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Domain\Helper;
+namespace Affilicious\Common\Application\Helper;
 
 use Affilicious\Product\Domain\Model\DetailGroup;
 use Affilicious\Product\Domain\Model\Product;

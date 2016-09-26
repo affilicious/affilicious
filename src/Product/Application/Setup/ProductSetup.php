@@ -1,19 +1,22 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Common\Application\Helper\DatabaseHelper;
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Product\Domain\Helper\DetailGroupHelper;
-use Affilicious\Product\Domain\Model\DetailGroup;
-use Affilicious\Product\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Detail\Domain\Model\DetailGroup;
+use Affilicious\Detail\Domain\Model\DetailGroupId;
+use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Shop\Domain\Model\ShopId;
 use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 
-if (!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if (!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 class ProductSetup implements SetupInterface
 {
@@ -110,7 +113,7 @@ class ProductSetup implements SetupInterface
     {
         $this->renderPriceComparison();
         $this->renderDetails();
-	    $this->renderRating();
+	    $this->renderReview();
         $this->renderRelations();
     }
 
@@ -161,11 +164,7 @@ class ProductSetup implements SetupInterface
         $carbonContainer = CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
-            ->add_fields(array(
-                CarbonField::make('text', CarbonProductRepository::PRODUCT_EAN, __('EAN', 'affilicious'))
-                    ->help_text(__('Unique ID for the price comparison', 'affilicious')),
-                $tabs
-            ));
+            ->add_fields(array($tabs));
 
         apply_filters('affilicious_product_render_price_comparison', $carbonContainer);
     }
@@ -193,40 +192,34 @@ class ProductSetup implements SetupInterface
         while ($query->have_posts()) {
             $query->the_post();
 
-            $detailGroup = $this->detailGroupRepository->findById($query->post->ID);
-            $title = $detailGroup->getTitle();
-            $name = DetailGroupHelper::convertNameToKey($title);
+            $detailGroup = $this->detailGroupRepository->findById(new DetailGroupId($query->post->ID));
+            $title = $detailGroup->getTitle()->getValue();
+            $name = DatabaseHelper::convertTextToKey($title);
 
             if (empty($title) || empty($name)) {
                 continue;
             }
 
-            $carbonFields = array_map(function ($detail) {
-            	if(!empty($detail[DetailGroup::DETAIL_UNIT])) {
-		            $fieldName = sprintf( '%s %s', $detail[DetailGroup::DETAIL_NAME], $detail[DetailGroup::DETAIL_UNIT]);
-	            } else {
-	            	$fieldName = $detail[ DetailGroup::DETAIL_NAME];
-	            }
+            $carbonFields = array();
+            foreach ($detailGroup->getDetails() as $detail) {
+                $fieldName = sprintf('%s %s', $detail->getName(), $detail->getUnit());
+                $fieldName = trim($fieldName);
 
                 $carbonField = CarbonField::make(
-                    $detail[DetailGroup::DETAIL_TYPE],
-                    $detail[DetailGroup::DETAIL_KEY],
-	                $fieldName
+                    $detail->getType(),
+                    $detail->getKey(),
+                    $fieldName
                 );
 
-                if (!empty($detail[DetailGroup::DETAIL_DEFAULT_VALUE])) {
-                    $carbonField->set_default_value($detail[DetailGroup::DETAIL_DEFAULT_VALUE]);
+                if ($detail->hasHelpText()) {
+                    $carbonField->help_text($detail->getHelpText());
                 }
 
-                if (!empty($detail[DetailGroup::DETAIL_HELP_TEXT])) {
-                    $carbonField->help_text($detail[DetailGroup::DETAIL_HELP_TEXT]);
-                }
-
-                return $carbonField;
-            }, $detailGroup->getDetails());
+                $carbonFields[] = $carbonField;
+            }
 
             $carbonDetailGroupId = CarbonField::make('hidden', 'detail_group_id')
-                ->set_value($detailGroup->getId());
+                ->set_value($detailGroup->getId()->getValue());
 
             $carbonFields = array_merge(array(
                 'detail_group_id' => $carbonDetailGroupId,
@@ -246,30 +239,47 @@ class ProductSetup implements SetupInterface
 	/**
 	 * Render the rating
 	 *
-	 * @since 0.3.3
+	 * @since 0.5.2
 	 */
-    private function renderRating()
+    private function renderReview()
     {
-	    $carbonContainer = CarbonContainer::make('post_meta', __('Rating', 'affilicious'))
+	    $carbonContainer = CarbonContainer::make('post_meta', __('Review', 'affilicious'))
           ->show_on_post_type(Product::POST_TYPE)
           ->set_priority('default')
           ->add_fields(array(
-	          CarbonField::make('number', CarbonProductRepository::PRODUCT_NUMBER_RATINGS, __('Number of Rating', 'affilicious'))
-                 ->set_help_text(__('If you want to hide this, just leave it empty or set it to 0.', 'affilicious')),
-              CarbonField::make('select', CarbonProductRepository::PRODUCT_STAR_RATING, __('Star Rating', 'affilicious'))
-                 ->add_options(array(
-                     '0' => sprintf(__('%s stars', 'affilicious'), 0),
-                     '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
-                     '1' => sprintf(__('%s star', 'affilicious'), 1),
-                     '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
-                     '2' => sprintf(__('%s stars', 'affilicious'), 2),
-                     '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
-                     '3' => sprintf(__('%s stars', 'affilicious'), 3),
-                     '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
-                     '4' => sprintf(__('%s stars', 'affilicious'), 4),
-                     '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
-                     '5' => sprintf(__('%s stars', 'affilicious'), 5),
-                 )),
+              CarbonField::make('checkbox', CarbonProductRepository::PRODUCT_REVIEW_ENABLED, __('Enable review', 'affilicious')),
+              CarbonField::make('select', CarbonProductRepository::PRODUCT_REVIEW_RATING, __('Rating', 'affilicious'))
+                  ->add_options(array(
+                      '0' => sprintf(__('%s stars', 'affilicious'), 0),
+                      '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
+                      '1' => sprintf(__('%s star', 'affilicious'), 1),
+                      '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
+                      '2' => sprintf(__('%s stars', 'affilicious'), 2),
+                      '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
+                      '3' => sprintf(__('%s stars', 'affilicious'), 3),
+                      '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
+                      '4' => sprintf(__('%s stars', 'affilicious'), 4),
+                      '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
+                      '5' => sprintf(__('%s stars', 'affilicious'), 5),
+                  ))
+                  ->set_conditional_logic(array(
+                      'relation' => 'AND',
+                      array(
+                          'field' => CarbonProductRepository::PRODUCT_REVIEW_ENABLED,
+                          'value' => 'yes',
+                          'compare' => '=',
+                      )
+                  )),
+	          CarbonField::make('number', CarbonProductRepository::PRODUCT_REVIEW_VOTES, __('Votes', 'affilicious'))
+                 ->set_help_text(__('If you want to hide this on the front end, just leave it empty.', 'affilicious'))
+                  ->set_conditional_logic(array(
+                      'relation' => 'AND',
+                      array(
+                          'field' => CarbonProductRepository::PRODUCT_REVIEW_ENABLED,
+                          'value' => 'yes',
+                          'compare' => '=',
+                      )
+                  )),
           ));
 
 	    apply_filters('affilicious_product_render_rating', $carbonContainer);
@@ -294,11 +304,6 @@ class ProductSetup implements SetupInterface
                 CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
                     ->allow_duplicates(false)
                     ->set_post_type(Product::POST_TYPE),
-            ))
-            ->add_tab(__('Posts', 'affilicious'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_POSTS, __('Related Posts', 'affilicious'))
-                    ->allow_duplicates(false)
-                    ->set_post_type('post'),
             ));
 
         apply_filters('affilicious_product_render_relations', $carbonContainer);

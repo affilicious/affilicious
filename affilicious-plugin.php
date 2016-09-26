@@ -255,7 +255,10 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.repository.product'] = function ($c) {
-            return new CarbonProductRepository($c['affilicious.product.repository.detail_group']);
+            return new CarbonProductRepository(
+                $c['affilicious.product.repository.detail_group'],
+                $c['affilicious.product.repository.shop']
+            );
         };
 
         $this->container['affilicious.product.repository.shop'] = function () {

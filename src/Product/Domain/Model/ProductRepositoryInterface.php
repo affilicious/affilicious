@@ -3,7 +3,9 @@ namespace Affilicious\Product\Domain\Model;
 
 use Affilicious\Common\Domain\Model\RepositoryInterface;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 interface ProductRepositoryInterface extends RepositoryInterface
 {
@@ -11,10 +13,10 @@ interface ProductRepositoryInterface extends RepositoryInterface
      * Find a product by the given ID
      *
      * @since 0.3
-     * @param int $productId
+     * @param ProductId $productId
      * @return Product|null
      */
-    public function findById($productId);
+    public function findById(ProductId $productId);
 
     /**
      * Find all products
