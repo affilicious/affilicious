@@ -42,11 +42,17 @@ if(!defined('ABSPATH')) {
 class CarbonProductRepository implements ProductRepositoryInterface
 {
     const PRODUCT_TYPE = 'affilicious_product_type';
+
+    const PRODUCT_SHOPS_ENABLED = 'affilicious_product_shops_enabled';
     const PRODUCT_SHOPS = 'affilicious_product_shops';
+
+    const PRODUCT_DETAIL_GROUPS_ENABLED = 'affilicious_product_detail_groups_enabled';
     const PRODUCT_DETAIL_GROUPS = 'affilicious_product_detail_groups';
+
     const PRODUCT_REVIEW_ENABLED = 'affilicious_product_review_enabled';
     const PRODUCT_REVIEW_RATING = 'affilicious_product_review_rating';
     const PRODUCT_REVIEW_VOTES = 'affilicious_product_review_votes';
+
     const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
     const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
     const PRODUCT_IMAGE_GALLERY = '_affilicious_product_image_gallery';
@@ -151,25 +157,31 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Shops
-        $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
-        if (!empty($shops)) {
-            foreach ($shops as $shop) {
-                $shop = self::buildShopFromArray($shop);
+        $enabledShops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS_ENABLED);
+        if(!empty($enabledShops) && $enabledShops === 'yes') {
+            $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
+            if (!empty($shops)) {
+                foreach ($shops as $shop) {
+                    $shop = self::buildShopFromArray($shop);
 
-                if($shop !== null) {
-                    $product->addShop($shop);
+                    if ($shop !== null) {
+                        $product->addShop($shop);
+                    }
                 }
             }
         }
 
         // Details
-        $detailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS, 'complex');
-        if (!empty($detailGroups)) {
-            foreach ($detailGroups as $detailGroup) {
-                $details = self::buildDetailsFromArray($detailGroup);
+        $enabledDetailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS_ENABLED);
+        if(!empty($enabledDetailGroups) && $enabledDetailGroups === 'yes') {
+            $detailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS, 'complex');
+            if (!empty($detailGroups)) {
+                foreach ($detailGroups as $detailGroup) {
+                    $details = self::buildDetailsFromArray($detailGroup);
 
-                if(!empty($details)) {
-                    $product->setDetails($details);
+                    if (!empty($details)) {
+                        $product->setDetails($details);
+                    }
                 }
             }
         }
@@ -208,7 +220,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
             $product->setRelatedAccessories($relatedAccessories);
         }
 
-        // Image Gallery
+        // Image gallery
         $imageGallery = get_post_meta($post->ID, self::PRODUCT_IMAGE_GALLERY);
         if (!empty($imageGallery)) {
             $imageIds = explode(',', $imageGallery[0]);

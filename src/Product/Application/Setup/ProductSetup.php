@@ -164,7 +164,17 @@ class ProductSetup implements SetupInterface
         $carbonContainer = CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
-            ->add_fields(array($tabs));
+            ->add_fields(array(
+                CarbonField::make('checkbox', CarbonProductRepository::PRODUCT_SHOPS_ENABLED, __('Enable shops', 'affilicious')),
+                $tabs->set_conditional_logic(array(
+                    'relation' => 'AND',
+                    array(
+                        'field' => CarbonProductRepository::PRODUCT_SHOPS_ENABLED,
+                        'value' => 'yes',
+                        'compare' => '=',
+                    )
+                )),
+            ));
 
         apply_filters('affilicious_product_render_price_comparison', $carbonContainer);
     }
@@ -231,7 +241,18 @@ class ProductSetup implements SetupInterface
         $carbonContainer = CarbonContainer::make('post_meta', __('Details', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('default')
-            ->add_fields(array($tabs));
+            ->add_fields(array(
+                CarbonField::make('checkbox', CarbonProductRepository::PRODUCT_DETAIL_GROUPS_ENABLED, __('Enable details', 'affilicious')),
+                $tabs->set_conditional_logic(array(
+                    'relation' => 'AND',
+                    array(
+                        'field' => CarbonProductRepository::PRODUCT_DETAIL_GROUPS_ENABLED,
+                        'value' => 'yes',
+                        'compare' => '=',
+                    )
+                )),
+
+            ));
 
         apply_filters('affilicious_product_render_details', $carbonContainer);
     }
