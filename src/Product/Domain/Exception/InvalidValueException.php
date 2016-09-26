@@ -16,7 +16,7 @@ class InvalidValueException extends \RuntimeException
 	public function __construct($invalidValue, $validValues, $class)
 	{
 		parent::__construct(sprintf(
-			__('Invalid value %s for %s. Please choose from %s', 'affilicious'),
+			'Invalid value %s for %s. Please choose from %s',
 			$invalidValue,
 			implode(',', $validValues),
 			$class

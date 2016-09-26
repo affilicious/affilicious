@@ -15,7 +15,7 @@ class InvalidPostTypeException extends \RuntimeException
     public function __construct($invalidPostType, $validPostType)
     {
         parent::__construct(sprintf(
-            __('Invalid post type: %s. Pleas use %s', 'affilicious'),
+            'Invalid post type: %s. Pleas use %s',
             $invalidPostType,
             $validPostType
         ));

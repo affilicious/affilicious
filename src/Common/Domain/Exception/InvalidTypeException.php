@@ -15,7 +15,7 @@ class InvalidTypeException extends DomainException
 	public function __construct($invalidValue, $validType)
 	{
 		parent::__construct(sprintf(
-			__('Invalid type %s. Please use %s', 'affilicious'),
+			'Invalid type %s. Please use %s',
 			gettype($invalidValue),
 			$validType
 		));

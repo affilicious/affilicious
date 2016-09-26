@@ -17,7 +17,7 @@ class InvalidOptionException extends DomainException
 	public function __construct($invalidOption, $validOptions)
 	{
 		parent::__construct(sprintf(
-			__('Invalid option %s. Please choose from %s.', 'affilicious'),
+			'Invalid option %s. Please choose from %s.',
 			$invalidOption,
 			implode(', ', $validOptions)
 		));
