@@ -16,7 +16,7 @@ class ProductSettings implements SettingsInterface
 	 */
 	public function render()
 	{
-		do_action('affilicious_settings_product_render');
+		do_action('affilicious_settings_product_before_render');
 
 		$generalFields = apply_filters('affilicious_settings_product_general_fields', array(
 			CarbonField::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
@@ -48,6 +48,7 @@ class ProductSettings implements SettingsInterface
            ->add_tab(__('Taxonomies', 'affilicious'), $taxonomiesFields);
 
 		apply_filters('affilicious_settings_product_container', $container);
+        do_action('affilicious_settings_product_after_render');
 	}
 
 	/**
@@ -56,7 +57,7 @@ class ProductSettings implements SettingsInterface
 	 */
 	public function apply()
 	{
-		do_action('affilicious_settings_product_apply');
+		do_action('affilicious_settings_product_before_apply');
 
 		$taxonomies = carbon_get_theme_option('affilicious_settings_product_taxonomies', 'complex');
 		if(!empty($taxonomies)) {
@@ -77,6 +78,8 @@ class ProductSettings implements SettingsInterface
 				}
 			}
 		}
+
+        do_action('affilicious_settings_product_after_apply');
 	}
 
 	/**

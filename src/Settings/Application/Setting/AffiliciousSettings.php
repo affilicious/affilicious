@@ -12,7 +12,7 @@ class AffiliciousSettings implements SettingsInterface
 	 */
 	public function render()
 	{
-		do_action('affilicious_settings_affilicious_render');
+		do_action('affilicious_settings_affilicious_before_render');
 
 		$scriptsTabs = apply_filters('affilicious_settings_affilicious_scripts_fields', array(
 			CarbonField::make('header_scripts', 'affilicious_settings_custom_css', __('Custom CSS', 'affilicious')),
@@ -24,6 +24,7 @@ class AffiliciousSettings implements SettingsInterface
 	       ->add_tab(__('Scripts', 'affilicious'), $scriptsTabs);
 
 		apply_filters('affilicious_settings_affilicious_container', $container);
+        do_action('affilicious_settings_affilicious_after_render');
 	}
 
 	/**
@@ -32,6 +33,8 @@ class AffiliciousSettings implements SettingsInterface
 	 */
 	public function apply()
 	{
-		do_action('affilicious_settings_affilicious_apply');
+		do_action('affilicious_settings_affilicious_before_apply');
+
+		do_action('affilicious_settings_affilicious_after_apply');
 	}
 }
