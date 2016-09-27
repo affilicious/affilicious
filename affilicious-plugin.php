@@ -36,6 +36,8 @@ use Affilicious\Detail\Application\Setup\DetailGroupSetup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
+use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeGroupRepository;
+use Affilicious\Attribute\Application\Setup\AttributeGroupSetup;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Common\Application\Setup\FeedbackSetup;
 use Affilicious\Settings\Application\Setting\AffiliciousSettings;
@@ -269,6 +271,10 @@ class AffiliciousPlugin
             return new CarbonDetailGroupRepository();
         };
 
+        $this->container['affilicious.attribute.repository.attribute_group'] = function () {
+            return new CarbonAttributeGroupRepository();
+        };
+
         $this->container['affilicious.product.setup.product'] = function ($c) {
             return new ProductSetup($c['affilicious.product.repository.detail_group'], $c['affilicious.product.repository.shop']);
         };
@@ -279,6 +285,10 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.setup.detail_group'] = function () {
             return new DetailGroupSetup();
+        };
+
+        $this->container['affilicious.attribute.setup.attribute_group'] = function () {
+            return new AttributeGroupSetup();
         };
 
 	    $this->container['affilicious.settings.setting.affilicious'] = function () {
@@ -348,6 +358,10 @@ class AffiliciousPlugin
         add_action('init', array($this->container['affilicious.product.setup.shop'], 'render'), 2);
         add_action('manage_shop_posts_columns', array($this->container['affilicious.product.setup.shop'], 'columnsHead'), 9, 2);
         add_action('manage_shop_posts_custom_column', array($this->container['affilicious.product.setup.shop'], 'columnsContent'), 10, 2);
+
+        // Hook the attribute groups
+        add_action('init', array($this->container['affilicious.attribute.setup.attribute_group'], 'init'), 3);
+        add_action('init', array($this->container['affilicious.attribute.setup.attribute_group'], 'render'), 4);
 
         // Hook the detail groups
         add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'init'), 3);
