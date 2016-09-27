@@ -1,17 +1,17 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Attribute\Domain\Model\AttributeGroupRepositoryInterface;
 use Affilicious\Common\Application\Helper\DatabaseHelper;
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Detail\Domain\Model\DetailGroup;
-use Affilicious\Detail\Domain\Model\DetailGroupId;
 use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
+use Carbon_Fields\Field\Complex_Field as CarbonComplexField;
+use Carbon_Fields\Field\Select_Field as CarbonSelectField;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -25,21 +25,29 @@ class ProductSetup implements SetupInterface
     private $detailGroupRepository;
 
     /**
+     * @var AttributeGroupRepositoryInterface
+     */
+    private $attributeGroupRepository;
+
+    /**
      * @var ShopRepositoryInterface
      */
     private $shopRepository;
 
     /**
-     * @since 0.2
+     * @since 0.6
      * @param DetailGroupRepositoryInterface $detailGroupRepository
+     * @param AttributeGroupRepositoryInterface $attributeGroupRepository
      * @param ShopRepositoryInterface $shopRepository
      */
     public function __construct(
         DetailGroupRepositoryInterface $detailGroupRepository,
+        AttributeGroupRepositoryInterface $attributeGroupRepository,
         ShopRepositoryInterface $shopRepository
     )
     {
         $this->detailGroupRepository = $detailGroupRepository;
+        $this->attributeGroupRepository = $attributeGroupRepository;
         $this->shopRepository = $shopRepository;
     }
 
@@ -110,196 +118,342 @@ class ProductSetup implements SetupInterface
      */
     public function render()
     {
-        $this->renderPriceComparison();
-        $this->renderDetails();
-	    $this->renderReview();
-        $this->renderRelations();
-    }
-
-    /**
-     * Render the price comparison
-     *
-     * @since 0.3
-     */
-    private function renderPriceComparison()
-    {
-        $query = new \WP_Query(array(
-            'post_type' => Shop::POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'orderby' => array(
-                'post_title' => 'ASC',
-            ),
-        ));
-
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_SHOPS, __('Shops', 'affilicious'))
-            ->set_layout('tabbed');
-
-        if ($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-
-                $shopId = $query->post->ID;
-                $title = $query->post->post_title;
-
-                $tabs->add_fields($title, array(
-                    CarbonField::make('hidden', 'shop_id', __('Shop ID', 'affilicious'))
-                        ->set_required(true)
-                        ->set_value($shopId),
-                    CarbonField::make('number', 'price', __('Price', 'affilicious')),
-                    CarbonField::make('number', 'old_price', __('Old Price', 'affilicious')),
-                    CarbonField::make('select', 'currency', __('Currency', 'affilicious'))
-                        ->set_required(true)
-                        ->add_options(array(
-                            'euro' => __('Euro', 'affilicious'),
-                            'us-dollar' => __('US-Dollar', 'affilicious'),
-                        )),
-                    CarbonField::make('text', 'affiliate_id', __('Affiliate ID', 'affilicious'))
-                        ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
-                    CarbonField::make('text', 'affiliate_link', __('Affiliate Link', 'affilicious')),
-                ));
-            }
-
-            wp_reset_postdata();
-        }
-
-        $carbonContainer = CarbonContainer::make('post_meta', __('Price Comparison', 'affilicious'))
+        CarbonContainer::make('post_meta', __('Product'))
             ->show_on_post_type(Product::POST_TYPE)
-            ->set_priority('default')
-            ->add_fields(array($tabs));
-
-        apply_filters('affilicious_product_render_price_comparison', $carbonContainer);
+            ->set_priority('core')
+            ->add_tab(__('General'), $this->getGeneralFields())
+            ->add_tab(__('Variants'), $this->getVariantsFields())
+            ->add_tab(__('Shops'), $this->getShopsFields())
+            ->add_tab(__('Details'), $this->getDetailsFields())
+            ->add_tab(__('Review'), $this->getReviewFields())
+            ->add_tab(__('Relations'), $this->getRelationsFields());
     }
 
     /**
-     * Render the details
+     * Get the general fields
      *
-     * @since 0.3
+     * @since 0.6
+     * @return array
      */
-    private function renderDetails()
+    private function getGeneralFields()
     {
-        $query = new \WP_Query(array(
-            'post_type' => DetailGroup::POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-        ));
+        $fields = array(
+            CarbonField::make('select', CarbonProductRepository::TYPE, __('Type', 'affilicious'))
+                ->add_options(array(
+                    'simple' => __('Simple', 'affilicious'),
+                    'variants' => __('Variants', 'affilicious'),
+                ))
+        );
 
-        if (!$query->have_posts()) {
-            return;
+        return $fields;
+    }
+
+    /**
+     * Get the variants fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function getVariantsFields()
+    {
+        $fields = array(
+            CarbonField::make('complex', CarbonProductRepository::VARIANTS, __('Variants', 'affilicious'))
+        
+                ->setup_labels(array(
+                    'plural_name' => __('Variants', 'affilicious'),
+                    'singular_name' => __('Variant', 'affilicious'),
+                ))
+                ->add_fields(array(
+                    CarbonField::make('text',
+                        CarbonProductRepository::VARIANTS_TITLE,
+                        __('Title', 'affilicious')
+                    )
+                    ->set_required(true),
+                    $this->getAttributeGroupTabs(
+                        CarbonProductRepository::VARIANTS_ATTRIBUTE_GROUPS,
+                        __('Attribute Groups', 'affilicious')
+                    ),
+                    CarbonField::make('image',
+                        CarbonProductRepository::VARIANTS_THUMBNAIL,
+                        __('Thumbnail', 'affilicious')
+                    ),
+                    $this->getShopTabs(
+                        CarbonProductRepository::VARIANTS_SHOPS,
+                        __('Shops', 'affilicious')
+                    ),
+                ))
+        );
+
+        return $fields;
+    }
+
+    /**
+     * Get the shops fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function getShopsFields()
+    {
+        $fields = array(
+            $this->getShopTabs(
+                CarbonProductRepository::SHOPS,
+                __('Shops', 'affilicious')
+            ),
+        );
+
+        return $fields;
+    }
+
+    /**
+     * Get the details fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function getDetailsFields()
+    {
+        $fields = array(
+            $this->getDetailGroupTabs(
+                CarbonProductRepository::DETAIL_GROUPS,
+                __('Detail Groups', 'affilicious')
+            )
+        );
+
+        return $fields;
+    }
+
+    /**
+     * Get the review fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function getReviewFields()
+    {
+        $fields = array(
+            CarbonField::make('select', CarbonProductRepository::REVIEW_RATING, __('Rating', 'affilicious'))
+                ->add_options(array(
+                    'none' => sprintf(__('None', 'affilicious'), 0),
+                    '0' => sprintf(__('%s stars', 'affilicious'), 0),
+                    '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
+                    '1' => sprintf(__('%s star', 'affilicious'), 1),
+                    '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
+                    '2' => sprintf(__('%s stars', 'affilicious'), 2),
+                    '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
+                    '3' => sprintf(__('%s stars', 'affilicious'), 3),
+                    '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
+                    '4' => sprintf(__('%s stars', 'affilicious'), 4),
+                    '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
+                    '5' => sprintf(__('%s stars', 'affilicious'), 5),
+                )),
+            CarbonField::make('number', CarbonProductRepository::REVIEW_VOTES, __('Votes', 'affilicious'))
+                ->set_help_text(__('If you want to hide the votes, just leave it empty.', 'affilicious'))
+                ->set_conditional_logic(array(
+                    'relation' => 'AND',
+                    array(
+                        'field' => CarbonProductRepository::REVIEW_RATING,
+                        'value' => 'none',
+                        'compare' => '!=',
+                    )
+                )),
+        );
+
+        return $fields;
+    }
+
+    /**
+     * Get the relation fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function getRelationsFields()
+    {
+        $fields = array(
+            CarbonField::make('relationship', CarbonProductRepository::RELATED_PRODUCTS, __('Related Products', 'affilicious'))
+                ->allow_duplicates(false)
+                ->set_post_type(Product::POST_TYPE),
+            CarbonField::make('relationship', CarbonProductRepository::RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
+                ->allow_duplicates(false)
+                ->set_post_type(Product::POST_TYPE),
+        );
+
+        return $fields;
+    }
+
+    /**
+     * Get the shops tabs
+     *
+     * @since 0.6
+     * @param string $name
+     * @param null|string $label
+     * @return CarbonComplexField
+     */
+    private function getShopTabs($name, $label = null)
+    {
+        $shops = $this->shopRepository->findAll();
+
+        /** @var CarbonComplexField $tabs */
+        $tabs = CarbonField::make('complex', $name, $label)
+            ->set_layout('tabbed')
+            ->setup_labels(array(
+                'plural_name' => __('Shops', 'affilicious'),
+                'singular_name' => __('Shop', 'affilicious'),
+            ));
+
+        foreach ($shops as $shop) {
+            $fields = array(
+                CarbonField::make('hidden', CarbonProductRepository::SHOPS_ID, __('Shop ID', 'affilicious'))
+                    ->set_required(true)
+                    ->set_value($shop->getId()),
+                CarbonField::make('number', CarbonProductRepository::SHOPS_PRICE, __('Price', 'affilicious')),
+                CarbonField::make('number', CarbonProductRepository::SHOPS_OLD_PRICE, __('Old Price', 'affilicious')),
+                CarbonField::make('select', CarbonProductRepository::SHOPS_CURRENCY, __('Currency', 'affilicious'))
+                    ->set_required(true)
+                    ->add_options(array(
+                        'euro' => __('Euro', 'affilicious'),
+                        'us-dollar' => __('US-Dollar', 'affilicious'),
+                    )),
+                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
+                    ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
+                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_LINK, __('Affiliate Link', 'affilicious')),
+            );
+
+            $tabs->add_fields($shop->getTitle(), $fields);
         }
 
-        $tabs = CarbonField::make('complex', CarbonProductRepository::PRODUCT_DETAIL_GROUPS, __('Detail Groups', 'affilicious'))
-            ->set_layout('tabbed');
+        return $tabs;
+    }
 
-        while ($query->have_posts()) {
-            $query->the_post();
+    /**
+     * Get the attribute groups tabs
+     *
+     * @since 0.6
+     * @param string $name
+     * @param null|string $label
+     * @return CarbonComplexField
+     */
+    private function getAttributeGroupTabs($name, $label = null)
+    {
+        $attributeGroups = $this->attributeGroupRepository->findAll();
 
-            $detailGroup = $this->detailGroupRepository->findById(new DetailGroupId($query->post->ID));
-            $title = $detailGroup->getTitle()->getValue();
-            $name = DatabaseHelper::convertTextToKey($title);
+        /** @var CarbonComplexField $tabs */
+        $tabs = CarbonField::make('complex', $name, $label)
+            ->set_layout('tabbed')
+            ->setup_labels(array(
+                'plural_name' => __('Attribute Groups', 'affilicious'),
+                'singular_name' => __('Attribute Group', 'affilicious'),
+            ));
 
-            if (empty($title) || empty($name)) {
+        foreach ($attributeGroups as $attributeGroup) {
+            $title = $attributeGroup->getTitle()->getValue();
+            $key = DatabaseHelper::convertTextToKey($title);
+
+            if (empty($title) || empty($key)) {
                 continue;
             }
 
-            $carbonFields = array();
-            foreach ($detailGroup->getDetails() as $detail) {
+            $attributes = $attributeGroup->getAttributes();
+            $fields = array();
+            foreach ($attributes as $attribute) {
+                $value = $attribute->getValue();
+                $values = explode(';', $value);
+
+                $temp = array();
+                foreach ($values as $value) {
+                    $key = DatabaseHelper::convertTextToKey($value);
+                    $temp[$key] = $value;
+                }
+
+                /** @var CarbonSelectField $field */
+                $field = CarbonField::make(
+                    'select',
+                    $attribute->getKey()->getValue(),
+                    $attribute->getName()->getValue()
+                )->add_options($temp);
+
+                if ($attribute->hasHelpText()) {
+                    $field->help_text($attribute->getHelpText()->getValue());
+                }
+
+                $fields[] = $field;
+            }
+
+            $fieldId = CarbonField::make(
+                'hidden',
+                CarbonProductRepository::VARIANTS_ATTRIBUTE_GROUPS_ID
+            )->set_value($attributeGroup->getId()->getValue());
+
+            $fields = array_merge(array(
+                CarbonProductRepository::VARIANTS_ATTRIBUTE_GROUPS_ID => $fieldId,
+            ), $fields);
+
+            $tabs->add_fields($key, $title, $fields);
+        }
+
+        return $tabs;
+    }
+
+    /**
+     * Get the detail groups tabs
+     *
+     * @since 0.6
+     * @param string $name
+     * @param null|string $label
+     * @return CarbonComplexField
+     */
+    private function getDetailGroupTabs($name, $label = null)
+    {
+        $detailGroups = $this->detailGroupRepository->findAll();
+
+        /** @var CarbonComplexField $tabs */
+        $tabs = CarbonField::make('complex', $name, $label)
+            ->set_layout('tabbed')
+            ->setup_labels(array(
+                'plural_name' => __('Detail Groups', 'affilicious'),
+                'singular_name' => __('Detail Group', 'affilicious'),
+            ));
+
+        foreach ($detailGroups as $detailGroup) {
+            $title = $detailGroup->getTitle()->getValue();
+            $key = DatabaseHelper::convertTextToKey($title);
+
+            if (empty($title) || empty($key)) {
+                continue;
+            }
+
+            $fields = array();
+            $details = $detailGroup->getDetails();
+            foreach ($details as $detail) {
                 $fieldName = sprintf('%s %s', $detail->getName(), $detail->getUnit());
                 $fieldName = trim($fieldName);
 
-                $carbonField = CarbonField::make(
+                $field = CarbonField::make(
                     $detail->getType(),
                     $detail->getKey(),
                     $fieldName
                 );
 
                 if ($detail->hasHelpText()) {
-                    $carbonField->help_text($detail->getHelpText());
+                    $field->help_text($detail->getHelpText());
                 }
 
-                $carbonFields[] = $carbonField;
+                $fields[] = $field;
             }
 
-            $carbonDetailGroupId = CarbonField::make('hidden', 'detail_group_id')
-                ->set_value($detailGroup->getId()->getValue());
+            $carbonDetailGroupId = CarbonField::make(
+                'hidden',
+                CarbonProductRepository::DETAIL_GROUPS_ID
+            )->set_value($detailGroup->getId()->getValue());
 
-            $carbonFields = array_merge(array(
-                'detail_group_id' => $carbonDetailGroupId,
-            ), $carbonFields);
+            $fields = array_merge(array(
+                CarbonProductRepository::DETAIL_GROUPS_ID => $carbonDetailGroupId,
+            ), $fields);
 
-            $tabs->add_fields($name, $title, $carbonFields);
+            $tabs->add_fields($key, $title, $fields);
         }
 
-        $carbonContainer = CarbonContainer::make('post_meta', __('Details', 'affilicious'))
-            ->show_on_post_type(Product::POST_TYPE)
-            ->set_priority('default')
-            ->add_fields(array($tabs));
-
-        apply_filters('affilicious_product_render_details', $carbonContainer);
-    }
-
-	/**
-	 * Render the rating
-	 *
-	 * @since 0.6
-	 */
-    private function renderReview()
-    {
-	    $carbonContainer = CarbonContainer::make('post_meta', __('Review', 'affilicious'))
-          ->show_on_post_type(Product::POST_TYPE)
-          ->set_priority('default')
-          ->add_fields(array(
-              CarbonField::make('select', CarbonProductRepository::PRODUCT_REVIEW_RATING, __('Rating', 'affilicious'))
-                  ->add_options(array(
-                      'none' => sprintf(__('None', 'affilicious'), 0),
-                      '0' => sprintf(__('%s stars', 'affilicious'), 0),
-                      '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
-                      '1' => sprintf(__('%s star', 'affilicious'), 1),
-                      '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
-                      '2' => sprintf(__('%s stars', 'affilicious'), 2),
-                      '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
-                      '3' => sprintf(__('%s stars', 'affilicious'), 3),
-                      '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
-                      '4' => sprintf(__('%s stars', 'affilicious'), 4),
-                      '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
-                      '5' => sprintf(__('%s stars', 'affilicious'), 5),
-                  )),
-	          CarbonField::make('number', CarbonProductRepository::PRODUCT_REVIEW_VOTES, __('Votes', 'affilicious'))
-                  ->set_help_text(__('If you want to hide the votes, just leave it empty.', 'affilicious'))
-                  ->set_conditional_logic(array(
-                      'relation' => 'AND',
-                      array(
-                          'field' => CarbonProductRepository::PRODUCT_REVIEW_RATING,
-                          'value' => 'none',
-                          'compare' => '!=',
-                      )
-                  )),
-          ));
-
-	    apply_filters('affilicious_product_render_rating', $carbonContainer);
-    }
-
-    /**
-     * Render the relation fields
-     *
-     * @since 0.3
-     */
-    private function renderRelations()
-    {
-        $carbonContainer = CarbonContainer::make('post_meta', __('Relations', 'affilicious'))
-            ->show_on_post_type(Product::POST_TYPE)
-            ->set_priority('low')
-            ->add_tab(__('Products', 'affilicious'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_PRODUCTS, __('Related Products', 'affilicious'))
-                    ->allow_duplicates(false)
-                    ->set_post_type(Product::POST_TYPE),
-            ))
-            ->add_tab(__('Accessories', 'affilicious'), array(
-                CarbonField::make('relationship', CarbonProductRepository::PRODUCT_RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
-                    ->allow_duplicates(false)
-                    ->set_post_type(Product::POST_TYPE),
-            ));
-
-        apply_filters('affilicious_product_render_relations', $carbonContainer);
+        return $tabs;
     }
 }

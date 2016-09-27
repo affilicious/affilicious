@@ -41,21 +41,33 @@ if(!defined('ABSPATH')) {
 
 class CarbonProductRepository implements ProductRepositoryInterface
 {
-    const PRODUCT_TYPE = 'affilicious_product_type';
+    const TYPE = 'affilicious_product_type';
 
-    const PRODUCT_SHOPS_ENABLED = 'affilicious_product_shops_enabled';
-    const PRODUCT_SHOPS = 'affilicious_product_shops';
+    const SHOPS = 'affilicious_product_shops';
+    const SHOPS_ID = 'shop_id';
+    const SHOPS_PRICE = 'price';
+    const SHOPS_OLD_PRICE = 'old_price';
+    const SHOPS_CURRENCY = 'currency';
+    const SHOPS_AFFILIATE_ID = 'affiliate_id';
+    const SHOPS_AFFILIATE_LINK = 'affiliate_link';
 
-    const PRODUCT_DETAIL_GROUPS_ENABLED = 'affilicious_product_detail_groups_enabled';
-    const PRODUCT_DETAIL_GROUPS = 'affilicious_product_detail_groups';
+    const DETAIL_GROUPS = 'affilicious_product_detail_groups';
+    const DETAIL_GROUPS_ID = 'detail_group_id';
 
-    const PRODUCT_REVIEW_ENABLED = 'affilicious_product_review_enabled';
-    const PRODUCT_REVIEW_RATING = 'affilicious_product_review_rating';
-    const PRODUCT_REVIEW_VOTES = 'affilicious_product_review_votes';
+    const VARIANTS = 'affilicious_product_variants';
+    const VARIANTS_TITLE = 'title';
+    const VARIANTS_ATTRIBUTE_GROUPS = 'attribute_groups';
+    const VARIANTS_ATTRIBUTE_GROUPS_ID = 'attribute_group_id';
+    const VARIANTS_THUMBNAIL = 'thumbnail';
+    const VARIANTS_SHOPS = 'shops';
 
-    const PRODUCT_RELATED_PRODUCTS = 'affilicious_product_related_products';
-    const PRODUCT_RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
-    const PRODUCT_IMAGE_GALLERY = '_affilicious_product_image_gallery';
+    const REVIEW_RATING = 'affilicious_product_review_rating';
+    const REVIEW_VOTES = 'affilicious_product_review_votes';
+
+    const RELATED_PRODUCTS = 'affilicious_product_related_products';
+    const RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
+
+    const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
     /**
      * @var DetailGroupRepositoryInterface
@@ -134,7 +146,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Type
-        $type = carbon_get_post_meta($post->ID, self::PRODUCT_TYPE);
+        $type = carbon_get_post_meta($post->ID, self::TYPE);
         $type = empty($type) ? ProductType::SIMPLE : $type;
 
         // ID, Title
@@ -161,7 +173,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Shops
-        $shops = carbon_get_post_meta($post->ID, self::PRODUCT_SHOPS, 'complex');
+        $shops = carbon_get_post_meta($post->ID, self::SHOPS, 'complex');
         if (!empty($shops)) {
             foreach ($shops as $shop) {
                 $shop = self::buildShopFromArray($shop);
@@ -173,7 +185,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Details
-        $detailGroups = carbon_get_post_meta($post->ID, self::PRODUCT_DETAIL_GROUPS, 'complex');
+        $detailGroups = carbon_get_post_meta($post->ID, self::DETAIL_GROUPS, 'complex');
         if (!empty($detailGroups)) {
             foreach ($detailGroups as $detailGroup) {
                 $details = self::buildDetailsFromArray($detailGroup);
@@ -185,11 +197,11 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Review
-        $rating = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_RATING);
+        $rating = carbon_get_post_meta($post->ID, self::REVIEW_RATING);
         if(!empty($rating) && $rating !== 'none') {
             $review = new Review(new Rating($rating));
 
-            $votes = carbon_get_post_meta($post->ID, self::PRODUCT_REVIEW_VOTES);
+            $votes = carbon_get_post_meta($post->ID, self::REVIEW_VOTES);
             if (!empty($votes)) {
                 $review->setVotes(new Votes($votes));
             }
@@ -198,7 +210,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Related products
-        $relatedProducts = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_PRODUCTS);
+        $relatedProducts = carbon_get_post_meta($post->ID, self::RELATED_PRODUCTS);
         if (!empty($relatedProducts)) {
             $relatedProducts = array_map(function ($value) {
                 return new ProductId(intval($value));
@@ -208,7 +220,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Related accessories
-        $relatedAccessories = carbon_get_post_meta($post->ID, self::PRODUCT_RELATED_ACCESSORIES);
+        $relatedAccessories = carbon_get_post_meta($post->ID, self::RELATED_ACCESSORIES);
         if (!empty($relatedAccessories)) {
             $relatedAccessories = array_map(function ($value) {
                 return new ProductId(intval($value));
@@ -218,7 +230,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
         }
 
         // Image gallery
-        $imageGallery = get_post_meta($post->ID, self::PRODUCT_IMAGE_GALLERY);
+        $imageGallery = get_post_meta($post->ID, self::IMAGE_GALLERY);
         if (!empty($imageGallery)) {
             $imageIds = explode(',', $imageGallery[0]);
             $imageIds = array_map(function ($value) {
@@ -247,7 +259,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
      */
     private function buildShopFromArray(array $rawShop)
     {
-        $shopId = !empty($rawShop['shop_id']) ? intval($rawShop['shop_id']) : null;
+        $shopId = !empty($rawShop[self::SHOPS_ID]) ? intval($rawShop[self::SHOPS_ID]) : null;
         $shopTemplate = $this->shopRepository->findById(new ShopTemplateId($shopId));
 
         if (empty($shopId) || empty($shopTemplate)) {
@@ -256,11 +268,11 @@ class CarbonProductRepository implements ProductRepositoryInterface
 
         $title = $shopTemplate->getTitle()->getValue();
         $thumbnail = $shopTemplate->getThumbnail();
-        $price = !empty($rawShop['price']) ? floatval($rawShop['price']) : null;
-        $oldPrice = !empty($rawShop['old_price']) ? floatval($rawShop['old_price']) : null;
-        $currency = !empty($rawShop['currency']) ? $rawShop['currency'] : null;
-        $affiliateId = !empty($rawShop['affiliate_id']) ? $rawShop['affiliate_id'] : null;
-        $affiliateLink = !empty($rawShop['affiliate_link']) ? $rawShop['affiliate_link'] : null;
+        $price = !empty($rawShop[self::SHOPS_PRICE]) ? floatval($rawShop[self::SHOPS_PRICE]) : null;
+        $oldPrice = !empty($rawShop[self::SHOPS_OLD_PRICE]) ? floatval($rawShop[self::SHOPS_OLD_PRICE]) : null;
+        $currency = !empty($rawShop[self::SHOPS_CURRENCY]) ? $rawShop[self::SHOPS_CURRENCY] : null;
+        $affiliateId = !empty($rawShop[self::SHOPS_AFFILIATE_ID]) ? $rawShop[self::SHOPS_AFFILIATE_ID] : null;
+        $affiliateLink = !empty($rawShop[self::SHOPS_AFFILIATE_LINK]) ? $rawShop[self::SHOPS_AFFILIATE_LINK] : null;
 
         $shop = new Shop(
             new ShopId($shopId),

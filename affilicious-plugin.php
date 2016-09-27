@@ -287,6 +287,7 @@ class AffiliciousPlugin
         $this->container['affilicious.product.setup.product'] = function ($c) {
             return new ProductSetup(
                 $c['affilicious.detail.repository.detail_group'],
+                $c['affilicious.attribute.repository.attribute_group'],
                 $c['affilicious.shop.repository.shop']
             );
         };
