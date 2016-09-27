@@ -121,12 +121,12 @@ class ProductSetup implements SetupInterface
         CarbonContainer::make('post_meta', __('Product'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('core')
-            ->add_tab(__('General'), $this->getGeneralFields())
-            ->add_tab(__('Variants'), $this->getVariantsFields())
-            ->add_tab(__('Shops'), $this->getShopsFields())
-            ->add_tab(__('Details'), $this->getDetailsFields())
-            ->add_tab(__('Review'), $this->getReviewFields())
-            ->add_tab(__('Relations'), $this->getRelationsFields());
+            ->add_tab(__('General', 'affilicious'), $this->getGeneralFields())
+            ->add_tab(__('Variants', 'affilicious'), $this->getVariantsFields())
+            ->add_tab(__('Shops', 'affilicious'), $this->getShopsFields())
+            ->add_tab(__('Details', 'affilicious'), $this->getDetailsFields())
+            ->add_tab(__('Review', 'affilicious'), $this->getReviewFields())
+            ->add_tab(__('Relations', 'affilicious'), $this->getRelationsFields());
     }
 
     /**
@@ -158,7 +158,6 @@ class ProductSetup implements SetupInterface
     {
         $fields = array(
             CarbonField::make('complex', CarbonProductRepository::VARIANTS, __('Variants', 'affilicious'))
-        
                 ->setup_labels(array(
                     'plural_name' => __('Variants', 'affilicious'),
                     'singular_name' => __('Variant', 'affilicious'),
