@@ -279,11 +279,11 @@ class AffiliciousPlugin
             return new ProductSetup($c['affilicious.product.repository.detail_group'], $c['affilicious.product.repository.shop']);
         };
 
-        $this->container['affilicious.product.setup.shop'] = function () {
+        $this->container['affilicious.shop.setup.shop'] = function () {
             return new ShopSetup();
         };
 
-        $this->container['affilicious.product.setup.detail_group'] = function () {
+        $this->container['affilicious.detail.setup.detail_group'] = function () {
             return new DetailGroupSetup();
         };
 
@@ -354,18 +354,18 @@ class AffiliciousPlugin
         add_action('after_setup_theme', array($this->container['affilicious.common.setup.carbon'], 'crb_init_carbon_field_hidden'), 15);
 
         // Hook the shops
-        add_action('init', array($this->container['affilicious.product.setup.shop'], 'init'), 1);
-        add_action('init', array($this->container['affilicious.product.setup.shop'], 'render'), 2);
-        add_action('manage_shop_posts_columns', array($this->container['affilicious.product.setup.shop'], 'columnsHead'), 9, 2);
-        add_action('manage_shop_posts_custom_column', array($this->container['affilicious.product.setup.shop'], 'columnsContent'), 10, 2);
+        add_action('init', array($this->container['affilicious.shop.setup.shop'], 'init'), 1);
+        add_action('init', array($this->container['affilicious.shop.setup.shop'], 'render'), 2);
+        add_action('manage_shop_posts_columns', array($this->container['affilicious.shop.setup.shop'], 'columnsHead'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array($this->container['affilicious.shop.setup.shop'], 'columnsContent'), 10, 2);
 
         // Hook the attribute groups
         add_action('init', array($this->container['affilicious.attribute.setup.attribute_group'], 'init'), 3);
         add_action('init', array($this->container['affilicious.attribute.setup.attribute_group'], 'render'), 4);
 
         // Hook the detail groups
-        add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'init'), 3);
-        add_action('init', array($this->container['affilicious.product.setup.detail_group'], 'render'), 4);
+        add_action('init', array($this->container['affilicious.detail.setup.detail_group'], 'init'), 3);
+        add_action('init', array($this->container['affilicious.detail.setup.detail_group'], 'render'), 4);
 
         // Hook the products
         add_action('init', array($this->container['affilicious.product.setup.product'], 'init'), 5);
