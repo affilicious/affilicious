@@ -534,6 +534,7 @@ class Product extends AbstractEntity
     public function isEqualTo($object)
     {
         return
-            $object instanceof self;
+            $object instanceof self &&
+            $this->getId()->isEqualTo($object->getId());
     }
 }

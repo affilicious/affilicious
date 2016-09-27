@@ -36,8 +36,10 @@ use Affilicious\Detail\Application\Setup\DetailGroupSetup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopRepository;
 use Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailGroupRepository;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductVariantRepository;
 use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeGroupRepository;
 use Affilicious\Attribute\Application\Setup\AttributeGroupSetup;
+use Affilicious\Product\Application\Setup\ProductVariantSetup;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Common\Application\Setup\FeedbackSetup;
 use Affilicious\Settings\Application\Setting\AffiliciousSettings;
@@ -258,16 +260,23 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.repository.product'] = function ($c) {
             return new CarbonProductRepository(
-                $c['affilicious.product.repository.detail_group'],
-                $c['affilicious.product.repository.shop']
+                $c['affilicious.detail.repository.detail_group'],
+                $c['affilicious.shop.repository.shop']
             );
         };
 
-        $this->container['affilicious.product.repository.shop'] = function () {
+        $this->container['affilicious.product.repository.product_variant'] = function ($c) {
+            return new CarbonProductVariantRepository(
+                $c['affilicious.detail.repository.detail_group'],
+                $c['affilicious.shop.repository.shop']
+            );
+        };
+
+        $this->container['affilicious.shop.repository.shop'] = function () {
             return new WordpressShopRepository();
         };
 
-        $this->container['affilicious.product.repository.detail_group'] = function () {
+        $this->container['affilicious.detail.repository.detail_group'] = function () {
             return new CarbonDetailGroupRepository();
         };
 
@@ -276,7 +285,14 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.setup.product'] = function ($c) {
-            return new ProductSetup($c['affilicious.product.repository.detail_group'], $c['affilicious.product.repository.shop']);
+            return new ProductSetup(
+                $c['affilicious.detail.repository.detail_group'],
+                $c['affilicious.shop.repository.shop']
+            );
+        };
+
+        $this->container['affilicious.product.setup.product_variant'] = function ($c) {
+            return new ProductVariantSetup();
         };
 
         $this->container['affilicious.shop.setup.shop'] = function () {
@@ -370,6 +386,10 @@ class AffiliciousPlugin
         // Hook the products
         add_action('init', array($this->container['affilicious.product.setup.product'], 'init'), 5);
         add_action('init', array($this->container['affilicious.product.setup.product'], 'render'), 6);
+
+        // Hook the product variants
+        add_action('init', array($this->container['affilicious.product.setup.product_variant'], 'init'), 5);
+        add_action('init', array($this->container['affilicious.product.setup.product_variant'], 'render'), 6);
 
 	    // Hook the settings
 	    add_action('init', array($this->container['affilicious.settings.setting.affilicious'], 'render'), 10);

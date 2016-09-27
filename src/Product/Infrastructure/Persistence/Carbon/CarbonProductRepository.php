@@ -127,7 +127,7 @@ class CarbonProductRepository implements ProductRepositoryInterface
      * @param \WP_Post $post
      * @return Product
      */
-    private function buildProductFromPost(\WP_Post $post)
+    protected function buildProductFromPost(\WP_Post $post)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
