@@ -2,99 +2,106 @@
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
-use Affilicious\Common\Domain\Model\Image\Height;
-use Affilicious\Common\Domain\Model\Image\Image;
-use Affilicious\Common\Domain\Model\Image\ImageId;
-use Affilicious\Common\Domain\Model\Image\Source;
-use Affilicious\Common\Domain\Model\Image\Width;
-use Affilicious\Detail\Domain\Model\DetailGroupId;
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
-use Affilicious\Product\Domain\Model\Detail\Detail;
-use Affilicious\Product\Domain\Model\Detail\Key;
-use Affilicious\Product\Domain\Model\Detail\Name;
-use Affilicious\Product\Domain\Model\Detail\Type;
-use Affilicious\Product\Domain\Model\Detail\Unit;
-use Affilicious\Product\Domain\Model\Detail\Value;
+use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
+use Affilicious\Product\Domain\Exception\ProductVariantNotFoundException;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
-use Affilicious\Product\Domain\Model\Review\Rating;
-use Affilicious\Product\Domain\Model\Review\Review;
-use Affilicious\Product\Domain\Model\Review\Votes;
-use Affilicious\Product\Domain\Model\Shop\AffiliateId;
-use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
-use Affilicious\Product\Domain\Model\Shop\Currency;
-use Affilicious\Product\Domain\Model\Shop\Price;
-use Affilicious\Product\Domain\Model\Shop\Shop;
-use Affilicious\Product\Domain\Model\Shop\ShopId;
-use Affilicious\Product\Domain\Model\Content as ProductContent;
-use Affilicious\Product\Domain\Model\Shop\Title as ShopTitle;
-use Affilicious\Product\Domain\Model\Title as ProductTitle;
-use Affilicious\Product\Domain\Model\Type as ProductType;
-use Affilicious\Detail\Domain\Model\Detail\Type as DetailType;
-use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
-use Affilicious\Shop\Domain\Model\ShopId as ShopTemplateId;
+use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
+use Affilicious\Product\Domain\Model\Variant\ProductVariant;
+use Affilicious\Product\Domain\Model\Variant\ProductVariantRepositoryInterface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class CarbonProductRepository implements ProductRepositoryInterface
+class CarbonProductRepository extends AbstractCarbonProductRepository implements ProductRepositoryInterface
 {
-    const TYPE = 'affilicious_product_type';
-
-    const SHOPS = 'affilicious_product_shops';
-    const SHOPS_ID = 'shop_id';
-    const SHOPS_PRICE = 'price';
-    const SHOPS_OLD_PRICE = 'old_price';
-    const SHOPS_CURRENCY = 'currency';
-    const SHOPS_AFFILIATE_ID = 'affiliate_id';
-    const SHOPS_AFFILIATE_LINK = 'affiliate_link';
-
-    const DETAIL_GROUPS = 'affilicious_product_detail_groups';
-    const DETAIL_GROUPS_ID = 'detail_group_id';
-
-    const VARIANTS = 'affilicious_product_variants';
-    const VARIANTS_TITLE = 'title';
-    const VARIANTS_ATTRIBUTE_GROUPS = 'attribute_groups';
-    const VARIANTS_ATTRIBUTE_GROUPS_ID = 'attribute_group_id';
-    const VARIANTS_THUMBNAIL = 'thumbnail';
-    const VARIANTS_SHOPS = 'shops';
-
-    const REVIEW_RATING = 'affilicious_product_review_rating';
-    const REVIEW_VOTES = 'affilicious_product_review_votes';
-
-    const RELATED_PRODUCTS = 'affilicious_product_related_products';
-    const RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
-
-    const IMAGE_GALLERY = '_affilicious_product_image_gallery';
-
     /**
-     * @var DetailGroupRepositoryInterface
+     * @var ProductVariantRepositoryInterface
      */
-    private $detailGroupRepository;
-
-    /**
-     * @var ShopRepositoryInterface
-     */
-    private $shopRepository;
+    protected $productVariantRepository;
 
     /**
      * @since 0.6
+     * @param ProductVariantRepositoryInterface $productVariantRepository
      * @param DetailGroupRepositoryInterface $detailGroupRepository
-     * @param ShopRepositoryInterface $shopRepository
+     * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
+        ProductVariantRepositoryInterface $productVariantRepository,
         DetailGroupRepositoryInterface $detailGroupRepository,
-        ShopRepositoryInterface $shopRepository
+        ShopFactoryInterface $shopFactory
     )
     {
-        $this->detailGroupRepository = $detailGroupRepository;
-        $this->shopRepository = $shopRepository;
+        $this->productVariantRepository = $productVariantRepository;
+        parent::__construct($detailGroupRepository, $shopFactory);
     }
 
     /**
      * @inheritdoc
+     * @since 0.6
+     */
+    public function store(Product $product)
+    {
+        // Only the post type 'product' is allowed.
+        if($product instanceof ProductVariant) {
+            throw new InvalidPostTypeException(ProductVariant::POST_TYPE, Product::POST_TYPE);
+        }
+
+        // Store the product into the database
+        $defaultArgs = $this->getDefaultArgs($product);
+        $args = $this->getArgs($product, $defaultArgs);
+        $id = wp_insert_post($args);
+
+        // The ID and the name might has changed. Update both values
+        if(empty($defaultArgs)) {
+            $post = get_post($id, OBJECT);
+            $product->setId(new ProductId($post->ID));
+            $product->setName(new Name($post->post_name));
+        }
+
+        // Store the product meta
+        $this->storePostMeta($id, self::TYPE, $product->getType());
+        $this->storeVariants($product);
+
+        return $product;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     * @throws ProductVariantNotFoundException
+     * @throws InvalidPostTypeException
+     * @throws FailedToDeleteProductException
+     */
+    public function delete(ProductId $productVariantId)
+    {
+        $post = get_post($productVariantId->getValue());
+        if ($post === null) {
+            throw new ProductVariantNotFoundException($productVariantId);
+        }
+
+        if($post->post_type != Product::POST_TYPE) {
+            throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
+        }
+
+        $post = wp_delete_post($productVariantId->getValue(), false);
+        if(empty($post)) {
+            throw new FailedToDeleteProductException($productVariantId);
+        }
+
+        $product = $this->buildProductFromPost($post);
+        $product->setId(null);
+
+        return $product;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
      */
     public function findById(ProductId $productId)
     {
@@ -102,13 +109,14 @@ class CarbonProductRepository implements ProductRepositoryInterface
         if ($post === null) {
             return null;
         }
-
         $product = self::buildProductFromPost($post);
+
         return $product;
     }
 
     /**
      * @inheritdoc
+     * @since 0.6
      */
     public function findAll()
     {
@@ -133,256 +141,13 @@ class CarbonProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * Convert the Wordpress post into a product
+     * Store the variants for the product
      *
-     * @since 0.3
-     * @param \WP_Post $post
-     * @return Product
-     */
-    protected function buildProductFromPost(\WP_Post $post)
-    {
-        if($post->post_type !== Product::POST_TYPE) {
-            throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
-        }
-
-        // Type
-        $type = carbon_get_post_meta($post->ID, self::TYPE);
-        $type = empty($type) ? ProductType::SIMPLE : $type;
-
-        // ID, Title
-        $product = new Product(
-            new ProductId($post->ID),
-            new ProductType($type),
-            new ProductTitle($post->post_title)
-        );
-
-        // Thumbnail
-        $thumbnailId = get_post_thumbnail_id($post->ID);
-        if (!empty($thumbnailId)) {
-            $thumbnail = self::buildImageFromAttachmentId($thumbnailId);
-
-            if($thumbnail !== null) {
-                $product->setThumbnail($thumbnail);
-            }
-        }
-
-        // Content
-        $content = $post->post_content;
-        if(!empty($content)) {
-            $product->setContent(new ProductContent($content));
-        }
-
-        // Shops
-        $shops = carbon_get_post_meta($post->ID, self::SHOPS, 'complex');
-        if (!empty($shops)) {
-            foreach ($shops as $shop) {
-                $shop = self::buildShopFromArray($shop);
-
-                if ($shop !== null) {
-                    $product->addShop($shop);
-                }
-            }
-        }
-
-        // Details
-        $detailGroups = carbon_get_post_meta($post->ID, self::DETAIL_GROUPS, 'complex');
-        if (!empty($detailGroups)) {
-            foreach ($detailGroups as $detailGroup) {
-                $details = self::buildDetailsFromArray($detailGroup);
-
-                if (!empty($details)) {
-                    $product->setDetails($details);
-                }
-            }
-        }
-
-        // Review
-        $rating = carbon_get_post_meta($post->ID, self::REVIEW_RATING);
-        if(!empty($rating) && $rating !== 'none') {
-            $review = new Review(new Rating($rating));
-
-            $votes = carbon_get_post_meta($post->ID, self::REVIEW_VOTES);
-            if (!empty($votes)) {
-                $review->setVotes(new Votes($votes));
-            }
-
-            $product->setReview($review);
-        }
-
-        // Related products
-        $relatedProducts = carbon_get_post_meta($post->ID, self::RELATED_PRODUCTS);
-        if (!empty($relatedProducts)) {
-            $relatedProducts = array_map(function ($value) {
-                return new ProductId(intval($value));
-            }, $relatedProducts);
-
-            $product->setRelatedProducts($relatedProducts);
-        }
-
-        // Related accessories
-        $relatedAccessories = carbon_get_post_meta($post->ID, self::RELATED_ACCESSORIES);
-        if (!empty($relatedAccessories)) {
-            $relatedAccessories = array_map(function ($value) {
-                return new ProductId(intval($value));
-            }, $relatedAccessories);
-
-            $product->setRelatedAccessories($relatedAccessories);
-        }
-
-        // Image gallery
-        $imageGallery = get_post_meta($post->ID, self::IMAGE_GALLERY);
-        if (!empty($imageGallery)) {
-            $imageIds = explode(',', $imageGallery[0]);
-            $imageIds = array_map(function ($value) {
-                return intval($value);
-            }, $imageIds);
-
-            $images = array();
-            foreach ($imageIds as $imageId) {
-                $image = self::buildImageFromAttachmentId($imageId);
-
-                if($image !== null) {
-                    $images[] = $image;
-                }
-            }
-
-            $product->setImageGallery($images);
-        }
-
-        return $product;
-    }
-
-    /**
      * @since 0.6
-     * @param array $rawShop
-     * @return null|Shop
+     * @param Product $product
      */
-    private function buildShopFromArray(array $rawShop)
+    protected function storeVariants(Product $product)
     {
-        $shopId = !empty($rawShop[self::SHOPS_ID]) ? intval($rawShop[self::SHOPS_ID]) : null;
-        $shopTemplate = $this->shopRepository->findById(new ShopTemplateId($shopId));
 
-        if (empty($shopId) || empty($shopTemplate)) {
-            return null;
-        }
-
-        $title = $shopTemplate->getTitle()->getValue();
-        $thumbnail = $shopTemplate->getThumbnail();
-        $price = !empty($rawShop[self::SHOPS_PRICE]) ? floatval($rawShop[self::SHOPS_PRICE]) : null;
-        $oldPrice = !empty($rawShop[self::SHOPS_OLD_PRICE]) ? floatval($rawShop[self::SHOPS_OLD_PRICE]) : null;
-        $currency = !empty($rawShop[self::SHOPS_CURRENCY]) ? $rawShop[self::SHOPS_CURRENCY] : null;
-        $affiliateId = !empty($rawShop[self::SHOPS_AFFILIATE_ID]) ? $rawShop[self::SHOPS_AFFILIATE_ID] : null;
-        $affiliateLink = !empty($rawShop[self::SHOPS_AFFILIATE_LINK]) ? $rawShop[self::SHOPS_AFFILIATE_LINK] : null;
-
-        $shop = new Shop(
-            new ShopId($shopId),
-            new ShopTitle($title),
-            new Currency($currency)
-        );
-
-        if($shopTemplate->hasThumbnail()) {
-            $shop->setThumbnail($thumbnail);
-        }
-
-        if(!empty($price)) {
-            $shop->setPrice(new Price($price, new Currency($currency)));
-        }
-
-        if(!empty($oldPrice)) {
-            $shop->setOldPrice(new Price($oldPrice, new Currency($currency)));
-        }
-
-        if(!empty($affiliateId)) {
-            $shop->setAffiliateId(new AffiliateId($affiliateId));
-        }
-
-        if(!empty($affiliateLink)) {
-            $shop->setAffiliateLink(new AffiliateLink($affiliateLink));
-        }
-
-        return $shop;
-    }
-
-    /**
-     * @since 0.6
-     * @param array $rawDetailGroup
-     * @return Detail[]
-     */
-    private function buildDetailsFromArray(array $rawDetailGroup)
-    {
-        $detailGroupId = !empty($rawDetailGroup['detail_group_id']) ? intval($rawDetailGroup['detail_group_id']) : null;
-        $detailGroup = $this->detailGroupRepository->findById(new DetailGroupId($detailGroupId));
-
-        if (empty($detailGroupId) || empty($detailGroup)) {
-            return array();
-        }
-
-        $details = array();
-
-        foreach ($detailGroup->getDetails() as $detail) {
-            $detailKey = $detail->getKey()->getValue();
-            $detailGroupKey = $detailGroup->getKey()->getValue();
-            $key =  $detailGroupKey . '_' . $detailKey;
-            $name = $detail->getName()->getValue();
-            $unit = $detail->hasUnit() ? $detail->getUnit()->getValue() : null;
-            $type = $detail->getType()->getValue();
-            $value = !empty($rawDetailGroup[$detailKey]) ? $rawDetailGroup[$detailKey] : null;
-
-            $temp = new Detail(
-                new Key($key),
-                new Type($type),
-                new Name($name)
-            );
-
-            if(!empty($unit)) {
-                $temp->setUnit(new Unit($unit));
-            }
-
-            if(!empty($value)) {
-                // Convert the string into a float, if the type is numeric
-                $value = $detail->getType()->isEqualTo(DetailType::number()) ? floatval($value) : $value;
-
-                $temp->setValue(new Value($value));
-            }
-
-            $details[] = $temp;
-        }
-
-        return $details;
-    }
-
-    /**
-     * @since 0.6
-     * @param int $attachmentId
-     * @return null|Image
-     */
-    private function buildImageFromAttachmentId($attachmentId)
-    {
-        $attachment = wp_get_attachment_image_src($attachmentId);
-        if(empty($attachment) && count($attachment) == 0) {
-            return null;
-        }
-
-        $source = $attachment[0];
-        if(empty($source)) {
-            return null;
-        }
-
-        $image = new Image(
-            new ImageId($attachmentId),
-            new Source($source)
-        );
-
-        $width = $attachment[1];
-        if(!empty($width)) {
-            $image->setWidth(new Width($width));
-        }
-
-        $height = $attachment[2];
-        if(!empty($height)) {
-            $image->setHeight(new Height($height));
-        }
-
-        return $image;
     }
 }

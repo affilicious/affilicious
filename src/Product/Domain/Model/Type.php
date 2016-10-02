@@ -22,7 +22,7 @@ class Type extends AbstractValueObject
 	 * @since 0.6
 	 * @return Type
 	 */
-	public static function complex()
+	public static function variants()
 	{
 		return new self(self::VARIANTS);
 	}

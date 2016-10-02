@@ -9,13 +9,13 @@ class PostNotFoundException extends \RuntimeException
 {
     /**
      * @since 0.3
-     * @param string|int $postId
+     * @param string|int $postVariantId
      */
-    public function __construct($postId)
+    public function __construct($postVariantId)
     {
         parent::__construct(sprintf(
             "The post #%s wasn't found.",
-            $postId
+            $postVariantId
         ));
     }
 }

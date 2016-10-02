@@ -73,7 +73,7 @@ class AttributeGroupSetup implements SetupInterface
             ->add_fields(array(
                 CarbonField::make('complex', CarbonAttributeGroupRepository::ATTRIBUTES, __('Attributes', 'affilicious'))
                     ->add_fields(array(
-                        CarbonField::make('text', CarbonAttributeGroupRepository::ATTRIBUTE_NAME, __('Name', 'affilicious'))
+                        CarbonField::make('text', CarbonAttributeGroupRepository::ATTRIBUTE_TITLE, __('Title', 'affilicious'))
                             ->set_required(true),
                         CarbonField::make('select', CarbonAttributeGroupRepository::ATTRIBUTE_TYPE, __('Type', 'affilicious'))
                             ->set_required(true)
@@ -85,8 +85,8 @@ class AttributeGroupSetup implements SetupInterface
                         CarbonField::make('text', CarbonAttributeGroupRepository::ATTRIBUTE_HELP_TEXT, __('Help Text', 'affilicious'))
                     ))
                     ->set_header_template('
-                        <# if (' . CarbonAttributeGroupRepository::ATTRIBUTE_NAME . ') { #>
-                            {{ ' . CarbonAttributeGroupRepository::ATTRIBUTE_NAME . ' }}
+                        <# if (' . CarbonAttributeGroupRepository::ATTRIBUTE_TITLE . ') { #>
+                            {{ ' . CarbonAttributeGroupRepository::ATTRIBUTE_TITLE . ' }}
                         <# } #>
                     ')
             ));

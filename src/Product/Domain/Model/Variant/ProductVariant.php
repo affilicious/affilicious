@@ -1,12 +1,14 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Variant;
 
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Product\Domain\Model\Content;
 use Affilicious\Product\Domain\Model\Detail\Detail;
-use Affilicious\Product\Domain\Model\Detail\Key;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\Review\Review;
-use Affilicious\Product\Domain\Model\Title;
+use Affilicious\Product\Domain\Model\Type;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -23,22 +25,70 @@ class ProductVariant extends Product
     protected $parent;
 
     /**
-     * @param ProductId $id
      * @param Product $parent
      * @param Title $title
+     * @param Name $name
      */
-    public function __construct(ProductId $id, Product $parent, Title $title)
+    public function __construct(Product $parent, Title $title, Name $name)
     {
-        parent::__construct($id, $parent->getType(), $title);
+        parent::__construct($title, $name);
         $this->parent = $parent;
     }
 
     /**
+     * Get the parent product
+     *
+     * @since 0.6
      * @return Product
      */
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function setType(Type $type)
+    {
+        return $this->parent->setType($type);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function getType()
+    {
+        return $this->parent->getType();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function hasContent()
+    {
+        return $this->parent->hasContent();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function getContent()
+    {
+        return $this->parent->getContent();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function setContent(Content $content)
+    {
+        $this->parent->setContent($content);
     }
 
     /**
@@ -147,6 +197,21 @@ class ProductVariant extends Product
     public function setRelatedAccessories($relatedAccessories)
     {
         return $this->parent->setRelatedProducts($relatedAccessories);
+    }
+
+    /**
+     * Get the raw Wordpress post
+     *
+     * @since 0.6
+     * @return null|\WP_Post
+     */
+    public function getRawPost()
+    {
+        if(!$this->hasId()) {
+            return null;
+        }
+
+        return get_post($this->id->getValue());
     }
 
     /**

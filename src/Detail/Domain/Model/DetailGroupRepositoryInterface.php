@@ -14,7 +14,7 @@ interface DetailGroupRepositoryInterface extends RepositoryInterface
      *
      * @since 0.3
      * @param DetailGroupId $detailGroupId
-     * @return DetailGroup|null
+     * @return null|DetailGroup
      */
     public function findById(DetailGroupId $detailGroupId);
 

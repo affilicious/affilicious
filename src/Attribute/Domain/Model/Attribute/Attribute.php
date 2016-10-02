@@ -2,6 +2,8 @@
 namespace Affilicious\Attribute\Domain\Model\Attribute;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -9,15 +11,15 @@ if (!defined('ABSPATH')) {
 
 class Attribute extends AbstractAggregate
 {
-	/**
+    /**
+     * @var Title
+     */
+    private $title;
+
+    /**
 	 * @var Key
 	 */
 	private $key;
-
-	/**
-	 * @var Name
-	 */
-	private $name;
 
 	/**
 	 * @var Type
@@ -37,16 +39,25 @@ class Attribute extends AbstractAggregate
     /**
      * @since 0.6
      * @param Key $key
-     * @param Name $name
+     * @param Title $title
      * @param Type $type
      * @param Value $value
      */
-	public function __construct(Key $key, Name $name, Type $type, Value $value)
+	public function __construct(Title $title, Key $key, Type $type, Value $value)
 	{
-	    $this->key = $key;
-		$this->name = $name;
+        $this->title = $title;
+        $this->key = $key;
 		$this->type = $type;
         $this->value = $value;
+    }
+
+    /**
+     * @since 0.6
+     * @return Title
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
 	/**
@@ -56,15 +67,6 @@ class Attribute extends AbstractAggregate
 	public function getKey()
 	{
 		return $this->key;
-	}
-
-	/**
-	 * @since 0.6
-	 * @return Name
-	 */
-	public function getName()
-	{
-		return $this->name;
 	}
 
 	/**
@@ -119,7 +121,7 @@ class Attribute extends AbstractAggregate
 	{
 		return
 			$object instanceof self &&
-	        $this->getName()->isEqualTo($object->getName()) &&
+	        $this->getTitle()->isEqualTo($object->getTitle()) &&
 	        $this->getType()->isEqualTo($object->getType()) &&
 	        $this->getValue()->isEqualTo($object->getValue()) &&
 			($this->hasHelpText() && $this->getHelpText()->isEqualTo($object->getHelpText()) || !$object->hasHelpText());

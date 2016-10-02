@@ -1,14 +1,14 @@
 <?php
 namespace Affilicious\Detail\Domain\Model;
 
-use Affilicious\Common\Application\Helper\DatabaseHelper;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Detail\Domain\Model\Detail\Detail;
-use Affilicious\Detail\Domain\Model\Detail\Key as DetailKey;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
-
 
 class DetailGroup
 {
@@ -20,14 +20,19 @@ class DetailGroup
 	private $id;
 
     /**
+     * @var Title
+     */
+    private $title;
+
+    /**
+     * @var Name
+     */
+    private $name;
+
+    /**
      * @var Key
      */
     private $key;
-
-	/**
-	 * @var Title
-	 */
-	private $title;
 
     /**
      * @var Detail[]
@@ -36,19 +41,32 @@ class DetailGroup
 
     /**
      * @since 0.6
-     * @param DetailGroupId $id
-     * @param Key $key
      * @param Title $title
+     * @param Name $name
+     * @param Key $key
      */
-    public function __construct(DetailGroupId $id, Key $key, Title $title)
+    public function __construct(Title $title, Name $name, Key $key)
     {
-	    $this->id = $id;
-        $this->key = $key;
         $this->title = $title;
+        $this->name = $name;
+        $this->key = $key;
         $this->details = array();
     }
 
     /**
+     * Check if the detail group has an ID
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasId()
+    {
+        return $this->id !== null;
+    }
+
+    /**
+     * Get the detail group ID
+     *
      * @since 0.6
      * @return DetailGroupId
      */
@@ -58,6 +76,22 @@ class DetailGroup
     }
 
     /**
+     * Set the detail group ID
+     *
+     * Note that you just get the ID in Wordpress, if you store a post.
+     * Normally, you place the ID to the constructor, but it's not possible here
+     *
+     * @since 0.6
+     * @param null|DetailGroupId $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get the title
+     *
      * @since 0.6
      * @return Title
      */
@@ -66,13 +100,60 @@ class DetailGroup
         return $this->title;
     }
 
+    /**
+     * Set the title
+     *
+     * @since 0.6
+     * @param Title $title
+     */
+    public function setTitle(Title $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get the name for url usage
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the name for the url usage
+     *
+     * @since 0.6
+     * @param Name $name
+     */
+    public function setName(Name $name)
+    {
+        $this->name = $name;
+    }
+
 	/**
+     * Get the key for database usage
+     *
 	 * @return Key
 	 */
 	public function getKey()
 	{
 		return $this->key;
 	}
+
+    /**
+     * Check if a detail with the given key exists
+     *
+     * @since 0.6
+     * @param Key $key
+     * @return bool
+     */
+    public function hasDetail(Key $key)
+    {
+        return isset($this->details[$key->getValue()]);
+    }
 
     /**
      * Add a new detail
@@ -82,41 +163,18 @@ class DetailGroup
      */
     public function addDetail(Detail $detail)
     {
-        $this->details[] = $detail;
+        $this->details[$detail->getKey()->getValue()] = $detail;
     }
 
     /**
      * Remove an existing detail by the key
      *
      * @since 0.6
-     * @param DetailKey $key
+     * @param Key $key
      */
-    public function removeDetail(DetailKey $key)
+    public function removeDetail(Key $key)
     {
-        foreach ($this->details as $index => $detail) {
-        	if($detail->getKey()->isEqualTo($key)) {
-		        unset($this->details[$index]);
-		        break;
-	        }
-        }
-    }
-
-    /**
-     * Check if a detail with the given key exists
-     *
-     * @since 0.6
-     * @param DetailKey $key
-     * @return bool
-     */
-    public function hasDetail(DetailKey $key)
-    {
-        foreach ($this->details as $detail) {
-	        if($detail->getKey()->isEqualTo($key)) {
-		        return true;
-	        }
-        }
-
-        return false;
+        unset($this->details[$key->getValue()]);
     }
 
     /**
@@ -124,15 +182,13 @@ class DetailGroup
      * You don't need to check for the key, but you will get null on non-existence
      *
      * @since 0.3
-     * @param DetailKey $key
+     * @param Key $key
      * @return null|Detail
      */
-    public function getDetail(DetailKey $key)
+    public function getDetail(Key $key)
     {
-        foreach ($this->details as $detail) {
-	        if($detail->getKey()->isEqualTo($key)) {
-		        return $detail;
-	        }
+        if($this->hasDetail($key)) {
+            return $this->details[$key->getValue()];
         }
 
         return null;
@@ -171,6 +227,10 @@ class DetailGroup
      */
     public function getRawPost()
     {
+        if(!$this->hasId()) {
+            return null;
+        }
+
         return get_post($this->id->getValue());
     }
 }

@@ -1,14 +1,13 @@
 <?php
-namespace Affilicious\Attribute\Domain\Model;
+namespace Affilicious\Common\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractValueObject;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Key extends AbstractValueObject
+class Name extends AbstractValueObject
 {
 	/**
 	 * @inheritdoc

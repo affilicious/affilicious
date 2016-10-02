@@ -1,5 +1,23 @@
 jQuery(function ($) {
-    // Product gallery file uploads.
+    var carbon = window.carbon;
+    if (typeof carbon.fields === 'undefined') {
+        return false;
+    }
+    function toggleTabs() {
+        // Supports multiple languages
+        var select = $('select[name="_affilicious_product_type"]'), value = select.val(), container = $('.container-Product'), variantText = select.children('option[value="variants"]').text().trim().toLowerCase(), variants = container.find('a[data-id="' + variantText + '"]').parent(), shops = container.find('a[data-id="shops"]').parent();
+        if (value === 'variants') {
+            variants.show();
+            shops.hide();
+        }
+        else {
+            variants.hide();
+            shops.show();
+        }
+    }
+    carbon.views.Product.$el.children('select[name="_affilicious_product_type"]').ready(toggleTabs);
+    carbon.views.Product.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
+    // TODO: Remove the code below
     var product_gallery_frame;
     var $image_gallery_ids = $('#product_image_gallery');
     var $product_images = $('#product_images_container').find('ul.product_images');

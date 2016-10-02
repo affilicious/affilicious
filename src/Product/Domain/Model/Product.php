@@ -3,14 +3,19 @@ namespace Affilicious\Product\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
+use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\DuplicatedDetailException;
 use Affilicious\Product\Domain\Exception\DuplicatedShopException;
+use Affilicious\Product\Domain\Exception\DuplicatedVariantException;
 use Affilicious\Product\Domain\Model\Detail\Detail;
-use Affilicious\Product\Domain\Model\Detail\Key;
 use Affilicious\Product\Domain\Model\Review\Review;
+use Affilicious\Product\Domain\Model\Shop\AffiliateId;
 use Affilicious\Product\Domain\Model\Shop\Shop;
-use Affilicious\Product\Domain\Model\Shop\ShopId;
+use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -20,6 +25,13 @@ class Product extends AbstractEntity
 {
     const POST_TYPE = 'product';
     const SLUG = 'product';
+
+    /**
+     * The unique ID of the product
+     *
+     * @var ProductId
+     */
+    protected $id;
 
     /**
      * The type of the product like simple or variants
@@ -34,6 +46,13 @@ class Product extends AbstractEntity
      * @var Title
      */
     protected $title;
+
+    /**
+     * The name of the product
+     *
+     * @var Name
+     */
+    protected $name;
 
     /**
      * The content of the product
@@ -55,6 +74,13 @@ class Product extends AbstractEntity
      * @var Shop[]
      */
     protected $shops;
+
+    /**
+     * Holds all product variants
+     *
+     * @var ProductVariant[]
+     */
+    protected $variants;
 
     /**
      * Holds the details of the product
@@ -93,20 +119,31 @@ class Product extends AbstractEntity
 
     /**
      * @since 0.6
-     * @param ProductId $id
-     * @param Type $type
      * @param Title $title
+     * @param Name $name
      */
-    public function __construct(ProductId $id, Type $type, Title $title)
+    public function __construct(Title $title, Name $name)
     {
-        $this->id = $id;
-        $this->type = $type;
         $this->title = $title;
+        $this->name = $name;
+        $this->type = Type::simple();
         $this->shops = array();
+        $this->variants = array();
         $this->details = array();
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
         $this->imageGallery = array();
+    }
+
+    /**
+     * Check if the product has an ID
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasId()
+    {
+        return $this->id !== null;
     }
 
     /**
@@ -121,14 +158,41 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Get the type like simple or complex
+     * Set the product ID
+     *
+     * Note that you just get the ID in Wordpress, if you store a post.
+     * Normally, you place the ID to the constructor, but it's not possible here
+     *
+     * @since 0.6
+     * @param null|ProductId $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get the type like simple or variants.
      *
      * @since 0.6
      * @return Type
      */
     public function getType()
     {
-        return $this->type;
+        $type = count($this->variants) == 0 ? Type::simple() : Type::variants();
+
+        return $type;
+    }
+
+    /**
+     * Set the type like simple or variants
+     *
+     * @since 0.6
+     * @param Type $type
+     */
+    public function setType(Type $type)
+    {
+        $this->type = $type;
     }
 
     /**
@@ -140,6 +204,39 @@ class Product extends AbstractEntity
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set the title
+     *
+     * @since 0.6
+     * @param Title $title
+     */
+    public function setTitle(Title $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get the name for url usage
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the name for the url usage
+     *
+     * @since 0.6
+     * @param Name $name
+     */
+    public function setName(Name $name)
+    {
+        $this->name = $name;
     }
 
     /**
@@ -209,15 +306,15 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Check if the product has a specific shop
+     * Check if the product has a specific shop by the affiliate ID
      *
      * @since 0.6
-     * @param ShopId $id
+     * @param AffiliateId $affiliateId
      * @return bool
      */
-    public function hasShop(ShopId $id)
+    public function hasShop(AffiliateId $affiliateId)
     {
-        return isset($this->shops[$id->getValue()]);
+        return isset($this->shops[$affiliateId->getValue()]);
     }
 
     /**
@@ -229,34 +326,34 @@ class Product extends AbstractEntity
      */
     public function addShop(Shop $shop)
     {
-        if($this->hasShop($shop->getId())) {
+        if($this->hasShop($shop->getAffiliateId())) {
             throw new DuplicatedShopException($shop, $this);
         }
 
-        $this->shops[$shop->getId()->getValue()] = $shop;
+        $this->shops[$shop->getAffiliateId()->getValue()] = $shop;
     }
 
     /**
-     * Remove a shop by the ID
+     * Remove a shop by the affiliate ID
      *
      * @since 0.6
-     * @param ShopId $id
+     * @param AffiliateId $affiliateId
      */
-    public function removeShop(ShopId $id)
+    public function removeShop(AffiliateId $affiliateId)
     {
-        unset($this->shops[$id->getValue()]);
+        unset($this->shops[$affiliateId->getValue()]);
     }
 
     /**
-     * Get a shop by the ID
+     * Get a shop by the affiliate ID
      *
      * @since 0.6
-     * @param ShopId $id
+     * @param AffiliateId $affiliateId
      * @return null|Shop
      */
-    public function getShop(ShopId $id)
+    public function getShop(AffiliateId $affiliateId)
     {
-        $shop = $this->hasShop($id) ? $this->shops[$id->getValue()] : null;
+        $shop = $this->hasShop($affiliateId) ? $this->shops[$affiliateId->getValue()] : null;
 
         return $shop;
     }
@@ -289,6 +386,10 @@ class Product extends AbstractEntity
      */
     public function getShops()
     {
+        if(empty($this->variants)) {
+            return array();
+        }
+
         $shops = array_values($this->shops);
         return $shops;
     }
@@ -307,6 +408,102 @@ class Product extends AbstractEntity
         // addShops checks for the type
         foreach ($shops as $shop) {
             $this->addShop($shop);
+        }
+    }
+
+    /**
+     * Check if the product has a specific variant
+     *
+     * @since 0.6
+     * @param ProductId $id
+     * @return bool
+     */
+    public function hasVariant(ProductId $id)
+    {
+        return isset($this->variants[$id->getValue()]);
+    }
+
+    /**
+     * Add a new product variant
+     *
+     * @since 0.6
+     * @param ProductVariant $variant
+     */
+    public function addVariant(ProductVariant $variant)
+    {
+        if(!$variant->hasId()) {
+            throw new \RuntimeException(sprintf(
+                'The product variant %s has no ID.',
+                $variant->getTitle()
+            ));
+        }
+
+        if($this->hasVariant($variant->getId())) {
+            throw new DuplicatedVariantException($variant, $this);
+        }
+
+        $this->variants[$variant->getId()->getValue()] = $variant;
+    }
+
+    /**
+     * Remove an existing product variant
+     *
+     * @since 0.6
+     * @param ProductVariant $variant
+     */
+    public function removeVariant(ProductVariant $variant)
+    {
+        if(!$variant->hasId()) {
+            throw new \RuntimeException(sprintf(
+                'The product variant %s has no ID.',
+                $variant->getTitle()
+            ));
+        }
+
+        unset($this->variants[$variant->getId()->getValue()]);
+    }
+
+    /**
+     * Get the product variant by the ID
+     *
+     * @since 0.6
+     * @param ProductId $id
+     * @return null|ProductVariant
+     */
+    public function getVariant(ProductId $id)
+    {
+        $variant = $this->hasVariant($id) ? $this->variants[$id->getValue()] : null;
+
+        return $variant;
+    }
+
+    /**
+     * Get all product variants
+     *
+     * @since 0.6
+     * @return ProductVariant[]
+     */
+    public function getVariants()
+    {
+        $variants = array_values($this->variants);
+
+        return $variants;
+    }
+
+    /**
+     * Set all product variants
+     *
+     * @since 0.6
+     * @param ProductVariant[] $variants
+     * @throws InvalidTypeException
+     */
+    public function setVariants($variants)
+    {
+        $this->variants = array();
+
+        // addShops checks for the type
+        foreach ($variants as $variant) {
+            $this->addVariant($variant);
         }
     }
 
@@ -523,8 +720,11 @@ class Product extends AbstractEntity
      */
     public function getRawPost()
     {
-        $post = get_post($this->id->getValue());
-        return $post;
+        if(!$this->hasId()) {
+            return null;
+        }
+
+        return get_post($this->id->getValue());
     }
 
     /**

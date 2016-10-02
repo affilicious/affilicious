@@ -3,10 +3,114 @@ use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Shop\Application\Helper\ShopHelper;
 use Affilicious\Shop\Domain\Model\Shop;
+use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
+
+add_action('carbon_after_save_post_meta', 'wpse16835_after_post_meta');
+//add_action('save_post', 'wpse16835_after_post_meta');
+function wpse16835_after_post_meta($post_id)
+{
+    if($post_id === 1590) {
+        $post = get_post($post_id);
+
+        if($post->post_type === 'product') {
+            $variants = carbon_get_post_meta($post_id, CarbonProductRepository::VARIANTS, 'complex');
+
+            foreach ($variants as $key => $variant) {
+                $variantName = $post->post_name . '-variant-' . $key;
+                $postVariant = get_post_by_name($variantName);
+
+                if (empty($postVariant)) {
+                    $id = wp_insert_post(array(
+                        'post_title' => $variant['title'],
+                        'post_status' => 'inherit',
+                        'post_parent' => $post_id,
+                        'post_name' => $variantName,
+                        'post_type' => ProductVariant::POST_TYPE,
+                        'guid' => $post->guid,
+                        'post_author' => $post->post_author,
+                        'post_date' => $post->post_date,
+                        'post_date_gmt' => $post->post_date_gmt,
+                        'post_content' => $post->post_content,
+                        'post_excerpt' => $post->post_excerpt,
+                        'comment_status' => $post->comment_status,
+                        'ping_status' => $post->ping_status,
+                        'post_password' => $post->post_password,
+                        'post_modified' => $post->post_modified,
+                        'post_modified_gmt' => $post->post_modified_gmt,
+                        'post_mime_type' => $post->post_mime_type,
+                        'comment_count' => $post->comment_count,
+                    ));
+
+                    $postVariant = get_post($id);
+                } else {
+                    $id = wp_update_post(array(
+                        'ID' => $postVariant->ID,
+                        'post_title' => $variant['title'],
+                        'post_author' => $post->post_author,
+                        'post_date' => $post->post_date,
+                        'post_date_gmt' => $post->post_date_gmt,
+                        'post_content' => $post->post_content,
+                        'post_excerpt' => $post->post_excerpt,
+                        'comment_status' => $post->comment_status,
+                        'ping_status' => $post->ping_status,
+                        'post_password' => $post->post_password,
+                        'post_modified' => $post->post_modified,
+                        'post_modified_gmt' => $post->post_modified_gmt,
+                        'post_mime_type' => $post->post_mime_type,
+                        'comment_count' => $post->comment_count,
+                    ));
+
+                    $postVariant = get_post($id);
+                }
+
+                if (!empty($variant['thumbnail'])) {
+                    set_post_thumbnail($postVariant, $variant['thumbnail']);
+                }
+            }
+        }
+    }
+}
+
+function get_variants_by_parent($parent_post_id, $output = OBJECT)
+{
+    global $wpdb;
+
+    $postIds = $wpdb->get_results($wpdb->prepare("
+        SELECT ID 
+        FROM $wpdb->posts 
+        WHERE post_type = 'product_variant' AND post_parent = %s
+    ", $parent_post_id));
+
+    if(!empty($postIds)) {
+        return array_map(function($id) use ($output) {
+            return get_post($id, $output);
+        }, $postIds);
+    }
+}
+
+function get_post_by_name($post_name, $output = OBJECT) {
+    global $wpdb;
+    $post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='product_variant'", $post_name ));
+    if ( $post )
+        return get_post($post, $output);
+
+    return null;
+}
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Check if the current page is a product.

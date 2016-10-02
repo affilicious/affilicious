@@ -66,6 +66,6 @@ class AssetSetup
      */
     public function addAdminScripts()
     {
-        wp_enqueue_script('affilicious-admin', self::getScriptDir() . 'admin.min.js', array('jquery'), \AffiliciousPlugin::PLUGIN_VERSION, true);
+        wp_enqueue_script('affilicious-admin', self::getScriptDir() . 'admin.min.js', array('jquery', 'carbon-fields'), \AffiliciousPlugin::PLUGIN_VERSION, true);
     }
 }

@@ -118,7 +118,7 @@ class ProductSetup implements SetupInterface
      */
     public function render()
     {
-        CarbonContainer::make('post_meta', __('Product'))
+        CarbonContainer::make('post_meta', __('Products', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->getGeneralFields())
@@ -305,7 +305,12 @@ class ProductSetup implements SetupInterface
             $fields = array(
                 CarbonField::make('hidden', CarbonProductRepository::SHOPS_ID, __('Shop ID', 'affilicious'))
                     ->set_required(true)
-                    ->set_value($shop->getId()),
+                    ->set_value($shop->getId()->getValue()),
+                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
+                    ->set_required(true)
+                    ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
+                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_LINK, __('Affiliate Link', 'affilicious'))
+                    ->set_required(true),
                 CarbonField::make('number', CarbonProductRepository::SHOPS_PRICE, __('Price', 'affilicious')),
                 CarbonField::make('number', CarbonProductRepository::SHOPS_OLD_PRICE, __('Old Price', 'affilicious')),
                 CarbonField::make('select', CarbonProductRepository::SHOPS_CURRENCY, __('Currency', 'affilicious'))
@@ -314,9 +319,6 @@ class ProductSetup implements SetupInterface
                         'euro' => __('Euro', 'affilicious'),
                         'us-dollar' => __('US-Dollar', 'affilicious'),
                     )),
-                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
-                    ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
-                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_LINK, __('Affiliate Link', 'affilicious')),
             );
 
             $tabs->add_fields($shop->getTitle(), $fields);
@@ -369,7 +371,7 @@ class ProductSetup implements SetupInterface
                 $field = CarbonField::make(
                     'select',
                     $attribute->getKey()->getValue(),
-                    $attribute->getName()->getValue()
+                    $attribute->getTitle()->getValue()
                 )->add_options($temp);
 
                 if ($attribute->hasHelpText()) {
@@ -425,7 +427,7 @@ class ProductSetup implements SetupInterface
             $fields = array();
             $details = $detailGroup->getDetails();
             foreach ($details as $detail) {
-                $fieldName = sprintf('%s %s', $detail->getName(), $detail->getUnit());
+                $fieldName = sprintf('%s %s', $detail->getTitle(), $detail->getUnit());
                 $fieldName = trim($fieldName);
 
                 $field = CarbonField::make(

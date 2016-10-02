@@ -51,5 +51,11 @@ class ProductVariantSetup implements SetupInterface
      */
     public function render()
     {
+
+
+
+
+
+
     }
 }

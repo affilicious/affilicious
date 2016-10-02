@@ -2,6 +2,8 @@
 namespace Affilicious\Detail\Domain\Model\Detail;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -9,43 +11,52 @@ if (!defined('ABSPATH')) {
 
 class Detail extends AbstractAggregate
 {
+    /**
+     * @var Title
+     */
+    protected $title;
+
 	/**
 	 * @var Key
 	 */
-	private $key;
-
-	/**
-	 * @var Name
-	 */
-	private $name;
+	protected $key;
 
 	/**
 	 * @var Type
 	 */
-	private $type;
+	protected $type;
 
 	/**
 	 * @var Unit
 	 */
-	private $unit;
+	protected $unit;
 
 	/**
 	 * @var HelpText
 	 */
-	private $helpText;
+	protected $helpText;
 
     /**
      * @since 0.6
      * @param Key $key
-     * @param Name $name
+     * @param Title $title
      * @param Type $type
      */
-	public function __construct(Key $key, Name $name, Type $type)
+	public function __construct(Title $title, Key $key, Type $type)
 	{
-	    $this->key = $key;
-		$this->name = $name;
+        $this->title = $title;
+        $this->key = $key;
 		$this->type = $type;
 	}
+
+    /**
+     * @since 0.6
+     * @return Title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
 	/**
 	 * @since 0.6
@@ -54,15 +65,6 @@ class Detail extends AbstractAggregate
 	public function getKey()
 	{
 		return $this->key;
-	}
-
-	/**
-	 * @since 0.6
-	 * @return Name
-	 */
-	public function getName()
-	{
-		return $this->name;
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Detail extends AbstractAggregate
 	{
 		return
 			$object instanceof self &&
-	        $this->getName()->isEqualTo($object->getName()) &&
+	        $this->getTitle()->isEqualTo($object->getTitle()) &&
 	        $this->getType()->isEqualTo($object->getType()) &&
 			($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
 			($this->hasHelpText() && $this->getHelpText()->isEqualTo($object->getHelpText()) || !$object->hasHelpText());

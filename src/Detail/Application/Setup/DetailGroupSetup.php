@@ -73,7 +73,7 @@ class DetailGroupSetup implements SetupInterface
             ->add_fields(array(
                 CarbonField::make('complex', CarbonDetailGroupRepository::DETAILS, __('Details', 'affilicious'))
                     ->add_fields(array(
-                        CarbonField::make('text', CarbonDetailGroupRepository::DETAIL_NAME, __('Name', 'affilicious'))
+                        CarbonField::make('text', CarbonDetailGroupRepository::DETAIL_TITLE, __('Title', 'affilicious'))
                             ->set_required(true),
                         CarbonField::make('select', CarbonDetailGroupRepository::DETAIL_TYPE, __('Type', 'affilicious'))
                             ->set_required(true)
@@ -94,8 +94,8 @@ class DetailGroupSetup implements SetupInterface
                         CarbonField::make('text', CarbonDetailGroupRepository::DETAIL_HELP_TEXT, __('Help Text', 'affilicious'))
                     ))
                     ->set_header_template('
-                        <# if (' . CarbonDetailGroupRepository::DETAIL_NAME . ') { #>
-                            {{ ' . CarbonDetailGroupRepository::DETAIL_NAME . ' }}
+                        <# if (' . CarbonDetailGroupRepository::DETAIL_TITLE . ') { #>
+                            {{ ' . CarbonDetailGroupRepository::DETAIL_TITLE . ' }}
                         <# } #>
                     ')
             ));

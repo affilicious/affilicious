@@ -1,8 +1,7 @@
 <?php
-namespace Affilicious\Detail\Domain\Model;
+namespace Affilicious\Common\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractValueObject;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');

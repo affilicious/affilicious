@@ -2,7 +2,9 @@
 namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Attribute\Domain\Model\Attribute\Attribute;
-use Affilicious\Attribute\Domain\Model\Attribute\Key as AttributeKey;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -15,38 +17,56 @@ class AttributeGroup
 	/**
 	 * @var AttributeGroupId
 	 */
-	private $id;
+	protected $id;
+
+    /**
+     * @var Title
+     */
+    protected $title;
+
+    /**
+     * @var Title
+     */
+    protected $name;
 
     /**
      * @var Key
      */
-    private $key;
-
-	/**
-	 * @var Title
-	 */
-	private $title;
+    protected $key;
 
     /**
      * @var Attribute[]
      */
-    private $attributes;
+    protected $attributes;
 
     /**
      * @since 0.6
-     * @param AttributeGroupId $id
-     * @param Key $key
      * @param Title $title
+     * @param Name $name
+     * @param Key $key
      */
-    public function __construct(AttributeGroupId $id, Key $key, Title $title)
+    public function __construct(Title $title, Name $name, Key $key)
     {
-	    $this->id = $id;
-        $this->key = $key;
         $this->title = $title;
+        $this->name = $name;
+        $this->key = $key;
         $this->attributes = array();
     }
 
     /**
+     * Check if the attribute group has an ID
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasId()
+    {
+        return $this->id !== null;
+    }
+
+    /**
+     * Get the attribute group ID
+     *
      * @since 0.6
      * @return AttributeGroupId
      */
@@ -56,12 +76,61 @@ class AttributeGroup
     }
 
     /**
+     * Set the attribute group ID
+     *
+     * Note that you just get the ID in Wordpress, if you store a post.
+     * Normally, you place the ID to the constructor, but it's not possible here
+     *
+     * @since 0.6
+     * @param null|AttributeGroupId $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get the title
+     *
      * @since 0.6
      * @return Title
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set the title
+     *
+     * @since 0.6
+     * @param Title $title
+     */
+    public function setTitle(Title $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get the name for url usage
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the name for the url usage
+     *
+     * @since 0.6
+     * @param Name $name
+     */
+    public function setName(Name $name)
+    {
+        $this->name = $name;
     }
 
 	/**
@@ -87,9 +156,9 @@ class AttributeGroup
      * Remove an existing attribute by the key
      *
      * @since 0.6
-     * @param AttributeKey $key
+     * @param Key $key
      */
-    public function removeAttribute(AttributeKey $key)
+    public function removeAttribute(Key $key)
     {
         foreach ($this->attributes as $index => $attribute) {
         	if($attribute->getKey()->isEqualTo($key)) {
@@ -103,10 +172,10 @@ class AttributeGroup
      * Check if a attribute with the given key exists
      *
      * @since 0.6
-     * @param AttributeKey $key
+     * @param Key $key
      * @return bool
      */
-    public function hasAttribute(AttributeKey $key)
+    public function hasAttribute(Key $key)
     {
         foreach ($this->attributes as $attribute) {
 	        if($attribute->getKey()->isEqualTo($key)) {
@@ -122,10 +191,10 @@ class AttributeGroup
      * You don't need to check for the key, but you will get null on non-existence
      *
      * @since 0.6
-     * @param AttributeKey $key
+     * @param Key $key
      * @return null|Attribute
      */
-    public function getAttribute(AttributeKey $key)
+    public function getAttribute(Key $key)
     {
         foreach ($this->attributes as $attribute) {
 	        if($attribute->getKey()->isEqualTo($key)) {
@@ -169,6 +238,10 @@ class AttributeGroup
      */
     public function getRawPost()
     {
+        if(!$this->hasId()) {
+            return null;
+        }
+
         return get_post($this->id->getValue());
     }
 }

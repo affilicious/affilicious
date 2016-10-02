@@ -2,6 +2,8 @@
 namespace Affilicious\Product\Domain\Model\Detail;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -9,6 +11,11 @@ if (!defined('ABSPATH')) {
 
 class Detail extends AbstractAggregate
 {
+    /**
+     * @var Title
+     */
+    private $title;
+
     /**
      * @var Key
      */
@@ -18,11 +25,6 @@ class Detail extends AbstractAggregate
      * @var Type
      */
     private $type;
-
-    /**
-     * @var Name
-     */
-    private $name;
 
     /**
      * @var Unit
@@ -38,13 +40,24 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @param Key $key
      * @param Type $type
-     * @param Name $name
+     * @param Title $title
      */
-    public function __construct(Key $key, Type $type, Name $name)
+    public function __construct(Title $title, Key $key, Type $type)
     {
+        $this->title = $title;
         $this->key = $key;
         $this->type = $type;
-        $this->name = $name;
+    }
+
+    /**
+     * Get the title
+     *
+     * @since 0.6
+     * @return Title
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -67,17 +80,6 @@ class Detail extends AbstractAggregate
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Get the name
-     *
-     * @since 0.6
-     * @return Name
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -155,7 +157,7 @@ class Detail extends AbstractAggregate
             $object instanceof self &&
             $this->getKey()->isEqualTo($object->getKey()) &&
             $this->getType()->isEqualTo($object->getType()) &&
-            $this->getName()->isEqualTo($object->getName()) &&
+            $this->getTitle()->isEqualTo($object->getTitle()) &&
             ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
             ($this->hasValue() && $this->getValue()->isEqualTo($object->getValue()) || !$object->hasValue());
     }

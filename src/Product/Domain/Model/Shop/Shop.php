@@ -3,6 +3,9 @@ namespace Affilicious\Product\Domain\Model\Shop;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Product\Domain\Exception\InvalidPriceCurrencyException;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -11,63 +14,58 @@ if (!defined('ABSPATH')) {
 class Shop extends AbstractAggregate
 {
     /**
-     * This ID has the same value as the IDs of the shops from the shop module,
-     * but is a different value object.
-     *
-     * @var ShopId
-     */
-    private $id;
-
-    /**
      * @var Title
      */
-    private $title;
+    protected $title;
+
+    /**
+     * @var Name
+     */
+    protected $name;
 
     /**
      * @var Image
      */
-    private $thumbnail;
-
-    /**
-     * @var Price
-     */
-    private $price;
-
-    /**
-     * @var Price
-     */
-    private $oldPrice;
+    protected $thumbnail;
 
     /**
      * @var AffiliateId
      */
-    private $affiliateId;
+    protected $affiliateId;
 
     /**
      * @var AffiliateLink
      */
-    private $affiliateLink;
+    protected $affiliateLink;
+
+    /**
+     * @var Price
+     */
+    protected $price;
+
+    /**
+     * @var Price
+     */
+    protected $oldPrice;
+
+    /**
+     * @var Currency
+     */
+    protected $currency;
 
     /**
      * @since 0.6
-     * @param ShopId $id
      * @param Title $title
+     * @param Name $name
+     * @param AffiliateId $affiliateId
+     * @param Currency $currency
      */
-    public function __construct(ShopId $id, Title $title)
+    public function __construct(Title $title, Name $name, AffiliateId $affiliateId, Currency $currency)
     {
-        $this->id = $id;
         $this->title = $title;
-    }
-
-    /**
-     * Get the shop ID
-     *
-     * @since 0.6
-     * @return ShopId
-     */
-    public function getId()
-    {
-        return $this->id;
+        $this->name = $name;
+        $this->affiliateId = $affiliateId;
+        $this->currency = $currency;
     }
 
     /**
@@ -79,6 +77,17 @@ class Shop extends AbstractAggregate
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Get the name
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -115,83 +124,6 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Check if the shop has a price
-     *
-     * @since 0.6
-     * @return bool
-     */
-    public function hasPrice()
-    {
-        return $this->price !== null;
-    }
-
-    /**
-     * Get the price
-     *
-     * @since 0.6
-     * @return null|Price
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set the price or set it to null to keep it empty.
-     *
-     * @since 0.6
-     * @param null|Price $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * Check if the shop has an old price
-     *
-     * @since 0.6
-     * @return bool
-     */
-    public function hasOldPrice()
-    {
-        return $this->oldPrice !== null;
-    }
-
-    /**
-     * Get the old price
-     *
-     * @since 0.6
-     * @return null|Price
-     */
-    public function getOldPrice()
-    {
-        return $this->oldPrice;
-    }
-
-    /**
-     * Set the old price or set it to null to keep it empty.
-     *
-     * @since 0.6
-     * @param null|Price $oldPrice
-     */
-    public function setOldPrice($oldPrice)
-    {
-        $this->oldPrice = $oldPrice;
-    }
-
-    /**
-     * Check if the shop has an affiliate ID
-     *
-     * @since 0.6
-     * @return bool
-     */
-    public function hasAffiliateId()
-    {
-        return $this->affiliateId !== null;
-    }
-
-    /**
      * Get the affiliate ID
      *
      * @since 0.6
@@ -200,17 +132,6 @@ class Shop extends AbstractAggregate
     public function getAffiliateId()
     {
         return $this->affiliateId;
-    }
-
-    /**
-     * Set the affiliate ID
-     *
-     * @since 0.6
-     * @param AffiliateId $affiliateId
-     */
-    public function setAffiliateId(AffiliateId $affiliateId)
-    {
-        $this->affiliateId = $affiliateId;
     }
 
     /**
@@ -247,18 +168,115 @@ class Shop extends AbstractAggregate
     }
 
     /**
+     * Check if the shop has a price
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasPrice()
+    {
+        return $this->price !== null;
+    }
+
+    /**
+     * Get the price
+     *
+     * @since 0.6
+     * @return null|Price
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set the price or set it to null to keep it empty.
+     *
+     * @since 0.6
+     * @param null|Price $price
+     * @throws InvalidPriceCurrencyException
+     */
+    public function setPrice($price)
+    {
+        $this->checkPriceCurrency($price);
+        $this->price = $price;
+    }
+
+    /**
+     * Check if the shop has an old price
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasOldPrice()
+    {
+        return $this->oldPrice !== null;
+    }
+
+    /**
+     * Get the old price
+     *
+     * @since 0.6
+     * @return null|Price
+     */
+    public function getOldPrice()
+    {
+        return $this->oldPrice;
+    }
+
+    /**
+     * Set the old price or set it to null to keep it empty.
+     *
+     * @since 0.6
+     * @param null|Price $oldPrice
+     * @throws InvalidPriceCurrencyException
+     */
+    public function setOldPrice($oldPrice)
+    {
+        $this->checkPriceCurrency($oldPrice);
+        $this->oldPrice = $oldPrice;
+    }
+
+    /**
+     * Get the currency
+     *
+     * @since 0.6
+     * @return Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
      * @inheritdoc
      */
     public function isEqualTo($object)
     {
         return
             $object instanceof self &&
-            $this->getId()->isEqualTo($object->getId()) &&
             $this->getTitle()->isEqualTo($object->getTitle()) &&
+            $this->getName()->isEqualTo($object->getName()) &&
             ($this->hasThumbnail() && $this->getThumbnail()->isEqualTo($object->getThumbnail()) || !$object->hasThumbnail()) &&
-            ($this->hasAffiliateId() && $this->getAffiliateId()->isEqualTo($object->getAffiliateId()) || !$object->hasAffiliateId()) &&
+            $this->getAffiliateId()->isEqualTo($object->getAffiliateId()) &&
             ($this->hasAffiliateLink() && $this->getAffiliateLink()->isEqualTo($object->getAffiliateLink()) || !$object->hasAffiliateLink()) &&
             ($this->hasPrice() && $this->getPrice()->isEqualTo($object->getPrice()) || !$object->hasPrice()) &&
-            ($this->hasOldPrice() && $this->getOldPrice()->isEqualTo($object->getOldPrice()) || !$object->hasOldPrice());
+            ($this->hasOldPrice() && $this->getOldPrice()->isEqualTo($object->getOldPrice()) || !$object->hasOldPrice()) &&
+            $this->getCurrency()->isEqualTo($object->getCurrency());
+
+    }
+
+    /**
+     * Check if the currency of the price matches the shop currency
+     *
+     * @since 0.6
+     * @param Price $price
+     * @throws InvalidPriceCurrencyException
+     */
+    protected function checkPriceCurrency($price)
+    {
+        if(!empty($price) && !$this->currency->isEqualTo($price->getCurrency())) {
+            throw new InvalidPriceCurrencyException($price, $this->currency);
+        }
     }
 }
