@@ -10,7 +10,7 @@ if(!defined('ABSPATH')) {
 class PostHelper
 {
     /**
-     * Get the Wordpress post from the ID, Product, DetailGroup and Shop
+     * Get the Wordpress post from the ID, Product, DetailTemplateGroup and Shop
      *
      * @since 0.3
      * @param mixed $postOrId

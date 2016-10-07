@@ -3,6 +3,7 @@ namespace Affilicious\Product\Domain\Model\Detail;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
@@ -35,14 +36,22 @@ class Detail extends AbstractAggregate
      * @var Value
      */
     private $value;
+    /**
+     * @var DetailTemplateGroupId
+     */
+    private $templateGroupId;
+    /**
+     * @var DetailTemplateKey
+     */
+    private $templateKey;
 
     /**
      * @since 0.6
+     * @param Title $title
      * @param Key $key
      * @param Type $type
-     * @param Title $title
      */
-    public function __construct(Title $title, Key $key, Type $type)
+    public function __construct(Title $title, Name $name, Key $key, Type $type)
     {
         $this->title = $title;
         $this->key = $key;
@@ -61,7 +70,7 @@ class Detail extends AbstractAggregate
     }
 
     /**
-     * Get the unique key
+     * Get the key for database usage
      *
      * @since 0.6
      * @return Key

@@ -1,13 +1,13 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
-use Affilicious\Attribute\Domain\Model\AttributeGroupRepositoryInterface;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface;
 use Affilicious\Common\Application\Helper\DatabaseHelper;
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 use Carbon_Fields\Field\Complex_Field as CarbonComplexField;
@@ -20,35 +20,35 @@ if (!defined('ABSPATH')) {
 class ProductSetup implements SetupInterface
 {
     /**
-     * @var DetailGroupRepositoryInterface
+     * @var ShopTemplateRepositoryInterface
      */
-    private $detailGroupRepository;
+    protected $shopTemplateRepository;
 
     /**
-     * @var AttributeGroupRepositoryInterface
+     * @var DetailTemplateGroupRepositoryInterface
      */
-    private $attributeGroupRepository;
+    protected $detailTemplateGroupRepository;
 
     /**
-     * @var ShopRepositoryInterface
+     * @var AttributeTemplateGroupRepositoryInterface
      */
-    private $shopRepository;
+    protected $attributeGroupRepository;
 
     /**
      * @since 0.6
-     * @param DetailGroupRepositoryInterface $detailGroupRepository
-     * @param AttributeGroupRepositoryInterface $attributeGroupRepository
-     * @param ShopRepositoryInterface $shopRepository
+     * @param DetailTemplateGroupRepositoryInterface $detailTemplateGroupRepository
+     * @param AttributeTemplateGroupRepositoryInterface $attributeTemplateGroupRepository
+     * @param ShopTemplateRepositoryInterface $shopTemplateRepository
      */
     public function __construct(
-        DetailGroupRepositoryInterface $detailGroupRepository,
-        AttributeGroupRepositoryInterface $attributeGroupRepository,
-        ShopRepositoryInterface $shopRepository
+        ShopTemplateRepositoryInterface $shopTemplateRepository,
+        AttributeTemplateGroupRepositoryInterface $attributeTemplateGroupRepository,
+        DetailTemplateGroupRepositoryInterface $detailTemplateGroupRepository
     )
     {
-        $this->detailGroupRepository = $detailGroupRepository;
-        $this->attributeGroupRepository = $attributeGroupRepository;
-        $this->shopRepository = $shopRepository;
+        $this->shopTemplateRepository = $shopTemplateRepository;
+        $this->attributeGroupRepository = $attributeTemplateGroupRepository;
+        $this->detailTemplateGroupRepository = $detailTemplateGroupRepository;
     }
 
     /**
@@ -56,32 +56,27 @@ class ProductSetup implements SetupInterface
      */
     public function init()
     {
+        $singular = __('Product', 'affilicious');
+        $plural = __('Products', 'affilicious');
         $labels = array(
-            'name' => __('Products', 'affilicious'),
-            'singular_name' => __('Product', 'affilicious'),
-            'menu_name' => __('Products', 'affilicious'),
-            'name_admin_bar' => __('Product', 'affilicious'),
-            'archives' => __('Item Archives', 'affilicious'),
-            'parent_item_colon' => __('Parent Item:', 'affilicious'),
-            'all_items' => __('All Products', 'affilicious'),
-            'add_new_item' => __('Add New Product', 'affilicious'),
-            'add_new' => __('Add New', 'affilicious'),
-            'new_item' => __('New Product', 'affilicious'),
-            'edit_item' => __('Edit Product', 'affilicious'),
-            'update_item' => __('Update Product', 'affilicious'),
-            'view_item' => __('View Product', 'affilicious'),
-            'search_items' => __('Search Product', 'affilicious'),
-            'not_found' => __('Not found', 'affilicious'),
-            'not_found_in_trash' => __('Not found in Trash', 'affilicious'),
-            'featured_image' => __('Featured Image', 'affilicious'),
-            'set_featured_image' => __('Set featured image', 'affilicious'),
-            'remove_featured_image' => __('Remove featured image', 'affilicious'),
-            'use_featured_image' => __('Use as featured image', 'affilicious'),
-            'insert_into_item' => __('Insert into item', 'affilicious'),
-            'uploaded_to_this_item' => __('Uploaded to this item', 'affilicious'),
-            'items_list' => __('Products list', 'affilicious'),
-            'items_list_navigation' => __('Products list navigation', 'affilicious'),
-            'filter_items_list' => __('Filter items list', 'affilicious'),
+            'name'                  => $plural,
+            'singular_name'         => $singular,
+            'menu_name'             => $singular,
+            'name_admin_bar'        => $singular,
+            'archives'              => sprintf(_x('%s Archives', 'Product', 'affilicious'), $singular),
+            'parent_item_colon'     => sprintf(_x('Parent %s:', 'Product', 'affilicious'), $singular),
+            'all_items'             => __('Products', 'affilicious'),
+            'add_new_item'          => sprintf(_x('Add New %s', 'Product', 'affilicious'), $singular),
+            'new_item'              => sprintf(_x('New %s', 'Product', 'affilicious'), $singular),
+            'edit_item'             => sprintf(_x('Edit %s', 'Product', 'affilicious'), $singular),
+            'update_item'           => sprintf(_x('Update %s', 'Product', 'affilicious'), $singular),
+            'view_item'             => sprintf(_x('View %s', 'Product', 'affilicious'), $singular),
+            'search_items'          => sprintf(_x('Search %s', 'Product', 'affilicious'), $singular),
+            'insert_into_item'      => sprintf(_x('Insert Into %s', 'Product', 'affilicious'), $singular),
+            'uploaded_to_this_item' => sprintf(_x('Uploaded To This %s', 'Product', 'affilicious'), $singular),
+            'items_list'            => $plural,
+            'items_list_navigation' => sprintf(_x('%s Navigation', 'Product', 'affilicious'), $singular),
+            'filter_items_list'     => sprintf(_x('Filter %s', 'Product', 'affilicious'), $plural),
         );
 
 	    $slug = carbon_get_theme_option('affilicious_settings_product_general_slug');
@@ -164,20 +159,20 @@ class ProductSetup implements SetupInterface
                 ))
                 ->add_fields(array(
                     CarbonField::make('text',
-                        CarbonProductRepository::VARIANTS_TITLE,
+                        CarbonProductRepository::VARIANT_TITLE,
                         __('Title', 'affilicious')
                     )
                     ->set_required(true),
                     $this->getAttributeGroupTabs(
-                        CarbonProductRepository::VARIANTS_ATTRIBUTE_GROUPS,
-                        __('Attribute Groups', 'affilicious')
+                        CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS,
+                        __('AttributeTemplate Groups', 'affilicious')
                     ),
                     CarbonField::make('image',
-                        CarbonProductRepository::VARIANTS_THUMBNAIL,
+                        CarbonProductRepository::VARIANT_THUMBNAIL,
                         __('Thumbnail', 'affilicious')
                     ),
                     $this->getShopTabs(
-                        CarbonProductRepository::VARIANTS_SHOPS,
+                        CarbonProductRepository::VARIANT_SHOPS,
                         __('Shops', 'affilicious')
                     ),
                 ))
@@ -215,7 +210,7 @@ class ProductSetup implements SetupInterface
         $fields = array(
             $this->getDetailGroupTabs(
                 CarbonProductRepository::DETAIL_GROUPS,
-                __('Detail Groups', 'affilicious')
+                __('DetailTemplate Groups', 'affilicious')
             )
         );
 
@@ -291,29 +286,29 @@ class ProductSetup implements SetupInterface
      */
     private function getShopTabs($name, $label = null)
     {
-        $shops = $this->shopRepository->findAll();
+        $shops = $this->shopTemplateRepository->findAll();
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
             ->set_layout('tabbed')
             ->setup_labels(array(
                 'plural_name' => __('Shops', 'affilicious'),
-                'singular_name' => __('Shop', 'affilicious'),
+                'singular_name' => __('ShopTemplate', 'affilicious'),
             ));
 
         foreach ($shops as $shop) {
             $fields = array(
-                CarbonField::make('hidden', CarbonProductRepository::SHOPS_ID, __('Shop ID', 'affilicious'))
+                CarbonField::make('hidden', CarbonProductRepository::SHOP_ID, __('ShopTemplate ID', 'affilicious'))
                     ->set_required(true)
                     ->set_value($shop->getId()->getValue()),
-                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
+                CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
                     ->set_required(true)
                     ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
-                CarbonField::make('text', CarbonProductRepository::SHOPS_AFFILIATE_LINK, __('Affiliate Link', 'affilicious'))
+                CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_LINK, __('Affiliate Link', 'affilicious'))
                     ->set_required(true),
-                CarbonField::make('number', CarbonProductRepository::SHOPS_PRICE, __('Price', 'affilicious')),
-                CarbonField::make('number', CarbonProductRepository::SHOPS_OLD_PRICE, __('Old Price', 'affilicious')),
-                CarbonField::make('select', CarbonProductRepository::SHOPS_CURRENCY, __('Currency', 'affilicious'))
+                CarbonField::make('number', CarbonProductRepository::SHOP_PRICE, __('Price', 'affilicious')),
+                CarbonField::make('number', CarbonProductRepository::SHOP_OLD_PRICE, __('Old Price', 'affilicious')),
+                CarbonField::make('select', CarbonProductRepository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)
                     ->add_options(array(
                         'euro' => __('Euro', 'affilicious'),
@@ -343,8 +338,8 @@ class ProductSetup implements SetupInterface
         $tabs = CarbonField::make('complex', $name, $label)
             ->set_layout('tabbed')
             ->setup_labels(array(
-                'plural_name' => __('Attribute Groups', 'affilicious'),
-                'singular_name' => __('Attribute Group', 'affilicious'),
+                'plural_name' => __('AttributeTemplate Groups', 'affilicious'),
+                'singular_name' => __('AttributeTemplate Group', 'affilicious'),
             ));
 
         foreach ($attributeGroups as $attributeGroup) {
@@ -383,11 +378,11 @@ class ProductSetup implements SetupInterface
 
             $fieldId = CarbonField::make(
                 'hidden',
-                CarbonProductRepository::VARIANTS_ATTRIBUTE_GROUPS_ID
+                CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS_ID
             )->set_value($attributeGroup->getId()->getValue());
 
             $fields = array_merge(array(
-                CarbonProductRepository::VARIANTS_ATTRIBUTE_GROUPS_ID => $fieldId,
+                CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS_ID => $fieldId,
             ), $fields);
 
             $tabs->add_fields($key, $title, $fields);
@@ -406,14 +401,14 @@ class ProductSetup implements SetupInterface
      */
     private function getDetailGroupTabs($name, $label = null)
     {
-        $detailGroups = $this->detailGroupRepository->findAll();
+        $detailGroups = $this->detailTemplateGroupRepository->findAll();
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
             ->set_layout('tabbed')
             ->setup_labels(array(
-                'plural_name' => __('Detail Groups', 'affilicious'),
-                'singular_name' => __('Detail Group', 'affilicious'),
+                'plural_name' => __('DetailTemplate Groups', 'affilicious'),
+                'singular_name' => __('DetailTemplate Group', 'affilicious'),
             ));
 
         foreach ($detailGroups as $detailGroup) {

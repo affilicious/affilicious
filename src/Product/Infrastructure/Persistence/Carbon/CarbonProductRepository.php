@@ -3,9 +3,9 @@ namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
-use Affilicious\Product\Domain\Exception\ProductVariantNotFoundException;
+use Affilicious\Product\Domain\Exception\ProductNotFoundException;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
@@ -27,12 +27,12 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
     /**
      * @since 0.6
      * @param ProductVariantRepositoryInterface $productVariantRepository
-     * @param DetailGroupRepositoryInterface $detailGroupRepository
+     * @param DetailTemplateGroupRepositoryInterface $detailGroupRepository
      * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
         ProductVariantRepositoryInterface $productVariantRepository,
-        DetailGroupRepositoryInterface $detailGroupRepository,
+        DetailTemplateGroupRepositoryInterface $detailGroupRepository,
         ShopFactoryInterface $shopFactory
     )
     {
@@ -43,6 +43,7 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
     /**
      * @inheritdoc
      * @since 0.6
+     * @throws InvalidPostTypeException
      */
     public function store(Product $product)
     {
@@ -66,6 +67,7 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
         // Store the product meta
         $this->storePostMeta($id, self::TYPE, $product->getType());
         $this->storeVariants($product);
+        $this->storeReview($product);
 
         return $product;
     }
@@ -73,15 +75,15 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
     /**
      * @inheritdoc
      * @since 0.6
-     * @throws ProductVariantNotFoundException
+     * @throws ProductNotFoundException
      * @throws InvalidPostTypeException
      * @throws FailedToDeleteProductException
      */
     public function delete(ProductId $productVariantId)
     {
         $post = get_post($productVariantId->getValue());
-        if ($post === null) {
-            throw new ProductVariantNotFoundException($productVariantId);
+        if (empty($post)) {
+            throw new ProductNotFoundException($productVariantId);
         }
 
         if($post->post_type != Product::POST_TYPE) {
@@ -148,6 +150,48 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
      */
     protected function storeVariants(Product $product)
     {
+        $variants = array(
+            '_' => array(
+                0 => array(
+                    'title' => 'test',
+                    'thumbnail' => '',
+                    'shops' => array(
+                        'amazon' =>array(
+                            0 => array(
+                                'shop_id' => 3,
+                            )
+                        )
+                    )
+                )
+            )
+        );
 
+
+
+
+        $carbonVariants = array();
+        $variants = $product->getVariants();
+        foreach ($variants as $variant) {
+
+        }
+
+
+    }
+
+    /**
+     * Store the review for the product
+     *
+     * @since 0.6
+     * @param Product $product
+     */
+    protected function storeReview(Product $product)
+    {
+        if($product->hasReview()) {
+            $this->storePostMeta($product->getId(), self::REVIEW_RATING, $product->getReview()->getRating());
+
+            if($product->getReview()->hasVotes()) {
+                $this->storePostMeta($product->getId(), self::REVIEW_VOTES, $product->getReview()->getVotes());
+            }
+        }
     }
 }

@@ -19,5 +19,8 @@ interface ShopFactoryInterface extends FactoryInterface
      * @param Currency $currency
      * @return Shop
      */
-    public function create(Title $title, AffiliateId $affiliateId, Currency $currency);
+    public function create(
+        Title $title,
+        AffiliateId $affiliateId,
+        Currency $currency);
 }

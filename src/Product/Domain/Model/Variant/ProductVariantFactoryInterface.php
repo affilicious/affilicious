@@ -12,7 +12,7 @@ if(!defined('ABSPATH')) {
 interface ProductVariantFactoryInterface extends FactoryInterface
 {
     /**
-     * Create a new product variant which can be stored into a database
+     * Create a completely new shop template which can be stored into a database.
      *
      * @since 0.6
      * @param Product $parentProduct

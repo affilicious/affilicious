@@ -12,8 +12,8 @@ use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Common\Domain\Model\ValueObjectInterface;
-use Affilicious\Detail\Domain\Model\DetailGroupId;
-use Affilicious\Detail\Domain\Model\DetailGroupRepositoryInterface;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Exception\ParentProductNotFoundException;
 use Affilicious\Product\Domain\Model\Detail\Detail;
 use Affilicious\Product\Domain\Model\Detail\Unit;
@@ -33,7 +33,7 @@ use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Detail\Type as DetailType;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
-use Affilicious\Shop\Domain\Model\ShopRepositoryInterface;
+use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -43,21 +43,21 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
 {
     const TYPE = 'affilicious_product_type';
     const SHOPS = 'affilicious_product_shops';
-    const SHOPS_ID = 'shop_id';
-    const SHOPS_PRICE = 'price';
-    const SHOPS_OLD_PRICE = 'old_price';
-    const SHOPS_CURRENCY = 'currency';
-    const SHOPS_AFFILIATE_ID = 'affiliate_id';
-    const SHOPS_AFFILIATE_LINK = 'affiliate_link';
+    const SHOP_ID = 'shop_id';
+    const SHOP_PRICE = 'price';
+    const SHOP_OLD_PRICE = 'old_price';
+    const SHOP_CURRENCY = 'currency';
+    const SHOP_AFFILIATE_ID = 'affiliate_id';
+    const SHOP_AFFILIATE_LINK = 'affiliate_link';
     const DETAIL_GROUPS = 'affilicious_product_detail_groups';
     const DETAIL_GROUPS_ID = 'detail_group_id';
     const VARIANTS = 'affilicious_product_variants';
-    const VARIANTS_ID = 'variant_id';
-    const VARIANTS_TITLE = 'title';
-    const VARIANTS_ATTRIBUTE_GROUPS = 'attribute_groups';
-    const VARIANTS_ATTRIBUTE_GROUPS_ID = 'attribute_group_id';
-    const VARIANTS_THUMBNAIL = 'thumbnail';
-    const VARIANTS_SHOPS = 'shops';
+    const VARIANT_ID = 'variant_id';
+    const VARIANT_TITLE = 'title';
+    const VARIANT_ATTRIBUTE_GROUPS = 'attribute_groups';
+    const VARIANT_ATTRIBUTE_GROUPS_ID = 'attribute_group_id';
+    const VARIANT_THUMBNAIL = 'thumbnail';
+    const VARIANT_SHOPS = 'shops';
     const REVIEW_RATING = 'affilicious_product_review_rating';
     const REVIEW_VOTES = 'affilicious_product_review_votes';
     const RELATED_PRODUCTS = 'affilicious_product_related_products';
@@ -65,22 +65,22 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
     const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
     /**
-     * @var DetailGroupRepositoryInterface
+     * @var DetailTemplateGroupRepositoryInterface
      */
     protected $detailGroupRepository;
 
     /**
-     * @var ShopRepositoryInterface
+     * @var ShopTemplateRepositoryInterface
      */
     protected $shopFactory;
 
     /**
      * @since 0.6
-     * @param DetailGroupRepositoryInterface $detailGroupRepository
+     * @param DetailTemplateGroupRepositoryInterface $detailGroupRepository
      * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
-        DetailGroupRepositoryInterface $detailGroupRepository,
+        DetailTemplateGroupRepositoryInterface $detailGroupRepository,
         ShopFactoryInterface $shopFactory
     )
     {
@@ -433,18 +433,18 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
      */
     protected function getShopFromArray(array $rawShop)
     {
-        $shopId = !empty($rawShop[self::SHOPS_ID]) ? intval($rawShop[self::SHOPS_ID]) : null;
+        $shopId = !empty($rawShop[self::SHOP_ID]) ? intval($rawShop[self::SHOP_ID]) : null;
         if (empty($shopId)) {
             return null;
         }
 
         $title = get_the_title($shopId);
         $thumbnail = $this->getThumbnailImageFromPostId($shopId);
-        $affiliateId = !empty($rawShop[self::SHOPS_AFFILIATE_ID]) ? $rawShop[self::SHOPS_AFFILIATE_ID] : null;
-        $affiliateLink = !empty($rawShop[self::SHOPS_AFFILIATE_LINK]) ? $rawShop[self::SHOPS_AFFILIATE_LINK] : null;
-        $price = !empty($rawShop[self::SHOPS_PRICE]) ? floatval($rawShop[self::SHOPS_PRICE]) : null;
-        $oldPrice = !empty($rawShop[self::SHOPS_OLD_PRICE]) ? floatval($rawShop[self::SHOPS_OLD_PRICE]) : null;
-        $currency = !empty($rawShop[self::SHOPS_CURRENCY]) ? $rawShop[self::SHOPS_CURRENCY] : null;
+        $affiliateId = !empty($rawShop[self::SHOP_AFFILIATE_ID]) ? $rawShop[self::SHOP_AFFILIATE_ID] : null;
+        $affiliateLink = !empty($rawShop[self::SHOP_AFFILIATE_LINK]) ? $rawShop[self::SHOP_AFFILIATE_LINK] : null;
+        $price = !empty($rawShop[self::SHOP_PRICE]) ? floatval($rawShop[self::SHOP_PRICE]) : null;
+        $oldPrice = !empty($rawShop[self::SHOP_OLD_PRICE]) ? floatval($rawShop[self::SHOP_OLD_PRICE]) : null;
+        $currency = !empty($rawShop[self::SHOP_CURRENCY]) ? $rawShop[self::SHOP_CURRENCY] : null;
 
         if(empty($title) || empty($affiliateId) || empty($currency)) {
             return null;
@@ -485,7 +485,7 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
     protected function getDetailsFromArray(array $rawDetailGroup)
     {
         $detailGroupId = !empty($rawDetailGroup['detail_group_id']) ? intval($rawDetailGroup['detail_group_id']) : null;
-        $detailGroup = $this->detailGroupRepository->findById(new DetailGroupId($detailGroupId));
+        $detailGroup = $this->detailGroupRepository->findById(new DetailTemplateGroupId($detailGroupId));
         if (empty($detailGroupId) || empty($detailGroup)) {
             return array();
         }
@@ -664,5 +664,100 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
         }
 
         return $args;
+    }
+
+    /**
+     * Builds the complex carbon post meta keys for the storage
+     * This method works recursively and it's not easy to understand.
+     *
+     * @see https://carbonfields.net/docs/complex-field-data-storage/
+     * @since 0.6
+     * @param array $values
+     * @param string $prefix
+     * @param int $depth
+     * @param string|int $prevKey
+     * @return array
+     *
+     * Example process:
+     *  _affilicious_product_variants_-_shops_0_amazon-_title_0  -> complex
+     *  _-_shops_0_amazon-_title_0                               -> group
+     *  _shops_0_amazon-_title_0                                 -> field
+     *  _amazon-_title_0                                         -> group
+     *  _title_0                                                 -> field
+     *
+     * Example input:
+     * array(
+     *   '_' => array(
+     *     0 => array(
+     *       'title' => 'Title 1',
+     *       'thumbnail' => 'http://url-to-thumbnail.com',
+     *       'shops' => array(
+     *         'amazon' =>array(
+     *           0 => array(
+     *             'shop_id' => 3,
+     *             'title' => 'Amazon',
+     *           )
+     *         )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    protected function buildComplexCarbonMetaKey($values, $prefix, $depth = 0, $prevKey = '')
+    {
+        $regexComplex = '_%s';
+        $regexGroup = '_%s-';
+        $regexField = '_%s_%d';
+
+        if($depth === 0) {
+            $prefix = sprintf($regexComplex, $prefix);
+        }
+
+        $temp = array();
+        if(is_array($values)) {
+            foreach ($values as $key => $value) {
+
+                // Key is a string. Entry might be a complex field, a group or a simple field
+                if(is_string($key)) {
+
+                    // Value is an array. Entry might be a complex field or a group
+                    if(is_array($value)) {
+
+                        // The previous key is an int. Entry must be a complex field
+                        if(is_int($prevKey)) {
+                            $_prefix = $prefix . sprintf($regexField, $key, $prevKey);
+                            $temp[] = $this->buildComplexCarbonMetaKey($value, $_prefix, $depth + 1, $key);
+
+                            // The previous key is a string. Entry must be a group
+                        } else {
+                            $_prefix = $prefix . sprintf($regexGroup, $key);
+                            $temp[] = $this->buildComplexCarbonMetaKey($value, $_prefix, $depth + 1, $key);
+                        }
+
+                        // Key is a string. Entry must be a simple field
+                    } else {
+                        $_prefix = $prefix . sprintf($regexField, $key, $prevKey);
+                        $temp[$_prefix] = $value;
+                    }
+
+                    // Key is int. Entry must be a repeatable field
+                } else {
+                    $temp[] = $this->buildComplexCarbonMetaKey($value, $prefix, $depth + 1, $key);
+                }
+            }
+        }
+
+        // Break the recursion
+        if($depth > 0) {
+            return $temp;
+        }
+
+        // Remove the nested arrays
+        $result = array();
+        array_walk_recursive($temp, function($value, $key) use (&$result) {
+            $result[$key] = $value;
+        });
+
+        return $result;
     }
 }

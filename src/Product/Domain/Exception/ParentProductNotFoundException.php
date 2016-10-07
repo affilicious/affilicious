@@ -12,14 +12,14 @@ class ParentProductNotFoundException extends PostNotFoundException
 {
     /**
      * @since 0.6
-     * @param ProductId|string|int $productId
+     * @param ProductId|string|int $productGroupId
      * @param ProductId|string|int $productVariantId
      */
-    public function __construct($productId, $productVariantId)
+    public function __construct($productGroupId, $productVariantId)
     {
         parent::__construct(sprintf(
             "The parent product #%s for the variant #%s wasn't found.",
-            $productId,
+            $productGroupId,
             $productVariantId
         ));
     }

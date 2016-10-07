@@ -1,8 +1,8 @@
 <?php
 use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Shop\Application\Helper\ShopHelper;
-use Affilicious\Shop\Domain\Model\Shop;
+use Affilicious\Shop\Application\Helper\ShopTemplateHelper;
+use Affilicious\Shop\Domain\Model\ShopTemplate;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
@@ -438,7 +438,7 @@ function affilicious_get_product_link($productOrId = null)
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @param int|\WP_Post|Shop|null $shopOrId
+ * @param int|\WP_Post|ShopTemplate|null $shopOrId
  * @return null|array
  */
 function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
@@ -544,7 +544,7 @@ function affilicious_get_product_cheapest_shop($productOrId = null)
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @param int|\WP_Post|Shop|null $shopOrId
+ * @param int|\WP_Post|ShopTemplate|null $shopOrId
  * @return null|string
  */
 function affilicious_get_product_price($productOrId = null, $shopOrId = null)
@@ -606,7 +606,7 @@ function affilicious_get_product_cheapest_price($productOrId = null)
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @param int|\WP_Post|Shop|null $shopOrId
+ * @param int|\WP_Post|ShopTemplate|null $shopOrId
  * @return null|string
  */
 function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId = null)
@@ -646,12 +646,12 @@ function affilicious_get_product_cheapest_affiliate_link($productOrId = null)
  * If you pass in nothing as a shop, the current post will be used.
  *
  * @since 0.3
- * @param int|array|\WP_Post|Shop|null $shopOrId
- * @return Shop
+ * @param int|array|\WP_Post|ShopTemplate|null $shopOrId
+ * @return ShopTemplate
  */
 function affilicious_get_shop($shopOrId = null)
 {
-    $shop = ShopHelper::getShop($shopOrId);
+    $shop = ShopTemplateHelper::getShopTemplate($shopOrId);
 
     return $shop;
 }
@@ -664,7 +664,7 @@ function affilicious_get_shop($shopOrId = null)
  * https://developer.wordpress.org/reference/functions/get_the_post_thumbnail/
  *
  * @since 0.3
- * @param int|\WP_Post|Shop|array|null $post
+ * @param int|\WP_Post|ShopTemplate|array|null $post
  * @param string|array $size
  * @param string|array $attr
  * @return null|string

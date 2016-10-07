@@ -60,7 +60,7 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
     public function delete(ProductId $productVariantId)
     {
         $post = get_post($productVariantId->getValue());
-        if ($post === null) {
+        if (empty($post)) {
             throw new ProductNotFoundException($productVariantId);
         }
 

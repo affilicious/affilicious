@@ -276,7 +276,7 @@ msgid "Navigation Label"
 msgstr ""
 
 #: core/Walker/Nav_Menu_Edit_Walker.php:146
-msgid "Title Attribute"
+msgid "Title AttributeTemplate"
 msgstr ""
 
 #: core/Walker/Nav_Menu_Edit_Walker.php:153

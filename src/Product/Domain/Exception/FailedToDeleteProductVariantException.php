@@ -12,13 +12,13 @@ class FailedToDeleteProductVariantException extends PostNotFoundException
 {
     /**
      * @since 0.6
-     * @param ProductId|string|int $productVariantId
+     * @param ProductId|string|int $productVariantGroupId
      */
-    public function __construct($productVariantId)
+    public function __construct($productVariantGroupId)
     {
         parent::__construct(sprintf(
             'Failed to delete the product variant #%s',
-            $productVariantId
+            $productVariantGroupId
         ));
     }
 }

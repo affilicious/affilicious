@@ -17,11 +17,27 @@ class ProductVariantSetup implements SetupInterface
      */
     public function init()
     {
+        $singular = __('Product Variant', 'affilicious');
+        $plural = __('Product Variants', 'affilicious');
         $labels = array(
-            'name' => __('Product Variants', 'affilicious'),
-            'singular_name' => __('Product Variant', 'affilicious'),
-            'menu_name' => __('Product Variants', 'affilicious'),
-            'all_items' => __('All Product Variants', 'affilicious'),
+            'name'                  => $plural,
+            'singular_name'         => $singular,
+            'menu_name'             => $singular,
+            'name_admin_bar'        => $singular,
+            'archives'              => sprintf(_x('%s Archives', 'Product Variant', 'affilicious'), $singular),
+            'parent_item_colon'     => sprintf(_x('Parent %s:', 'Product Variant', 'affilicious'), $singular),
+            'all_items'             => __('Product Variants', 'affilicious'),
+            'add_new_item'          => sprintf(_x('Add New %s', 'Product Variant', 'affilicious'), $singular),
+            'new_item'              => sprintf(_x('New %s', 'Product Variant', 'affilicious'), $singular),
+            'edit_item'             => sprintf(_x('Edit %s', 'Product Variant', 'affilicious'), $singular),
+            'update_item'           => sprintf(_x('Update %s', 'Product Variant', 'affilicious'), $singular),
+            'view_item'             => sprintf(_x('View %s', 'Product Variant', 'affilicious'), $singular),
+            'search_items'          => sprintf(_x('Search %s', 'Product Variant', 'affilicious'), $singular),
+            'insert_into_item'      => sprintf(_x('Insert Into %s', 'Product Variant', 'affilicious'), $singular),
+            'uploaded_to_this_item' => sprintf(_x('Uploaded To This %s', 'Product Variant', 'affilicious'), $singular),
+            'items_list'            => $plural,
+            'items_list_navigation' => sprintf(_x('%s Navigation', 'Product Variant', 'affilicious'), $singular),
+            'filter_items_list'     => sprintf(_x('Filter %s', 'Product Variant', 'affilicious'), $plural),
         );
 
         $args = array(
@@ -51,11 +67,6 @@ class ProductVariantSetup implements SetupInterface
      */
     public function render()
     {
-
-
-
-
-
-
+        // Nothing to do here
     }
 }

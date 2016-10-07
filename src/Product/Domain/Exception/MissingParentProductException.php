@@ -12,13 +12,13 @@ class MissingParentProductException extends DomainException
 {
     /**
      * @since 0.6
-     * @param ProductId $productVariantId
+     * @param ProductId $productVariantGroupId
      */
-    public function __construct(ProductId $productVariantId)
+    public function __construct(ProductId $productVariantGroupId)
     {
         parent::__construct(sprintf(
             'The parent product for the variant #%s is missing in the database.',
-            $productVariantId
+            $productVariantGroupId
         ));
     }
 }

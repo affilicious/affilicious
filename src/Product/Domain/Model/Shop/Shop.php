@@ -14,6 +14,13 @@ if (!defined('ABSPATH')) {
 class Shop extends AbstractAggregate
 {
     /**
+     * The foreign shop template ID
+     *
+     * @var ShopTemplateId
+     */
+    protected $templateId;
+
+    /**
      * @var Title
      */
     protected $title;
@@ -55,17 +62,33 @@ class Shop extends AbstractAggregate
 
     /**
      * @since 0.6
+     * @param ShopTemplateId $templateId
      * @param Title $title
      * @param Name $name
      * @param AffiliateId $affiliateId
      * @param Currency $currency
      */
-    public function __construct(Title $title, Name $name, AffiliateId $affiliateId, Currency $currency)
+    public function __construct(
+        ShopTemplateId $templateId,
+        Title $title,
+        Name $name,
+        AffiliateId $affiliateId,
+        Currency $currency
+    )
     {
+        $this->templateId = $templateId;
         $this->title = $title;
         $this->name = $name;
         $this->affiliateId = $affiliateId;
         $this->currency = $currency;
+    }
+
+    /**
+     * @return ShopTemplateId
+     */
+    public function getTemplateId()
+    {
+        return $this->templateId;
     }
 
     /**

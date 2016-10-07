@@ -12,13 +12,13 @@ class ProductNotFoundException extends PostNotFoundException
 {
     /**
      * @since 0.6
-     * @param ProductId|string|int $productId
+     * @param ProductId|string|int $productGroupId
      */
-    public function __construct($productId)
+    public function __construct($productGroupId)
     {
         parent::__construct(sprintf(
             "The product #%s wasn't found.",
-            $productId
+            $productGroupId
         ));
     }
 }
