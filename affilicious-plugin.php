@@ -432,11 +432,15 @@ class AffiliciousPlugin
         $attributeTemplateGroupSetup = $this->container['affilicious.attribute.setup.attribute_template_group'];
         add_action('init', array($attributeTemplateGroupSetup, 'init'), 3);
         add_action('init', array($attributeTemplateGroupSetup, 'render'), 4);
+        add_action('manage_aff_attribute_group_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
+        add_action('manage_aff_attribute_group_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
 
         // Hook the detail groups
         $detailTemplateGroupSetup = $this->container['affilicious.detail.setup.detail_template_group'];
         add_action('init', array($detailTemplateGroupSetup, 'init'), 3);
         add_action('init', array($detailTemplateGroupSetup, 'render'), 4);
+        add_action('manage_detail_group_posts_columns', array($detailTemplateGroupSetup, 'columnsHead'), 9, 2);
+        add_action('manage_detail_group_posts_custom_column', array($detailTemplateGroupSetup, 'columnsContent'), 10, 2);
 
         // Hook the products
         $productSetup = $this->container['affilicious.product.setup.product'];

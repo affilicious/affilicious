@@ -87,7 +87,7 @@ class ShopTemplateSetup implements SetupInterface
 			if ($key == 'date') {
 				$new['logo'] = __('Featured Image');
 			}
-			$new[ $key ] = $title;
+			$new[$key] = $title;
 		}
 
 		return $new;

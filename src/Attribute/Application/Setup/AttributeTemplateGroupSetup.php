@@ -95,4 +95,39 @@ class AttributeTemplateGroupSetup implements SetupInterface
         apply_filters('affilicious_attribute_template_group_render_attribute_templates_container', $carbonContainer);
         do_action('affilicious_attribute_template_group_after_render');
     }
+
+    /**
+     * Add a column header for the attributes
+     *
+     * @since 0.6
+     * @param array $defaults
+     * @return array
+     */
+    public function columnsHead($defaults)
+    {
+        $defaults['attributes'] = __('Attributes');
+
+        return $defaults;
+    }
+
+    /**
+     * Add a column for the attributes
+     *
+     * @since 0.6
+     * @param string $columnName
+     * @param int $postId
+     */
+    public function columnsContent($columnName, $postId)
+    {
+        if ($columnName == 'attributes') {
+            $detailTemplates = carbon_get_post_meta($postId, CarbonAttributeTemplateGroupRepository::ATTRIBUTES, 'complex');
+            if(!empty($detailTemplates)) {
+                $titles = array_map(function($detailTemplate) {
+                    return $detailTemplate[CarbonAttributeTemplateGroupRepository::ATTRIBUTE_TITLE];
+                }, $detailTemplates);
+
+                echo implode(', ', $titles);
+            }
+        }
+    }
 }

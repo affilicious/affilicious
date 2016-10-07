@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Detail\Application\Setup;
 
+use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository;
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplate\Type;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
@@ -103,5 +104,40 @@ class DetailTemplateGroupSetup implements SetupInterface
 
         apply_filters('affilicious_detail_template_group_render_detail_templates_container', $carbonContainer);
         do_action('affilicious_detail_template_group_after_render');
+    }
+
+    /**
+     * Add a column header for the details
+     *
+     * @since 0.6
+     * @param array $defaults
+     * @return array
+     */
+    public function columnsHead($defaults)
+    {
+        $defaults['details'] = __('Details');
+
+        return $defaults;
+    }
+
+    /**
+     * Add a column for the details
+     *
+     * @since 0.6
+     * @param string $columnName
+     * @param int $postId
+     */
+    public function columnsContent($columnName, $postId)
+    {
+        if ($columnName == 'details') {
+            $detailTemplates = carbon_get_post_meta($postId, CarbonDetailTemplateGroupRepository::DETAILS, 'complex');
+            if(!empty($detailTemplates)) {
+                $titles = array_map(function($detailTemplate) {
+                    return $detailTemplate[CarbonDetailTemplateGroupRepository::DETAIL_TITLE];
+                }, $detailTemplates);
+
+                echo implode(', ', $titles);
+            }
+        }
     }
 }
