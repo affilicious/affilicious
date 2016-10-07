@@ -19,6 +19,8 @@ class DetailTemplateGroupSetup implements SetupInterface
      */
     public function init()
     {
+        do_action('affilicious_detail_template_group_before_init');
+
         $singular = __('Detail Template Group', 'affilicious');
         $plural = __('Detail Template Groups', 'affilicious');
         $labels = array(
@@ -56,6 +58,8 @@ class DetailTemplateGroupSetup implements SetupInterface
             'supports' => array('title'),
             'show_in_menu' => 'edit.php?post_type=product',
         ));
+
+        do_action('affilicious_detail_template_group_after_init');
     }
 
     /**
@@ -63,6 +67,8 @@ class DetailTemplateGroupSetup implements SetupInterface
      */
     public function render()
     {
+        do_action('affilicious_detail_template_group_before_render');
+
         $carbonContainer = CarbonContainer::make('post_meta', __('Detail Templates', 'affilicious'))
             ->show_on_post_type(DetailTemplateGroup::POST_TYPE)
             ->add_fields(array(
@@ -95,6 +101,7 @@ class DetailTemplateGroupSetup implements SetupInterface
                     ')
             ));
 
-        apply_filters('affilicious_detail_template_group_render_detail_templates', $carbonContainer);
+        apply_filters('affilicious_detail_template_group_render_detail_templates_container', $carbonContainer);
+        do_action('affilicious_detail_template_group_after_render');
     }
 }

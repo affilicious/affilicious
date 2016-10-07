@@ -19,6 +19,8 @@ class AttributeTemplateGroupSetup implements SetupInterface
      */
     public function init()
     {
+        do_action('affilicious_attribute_template_group_before_init');
+
         $singular = __('Attribute Template Group', 'affilicious');
         $plural = __('Attribute Template Groups', 'affilicious');
         $labels = array(
@@ -56,6 +58,8 @@ class AttributeTemplateGroupSetup implements SetupInterface
             'supports' => array('title'),
             'show_in_menu' => 'edit.php?post_type=product',
         ));
+
+        do_action('affilicious_attribute_template_group_after_init');
     }
 
     /**
@@ -63,6 +67,8 @@ class AttributeTemplateGroupSetup implements SetupInterface
      */
     public function render()
     {
+        do_action('affilicious_attribute_template_group_before_render');
+
         $carbonContainer = CarbonContainer::make('post_meta', __('Attribute Templates', 'affilicious'))
             ->show_on_post_type(AttributeTemplateGroup::POST_TYPE)
             ->add_fields(array(
@@ -86,6 +92,7 @@ class AttributeTemplateGroupSetup implements SetupInterface
                     ')
             ));
 
-        apply_filters('affilicious_attribute_template_group_render_attribute_templates', $carbonContainer);
+        apply_filters('affilicious_attribute_template_group_render_attribute_templates_container', $carbonContainer);
+        do_action('affilicious_attribute_template_group_after_render');
     }
 }

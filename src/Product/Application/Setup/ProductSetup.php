@@ -56,6 +56,8 @@ class ProductSetup implements SetupInterface
      */
     public function init()
     {
+        do_action('affilicious_product_before_init');
+
         $singular = __('Product', 'affilicious');
         $plural = __('Products', 'affilicious');
         $labels = array(
@@ -106,6 +108,8 @@ class ProductSetup implements SetupInterface
         );
 
         register_post_type(Product::POST_TYPE, $args);
+
+        do_action('affilicious_product_after_init');
     }
 
     /**
@@ -113,7 +117,9 @@ class ProductSetup implements SetupInterface
      */
     public function render()
     {
-        CarbonContainer::make('post_meta', __('Products', 'affilicious'))
+        do_action('affilicious_product_before_render');
+
+        $carbonContainer = CarbonContainer::make('post_meta', 'Affilicious')
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->getGeneralFields())
@@ -122,6 +128,9 @@ class ProductSetup implements SetupInterface
             ->add_tab(__('Details', 'affilicious'), $this->getDetailsFields())
             ->add_tab(__('Review', 'affilicious'), $this->getReviewFields())
             ->add_tab(__('Relations', 'affilicious'), $this->getRelationsFields());
+
+        apply_filters('affilicious_product_render_affilicious_container', $carbonContainer);
+        do_action('affilicious_product_after_render');
     }
 
     /**

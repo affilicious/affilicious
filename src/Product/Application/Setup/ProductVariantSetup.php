@@ -17,6 +17,8 @@ class ProductVariantSetup implements SetupInterface
      */
     public function init()
     {
+        do_action('affilicious_product_before_init');
+
         $singular = __('Product Variant', 'affilicious');
         $plural = __('Product Variants', 'affilicious');
         $labels = array(
@@ -60,6 +62,8 @@ class ProductVariantSetup implements SetupInterface
         );
 
         register_post_type(ProductVariant::POST_TYPE, $args);
+
+        do_action('affilicious_product_after_init');
     }
 
     /**
@@ -67,6 +71,10 @@ class ProductVariantSetup implements SetupInterface
      */
     public function render()
     {
+        do_action('affilicious_product_before_render');
+
         // Nothing to do here
+
+        do_action('affilicious_product_after_render');
     }
 }

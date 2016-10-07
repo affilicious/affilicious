@@ -17,6 +17,8 @@ class ShopTemplateSetup implements SetupInterface
 	 */
 	public function init()
 	{
+        do_action('affilicious_shop_before_init');
+
         $singular = __('Shop Template', 'affilicious');
         $plural = __('Shop Templates', 'affilicious');
         $labels = array(
@@ -54,6 +56,8 @@ class ShopTemplateSetup implements SetupInterface
 			'query_var'       => ShopTemplate::POST_TYPE,
 			'show_in_menu'    => 'edit.php?post_type=product',
 		));
+
+        do_action('affilicious_shop_after_init');
 	}
 
 	/**
@@ -61,7 +65,11 @@ class ShopTemplateSetup implements SetupInterface
 	 */
 	public function render()
 	{
+        do_action('affilicious_shop_before_render');
+
 		// Nothing to do here yet
+
+        do_action('affilicious_shop_after_render');
 	}
 
 	/**

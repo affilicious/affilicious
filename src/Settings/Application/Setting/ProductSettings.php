@@ -42,8 +42,8 @@ class ProductSettings implements SettingsInterface
 	           ))
 		));
 
-		$container = CarbonContainer::make('theme_options', __('Product', 'affilicious'))
-           ->set_page_parent('Affilicious')
+		$container = CarbonContainer::make('theme_options', sprintf(__('%s Settings', 'affilicious'), __('Product', 'affilicious')))
+           ->set_page_parent(sprintf(__('%s Settings', 'affilicious'), 'Affilicious'))
            ->add_tab(__('General', 'affilicious'), $generalFields)
            ->add_tab(__('Taxonomies', 'affilicious'), $taxonomiesFields);
 
