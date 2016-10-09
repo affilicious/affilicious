@@ -3,13 +3,18 @@ namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductVariantException;
 use Affilicious\Product\Domain\Exception\MissingParentProductException;
+use Affilicious\Product\Domain\Exception\ParentProductNotFoundException;
 use Affilicious\Product\Domain\Exception\ProductNotFoundException;
 use Affilicious\Product\Domain\Exception\ProductVariantNotFoundException;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
+use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
+use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Product\Domain\Model\Variant\ProductVariantRepositoryInterface;
 
@@ -19,6 +24,27 @@ if(!defined('ABSPATH')) {
 
 class CarbonProductVariantRepository extends AbstractCarbonProductRepository implements ProductVariantRepositoryInterface
 {
+    /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
+
+    /**
+     * @since 0.6
+     * @param ProductRepositoryInterface $productRepository
+     * @param DetailTemplateGroupRepositoryInterface $detailGroupRepository
+     * @param ShopFactoryInterface $shopFactory
+     */
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        DetailTemplateGroupRepositoryInterface $detailGroupRepository,
+        ShopFactoryInterface $shopFactory
+    )
+    {
+        parent::__construct($detailGroupRepository, $shopFactory);
+        $this->productRepository = $productRepository;
+    }
+
     /**
      * @inheritdoc
      * @since 0.6
@@ -38,7 +64,7 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
         // Store the product variant into the database
         $defaultArgs = $this->getDefaultArgs($productVariant);
         $args = $this->getArgs($productVariant, $defaultArgs);
-        $id = wp_insert_post($args);
+        $id = !empty($args['ID']) ? wp_update_post($args) : wp_insert_post($args);
 
         // The ID and the name might has changed. Update both values
         if(empty($defaultArgs)) {
@@ -46,6 +72,10 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
             $productVariant->setId(new ProductId($post->ID));
             $productVariant->setName(new Name($post->post_name));
         }
+
+        // Store the product variant meta
+        $this->storeThumbnail($productVariant);
+        $this->storeShops($productVariant);
 
         return $productVariant;
     }
@@ -87,7 +117,7 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
     public function findById(ProductId $productVariantId)
     {
         $post = get_post($productVariantId->getValue());
-        if ($post === null) {
+        if ($post === null || $post->post_status !== 'publish') {
             return null;
         }
 
@@ -119,5 +149,51 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
         }
 
         return $productVariants;
+    }
+
+    /**
+     * Convert the Wordpress post into a product variant
+     *
+     * @since 0.6
+     * @param \WP_Post $post
+     * @param Product $parent
+     * @return ProductVariant
+     */
+    protected function buildProductVariantFromPost(\WP_Post $post, Product $parent = null)
+    {
+        if($post->post_type !== ProductVariant::POST_TYPE) {
+            throw new InvalidPostTypeException($post->post_type, ProductVariant::POST_TYPE);
+        }
+
+        // Parent
+        if($parent === null) {
+            $parentPostId = wp_get_post_parent_id($post->ID);
+            if(empty($parentPostId)) {
+                throw new ParentProductNotFoundException($parentPostId, $post->ID);
+            }
+
+            $parent = $this->productRepository->findById(new ProductId($parentPostId));
+        }
+
+        // Title, Name
+        $productVariant = new ProductVariant(
+            $parent,
+            new Title($post->post_title),
+            new Name($post->post_name)
+        );
+
+        // ID
+        $productVariant->setId(new ProductId($post->ID));
+
+        // Thumbnail
+        $productVariant = $this->addThumbnail($productVariant, $post);
+
+        // Content
+        $productVariant = $this->addContent($productVariant, $post);
+
+        // Shops
+        $productVariant = $this->addShops($productVariant, $post);
+
+        return $productVariant;
     }
 }

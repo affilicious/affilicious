@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
-use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Image\Height;
 use Affilicious\Common\Domain\Model\Image\Image;
@@ -9,13 +8,12 @@ use Affilicious\Common\Domain\Model\Image\ImageId;
 use Affilicious\Common\Domain\Model\Image\Source;
 use Affilicious\Common\Domain\Model\Image\Width;
 use Affilicious\Common\Domain\Model\Key;
-use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Domain\Model\ValueObjectInterface;
+use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
-use Affilicious\Product\Domain\Exception\ParentProductNotFoundException;
 use Affilicious\Product\Domain\Model\Detail\Detail;
+use Affilicious\Product\Domain\Model\Detail\Type as DetailType;
 use Affilicious\Product\Domain\Model\Detail\Unit;
 use Affilicious\Product\Domain\Model\Detail\Value;
 use Affilicious\Product\Domain\Model\Product;
@@ -31,7 +29,6 @@ use Affilicious\Product\Domain\Model\Shop\Price;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
 use Affilicious\Product\Domain\Model\Type;
-use Affilicious\Product\Domain\Model\Detail\Type as DetailType;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 
@@ -39,7 +36,7 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-abstract class AbstractCarbonProductRepository implements ProductRepositoryInterface
+abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository implements ProductRepositoryInterface
 {
     const TYPE = 'affilicious_product_type';
     const SHOPS = 'affilicious_product_shops';
@@ -86,110 +83,6 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
     {
         $this->detailGroupRepository = $detailGroupRepository;
         $this->shopFactory = $shopFactory;
-    }
-
-    /**
-     * Convert the Wordpress post into a product
-     *
-     * @since 0.3
-     * @param \WP_Post $post
-     * @return Product
-     */
-    protected function buildProductFromPost(\WP_Post $post)
-    {
-        if($post->post_type !== Product::POST_TYPE) {
-            throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
-        }
-
-        // Title, Name
-        $product = new Product(
-            new Title($post->post_title),
-            new Name($post->post_name)
-        );
-
-        // ID
-        $product->setId(new ProductId($post->ID));
-
-        // Type
-        $product = $this->addType($product, $post);
-
-        // Thumbnail
-        $product = $this->addThumbnail($product, $post);
-
-        // Content
-        $product = $this->addContent($product, $post);
-
-        // Shops
-        $product = $this->addShops($product, $post);
-
-        // Variants
-        $product = $this->addVariants($product, $post);
-
-        // Details
-        $product = $this->addDetails($product, $post);
-
-        // Review
-        $product = $this->addReview($product, $post);
-
-        // Related products
-        $product = $this->addRelatedProducts($product, $post);
-
-        // Related accessories
-        $product = $this->addRelatedAccessories($product, $post);
-
-        // Image Gallery
-        $product = $this->addImageGallery($product, $post);
-
-        return $product;
-    }
-
-    /**
-     * Convert the Wordpress post into a product variant
-     *
-     * @since 0.6
-     * @param \WP_Post $post
-     * @param Product $parent
-     * @return ProductVariant
-     */
-    protected function buildProductVariantFromPost(\WP_Post $post, Product $parent = null)
-    {
-        if($post->post_type !== ProductVariant::POST_TYPE) {
-            throw new InvalidPostTypeException($post->post_type, ProductVariant::POST_TYPE);
-        }
-
-        // Parent
-        if($parent === null) {
-            $parentPostId = wp_get_post_parent_id($post->ID);
-            if(empty($parentPostId)) {
-                throw new ParentProductNotFoundException($parentPostId, $post->ID);
-            }
-
-            $parent = $this->findById(new ProductId($parentPostId));
-        }
-
-        // Title, Name
-        $productVariant = new ProductVariant(
-            $parent,
-            new Title($post->post_title),
-            new Name($post->post_name)
-        );
-
-        // ID
-        $productVariant->setId(new ProductId($post->ID));
-
-        // Type
-        $productVariant = $this->addType($productVariant, $post);
-
-        // Thumbnail
-        $productVariant = $this->addThumbnail($productVariant, $post);
-
-        // Content
-        $productVariant = $this->addContent($productVariant, $post);
-
-        // Shops
-        $productVariant = $this->addShops($productVariant, $post);
-
-        return $productVariant;
     }
 
     /**
@@ -255,15 +148,18 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
      *
      * @since 0.6
      * @param Product $product
-     * @param \WP_Post $post
+     * @param array $rawShops
      * @return Product
      */
-    protected function addShops(Product $product, \WP_Post $post)
+    protected function addShops(Product $product, $rawShops = array())
     {
-        $shops = carbon_get_post_meta($post->ID, self::SHOPS, 'complex');
-        if (!empty($shops)) {
-            foreach ($shops as $shop) {
-                $shop = self::getShopFromArray($shop);
+        if(empty($rawShops)) {
+            $rawShops = carbon_get_post_meta($product->getId()->getValue(), self::SHOPS, 'complex');
+        }
+
+        if (!empty($rawShops)) {
+            foreach ($rawShops as $rawShop) {
+                $shop = self::getShopFromArray($rawShop);
 
                 if ($shop !== null) {
                     $product->addShop($shop);
@@ -391,34 +287,6 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
             }
 
             $product->setImageGallery($images);
-        }
-
-        return $product;
-    }
-
-    /**
-     * Add the variants to the product
-     *
-     * @since 0.6
-     * @param Product $product
-     * @param \WP_Post $post
-     * @return Product
-     */
-    protected function addVariants(Product $product, \WP_Post $post)
-    {
-        $variantPosts = get_children(array(
-            'post_parent' => $post->ID,
-            'post_type' => ProductVariant::POST_TYPE,
-        ));
-
-        if(!empty($variantPosts)) {
-            foreach ($variantPosts as $variantPost) {
-                $productVariant = $this->buildProductVariantFromPost($variantPost, $product);
-
-                if(!empty($productVariant)) {
-                    $product->addVariant($productVariant);
-                }
-            }
         }
 
         return $product;
@@ -580,39 +448,52 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
     }
 
     /**
-     * Update the post meta for the given product
+     * Store the type like simple or variants for the product
      *
      * @since 0.6
-     * @param mixed|ValueObjectInterface $id
-     * @param mixed|ValueObjectInterface $key
-     * @param mixed|ValueObjectInterface $value
-     * @return bool|int
+     * @param Product $product
      */
-    protected function storePostMeta($id, $key, $value)
+    protected function storeType(Product $product)
     {
-        if($id instanceof ValueObjectInterface) {
-            $id = $id->getValue();
+        $this->storePostMeta($product->getId(), self::TYPE, $product->getType());
+    }
+
+    /**
+     * Store the shops for the product
+     *
+     * @since 0.6
+     * @param Product $product
+     */
+    protected function storeShops(Product $product)
+    {
+        /*
+        $shops = array(
+            'amazon' =>array(
+                0 => array(
+                    'shop_id' => 3,
+                    'affiliate_id' => 3,
+                    'affiliate_link' => 3,
+                    'price' => 3,
+                    'old_price' => 3,
+                )
+            )
+        );
+        */
+    }
+
+    /**
+     * Store the thumbnail for the product
+     *
+     * @since 0.6
+     * @param Product $product
+     */
+    protected function storeThumbnail(Product $product)
+    {
+        if(!$product->hasThumbnail()) {
+            return;
         }
 
-        if($key instanceof ValueObjectInterface) {
-            $key = $key->getValue();
-        }
-
-        if($value instanceof ValueObjectInterface) {
-            $value = $value->getValue();
-        }
-
-        // Prefix the key with _
-        if(strpos($key, '_') !== 0) {
-            $key = '_' . $key;
-        }
-
-        $updated = update_post_meta($id, $key, $value);
-        if(!$updated) {
-            add_post_meta($id, $key, $value);
-        }
-
-        return $updated;
+        $this->storePostMeta($product->getId(), self::THUMBNAIL_ID, $product->getThumbnail()->getId());
     }
 
     /**
@@ -664,100 +545,5 @@ abstract class AbstractCarbonProductRepository implements ProductRepositoryInter
         }
 
         return $args;
-    }
-
-    /**
-     * Builds the complex carbon post meta keys for the storage
-     * This method works recursively and it's not easy to understand.
-     *
-     * @see https://carbonfields.net/docs/complex-field-data-storage/
-     * @since 0.6
-     * @param array $values
-     * @param string $prefix
-     * @param int $depth
-     * @param string|int $prevKey
-     * @return array
-     *
-     * Example process:
-     *  _affilicious_product_variants_-_shops_0_amazon-_title_0  -> complex
-     *  _-_shops_0_amazon-_title_0                               -> group
-     *  _shops_0_amazon-_title_0                                 -> field
-     *  _amazon-_title_0                                         -> group
-     *  _title_0                                                 -> field
-     *
-     * Example input:
-     * array(
-     *   '_' => array(
-     *     0 => array(
-     *       'title' => 'Title 1',
-     *       'thumbnail' => 'http://url-to-thumbnail.com',
-     *       'shops' => array(
-     *         'amazon' =>array(
-     *           0 => array(
-     *             'shop_id' => 3,
-     *             'title' => 'Amazon',
-     *           )
-     *         )
-     *       )
-     *     )
-     *   )
-     * )
-     */
-    protected function buildComplexCarbonMetaKey($values, $prefix, $depth = 0, $prevKey = '')
-    {
-        $regexComplex = '_%s';
-        $regexGroup = '_%s-';
-        $regexField = '_%s_%d';
-
-        if($depth === 0) {
-            $prefix = sprintf($regexComplex, $prefix);
-        }
-
-        $temp = array();
-        if(is_array($values)) {
-            foreach ($values as $key => $value) {
-
-                // Key is a string. Entry might be a complex field, a group or a simple field
-                if(is_string($key)) {
-
-                    // Value is an array. Entry might be a complex field or a group
-                    if(is_array($value)) {
-
-                        // The previous key is an int. Entry must be a complex field
-                        if(is_int($prevKey)) {
-                            $_prefix = $prefix . sprintf($regexField, $key, $prevKey);
-                            $temp[] = $this->buildComplexCarbonMetaKey($value, $_prefix, $depth + 1, $key);
-
-                            // The previous key is a string. Entry must be a group
-                        } else {
-                            $_prefix = $prefix . sprintf($regexGroup, $key);
-                            $temp[] = $this->buildComplexCarbonMetaKey($value, $_prefix, $depth + 1, $key);
-                        }
-
-                        // Key is a string. Entry must be a simple field
-                    } else {
-                        $_prefix = $prefix . sprintf($regexField, $key, $prevKey);
-                        $temp[$_prefix] = $value;
-                    }
-
-                    // Key is int. Entry must be a repeatable field
-                } else {
-                    $temp[] = $this->buildComplexCarbonMetaKey($value, $prefix, $depth + 1, $key);
-                }
-            }
-        }
-
-        // Break the recursion
-        if($depth > 0) {
-            return $temp;
-        }
-
-        // Remove the nested arrays
-        $result = array();
-        array_walk_recursive($temp, function($value, $key) use (&$result) {
-            $result[$key] = $value;
-        });
-
-        return $result;
     }
 }

@@ -57,7 +57,7 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
     public function findById(AttributeTemplateGroupId $attributeGroupId)
     {
         $post = get_post($attributeGroupId->getValue());
-        if ($post === null) {
+        if ($post === null || $post->post_status !== 'publish') {
             return null;
         }
 

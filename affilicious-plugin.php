@@ -52,6 +52,7 @@ use Affilicious\Settings\Application\Setting\ProductSettings;
 use Affilicious\Shop\Application\Setup\ShopTemplateSetup;
 use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository;
 use Affilicious\Shop\Infrastructure\Persistence\InMemory\InMemoryShopTemplateFactory;
+use Affilicious\Product\Application\Listener\SaveProductListener;
 use Pimple\Container;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
@@ -268,15 +269,15 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.repository.product'] = function ($c) {
             return new CarbonProductRepository(
-                $c['affilicious.product.repository.product_variant'],
-                $c['affilicious.detail.repository.detail_group'],
+                $c['affilicious.detail.repository.detail_template_group'],
                 $c['affilicious.product.factory.shop']
             );
         };
 
         $this->container['affilicious.product.repository.product_variant'] = function ($c) {
             return new CarbonProductVariantRepository(
-                $c['affilicious.detail.repository.detail_group'],
+                $c['affilicious.product.repository.product'],
+                $c['affilicious.detail.repository.detail_template_group'],
                 $c['affilicious.product.factory.shop']
             );
         };
@@ -343,6 +344,13 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.setup.product_variant'] = function () {
             return new ProductVariantSetup();
+        };
+
+        $this->container['affilicious.product.listener.save_product'] = function ($c) {
+            return new SaveProductListener(
+                $c['affilicious.product.repository.product'],
+                $c['affilicious.product.repository.product_variant']
+            );
         };
 
         $this->container['affilicious.shop.setup.shop_template'] = function () {
@@ -425,22 +433,16 @@ class AffiliciousPlugin
         $shopTemplateSetup = $this->container['affilicious.shop.setup.shop_template'];
         add_action('init', array($shopTemplateSetup, 'init'), 1);
         add_action('init', array($shopTemplateSetup, 'render'), 2);
-        add_action('manage_shop_posts_columns', array($shopTemplateSetup, 'columnsHead'), 9, 2);
-        add_action('manage_shop_posts_custom_column', array($shopTemplateSetup, 'columnsContent'), 10, 2);
 
         // Hook the attribute groups
         $attributeTemplateGroupSetup = $this->container['affilicious.attribute.setup.attribute_template_group'];
         add_action('init', array($attributeTemplateGroupSetup, 'init'), 3);
         add_action('init', array($attributeTemplateGroupSetup, 'render'), 4);
-        add_action('manage_aff_attribute_group_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
-        add_action('manage_aff_attribute_group_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
 
         // Hook the detail groups
         $detailTemplateGroupSetup = $this->container['affilicious.detail.setup.detail_template_group'];
         add_action('init', array($detailTemplateGroupSetup, 'init'), 3);
         add_action('init', array($detailTemplateGroupSetup, 'render'), 4);
-        add_action('manage_detail_group_posts_columns', array($detailTemplateGroupSetup, 'columnsHead'), 9, 2);
-        add_action('manage_detail_group_posts_custom_column', array($detailTemplateGroupSetup, 'columnsContent'), 10, 2);
 
         // Hook the products
         $productSetup = $this->container['affilicious.product.setup.product'];
@@ -449,8 +451,12 @@ class AffiliciousPlugin
 
         // Hook the product variants
         $productVariantSetup = $this->container['affilicious.product.setup.product_variant'];
-        //add_action('init', array($productVariantSetup, 'init'), 5);
-        //add_action('init', array($productVariantSetup, 'render'), 6);
+        add_action('init', array($productVariantSetup, 'init'), 5);
+        add_action('init', array($productVariantSetup, 'render'), 6);
+
+        // Hook the product listeners
+        $saveProductListener = $this->container['affilicious.product.listener.save_product'];
+        add_action('carbon_after_save_post_meta', array($saveProductListener, 'listen'), 10, 3);
 
 	    // Hook the settings
         $affiliciousSettings = $this->container['affilicious.settings.setting.affilicious'];
@@ -471,6 +477,21 @@ class AffiliciousPlugin
     	// Hook the plugin updater
 	    add_action('admin_init', array($this, 'update'), 0);
 
+        // Hook the shops
+        $shopTemplateSetup = $this->container['affilicious.shop.setup.shop_template'];
+        add_action('manage_shop_posts_columns', array($shopTemplateSetup, 'columnsHead'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array($shopTemplateSetup, 'columnsContent'), 10, 2);
+
+        // Hook the attribute groups
+        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.setup.attribute_template_group'];
+        add_action('manage_aff_attribute_group_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
+        add_action('manage_aff_attribute_group_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
+
+        // Hook the detail groups
+        $detailTemplateGroupSetup = $this->container['affilicious.detail.setup.detail_template_group'];
+        add_action('manage_detail_group_posts_columns', array($detailTemplateGroupSetup, 'columnsHead'), 9, 2);
+        add_action('manage_detail_group_posts_custom_column', array($detailTemplateGroupSetup, 'columnsContent'), 10, 2);
+
         // Hook the admin assets
         $assetSetup = $this->container['affilicious.common.setup.asset'];
         add_action('admin_enqueue_scripts', array($assetSetup, 'addAdminStyles'), 10);
@@ -479,53 +500,6 @@ class AffiliciousPlugin
         // Hook the feedback form
         $feedbackSetup = $this->container['affilicious.common.setup.feedback'];
         add_action('admin_menu', array($feedbackSetup, 'init'), 30);
-
-
-
-
-
-
-        //add_action('admin_init', array($this, 'test'), 100);
-
-
-    }
-
-    public function test()
-    {
-        $productFactory = $this->container['affilicious.product.factory.product'];
-
-        $productVariantFactory = $this->container['affilicious.product.factory.product_variant'];
-
-        $productRepository = $this->container['affilicious.product.repository.product'];
-
-        $productVariantRepository = $this->container['affilicious.product.repository.product_variant'];
-
-        $product = $productRepository->findById(new \Affilicious\Product\Domain\Model\ProductId(1590));
-
-        $product->getId();
-
-        /*$product = $productFactory->create(
-            new \Affilicious\Common\Domain\Model\Title('Parent Test')
-        );
-
-
-        $product = $productRepository->store($product);
-        $productRepository->delete($product->getId());*/
-
-
-
-        // Variant
-        /*$productVariant = $productVariantFactory->create(
-            $product,
-            new \Affilicious\Common\Domain\Model\Title('Variant Test 1')
-        );
-
-        $productVariant = $productVariantRepository->store($productVariant);
-        $product->addVariant($productVariant);
-
-
-
-        $productVariantRepository->delete($productVariant->getId());*/
     }
 }
 

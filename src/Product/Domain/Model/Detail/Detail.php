@@ -36,14 +36,6 @@ class Detail extends AbstractAggregate
      * @var Value
      */
     private $value;
-    /**
-     * @var DetailTemplateGroupId
-     */
-    private $templateGroupId;
-    /**
-     * @var DetailTemplateKey
-     */
-    private $templateKey;
 
     /**
      * @since 0.6
@@ -51,7 +43,7 @@ class Detail extends AbstractAggregate
      * @param Key $key
      * @param Type $type
      */
-    public function __construct(Title $title, Name $name, Key $key, Type $type)
+    public function __construct(Title $title, Key $key, Type $type)
     {
         $this->title = $title;
         $this->key = $key;

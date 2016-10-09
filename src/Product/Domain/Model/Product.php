@@ -412,15 +412,15 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Check if the product has a specific variant
+     * Check if the product has a specific variant by the name
      *
      * @since 0.6
-     * @param ProductId $id
+     * @param Name $name
      * @return bool
      */
-    public function hasVariant(ProductId $id)
+    public function hasVariant(Name $name)
     {
-        return isset($this->variants[$id->getValue()]);
+        return isset($this->variants[$name->getValue()]);
     }
 
     /**
@@ -431,48 +431,34 @@ class Product extends AbstractEntity
      */
     public function addVariant(ProductVariant $variant)
     {
-        if(!$variant->hasId()) {
-            throw new \RuntimeException(sprintf(
-                'The product variant %s has no ID.',
-                $variant->getTitle()
-            ));
-        }
-
-        if($this->hasVariant($variant->getId())) {
+        if($this->hasVariant($variant->getName())) {
             throw new DuplicatedVariantException($variant, $this);
         }
 
-        $this->variants[$variant->getId()->getValue()] = $variant;
+        $this->variants[$variant->getName()->getValue()] = $variant;
     }
 
     /**
-     * Remove an existing product variant
+     * Remove an existing product variant by the name
      *
      * @since 0.6
-     * @param ProductVariant $variant
+     * @param Name $name
      */
-    public function removeVariant(ProductVariant $variant)
+    public function removeVariant(Name $name)
     {
-        if(!$variant->hasId()) {
-            throw new \RuntimeException(sprintf(
-                'The product variant %s has no ID.',
-                $variant->getTitle()
-            ));
-        }
-
-        unset($this->variants[$variant->getId()->getValue()]);
+        unset($this->variants[$name->getValue()]);
     }
 
     /**
-     * Get the product variant by the ID
+     * Get the product variant by the name
      *
      * @since 0.6
-     * @param ProductId $id
+     * @param Name $name
      * @return null|ProductVariant
      */
-    public function getVariant(ProductId $id)
+    public function getVariant(Name $name)
     {
-        $variant = $this->hasVariant($id) ? $this->variants[$id->getValue()] : null;
+        $variant = $this->hasVariant($name) ? $this->variants[$name->getValue()] : null;
 
         return $variant;
     }

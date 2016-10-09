@@ -15,6 +15,8 @@ if(!defined('ABSPATH')) {
 
 abstract class AbstractWordpressRepository implements RepositoryInterface
 {
+    const THUMBNAIL_ID = '_thumbnail_id';
+
     /**
      * Add or update the post meta
      *
@@ -22,9 +24,10 @@ abstract class AbstractWordpressRepository implements RepositoryInterface
      * @param mixed|ValueObjectInterface $id
      * @param mixed|ValueObjectInterface $key
      * @param mixed|ValueObjectInterface $value
+     * @param bool $unique
      * @return bool|int
      */
-    protected function storePostMeta($id, $key, $value)
+    protected function storePostMeta($id, $key, $value, $unique = true)
     {
         if($id instanceof ValueObjectInterface) {
             $id = $id->getValue();
@@ -45,7 +48,7 @@ abstract class AbstractWordpressRepository implements RepositoryInterface
 
         $updated = update_post_meta($id, $key, $value);
         if(!$updated) {
-            add_post_meta($id, $key, $value);
+            add_post_meta($id, $key, $value, $unique);
         }
 
         return $updated;

@@ -1,10 +1,10 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Variant;
 
+use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Model\Content;
 use Affilicious\Product\Domain\Model\Detail\Detail;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Review\Review;
@@ -25,6 +25,7 @@ class ProductVariant extends Product
     protected $parent;
 
     /**
+     * @since 0.6
      * @param Product $parent
      * @param Title $title
      * @param Name $name

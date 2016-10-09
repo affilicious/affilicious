@@ -58,7 +58,7 @@ class CarbonDetailTemplateGroupRepository extends AbstractCarbonRepository imple
     public function findById(DetailTemplateGroupId $detailTemplateGroupId)
     {
         $post = get_post($detailTemplateGroupId->getValue());
-        if ($post === null) {
+        if ($post === null || $post->post_status !== 'publish') {
             return null;
         }
 

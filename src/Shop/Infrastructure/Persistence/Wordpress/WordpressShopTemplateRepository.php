@@ -17,8 +17,6 @@ if (!defined('ABSPATH')) {
 
 class WordpressShopTemplateRepository extends AbstractWordpressRepository implements ShopTemplateRepositoryInterface
 {
-    const THUMBNAIL_ID = '_thumbnail_id';
-
     /**
      * @inheritdoc
      * @since 0.6
@@ -28,7 +26,7 @@ class WordpressShopTemplateRepository extends AbstractWordpressRepository implem
         // Store the shop template into the database
         $defaultArgs = $this->getDefaultArgs($shopTemplate);
         $args = $this->getArgs($shopTemplate, $defaultArgs);
-        $id = wp_insert_post($args);
+        $id = !empty($args['ID']) ? wp_update_post($args) : wp_insert_post($args);
 
         // The ID and the name might has changed. Update both values
         if(empty($post)) {
@@ -71,7 +69,7 @@ class WordpressShopTemplateRepository extends AbstractWordpressRepository implem
     public function findById(ShopTemplateId $shopTemplateId)
     {
         $post = get_post($shopTemplateId->getValue());
-        if ($post === null) {
+        if ($post === null || $post->post_status !== 'publish') {
             return null;
         }
 
