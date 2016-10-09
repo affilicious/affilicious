@@ -4,13 +4,13 @@ namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductVariantException;
 use Affilicious\Product\Domain\Exception\MissingParentProductException;
 use Affilicious\Product\Domain\Exception\ParentProductNotFoundException;
 use Affilicious\Product\Domain\Exception\ProductNotFoundException;
 use Affilicious\Product\Domain\Exception\ProductVariantNotFoundException;
+use Affilicious\Product\Domain\Model\DetailGroup\DetailGroupFactoryInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
@@ -31,18 +31,18 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
 
     /**
      * @since 0.6
-     * @param ProductRepositoryInterface $productRepository
-     * @param DetailTemplateGroupRepositoryInterface $detailGroupRepository
+     * @param ProductRepositoryInterface $productFactory
+     * @param DetailGroupFactoryInterface $detailGroupFactory
      * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
-        ProductRepositoryInterface $productRepository,
-        DetailTemplateGroupRepositoryInterface $detailGroupRepository,
+        ProductRepositoryInterface $productFactory,
+        DetailGroupFactoryInterface $detailGroupFactory,
         ShopFactoryInterface $shopFactory
     )
     {
-        parent::__construct($detailGroupRepository, $shopFactory);
-        $this->productRepository = $productRepository;
+        parent::__construct($detailGroupFactory, $shopFactory);
+        $this->productRepository = $productFactory;
     }
 
     /**

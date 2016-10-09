@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Domain\Model\Detail;
+namespace Affilicious\Product\Domain\Model\DetailGroup\Detail;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
@@ -15,35 +15,41 @@ class Detail extends AbstractAggregate
     /**
      * @var Title
      */
-    private $title;
+    protected $title;
+
+    /**
+     * @var Name
+     */
+    protected $name;
 
     /**
      * @var Key
      */
-    private $key;
+    protected $key;
 
     /**
      * @var Type
      */
-    private $type;
+    protected $type;
 
     /**
      * @var Unit
      */
-    private $unit;
+    protected $unit;
 
     /**
      * @var Value
      */
-    private $value;
+    protected $value;
 
     /**
      * @since 0.6
      * @param Title $title
+     * @param Name $name
      * @param Key $key
      * @param Type $type
      */
-    public function __construct(Title $title, Key $key, Type $type)
+    public function __construct(Title $title, Name $name, Key $key, Type $type)
     {
         $this->title = $title;
         $this->key = $key;
@@ -51,7 +57,7 @@ class Detail extends AbstractAggregate
     }
 
     /**
-     * Get the title
+     * Get the title for display usage
      *
      * @since 0.6
      * @return Title
@@ -59,6 +65,17 @@ class Detail extends AbstractAggregate
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Get the name for url usage
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -156,9 +173,10 @@ class Detail extends AbstractAggregate
     {
         return
             $object instanceof self &&
+            $this->getTitle()->isEqualTo($object->getTitle()) &&
+            $this->getName()->isEqualTo($object->getName()) &&
             $this->getKey()->isEqualTo($object->getKey()) &&
             $this->getType()->isEqualTo($object->getType()) &&
-            $this->getTitle()->isEqualTo($object->getTitle()) &&
             ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
             ($this->hasValue() && $this->getValue()->isEqualTo($object->getValue()) || !$object->hasValue());
     }

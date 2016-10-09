@@ -39,20 +39,21 @@ use Affilicious\Detail\Application\Setup\DetailTemplateGroupSetup;
 use Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailTemplateGroupRepository;
 use Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateFactory;
 use Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateGroupFactory;
+use Affilicious\Product\Application\Listener\SaveProductListener;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Product\Application\Setup\ProductSetup;
 use Affilicious\Product\Application\Setup\ProductVariantSetup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductVariantRepository;
+use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryDetailGroupFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryShopFactory;
 use Affilicious\Settings\Application\Setting\AffiliciousSettings;
 use Affilicious\Settings\Application\Setting\ProductSettings;
 use Affilicious\Shop\Application\Setup\ShopTemplateSetup;
-use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository;
 use Affilicious\Shop\Infrastructure\Persistence\InMemory\InMemoryShopTemplateFactory;
-use Affilicious\Product\Application\Listener\SaveProductListener;
+use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository;
 use Pimple\Container;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
@@ -155,7 +156,9 @@ class AffiliciousPlugin
 		$this->registerPublicHooks();
 		$this->registerAdminHooks();
 
-		new MetaBoxManager(); // TODO: This old class will be removed later
+        // TODO: This old legacy class will be removed later
+		new MetaBoxManager();
+
 		// We have to call the container to the run code inside
 		$this->container['affilicious.common.setup.carbon'];
 	}
@@ -269,7 +272,7 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.repository.product'] = function ($c) {
             return new CarbonProductRepository(
-                $c['affilicious.detail.repository.detail_template_group'],
+                $c['affilicious.product.factory.detail_group'],
                 $c['affilicious.product.factory.shop']
             );
         };
@@ -277,7 +280,7 @@ class AffiliciousPlugin
         $this->container['affilicious.product.repository.product_variant'] = function ($c) {
             return new CarbonProductVariantRepository(
                 $c['affilicious.product.repository.product'],
-                $c['affilicious.detail.repository.detail_template_group'],
+                $c['affilicious.product.factory.detail_group'],
                 $c['affilicious.product.factory.shop']
             );
         };
@@ -290,8 +293,16 @@ class AffiliciousPlugin
             return new InMemoryProductVariantFactory();
         };
 
-        $this->container['affilicious.product.factory.shop'] = function () {
-            return new InMemoryShopFactory();
+        $this->container['affilicious.product.factory.detail_group'] = function ($c) {
+            return new InMemoryDetailGroupFactory(
+                $c['affilicious.detail.repository.detail_template_group']
+            );
+        };
+
+        $this->container['affilicious.product.factory.shop'] = function ($c) {
+            return new InMemoryShopFactory(
+                $c['affilicious.shop.repository.shop_template']
+            );
         };
 
         $this->container['affilicious.shop.repository.shop_template'] = function ($c) {

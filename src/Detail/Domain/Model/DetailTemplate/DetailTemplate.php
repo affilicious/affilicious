@@ -3,6 +3,7 @@ namespace Affilicious\Detail\Domain\Model\DetailTemplate;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 
 if (!defined('ABSPATH')) {
@@ -15,6 +16,11 @@ class DetailTemplate extends AbstractAggregate
      * @var Title
      */
     protected $title;
+
+    /**
+     * @var Name
+     */
+    protected $name;
 
 	/**
 	 * @var Key
@@ -38,18 +44,22 @@ class DetailTemplate extends AbstractAggregate
 
     /**
      * @since 0.6
-     * @param Key $key
      * @param Title $title
+     * @param Name $name
+     * @param Key $key
      * @param Type $type
      */
-	public function __construct(Title $title, Key $key, Type $type)
+	public function __construct(Title $title, Name $name, Key $key, Type $type)
 	{
         $this->title = $title;
+        $this->name = $name;
         $this->key = $key;
 		$this->type = $type;
 	}
 
     /**
+     * Get the title for display usage
+     *
      * @since 0.6
      * @return Title
      */
@@ -58,7 +68,20 @@ class DetailTemplate extends AbstractAggregate
         return $this->title;
     }
 
+    /**
+     * Get the name for the url usage
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
 	/**
+     * Get the key for database usage.
+     *
 	 * @since 0.6
 	 * @return Key
 	 */
@@ -68,6 +91,8 @@ class DetailTemplate extends AbstractAggregate
 	}
 
 	/**
+     * Get the type like text, numeric or file.
+     *
 	 * @since 0.6
 	 * @return Type
 	 */
@@ -77,6 +102,8 @@ class DetailTemplate extends AbstractAggregate
 	}
 
 	/**
+     * Check of the detail template has an optional unit.
+     *
 	 * @since 0.6
 	 * @return bool
 	 */
@@ -86,6 +113,8 @@ class DetailTemplate extends AbstractAggregate
 	}
 
 	/**
+     * Get the optional unit like text, numeric or file.
+     *
 	 * @since 0.6
 	 * @return Unit
 	 */
@@ -95,6 +124,8 @@ class DetailTemplate extends AbstractAggregate
 	}
 
     /**
+     * Set the optional unit like like text, numeric or file.
+     *
      * @since 0.6
      * @param Unit $unit
      */
@@ -104,6 +135,8 @@ class DetailTemplate extends AbstractAggregate
     }
 
 	/**
+     * Check of the detail template has an optional help text
+     *
 	 * @since 0.6
 	 * @return bool
 	 */
@@ -113,6 +146,8 @@ class DetailTemplate extends AbstractAggregate
 	}
 
 	/**
+     * Get the optional help text
+     *
 	 * @since 0.6
 	 * @return HelpText
 	 */
@@ -122,6 +157,8 @@ class DetailTemplate extends AbstractAggregate
 	}
 
     /**
+     * Set the optional help text
+     *
      * @since 0.6
      * @param HelpText $helpText
      */

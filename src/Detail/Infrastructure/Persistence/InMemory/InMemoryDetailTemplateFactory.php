@@ -20,6 +20,7 @@ class InMemoryDetailTemplateFactory implements DetailTemplateFactoryInterface
     {
         $detailTemplate = new DetailTemplate(
             $title,
+            $title->toName(),
             $title->toKey(),
             $type
         );

@@ -9,6 +9,7 @@ use Affilicious\Product\Domain\Exception\ProductNotFoundException;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
+use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
 if(!defined('ABSPATH')) {
@@ -138,7 +139,8 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
         // Title, Name
         $product = new Product(
             new Title($post->post_title),
-            new Name($post->post_name)
+            new Name($post->post_name),
+            Type::simple()
         );
 
         // ID
@@ -159,8 +161,8 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
         // Variants
         $product = $this->addVariants($product);
 
-        // Details
-        $product = $this->addDetails($product, $post);
+        // Detail groups
+        $product = $this->addDetailGroups($product, $post);
 
         // Review
         $product = $this->addReview($product, $post);

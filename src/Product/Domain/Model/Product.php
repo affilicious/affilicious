@@ -5,15 +5,13 @@ use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Image\Image;
-use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Exception\DuplicatedDetailException;
+use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
 use Affilicious\Product\Domain\Exception\DuplicatedShopException;
 use Affilicious\Product\Domain\Exception\DuplicatedVariantException;
-use Affilicious\Product\Domain\Model\Detail\Detail;
+use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Review\Review;
-use Affilicious\Product\Domain\Model\Shop\AffiliateId;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
@@ -41,14 +39,14 @@ class Product extends AbstractEntity
     protected $type;
 
     /**
-     * The title of the product
+     * The title of the product for display usage
      *
      * @var Title
      */
     protected $title;
 
     /**
-     * The name of the product
+     * The name of the product for url usage
      *
      * @var Name
      */
@@ -76,18 +74,18 @@ class Product extends AbstractEntity
     protected $shops;
 
     /**
-     * Holds all product variants
+     * Holds all product variants of the product
      *
      * @var ProductVariant[]
      */
     protected $variants;
 
     /**
-     * Holds the details of the product
+     * Holds the detail groups of the product
      *
-     * @var Detail[]
+     * @var DetailGroup[]
      */
-    protected $details;
+    protected $detailGroups;
 
     /**
      * Stores the rating in 0.5 steps from 0 to 5 and the number of votes
@@ -121,15 +119,16 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Title $title
      * @param Name $name
+     * @param Type $type
      */
-    public function __construct(Title $title, Name $name)
+    public function __construct(Title $title, Name $name, Type $type)
     {
         $this->title = $title;
         $this->name = $name;
         $this->type = Type::simple();
         $this->shops = array();
         $this->variants = array();
-        $this->details = array();
+        $this->detailGroups = array();
         $this->relatedProducts = array();
         $this->relatedAccessories = array();
         $this->imageGallery = array();
@@ -306,15 +305,15 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Check if the product has a specific shop by the affiliate ID
+     * Check if the product has a specific shop by the name
      *
      * @since 0.6
-     * @param AffiliateId $affiliateId
+     * @param Name $name
      * @return bool
      */
-    public function hasShop(AffiliateId $affiliateId)
+    public function hasShop(Name $name)
     {
-        return isset($this->shops[$affiliateId->getValue()]);
+        return isset($this->shops[$name->getValue()]);
     }
 
     /**
@@ -326,34 +325,38 @@ class Product extends AbstractEntity
      */
     public function addShop(Shop $shop)
     {
-        if($this->hasShop($shop->getAffiliateId())) {
+        if($this->hasShop($shop->getName())) {
             throw new DuplicatedShopException($shop, $this);
         }
 
-        $this->shops[$shop->getAffiliateId()->getValue()] = $shop;
+        $this->shops[$shop->getName()->getValue()] = $shop;
     }
 
     /**
-     * Remove a shop by the affiliate ID
+     * Remove a shop by the name
      *
      * @since 0.6
-     * @param AffiliateId $affiliateId
+     * @param Name $name
      */
-    public function removeShop(AffiliateId $affiliateId)
+    public function removeShop(Name $name)
     {
-        unset($this->shops[$affiliateId->getValue()]);
+        unset($this->shops[$name->getValue()]);
     }
 
     /**
-     * Get a shop by the affiliate ID
+     * Get a shop by the name
      *
      * @since 0.6
-     * @param AffiliateId $affiliateId
+     * @param Name $name
      * @return null|Shop
      */
-    public function getShop(AffiliateId $affiliateId)
+    public function getShop(Name $name)
     {
-        $shop = $this->hasShop($affiliateId) ? $this->shops[$affiliateId->getValue()] : null;
+        if(!$this->hasShop($name)) {
+            return null;
+        }
+
+        $shop = $this->shops[$name->getValue()];
 
         return $shop;
     }
@@ -386,16 +389,14 @@ class Product extends AbstractEntity
      */
     public function getShops()
     {
-        if(empty($this->variants)) {
-            return array();
-        }
-
         $shops = array_values($this->shops);
+
         return $shops;
     }
 
     /**
      * Set all shops
+     * If you do this, the old shops going to be replaced.
      *
      * @since 0.6
      * @param Shop[] $shops
@@ -405,7 +406,7 @@ class Product extends AbstractEntity
     {
         $this->shops = array();
 
-        // addShops checks for the type
+        // addShop checks for the type
         foreach ($shops as $shop) {
             $this->addShop($shop);
         }
@@ -458,7 +459,11 @@ class Product extends AbstractEntity
      */
     public function getVariant(Name $name)
     {
-        $variant = $this->hasVariant($name) ? $this->variants[$name->getValue()] : null;
+        if(!$this->hasVariant($name)) {
+            return null;
+        }
+
+        $variant = $this->variants[$name->getValue()];
 
         return $variant;
     }
@@ -478,6 +483,7 @@ class Product extends AbstractEntity
 
     /**
      * Set all product variants
+     * If you do this, the old product variants going to be replaced.
      *
      * @since 0.6
      * @param ProductVariant[] $variants
@@ -487,91 +493,97 @@ class Product extends AbstractEntity
     {
         $this->variants = array();
 
-        // addShops checks for the type
+        // addVariant checks for the type
         foreach ($variants as $variant) {
             $this->addVariant($variant);
         }
     }
 
     /**
-     * Check if the product has a specific detail
+     * Check if the product has a specific detail group
      *
      * @since 0.6
-     * @param Key $key
+     * @param Name $name
      * @return bool
      */
-    public function hasDetail(Key $key)
+    public function hasDetailGroup(Name $name)
     {
-        return isset($this->details[$key->getValue()]);
+        return isset($this->detailGroups[$name->getValue()]);
     }
 
     /**
-     * Add a new detail
+     * Add a new detail group
      *
      * @since 0.6
-     * @param Detail $detail
-     * @throws DuplicatedDetailException
+     * @param DetailGroup $detailGroup
+     * @throws DuplicatedDetailGroupException
      */
-    public function addDetail(Detail $detail)
+    public function addDetailGroup(DetailGroup $detailGroup)
     {
-        if($this->hasDetail($detail->getKey())) {
-            throw new DuplicatedDetailException($detail, $this);
+        if($this->hasDetailGroup($detailGroup->getName())) {
+            throw new DuplicatedDetailGroupException($detailGroup, $this);
         }
 
-        $this->details[$detail->getKey()->getValue()] = $detail;
+        $this->detailGroups[$detailGroup->getName()->getValue()] = $detailGroup;
     }
 
     /**
-     * Remove a detail by the ID
+     * Remove a detail group by the name
      *
      * @since 0.6
-     * @param Key $key
+     * @param Name $name
      */
-    public function removeDetail(Key $key)
+    public function removeDetailGroup(Name $name)
     {
-        unset($this->details[$key->getValue()]);
+        unset($this->detailGroups[$name->getValue()]);
     }
 
     /**
-     * Get a detail by the ID
+     * Get a detail group by the name
      *
      * @since 0.6
-     * @param Key $key
-     * @return null|Detail
+     * @param Name $name
+     * @return null|DetailGroup
      */
-    public function getDetail(Key $key)
+    public function getDetailGroup(Name $name)
     {
-        $detail = $this->hasDetail($key) ? $this->details[$key->getValue()] : null;
+        if(!$this->hasDetailGroup($name)) {
+            return null;
+        }
 
-        return $detail;
+        $detailGroup = $this->detailGroups[$name->getValue()];
+
+        return $detailGroup;
     }
 
     /**
-     * Get all details
+     * Get all detail groups
      *
      * @since 0.6
-     * @return Detail[]
+     * @return DetailGroup[]
      */
-    public function getDetails()
+    public function getDetailGroups()
     {
-        $details = array_values($this->details);
+        $details = array_values($this->detailGroups);
+
         return $details;
     }
 
     /**
-     * Set all details
+     * Set all detail groups
+     * If you do this, the old detail groups going to be replaced.
      *
      * @since 0.6
-     * @param Detail[] $details
+     * @param DetailGroup[] $detailGroups
      * @throws InvalidTypeException
      */
-    public function setDetails($details)
+    public function setDetailGroups($detailGroups)
     {
-        $this->details = array();
+        $this->detailGroups = array();
 
-        // addDetail checks for the type
-        foreach ($details as $detail) {
-            $this->addDetail($detail);
+        // addDetailGroup checks for the type
+        foreach ($detailGroups as $detail) {
+            $this->addDetailGroup($detail);
         }
     }
 
@@ -721,6 +733,9 @@ class Product extends AbstractEntity
     {
         return
             $object instanceof self &&
-            $this->getId()->isEqualTo($object->getId());
+            $this->getId()->isEqualTo($object->getId()) &&
+            $this->getTitle()->isEqualTo($object->getTitle()) &&
+            $this->getName()->isEqualTo($object->getName());
+            // TODO: Compare the rest and check the best way to compare two arrays with objects inside
     }
 }

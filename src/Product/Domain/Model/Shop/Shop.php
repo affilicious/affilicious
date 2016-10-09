@@ -1,11 +1,14 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Shop;
 
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\InvalidPriceCurrencyException;
+use Affilicious\Shop\Domain\Model\ShopTemplateId;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -13,6 +16,11 @@ if (!defined('ABSPATH')) {
 
 class Shop extends AbstractAggregate
 {
+    /**
+     * @var ShopTemplateId
+     */
+    protected $templateId;
+
     /**
      * @var Title
      */
@@ -24,19 +32,24 @@ class Shop extends AbstractAggregate
     protected $name;
 
     /**
+     * @var Key
+     */
+    protected $key;
+
+    /**
      * @var Image
      */
     protected $thumbnail;
 
     /**
-     * @var AffiliateId
-     */
-    protected $affiliateId;
-
-    /**
      * @var AffiliateLink
      */
     protected $affiliateLink;
+
+    /**
+     * @var AffiliateId
+     */
+    protected $affiliateId;
 
     /**
      * @var Price
@@ -57,24 +70,61 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @param Title $title
      * @param Name $name
-     * @param AffiliateId $affiliateId
+     * @param Key $key
+     * @param AffiliateLink $affiliateLink
      * @param Currency $currency
      */
-    public function __construct(
-        Title $title,
-        Name $name,
-        AffiliateId $affiliateId,
-        Currency $currency
-    )
+    public function __construct(Title $title, Name $name, Key $key, AffiliateLink $affiliateLink, Currency $currency)
     {
         $this->title = $title;
         $this->name = $name;
-        $this->affiliateId = $affiliateId;
+        $this->key = $key;
+        $this->affiliateLink = $affiliateLink;
         $this->currency = $currency;
     }
 
     /**
-     * Get the title
+     * Check if the shop has a template ID
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasTemplateId()
+    {
+        return $this->templateId !== null;
+    }
+
+    /**
+     * Get the shop template ID
+     *
+     * @since 0.6
+     * @return null|ShopTemplateId
+     *
+     */
+    public function getTemplateId()
+    {
+        return $this->templateId;
+    }
+
+    /**
+     * Set the shop template ID
+     *
+     * @since 0.6
+     * @param null|ShopTemplateId
+     * $templateId
+     * @throws InvalidTypeException
+     */
+    public function setTemplateId($templateId)
+    {
+        if($templateId !== null && !($templateId instanceof ShopTemplateId)) {
+            throw new InvalidTypeException($templateId, 'Affilicious\Shop\Domain\Model\ShopTemplateId');
+        }
+
+        $this->templateId = $templateId;
+    }
+
+    /**
+     * Get the title for display usage
      *
      * @since 0.6
      * @return Title
@@ -85,7 +135,7 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Get the name
+     * Get the name for url usage
      *
      * @since 0.6
      * @return Name
@@ -93,6 +143,17 @@ class Shop extends AbstractAggregate
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get the key for database usage
+     *
+     * @since 0.6
+     * @return Key
+     */
+    public function getKey()
+    {
+        return $this->key;
     }
 
     /**
@@ -129,28 +190,6 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Get the affiliate ID
-     *
-     * @since 0.6
-     * @return AffiliateId
-     */
-    public function getAffiliateId()
-    {
-        return $this->affiliateId;
-    }
-
-    /**
-     * Check if the shop has an affiliate link
-     *
-     * @since 0.6
-     * @return bool
-     */
-    public function hasAffiliateLink()
-    {
-        return $this->affiliateLink !== null;
-    }
-
-    /**
      * Get the affiliate link
      *
      * @since 0.6
@@ -162,14 +201,36 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Set the affiliate link
+     * Check if the shop has an affiliate ID
      *
      * @since 0.6
-     * @param AffiliateLink $affiliateLink
+     * @return bool
      */
-    public function setAffiliateLink(AffiliateLink $affiliateLink)
+    public function hasAffiliateId()
     {
-        $this->affiliateLink = $affiliateLink;
+        return $this->affiliateId !== null;
+    }
+
+    /**
+     * Get the affiliate ID
+     *
+     * @since 0.6
+     * @return AffiliateId
+     */
+    public function getAffiliateId()
+    {
+        return $this->affiliateId;
+    }
+
+    /**
+     * Set the affiliate ID
+     *
+     * @since 0.6
+     * @param AffiliateId $affiliateId
+     */
+    public function setAffiliateId(AffiliateId $affiliateId)
+    {
+        $this->affiliateId = $affiliateId;
     }
 
     /**
@@ -260,15 +321,16 @@ class Shop extends AbstractAggregate
     {
         return
             $object instanceof self &&
+            ($this->hasTemplateId() && $this->getTemplateId()->isEqualTo($object->getTemplateId()) || !$object->hasTemplateId()) &&
             $this->getTitle()->isEqualTo($object->getTitle()) &&
             $this->getName()->isEqualTo($object->getName()) &&
+            $this->getKey()->isEqualTo($object->getKey()) &&
             ($this->hasThumbnail() && $this->getThumbnail()->isEqualTo($object->getThumbnail()) || !$object->hasThumbnail()) &&
-            $this->getAffiliateId()->isEqualTo($object->getAffiliateId()) &&
-            ($this->hasAffiliateLink() && $this->getAffiliateLink()->isEqualTo($object->getAffiliateLink()) || !$object->hasAffiliateLink()) &&
+            ($this->hasAffiliateId() && $this->getAffiliateId()->isEqualTo($object->getAffiliateId()) || !$object->hasAffiliateId()) &&
+            $this->getAffiliateLink()->isEqualTo($object->getAffiliateLink()) &&
             ($this->hasPrice() && $this->getPrice()->isEqualTo($object->getPrice()) || !$object->hasPrice()) &&
             ($this->hasOldPrice() && $this->getOldPrice()->isEqualTo($object->getOldPrice()) || !$object->hasOldPrice()) &&
             $this->getCurrency()->isEqualTo($object->getCurrency());
-
     }
 
     /**

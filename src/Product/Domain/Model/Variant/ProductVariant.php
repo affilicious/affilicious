@@ -2,10 +2,9 @@
 namespace Affilicious\Product\Domain\Model\Variant;
 
 use Affilicious\Common\Domain\Model\Content;
-use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Model\Detail\Detail;
+use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Product\Domain\Model\Type;
@@ -32,7 +31,7 @@ class ProductVariant extends Product
      */
     public function __construct(Product $parent, Title $title, Name $name)
     {
-        parent::__construct($title, $name);
+        parent::__construct($title, $name, $parent->type);
         $this->parent = $parent;
     }
 
@@ -96,45 +95,45 @@ class ProductVariant extends Product
      * @inheritdoc
      * @since 0.6
      */
-    public function hasDetail(Key $key)
+    public function hasDetailGroup(Name $name)
     {
-        return $this->parent->hasDetail($key);
+        return $this->parent->hasDetailGroup($name);
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function addDetail(Detail $detail)
+    public function addDetailGroup(DetailGroup $detailGroup)
     {
-        $this->parent->addDetail($detail);
+        $this->parent->addDetailGroup($detailGroup);
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function removeDetail(Key $key)
+    public function removeDetailGroup(Name $name)
     {
-        $this->parent->removeDetail($key);
+        $this->parent->removeDetailGroup($name);
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function getDetail(Key $key)
+    public function getDetailGroup(Name $name)
     {
-        return $this->getDetail($key);
+        return $this->getDetailGroup($name);
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function getDetails()
+    public function getDetailGroups()
     {
-        return $this->parent->getDetails();
+        return $this->parent->getDetailGroups();
     }
 
     /**
@@ -201,21 +200,6 @@ class ProductVariant extends Product
     }
 
     /**
-     * Get the raw Wordpress post
-     *
-     * @since 0.6
-     * @return null|\WP_Post
-     */
-    public function getRawPost()
-    {
-        if(!$this->hasId()) {
-            return null;
-        }
-
-        return get_post($this->id->getValue());
-    }
-
-    /**
      * @inheritdoc
      * @since 0.6
      */
@@ -223,6 +207,6 @@ class ProductVariant extends Product
     {
         return
             parent::isEqualTo($object) &&
-            $this->getParent()->isEqualTo($object->getParent());
+            $this->getName()->isEqualTo($object->getName());
     }
 }

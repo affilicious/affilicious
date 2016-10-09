@@ -11,7 +11,7 @@ if(!defined('ABSPATH')) {
 interface ProductFactoryInterface extends FactoryInterface
 {
     /**
-     * Create a completely new product which can be stored into a database.
+     * Create a completely new simple product which can be stored into a database.
      *
      * @since 0.6
      * @param Title $title

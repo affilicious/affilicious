@@ -16,7 +16,7 @@ class InvalidTypeException extends DomainException
 	{
 		parent::__construct(sprintf(
 			'Invalid type %s. Please use %s',
-			gettype($invalidValue),
+			is_object($invalidValue) ? get_class($invalidValue) : gettype($invalidValue),
 			$validType
 		));
 	}

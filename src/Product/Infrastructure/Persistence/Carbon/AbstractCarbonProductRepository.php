@@ -7,29 +7,21 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Image\ImageId;
 use Affilicious\Common\Domain\Model\Image\Source;
 use Affilicious\Common\Domain\Model\Image\Width;
-use Affilicious\Common\Domain\Model\Key;
-use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
-use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
-use Affilicious\Product\Domain\Model\Detail\Detail;
-use Affilicious\Product\Domain\Model\Detail\Type as DetailType;
-use Affilicious\Product\Domain\Model\Detail\Unit;
-use Affilicious\Product\Domain\Model\Detail\Value;
+use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
+use Affilicious\Product\Domain\Model\DetailGroup\DetailGroupFactoryInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
 use Affilicious\Product\Domain\Model\Review\Rating;
 use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Product\Domain\Model\Review\Votes;
-use Affilicious\Product\Domain\Model\Shop\AffiliateId;
-use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
-use Affilicious\Product\Domain\Model\Shop\Currency;
-use Affilicious\Product\Domain\Model\Shop\Price;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
+use Affilicious\Shop\Domain\Model\ShopTemplateId;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 
 if(!defined('ABSPATH')) {
@@ -40,19 +32,18 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
 {
     const TYPE = 'affilicious_product_type';
     const SHOPS = 'affilicious_product_shops';
-    const SHOP_ID = 'shop_id';
+    const SHOP_TEMPLATE_ID = 'shop_template_id';
     const SHOP_PRICE = 'price';
     const SHOP_OLD_PRICE = 'old_price';
     const SHOP_CURRENCY = 'currency';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
     const DETAIL_GROUPS = 'affilicious_product_detail_groups';
-    const DETAIL_GROUPS_ID = 'detail_group_id';
+    const DETAIL_TEMPLATE_GROUP_ID = 'detail_template_group_id';
     const VARIANTS = 'affilicious_product_variants';
-    const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_ATTRIBUTE_GROUPS = 'attribute_groups';
-    const VARIANT_ATTRIBUTE_GROUPS_ID = 'attribute_group_id';
+    const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'attribute_template_group_id';
     const VARIANT_THUMBNAIL = 'thumbnail';
     const VARIANT_SHOPS = 'shops';
     const REVIEW_RATING = 'affilicious_product_review_rating';
@@ -61,10 +52,15 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
     const RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
     const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
+    // TODO: Remove the legacy support in the beta
+    const SHOP_ID = 'shop_id';
+    const DETAIL_GROUP_ID = 'detail_group_id';
+    const VARIANT_ATTRIBUTE_GROUP_ID = 'attribute_group_id';
+
     /**
-     * @var DetailTemplateGroupRepositoryInterface
+     * @var DetailGroupFactoryInterface
      */
-    protected $detailGroupRepository;
+    protected $detailGroupFactory;
 
     /**
      * @var ShopTemplateRepositoryInterface
@@ -73,15 +69,15 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
 
     /**
      * @since 0.6
-     * @param DetailTemplateGroupRepositoryInterface $detailGroupRepository
+     * @param DetailGroupFactoryInterface $detailGroupFactory
      * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
-        DetailTemplateGroupRepositoryInterface $detailGroupRepository,
+        DetailGroupFactoryInterface $detailGroupFactory,
         ShopFactoryInterface $shopFactory
     )
     {
-        $this->detailGroupRepository = $detailGroupRepository;
+        $this->detailGroupFactory = $detailGroupFactory;
         $this->shopFactory = $shopFactory;
     }
 
@@ -171,22 +167,22 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
     }
 
     /**
-     * Add details to the product
+     * Add detail groups to the product
      *
      * @since 0.6
      * @param Product $product
      * @param \WP_Post $post
      * @return Product
      */
-    protected function addDetails(Product $product, \WP_Post $post)
+    protected function addDetailGroups(Product $product, \WP_Post $post)
     {
-        $detailGroups = carbon_get_post_meta($post->ID, self::DETAIL_GROUPS, 'complex');
-        if (!empty($detailGroups)) {
-            foreach ($detailGroups as $detailGroup) {
-                $details = self::getDetailsFromArray($detailGroup);
+        $rawDetailGroups = carbon_get_post_meta($post->ID, self::DETAIL_GROUPS, 'complex');
+        if (!empty($rawDetailGroups)) {
+            foreach ($rawDetailGroups as $rawDetailGroup) {
+                $detailGroup = self::getDetailGroupFromArray($rawDetailGroup);
 
-                if (!empty($details)) {
-                    $product->setDetails($details);
+                if (!empty($detailGroup)) {
+                    $product->addDetailGroup($detailGroup);
                 }
             }
         }
@@ -293,7 +289,7 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
     }
 
     /**
-     * Build the shop object from the raw array
+     * Build the shop from the raw array
      *
      * @since 0.6
      * @param array $rawShop
@@ -301,94 +297,51 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
      */
     protected function getShopFromArray(array $rawShop)
     {
-        $shopId = !empty($rawShop[self::SHOP_ID]) ? intval($rawShop[self::SHOP_ID]) : null;
-        if (empty($shopId)) {
+        $shopTemplateId = !empty($rawShop[self::SHOP_TEMPLATE_ID]) ? intval($rawShop[self::SHOP_TEMPLATE_ID]) : null;
+
+        // TODO: Remove the legacy support in the beta
+        if(empty($shopTemplateId)) {
+            $shopTemplateId = !empty($rawShop[self::SHOP_ID]) ? intval($rawShop[self::SHOP_ID]) : null;
+        }
+
+        if (empty($shopTemplateId)) {
             return null;
         }
 
-        $title = get_the_title($shopId);
-        $thumbnail = $this->getThumbnailImageFromPostId($shopId);
-        $affiliateId = !empty($rawShop[self::SHOP_AFFILIATE_ID]) ? $rawShop[self::SHOP_AFFILIATE_ID] : null;
-        $affiliateLink = !empty($rawShop[self::SHOP_AFFILIATE_LINK]) ? $rawShop[self::SHOP_AFFILIATE_LINK] : null;
-        $price = !empty($rawShop[self::SHOP_PRICE]) ? floatval($rawShop[self::SHOP_PRICE]) : null;
-        $oldPrice = !empty($rawShop[self::SHOP_OLD_PRICE]) ? floatval($rawShop[self::SHOP_OLD_PRICE]) : null;
-        $currency = !empty($rawShop[self::SHOP_CURRENCY]) ? $rawShop[self::SHOP_CURRENCY] : null;
-
-        if(empty($title) || empty($affiliateId) || empty($currency)) {
-            return null;
-        }
-
-        $shop = $this->shopFactory->create(
-            new Title($title),
-            new AffiliateId($affiliateId),
-            new Currency($currency)
+        $shop = $this->shopFactory->createFromTemplateIdAndData(
+            new ShopTemplateId($shopTemplateId),
+            $rawShop
         );
-
-        if(!empty($thumbnail)) {
-            $shop->setThumbnail($thumbnail);
-        }
-
-        if(!empty($affiliateLink)) {
-            $shop->setAffiliateLink(new AffiliateLink($affiliateLink));
-        }
-
-        if(!empty($price)) {
-            $shop->setPrice(new Price($price, new Currency($currency)));
-        }
-
-        if(!empty($oldPrice)) {
-            $shop->setOldPrice(new Price($oldPrice, new Currency($currency)));
-        }
 
         return $shop;
     }
 
     /**
-     * Build the detail objects from the raw array
+     * Build the detail group from the raw array
      *
      * @since 0.6
      * @param array $rawDetailGroup
-     * @return Detail[]
+     * @return null|DetailGroup
      */
-    protected function getDetailsFromArray(array $rawDetailGroup)
+    protected function getDetailGroupFromArray(array $rawDetailGroup)
     {
-        $detailGroupId = !empty($rawDetailGroup['detail_group_id']) ? intval($rawDetailGroup['detail_group_id']) : null;
-        $detailGroup = $this->detailGroupRepository->findById(new DetailTemplateGroupId($detailGroupId));
-        if (empty($detailGroupId) || empty($detailGroup)) {
-            return array();
+        $detailTemplateGroupId = !empty($rawDetailGroup[self::DETAIL_TEMPLATE_GROUP_ID]) ? intval($rawDetailGroup[self::DETAIL_TEMPLATE_GROUP_ID]) : null;
+
+        // TODO: Remove the legacy support in the beta
+        if(empty($detailTemplateGroupId)) {
+            $detailTemplateGroupId = !empty($rawDetailGroup[self::DETAIL_GROUP_ID]) ? intval($rawDetailGroup[self::DETAIL_GROUP_ID]) : null;
         }
 
-        $details = array();
-        foreach ($detailGroup->getDetails() as $detail) {
-            $detailKey = $detail->getKey()->getValue();
-            $detailGroupKey = $detailGroup->getKey()->getValue();
-            $key =  $detailGroupKey . '_' . $detailKey;
-            $title = $detail->getTitle()->getValue();
-            $unit = $detail->hasUnit() ? $detail->getUnit()->getValue() : null;
-            $type = $detail->getType()->getValue();
-            $value = !empty($rawDetailGroup[$detailKey]) ? $rawDetailGroup[$detailKey] : null;
-
-            $temp = new Detail(
-                new Title($title),
-                new Key($key),
-                new DetailType($type)
-            );
-
-            if(!empty($unit)) {
-                $temp->setUnit(new Unit($unit));
-            }
-
-            if(!empty($value)) {
-                // Convert the string into a float, if the type is numeric
-                $value = $detail->getType()->isEqualTo(DetailType::number()) ? floatval($value) : $value;
-
-                $temp->setValue(new Value($value));
-            }
-
-            $details[] = $temp;
+        if (empty($detailTemplateGroupId)) {
+            return null;
         }
 
-        return $details;
+        $detailGroup = $this->detailGroupFactory->createFromTemplateIdAndData(
+            new DetailTemplateGroupId($detailTemplateGroupId),
+            $rawDetailGroup
+        );
+
+        return $detailGroup;
     }
 
     /**

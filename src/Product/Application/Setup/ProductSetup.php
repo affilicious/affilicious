@@ -307,14 +307,13 @@ class ProductSetup implements SetupInterface
 
         foreach ($shops as $shop) {
             $fields = array(
-                CarbonField::make('hidden', CarbonProductRepository::SHOP_ID, __('ShopTemplate ID', 'affilicious'))
+                CarbonField::make('hidden', CarbonProductRepository::SHOP_TEMPLATE_ID, __('ShopTemplate ID', 'affilicious'))
                     ->set_required(true)
                     ->set_value($shop->getId()->getValue()),
-                CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
-                    ->set_required(true)
-                    ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
                 CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_LINK, __('Affiliate Link', 'affilicious'))
                     ->set_required(true),
+                CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
+                    ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
                 CarbonField::make('number', CarbonProductRepository::SHOP_PRICE, __('Price', 'affilicious')),
                 CarbonField::make('number', CarbonProductRepository::SHOP_OLD_PRICE, __('Old Price', 'affilicious')),
                 CarbonField::make('select', CarbonProductRepository::SHOP_CURRENCY, __('Currency', 'affilicious'))
@@ -387,11 +386,11 @@ class ProductSetup implements SetupInterface
 
             $fieldId = CarbonField::make(
                 'hidden',
-                CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS_ID
+                CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID
             )->set_value($attributeGroup->getId()->getValue());
 
             $fields = array_merge(array(
-                CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS_ID => $fieldId,
+                CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID => $fieldId,
             ), $fields);
 
             $tabs->add_fields($key, $title, $fields);
@@ -449,11 +448,11 @@ class ProductSetup implements SetupInterface
 
             $carbonDetailGroupId = CarbonField::make(
                 'hidden',
-                CarbonProductRepository::DETAIL_GROUPS_ID
+                CarbonProductRepository::DETAIL_TEMPLATE_GROUP_ID
             )->set_value($detailGroup->getId()->getValue());
 
             $fields = array_merge(array(
-                CarbonProductRepository::DETAIL_GROUPS_ID => $carbonDetailGroupId,
+                CarbonProductRepository::DETAIL_TEMPLATE_GROUP_ID => $carbonDetailGroupId,
             ), $fields);
 
             $tabs->add_fields($key, $title, $fields);

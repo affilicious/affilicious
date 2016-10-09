@@ -95,7 +95,7 @@ function affilicious_get_product_details($productOrId = null)
         return null;
     }
 
-    $details = $product->getDetails();
+    $details = $product->getDetailGroups();
 
     $rawDetails = array();
     foreach ($details as $detail) {
