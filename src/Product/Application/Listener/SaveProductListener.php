@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Listener;
 
+use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
 use Affilicious\Product\Domain\Model\Variant\ProductVariantRepositoryInterface;
@@ -46,6 +47,10 @@ class SaveProductListener
     public function listen($postId)
     {
         if(!$this->isRealSave($postId)) {
+            return;
+        }
+
+        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
             return;
         }
 
