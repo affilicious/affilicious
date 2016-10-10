@@ -20,8 +20,13 @@ class ProductSettings implements SettingsInterface
 
 		$generalFields = apply_filters('affilicious_settings_product_general_fields', array(
 			CarbonField::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
-				->help_text(__('Used as pretty permalink text (i.e. /slug/). Default is "product". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious')),
+				->help_text(sprintf(__('Used as pretty permalink text (i.e. /slug/). Default is "%s". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'), 'product')),
 		));
+
+        $variantFields = apply_filters('affilicious_settings_product_variant_fields', array(
+            CarbonField::make('text', 'affilicious_settings_product_variant_slug', __('Slug', 'affilicious'))
+                ->help_text(sprintf(__('Used as pretty permalink text (i.e. /slug/). Default is "product-variant". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'), 'product-variant')),
+        ));
 
 		$taxonomiesFields = apply_filters('affilicious_settings_product_taxonomies_fields', array(
 			CarbonField::make('html', 'affilicious_settings_product_taxonomies_description')
@@ -45,6 +50,7 @@ class ProductSettings implements SettingsInterface
 		$container = CarbonContainer::make('theme_options', sprintf(__('%s Settings', 'affilicious'), __('Product', 'affilicious')))
            ->set_page_parent(sprintf(__('%s Settings', 'affilicious'), 'Affilicious'))
            ->add_tab(__('General', 'affilicious'), $generalFields)
+           ->add_tab(__('Variants', 'affilicious'), $variantFields)
            ->add_tab(__('Taxonomies', 'affilicious'), $taxonomiesFields);
 
 		apply_filters('affilicious_settings_product_container', $container);

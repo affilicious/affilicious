@@ -353,10 +353,6 @@ class AffiliciousPlugin
             );
         };
 
-        $this->container['affilicious.product.setup.product_variant'] = function () {
-            return new ProductVariantSetup();
-        };
-
         $this->container['affilicious.product.listener.save_product'] = function ($c) {
             return new SaveProductListener(
                 $c['affilicious.product.repository.product'],
@@ -459,11 +455,6 @@ class AffiliciousPlugin
         $productSetup = $this->container['affilicious.product.setup.product'];
         add_action('init', array($productSetup, 'init'), 5);
         add_action('init', array($productSetup, 'render'), 6);
-
-        // Hook the product variants
-        $productVariantSetup = $this->container['affilicious.product.setup.product_variant'];
-        add_action('init', array($productVariantSetup, 'init'), 5);
-        add_action('init', array($productVariantSetup, 'render'), 6);
 
         // Hook the product listeners
         $saveProductListener = $this->container['affilicious.product.listener.save_product'];

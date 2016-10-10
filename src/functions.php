@@ -12,6 +12,116 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+add_action('pre_get_posts', 'my_hide_system_pages' );
+function my_hide_system_pages(WP_Query $query) {
+    if( is_admin() && !empty($_GET['post_type']) && $_GET['post_type'] == 'product' && $query->query['post_type'] == 'product' && !current_user_can( 'be_overlord' )) {
+        $query->query_vars['post_parent'] = 0;
+    }
+}
+
+add_filter("views_edit-product", 'wpse_30331_custom_view_count', 10, 1);
+function wpse_30331_custom_view_count($views)
+{
+    global $current_screen, $wpdb;
+
+    if($current_screen->id !== 'edit-product') {
+        return $views;
+    }
+
+    if (isset($views['all'])) {
+        $all = $wpdb->get_var("
+            SELECT COUNT(*)
+            FROM $wpdb->posts
+            WHERE post_status IN ('publish', 'draft', 'pending') 
+            AND post_type = 'product'
+            AND post_parent = 0"
+        );
+
+        $views['all'] = preg_replace('/\(.+\)/U', '(' . $all . ')', $views['all']);
+    }
+
+    if (isset($views['publish'])) {
+        $publish = $wpdb->get_var("
+            SELECT COUNT(*)
+            FROM $wpdb->posts
+            WHERE post_status = 'publish'
+            AND post_type = 'product'
+            AND post_parent = 0"
+        );
+
+        $views['publish'] = preg_replace('/\(.+\)/U', '(' . $publish . ')', $views['publish']);
+    }
+
+    if (isset($views['draft'])) {
+        $draft = $wpdb->get_var("
+            SELECT COUNT(*)
+            FROM $wpdb->posts
+            WHERE post_status = 'draft'
+            AND post_type = 'product'
+            AND post_parent = 0"
+        );
+
+        $views['draft'] = preg_replace('/\(.+\)/U', '(' . $draft . ')', $views['draft']);
+    }
+
+    if (isset($views['pending'])) {
+        $pending = $wpdb->get_var("
+            SELECT COUNT(*)
+            FROM $wpdb->posts
+            WHERE post_status = 'pending'
+            AND post_type = 'product'
+            AND post_parent = 0"
+        );
+
+        $views['pending'] = preg_replace('/\(.+\)/U', '(' . $pending . ')', $views['pending']);
+    }
+
+    if (isset($views['trash'])) {
+        $trash = $wpdb->get_var("
+            SELECT COUNT(*)
+            FROM $wpdb->posts
+            WHERE post_status = 'trash'
+            AND post_type = 'product'
+            AND post_parent = 0"
+        );
+
+        $views['trash'] = preg_replace('/\(.+\)/U', '(' . $trash . ')', $views['trash']);
+    }
+
+    return $views;
+}
+
+add_action( 'admin_bar_menu', 'customize_my_wp_admin_bar', 999 );
+function customize_my_wp_admin_bar(WP_Admin_Bar $wp_admin_bar)
+{
+    $editNode = $wp_admin_bar->get_node('edit');
+    if(empty($editNode)) {
+        return;
+    }
+
+    $post = get_post();
+    if(empty($post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
+        return;
+    }
+
+    $editNode->href = preg_replace('/post=(\d+)/', 'post=' . $post->post_parent, $editNode->href);
+    $wp_admin_bar->add_node($editNode);
+}
+
+add_action('wp_head','hook_header');
+function hook_header()
+{
+    $post = get_post();
+    if(empty($post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
+        return;
+    }
+
+    $parentLink = get_post_permalink($post->post_parent);
+    if(!empty($parentLink) && !($parentLink instanceof WP_Error)) {
+        echo '<link rel="canonical" href="' . $parentLink . '">';
+    }
+}
+
 /**
  * Check if the current page is a product.
  *

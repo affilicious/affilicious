@@ -18,7 +18,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
      * @since 0.6
      * @param Product $product
      * @return Product
-     *
      */
     public function store(Product $product);
 

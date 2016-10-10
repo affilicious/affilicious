@@ -5,6 +5,7 @@ use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Shop\ShopId;
+use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -24,15 +25,26 @@ class ProductHelper
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
         $productRepository = $container['affilicious.product.repository.product'];
+        $product = null;
 
+        // The argument is already a product or a product variant
         if ($productOrId instanceof Product) {
             $product = $productOrId;
-        } elseif($productOrId instanceof \WP_Post) {
-            $product = $productRepository->findById(new ProductId($productOrId->ID));
-        } elseif (is_int($productOrId)) {
+        }
+
+        // The argument is an integer
+        if(is_int($productOrId)) {
             $product = $productRepository->findById(new ProductId($productOrId));
-        } else {
-            $post = get_post();
+        }
+
+        // The argument is a post
+        if($productOrId instanceof \WP_Post) {
+            $product = $productRepository->findById(new ProductId($productOrId->ID));
+        }
+
+        // The argument is empty
+        if($productOrId === null) {
+            $post = get_post($productOrId);
             if ($post === null) {
                 return null;
             }

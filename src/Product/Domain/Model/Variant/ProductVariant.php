@@ -15,11 +15,6 @@ if(!defined('ABSPATH')) {
 class ProductVariant extends Product
 {
     /**
-     * There is a limit of 20 characters for post types in Wordpress
-     */
-    const POST_TYPE = 'aff_product_variant';
-
-    /**
      * @var Product
      */
     protected $parent;
@@ -135,6 +130,15 @@ class ProductVariant extends Product
     public function getDetailGroups()
     {
         return $this->parent->getDetailGroups();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function getDetails()
+    {
+        return $this->parent->getDetails();
     }
 
     /**

@@ -476,13 +476,11 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
      */
     protected function getArgs(Product $product, array $defaultArgs = array())
     {
-        $postType = $product instanceof ProductVariant ? ProductVariant::POST_TYPE : Product::POST_TYPE;
-
         $args = wp_parse_args(array(
             'post_title' => $product->getTitle()->getValue(),
             'post_status' => 'publish',
             'post_name' => $product->getName()->getValue(),
-            'post_type' => $postType,
+            'post_type' => Product::POST_TYPE,
         ), $defaultArgs);
 
         if($product->hasId()) {

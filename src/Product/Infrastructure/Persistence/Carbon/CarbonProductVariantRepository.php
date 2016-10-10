@@ -192,7 +192,7 @@ class CarbonProductVariantRepository extends AbstractCarbonProductRepository imp
         $productVariant = $this->addContent($productVariant, $post);
 
         // Shops
-        $productVariant = $this->addShops($productVariant, $post);
+        $productVariant = $this->addShops($productVariant);
 
         return $productVariant;
     }
