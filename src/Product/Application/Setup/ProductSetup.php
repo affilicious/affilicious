@@ -295,7 +295,7 @@ class ProductSetup implements SetupInterface
      */
     private function getShopTabs($name, $label = null)
     {
-        $shops = $this->shopTemplateRepository->findAll();
+        $shopTemplates = $this->shopTemplateRepository->findAll();
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
@@ -305,11 +305,11 @@ class ProductSetup implements SetupInterface
                 'singular_name' => __('Shop', 'affilicious'),
             ));
 
-        foreach ($shops as $shop) {
+        foreach ($shopTemplates as $shopTemplate) {
             $fields = array(
-                CarbonField::make('hidden', CarbonProductRepository::SHOP_TEMPLATE_ID, __('ShopTemplate ID', 'affilicious'))
+                CarbonField::make('hidden', CarbonProductRepository::SHOP_TEMPLATE_ID, __('Shop Template ID', 'affilicious'))
                     ->set_required(true)
-                    ->set_value($shop->getId()->getValue()),
+                    ->set_value($shopTemplate->getId()->getValue()),
                 CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_LINK, __('Affiliate Link', 'affilicious'))
                     ->set_required(true),
                 CarbonField::make('text', CarbonProductRepository::SHOP_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
@@ -324,7 +324,7 @@ class ProductSetup implements SetupInterface
                     )),
             );
 
-            $tabs->add_fields($shop->getKey()->getValue(), $shop->getTitle()->getValue(), $fields);
+            $tabs->add_fields($shopTemplate->getKey()->getValue(), $shopTemplate->getTitle()->getValue(), $fields);
         }
 
         return $tabs;
@@ -386,7 +386,8 @@ class ProductSetup implements SetupInterface
 
             $fieldId = CarbonField::make(
                 'hidden',
-                CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID
+                CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID,
+                __('Attribute Template Group ID', 'affilicious')
             )->set_value($attributeTemplateGroup->getId()->getValue());
 
             $fields = array_merge(array(
@@ -448,7 +449,8 @@ class ProductSetup implements SetupInterface
 
             $carbonDetailGroupId = CarbonField::make(
                 'hidden',
-                CarbonProductRepository::DETAIL_TEMPLATE_GROUP_ID
+                CarbonProductRepository::DETAIL_TEMPLATE_GROUP_ID,
+                __('Detail Template Group ID', 'affilicious')
             )->set_value($detailTemplateGroup->getId()->getValue());
 
             $fields = array_merge(array(
