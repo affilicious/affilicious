@@ -14,7 +14,7 @@ jQuery(function($) {
         // Supports multiple languages
         var select = $('select[name="_affilicious_product_type"]'),
             value = select.val(),
-            container = $('.container-Product'),
+            container = $('.container-Affilicious'),
             variantText = select.children('option[value="variants"]').text().trim().toLowerCase(),
             variants = container.find('a[data-id="' + variantText + '"]').parent(),
             shops = container.find('a[data-id="shops"]').parent();
@@ -28,8 +28,8 @@ jQuery(function($) {
         }
     }
 
-    carbon.views.Product.$el.children('select[name="_affilicious_product_type"]').ready(toggleTabs);
-    carbon.views.Product.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
+    carbon.views.Affilicious.$el.children('select[name="_affilicious_product_type"]').ready(toggleTabs);
+    carbon.views.Affilicious.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
 
     // TODO: Remove the code below
     var product_gallery_frame;
