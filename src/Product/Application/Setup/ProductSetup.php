@@ -174,7 +174,7 @@ class ProductSetup implements SetupInterface
                     ->set_required(true),
                     $this->getAttributeGroupTabs(
                         CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS,
-                        __('AttributeTemplate Groups', 'affilicious')
+                        __('Attribute Groups', 'affilicious')
                     ),
                     CarbonField::make('image',
                         CarbonProductRepository::VARIANT_THUMBNAIL,
@@ -219,7 +219,7 @@ class ProductSetup implements SetupInterface
         $fields = array(
             $this->getDetailGroupTabs(
                 CarbonProductRepository::DETAIL_GROUPS,
-                __('DetailTemplate Groups', 'affilicious')
+                __('Detail Groups', 'affilicious')
             )
         );
 
