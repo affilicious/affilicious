@@ -168,10 +168,10 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Get the thumbnail
+     * Get the optional thumbnail
      *
      * @since 0.6
-     * @return Image
+     * @return null|Image
      */
     public function getThumbnail()
     {
@@ -179,13 +179,17 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Set the thumbnail
+     * Set the optional thumbnail
      *
      * @since 0.6
-     * @param Image $thumbnail
+     * @param null|Image $thumbnail
      */
-    public function setThumbnail(Image $thumbnail)
+    public function setThumbnail($thumbnail)
     {
+        if($thumbnail !== null && !($thumbnail instanceof AffiliateId)) {
+            throw new InvalidTypeException($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
+        }
+
         $this->thumbnail = $thumbnail;
     }
 
@@ -212,7 +216,7 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Get the affiliate ID
+     * Get the optional affiliate ID
      *
      * @since 0.6
      * @return AffiliateId
@@ -223,13 +227,17 @@ class Shop extends AbstractAggregate
     }
 
     /**
-     * Set the affiliate ID
+     * Set the optional affiliate ID
      *
      * @since 0.6
-     * @param AffiliateId $affiliateId
+     * @param null|AffiliateId $affiliateId
      */
-    public function setAffiliateId(AffiliateId $affiliateId)
+    public function setAffiliateId($affiliateId)
     {
+        if($affiliateId !== null && !($affiliateId instanceof AffiliateId)) {
+            throw new InvalidTypeException($affiliateId, 'Affilicious\Product\Domain\Model\Shop\AffiliateId');
+        }
+
         $this->affiliateId = $affiliateId;
     }
 

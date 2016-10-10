@@ -601,10 +601,10 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Get the review
+     * Get the optional review
      *
      * @since 0.6
-     * @return Review
+     * @return null|Review
      */
     public function getReview()
     {
@@ -612,13 +612,17 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Set the review
+     * Set the optional review
      *
      * @since 0.6
-     * @param Review $review
+     * @param null|Review $review
      */
-    public function setReview(Review $review)
+    public function setReview($review)
     {
+        if($review !== null && !($review instanceof Review)) {
+            throw new InvalidTypeException($review, 'Affilicious\Product\Domain\Model\Review\Review');
+        }
+
         $this->review = $review;
     }
 

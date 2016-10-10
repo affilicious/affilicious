@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Detail\Domain\Model\DetailTemplate;
 
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
@@ -116,7 +117,7 @@ class DetailTemplate extends AbstractAggregate
      * Get the optional unit like text, numeric or file.
      *
 	 * @since 0.6
-	 * @return Unit
+	 * @return null|Unit
 	 */
 	public function getUnit()
 	{
@@ -127,10 +128,15 @@ class DetailTemplate extends AbstractAggregate
      * Set the optional unit like like text, numeric or file.
      *
      * @since 0.6
-     * @param Unit $unit
+     * @param null|Unit $unit
+     * @throws InvalidTypeException
      */
-    public function setUnit(Unit $unit)
+    public function setUnit($unit)
     {
+        if($unit !== null && !($unit instanceof Unit)) {
+            throw new InvalidTypeException($unit, 'Affilicious\Detail\Domain\Model\DetailTemplate\Unit');
+        }
+
         $this->unit = $unit;
     }
 
@@ -149,7 +155,7 @@ class DetailTemplate extends AbstractAggregate
      * Get the optional help text
      *
 	 * @since 0.6
-	 * @return HelpText
+	 * @return null|HelpText
 	 */
 	public function getHelpText()
 	{
@@ -160,10 +166,15 @@ class DetailTemplate extends AbstractAggregate
      * Set the optional help text
      *
      * @since 0.6
-     * @param HelpText $helpText
+     * @param null|HelpText $helpText
+     * @throws InvalidTypeException
      */
-    public function setHelpText(HelpText $helpText)
+    public function setHelpText($helpText)
     {
+        if($helpText !== null && !($helpText instanceof HelpText)) {
+            throw new InvalidTypeException($helpText, 'Affilicious\Detail\Domain\Model\DetailTemplate\HelpText');
+        }
+
         $this->helpText = $helpText;
     }
 

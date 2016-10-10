@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Review;
 
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 
 class Review extends AbstractAggregate
@@ -47,7 +48,7 @@ class Review extends AbstractAggregate
     }
 
     /**
-     * Get the number of votes
+     * Get the optional number of votes
      *
      * @since 0.6
      * @return null|Votes
@@ -58,13 +59,17 @@ class Review extends AbstractAggregate
     }
 
     /**
-     * Set the number of votes
+     * Set the optional number of votes
      *
      * @since 0.6
      * @param null|Votes $votes
      */
     public function setVotes($votes)
     {
+        if($votes !== null && !($votes instanceof Review)) {
+            throw new InvalidTypeException($votes, 'Affilicious\Product\Domain\Model\Review\Votes');
+        }
+
         $this->votes = $votes;
     }
 

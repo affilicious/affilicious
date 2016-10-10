@@ -158,7 +158,7 @@ class ProductVariant extends Product
      * @inheritdoc
      * @since 0.6
      */
-    public function setReview(Review $review)
+    public function setReview($review)
     {
         $this->parent->setReview($review);
     }

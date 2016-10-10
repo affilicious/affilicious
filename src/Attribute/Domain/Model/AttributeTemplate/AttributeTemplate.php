@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Attribute\Domain\Model\AttributeTemplate;
 
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
@@ -136,7 +137,7 @@ class AttributeTemplate extends AbstractAggregate
      * Get the optional help text
      *
 	 * @since 0.6
-	 * @return HelpText
+	 * @return null|HelpText
 	 */
 	public function getHelpText()
 	{
@@ -147,10 +148,14 @@ class AttributeTemplate extends AbstractAggregate
      * Set the optional help text
      *
      * @since 0.6
-     * @param HelpText $helpText
+     * @param null|HelpText $helpText
      */
-    public function setHelpText(HelpText $helpText)
+    public function setHelpText($helpText)
     {
+        if($helpText !== null && !($helpText instanceof HelpText)) {
+            throw new InvalidTypeException($helpText, 'Affilicious\Attribute\Domain\Model\AttributeTemplate\HelpText');
+        }
+
         $this->helpText = $helpText;
     }
 

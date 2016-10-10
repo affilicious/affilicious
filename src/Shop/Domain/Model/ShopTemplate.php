@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Shop\Domain\Model;
 
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
@@ -97,6 +98,10 @@ class ShopTemplate extends AbstractEntity
      */
     public function setId($id)
     {
+        if($id !== null && !($id instanceof ShopTemplateId)) {
+            throw new InvalidTypeException($id, 'Affilicious\Shop\Domain\Model\ShopTemplateId');
+        }
+
         $this->id = $id;
     }
 
@@ -145,7 +150,7 @@ class ShopTemplate extends AbstractEntity
     }
 
 	/**
-	 * Check if the shop has a thumbnail
+	 * Check if the shop has an optional thumbnail
 	 *
 	 * @since 0.6
 	 * @return bool
@@ -156,18 +161,22 @@ class ShopTemplate extends AbstractEntity
 	}
 
     /**
-     * Set the thumbnail image
+     * Set the optional thumbnail image
      *
      * @since 0.6
-     * @param Image $thumbnail
+     * @param null|Image $thumbnail
      */
-	public function setThumbnail(Image $thumbnail)
+	public function setThumbnail($thumbnail)
     {
+        if($thumbnail !== null && !($thumbnail instanceof Image)) {
+            throw new InvalidTypeException($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
+        }
+
         $this->thumbnail = $thumbnail;
     }
 
 	/**
-	 * Get the thumbnail image
+	 * Get the optional thumbnail image
 	 *
 	 * @since 0.6
 	 * @return null|Image

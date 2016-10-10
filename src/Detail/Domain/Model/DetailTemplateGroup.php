@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Detail\Domain\Model;
 
+use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
@@ -11,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class DetailTemplateGroup
+class DetailTemplateGroup extends AbstractEntity
 {
     const POST_TYPE = 'detail_group';
 
@@ -243,5 +244,19 @@ class DetailTemplateGroup
         }
 
         return get_post($this->id->getValue());
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function isEqualTo($object)
+    {
+        return
+            $object instanceof self &&
+            $this->getId()->isEqualTo($object->getId()) &&
+            $this->getTitle()->isEqualTo($object->getTitle()) &&
+            $this->getName()->isEqualTo($object->getName());
+            // TODO: Compare the rest and check the best way to compare two arrays with objects inside
     }
 }
