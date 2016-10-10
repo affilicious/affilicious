@@ -62,7 +62,7 @@ class InMemoryDetailGroupFactory implements DetailGroupFactoryInterface
 
         $detailGroup->setTemplateId($detailTemplateGroupId);
 
-        $detailTemplates = $detailTemplateGroup->getDetails();
+        $detailTemplates = $detailTemplateGroup->getDetailTemplates();
         foreach ($detailTemplates as $detailTemplate) {
             $detail = new Detail(
                 $detailTemplate->getTitle(),

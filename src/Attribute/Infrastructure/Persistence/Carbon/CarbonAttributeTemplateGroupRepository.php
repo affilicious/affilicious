@@ -137,7 +137,7 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
                 $attribute = $this->getAttributeTemplateFromArray($rawAttributeTemplate);
 
                 if(!empty($attribute)) {
-                    $attributeGroup->addAttribute($attribute);
+                    $attributeGroup->addAttributeTemplate($attribute);
                 }
             }
         }

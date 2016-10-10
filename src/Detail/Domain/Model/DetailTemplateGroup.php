@@ -4,6 +4,7 @@ namespace Affilicious\Detail\Domain\Model;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Detail\Domain\Exception\DuplicatedDetailTemplateException;
 use Affilicious\Detail\Domain\Model\DetailTemplate\DetailTemplate;
 
 if (!defined('ABSPATH')) {
@@ -15,29 +16,40 @@ class DetailTemplateGroup
     const POST_TYPE = 'detail_group';
 
 	/**
+     * The unique ID of the detail template group
+     * Note that you just get the ID in Wordpress, if you store a post.
+     *
 	 * @var DetailTemplateGroupId
 	 */
-	private $id;
+	protected $id;
 
     /**
+     * The title of the detail template group for display usage
+     *
      * @var Title
      */
-    private $title;
+    protected $title;
 
     /**
+     * The unique name of the detail template group for url usage
+     *
      * @var Name
      */
-    private $name;
+    protected $name;
 
     /**
+     * The key of the detail template group for database usage
+     *
      * @var Key
      */
-    private $key;
+    protected $key;
 
     /**
+     * Holds all detail templates to build the concrete details
+     *
      * @var DetailTemplate[]
      */
-    private $details;
+    protected $detailTemplates;
 
     /**
      * @since 0.6
@@ -50,7 +62,7 @@ class DetailTemplateGroup
         $this->title = $title;
         $this->name = $name;
         $this->key = $key;
-        $this->details = array();
+        $this->detailTemplates = array();
     }
 
     /**
@@ -90,7 +102,7 @@ class DetailTemplateGroup
     }
 
     /**
-     * Get the title
+     * Get the title for display usage
      *
      * @since 0.6
      * @return Title
@@ -101,18 +113,7 @@ class DetailTemplateGroup
     }
 
     /**
-     * Set the title
-     *
-     * @since 0.6
-     * @param Title $title
-     */
-    public function setTitle(Title $title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Get the name for url usage
+     * Get the unique name for url usage
      *
      * @since 0.6
      * @return Name
@@ -123,7 +124,7 @@ class DetailTemplateGroup
     }
 
     /**
-     * Set the name for the url usage
+     * Set the unique name for url usage
      *
      * @since 0.6
      * @param Name $name
@@ -144,51 +145,56 @@ class DetailTemplateGroup
 	}
 
     /**
-     * Check if a detail template with the given key exists
+     * Check if a detail template with the given name exists
      *
      * @since 0.6
-     * @param Key $key
+     * @param Name $name
      * @return bool
      */
-    public function hasDetail(Key $key)
+    public function hasDetailTemplate(Name $name)
     {
-        return isset($this->details[$key->getValue()]);
+        return isset($this->detailTemplates[$name->getValue()]);
     }
 
     /**
      * Add a new detail template
      *
      * @since 0.6
-     * @param DetailTemplate $detail
+     * @param DetailTemplate $detailTemplate
+     * @throws DuplicatedDetailTemplateException
      */
-    public function addDetail(DetailTemplate $detail)
+    public function addDetailTemplate(DetailTemplate $detailTemplate)
     {
-        $this->details[$detail->getKey()->getValue()] = $detail;
+        if($this->hasDetailTemplate($detailTemplate->getName())) {
+            throw new DuplicatedDetailTemplateException($detailTemplate, $this);
+        }
+
+        $this->detailTemplates[$detailTemplate->getKey()->getValue()] = $detailTemplate;
     }
 
     /**
-     * Remove an existing detail template by the key
+     * Remove an existing detail template by the name
      *
      * @since 0.6
-     * @param Key $key
+     * @param Name $name
      */
-    public function removeDetail(Key $key)
+    public function removeDetailTemplate(Name $name)
     {
-        unset($this->details[$key->getValue()]);
+        unset($this->detailTemplates[$name->getValue()]);
     }
 
     /**
-     * Get an existing detail template by the key
-     * You don't need to check for the key, but you will get null on non-existence
+     * Get an existing detail template by the name
+     * You don't need to check for the name, but you will get null on non-existence
      *
      * @since 0.6
-     * @param Key $key
+     * @param Name $name
      * @return null|DetailTemplate
      */
-    public function getDetail(Key $key)
+    public function getDetailTemplate(Name $name)
     {
-        if($this->hasDetail($key)) {
-            return $this->details[$key->getValue()];
+        if($this->hasDetailTemplate($name)) {
+            return $this->detailTemplates[$name->getValue()];
         }
 
         return null;
@@ -200,22 +206,27 @@ class DetailTemplateGroup
      * @since 0.6
      * @return DetailTemplate[]
      */
-    public function getDetails()
+    public function getDetailTemplates()
     {
-        return $this->details;
+        $detailTemplates = array_values($this->detailTemplates);
+
+        return $detailTemplates;
     }
 
     /**
      * Set all detail templates
+     * If you do this, the old templates going to be replaced.
      *
      * @since 0.6
-     * @param DetailTemplate[] $details
+     * @param DetailTemplate[] $detailTemplates
      */
-    public function setDetails($details)
+    public function setDetailTemplates($detailTemplates)
     {
-    	// addDetail checks for the type
-    	foreach ($details as $detail) {
-    		$this->addDetail($detail);
+        $this->detailTemplates = array();
+
+    	// addDetailTemplate checks for the type
+    	foreach ($detailTemplates as $detail) {
+    		$this->addDetailTemplate($detail);
 	    }
     }
 

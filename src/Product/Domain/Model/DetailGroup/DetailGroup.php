@@ -206,7 +206,7 @@ class DetailGroup extends AbstractAggregate
     {
         $this->details = array();
 
-        // addDetail checks for the type
+        // addDetailTemplate checks for the type
         foreach ($details as $detail) {
             $this->addDetail($detail);
         }

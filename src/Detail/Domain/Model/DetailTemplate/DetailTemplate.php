@@ -69,7 +69,7 @@ class DetailTemplate extends AbstractAggregate
     }
 
     /**
-     * Get the name for the url usage
+     * Get the name for url usage
      *
      * @since 0.6
      * @return Name
@@ -176,6 +176,8 @@ class DetailTemplate extends AbstractAggregate
 		return
 			$object instanceof self &&
 	        $this->getTitle()->isEqualTo($object->getTitle()) &&
+	        $this->getName()->isEqualTo($object->getName()) &&
+	        $this->getKey()->isEqualTo($object->getKey()) &&
 	        $this->getType()->isEqualTo($object->getType()) &&
 			($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
 			($this->hasHelpText() && $this->getHelpText()->isEqualTo($object->getHelpText()) || !$object->hasHelpText());

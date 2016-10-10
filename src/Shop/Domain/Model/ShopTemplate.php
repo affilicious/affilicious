@@ -16,26 +16,37 @@ class ShopTemplate extends AbstractEntity
 	const POST_TYPE = 'shop';
 
     /**
+     * The unique ID of the shop template
+     * Note that you just get the ID in Wordpress, if you store a post.
+     *
      * @var ShopTemplateId
      */
     protected $id;
 
 	/**
+     * The title of the shop template for display usage
+     *
 	 * @var Title
 	 */
 	protected $title;
 
     /**
+     * The unique name of the shop template for url usage
+     *
      * @var Name
      */
     protected $name;
 
     /**
+     * The key of the shop template for database usage
+     *
      * @var Key
      */
     protected $key;
 
 	/**
+     * The thumbnail/logo of the shop template
+     *
 	 * @var Image
 	 */
 	protected $thumbnail;
@@ -90,7 +101,7 @@ class ShopTemplate extends AbstractEntity
     }
 
 	/**
-	 * Get the title
+	 * Get the title for display usage
 	 *
 	 * @since 0.6
 	 * @return Title
@@ -101,18 +112,7 @@ class ShopTemplate extends AbstractEntity
 	}
 
     /**
-     * Set the title
-     *
-     * @since 0.6
-     * @param Title $title
-     */
-    public function setTitle(Title $title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Get the name for url usage
+     * Get the unique name for url usage
      *
      * @since 0.6
      * @return Name
@@ -123,7 +123,7 @@ class ShopTemplate extends AbstractEntity
     }
 
     /**
-     * Set the name for the url usage
+     * Set the unique name for url usage
      *
      * @since 0.6
      * @param Name $name

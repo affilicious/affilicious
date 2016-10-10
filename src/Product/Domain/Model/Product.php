@@ -27,6 +27,8 @@ class Product extends AbstractEntity
     /**
      * The unique ID of the product
      *
+     * Note that you just get the ID in Wordpress, if you store a post.
+     *
      * @var ProductId
      */
     protected $id;
@@ -46,7 +48,7 @@ class Product extends AbstractEntity
     protected $title;
 
     /**
-     * The name of the product for url usage
+     * The unique name of the product for url usage
      *
      * @var Name
      */
@@ -564,9 +566,9 @@ class Product extends AbstractEntity
      */
     public function getDetailGroups()
     {
-        $details = array_values($this->detailGroups);
+        $detailGroups = array_values($this->detailGroups);
 
-        return $details;
+        return $detailGroups;
     }
 
     /**

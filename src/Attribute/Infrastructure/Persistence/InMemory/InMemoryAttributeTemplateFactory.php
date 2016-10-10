@@ -21,6 +21,7 @@ class InMemoryAttributeTemplateFactory implements AttributeTemplateFactoryInterf
     {
         $attributeTemplate = new AttributeTemplate(
             $title,
+            $title->toName(),
             $title->toKey(),
             $type,
             $value

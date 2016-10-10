@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Attribute\Domain\Model;
 
+use Affilicious\Attribute\Domain\Exception\DuplicatedAttributeTemplateException;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
@@ -15,29 +16,40 @@ class AttributeTemplateGroup
     const POST_TYPE = 'aff_attribute_group';
 
 	/**
+     * The unique ID of the attribute template group
+     * Note that you just get the ID in Wordpress, if you store a post.
+     *
 	 * @var AttributeTemplateGroupId
 	 */
 	protected $id;
 
     /**
+     * The title of the attribute template group for display usage
+     *
      * @var Title
      */
     protected $title;
 
     /**
-     * @var Title
+     * The unique name of the attribute template group for url usage
+     *
+     * @var Name
      */
     protected $name;
 
     /**
+     * The key of the attribute template group for database usage
+     *
      * @var Key
      */
     protected $key;
 
     /**
+     * Holds all attributes templates to build the concrete attributes
+     *
      * @var AttributeTemplate[]
      */
-    protected $attributes;
+    protected $attributeTemplates;
 
     /**
      * @since 0.6
@@ -50,7 +62,7 @@ class AttributeTemplateGroup
         $this->title = $title;
         $this->name = $name;
         $this->key = $key;
-        $this->attributes = array();
+        $this->attributeTemplates = array();
     }
 
     /**
@@ -90,7 +102,7 @@ class AttributeTemplateGroup
     }
 
     /**
-     * Get the title
+     * Get the title for display usage
      *
      * @since 0.6
      * @return Title
@@ -101,18 +113,7 @@ class AttributeTemplateGroup
     }
 
     /**
-     * Set the title
-     *
-     * @since 0.6
-     * @param Title $title
-     */
-    public function setTitle(Title $title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Get the name for url usage
+     * Get the unique name for url usage
      *
      * @since 0.6
      * @return Name
@@ -123,7 +124,7 @@ class AttributeTemplateGroup
     }
 
     /**
-     * Set the name for the url usage
+     * Set the unique name for the url usage
      *
      * @since 0.6
      * @param Name $name
@@ -145,64 +146,55 @@ class AttributeTemplateGroup
 	}
 
     /**
+     * Check if a attribute template with the given name exists
+     *
+     * @since 0.6
+     * @param Name $name
+     * @return bool
+     */
+    public function hasAttributeTemplate(Name $name)
+    {
+        return isset($this->attributeTemplates[$name->getValue()]);
+    }
+
+    /**
      * Add a new attribute template
      *
      * @since 0.6
-     * @param AttributeTemplate $attribute
+     * @param AttributeTemplate $attributeTemplate
      */
-    public function addAttribute(AttributeTemplate $attribute)
+    public function addAttributeTemplate(AttributeTemplate $attributeTemplate)
     {
-        $this->attributes[] = $attribute;
-    }
-
-    /**
-     * Remove an existing attribute template by the key
-     *
-     * @since 0.6
-     * @param Key $key
-     */
-    public function removeAttribute(Key $key)
-    {
-        foreach ($this->attributes as $index => $attribute) {
-        	if($attribute->getKey()->isEqualTo($key)) {
-		        unset($this->attributes[$index]);
-		        break;
-	        }
-        }
-    }
-
-    /**
-     * Check if a attribute template with the given key exists
-     *
-     * @since 0.6
-     * @param Key $key
-     * @return bool
-     */
-    public function hasAttribute(Key $key)
-    {
-        foreach ($this->attributes as $attribute) {
-	        if($attribute->getKey()->isEqualTo($key)) {
-		        return true;
-	        }
+        if($this->hasAttributeTemplate($attributeTemplate->getName())) {
+            throw new DuplicatedAttributeTemplateException($attributeTemplate, $this);
         }
 
-        return false;
+        $this->attributeTemplates[$attributeTemplate->getName()->getValue()] = $attributeTemplate;
     }
 
     /**
-     * Get an existing attribute template by the key
-     * You don't need to check for the key, but you will get null on non-existence
+     * Remove an existing attribute template by the name
      *
      * @since 0.6
-     * @param Key $key
+     * @param Name $name
+     */
+    public function removeAttributeTemplate(Name $name)
+    {
+        unset($this->attributeTemplates[$name->getValue()]);
+    }
+
+    /**
+     * Get an existing attribute template by the name
+     * You don't need to check for the name, but you will get null on non-existence
+     *
+     * @since 0.6
+     * @param Name $name
      * @return null|AttributeTemplate
      */
-    public function getAttribute(Key $key)
+    public function getAttribute(Name $name)
     {
-        foreach ($this->attributes as $attribute) {
-	        if($attribute->getKey()->isEqualTo($key)) {
-		        return $attribute;
-	        }
+        if($this->hasAttributeTemplate($name)) {
+            return $this->attributeTemplates[$name->getValue()];
         }
 
         return null;
@@ -214,22 +206,27 @@ class AttributeTemplateGroup
      * @since 0.6
      * @return AttributeTemplate[]
      */
-    public function getAttributes()
+    public function getAttributeTemplates()
     {
-        return $this->attributes;
+        $attributeTemplates = array_values($this->attributeTemplates);
+
+        return $attributeTemplates;
     }
 
     /**
      * Set all attribute templates
+     * If you do this, the old templates going to be replaced.
      *
      * @since 0.6
-     * @param AttributeTemplate[] $attributes
+     * @param AttributeTemplate[] $attributeTemplates
      */
-    public function setAttributes($attributes)
+    public function setAttributeTemplates($attributeTemplates)
     {
-    	// addAttribute checks for the type
-    	foreach ($attributes as $attribute) {
-    		$this->addAttribute($attribute);
+        $this->attributeTemplates = array();
+
+    	// addAttributeTemplate checks for the type
+    	foreach ($attributeTemplates as $attribute) {
+    		$this->addAttributeTemplate($attribute);
 	    }
     }
 

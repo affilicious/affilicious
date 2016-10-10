@@ -13,15 +13,15 @@ class DuplicatedShopException extends DomainException
 {
     /**
      * @since 0.6
-     * @param Shop $detail
+     * @param Shop $detailTemplate
      * @param Product $product
      */
-    public function __construct(Shop $detail, Product $product)
+    public function __construct(Shop $detailTemplate, Product $product)
     {
         parent::__construct(sprintf(
             'The shop #%s (%s) does already exist in the product #%s (%s)',
-            $detail->getId()->getValue(),
-            $detail->getTitle()->getValue(),
+            $detailTemplate->getId()->getValue(),
+            $detailTemplate->getTitle()->getValue(),
             $product->getId()->getValue(),
             $product->getTitle()->getValue()
         ));

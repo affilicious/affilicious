@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Detail\Application\Setup;
 
-use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository;
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplate\Type;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroup;

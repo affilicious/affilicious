@@ -32,7 +32,7 @@ class ProductSetup implements SetupInterface
     /**
      * @var AttributeTemplateGroupRepositoryInterface
      */
-    protected $attributeGroupRepository;
+    protected $attributeTemplateGroupRepository;
 
     /**
      * @since 0.6
@@ -47,7 +47,7 @@ class ProductSetup implements SetupInterface
     )
     {
         $this->shopTemplateRepository = $shopTemplateRepository;
-        $this->attributeGroupRepository = $attributeTemplateGroupRepository;
+        $this->attributeTemplateGroupRepository = $attributeTemplateGroupRepository;
         $this->detailTemplateGroupRepository = $detailTemplateGroupRepository;
     }
 
@@ -302,7 +302,7 @@ class ProductSetup implements SetupInterface
             ->set_layout('tabbed')
             ->setup_labels(array(
                 'plural_name' => __('Shops', 'affilicious'),
-                'singular_name' => __('ShopTemplate', 'affilicious'),
+                'singular_name' => __('Shop', 'affilicious'),
             ));
 
         foreach ($shops as $shop) {
@@ -324,7 +324,7 @@ class ProductSetup implements SetupInterface
                     )),
             );
 
-            $tabs->add_fields($shop->getTitle(), $fields);
+            $tabs->add_fields($shop->getKey()->getValue(), $shop->getTitle()->getValue(), $fields);
         }
 
         return $tabs;
@@ -340,25 +340,25 @@ class ProductSetup implements SetupInterface
      */
     private function getAttributeGroupTabs($name, $label = null)
     {
-        $attributeGroups = $this->attributeGroupRepository->findAll();
+        $attributeTemplateGroups = $this->attributeTemplateGroupRepository->findAll();
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
             ->set_layout('tabbed')
             ->setup_labels(array(
-                'plural_name' => __('AttributeTemplate Groups', 'affilicious'),
-                'singular_name' => __('AttributeTemplate Group', 'affilicious'),
+                'plural_name' => __('Attribute Groups', 'affilicious'),
+                'singular_name' => __('Attribute Group', 'affilicious'),
             ));
 
-        foreach ($attributeGroups as $attributeGroup) {
-            $title = $attributeGroup->getTitle()->getValue();
-            $key = DatabaseHelper::convertTextToKey($title);
+        foreach ($attributeTemplateGroups as $attributeTemplateGroup) {
+            $title = $attributeTemplateGroup->getTitle()->getValue();
+            $key = $attributeTemplateGroup->getKey()->getValue();
 
             if (empty($title) || empty($key)) {
                 continue;
             }
 
-            $attributes = $attributeGroup->getAttributes();
+            $attributes = $attributeTemplateGroup->getAttributeTemplates();
             $fields = array();
             foreach ($attributes as $attribute) {
                 $value = $attribute->getValue();
@@ -387,7 +387,7 @@ class ProductSetup implements SetupInterface
             $fieldId = CarbonField::make(
                 'hidden',
                 CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID
-            )->set_value($attributeGroup->getId()->getValue());
+            )->set_value($attributeTemplateGroup->getId()->getValue());
 
             $fields = array_merge(array(
                 CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID => $fieldId,
@@ -409,26 +409,26 @@ class ProductSetup implements SetupInterface
      */
     private function getDetailGroupTabs($name, $label = null)
     {
-        $detailGroups = $this->detailTemplateGroupRepository->findAll();
+        $detailTemplateGroups = $this->detailTemplateGroupRepository->findAll();
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
             ->set_layout('tabbed')
             ->setup_labels(array(
-                'plural_name' => __('DetailTemplate Groups', 'affilicious'),
-                'singular_name' => __('DetailTemplate Group', 'affilicious'),
+                'plural_name' => __('Detail Groups', 'affilicious'),
+                'singular_name' => __('Detail Group', 'affilicious'),
             ));
 
-        foreach ($detailGroups as $detailGroup) {
-            $title = $detailGroup->getTitle()->getValue();
-            $key = DatabaseHelper::convertTextToKey($title);
+        foreach ($detailTemplateGroups as $detailTemplateGroup) {
+            $title = $detailTemplateGroup->getTitle()->getValue();
+            $key = $detailTemplateGroup->getKey()->getValue();
 
             if (empty($title) || empty($key)) {
                 continue;
             }
 
             $fields = array();
-            $details = $detailGroup->getDetails();
+            $details = $detailTemplateGroup->getDetailTemplates();
             foreach ($details as $detail) {
                 $fieldName = sprintf('%s %s', $detail->getTitle(), $detail->getUnit());
                 $fieldName = trim($fieldName);
@@ -449,7 +449,7 @@ class ProductSetup implements SetupInterface
             $carbonDetailGroupId = CarbonField::make(
                 'hidden',
                 CarbonProductRepository::DETAIL_TEMPLATE_GROUP_ID
-            )->set_value($detailGroup->getId()->getValue());
+            )->set_value($detailTemplateGroup->getId()->getValue());
 
             $fields = array_merge(array(
                 CarbonProductRepository::DETAIL_TEMPLATE_GROUP_ID => $carbonDetailGroupId,

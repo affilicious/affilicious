@@ -134,7 +134,7 @@ class CarbonDetailTemplateGroupRepository extends AbstractCarbonRepository imple
                 $detail = $this->buildDetailTemplateFromArray($rawDetailTemplate);
 
                 if(!empty($detail)) {
-                    $detailGroup->addDetail($detail);
+                    $detailGroup->addDetailTemplate($detail);
                 }
             }
         }
