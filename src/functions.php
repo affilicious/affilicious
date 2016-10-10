@@ -3,6 +3,10 @@ use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Shop\Application\Helper\ShopTemplateHelper;
 use Affilicious\Shop\Domain\Model\ShopTemplate;
+use Affilicious\Detail\Application\Helper\DetailTemplateGroupHelper;
+use Affilicious\Detail\Application\Helper\AttributeTemplateGroupHelper;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -95,16 +99,17 @@ function affilicious_get_product_details($productOrId = null)
         return null;
     }
 
-    $details = $product->getDetailGroups();
+    $details = $product->getDetails();
 
     $rawDetails = array();
     foreach ($details as $detail) {
         $rawDetail = array(
+            'title' => $detail->getTitle()->getValue(),
+            'name' => $detail->getName()->getValue(),
             'key' => $detail->getKey()->getValue(),
             'type' => $detail->getType()->getValue(),
-            'name' => $detail->getName()->getValue(),
-            'value' => $detail->hasValue() ? $detail->getValue()->getValue() : null,
             'unit' => $detail->hasUnit() ? $detail->getUnit()->getValue() : null,
+            'value' => $detail->hasValue() ? $detail->getValue()->getValue() : null,
         );
 
         $rawDetails[] = $rawDetail;
@@ -165,8 +170,10 @@ function affilicious_get_product_shops($productOrId = null)
     $rawShops = array();
     foreach ($shops as $shop) {
         $rawShop = array(
-            'shop_id' =>  $shop->getId()->getValue(),
-            'title' =>  $shop->getTitle()->getValue(),
+            'shop_template_id' => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
+            'title' => $shop->getTitle()->getValue(),
+            'affiliate_link' => $shop->getAffiliateLink()->getValue(),
+            'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
             'thumbnail' => !$shop->hasThumbnail() ? null : array(
                 'id' => $shop->getThumbnail()->getId()->getValue(),
                 'src' => $shop->getThumbnail()->getSource()->getValue(),
@@ -189,8 +196,6 @@ function affilicious_get_product_shops($productOrId = null)
                     'symbol' => $shop->getOldPrice()->getCurrency()->getSymbol(),
                 ),
             ),
-            'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
-            'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
         );
 
         $rawShops[] = $rawShop;
@@ -219,6 +224,7 @@ function affilicious_get_product_related_products($productOrId = null)
     $rawRelatedProducts = array();
     foreach ($relatedProducts as $relatedProduct) {
         $rawRelatedProduct = $relatedProduct->getValue();
+
         $rawRelatedProducts[] = $rawRelatedProduct;
     }
 
@@ -350,8 +356,10 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
     }
 
     $rawShop = array(
-        'shop_id' => $shop->getId()->getValue(),
+        'shop_template_id' => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
         'title' => $shop->getTitle()->getValue(),
+        'affiliate_link' => $shop->getAffiliateLink()->getValue(),
+        'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
         'thumbnail' => !$shop->hasThumbnail() ? null : array(
             'id' => $shop->getThumbnail()->getId()->getValue(),
             'src' => $shop->getThumbnail()->getSource()->getValue(),
@@ -374,8 +382,6 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
                 'symbol' => $shop->getOldPrice()->getCurrency()->getSymbol(),
             ),
         ),
-        'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
-        'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
     );
 
     return $rawShop;
@@ -402,8 +408,10 @@ function affilicious_get_product_cheapest_shop($productOrId = null)
     }
 
     $rawShop = array(
-        'shop_id' => $shop->getId()->getValue(),
+        'shop_template_id' => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
         'title' => $shop->getTitle()->getValue(),
+        'affiliate_link' => $shop->getAffiliateLink()->getValue(),
+        'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
         'thumbnail' => !$shop->hasThumbnail() ? null : array(
             'id' => $shop->getThumbnail()->getId()->getValue(),
             'src' => $shop->getThumbnail()->getSource()->getValue(),
@@ -426,8 +434,6 @@ function affilicious_get_product_cheapest_shop($productOrId = null)
                 'symbol' => $shop->getOldPrice()->getCurrency()->getSymbol(),
             ),
         ),
-        'affiliate_id' => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
-        'affiliate_link' => $shop->hasAffiliateLink() ? $shop->getAffiliateLink()->getValue() : null,
     );
 
     return $rawShop;
@@ -538,14 +544,14 @@ function affilicious_get_product_cheapest_affiliate_link($productOrId = null)
 }
 
 /**
- * Get the shop by the ID or Wordpress post.
- * If you pass in nothing as a shop, the current post will be used.
+ * Get the shop template by the ID or Wordpress post.
+ * If you pass in nothing as a shop template, the current post will be used.
  *
- * @since 0.3
+ * @since 0.6
  * @param int|array|\WP_Post|ShopTemplate|null $shopOrId
  * @return ShopTemplate
  */
-function affilicious_get_shop($shopOrId = null)
+function affilicious_get_shop_template($shopOrId = null)
 {
     $shop = ShopTemplateHelper::getShopTemplate($shopOrId);
 
@@ -553,33 +559,31 @@ function affilicious_get_shop($shopOrId = null)
 }
 
 /**
- * Print the shop thumbnail.
- * If you pass in nothing as a parameter, the current post will be used.
+ * Get the detail template group by the ID or Wordpress post.
+ * If you pass in nothing as a detail template group template, the current post will be used.
  *
- * This function is just wrapper for get_the_post_thumbnail:
- * https://developer.wordpress.org/reference/functions/get_the_post_thumbnail/
- *
- * @since 0.3
- * @param int|\WP_Post|ShopTemplate|array|null $post
- * @param string|array $size
- * @param string|array $attr
- * @return null|string
+ * @since 0.6
+ * @param int|array|\WP_Post|DetailTemplateGroup|null $detailTemplateGroupOrId
+ * @return DetailTemplateGroup
  */
-function affilicious_get_shop_thumbnail($post = null, $size = 'post-thumbnail', $attr = '')
+function affilicious_get_detail_template_group($detailTemplateGroupOrId = null)
 {
-    if(method_exists($post, 'getRawPost')) {
-        $post = $post->getRawPost();
-    }
+    $detailTemplateGroup = DetailTemplateGroupHelper::getDetailTemplateGroup($detailTemplateGroupOrId);
 
-    if(is_array($post) && !empty($post['shop_id'])) {
-        $post = get_post($post['shop_id']);
-    }
+    return $detailTemplateGroup;
+}
 
-    if (!($post instanceof WP_Post) && !is_int($post)) {
-        return null;
-    }
+/**
+ * Get the attribute template group by the ID or Wordpress post.
+ * If you pass in nothing as a attribute template group template, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|array|\WP_Post|AttributeTemplateGroup|null $attributeTemplateGroupOrId
+ * @return AttributeTemplateGroup
+ */
+function affilicious_get_attribute_template_group($attributeTemplateGroupOrId = null)
+{
+    $attributeTemplateGroup = AttributeTemplateGroupHelper::getAttributeTemplateGroup($attributeTemplateGroupOrId);
 
-    $thumbnail = get_the_post_thumbnail($post, $size, $attr);
-
-    return $thumbnail;
+    return $attributeTemplateGroup;
 }
