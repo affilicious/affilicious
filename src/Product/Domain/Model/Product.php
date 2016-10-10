@@ -21,7 +21,15 @@ if(!defined('ABSPATH')) {
 
 class Product extends AbstractEntity
 {
+    /**
+     * There is a limit of 20 characters for post types in Wordpress
+     * TODO: Change the post type to 'aff_product' before the beta release
+     */
     const POST_TYPE = 'product';
+
+    /**
+     * The default slug is in English but can be translated in the settings
+     */
     const SLUG = 'product';
 
     /**

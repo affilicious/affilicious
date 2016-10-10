@@ -6,7 +6,6 @@ use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Product\Domain\Model\Type;
 
 if(!defined('ABSPATH')) {
@@ -15,8 +14,10 @@ if(!defined('ABSPATH')) {
 
 class ProductVariant extends Product
 {
-    const POST_TYPE = 'product_variant';
-    const SLUG = 'product-variant';
+    /**
+     * There is a limit of 20 characters for post types in Wordpress
+     */
+    const POST_TYPE = 'aff_product_variant';
 
     /**
      * @var Product

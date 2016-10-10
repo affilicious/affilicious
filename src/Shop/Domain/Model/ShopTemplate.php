@@ -14,6 +14,10 @@ if (!defined('ABSPATH')) {
 
 class ShopTemplate extends AbstractEntity
 {
+    /**
+     * There is a limit of 20 characters for post types in Wordpress
+     * TODO: Change the post type to 'aff_shop_templ' before the beta release
+     */
 	const POST_TYPE = 'shop';
 
     /**

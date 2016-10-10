@@ -14,7 +14,10 @@ if (!defined('ABSPATH')) {
 
 class AttributeTemplateGroup extends AbstractEntity
 {
-    const POST_TYPE = 'aff_attribute_group';
+    /**
+     * There is a limit of 20 characters for post types in Wordpress
+     */
+    const POST_TYPE = 'aff_attribute_templ';
 
 	/**
      * The unique ID of the attribute template group
