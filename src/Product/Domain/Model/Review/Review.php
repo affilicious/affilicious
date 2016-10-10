@@ -66,7 +66,7 @@ class Review extends AbstractAggregate
      */
     public function setVotes($votes)
     {
-        if($votes !== null && !($votes instanceof Review)) {
+        if($votes !== null && !($votes instanceof Votes)) {
             throw new InvalidTypeException($votes, 'Affilicious\Product\Domain\Model\Review\Votes');
         }
 

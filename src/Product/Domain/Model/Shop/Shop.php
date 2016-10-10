@@ -186,7 +186,7 @@ class Shop extends AbstractAggregate
      */
     public function setThumbnail($thumbnail)
     {
-        if($thumbnail !== null && !($thumbnail instanceof AffiliateId)) {
+        if($thumbnail !== null && !($thumbnail instanceof Image)) {
             throw new InvalidTypeException($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
         }
 
