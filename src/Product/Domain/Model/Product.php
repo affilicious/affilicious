@@ -10,6 +10,7 @@ use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
 use Affilicious\Product\Domain\Exception\DuplicatedShopException;
 use Affilicious\Product\Domain\Exception\DuplicatedVariantException;
+use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Product\Domain\Model\Shop\Shop;
@@ -595,6 +596,26 @@ class Product extends AbstractEntity
         foreach ($detailGroups as $detail) {
             $this->addDetailGroup($detail);
         }
+    }
+
+    /**
+     * Get the details out of the detail groups
+     *
+     * @since 0.6
+     * @return Detail[]
+     */
+    public function getDetails()
+    {
+        $result = array();
+        foreach ($this->detailGroups as $detailGroup) {
+            $details = $detailGroup->getDetails();
+
+            foreach ($details as $detail) {
+                $result[] = $detail;
+            }
+        }
+
+        return $result;
     }
 
     /**

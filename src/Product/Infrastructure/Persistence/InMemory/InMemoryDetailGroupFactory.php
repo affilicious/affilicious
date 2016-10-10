@@ -8,6 +8,7 @@ use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
 use Affilicious\Product\Domain\Model\DetailGroup\Detail\Type;
+use Affilicious\Product\Domain\Model\DetailGroup\Detail\Unit;
 use Affilicious\Product\Domain\Model\DetailGroup\Detail\Value;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroupFactoryInterface;
@@ -71,6 +72,10 @@ class InMemoryDetailGroupFactory implements DetailGroupFactoryInterface
                 new Type($detailTemplate->getType()->getValue())
             );
 
+            if($detailTemplate->hasUnit()) {
+                $detail->setUnit(new Unit($detailTemplate->getUnit()->getValue()));
+            }
+
             if(!empty($data[$detail->getKey()->getValue()])) {
                 $value = $data[$detail->getKey()->getValue()];
 
@@ -79,6 +84,8 @@ class InMemoryDetailGroupFactory implements DetailGroupFactoryInterface
 
                 $detail->setValue(new Value($value));
             }
+
+            $detailGroup->addDetail($detail);
         }
 
         return $detailGroup;

@@ -52,6 +52,7 @@ class Detail extends AbstractAggregate
     public function __construct(Title $title, Name $name, Key $key, Type $type)
     {
         $this->title = $title;
+        $this->name = $name;
         $this->key = $key;
         $this->type = $type;
     }
