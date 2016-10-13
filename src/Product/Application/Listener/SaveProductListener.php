@@ -85,6 +85,10 @@ class SaveProductListener
             return false;
         }
 
+        if(false !== wp_is_post_autosave($postId)) {
+            return false;
+        }
+
         return true;
     }
 }
