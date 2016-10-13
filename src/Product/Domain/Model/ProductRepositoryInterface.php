@@ -22,7 +22,15 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function store(Product $product);
 
     /**
-     * Delete the product variant
+     * Store all products
+     *
+     * @param $products
+     * @return Product[]
+     */
+    public function storeAll($products);
+
+    /**
+     * Delete the product
      *
      * @since 0.6
      * @param ProductId $productVariantId
@@ -32,6 +40,17 @@ interface ProductRepositoryInterface extends RepositoryInterface
      * @throws FailedToDeleteProductException
      */
     public function delete(ProductId $productVariantId);
+
+    /**
+     * Delete all products
+     *
+     * @param Product[] $products
+     * @return Product[]
+     * @throws ProductNotFoundException
+     * @throws InvalidPostTypeException
+     * @throws FailedToDeleteProductException
+     */
+    public function deleteAll($products);
 
     /**
      * Find a product by the given ID

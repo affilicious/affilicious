@@ -5,6 +5,7 @@ use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
+use Affilicious\Product\Domain\Exception\MissingParentProductException;
 use Affilicious\Product\Domain\Exception\ProductNotFoundException;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
@@ -21,13 +22,12 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
     /**
      * @inheritdoc
      * @since 0.6
-     * @throws InvalidPostTypeException
      */
     public function store(Product $product)
     {
-        // Only the post type 'product' is allowed.
-        if($product instanceof ProductVariant) {
-            throw new InvalidPostTypeException(ProductVariant::POST_TYPE, Product::POST_TYPE);
+        // Product variants must have a parent product
+        if($product instanceof ProductVariant && !$product->getParent()->hasId()) {
+            throw new MissingParentProductException($product->getId());
         }
 
         // Store the product into the database
@@ -55,24 +55,36 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
     /**
      * @inheritdoc
      * @since 0.6
-     * @throws ProductNotFoundException
-     * @throws InvalidPostTypeException
-     * @throws FailedToDeleteProductException
      */
-    public function delete(ProductId $productVariantId)
+    public function storeAll($products)
     {
-        $post = get_post($productVariantId->getValue());
+        $storedProducts = array();
+        foreach ($products as $product) {
+            $storedProduct = $this->store($product);
+            $storedProducts[] = $storedProduct;
+        }
+
+        return $storedProducts;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function delete(ProductId $productId)
+    {
+        $post = get_post($productId->getValue());
         if (empty($post)) {
-            throw new ProductNotFoundException($productVariantId);
+            throw new ProductNotFoundException($productId);
         }
 
         if($post->post_type != Product::POST_TYPE) {
             throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
         }
 
-        $post = wp_delete_post($productVariantId->getValue(), false);
+        $post = wp_delete_post($productId->getValue(), false);
         if(empty($post)) {
-            throw new FailedToDeleteProductException($productVariantId);
+            throw new FailedToDeleteProductException($productId);
         }
 
         $product = $this->buildProductFromPost($post);
@@ -85,10 +97,27 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
      * @inheritdoc
      * @since 0.6
      */
+    public function deleteAll($products)
+    {
+        $deletedProducts = array();
+        foreach ($products as $product) {
+            if($product instanceof Product && $product->hasId()) {
+                $deletedProduct = $this->delete($product->getId());
+                $deletedProducts[] = $deletedProduct;
+            }
+        }
+
+        return $deletedProducts;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
     public function findById(ProductId $productId)
     {
         $post = get_post($productId->getValue());
-        if ($post === null || $post->post_status !== 'publish') {
+        if (empty($post) || $post->post_status !== 'publish') {
             return null;
         }
 
@@ -128,20 +157,37 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
      *
      * @since 0.3
      * @param \WP_Post $post
+     * @param Product $parent
      * @return Product
      */
-    protected function buildProductFromPost(\WP_Post $post)
+    protected function buildProductFromPost(\WP_Post $post, Product $parent = null)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
         }
 
+        // Parent
+        if($parent === null) {
+            $parentPostId = wp_get_post_parent_id($post->ID);
+            if(!empty($parentPostId)) {
+                $parent = $this->findById(new ProductId($parentPostId));
+            }
+        }
+
         // Title, Name
-        $product = new Product(
-            new Title($post->post_title),
-            new Name($post->post_name),
-            Type::simple()
-        );
+        if($parent === null) {
+            $product = new Product(
+                new Title($post->post_title),
+                new Name($post->post_name),
+                Type::simple()
+            );
+        } else {
+            $product = new ProductVariant(
+                $parent,
+                new Title($post->post_title),
+                new Name($post->post_name)
+            );
+        }
 
         // ID
         $product->setId(new ProductId($post->ID));

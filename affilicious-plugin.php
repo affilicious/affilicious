@@ -42,9 +42,7 @@ use Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplat
 use Affilicious\Product\Application\Listener\SaveProductListener;
 use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Product\Application\Setup\ProductSetup;
-use Affilicious\Product\Application\Setup\ProductVariantSetup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductVariantRepository;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryDetailGroupFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory;
@@ -277,14 +275,6 @@ class AffiliciousPlugin
             );
         };
 
-        $this->container['affilicious.product.repository.product_variant'] = function ($c) {
-            return new CarbonProductVariantRepository(
-                $c['affilicious.product.repository.product'],
-                $c['affilicious.product.factory.detail_group'],
-                $c['affilicious.product.factory.shop']
-            );
-        };
-
         $this->container['affilicious.product.factory.product'] = function () {
             return new InMemoryProductFactory();
         };
@@ -355,8 +345,7 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.listener.save_product'] = function ($c) {
             return new SaveProductListener(
-                $c['affilicious.product.repository.product'],
-                $c['affilicious.product.repository.product_variant']
+                $c['affilicious.product.repository.product']
             );
         };
 
@@ -379,6 +368,22 @@ class AffiliciousPlugin
 	    $this->container['affilicious.settings.setting.product'] = function () {
 		    return new ProductSettings();
 	    };
+
+        $this->container['affilicious.product.presentation.setup.canonical'] = function () {
+            return new \Affilicious\Product\Presentation\Setup\CanonicalSetup();
+        };
+
+        $this->container['affilicious.product.presentation.setup.admin_bar'] = function () {
+            return new \Affilicious\Product\Presentation\Setup\AdminBarSetup();
+        };
+
+        $this->container['affilicious.product.presentation.setup.table_content'] = function () {
+            return new \Affilicious\Product\Presentation\Setup\TableContentSetup();
+        };
+
+        $this->container['affilicious.product.presentation.setup.table_count'] = function () {
+            return new \Affilicious\Product\Presentation\Setup\TableCountSetup();
+        };
     }
 
     /**
@@ -467,6 +472,14 @@ class AffiliciousPlugin
 	    add_action('init', array($affiliciousSettings, 'apply'), 11);
 	    add_action('init', array($productSettings, 'render'), 12);
 	    add_action('init', array($productSettings, 'apply'), 13);
+
+        // Hook the canonical tags
+        $canonicalSetup = $this->container['affilicious.product.presentation.setup.canonical'];
+        add_action('wp_head', array($canonicalSetup, 'setUp'));
+
+        // Hook the admin bar setup
+        $adminBarSetup = $this->container['affilicious.product.presentation.setup.admin_bar'];
+        add_action('admin_bar_menu', array($adminBarSetup, 'setUp'), 999);
     }
 
     /**
@@ -502,6 +515,13 @@ class AffiliciousPlugin
         // Hook the feedback form
         $feedbackSetup = $this->container['affilicious.common.setup.feedback'];
         add_action('admin_menu', array($feedbackSetup, 'init'), 30);
+
+        // Hook the product table setup
+        $tableContentSetup = $this->container['affilicious.product.presentation.setup.table_content'];
+        $tableCountSetup = $this->container['affilicious.product.presentation.setup.table_count'];
+        add_action('pre_get_posts', array($tableContentSetup, 'setUp'));
+        add_filter("views_edit-product", array($tableCountSetup, 'setUp'), 10, 1);
+
     }
 }
 
