@@ -52,6 +52,8 @@ class SaveProductListener
                 $this->productRepository->store($variant);
             }
         }
+
+        $this->productRepository->deleteAllVariantsFromParentExcept($variants, $product->getId());
     }
 
     /**

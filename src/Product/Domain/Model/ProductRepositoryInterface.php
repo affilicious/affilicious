@@ -33,13 +33,13 @@ interface ProductRepositoryInterface extends RepositoryInterface
      * Delete the product
      *
      * @since 0.6
-     * @param ProductId $productVariantId
+     * @param ProductId $productId
      * @return Product
      * @throws ProductNotFoundException
      * @throws InvalidPostTypeException
      * @throws FailedToDeleteProductException
      */
-    public function delete(ProductId $productVariantId);
+    public function delete(ProductId $productId);
 
     /**
      * Delete all products
@@ -51,6 +51,17 @@ interface ProductRepositoryInterface extends RepositoryInterface
      * @throws FailedToDeleteProductException
      */
     public function deleteAll($products);
+
+    /**
+     * Delete all variants from the parent product except the given ones.
+     * This method will be replaced with the specification pattern in future versions
+     *
+     * @deprecated
+     * @param Product[] $productVariants
+     * @param ProductId $parentProductId
+     * @throw InvalidTypeException
+     */
+    public function deleteAllVariantsFromParentExcept($productVariants, ProductId $parentProductId);
 
     /**
      * Find a product by the given ID

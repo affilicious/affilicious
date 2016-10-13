@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
@@ -313,5 +314,56 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
         }
 
         return $product;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function deleteAllVariantsFromParentExcept($productVariants, ProductId $parentProductId)
+    {
+        $notToDelete = array();
+        foreach ($productVariants as $productVariant) {
+            if(!($productVariant instanceof ProductVariant)) {
+                throw new InvalidTypeException($productVariant, 'Affilicious\Product\Domain\Model\Variant\ProductVariant');
+            }
+
+            if(!$productVariant->getParent()->hasId() || !$productVariant->hasId()) {
+                continue;
+            }
+
+            if(!$parentProductId->isEqualTo($productVariant->getParent()->getId())) {
+                continue;
+            }
+
+            $notToDelete[] = $productVariant->getId()->getValue();
+        }
+
+        $toDelete = array();
+        foreach ($productVariants as $productVariant) {
+            if($productVariant instanceof ProductVariant) {
+
+                $parentId = $productVariant->getParent()->getId()->getValue();
+                if(!isset($toDelete[$parentId])) {
+                    $toDelete[$parentId] = array();
+                }
+
+                $toDelete[$parentId][] = $productVariant->getId()->getValue();
+            }
+        }
+
+        $query = new \WP_Query(array(
+            'post_type' => Product::POST_TYPE,
+            'post_parent' => $parentProductId->getValue(),
+            'post__not_in' => $notToDelete,
+        ));
+
+        if($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                wp_delete_post($query->post->ID, true);
+            }
+
+            wp_reset_postdata();
+        }
     }
 }
