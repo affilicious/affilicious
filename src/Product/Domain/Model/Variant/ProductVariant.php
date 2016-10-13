@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Variant;
 
-use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
@@ -82,9 +81,36 @@ class ProductVariant extends Product
      * @inheritdoc
      * @since 0.6
      */
-    public function setContent(Content $content)
+    public function setContent($content)
     {
         $this->parent->setContent($content);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function hasExcerpt()
+    {
+        return $this->parent->hasExcerpt();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function getExcerpt()
+    {
+        return $this->parent->getExcerpt();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function setExcerpt($excerpt)
+    {
+        $this->parent->setExcerpt($excerpt);
     }
 
     /**

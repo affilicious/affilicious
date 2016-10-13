@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
 use Affilicious\Common\Domain\Model\Content;
+use Affilicious\Common\Domain\Model\Excerpt;
 use Affilicious\Common\Domain\Model\Image\Height;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Image\ImageId;
@@ -116,6 +117,24 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
             if($thumbnail !== null) {
                 $product->setThumbnail($thumbnail);
             }
+        }
+
+        return $product;
+    }
+
+    /**
+     * Add the excerpt to the product
+     *
+     * @since 0.6
+     * @param Product $product
+     * @param \WP_Post $post
+     * @return Product
+     */
+    protected function addExcerpt(Product $product, \WP_Post $post)
+    {
+        $excerpt = $post->post_excerpt;
+        if(!empty($excerpt)) {
+            $product->setExcerpt(new Excerpt($excerpt));
         }
 
         return $product;
@@ -501,6 +520,10 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
 
         if($product->hasContent()) {
             $args['post_content'] = $product->getContent()->getValue();
+        }
+
+        if($product->hasExcerpt()) {
+            $args['post_excerpt'] = $product->getExcerpt()->getValue();
         }
 
         if($product instanceof ProductVariant) {

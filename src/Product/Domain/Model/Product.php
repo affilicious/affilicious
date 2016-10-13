@@ -4,6 +4,7 @@ namespace Affilicious\Product\Domain\Model;
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Content;
+use Affilicious\Common\Domain\Model\Excerpt;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
@@ -64,11 +65,18 @@ class Product extends AbstractEntity
     protected $name;
 
     /**
-     * The content of the product
+     * The optional content of the product
      *
      * @var Content
      */
     protected $content;
+
+    /**
+     * The optional excerpt of the product
+     *
+     * @var Excerpt
+     */
+    protected $excerpt;
 
     /**
      * The thumbnail of the product
@@ -261,10 +269,10 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Get the content
+     * Get the optional content
      *
      * @since 0.6
-     * @return Content
+     * @return null|Content
      */
     public function getContent()
     {
@@ -272,14 +280,55 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Set the content
+     * Set the optional content
      *
      * @since 0.6
-     * @param Content $content
+     * @param null|Content $content
      */
-    public function setContent(Content $content)
+    public function setContent($content)
     {
+        if($content !== null && !($content instanceof Content)) {
+            throw new InvalidTypeException($content, 'Affilicious\Common\Domain\Model\Content');
+        }
+
         $this->content = $content;
+    }
+
+    /**
+     * Check if the product has any excerpt
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasExcerpt()
+    {
+        return $this->excerpt !== null;
+    }
+
+    /**
+     * Get the optional excerpt
+     *
+     * @since 0.6
+     * @return null|Excerpt
+     */
+    public function getExcerpt()
+    {
+        return $this->excerpt;
+    }
+
+    /**
+     * Set the optional excerpt
+     *
+     * @since 0.6
+     * @param Excerpt $excerpt
+     */
+    public function setExcerpt($excerpt)
+    {
+        if(!($excerpt instanceof Excerpt)) {
+            throw new InvalidTypeException($excerpt, 'Affilicious\Common\Domain\Model\Excerpt');
+        }
+
+        $this->excerpt = $excerpt;
     }
 
     /**

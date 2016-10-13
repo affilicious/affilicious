@@ -205,6 +205,9 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
         // Content
         $product = $this->addContent($product, $post);
 
+        // Excerpt
+        $product = $this->addExcerpt($product, $post);
+
         // Shops
         $product = $this->addShops($product);
 
