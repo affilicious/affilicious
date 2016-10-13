@@ -185,6 +185,11 @@ class ProductSetup implements SetupInterface
                         __('Shops', 'affilicious')
                     ),
                 ))
+                ->set_header_template('
+                    <# if (' . CarbonProductRepository::VARIANT_TITLE . ') { #>
+                        {{ ' . CarbonProductRepository::VARIANT_TITLE . ' }}
+                    <# } #>
+                ')
         );
 
         return $fields;
