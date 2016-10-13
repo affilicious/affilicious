@@ -46,9 +46,12 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
         // Store the product meta
         $this->storeType($product);
         $this->storeThumbnail($product);
-        $this->storeShops($product);
-        $this->storeVariants($product);
+        $this->storeShops($product, self::SHOPS);
         $this->storeReview($product);
+
+        if(!($product instanceof ProductVariant)){
+            $this->storeVariants($product);
+        }
 
         return $product;
     }
@@ -234,23 +237,67 @@ class CarbonProductRepository extends AbstractCarbonProductRepository implements
      */
     protected function storeVariants(Product $product)
     {
-        /*
-        $variants = array(
-            '_' => array(
-                0 => array(
-                    'title' => 'test',
-                    'thumbnail' => '',
-                    'shops' => array(
-                        'amazon' =>array(
-                            0 => array(
-                                'shop_id' => 3,
-                            )
-                        )
-                    )
-                )
-            )
-        );
-        */
+        $variants = $product->getVariants();
+        if(empty($variant)) {
+            return;
+        }
+
+        /* Example for valid structure:
+         *
+         * $variants = array(
+         *     '_' => array(
+         *         0 => array(
+         *             'title' => 'test',
+         *             'thumbnail' => '',
+         *             'shops' => array(
+         *                 'amazon' => array(
+         *                     0 => array(
+         *                        'shop_template_id' => 1234,
+         *                        'affiliateLink' => 'http://your-link.com',
+         *                        'currency' => 'euro',
+         *                        ...
+         *                     )
+         *                 )
+         *             )
+         *         ),
+         *         ...
+         *     )
+         * );
+         */
+        $carbonVariants = array('_' => array());
+        foreach ($variants as $variant) {
+
+            $shops = $variant->getShops();
+            $carbonShops = array();
+            foreach ($shops as $shop) {
+                if(!isset($carbonShops[$shop->getKey()->getValue()])) {
+                    $carbonShops[$shop->getKey()->getValue()] = array();
+                }
+
+                $carbonShops[$shop->getKey()->getValue()][] = array(
+                    self::SHOP_TEMPLATE_ID => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
+                    self::SHOP_AFFILIATE_ID => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
+                    self::SHOP_AFFILIATE_LINK => $shop->getAffiliateLink()->getValue(),
+                    self::SHOP_CURRENCY => $shop->getCurrency()->getValue(),
+                    self::SHOP_PRICE => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
+                    self::SHOP_OLD_PRICE => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+                );
+            }
+
+            $carbonVariants['_'][] = array(
+                'title' => $variant->getTitle()->getValue(),
+                'thumbnail' => $variant->getThumbnail()->getId()->getValue(),
+                'shops' => !empty($carbonShops) ? $carbonShops : null,
+            );
+        }
+
+
+        $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonVariants, self::VARIANTS);
+        foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
+            if($carbonMetaValue !== null && $product->hasId()) {
+                $this->storePostMeta($product->getId(), $carbonMetaKey, $carbonMetaValue);
+            }
+        }
     }
 
     /**

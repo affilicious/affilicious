@@ -416,22 +416,34 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
      *
      * @since 0.6
      * @param Product $product
+     * @param string $metaKey
      */
-    protected function storeShops(Product $product)
+    protected function storeShops(Product $product, $metaKey)
     {
-        /*
-        $shops = array(
-            'amazon' =>array(
-                0 => array(
-                    'shop_id' => 3,
-                    'affiliate_id' => 3,
-                    'affiliate_link' => 3,
-                    'price' => 3,
-                    'old_price' => 3,
-                )
-            )
-        );
-        */
+        $shops = $product->getShops();
+
+        $carbonShops = array();
+        foreach ($shops as $shop) {
+            if(!isset($carbonShops[$shop->getKey()->getValue()])) {
+                $carbonShops[$shop->getKey()->getValue()] = array();
+            }
+
+            $carbonShops[$shop->getKey()->getValue()][] = array(
+                self::SHOP_TEMPLATE_ID => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
+                self::SHOP_AFFILIATE_ID => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
+                self::SHOP_AFFILIATE_LINK => $shop->getAffiliateLink()->getValue(),
+                self::SHOP_PRICE => $shop->hasPrice() ? $shop->getPrice()->getValue() : null,
+                self::SHOP_CURRENCY => $shop->getCurrency()->getValue(),
+                self::SHOP_OLD_PRICE => $shop->hasOldPrice() ? $shop->getOldPrice()->getValue() : null,
+            );
+        }
+
+        $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonShops, $metaKey);
+        foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
+            if($carbonMetaValue !== null && $product->hasId()) {
+                $this->storePostMeta($product->getId(), $carbonMetaKey, $carbonMetaValue);
+            }
+        }
     }
 
     /**
