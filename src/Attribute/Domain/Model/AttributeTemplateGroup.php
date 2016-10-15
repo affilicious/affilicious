@@ -3,6 +3,7 @@ namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Attribute\Domain\Exception\DuplicatedAttributeTemplateException;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplate;
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
@@ -17,7 +18,7 @@ class AttributeTemplateGroup extends AbstractEntity
     /**
      * There is a limit of 20 characters for post types in Wordpress
      */
-    const POST_TYPE = 'aff_attribute_templ';
+    const POST_TYPE = 'aff_attr_template';
 
 	/**
      * The unique ID of the attribute template group
@@ -81,10 +82,10 @@ class AttributeTemplateGroup extends AbstractEntity
     }
 
     /**
-     * Get the attribute template group ID
+     * Get the optional attribute template group ID
      *
      * @since 0.6
-     * @return AttributeTemplateGroupId
+     * @return null|AttributeTemplateGroupId
      */
     public function getId()
     {
@@ -92,7 +93,7 @@ class AttributeTemplateGroup extends AbstractEntity
     }
 
     /**
-     * Set the attribute template group ID
+     * Set the optional attribute template group ID
      *
      * Note that you just get the ID in Wordpress, if you store a post.
      * Normally, you place the ID to the constructor, but it's not possible here
@@ -102,6 +103,10 @@ class AttributeTemplateGroup extends AbstractEntity
      */
     public function setId($id)
     {
+        if($id !== null && !($id instanceof AttributeTemplateGroupId)) {
+            throw new InvalidTypeException($id, 'Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId');
+        }
+
         $this->id = $id;
     }
 

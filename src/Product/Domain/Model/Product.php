@@ -165,10 +165,10 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Get the product ID
+     * Get the optional product ID
      *
      * @since 0.6
-     * @return ProductId
+     * @return null|ProductId
      */
     public function getId()
     {
@@ -176,7 +176,7 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Set the product ID
+     * Set the optional product ID
      *
      * Note that you just get the ID in Wordpress, if you store a post.
      * Normally, you place the ID to the constructor, but it's not possible here
@@ -186,6 +186,10 @@ class Product extends AbstractEntity
      */
     public function setId($id)
     {
+        if($id !== null && !($id instanceof ProductId)) {
+            throw new InvalidTypeException($id, 'Affilicious\Product\Domain\Model\ProductId');
+        }
+
         $this->id = $id;
     }
 

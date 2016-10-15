@@ -16,7 +16,7 @@ class ShopTemplate extends AbstractEntity
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
-     * TODO: Change the post type to 'aff_shop_templ' before the beta release
+     * TODO: Change the post type to 'aff_shop_template' before the beta release
      */
 	const POST_TYPE = 'shop';
 
@@ -92,7 +92,7 @@ class ShopTemplate extends AbstractEntity
     }
 
     /**
-     * Set the shop template ID
+     * Set the optional shop template ID
      *
      * Note that you just get the ID in Wordpress, if you store a post.
      * Normally, you place the ID to the constructor, but it's not possible here

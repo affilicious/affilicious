@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Detail\Domain\Model;
 
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
@@ -16,7 +17,7 @@ class DetailTemplateGroup extends AbstractEntity
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
-     * TODO: Change the post type to 'aff_detail_templ' before the beta release
+     * TODO: Change the post type to 'aff_detail_template' before the beta release
      */
     const POST_TYPE = 'detail_group';
 
@@ -82,10 +83,10 @@ class DetailTemplateGroup extends AbstractEntity
     }
 
     /**
-     * Get the detail template group ID
+     * Get the optional detail template group ID
      *
      * @since 0.6
-     * @return DetailTemplateGroupId
+     * @return null|DetailTemplateGroupId
      */
     public function getId()
     {
@@ -93,7 +94,7 @@ class DetailTemplateGroup extends AbstractEntity
     }
 
     /**
-     * Set the detail template group ID
+     * Set the optional detail template group ID
      *
      * Note that you just get the ID in Wordpress, if you store a post.
      * Normally, you place the ID to the constructor, but it's not possible here
@@ -103,6 +104,10 @@ class DetailTemplateGroup extends AbstractEntity
      */
     public function setId($id)
     {
+        if($id !== null && !($id instanceof DetailTemplateGroupId)) {
+            throw new InvalidTypeException($id, 'Affilicious\Detail\Domain\Model\DetailTemplateGroupId');
+        }
+
         $this->id = $id;
     }
 
