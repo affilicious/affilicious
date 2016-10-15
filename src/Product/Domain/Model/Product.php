@@ -817,7 +817,7 @@ class Product extends AbstractEntity
     {
         return
             $object instanceof self &&
-            $this->getId()->isEqualTo($object->getId()) &&
+            ($this->hasId() && $this->getId()->isEqualTo($object->getId()) || !$object->hasId()) &&
             $this->getTitle()->isEqualTo($object->getTitle()) &&
             $this->getName()->isEqualTo($object->getName());
             // TODO: Compare the rest and check the best way to compare two arrays with objects inside
