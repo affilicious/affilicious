@@ -179,7 +179,7 @@ msgstr "%s filtern"
 
 #: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:72
 msgid "Attribute Templates"
-msgstr "Attribut-Vorlage"
+msgstr "Attribut-Vorlagen"
 
 #: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:77
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:77
