@@ -88,8 +88,8 @@ class DetailTemplateGroupSetup implements SetupInterface
                                 'relation' => 'AND',
                                 array(
                                     'field' => CarbonDetailTemplateGroupRepository::DETAIL_TYPE,
-                                    'value' => array(Type::TEXT, Type::NUMBER),
-                                    'compare' => 'IN',
+                                    'value' => Type::NUMBER,
+                                    'compare' => '=',
                                 )
                             )),
                         CarbonField::make('text', CarbonDetailTemplateGroupRepository::DETAIL_HELP_TEXT, __('Help Text', 'affilicious'))

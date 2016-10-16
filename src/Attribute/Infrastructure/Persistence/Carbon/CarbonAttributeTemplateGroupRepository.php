@@ -5,6 +5,7 @@ use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplate;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplateFactoryInterface;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\HelpText;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\Type;
+use Affilicious\Attribute\Domain\Model\AttributeTemplate\Unit;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\Value;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupFactoryInterface;
@@ -25,6 +26,7 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
     const ATTRIBUTE_TITLE = 'title';
     const ATTRIBUTE_TYPE = 'type';
     const ATTRIBUTE_VALUE = 'value';
+    const ATTRIBUTE_UNIT = 'unit';
     const ATTRIBUTE_HELP_TEXT = 'help_text';
 
     /**
@@ -157,6 +159,7 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
         $title = isset($rawAttributeTemplate[self::ATTRIBUTE_TITLE]) ? $rawAttributeTemplate[self::ATTRIBUTE_TITLE] : null;
         $type = isset($rawAttributeTemplate[self::ATTRIBUTE_TYPE]) ? $rawAttributeTemplate[self::ATTRIBUTE_TYPE] : null;
         $value = isset($rawAttributeTemplate[self::ATTRIBUTE_VALUE]) ? $rawAttributeTemplate[self::ATTRIBUTE_VALUE] : null;
+        $unit = isset($rawAttributeTemplate[self::ATTRIBUTE_UNIT]) ? $rawAttributeTemplate[self::ATTRIBUTE_UNIT] : null;
         $helpText = isset($rawAttributeTemplate[self::ATTRIBUTE_HELP_TEXT]) ? $rawAttributeTemplate[self::ATTRIBUTE_HELP_TEXT] : null;
 
         if(empty($title) || empty($type) || empty($value)) {
@@ -168,6 +171,10 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
             new Type($type),
             new Value($value)
         );
+
+        if(!empty($unit)) {
+            $attributeTemplate->setUnit(new Unit($unit));
+        }
 
         if(!empty($helpText)) {
             $attributeTemplate->setHelpText(new HelpText($helpText));

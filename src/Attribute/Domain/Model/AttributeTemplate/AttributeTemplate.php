@@ -35,11 +35,16 @@ class AttributeTemplate extends AbstractAggregate
     protected $key;
 
 	/**
-     * Holds the type like text, numeric or file
+     * Holds the type like text or numeric
      *
 	 * @var Type
 	 */
     protected $type;
+
+    /**
+     * @var Unit
+     */
+    protected $unit;
 
     /**
      * @var Value
@@ -102,7 +107,7 @@ class AttributeTemplate extends AbstractAggregate
 	}
 
 	/**
-     * Get the type like text, numeric or file
+     * Get the type like text or numeric
      *
 	 * @since 0.6
 	 * @return Type
@@ -111,6 +116,44 @@ class AttributeTemplate extends AbstractAggregate
 	{
 		return $this->type;
 	}
+
+    /**
+     * Check of the attribute template has an optional unit.
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function hasUnit()
+    {
+        return $this->unit !== null;
+    }
+
+    /**
+     * Get the optional unit like text or numeric.
+     *
+     * @since 0.6
+     * @return null|Unit
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set the optional unit like text or numeric.
+     *
+     * @since 0.6
+     * @param null|Unit $unit
+     * @throws InvalidTypeException
+     */
+    public function setUnit($unit)
+    {
+        if($unit !== null && !($unit instanceof Unit)) {
+            throw new InvalidTypeException($unit, 'Affilicious\Attribute\Domain\Model\AttributeTemplate\Unit');
+        }
+
+        $this->unit = $unit;
+    }
 
     /**
      * Get the concrete value
@@ -170,6 +213,7 @@ class AttributeTemplate extends AbstractAggregate
 	        $this->getTitle()->isEqualTo($object->getTitle()) &&
 	        $this->getType()->isEqualTo($object->getType()) &&
 	        $this->getValue()->isEqualTo($object->getValue()) &&
+            ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
 			($this->hasHelpText() && $this->getHelpText()->isEqualTo($object->getHelpText()) || !$object->hasHelpText());
 	}
 }

@@ -82,6 +82,15 @@ class AttributeTemplateGroupSetup implements SetupInterface
                                 Type::TEXT => __('Text', 'affilicious'),
                                 Type::NUMBER => __('Number', 'affilicious'),
                             )),
+                        CarbonField::make('text', CarbonAttributeTemplateGroupRepository::ATTRIBUTE_UNIT, __('Unit', 'affilicious'))
+                            ->set_conditional_logic(array(
+                                'relation' => 'AND',
+                                array(
+                                    'field' => CarbonAttributeTemplateGroupRepository::ATTRIBUTE_TYPE,
+                                    'value' => Type::NUMBER,
+                                    'compare' => '=',
+                                )
+                            )),
                         CarbonField::make('text', CarbonAttributeTemplateGroupRepository::ATTRIBUTE_VALUE, __('Value', 'affilicious')),
                         CarbonField::make('text', CarbonAttributeTemplateGroupRepository::ATTRIBUTE_HELP_TEXT, __('Help Text', 'affilicious'))
                     ))
