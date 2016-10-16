@@ -41,10 +41,11 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
     const DETAIL_GROUPS = 'affilicious_product_detail_groups';
     const DETAIL_TEMPLATE_GROUP_ID = 'detail_template_group_id';
+    const ATTRIBUTE_GROUP_KEY = 'affilicious_product_attribute_group_key';
     const VARIANTS = 'affilicious_product_variants';
     const VARIANT_TITLE = 'title';
+    const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'affilicious_template_group_id';
     const VARIANT_ATTRIBUTE_GROUPS = 'attribute_groups';
-    const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'attribute_template_group_id';
     const VARIANT_THUMBNAIL = 'thumbnail';
     const VARIANT_SHOPS = 'shops';
     const REVIEW_RATING = 'affilicious_product_review_rating';
@@ -56,7 +57,7 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
     // TODO: Remove the legacy support in the beta
     const SHOP_ID = 'shop_id';
     const DETAIL_GROUP_ID = 'detail_group_id';
-    const VARIANT_ATTRIBUTE_GROUP_ID = 'attribute_group_id';
+    const VARIANT_ATTRIBUTE_GROUP_ID = 'attribute_g2roup_id';
 
     /**
      * @var DetailGroupFactoryInterface

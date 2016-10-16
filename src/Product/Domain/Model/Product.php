@@ -389,9 +389,9 @@ class Product extends AbstractEntity
      */
     public function addShop(Shop $shop)
     {
-        if($this->hasShop($shop->getName())) {
+        /*if($this->hasShop($shop->getName())) {
             throw new DuplicatedShopException($shop, $this);
-        }
+        }*/
 
         $this->shops[$shop->getName()->getValue()] = $shop;
     }
@@ -496,9 +496,9 @@ class Product extends AbstractEntity
      */
     public function addVariant(ProductVariant $variant)
     {
-        if($this->hasVariant($variant->getName())) {
+        /*if($this->hasVariant($variant->getName())) {
             throw new DuplicatedVariantException($variant, $this);
-        }
+        }*/
 
         $this->variants[$variant->getName()->getValue()] = $variant;
     }
@@ -584,9 +584,9 @@ class Product extends AbstractEntity
      */
     public function addDetailGroup(DetailGroup $detailGroup)
     {
-        if($this->hasDetailGroup($detailGroup->getName())) {
+        /*if($this->hasDetailGroup($detailGroup->getName())) {
             throw new DuplicatedDetailGroupException($detailGroup, $this);
-        }
+        }*/
 
         $this->detailGroups[$detailGroup->getName()->getValue()] = $detailGroup;
     }

@@ -1,14 +1,28 @@
 declare var jQuery: any;
+declare var _: any;
 declare var wp: any;
 declare var Backbone: any;
 interface Window {listElement: any, carbon: any}
 
 jQuery(function($) {
-
+    // ------------------------------------------------------------------------
     var carbon = window.carbon;
     if (typeof carbon.fields === 'undefined') {
         return false;
     }
+
+    function getVariantsView() {
+        var variantsView = null;
+        _.each(carbon.views, function(view) {
+            if(view.templateVariables && view.templateVariables.base_name == 'affilicious_product_variants') {
+                variantsView = view;
+            }
+        });
+
+        return variantsView;
+    }
+
+    // ------------------------------------------------------------------------
 
     function toggleTabs() {
         // Supports multiple languages
@@ -31,7 +45,40 @@ jQuery(function($) {
     carbon.views.Affilicious.$el.children('select[name="_affilicious_product_type"]').ready(toggleTabs);
     carbon.views.Affilicious.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
 
-    // TODO: Remove the code below
+    // ------------------------------------------------------------------------
+
+    function removeActions() {
+        var select = carbon.views.Affilicious.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
+            value = select.val(),
+            variantsView = getVariantsView();
+
+        variantsView.$actions.find('ul').remove();
+        variantsView.$actions.find('a.button').data('group', value != 'none' ?  '_' + value : '');
+    }
+
+    function changeVariants(evt) {
+        var select = carbon.views.Affilicious.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
+            value = select.val(),
+            variantsView = getVariantsView();
+
+        removeActions();
+
+        if(variantsView.model.get('attribute_group_key') != value) {
+            variantsView.model.set('attribute_group_key', value);
+
+            variantsView.$groupsHolder.find('.carbon-row').remove();
+            variantsView.$introRow.show();
+
+            variantsView.groupsCollection.reset();
+        }
+    }
+
+    carbon.views.Affilicious.$el.children('select[name="_affilicious_product_attribute_group_key"]').ready(removeActions);
+    carbon.views.Affilicious.$el.on('change select[name="_affilicious_product_attribute_group_key"]', changeVariants);
+
+    // ------------------------------------------------------------------------
+
+    // TODO: Remove the code below in the beta
     var product_gallery_frame;
     var $image_gallery_ids = $( '#product_image_gallery' );
     var $product_images    = $( '#product_images_container' ).find( 'ul.product_images' );

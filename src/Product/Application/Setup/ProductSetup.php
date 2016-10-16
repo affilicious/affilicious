@@ -2,7 +2,6 @@
 namespace Affilicious\Product\Application\Setup;
 
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface;
-use Affilicious\Common\Application\Helper\DatabaseHelper;
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
@@ -11,7 +10,6 @@ use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
 use Carbon_Fields\Field\Complex_Field as CarbonComplexField;
-use Carbon_Fields\Field\Select_Field as CarbonSelectField;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -161,38 +159,84 @@ class ProductSetup implements SetupInterface
     private function getVariantsFields()
     {
         $fields = array(
-            CarbonField::make('complex', CarbonProductRepository::VARIANTS, __('Variants', 'affilicious'))
-                ->setup_labels(array(
-                    'plural_name' => __('Variants', 'affilicious'),
-                    'singular_name' => __('Variant', 'affilicious'),
-                ))
-                ->add_fields(array(
-                    CarbonField::make('text',
-                        CarbonProductRepository::VARIANT_TITLE,
-                        __('Title', 'affilicious')
-                    )
-                    ->set_required(true),
-                    $this->getAttributeGroupTabs(
-                        CarbonProductRepository::VARIANT_ATTRIBUTE_GROUPS,
-                        __('Attribute Groups', 'affilicious')
-                    ),
-                    CarbonField::make('image',
-                        CarbonProductRepository::VARIANT_THUMBNAIL,
-                        __('Thumbnail', 'affilicious')
-                    ),
-                    $this->getShopTabs(
-                        CarbonProductRepository::VARIANT_SHOPS,
-                        __('Shops', 'affilicious')
-                    ),
-                ))
-                ->set_header_template('
-                    <# if (' . CarbonProductRepository::VARIANT_TITLE . ') { #>
-                        {{ ' . CarbonProductRepository::VARIANT_TITLE . ' }}
-                    <# } #>
-                ')
+            $this->getAttributeGroupChoices(
+                CarbonProductRepository::ATTRIBUTE_GROUP_KEY,
+                __('Attribute Group', 'affilicious')
+            ),
+            $this->getVariantsComplexFields(
+                CarbonProductRepository::VARIANTS,
+                __('Variants', 'affilicious')
+            ),
         );
 
         return $fields;
+    }
+
+    /**
+     * Get the complex fields for the variants related to the attribute template group
+     *
+     * @since 0.6
+     * @param string $name
+     * @param null|string $label
+     * @return CarbonComplexField
+     */
+    private function getVariantsComplexFields($name, $label = null)
+    {
+        $attributeTemplateGroups = $this->attributeTemplateGroupRepository->findAll();
+
+        /** @var CarbonComplexField $field */
+        $field = CarbonField::make('complex', $name, $label)
+            ->setup_labels(array(
+                'plural_name' => __('Variants', 'affilicious'),
+                'singular_name' => __('Variant', 'affilicious'),
+            ));
+
+        foreach ($attributeTemplateGroups as $attributeTemplateGroup) {
+            $title = $attributeTemplateGroup->getTitle();
+            $key = $attributeTemplateGroup->getKey();
+
+            if (empty($title) || empty($key)) {
+                continue;
+            }
+
+            $field->add_fields($key->getValue(), $title->getValue(), array(
+                CarbonField::make('hidden',
+                    CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID,
+                    __('Attribute Template Group ID', 'affilicious')
+                )->set_value($attributeTemplateGroup->getId()->getValue())->set_required(true),
+                CarbonField::make('text',
+                    CarbonProductRepository::VARIANT_TITLE,
+                    __('Title', 'affilicious')
+                )->set_required(true),
+                CarbonField::make('image',
+                    CarbonProductRepository::VARIANT_THUMBNAIL,
+                    __('Thumbnail', 'affilicious')
+                ),
+                $this->getShopTabs(
+                    CarbonProductRepository::VARIANT_SHOPS,
+                    __('Shops', 'affilicious')
+                ),
+            ));
+
+            $field->set_header_template('
+                <# if (' . CarbonProductRepository::VARIANT_TITLE . ') { #>
+                    {{ ' . CarbonProductRepository::VARIANT_TITLE . ' }}
+                <# } #>
+            ');
+
+            $fields[] = $field;
+        }
+
+        $field->set_conditional_logic(array(
+            'relation' => 'AND',
+            array(
+                'field' => CarbonProductRepository::ATTRIBUTE_GROUP_KEY,
+                'value' => 'none',
+                'compare' => '!=',
+            )
+        ));
+
+        return $field;
     }
 
     /**
@@ -336,73 +380,34 @@ class ProductSetup implements SetupInterface
     }
 
     /**
-     * Get the attribute groups tabs
+     * Get the attribute group choice for the variants
      *
-     * @since 0.6
      * @param string $name
      * @param null|string $label
-     * @return CarbonComplexField
+     * @return CarbonField
      */
-    private function getAttributeGroupTabs($name, $label = null)
+    private function getAttributeGroupChoices($name, $label = null)
     {
         $attributeTemplateGroups = $this->attributeTemplateGroupRepository->findAll();
 
-        /** @var CarbonComplexField $tabs */
-        $tabs = CarbonField::make('complex', $name, $label)
-            ->set_layout('tabbed')
-            ->setup_labels(array(
-                'plural_name' => __('Attribute Groups', 'affilicious'),
-                'singular_name' => __('Attribute Group', 'affilicious'),
-            ));
+        $options = array();
+        $options['none'] = __('None', 'affilicious');
 
         foreach ($attributeTemplateGroups as $attributeTemplateGroup) {
-            $title = $attributeTemplateGroup->getTitle()->getValue();
-            $key = $attributeTemplateGroup->getKey()->getValue();
+            $title = $attributeTemplateGroup->getTitle();
+            $key = $attributeTemplateGroup->getKey();
 
             if (empty($title) || empty($key)) {
                 continue;
             }
 
-            $attributes = $attributeTemplateGroup->getAttributeTemplates();
-            $fields = array();
-            foreach ($attributes as $attribute) {
-                $value = $attribute->getValue();
-                $values = explode(';', $value);
-
-                $temp = array();
-                foreach ($values as $value) {
-                    $key = DatabaseHelper::convertTextToKey($value);
-                    $temp[$key] = $value;
-                }
-
-                /** @var CarbonSelectField $field */
-                $field = CarbonField::make(
-                    'select',
-                    $attribute->getKey()->getValue(),
-                    $attribute->getTitle()->getValue()
-                )->add_options($temp);
-
-                if ($attribute->hasHelpText()) {
-                    $field->help_text($attribute->getHelpText()->getValue());
-                }
-
-                $fields[] = $field;
-            }
-
-            $fieldId = CarbonField::make(
-                'hidden',
-                CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID,
-                __('Attribute Template Group ID', 'affilicious')
-            )->set_value($attributeTemplateGroup->getId()->getValue());
-
-            $fields = array_merge(array(
-                CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID => $fieldId,
-            ), $fields);
-
-            $tabs->add_fields($key, $title, $fields);
+            $options[$key->getValue()] = $title->getValue();
         }
 
-        return $tabs;
+        $field = CarbonField::make('select', $name, $label)
+            ->add_options($options);
+
+        return $field;
     }
 
     /**
