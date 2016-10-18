@@ -148,11 +148,13 @@ class DetailGroup extends AbstractAggregate
      */
     public function addDetail(Detail $detail)
     {
+        /*
         if($this->hasDetail($detail->getName())) {
             throw new DuplicatedDetailException($detail, $this);
         }
+        */
 
-        $this->details[$detail->getKey()->getValue()] = $detail;
+        $this->details[$detail->getName()->getValue()] = $detail;
     }
 
     /**
@@ -206,7 +208,7 @@ class DetailGroup extends AbstractAggregate
     {
         $this->details = array();
 
-        // addDetailTemplate checks for the type
+        // addDetail checks for the type
         foreach ($details as $detail) {
             $this->addDetail($detail);
         }
