@@ -31,6 +31,7 @@ jQuery(function ($) {
     // ------------------------------------------------------------------------
     function removeActions() {
         var select = carbon.views.Affilicious.$el.find('select[name="_affilicious_product_attribute_group_key"]'), value = select.val(), variantsView = getVariantsView();
+        variantsView.model.set('attribute_group_key', value);
         variantsView.$actions.find('ul').remove();
         variantsView.$actions.find('a.button').data('group', value != 'none' ? '_' + value : '');
     }
