@@ -6,7 +6,6 @@ use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplateFactor
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\HelpText;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\Type;
 use Affilicious\Attribute\Domain\Model\AttributeTemplate\Unit;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\Value;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupFactoryInterface;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
@@ -25,7 +24,6 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
     const ATTRIBUTES = 'affilicious_attribute_group_attributes';
     const ATTRIBUTE_TITLE = 'title';
     const ATTRIBUTE_TYPE = 'type';
-    const ATTRIBUTE_VALUE = 'value';
     const ATTRIBUTE_UNIT = 'unit';
     const ATTRIBUTE_HELP_TEXT = 'help_text';
 
@@ -158,18 +156,16 @@ class CarbonAttributeTemplateGroupRepository extends AbstractCarbonRepository im
     {
         $title = isset($rawAttributeTemplate[self::ATTRIBUTE_TITLE]) ? $rawAttributeTemplate[self::ATTRIBUTE_TITLE] : null;
         $type = isset($rawAttributeTemplate[self::ATTRIBUTE_TYPE]) ? $rawAttributeTemplate[self::ATTRIBUTE_TYPE] : null;
-        $value = isset($rawAttributeTemplate[self::ATTRIBUTE_VALUE]) ? $rawAttributeTemplate[self::ATTRIBUTE_VALUE] : null;
         $unit = isset($rawAttributeTemplate[self::ATTRIBUTE_UNIT]) ? $rawAttributeTemplate[self::ATTRIBUTE_UNIT] : null;
         $helpText = isset($rawAttributeTemplate[self::ATTRIBUTE_HELP_TEXT]) ? $rawAttributeTemplate[self::ATTRIBUTE_HELP_TEXT] : null;
 
-        if(empty($title) || empty($type) || empty($value)) {
+        if(empty($title) || empty($type)) {
             return null;
         }
 
         $attributeTemplate = $this->attributeTemplateFactory->create(
             new Title($title),
-            new Type($type),
-            new Value($value)
+            new Type($type)
         );
 
         if(!empty($unit)) {

@@ -13,15 +13,18 @@ use Carbon_Fields\Exception\Incorrect_Syntax_Exception;
  * Allows nested repeaters with multiple field groups to be created.
  */
 class Complex_Field extends Field {
-	const LAYOUT_GRID = 'grid';
+	const LAYOUT_GRID = 'grid'; // default
 	const LAYOUT_LIST = 'list'; // deprecated
-	const LAYOUT_TABBED = 'tabbed';
+	const LAYOUT_TABBED = 'tabbed'; // deprecated
+	const LAYOUT_TABBED_HORIZONTAL = 'tabbed-horizontal';
+	const LAYOUT_TABBED_VERTICAL = 'tabbed-vertical';
 
 	protected $fields = array();
 	protected $values = array();
 	protected $groups = array();
 
 	protected $layout = self::LAYOUT_GRID;
+	public $static = false;
 	protected $values_min = -1;
 	protected $values_max = -1;
 
@@ -399,6 +402,7 @@ class Complex_Field extends Field {
 				'name' => $group->get_name(),
 				'label' => $group->get_label(),
 				'group_id' => $group->get_group_id(),
+				'static' => $this->static,
 				'fields' => array(),
 			);
 
@@ -411,9 +415,10 @@ class Complex_Field extends Field {
 
 		$complex_data = array_merge( $complex_data, array(
 			'layout' => $this->layout,
+			'static' => $this->static,
 			'labels' => $this->labels,
-			'min' => $this->get_min(),
-			'max' => $this->get_max(),
+			'min' => $this->static ? count( $groups_data ) : $this->get_min(),
+			'max' => $this->static ? count( $groups_data ) : $this->get_max(),
 			'multiple_groups' => count( $groups_data ) > 1,
 			'groups' => $groups_data,
 			'value' => $values_data,
@@ -427,13 +432,13 @@ class Complex_Field extends Field {
 	 */
 	public function template() {
 		?>
-		<div class="carbon-subcontainer carbon-grid {{ multiple_groups ? 'multiple-groups' : '' }}">
+		<div class="carbon-subcontainer carbon-grid {{ multiple_groups ? 'multiple-groups' : '' }} {{ static ? 'static' : '' }}">
 			<div class="carbon-empty-row">
 				{{{ crbl10n.complex_no_rows.replace('%s', labels.plural_name) }}}
 			</div>
 
 			<div class="groups-wrapper layout-{{ layout }}">
-				<# if (layout === '<?php echo self::LAYOUT_TABBED ?>') { #>
+				<# if (layout === '<?php echo self::LAYOUT_TABBED_HORIZONTAL ?>' || layout === '<?php echo self::LAYOUT_TABBED_VERTICAL ?>' ) { #>
 					<div class="group-tabs-nav-holder">
 						<ul class="group-tabs-nav"></ul>
 
@@ -532,17 +537,20 @@ class Complex_Field extends Field {
 		<?php
 	}
 
-	/**
+	 /**
 	 * The Underscore template for the group item tab.
 	 */
 	public function template_group_tab_item() {
 		?>
 		<li class="group-tab-item" data-group-id="{{ id }}">
 			<a href="#">
+				<span class="group-handle"></span>
+				
 				<# if (label_template || label) { #>
 					<span class="group-name">{{{ label_template || label }}}</span>
 				<# } #>
 				<span class="group-number">{{{ order + 1 }}}</span>
+				<span class="dashicons dashicons-warning carbon-complex-group-error-badge" ></span>
 			</a>
 		</li>
 		<?php
@@ -550,15 +558,31 @@ class Complex_Field extends Field {
 
 	/**
 	 * Modify the layout of this field.
-	 * Deprecated in favor of set_width().
-	 *
-	 * @deprecated
 	 *
 	 * @param string $layout
+	 * @return Complex_Field
 	 */
 	public function set_layout( $layout ) {
-		if ( ! in_array( $layout, array( self::LAYOUT_GRID, self::LAYOUT_TABBED, self::LAYOUT_LIST ) ) ) {
-			Incorrect_Syntax_Exception::raise( 'Incorrect layout specified. Available values are "<code>' . self::LAYOUT_GRID . '</code>" and "<code>' . self::LAYOUT_TABBED . '</code>"' );
+		$available_layouts = array(
+			self::LAYOUT_GRID,
+			self::LAYOUT_TABBED_HORIZONTAL,
+			self::LAYOUT_TABBED_VERTICAL,
+			self::LAYOUT_LIST,
+		);
+
+		if ( $layout === self::LAYOUT_TABBED ) {
+			// The library used to provide just one kind of tabs -- horizontal ones. Later vertical tabs were added.
+			// So the "tabbed" name was renamed to "tabbed-horizontal" and "tabbed-vertical" layout was introduced.
+			_doing_it_wrong( __METHOD__, sprintf( __( 'Complex field "%1$s" layout is deprecated, please use "%2$s" or "%3$s" instead.', 'carbon_fields' ), self::LAYOUT_TABBED, self::LAYOUT_TABBED_HORIZONTAL, self::LAYOUT_TABBED_VERTICAL ), null );
+
+			$layout = self::LAYOUT_TABBED_HORIZONTAL;
+		}
+
+		if ( ! in_array( $layout,  $available_layouts ) ) {
+			$error_message = 'Incorrect layout ``' . $layout . '" specified. ' .
+				'Available layouts: ' . implode( ', ', $available_layouts );
+
+			Incorrect_Syntax_Exception::raise( $error_message );
 		}
 
 		if ( $layout === self::LAYOUT_LIST ) {
@@ -571,9 +595,23 @@ class Complex_Field extends Field {
 	}
 
 	/**
+	 * Set the complex fields to static.
+	 * If you set the type to static, there will be no options to add or remove any group.
+	 * Min and max values are going to be ignored.
+	 *
+	 * @param string $static
+	 * @return Complex_Field
+	 */
+	public function set_static($static) {
+		$this->static = $static;
+		return $this;
+	}
+
+	/**
 	 * Set the minimum number of entries.
 	 *
 	 * @param int $min
+	 * @return Complex_Field
 	 */
 	public function set_min( $min ) {
 		$this->values_min = intval( $min );
@@ -593,6 +631,7 @@ class Complex_Field extends Field {
 	 * Set the maximum number of entries.
 	 *
 	 * @param int $max
+	 * @return Complex_Field
 	 */
 	public function set_max( $max ) {
 		$this->values_max = intval( $max );

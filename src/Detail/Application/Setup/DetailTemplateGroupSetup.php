@@ -73,6 +73,7 @@ class DetailTemplateGroupSetup implements SetupInterface
             ->show_on_post_type(DetailTemplateGroup::POST_TYPE)
             ->add_fields(array(
                 CarbonField::make('complex', CarbonDetailTemplateGroupRepository::DETAILS, __('Details', 'affilicious'))
+                    //->set_static(true)
                     ->add_fields(array(
                         CarbonField::make('text', CarbonDetailTemplateGroupRepository::DETAIL_TITLE, __('Title', 'affilicious'))
                             ->set_required(true),

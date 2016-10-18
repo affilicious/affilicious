@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface;
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
@@ -208,6 +209,11 @@ class ProductSetup implements SetupInterface
                     CarbonProductRepository::VARIANT_TITLE,
                     __('Title', 'affilicious')
                 )->set_required(true),
+                $this->getAttributeTabs(
+                    $attributeTemplateGroup,
+                    CarbonProductRepository::VARIANT_ATTRIBUTES,
+                    __('Attributes', 'affilicious')
+                ),
                 CarbonField::make('image',
                     CarbonProductRepository::VARIANT_THUMBNAIL,
                     __('Thumbnail', 'affilicious')
@@ -348,7 +354,7 @@ class ProductSetup implements SetupInterface
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
-            ->set_layout('tabbed')
+            ->set_layout('tabbed-horizontal')
             ->setup_labels(array(
                 'plural_name' => __('Shops', 'affilicious'),
                 'singular_name' => __('Shop', 'affilicious'),
@@ -414,6 +420,53 @@ class ProductSetup implements SetupInterface
      * Get the detail groups tabs
      *
      * @since 0.6
+     * @param AttributeTemplateGroup $attributeTemplateGroup
+     * @param string $name
+     * @param null|string $label
+     * @return CarbonComplexField
+     */
+    private function getAttributeTabs(AttributeTemplateGroup $attributeTemplateGroup, $name, $label = null)
+    {
+        /** @var CarbonComplexField $tabs */
+        $tabs = CarbonField::make('complex', $name, $label)
+            ->set_layout('tabbed-horizontal')
+            ->set_static(true)
+            ->setup_labels(array(
+                'plural_name' => __('Attributes', 'affilicious'),
+                'singular_name' => __('Attribute', 'affilicious'),
+            ));
+
+        $attributes = $attributeTemplateGroup->getAttributeTemplates();
+        foreach ($attributes as $attribute) {
+            $fieldName = sprintf('%s %s', __('Custom Value', 'affilicious'), $attribute->getUnit());
+            $fieldName = trim($fieldName);
+
+            $field = CarbonField::make(
+                $attribute->getType(),
+                CarbonProductRepository::VARIANT_ATTRIBUTE_CUSTOM_VALUE,
+                $fieldName
+            );
+
+            if ($attribute->hasHelpText()) {
+                $field->help_text($attribute->getHelpText());
+            }
+
+            $field->set_required(true);
+
+            $tabs->add_fields(
+                $attribute->getKey()->getValue(),
+                $attribute->getTitle()->getValue(),
+                array($field)
+            );
+        }
+
+        return $tabs;
+    }
+
+    /**
+     * Get the detail groups tabs
+     *
+     * @since 0.6
      * @param string $name
      * @param null|string $label
      * @return CarbonComplexField
@@ -424,7 +477,7 @@ class ProductSetup implements SetupInterface
 
         /** @var CarbonComplexField $tabs */
         $tabs = CarbonField::make('complex', $name, $label)
-            ->set_layout('tabbed')
+            ->set_layout('tabbed-horizontal')
             ->setup_labels(array(
                 'plural_name' => __('Detail Groups', 'affilicious'),
                 'singular_name' => __('Detail Group', 'affilicious'),

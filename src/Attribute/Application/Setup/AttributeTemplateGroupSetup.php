@@ -91,7 +91,6 @@ class AttributeTemplateGroupSetup implements SetupInterface
                                     'compare' => '=',
                                 )
                             )),
-                        CarbonField::make('text', CarbonAttributeTemplateGroupRepository::ATTRIBUTE_VALUE, __('Value', 'affilicious')),
                         CarbonField::make('text', CarbonAttributeTemplateGroupRepository::ATTRIBUTE_HELP_TEXT, __('Help Text', 'affilicious'))
                     ))
                     ->set_header_template('

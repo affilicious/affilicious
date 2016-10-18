@@ -45,7 +45,8 @@ abstract class AbstractCarbonProductRepository extends AbstractCarbonRepository 
     const VARIANTS = 'affilicious_product_variants';
     const VARIANT_TITLE = 'title';
     const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'affilicious_template_group_id';
-    const VARIANT_ATTRIBUTE_GROUPS = 'attribute_groups';
+    const VARIANT_ATTRIBUTES = 'attributes';
+    const VARIANT_ATTRIBUTE_CUSTOM_VALUE = 'custom_value';
     const VARIANT_THUMBNAIL = 'thumbnail';
     const VARIANT_SHOPS = 'shops';
     const REVIEW_RATING = 'affilicious_product_review_rating';

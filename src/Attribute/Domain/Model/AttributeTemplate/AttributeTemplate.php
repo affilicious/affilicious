@@ -47,11 +47,6 @@ class AttributeTemplate extends AbstractAggregate
     protected $unit;
 
     /**
-     * @var Value
-     */
-    protected $value;
-
-    /**
 	 * @var HelpText
 	 */
     protected $helpText;
@@ -62,15 +57,13 @@ class AttributeTemplate extends AbstractAggregate
      * @param Name $name
      * @param Key $key
      * @param Type $type
-     * @param Value $value
      */
-	public function __construct(Title $title, Name $name, Key $key, Type $type, Value $value)
+	public function __construct(Title $title, Name $name, Key $key, Type $type)
 	{
         $this->title = $title;
         $this->name = $name;
         $this->key = $key;
 		$this->type = $type;
-        $this->value = $value;
     }
 
     /**
@@ -155,16 +148,6 @@ class AttributeTemplate extends AbstractAggregate
         $this->unit = $unit;
     }
 
-    /**
-     * Get the concrete value
-     *
-     * @return Value
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
 	/**
      * Check if the optional help text exists
      *
@@ -212,7 +195,6 @@ class AttributeTemplate extends AbstractAggregate
 			$object instanceof self &&
 	        $this->getTitle()->isEqualTo($object->getTitle()) &&
 	        $this->getType()->isEqualTo($object->getType()) &&
-	        $this->getValue()->isEqualTo($object->getValue()) &&
             ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
 			($this->hasHelpText() && $this->getHelpText()->isEqualTo($object->getHelpText()) || !$object->hasHelpText());
 	}

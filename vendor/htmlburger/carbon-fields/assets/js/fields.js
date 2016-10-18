@@ -1630,7 +1630,7 @@ window.carbon = window.carbon || {};
 		},
 
 		isTabbed: function() {
-			return this.get('layout') === 'tabbed';
+			return /^tabbed/.test(this.get('layout'));
 		},
 
 		validate: function(attrs, options) {
@@ -1649,7 +1649,6 @@ window.carbon = window.carbon || {};
 			_.each(view.groupsCollection.models, function(group) {
 				if ( !group.isValid() ) {
 					groupsValid = false;
-					return; // we have an error, break the loop
 				}
 			});
 
@@ -1689,6 +1688,7 @@ window.carbon = window.carbon || {};
 
 			this.multipleGroups = this.model.get('multiple_groups');
 			this.isTabbed = this.model.isTabbed();
+			this.isStatic = this.model.get('static');
 
 			/*
 			 * Groups Collection
@@ -1747,7 +1747,13 @@ window.carbon = window.carbon || {};
 
 			// Group Tabs initialization
 			if (this.isTabbed) {
+				this.model.addClass('carbon-Complex-tabbed');
 				this.on('field:rendered', this.initGroupTabs);
+			}
+
+			// Render the groups as static ones without add or remove actions
+			if(this.isStatic) {
+				this.on('field:rendered', this.renderStaticGroups);
 			}
 		},
 
@@ -1868,6 +1874,23 @@ window.carbon = window.carbon || {};
 			});
 		},
 
+		renderStaticGroups: function() {
+			var _this = this;
+			var groups = this.model.get('groups') || [];
+
+			_.each(groups, function(group) {
+				var contains = _.some(_this.groupsCollection.model, function(model) {
+					return model.attributes.name == group.name;
+				});
+
+				if(!contains) {
+					_this.addNewGroup(group.name);
+				}
+			}, function(){
+				_this.model.set('value', _this.groupsCollection.toJSON());
+			});
+		},
+
 		buttonAction: function(event) {
 			var $element = $(event.target);
 			var groupName = $element.data('group');
@@ -1876,6 +1899,12 @@ window.carbon = window.carbon || {};
 				this.addNewGroup(groupName);
 			} else if (this.multipleGroups) {
 				this.$groupsList.toggle();
+				
+				this.$tabsNav.closest('.group-tabs-nav-holder').toggleClass('active');
+
+				var list_position = this.$groupsHolder.offset().left + this.$groupsHolder.width() - this.$actions.offset().left - this.$groupsList.width();
+
+				this.$groupsList.toggleClass('right-aligned', 0 > list_position);
 			} else {
 				this.$actions.find('a.button').trigger('click');
 			}
@@ -1892,6 +1921,8 @@ window.carbon = window.carbon || {};
 
 				if ( !isActionButton ) {
 					_this.$groupsList.hide();
+
+					_this.$tabsNav.closest('.group-tabs-nav-holder').removeClass('active');
 				}
 			});
 		},
@@ -1957,11 +1988,14 @@ window.carbon = window.carbon || {};
 		sortableGroupTabs: function() {
 			var $tabsNav = this.$tabsNav;
 			var $groupsHolder = this.$groupsHolder;
+			var layout = this.model.get('layout');
+			var isVertical = layout === 'tabbed-vertical';
 
 			$tabsNav.sortable({
-				axis: 'x',
+				axis: isVertical ? 'y' : 'x',
 				items: '.group-tab-item',
 				placeholder: 'group-tab-item ui-placeholder-highlight',
+				handle: isVertical ? '.group-handle': false,
 				forcePlaceholderSize: true,
 				start: function(event, ui) {
 					$tabsNav.addClass('carbon-container-shrank');
@@ -2128,6 +2162,8 @@ window.carbon = window.carbon || {};
 
 			// Listen for fields that want to multiply and create new groups with them
 			this.listenTo(this.fieldsCollection, 'change:multiply', this.multiplier);
+
+			this.listenTo(this.model, 'change:error', this.toggleGroupError);
 		},
 
 		multiplier: function(model) {
@@ -2160,6 +2196,11 @@ window.carbon = window.carbon || {};
 			var collapsed = model.get('collapsed');
 
 			this.$el.toggleClass('collapsed', collapsed);
+		},
+		toggleGroupError: function (model) {
+			var hasClass = this.model.get('error');
+
+			$('.group-tab-item[data-group-id="' + this.model.id + '"]').toggleClass('carbon-complex-group-has-error', hasClass);
 		},
 
 		eventPropagator: function(event) {

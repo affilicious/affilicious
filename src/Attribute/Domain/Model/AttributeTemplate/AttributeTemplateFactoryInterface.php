@@ -16,8 +16,7 @@ interface AttributeTemplateFactoryInterface extends FactoryInterface
      * @since 0.6
      * @param Title $title
      * @param Type $type
-     * @param Value $value
      * @return AttributeTemplate
      */
-    public function create(Title $title, Type $type, Value $value);
+    public function create(Title $title, Type $type);
 }

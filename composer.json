@@ -14,10 +14,16 @@
       "Affilicious\\": "src/"
     }
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/affilicious/carbon-fields"
+    }
+  ],
   "require": {
     "php": ">=5.3",
-    "htmlburger/carbon-fields": "1.3",
-    "pimple/pimple": "^3.0"
+    "pimple/pimple": "^3.0",
+    "htmlburger/carbon-fields": "dev-feature/static-groups"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.7"
