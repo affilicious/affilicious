@@ -14,6 +14,7 @@ use Affilicious\Product\Domain\Exception\DuplicatedVariantException;
 use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Review\Review;
+use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
@@ -369,15 +370,15 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Check if the product has a specific shop by the name
+     * Check if the product has a specific shop by the affiliate link
      *
      * @since 0.6
-     * @param Name $name
+     * @param AffiliateLink $affiliateLink
      * @return bool
      */
-    public function hasShop(Name $name)
+    public function hasShop(AffiliateLink $affiliateLink)
     {
-        return isset($this->shops[$name->getValue()]);
+        return isset($this->shops[$affiliateLink->getValue()]);
     }
 
     /**
@@ -397,30 +398,30 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Remove a shop by the name
+     * Remove a shop by the affiliate link
      *
      * @since 0.6
-     * @param Name $name
+     * @param AffiliateLink $affiliateLink
      */
-    public function removeShop(Name $name)
+    public function removeShop(AffiliateLink $affiliateLink)
     {
-        unset($this->shops[$name->getValue()]);
+        unset($this->shops[$affiliateLink->getValue()]);
     }
 
     /**
      * Get a shop by the name
      *
      * @since 0.6
-     * @param Name $name
+     * @param AffiliateLink $affiliateLink
      * @return null|Shop
      */
-    public function getShop(Name $name)
+    public function getShop(AffiliateLink $affiliateLink)
     {
-        if(!$this->hasShop($name)) {
+        if(!$this->hasShop($affiliateLink)) {
             return null;
         }
 
-        $shop = $this->shops[$name->getValue()];
+        $shop = $this->shops[$affiliateLink->getValue()];
 
         return $shop;
     }
