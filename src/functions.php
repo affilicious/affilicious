@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
  * @since 0.3
  * @return bool
  */
-function affilicious_is_product()
+function aff_is_product()
 {
     return is_singular(Product::POST_TYPE);
 }
@@ -31,7 +31,7 @@ function affilicious_is_product()
  * @param int|\WP_Post|Product|null $productOrId
  * @return Product
  */
-function affilicious_get_product($productOrId = null)
+function aff_get_product($productOrId = null)
 {
     $product = ProductHelper::getProduct($productOrId);
 
@@ -45,9 +45,9 @@ function affilicious_get_product($productOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|float
  */
-function affilicious_get_product_review_rating($productOrId = null)
+function aff_get_product_review_rating($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null || !$product->hasReview()) {
         return null;
     }
@@ -66,9 +66,9 @@ function affilicious_get_product_review_rating($productOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|int
  */
-function affilicious_get_product_review_votes($productOrId = null)
+function aff_get_product_review_votes($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null || !$product->hasReview()) {
         return null;
     }
@@ -92,9 +92,9 @@ function affilicious_get_product_review_votes($productOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|array
  */
-function affilicious_get_product_details($productOrId = null)
+function aff_get_product_details($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -126,9 +126,9 @@ function affilicious_get_product_details($productOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|array
  */
-function affilicious_get_product_image_gallery($productOrId = null)
+function aff_get_product_image_gallery($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -158,9 +158,9 @@ function affilicious_get_product_image_gallery($productOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|array
  */
-function affilicious_get_product_shops($productOrId = null)
+function aff_get_product_shops($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -212,9 +212,9 @@ function affilicious_get_product_shops($productOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|int[]
  */
-function affilicious_get_product_related_products($productOrId = null)
+function aff_get_product_related_products($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -240,9 +240,9 @@ function affilicious_get_product_related_products($productOrId = null)
  * @param array $args
  * @return null|WP_Query
  */
-function affilicious_get_product_related_products_query($productOrId = null, $args = array())
+function aff_get_product_related_products_query($productOrId = null, $args = array())
 {
-    $relatedProductIds = affilicious_get_product_related_products($productOrId);
+    $relatedProductIds = aff_get_product_related_products($productOrId);
     if (empty($relatedProductIds)) {
         return null;
     }
@@ -266,9 +266,9 @@ function affilicious_get_product_related_products_query($productOrId = null, $ar
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|int[]
  */
-function affilicious_get_product_related_accessories($productOrId = null)
+function aff_get_product_related_accessories($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -293,9 +293,9 @@ function affilicious_get_product_related_accessories($productOrId = null)
  * @param array $args
  * @return null|WP_Query
  */
-function affilicious_get_product_related_accessories_query($productOrId = null, $args = array())
+function aff_get_product_related_accessories_query($productOrId = null, $args = array())
 {
-    $relatedAccessoriesIds = affilicious_get_product_related_accessories($productOrId);
+    $relatedAccessoriesIds = aff_get_product_related_accessories($productOrId);
     if (empty($relatedAccessoriesIds)) {
         return null;
     }
@@ -318,9 +318,9 @@ function affilicious_get_product_related_accessories_query($productOrId = null, 
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|string
  */
-function affilicious_get_product_link($productOrId = null)
+function aff_get_product_link($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -343,9 +343,9 @@ function affilicious_get_product_link($productOrId = null)
  * @param int|\WP_Post|ShopTemplate|null $shopOrId
  * @return null|array
  */
-function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
+function aff_get_product_shop($productOrId = null, $shopOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -395,9 +395,9 @@ function affilicious_get_product_shop($productOrId = null, $shopOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|array
  */
-function affilicious_get_product_cheapest_shop($productOrId = null)
+function aff_get_product_cheapest_shop($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -449,9 +449,9 @@ function affilicious_get_product_cheapest_shop($productOrId = null)
  * @param int|\WP_Post|ShopTemplate|null $shopOrId
  * @return null|string
  */
-function affilicious_get_product_price($productOrId = null, $shopOrId = null)
+function aff_get_product_price($productOrId = null, $shopOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -479,9 +479,9 @@ function affilicious_get_product_price($productOrId = null, $shopOrId = null)
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|string
  */
-function affilicious_get_product_cheapest_price($productOrId = null)
+function aff_get_product_cheapest_price($productOrId = null)
 {
-    $product = affilicious_get_product($productOrId);
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
@@ -511,9 +511,9 @@ function affilicious_get_product_cheapest_price($productOrId = null)
  * @param int|\WP_Post|ShopTemplate|null $shopOrId
  * @return null|string
  */
-function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId = null)
+function aff_get_product_affiliate_link($productOrId = null, $shopOrId = null)
 {
-    $shop = affilicious_get_product_shop($productOrId, $shopOrId);
+    $shop = aff_get_product_shop($productOrId, $shopOrId);
     if(empty($shop)) {
         return null;
     }
@@ -531,9 +531,9 @@ function affilicious_get_product_affiliate_link($productOrId = null, $shopOrId =
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|string
  */
-function affilicious_get_product_cheapest_affiliate_link($productOrId = null)
+function aff_get_product_cheapest_affiliate_link($productOrId = null)
 {
-    $shop = affilicious_get_product_cheapest_shop($productOrId);
+    $shop = aff_get_product_cheapest_shop($productOrId);
     if(empty($shop)) {
         return null;
     }
@@ -551,7 +551,7 @@ function affilicious_get_product_cheapest_affiliate_link($productOrId = null)
  * @param int|array|\WP_Post|ShopTemplate|null $shopOrId
  * @return ShopTemplate
  */
-function affilicious_get_shop_template($shopOrId = null)
+function aff_get_shop_template($shopOrId = null)
 {
     $shop = ShopTemplateHelper::getShopTemplate($shopOrId);
 
@@ -566,7 +566,7 @@ function affilicious_get_shop_template($shopOrId = null)
  * @param int|array|\WP_Post|DetailTemplateGroup|null $detailTemplateGroupOrId
  * @return DetailTemplateGroup
  */
-function affilicious_get_detail_template_group($detailTemplateGroupOrId = null)
+function aff_get_detail_template_group($detailTemplateGroupOrId = null)
 {
     $detailTemplateGroup = DetailTemplateGroupHelper::getDetailTemplateGroup($detailTemplateGroupOrId);
 
@@ -581,7 +581,7 @@ function affilicious_get_detail_template_group($detailTemplateGroupOrId = null)
  * @param int|array|\WP_Post|AttributeTemplateGroup|null $attributeTemplateGroupOrId
  * @return AttributeTemplateGroup
  */
-function affilicious_get_attribute_template_group($attributeTemplateGroupOrId = null)
+function aff_get_attribute_template_group($attributeTemplateGroupOrId = null)
 {
     $attributeTemplateGroup = AttributeTemplateGroupHelper::getAttributeTemplateGroup($attributeTemplateGroupOrId);
 
