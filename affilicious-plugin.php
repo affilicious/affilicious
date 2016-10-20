@@ -493,6 +493,11 @@ class AffiliciousPlugin
         add_action('manage_aff_attribute_group_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
         add_action('manage_aff_attribute_group_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
 
+        // Hook the attribute groups
+        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
+        add_action('manage_aff_attr_template_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
+        add_action('manage_aff_attr_template_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
+
         // Hook the detail groups
         $detailTemplateGroupSetup = $this->container['affilicious.detail.application.setup.detail_template_group'];
         add_action('manage_detail_group_posts_columns', array($detailTemplateGroupSetup, 'columnsHead'), 9, 2);
