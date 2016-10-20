@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Attribute\Domain\Model\AttributeTemplate;
+namespace Affilicious\Product\Domain\Model\AttributeGroup\Attribute;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractValueObject;
@@ -17,10 +17,6 @@ class Value extends AbstractValueObject
 	 */
 	public function __construct($value)
 	{
-		if (!is_string($value)) {
-			throw new InvalidTypeException($value, 'string');
-		}
-
 		parent::__construct($value);
 	}
 }

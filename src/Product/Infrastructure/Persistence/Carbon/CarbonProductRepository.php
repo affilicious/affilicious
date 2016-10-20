@@ -1,6 +1,9 @@
 <?php
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
+use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
+use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Excerpt;
 use Affilicious\Common\Domain\Model\Image\Height;
@@ -8,8 +11,15 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Image\ImageId;
 use Affilicious\Common\Domain\Model\Image\Source;
 use Affilicious\Common\Domain\Model\Image\Width;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
+use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
+use Affilicious\Product\Domain\Exception\MissingParentProductException;
+use Affilicious\Product\Domain\Exception\ProductNotFoundException;
+use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
+use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroupFactoryInterface;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroupFactoryInterface;
 use Affilicious\Product\Domain\Model\Product;
@@ -24,13 +34,6 @@ use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Shop\Domain\Model\ShopTemplateId;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
-use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
-use Affilicious\Product\Domain\Exception\MissingParentProductException;
-use Affilicious\Product\Domain\Exception\ProductNotFoundException;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -39,6 +42,8 @@ if(!defined('ABSPATH')) {
 class CarbonProductRepository extends AbstractCarbonRepository implements ProductRepositoryInterface
 {
     const TYPE = 'affilicious_product_type';
+    const IMAGE_GALLERY = '_affilicious_product_image_gallery';
+
     const SHOPS = 'affilicious_product_shops';
     const SHOP_TEMPLATE_ID = 'shop_template_id';
     const SHOP_PRICE = 'price';
@@ -46,21 +51,28 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     const SHOP_CURRENCY = 'currency';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
+
     const DETAIL_GROUPS = 'affilicious_product_detail_groups';
-    const DETAIL_TEMPLATE_GROUP_ID = 'detail_template_group_id';
+    const DETAIL_TEMPLATE_GROUP_ID = 'affilicious_product_detail_template_group_id';
+
     const ATTRIBUTE_GROUP_KEY = 'affilicious_product_attribute_group_key';
+    const ATTRIBUTE_GROUPS = 'affilicious_product_attribute_groups';
+    const ATTRIBUTE_GROUP_TEMPLATE_ID = 'template_id';
+    const ATTRIBUTE_GROUP_ATTRIBUTES = 'attributes';
+
     const VARIANTS = 'affilicious_product_variants';
     const VARIANT_TITLE = 'title';
-    const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'affilicious_template_group_id';
+    const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'template_group_id';
     const VARIANT_ATTRIBUTES = 'attributes';
-    const VARIANT_ATTRIBUTE_CUSTOM_VALUE = 'custom_value';
+    const VARIANT_ATTRIBUTES_CUSTOM_VALUE = 'custom_value';
     const VARIANT_THUMBNAIL = 'thumbnail';
     const VARIANT_SHOPS = 'shops';
+
     const REVIEW_RATING = 'affilicious_product_review_rating';
     const REVIEW_VOTES = 'affilicious_product_review_votes';
+
     const RELATED_PRODUCTS = 'affilicious_product_related_products';
     const RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
-    const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
     // TODO: Remove the legacy support in the beta
     const SHOP_ID = 'shop_id';
@@ -72,6 +84,11 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     protected $detailGroupFactory;
 
     /**
+     * @var AttributeGroupFactoryInterface
+     */
+    protected $attributeGroupFactory;
+
+    /**
      * @var ShopTemplateRepositoryInterface
      */
     protected $shopFactory;
@@ -79,14 +96,17 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     /**
      * @since 0.6
      * @param DetailGroupFactoryInterface $detailGroupFactory
+     * @param AttributeGroupFactoryInterface $attributeGroupFactory,
      * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
         DetailGroupFactoryInterface $detailGroupFactory,
+        AttributeGroupFactoryInterface $attributeGroupFactory,
         ShopFactoryInterface $shopFactory
     )
     {
         $this->detailGroupFactory = $detailGroupFactory;
+        $this->attributeGroupFactory = $attributeGroupFactory;
         $this->shopFactory = $shopFactory;
     }
 
@@ -118,6 +138,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         $this->storeThumbnail($product);
         $this->storeShops($product, self::SHOPS);
         $this->storeReview($product);
+
+        if($product instanceof ProductVariant){
+            $this->storeAttributeGroup($product);
+        }
 
         if(!($product instanceof ProductVariant)){
             $this->storeVariants($product);
@@ -231,37 +255,35 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      *
      * @since 0.3
      * @param \WP_Post $post
-     * @param Product $parent
      * @return Product
      */
-    protected function buildProductFromPost(\WP_Post $post, Product $parent = null)
+    protected function buildProductFromPost(\WP_Post $post)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
         }
 
-        // Parent
-        if($parent === null) {
-            $parentPostId = wp_get_post_parent_id($post->ID);
-            if(!empty($parentPostId)) {
-                $parent = $this->findById(new ProductId($parentPostId));
-            }
+        $parentPostId = wp_get_post_parent_id($post->ID);
+        if(!empty($parentPostId) && $parentPostId !== 0) {
+            $parentPost = get_post($parentPostId);
+            $parent = $this->buildProductFromPost($parentPost);
+            $productVariant = $this->buildProductVariantFromPost($post, $parent);
+
+            return $productVariant;
+        }
+
+        // Type
+        $type = carbon_get_post_meta($post->ID, self::TYPE);
+        if(empty($type)) {
+            return null;
         }
 
         // Title, Name
-        if($parent === null) {
-            $product = new Product(
-                new Title($post->post_title),
-                new Name($post->post_name),
-                Type::simple()
-            );
-        } else {
-            $product = new ProductVariant(
-                $parent,
-                new Title($post->post_title),
-                new Name($post->post_name)
-            );
-        }
+        $product = new Product(
+            new Title($post->post_title),
+            new Name($post->post_name),
+            new Type($type)
+        );
 
         // ID
         $product->setId(new ProductId($post->ID));
@@ -300,6 +322,80 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         $product = $this->addImageGallery($product, $post);
 
         return $product;
+    }
+
+    /**
+     * Convert the Wordpress post into a product variant
+     *
+     * @since 0.6
+     * @param \WP_Post $post
+     * @param Product $parent
+     * @return Product
+     */
+    protected function buildProductVariantFromPost(\WP_Post $post, Product $parent = null)
+    {
+        if($post->post_type !== Product::POST_TYPE) {
+            throw new InvalidPostTypeException($post->post_type, Product::POST_TYPE);
+        }
+
+        // Find the attribute groups
+        $rawAttributeGroups = carbon_get_post_meta($post->ID, self::ATTRIBUTE_GROUPS, 'complex');
+        if(empty($rawAttributeGroups)) {
+            return null;
+        }
+
+        // There is always just one group inside the array
+        $rawAttributeGroup = $rawAttributeGroups[0];
+        $rawTemplateId = $rawAttributeGroup[self::ATTRIBUTE_GROUP_TEMPLATE_ID];
+        $rawAttributes = $rawAttributeGroup[self::ATTRIBUTE_GROUP_ATTRIBUTES];
+
+        $attributeGroup = $this->getAttributeGroupFromIdAndArray($rawTemplateId, $rawAttributes);
+        if ($attributeGroup === null) {
+            return null;
+        }
+
+        if($parent === null) {
+            $parent = $this->findParentProduct(new ProductId($post->ID));
+        }
+
+        // Parent, Title, Name, Attribute Group
+        $productVariant = new ProductVariant(
+            $parent,
+            new Title($post->post_title),
+            new Name($post->post_name),
+            $attributeGroup
+        );
+
+        // ID
+        $productVariant->setId(new ProductId($post->ID));
+
+        // Thumbnail
+        $productVariant = $this->addThumbnail($productVariant, $post);
+
+        // Shops
+        $productVariant = $this->addShops($productVariant);
+
+        return $productVariant;
+    }
+
+    /**
+     * Find the parent of the product variant by the given ID
+     *
+     * @since 0.6
+     * @param ProductId $productVariantId
+     * @return Product
+     */
+    protected function findParentProduct(ProductId $productVariantId)
+    {
+        $parentPostId = wp_get_post_parent_id($productVariantId->getValue());
+        if(empty($parentPostId)) {
+            //throw new MissingParentProductException($productVariantId);
+            return null;
+        }
+
+        $parent = $this->findById($productVariantId);
+
+        return $parent;
     }
 
     /**
@@ -415,17 +511,17 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     protected function addVariants(Product $product)
     {
         $rawVariants = carbon_get_post_meta($product->getId()->getValue(), self::VARIANTS, 'complex');
-        if(empty($rawVariants)) {
-            return $product;
-        }
 
         foreach ($rawVariants as $rawVariant)
         {
             $title = !empty($rawVariant[self::VARIANT_TITLE]) ? $rawVariant[self::VARIANT_TITLE] : null;
             $thumbnailId = !empty($rawVariant[self::VARIANT_THUMBNAIL]) ? $rawVariant[self::VARIANT_THUMBNAIL] : null;
             $shops = !empty($rawVariant[self::VARIANT_SHOPS]) ? $rawVariant[self::VARIANT_SHOPS] : null;
+            $attributeTemplateGroupId = !empty($rawVariant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID]) ? $rawVariant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID] : null;
+            $attributes = !empty($rawVariant[self::VARIANT_ATTRIBUTES]) ? $rawVariant[self::VARIANT_ATTRIBUTES] : null;
+            $attributeGroup = $this->getAttributeGroupFromIdAndArray($attributeTemplateGroupId, $attributes);
 
-            if(empty($title)) {
+            if(empty($title) || empty($attributeGroup)) {
                 continue;
             }
 
@@ -433,7 +529,8 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
             $productVariant = new ProductVariant(
                 $product,
                 $title,
-                $title->toName()
+                $title->toName(),
+                $attributeGroup
             );
 
             $thumbnail = $this->getImageFromAttachmentId($thumbnailId);
@@ -630,6 +727,28 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     }
 
     /**
+     * Build the attribute group from the raw array
+     *
+     * @since 0.6
+     * @param int $attributeTemplateGroupId
+     * @param array $rawAttributeGroup
+     * @return AttributeGroup|null
+     */
+    protected function getAttributeGroupFromIdAndArray($attributeTemplateGroupId, array $rawAttributeGroup)
+    {
+        if (empty($attributeTemplateGroupId) || empty($rawAttributeGroup)) {
+            return null;
+        }
+
+        $attributeGroup = $this->attributeGroupFactory->createFromTemplateIdAndData(
+            new AttributeTemplateGroupId($attributeTemplateGroupId),
+            $rawAttributeGroup
+        );
+
+        return $attributeGroup;
+    }
+
+    /**
      * Build the image object from the array
      *
      * @since 0.6
@@ -708,12 +827,12 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         $shops = $product->getShops();
 
         $carbonShops = array();
-        foreach ($shops as $shop) {
+        foreach ($shops as $index => $shop) {
             if(!isset($carbonShops[$shop->getKey()->getValue()])) {
                 $carbonShops[$shop->getKey()->getValue()] = array();
             }
 
-            $carbonShops[$shop->getKey()->getValue()][] = array(
+            $carbonShops[$shop->getKey()->getValue()][$index] = array(
                 self::SHOP_TEMPLATE_ID => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
                 self::SHOP_AFFILIATE_ID => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
                 self::SHOP_AFFILIATE_LINK => $shop->getAffiliateLink()->getValue(),
@@ -727,6 +846,42 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
             if($carbonMetaValue !== null && $product->hasId()) {
                 $this->storePostMeta($product->getId(), $carbonMetaKey, $carbonMetaValue);
+            }
+        }
+    }
+
+    /**
+     * Store the attribute group of the product
+     *
+     * @since 0.6
+     * @param ProductVariant $productVariant
+     */
+    protected function storeAttributeGroup(ProductVariant $productVariant)
+    {
+        $attributeGroup = $productVariant->getAttributeGroup();
+        $attributes = $attributeGroup->getAttributes();
+
+        $carbonAttributes = array();
+        foreach ($attributes as $index => $attribute) {
+            if(!isset($carbonShops[$attribute->getKey()->getValue()])) {
+                $carbonShops[$attribute->getKey()->getValue()] = array();
+            }
+
+            $carbonAttributes[$attribute->getKey()->getValue()][$index] = array(
+                self::VARIANT_ATTRIBUTES_CUSTOM_VALUE => $attribute->getValue()->getValue(),
+            );
+        }
+
+        $carbonAttributeGroups = array();
+        $carbonAttributeGroups[$attributeGroup->getKey()->getValue()][] = array(
+            self::ATTRIBUTE_GROUP_TEMPLATE_ID => $attributeGroup->hasTemplateId() ? $attributeGroup->getTemplateId()->getValue() : null,
+            self::ATTRIBUTE_GROUP_ATTRIBUTES => $carbonAttributes,
+        );
+
+        $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonAttributeGroups, self::ATTRIBUTE_GROUPS);
+        foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
+            if($carbonMetaValue !== null && $productVariant->hasId()) {
+                $this->storePostMeta($productVariant->getId(), $carbonMetaKey, $carbonMetaValue);
             }
         }
     }

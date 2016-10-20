@@ -394,7 +394,7 @@ class Product extends AbstractEntity
             throw new DuplicatedShopException($shop, $this);
         }*/
 
-        $this->shops[$shop->getName()->getValue()] = $shop;
+        $this->shops[$shop->getAffiliateLink()->getValue()] = $shop;
     }
 
     /**

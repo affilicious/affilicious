@@ -3,6 +3,7 @@ namespace Affilicious\Product\Domain\Model\Variant;
 
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Type;
@@ -19,15 +20,22 @@ class ProductVariant extends Product
     protected $parent;
 
     /**
+     * @var AttributeGroup
+     */
+    protected $attributeGroup;
+
+    /**
      * @since 0.6
      * @param Product $parent
      * @param Title $title
      * @param Name $name
+     * @param AttributeGroup $attributeGroup
      */
-    public function __construct(Product $parent, Title $title, Name $name)
+    public function __construct(Product $parent, Title $title, Name $name, AttributeGroup $attributeGroup)
     {
         parent::__construct($title, $name, $parent->type);
         $this->parent = $parent;
+        $this->attributeGroup = $attributeGroup;
     }
 
     /**
@@ -156,6 +164,17 @@ class ProductVariant extends Product
     public function getDetailGroups()
     {
         return $this->parent->getDetailGroups();
+    }
+
+    /**
+     * Get the attribute groups which stores the attributes like color or size.
+     *
+     * @since 0.6
+     * @return AttributeGroup
+     */
+    public function getAttributeGroup()
+    {
+        return $this->attributeGroup;
     }
 
     /**

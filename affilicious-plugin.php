@@ -44,6 +44,7 @@ use Affilicious\Product\Application\MetaBox\MetaBoxManager;
 use Affilicious\Product\Application\Setup\ProductSetup;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryDetailGroupFactory;
+use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryAttributeGroupFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory;
 use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryShopFactory;
@@ -271,6 +272,7 @@ class AffiliciousPlugin
         $this->container['affilicious.product.repository.product'] = function ($c) {
             return new CarbonProductRepository(
                 $c['affilicious.product.factory.detail_group'],
+                $c['affilicious.product.factory.attribute_group'],
                 $c['affilicious.product.factory.shop']
             );
         };
@@ -286,6 +288,12 @@ class AffiliciousPlugin
         $this->container['affilicious.product.factory.detail_group'] = function ($c) {
             return new InMemoryDetailGroupFactory(
                 $c['affilicious.detail.repository.detail_template_group']
+            );
+        };
+
+        $this->container['affilicious.product.factory.attribute_group'] = function ($c) {
+            return new InMemoryAttributeGroupFactory(
+                $c['affilicious.attribute.repository.attribute_template_group']
             );
         };
 

@@ -212,7 +212,7 @@ class ProductSetup implements SetupInterface
                 $this->getAttributeTabs(
                     $attributeTemplateGroup,
                     CarbonProductRepository::VARIANT_ATTRIBUTES,
-                    __('Attributes', 'affilicious')
+                    __('Attribute Group', 'affilicious')
                 ),
                 CarbonField::make('image',
                     CarbonProductRepository::VARIANT_THUMBNAIL,
@@ -443,7 +443,7 @@ class ProductSetup implements SetupInterface
 
             $field = CarbonField::make(
                 $attribute->getType(),
-                CarbonProductRepository::VARIANT_ATTRIBUTE_CUSTOM_VALUE,
+                CarbonProductRepository::VARIANT_ATTRIBUTES_CUSTOM_VALUE,
                 $fieldName
             );
 
