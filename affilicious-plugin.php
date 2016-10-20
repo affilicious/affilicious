@@ -392,6 +392,10 @@ class AffiliciousPlugin
         $this->container['affilicious.product.presentation.setup.table_count'] = function () {
             return new \Affilicious\Product\Presentation\Setup\TableCountSetup();
         };
+
+        $this->container['affilicious.product.presentation.filter.complex_product'] = function () {
+            return new \Affilicious\Product\Presentation\Filter\ComplexProductFilter();
+        };
     }
 
     /**
@@ -488,6 +492,10 @@ class AffiliciousPlugin
         // Hook the admin bar setup
         $adminBarSetup = $this->container['affilicious.product.presentation.setup.admin_bar'];
         add_action('admin_bar_menu', array($adminBarSetup, 'setUp'), 999);
+
+        // Filter the complex products from the search
+        $complexProductFilter = $this->container['affilicious.product.presentation.filter.complex_product'];
+        add_action('pre_get_posts', array($complexProductFilter, 'filter'));
     }
 
     /**
