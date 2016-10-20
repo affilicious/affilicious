@@ -12,6 +12,17 @@ jQuery(function($) {
         return false;
     }
 
+    function getAffiliciousView() {
+        var affiliciousView = null;
+        _.each(carbon.views, function(view) {
+            if(view.model && view.model.attributes && view.model.attributes.title == translations.container) {
+                affiliciousView = view;
+            }
+        });
+
+        return affiliciousView;
+    }
+
     function getVariantsView() {
         var variantsView = null;
         _.each(carbon.views, function(view) {
@@ -27,11 +38,11 @@ jQuery(function($) {
 
     function toggleTabs() {
         // Supports multiple languages
-        var select = $('select[name="_affilicious_product_type"]'),
+        var affiliciousView = getAffiliciousView(),
+            select = $('select[name="_affilicious_product_type"]'),
             value = select.val(),
-            container = $('.container-Affilicious'),
-            variants = container.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
-            shops = container.find('a[data-id="shops"]').parent();
+            variants = affiliciousView.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
+            shops = affiliciousView.$el.find('a[data-id="shops"]').parent();
 
         if(value === 'complex') {
             variants.show();
@@ -42,13 +53,15 @@ jQuery(function($) {
         }
     }
 
-    carbon.views.Affilicious.$el.children('select[name="_affilicious_product_type"]').ready(toggleTabs);
-    carbon.views.Affilicious.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
+    var affiliciousView = getAffiliciousView();
+    affiliciousView.$el.find('select[name="_affilicious_product_type"]').ready(toggleTabs);
+    affiliciousView.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
 
     // ------------------------------------------------------------------------
 
     function removeActions() {
-        var select = carbon.views.Affilicious.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
+        var affiliciousView = getAffiliciousView(),
+            select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
             value = select.val(),
             variantsView = getVariantsView();
 
@@ -58,14 +71,17 @@ jQuery(function($) {
     }
 
     function changeVariants(evt) {
-        var select = carbon.views.Affilicious.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
+        var affiliciousView = getAffiliciousView(),
+            select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
             value = select.val(),
             variantsView = getVariantsView();
 
         removeActions();
 
-        if(variantsView.model.get('attribute_group_key') != value) {
-            variantsView.model.set('attribute_group_key', value);
+        if(variantsView.model.get('temp_attribute_group_key') != value) {
+            variantsView.model.set('temp_attribute_group_key', value);
+
+            console.log(variantsView);
 
             variantsView.$groupsHolder.find('.carbon-row').remove();
             variantsView.$introRow.show();
@@ -74,8 +90,8 @@ jQuery(function($) {
         }
     }
 
-    carbon.views.Affilicious.$el.children('select[name="_affilicious_product_attribute_group_key"]').ready(removeActions);
-    carbon.views.Affilicious.$el.on('change select[name="_affilicious_product_attribute_group_key"]', changeVariants);
+    affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]').ready(removeActions);
+    affiliciousView.$el.on('change select[name="_affilicious_product_attribute_group_key"]', changeVariants);
 
     // ------------------------------------------------------------------------
 

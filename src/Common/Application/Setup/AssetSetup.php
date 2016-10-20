@@ -68,6 +68,7 @@ class AssetSetup
     {
         // Localize the script with new data
         $translations = array(
+            'container' => __('Affilicious Product', 'affilicious'),
             'variants' => __('Variants', 'affilicious'),
         );
 
