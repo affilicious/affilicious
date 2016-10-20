@@ -19,7 +19,7 @@ class AffiliciousSettings implements SettingsInterface
 			CarbonField::make('footer_scripts', 'affilicious_settings_custom_js', __('Custom JS', 'affilicious')),
 		));
 
-		$container = CarbonContainer::make('theme_options', sprintf(__('%s Settings', 'affilicious'), 'Affilicious'))
+		$container = CarbonContainer::make('theme_options', 'Affilicious')
 	       ->set_icon('dashicons-admin-generic')
 	       ->add_tab(__('Scripts', 'affilicious'), $scriptsTabs);
 
