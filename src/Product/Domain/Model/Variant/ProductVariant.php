@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Variant;
 
+use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
@@ -29,11 +30,12 @@ class ProductVariant extends Product
      * @param Product $parent
      * @param Title $title
      * @param Name $name
+     * @param Key $key
      * @param AttributeGroup $attributeGroup
      */
-    public function __construct(Product $parent, Title $title, Name $name, AttributeGroup $attributeGroup)
+    public function __construct(Product $parent, Title $title, Name $name, Key $key, AttributeGroup $attributeGroup)
     {
-        parent::__construct($title, $name, Type::variant());
+        parent::__construct($title, $name, $key, Type::variant());
         $this->parent = $parent;
         $this->attributeGroup = $attributeGroup;
     }

@@ -31,8 +31,10 @@ class WordpressShopTemplateRepository extends AbstractWordpressRepository implem
         // The ID and the name might has changed. Update both values
         if(empty($post)) {
             $post = get_post($id, OBJECT);
+            $name = new Name($post->post_name);
             $shopTemplate->setId(new ShopTemplateId($post->ID));
-            $shopTemplate->setName(new Name($post->post_name));
+            $shopTemplate->setName($name);
+            $shopTemplate->setKey($name->toKey());
         }
 
         // Store the shop template meta
@@ -123,10 +125,11 @@ class WordpressShopTemplateRepository extends AbstractWordpressRepository implem
 
         // Title, Name, Key
         $title = new Title($post->post_title);
+        $name = new Name($post->post_name);
         $shopTemplate = new ShopTemplate(
             $title,
-            new Name($post->post_name),
-            $title->toKey()
+            $name,
+            $name->toKey()
         );
 
         // ID

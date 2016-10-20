@@ -21,7 +21,7 @@ class InMemoryDetailTemplateGroupFactory implements DetailTemplateGroupFactoryIn
         $detailTemplateGroup = new DetailTemplateGroup(
             $title,
             $name,
-            $title->toKey()
+            $name->toKey()
         );
 
         return $detailTemplateGroup;

@@ -6,6 +6,7 @@ use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Excerpt;
 use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
@@ -63,6 +64,13 @@ class Product extends AbstractEntity
      * @var Name
      */
     protected $name;
+
+    /**
+     * The unique key of the product for database usage
+     *
+     * @var Key
+     */
+    protected $key;
 
     /**
      * The optional content of the product
@@ -138,12 +146,14 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Title $title
      * @param Name $name
+     * @param Key $key
      * @param Type $type
      */
-    public function __construct(Title $title, Name $name, Type $type)
+    public function __construct(Title $title, Name $name, Key $key, Type $type)
     {
         $this->title = $title;
         $this->name = $name;
+        $this->key = $key;
         $this->type = $type;
         $this->shops = array();
         $this->variants = array();
@@ -257,6 +267,28 @@ class Product extends AbstractEntity
     public function setName(Name $name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * Get the key for database usage
+     *
+     * @since 0.6
+     * @return Key
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     * Set the unique key for database usage
+     *
+     * @since 0.6
+     * @param Key $key
+     */
+    public function setKey(Key $key)
+    {
+        $this->key = $key;
     }
 
     /**
@@ -821,7 +853,8 @@ class Product extends AbstractEntity
             $object instanceof self &&
             ($this->hasId() && $this->getId()->isEqualTo($object->getId()) || !$object->hasId()) &&
             $this->getTitle()->isEqualTo($object->getTitle()) &&
-            $this->getName()->isEqualTo($object->getName());
+            $this->getName()->isEqualTo($object->getName()) &&
+            $this->getKey()->isEqualTo($object->getKey());
             // TODO: Compare the rest and check the best way to compare two arrays with objects inside
     }
 }

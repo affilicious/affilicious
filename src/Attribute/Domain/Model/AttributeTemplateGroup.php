@@ -155,6 +155,17 @@ class AttributeTemplateGroup extends AbstractEntity
 	}
 
     /**
+     * Set the unique key for database usage
+     *
+     * @since 0.6
+     * @param Key $key
+     */
+    public function setKey(Key $key)
+    {
+        $this->key = $key;
+    }
+
+    /**
      * Check if a attribute template with the given name exists
      *
      * @since 0.6

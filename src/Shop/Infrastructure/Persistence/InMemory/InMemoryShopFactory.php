@@ -21,7 +21,7 @@ class InMemoryShopTemplateFactory implements ShopTemplateFactoryInterface
         $shop = new ShopTemplate(
             $title,
             $name,
-            $title->toKey()
+            $name->toKey()
         );
 
         return $shop;

@@ -281,9 +281,11 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         }
 
         // Title, Name
+        $name = new Name($post->post_name);
         $product = new Product(
             new Title($post->post_title),
-            new Name($post->post_name),
+            $name,
+            $name->toKey(),
             new Type($type)
         );
 
@@ -361,10 +363,12 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         }
 
         // Parent, Title, Name, Attribute Group
+        $name = new Name($post->post_name);
         $productVariant = new ProductVariant(
             $parent,
             new Title($post->post_title),
-            new Name($post->post_name),
+            $name,
+            $name->toKey(),
             $attributeGroup
         );
 
@@ -528,10 +532,13 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
             }
 
             $title = new Title($title);
+            $name = $title->toName();
+            $key = $name->toKey();
             $productVariant = new ProductVariant(
                 $product,
                 $title,
-                $title->toName(),
+                $name,
+                $key,
                 $attributeGroup
             );
 

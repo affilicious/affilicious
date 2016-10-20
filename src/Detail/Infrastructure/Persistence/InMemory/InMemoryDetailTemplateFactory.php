@@ -18,10 +18,11 @@ class InMemoryDetailTemplateFactory implements DetailTemplateFactoryInterface
      */
     public function create(Title $title, Type $type)
     {
+        $name = $title->toName();
         $detailTemplate = new DetailTemplate(
             $title,
-            $title->toName(),
-            $title->toKey(),
+            $name,
+            $name->toKey(),
             $type
         );
 

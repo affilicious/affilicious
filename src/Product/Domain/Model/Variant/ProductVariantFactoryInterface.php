@@ -3,6 +3,7 @@ namespace Affilicious\Product\Domain\Model\Variant;
 
 use Affilicious\Common\Domain\Model\FactoryInterface;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
 use Affilicious\Product\Domain\Model\Product;
 
 if(!defined('ABSPATH')) {
@@ -17,7 +18,8 @@ interface ProductVariantFactoryInterface extends FactoryInterface
      * @since 0.6
      * @param Product $parentProduct
      * @param Title $title
+     * @param AttributeGroup $attributeGrou
      * @return ProductVariant
      */
-    public function create(Product $parentProduct, Title $title);
+    public function create(Product $parentProduct, Title $title, AttributeGroup $attributeGrou);
 }

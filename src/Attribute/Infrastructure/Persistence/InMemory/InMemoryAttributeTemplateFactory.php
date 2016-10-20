@@ -18,10 +18,11 @@ class InMemoryAttributeTemplateFactory implements AttributeTemplateFactoryInterf
      */
     public function create(Title $title, Type $type)
     {
+        $name = $title->toName();
         $attributeTemplate = new AttributeTemplate(
             $title,
-            $title->toName(),
-            $title->toKey(),
+            $name,
+            $name->toKey(),
             $type
         );
 

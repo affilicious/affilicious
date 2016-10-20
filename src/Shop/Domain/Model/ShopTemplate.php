@@ -153,6 +153,17 @@ class ShopTemplate extends AbstractEntity
         return $this->key;
     }
 
+    /**
+     * Set the unique key for database usage
+     *
+     * @since 0.6
+     * @param Key $key
+     */
+    public function setKey(Key $key)
+    {
+        $this->key = $key;
+    }
+
 	/**
 	 * Check if the shop has an optional thumbnail
 	 *

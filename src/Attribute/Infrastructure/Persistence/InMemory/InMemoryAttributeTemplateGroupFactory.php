@@ -18,10 +18,11 @@ class InMemoryAttributeTemplateGroupFactory implements AttributeTemplateGroupFac
      */
     public function create(Title $title, Name $name)
     {
+
         $attributeTemplateGroup = new AttributeTemplateGroup(
             $title,
             $name,
-            $title->toKey()
+            $name->toKey()
         );
 
         return $attributeTemplateGroup;

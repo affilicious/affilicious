@@ -18,9 +18,11 @@ class InMemoryProductFactory implements ProductFactoryInterface
      */
     public function create(Title $title)
     {
+        $name = $title->toName();
         $product = new Product(
             $title,
-            $title->toName(),
+            $name,
+            $name->toKey(),
             Type::simple()
         );
 
