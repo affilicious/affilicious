@@ -2,6 +2,7 @@ declare var jQuery: any;
 declare var _: any;
 declare var wp: any;
 declare var Backbone: any;
+declare var translations: any;
 interface Window {listElement: any, carbon: any}
 
 jQuery(function($) {
@@ -29,11 +30,10 @@ jQuery(function($) {
         var select = $('select[name="_affilicious_product_type"]'),
             value = select.val(),
             container = $('.container-Affilicious'),
-            variantText = select.children('option[value="variants"]').text().trim().toLowerCase(),
-            variants = container.find('a[data-id="' + variantText + '"]').parent(),
+            variants = container.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
             shops = container.find('a[data-id="shops"]').parent();
 
-        if(value === 'variants') {
+        if(value === 'complex') {
             variants.show();
             shops.hide();
         } else {

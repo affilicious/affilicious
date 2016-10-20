@@ -10,7 +10,6 @@ use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
 use Affilicious\Product\Domain\Exception\DuplicatedShopException;
-use Affilicious\Product\Domain\Exception\DuplicatedVariantException;
 use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Review\Review;
@@ -145,7 +144,7 @@ class Product extends AbstractEntity
     {
         $this->title = $title;
         $this->name = $name;
-        $this->type = Type::simple();
+        $this->type = $type;
         $this->shops = array();
         $this->variants = array();
         $this->detailGroups = array();
@@ -202,9 +201,7 @@ class Product extends AbstractEntity
      */
     public function getType()
     {
-        $type = count($this->variants) == 0 ? Type::simple() : Type::variants();
-
-        return $type;
+        return $this->type;
     }
 
     /**

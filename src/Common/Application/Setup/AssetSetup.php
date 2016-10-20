@@ -66,6 +66,13 @@ class AssetSetup
      */
     public function addAdminScripts()
     {
-        wp_enqueue_script('affilicious-admin', self::getScriptDir() . 'admin.min.js', array('jquery', 'carbon-fields'), \AffiliciousPlugin::PLUGIN_VERSION, true);
+        // Localize the script with new data
+        $translations = array(
+            'variants' => __('Variants', 'affilicious'),
+        );
+
+        wp_register_script('affilicious-admin', self::getScriptDir() . 'admin.min.js', array('jquery', 'carbon-fields'), \AffiliciousPlugin::PLUGIN_VERSION, true);
+        wp_localize_script('affilicious-admin', 'translations', $translations);
+        wp_enqueue_script('affilicious-admin');
     }
 }

@@ -275,7 +275,9 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         // Type
         $type = carbon_get_post_meta($post->ID, self::TYPE);
         if(empty($type)) {
-            return null;
+            //TODO: Remove the legacy support in future version
+            $type = Type::SIMPLE;
+            //return null;
         }
 
         // Title, Name

@@ -33,7 +33,7 @@ class ProductVariant extends Product
      */
     public function __construct(Product $parent, Title $title, Name $name, AttributeGroup $attributeGroup)
     {
-        parent::__construct($title, $name, $parent->type);
+        parent::__construct($title, $name, Type::variant());
         $this->parent = $parent;
         $this->attributeGroup = $attributeGroup;
     }
@@ -47,24 +47,6 @@ class ProductVariant extends Product
     public function getParent()
     {
         return $this->parent;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.6
-     */
-    public function setType(Type $type)
-    {
-        return $this->parent->setType($type);
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.6
-     */
-    public function getType()
-    {
-        return $this->parent->getType();
     }
 
     /**

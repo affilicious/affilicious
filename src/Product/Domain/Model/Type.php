@@ -7,7 +7,8 @@ use Affilicious\Product\Domain\Exception\InvalidValueException;
 class Type extends AbstractValueObject
 {
 	const SIMPLE = 'simple';
-	const VARIANTS = 'variants';
+	const COMPLEX = 'complex';
+	const VARIANT = 'variant';
 
 	/**
 	 * @since 0.6
@@ -18,13 +19,22 @@ class Type extends AbstractValueObject
 		return new self(self::SIMPLE);
 	}
 
+    /**
+     * @since 0.6
+     * @return Type
+     */
+    public static function complex()
+    {
+        return new self(self::COMPLEX);
+    }
+
 	/**
 	 * @since 0.6
 	 * @return Type
 	 */
-	public static function variants()
+	public static function variant()
 	{
-		return new self(self::VARIANTS);
+		return new self(self::VARIANT);
 	}
 
 	/**
@@ -35,7 +45,8 @@ class Type extends AbstractValueObject
 	{
 	    $types = array(
             self::SIMPLE,
-            self::VARIANTS
+            self::COMPLEX,
+            self::VARIANT,
         );
 
 		if(!in_array($value, $types)) {

@@ -144,7 +144,7 @@ class ProductSetup implements SetupInterface
             CarbonField::make('select', CarbonProductRepository::TYPE, __('Type', 'affilicious'))
                 ->add_options(array(
                     'simple' => __('Simple', 'affilicious'),
-                    'variants' => __('Variants', 'affilicious'),
+                    'complex' => __('Complex', 'affilicious'),
                 ))
         );
 
