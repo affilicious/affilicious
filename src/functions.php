@@ -1,12 +1,14 @@
 <?php
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
+use Affilicious\Detail\Application\Helper\AttributeTemplateGroupHelper;
+use Affilicious\Detail\Application\Helper\DetailTemplateGroupHelper;
+use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
 use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Shop\Application\Helper\ShopTemplateHelper;
 use Affilicious\Shop\Domain\Model\ShopTemplate;
-use Affilicious\Detail\Application\Helper\DetailTemplateGroupHelper;
-use Affilicious\Detail\Application\Helper\AttributeTemplateGroupHelper;
-use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
-use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
+use Affilicious\Product\Domain\Model\Type;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -15,12 +17,27 @@ if (!defined('ABSPATH')) {
 /**
  * Check if the current page is a product.
  *
- * @since 0.3
+ * @since 0.6
  * @return bool
  */
-function aff_is_product()
+function aff_is_product_page()
 {
     return is_singular(Product::POST_TYPE);
+}
+
+/**
+ * Check if post, the post with the ID or the current post is a product.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return bool
+ */
+function aff_is_product($productOrId = null)
+{
+    $product = ProductHelper::getProduct($productOrId);
+
+    return $product !== null;
 }
 
 /**
@@ -541,6 +558,181 @@ function aff_get_product_cheapest_affiliate_link($productOrId = null)
     $affiliateLink = $shop['affiliate_link'];
 
     return $affiliateLink;
+}
+
+/**
+ * Check if the product is of the given type.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param string|Type $type
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return bool
+ */
+function aff_product_is_type($type, $productOrId = null)
+{
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return false;
+    }
+
+    if($type instanceof Type) {
+        $type = $type->getValue();
+    }
+
+    return $product->getType()->getValue() == $type;
+}
+
+/**
+ * Check if the product is a simple product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return bool
+ */
+function aff_product_is_simple($productOrId = null)
+{
+    return aff_product_is_type(Type::simple(), $productOrId);
+}
+
+/**
+ * Check if the product is a complex product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return bool
+ */
+function aff_product_is_complex($productOrId = null)
+{
+    return aff_product_is_type(Type::simple(), $productOrId);
+}
+
+/**
+ * Check if the product is a product variant.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return bool
+ */
+function aff_product_is_variant($productOrId = null)
+{
+    return aff_product_is_type(Type::simple(), $productOrId);
+}
+
+/**
+ * Get the parent of the product variant.
+ * If the given product is already the parent, it will be returned instead.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|Product
+ */
+function aff_product_get_parent($productOrId = null)
+{
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
+    if(aff_product_is_complex($product)) {
+        return $product;
+    }
+
+    if(aff_product_is_variant($product)) {
+        /** @var ProductVariant $product */
+        $parent = $product->getParent();
+
+        return $parent;
+    }
+
+    return null;
+}
+
+/**
+ * Check if the given product contains any variants.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return bool
+ */
+function aff_product_has_variants($productOrId = null)
+{
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return false;
+    }
+
+    if(aff_product_is_variant($product)) {
+        return false;
+    }
+
+    $variants = $product->getVariants();
+
+    return empty($variants);
+}
+
+/**
+ * Get the product variants of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|ProductVariant[]
+ */
+function aff_product_get_variants($productOrId = null)
+{
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
+    if(!aff_product_is_variant($product)) {
+        return null;
+    }
+
+    $variants = $product->getVariants();
+
+    return $variants;
+}
+
+/**
+ * Get the product attributes of the given product
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|array
+ */
+function aff_get_product_attributes($productOrId = null)
+{
+    $product = aff_product_get_parent($productOrId);
+    if($product === null) {
+        return null;
+    }
+
+    $variants = $product->getVariants();
+    $rawAttributes = array();
+    foreach ($variants as $index => $variant) {
+        $attributeGroup = $variant->getAttributeGroup();
+        $attributes = $attributeGroup->getAttributes();
+
+        foreach ($attributes as $attribute) {
+            $rawAttributes[$index][] = array(
+                'title' => $attribute->getTitle()->getValue(),
+                'name' => $attribute->getName()->getValue(),
+                'key' => $attribute->getKey()->getValue(),
+                'type' => $attribute->getType()->getValue(),
+                'unit' => $attribute->hasUnit() ? $attribute->getUnit()->getValue() : null,
+                'value' => $attribute->getValue()->getValue(),
+            );
+        }
+    }
+
+    return $rawAttributes;
 }
 
 /**
