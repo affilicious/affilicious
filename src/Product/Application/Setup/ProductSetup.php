@@ -118,7 +118,13 @@ class ProductSetup implements SetupInterface
     {
         do_action('affilicious_product_before_render');
 
-        $carbonContainer = CarbonContainer::make('post_meta', 'Affilicious')
+        $name = sprintf(
+            __('%s %s', 'affilicious'),
+            'Affilicious',
+            __('Product', 'affilicious')
+        );
+
+        $carbonContainer = CarbonContainer::make('post_meta', $name)
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->getGeneralFields())
