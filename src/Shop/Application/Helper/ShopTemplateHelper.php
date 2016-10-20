@@ -22,7 +22,7 @@ class ShopTemplateHelper
     public static function getShopTemplate($postOrId = null)
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
-        $shopTemplateRepository = $container['affilicious.shop.repository.shop_template'];
+        $shopTemplateRepository = $container['affilicious.shop.infrastructure.repository.shop_template'];
 
         if ($postOrId instanceof ShopTemplate) {
             $shopTemplate = $postOrId;

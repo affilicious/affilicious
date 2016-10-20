@@ -28,31 +28,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Affilicious. If not, see <http://www.gnu.org/licenses/>.
  */
-use Affilicious\Attribute\Application\Setup\AttributeTemplateGroupSetup;
-use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository;
-use Affilicious\Attribute\Infrastructure\Persistence\InMemory\InMemoryAttributeTemplateFactory;
-use Affilicious\Attribute\Infrastructure\Persistence\InMemory\InMemoryAttributeTemplateGroupFactory;
-use Affilicious\Common\Application\Setup\AssetSetup;
-use Affilicious\Common\Application\Setup\CarbonSetup;
-use Affilicious\Common\Application\Setup\FeedbackSetup;
-use Affilicious\Detail\Application\Setup\DetailTemplateGroupSetup;
-use Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailTemplateGroupRepository;
-use Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateFactory;
-use Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateGroupFactory;
-use Affilicious\Product\Application\Listener\SaveProductListener;
-use Affilicious\Product\Application\MetaBox\MetaBoxManager;
-use Affilicious\Product\Application\Setup\ProductSetup;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
-use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryDetailGroupFactory;
-use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryAttributeGroupFactory;
-use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductFactory;
-use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory;
-use Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryShopFactory;
-use Affilicious\Settings\Application\Setting\AffiliciousSettings;
-use Affilicious\Settings\Application\Setting\ProductSettings;
-use Affilicious\Shop\Application\Setup\ShopTemplateSetup;
-use Affilicious\Shop\Infrastructure\Persistence\InMemory\InMemoryShopTemplateFactory;
-use Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository;
 use Pimple\Container;
 
 if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
@@ -156,10 +131,10 @@ class AffiliciousPlugin
 		$this->registerAdminHooks();
 
         // TODO: This old legacy class will be removed later
-		new MetaBoxManager();
+		new \Affilicious\Product\Application\MetaBox\MetaBoxManager();
 
 		// We have to call the container to the run code inside
-		$this->container['affilicious.common.setup.carbon'];
+		$this->container['affilicious.common.application.setup.carbon'];
 	}
 
     /**
@@ -257,124 +232,124 @@ class AffiliciousPlugin
      */
     public function registerServices()
     {
-        $this->container['affilicious.common.setup.asset'] = function () {
-            return new AssetSetup();
+        $this->container['affilicious.common.application.setup.asset'] = function () {
+            return new \Affilicious\Common\Application\Setup\AssetSetup();
         };
 
-        $this->container['affilicious.common.setup.carbon'] = function () {
-            return new CarbonSetup();
+        $this->container['affilicious.common.application.setup.carbon'] = function () {
+            return new \Affilicious\Common\Application\Setup\CarbonSetup();
         };
 
-        $this->container['affilicious.common.setup.feedback'] = function () {
-            return new FeedbackSetup();
+        $this->container['affilicious.common.application.setup.feedback'] = function () {
+            return new \Affilicious\Common\Application\Setup\FeedbackSetup();
         };
 
-        $this->container['affilicious.product.repository.product'] = function ($c) {
-            return new CarbonProductRepository(
-                $c['affilicious.product.factory.detail_group'],
-                $c['affilicious.product.factory.attribute_group'],
-                $c['affilicious.product.factory.shop']
+        $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
+            return new \Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository(
+                $c['affilicious.product.infrastructure.factory.detail_group'],
+                $c['affilicious.product.infrastructure.factory.attribute_group'],
+                $c['affilicious.product.infrastructure.factory.shop']
             );
         };
 
-        $this->container['affilicious.product.factory.product'] = function () {
-            return new InMemoryProductFactory();
+        $this->container['affilicious.product.infrastructure.factory.product'] = function () {
+            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductFactory();
         };
 
-        $this->container['affilicious.product.factory.product_variant'] = function () {
-            return new InMemoryProductVariantFactory();
+        $this->container['affilicious.product.infrastructure.factory.product_variant'] = function () {
+            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory();
         };
 
-        $this->container['affilicious.product.factory.detail_group'] = function ($c) {
-            return new InMemoryDetailGroupFactory(
-                $c['affilicious.detail.repository.detail_template_group']
+        $this->container['affilicious.product.infrastructure.factory.detail_group'] = function ($c) {
+            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryDetailGroupFactory(
+                $c['affilicious.detail.infrastructure.repository.detail_template_group']
             );
         };
 
-        $this->container['affilicious.product.factory.attribute_group'] = function ($c) {
-            return new InMemoryAttributeGroupFactory(
-                $c['affilicious.attribute.repository.attribute_template_group']
+        $this->container['affilicious.product.infrastructure.factory.attribute_group'] = function ($c) {
+            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryAttributeGroupFactory(
+                $c['affilicious.attribute.infrastructure.repository.attribute_template_group']
             );
         };
 
-        $this->container['affilicious.product.factory.shop'] = function ($c) {
-            return new InMemoryShopFactory(
-                $c['affilicious.shop.repository.shop_template']
+        $this->container['affilicious.product.infrastructure.factory.shop'] = function ($c) {
+            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryShopFactory(
+                $c['affilicious.shop.infrastructure.repository.shop_template']
             );
         };
 
-        $this->container['affilicious.shop.repository.shop_template'] = function ($c) {
-            return new WordpressShopTemplateRepository(
-                $c['affilicious.shop.factory.shop_template']
+        $this->container['affilicious.shop.infrastructure.repository.shop_template'] = function ($c) {
+            return new \Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository(
+                $c['affilicious.shop.infrastructure.factory.shop_template']
             );
         };
 
-        $this->container['affilicious.shop.factory.shop_template'] = function () {
-            return new InMemoryShopTemplateFactory();
+        $this->container['affilicious.shop.infrastructure.factory.shop_template'] = function () {
+            return new \Affilicious\Shop\Infrastructure\Persistence\InMemory\InMemoryShopTemplateFactory();
         };
 
-        $this->container['affilicious.detail.repository.detail_template_group'] = function ($c) {
-            return new CarbonDetailTemplateGroupRepository(
-                $c['affilicious.detail.factory.detail_template_group'],
-                $c['affilicious.detail.factory.detail_template']
+        $this->container['affilicious.detail.infrastructure.repository.detail_template_group'] = function ($c) {
+            return new \Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailTemplateGroupRepository(
+                $c['affilicious.detail.infrastructure.factory.detail_template_group'],
+                $c['affilicious.detail.infrastructure.factory.detail_template']
             );
         };
 
-        $this->container['affilicious.detail.factory.detail_template_group'] = function () {
-            return new InMemoryDetailTemplateGroupFactory();
+        $this->container['affilicious.detail.infrastructure.factory.detail_template_group'] = function () {
+            return new \Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateGroupFactory();
         };
 
-        $this->container['affilicious.detail.factory.detail_template'] = function () {
-            return new InMemoryDetailTemplateFactory();
+        $this->container['affilicious.detail.infrastructure.factory.detail_template'] = function () {
+            return new \Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateFactory();
         };
 
-        $this->container['affilicious.attribute.repository.attribute_template_group'] = function ($c) {
-            return new CarbonAttributeTemplateGroupRepository(
-                $c['affilicious.attribute.factory.attribute_template_group'],
-                $c['affilicious.attribute.factory.attribute_template']
+        $this->container['affilicious.attribute.infrastructure.repository.attribute_template_group'] = function ($c) {
+            return new \Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository(
+                $c['affilicious.attribute.infrastructure.factory.attribute_template_group'],
+                $c['affilicious.attribute.infrastructure.factory.attribute_template']
             );
         };
 
-        $this->container['affilicious.attribute.factory.attribute_template'] = function () {
-            return new InMemoryAttributeTemplateFactory();
+        $this->container['affilicious.attribute.infrastructure.factory.attribute_template'] = function () {
+            return new \Affilicious\Attribute\Infrastructure\Persistence\InMemory\InMemoryAttributeTemplateFactory();
         };
 
-        $this->container['affilicious.attribute.factory.attribute_template_group'] = function () {
-            return new InMemoryAttributeTemplateGroupFactory();
+        $this->container['affilicious.attribute.infrastructure.factory.attribute_template_group'] = function () {
+            return new \Affilicious\Attribute\Infrastructure\Persistence\InMemory\InMemoryAttributeTemplateGroupFactory();
         };
 
-        $this->container['affilicious.product.setup.product'] = function ($c) {
-            return new ProductSetup(
-                $c['affilicious.shop.repository.shop_template'],
-                $c['affilicious.attribute.repository.attribute_template_group'],
-                $c['affilicious.detail.repository.detail_template_group']
+        $this->container['affilicious.product.application.setup.product'] = function ($c) {
+            return new \Affilicious\Product\Application\Setup\ProductSetup(
+                $c['affilicious.shop.infrastructure.repository.shop_template'],
+                $c['affilicious.attribute.infrastructure.repository.attribute_template_group'],
+                $c['affilicious.detail.infrastructure.repository.detail_template_group']
             );
         };
 
-        $this->container['affilicious.product.listener.save_product'] = function ($c) {
-            return new SaveProductListener(
-                $c['affilicious.product.repository.product']
+        $this->container['affilicious.product.application.listener.save_product'] = function ($c) {
+            return new \Affilicious\Product\Application\Listener\SaveProductListener(
+                $c['affilicious.product.infrastructure.repository.product']
             );
         };
 
-        $this->container['affilicious.shop.setup.shop_template'] = function () {
-            return new ShopTemplateSetup();
+        $this->container['affilicious.shop.application.setup.shop_template'] = function () {
+            return new \Affilicious\Shop\Application\Setup\ShopTemplateSetup();
         };
 
-        $this->container['affilicious.detail.setup.detail_template_group'] = function () {
-            return new DetailTemplateGroupSetup();
+        $this->container['affilicious.detail.application.setup.detail_template_group'] = function () {
+            return new \Affilicious\Detail\Application\Setup\DetailTemplateGroupSetup();
         };
 
-        $this->container['affilicious.attribute.setup.attribute_template_group'] = function () {
-            return new AttributeTemplateGroupSetup();
+        $this->container['affilicious.attribute.application.setup.attribute_template_group'] = function () {
+            return new \Affilicious\Attribute\Application\Setup\AttributeTemplateGroupSetup();
         };
 
-	    $this->container['affilicious.settings.setting.affilicious'] = function () {
-		    return new AffiliciousSettings();
+	    $this->container['affilicious.settings.application.setting.affilicious'] = function () {
+		    return new \Affilicious\Settings\Application\Setting\AffiliciousSettings();
 	    };
 
-	    $this->container['affilicious.settings.setting.product'] = function () {
-		    return new ProductSettings();
+	    $this->container['affilicious.settings.application.setting.product'] = function () {
+		    return new \Affilicious\Settings\Application\Setting\ProductSettings();
 	    };
 
         $this->container['affilicious.product.presentation.setup.canonical'] = function () {
@@ -445,41 +420,41 @@ class AffiliciousPlugin
 	    add_action('plugins_loaded', array($this, 'loadTextdomain'));
 
         // Hook the public assets
-        $assetSetup = $this->container['affilicious.common.setup.asset'];
+        $assetSetup = $this->container['affilicious.common.application.setup.asset'];
         add_action('wp_enqueue_scripts', array($assetSetup, 'addPublicStyles'), 10);
         add_action('wp_enqueue_scripts', array($assetSetup, 'addPublicScripts'), 20);
 
         // Hook the Carbon Fields
-        $carbonFieldsSetup = $this->container['affilicious.common.setup.carbon'];
+        $carbonFieldsSetup = $this->container['affilicious.common.application.setup.carbon'];
         add_action('after_setup_theme', array($carbonFieldsSetup, 'crb_init_carbon_field_hidden'), 15);
 
         // Hook the shops
-        $shopTemplateSetup = $this->container['affilicious.shop.setup.shop_template'];
+        $shopTemplateSetup = $this->container['affilicious.shop.application.setup.shop_template'];
         add_action('init', array($shopTemplateSetup, 'init'), 1);
         add_action('init', array($shopTemplateSetup, 'render'), 2);
 
         // Hook the attribute groups
-        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.setup.attribute_template_group'];
+        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
         add_action('init', array($attributeTemplateGroupSetup, 'init'), 3);
         add_action('init', array($attributeTemplateGroupSetup, 'render'), 4);
 
         // Hook the detail groups
-        $detailTemplateGroupSetup = $this->container['affilicious.detail.setup.detail_template_group'];
+        $detailTemplateGroupSetup = $this->container['affilicious.detail.application.setup.detail_template_group'];
         add_action('init', array($detailTemplateGroupSetup, 'init'), 3);
         add_action('init', array($detailTemplateGroupSetup, 'render'), 4);
 
         // Hook the products
-        $productSetup = $this->container['affilicious.product.setup.product'];
+        $productSetup = $this->container['affilicious.product.application.setup.product'];
         add_action('init', array($productSetup, 'init'), 5);
         add_action('init', array($productSetup, 'render'), 6);
 
         // Hook the product listeners
-        $saveProductListener = $this->container['affilicious.product.listener.save_product'];
+        $saveProductListener = $this->container['affilicious.product.application.listener.save_product'];
         add_action('carbon_after_save_post_meta', array($saveProductListener, 'listen'), 10, 3);
 
 	    // Hook the settings
-        $affiliciousSettings = $this->container['affilicious.settings.setting.affilicious'];
-        $productSettings = $this->container['affilicious.settings.setting.product'];
+        $affiliciousSettings = $this->container['affilicious.settings.application.setting.affilicious'];
+        $productSettings = $this->container['affilicious.settings.application.setting.product'];
 	    add_action('init', array($affiliciousSettings, 'render'), 10);
 	    add_action('init', array($affiliciousSettings, 'apply'), 11);
 	    add_action('init', array($productSettings, 'render'), 12);
@@ -509,27 +484,27 @@ class AffiliciousPlugin
 	    add_action('admin_init', array($this, 'update'), 0);
 
         // Hook the shops
-        $shopTemplateSetup = $this->container['affilicious.shop.setup.shop_template'];
+        $shopTemplateSetup = $this->container['affilicious.shop.application.setup.shop_template'];
         add_action('manage_shop_posts_columns', array($shopTemplateSetup, 'columnsHead'), 9, 2);
         add_action('manage_shop_posts_custom_column', array($shopTemplateSetup, 'columnsContent'), 10, 2);
 
         // Hook the attribute groups
-        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.setup.attribute_template_group'];
+        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
         add_action('manage_aff_attribute_group_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
         add_action('manage_aff_attribute_group_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
 
         // Hook the detail groups
-        $detailTemplateGroupSetup = $this->container['affilicious.detail.setup.detail_template_group'];
+        $detailTemplateGroupSetup = $this->container['affilicious.detail.application.setup.detail_template_group'];
         add_action('manage_detail_group_posts_columns', array($detailTemplateGroupSetup, 'columnsHead'), 9, 2);
         add_action('manage_detail_group_posts_custom_column', array($detailTemplateGroupSetup, 'columnsContent'), 10, 2);
 
         // Hook the admin assets
-        $assetSetup = $this->container['affilicious.common.setup.asset'];
+        $assetSetup = $this->container['affilicious.common.application.setup.asset'];
         add_action('admin_enqueue_scripts', array($assetSetup, 'addAdminStyles'), 10);
         add_action('admin_enqueue_scripts', array($assetSetup, 'addAdminScripts'), 20);
 
         // Hook the feedback form
-        $feedbackSetup = $this->container['affilicious.common.setup.feedback'];
+        $feedbackSetup = $this->container['affilicious.common.application.setup.feedback'];
         add_action('admin_menu', array($feedbackSetup, 'init'), 30);
 
         // Hook the product table setup

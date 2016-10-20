@@ -22,7 +22,7 @@ class AttributeTemplateGroupHelper
     public static function getAttributeTemplateGroup($postOrId = null)
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
-        $attributeTemplateGroupRepository = $container['affilicious.attribute.repository.attribute_template_group'];
+        $attributeTemplateGroupRepository = $container['affilicious.attribute.infrastructure.repository.attribute_template_group'];
 
         if ($postOrId instanceof AttributeTemplateGroup) {
             $attributeTemplateGroup = $postOrId;

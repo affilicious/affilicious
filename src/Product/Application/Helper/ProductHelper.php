@@ -24,7 +24,7 @@ class ProductHelper
     public static function getProduct($productOrId = null)
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
-        $productRepository = $container['affilicious.product.repository.product'];
+        $productRepository = $container['affilicious.product.infrastructure.repository.product'];
         $product = null;
 
         // The argument is already a product or a product variant

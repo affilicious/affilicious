@@ -22,7 +22,7 @@ class DetailTemplateGroupHelper
     public static function getDetailTemplateGroup($postOrId = null)
     {
         $container = \AffiliciousPlugin::getInstance()->getContainer();
-        $detailTemplateGroupRepository = $container['affilicious.detail.repository.detail_template_group'];
+        $detailTemplateGroupRepository = $container['affilicious.detail.infrastructure.repository.detail_template_group'];
 
         if ($postOrId instanceof DetailTemplateGroup) {
             $detailGroupTemplate = $postOrId;
