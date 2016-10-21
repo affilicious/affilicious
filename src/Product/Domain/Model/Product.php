@@ -11,7 +11,6 @@ use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
 use Affilicious\Product\Domain\Exception\DuplicatedShopException;
-use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Product\Domain\Model\Shop\AffiliateLink;

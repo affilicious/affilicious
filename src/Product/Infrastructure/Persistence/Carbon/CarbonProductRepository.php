@@ -62,6 +62,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
 
     const VARIANTS = 'affilicious_product_variants';
     const VARIANT_TITLE = 'title';
+    const VARIANT_DEFAULT = 'default';
     const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'template_group_id';
     const VARIANT_ATTRIBUTES = 'attributes';
     const VARIANT_ATTRIBUTES_CUSTOM_VALUE = 'custom_value';
@@ -523,6 +524,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
             $title = !empty($rawVariant[self::VARIANT_TITLE]) ? $rawVariant[self::VARIANT_TITLE] : null;
             $thumbnailId = !empty($rawVariant[self::VARIANT_THUMBNAIL]) ? $rawVariant[self::VARIANT_THUMBNAIL] : null;
             $shops = !empty($rawVariant[self::VARIANT_SHOPS]) ? $rawVariant[self::VARIANT_SHOPS] : null;
+            $default = !empty($rawVariant[self::VARIANT_DEFAULT]) ? $rawVariant[self::VARIANT_DEFAULT] : null;
             $attributeTemplateGroupId = !empty($rawVariant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID]) ? $rawVariant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID] : null;
             $attributes = !empty($rawVariant[self::VARIANT_ATTRIBUTES]) ? $rawVariant[self::VARIANT_ATTRIBUTES] : null;
             $attributeGroup = $this->getAttributeGroupFromIdAndArray($attributeTemplateGroupId, $attributes);
@@ -545,6 +547,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
             $thumbnail = $this->getImageFromAttachmentId($thumbnailId);
             if(!empty($thumbnail)) {
                 $productVariant->setThumbnail($thumbnail);
+            }
+
+            if(!empty($default) && $default === 'yes') {
+                $productVariant->setDefault(true);
             }
 
             if(!empty($shops)) {
@@ -951,12 +957,12 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
             }
 
             $carbonVariants['_'][] = array(
+                'default' => $variant->isDefault() ? 'yes' : null,
                 'title' => $variant->getTitle()->getValue(),
                 'thumbnail' => $variant->getThumbnail()->getId()->getValue(),
                 'shops' => !empty($carbonShops) ? $carbonShops : null,
             );
         }
-
 
         $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonVariants, self::VARIANTS);
         foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {

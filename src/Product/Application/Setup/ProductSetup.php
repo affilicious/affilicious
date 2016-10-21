@@ -205,23 +205,16 @@ class ProductSetup implements SetupInterface
                     CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID,
                     __('Attribute Template Group ID', 'affilicious')
                 )->set_value($attributeTemplateGroup->getId()->getValue())->set_required(true),
-                CarbonField::make('text',
-                    CarbonProductRepository::VARIANT_TITLE,
-                    __('Title', 'affilicious')
-                )->set_required(true),
-                $this->getAttributeTabs(
-                    $attributeTemplateGroup,
-                    CarbonProductRepository::VARIANT_ATTRIBUTES,
-                    __('Attribute Group', 'affilicious')
-                ),
-                CarbonField::make('image',
-                    CarbonProductRepository::VARIANT_THUMBNAIL,
-                    __('Thumbnail', 'affilicious')
-                ),
-                $this->getShopTabs(
-                    CarbonProductRepository::VARIANT_SHOPS,
-                    __('Shops', 'affilicious')
-                ),
+                CarbonField::make('text', CarbonProductRepository::VARIANT_TITLE, __('Title', 'affilicious'))
+                    ->set_required(true)
+                    ->set_width(70),
+                CarbonField::make('checkbox', CarbonProductRepository::VARIANT_DEFAULT, __('Default Variant', 'affilicious'))
+                    ->set_option_value('yes')
+                    ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
+                    ->set_width(30),
+                $this->getAttributeTabs($attributeTemplateGroup, CarbonProductRepository::VARIANT_ATTRIBUTES, __('Attributes', 'affilicious')),
+                CarbonField::make('image', CarbonProductRepository::VARIANT_THUMBNAIL, __('Thumbnail', 'affilicious')),
+                $this->getShopTabs(CarbonProductRepository::VARIANT_SHOPS, __('Shops', 'affilicious')),
             ));
 
             $field->set_header_template('

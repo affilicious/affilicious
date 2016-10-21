@@ -41,7 +41,7 @@ jQuery(function ($) {
     // ------------------------------------------------------------------------
     function removeActions() {
         var affiliciousView = getAffiliciousView(), select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'), value = select.val(), variantsView = getVariantsView();
-        variantsView.model.set('attribute_group_key', value);
+        variantsView.model.set('temp_attribute_group_key', value);
         variantsView.$actions.find('ul').remove();
         variantsView.$actions.find('a.button').data('group', value != 'none' ? '_' + value : '');
     }
@@ -50,7 +50,6 @@ jQuery(function ($) {
         removeActions();
         if (variantsView.model.get('temp_attribute_group_key') != value) {
             variantsView.model.set('temp_attribute_group_key', value);
-            console.log(variantsView);
             variantsView.$groupsHolder.find('.carbon-row').remove();
             variantsView.$introRow.show();
             variantsView.groupsCollection.reset();

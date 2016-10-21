@@ -21,6 +21,13 @@ class ProductVariant extends Product
     protected $parent;
 
     /**
+     * True, if the variant is the default for the parent product
+     *
+     * @var bool
+     */
+    protected $default;
+
+    /**
      * @var AttributeGroup
      */
     protected $attributeGroup;
@@ -37,6 +44,7 @@ class ProductVariant extends Product
     {
         parent::__construct($title, $name, $key, Type::variant());
         $this->parent = $parent;
+        $this->default = false;
         $this->attributeGroup = $attributeGroup;
     }
 
@@ -195,6 +203,28 @@ class ProductVariant extends Product
     public function setReview($review)
     {
         $this->parent->setReview($review);
+    }
+
+    /**
+     * Set true, if you want to set the variant as the default one
+     *
+     * @since 0.6
+     * @param $default
+     */
+    public function setDefault($default)
+    {
+        $this->default = $default;
+    }
+
+    /**
+     * Check if the variant is the default one for the parent product
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function isDefault()
+    {
+        return $this->default;
     }
 
     /**
