@@ -682,26 +682,6 @@ class Product extends AbstractEntity
     }
 
     /**
-     * Get the details out of the detail groups
-     *
-     * @since 0.6
-     * @return Detail[]
-     */
-    public function getDetails()
-    {
-        $result = array();
-        foreach ($this->detailGroups as $detailGroup) {
-            $details = $detailGroup->getDetails();
-
-            foreach ($details as $detail) {
-                $result[] = $detail;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * Check if the product has a review
      *
      * @since 0.6

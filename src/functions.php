@@ -116,20 +116,24 @@ function aff_get_product_details($productOrId = null)
         return null;
     }
 
-    $details = $product->getDetails();
+    $detailGroups = $product->getDetailGroups();
 
     $rawDetails = array();
-    foreach ($details as $detail) {
-        $rawDetail = array(
-            'title' => $detail->getTitle()->getValue(),
-            'name' => $detail->getName()->getValue(),
-            'key' => $detail->getKey()->getValue(),
-            'type' => $detail->getType()->getValue(),
-            'unit' => $detail->hasUnit() ? $detail->getUnit()->getValue() : null,
-            'value' => $detail->hasValue() ? $detail->getValue()->getValue() : null,
-        );
+    foreach ($detailGroups as $detailGroup) {
+        $details = $detailGroup->getDetails();
 
-        $rawDetails[] = $rawDetail;
+        foreach ($details as $detail) {
+            $rawDetail = array(
+                'title' => $detail->getTitle()->getValue(),
+                'name' => $detail->getName()->getValue(),
+                'key' => $detail->getKey()->getValue(),
+                'type' => $detail->getType()->getValue(),
+                'unit' => $detail->hasUnit() ? $detail->getUnit()->getValue() : null,
+                'value' => $detail->hasValue() ? $detail->getValue()->getValue() : null,
+            );
+
+            $rawDetails[] = $rawDetail;
+        }
     }
 
     return $rawDetails;
