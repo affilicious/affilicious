@@ -839,6 +839,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      */
     protected function storeShops(Product $product, $metaKey)
     {
+        if($product->hasId()) {
+            return;
+        }
+
         $shops = $product->getShops();
 
         $carbonShops = array();
@@ -859,8 +863,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
 
         $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonShops, $metaKey);
         foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
-            if($carbonMetaValue !== null && $product->hasId()) {
+            if($carbonMetaValue !== null) {
                 $this->storePostMeta($product->getId(), $carbonMetaKey, $carbonMetaValue);
+            } elseif ($carbonMetaValue === null) {
+                $this->deletePostMeta($product->getId(), $carbonMetaKey);
             }
         }
     }
@@ -873,6 +879,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      */
     protected function storeAttributeGroup(ProductVariant $productVariant)
     {
+        if($productVariant->hasId()) {
+            return;
+        }
+
         $attributeGroup = $productVariant->getAttributeGroup();
         $attributes = $attributeGroup->getAttributes();
 
@@ -895,8 +905,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
 
         $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonAttributeGroups, self::ATTRIBUTE_GROUPS);
         foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
-            if($carbonMetaValue !== null && $productVariant->hasId()) {
+            if($carbonMetaValue !== null) {
                 $this->storePostMeta($productVariant->getId(), $carbonMetaKey, $carbonMetaValue);
+            } elseif ($carbonMetaValue === null) {
+                $this->deletePostMeta($productVariant->getId(), $carbonMetaKey);
             }
         }
     }
@@ -909,6 +921,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      */
     protected function storeVariants(Product $product)
     {
+        if($product->hasId()) {
+            return;
+        }
+
         $variants = $product->getVariants();
         if(empty($variant)) {
             return;
@@ -937,7 +953,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
          * );
          */
         $carbonVariants = array('_' => array());
-        foreach ($variants as $variant) {
+        foreach ($variants as $index => $variant) {
 
             $shops = $variant->getShops();
             $carbonShops = array();
@@ -946,7 +962,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
                     $carbonShops[$shop->getKey()->getValue()] = array();
                 }
 
-                $carbonShops[$shop->getKey()->getValue()][] = array(
+                $carbonShops[$shop->getKey()->getValue()][$index] = array(
                     self::SHOP_TEMPLATE_ID => $shop->hasTemplateId() ? $shop->getTemplateId()->getValue() : null,
                     self::SHOP_AFFILIATE_ID => $shop->hasAffiliateId() ? $shop->getAffiliateId()->getValue() : null,
                     self::SHOP_AFFILIATE_LINK => $shop->getAffiliateLink()->getValue(),
@@ -966,8 +982,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
 
         $carbonMetaKeys = $this->buildComplexCarbonMetaKey($carbonVariants, self::VARIANTS);
         foreach ($carbonMetaKeys as $carbonMetaKey => $carbonMetaValue) {
-            if($carbonMetaValue !== null && $product->hasId()) {
+            if($carbonMetaValue !== null) {
                 $this->storePostMeta($product->getId(), $carbonMetaKey, $carbonMetaValue);
+            } elseif ($carbonMetaValue === null) {
+                $this->deletePostMeta($product->getId(), $carbonMetaKey);
             }
         }
     }

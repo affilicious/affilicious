@@ -55,6 +55,29 @@ abstract class AbstractWordpressRepository implements RepositoryInterface
     }
 
     /**
+     * Delete the post meta
+     *
+     * @since 0.6
+     * @param mixed|ValueObjectInterface $id
+     * @param mixed|ValueObjectInterface $key
+     * @return bool|int
+     */
+    protected function deletePostMeta($id, $key)
+    {
+        if($id instanceof ValueObjectInterface) {
+            $id = $id->getValue();
+        }
+
+        if($key instanceof ValueObjectInterface) {
+            $key = $key->getValue();
+        }
+
+        $deleted = delete_post_meta($id, $key);
+
+        return $deleted;
+    }
+
+    /**
      * Get the image from the attachment ID
      *
      * @since 0.6
