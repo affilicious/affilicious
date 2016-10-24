@@ -251,7 +251,7 @@ class AffiliciousPlugin
                 $c['affilicious.product.infrastructure.factory.review'],
                 $c['affilicious.product.infrastructure.factory.detail_group'],
                 $c['affilicious.product.infrastructure.factory.attribute_group'],
-                $c['affilicious.product.infrastructure.factory.shop']
+                $c['affilicious.shop.infrastructure.factory.shop']
             );
         };
 
@@ -275,8 +275,8 @@ class AffiliciousPlugin
             );
         };
 
-        $this->container['affilicious.product.infrastructure.factory.shop'] = function ($c) {
-            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryShopFactory(
+        $this->container['affilicious.shop.infrastructure.factory.shop'] = function ($c) {
+            return new \Affilicious\Shop\Infrastructure\Factory\InMemory\InMemoryShopFactory(
                 $c['affilicious.shop.infrastructure.repository.shop_template']
             );
         };
@@ -292,7 +292,7 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.shop.infrastructure.factory.shop_template'] = function () {
-            return new \Affilicious\Shop\Infrastructure\Persistence\InMemory\InMemoryShopTemplateFactory();
+            return new \Affilicious\Shop\Infrastructure\Factory\InMemory\InMemoryShopTemplateFactory();
         };
 
         $this->container['affilicious.detail.infrastructure.repository.detail_template_group'] = function ($c) {

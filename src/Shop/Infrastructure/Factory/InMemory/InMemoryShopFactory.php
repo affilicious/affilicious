@@ -1,16 +1,16 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Shop\Infrastructure\Factory\InMemory;
 
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Model\Shop\AffiliateId;
-use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
-use Affilicious\Product\Domain\Model\Shop\Currency;
-use Affilicious\Product\Domain\Model\Shop\Price;
-use Affilicious\Product\Domain\Model\Shop\Shop;
-use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\Shop\Domain\Model\AffiliateId;
+use Affilicious\Shop\Domain\Model\AffiliateLink;
+use Affilicious\Shop\Domain\Model\Currency;
+use Affilicious\Shop\Domain\Model\Price;
+use Affilicious\Shop\Domain\Model\Shop;
+use Affilicious\Shop\Domain\Model\ShopFactoryInterface;
 use Affilicious\Shop\Domain\Model\ShopTemplateId;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 

@@ -1,9 +1,9 @@
 <?php
-namespace Affilicious\Product\Domain\Exception;
+namespace Affilicious\Shop\Domain\Exception;
 
 use Affilicious\Common\Domain\Exception\DomainException;
-use Affilicious\Product\Domain\Model\Shop\Currency;
-use Affilicious\Product\Domain\Model\Shop\Price;
+use Affilicious\Shop\Domain\Model\Currency;
+use Affilicious\Shop\Domain\Model\Price;
 
 class InvalidPriceCurrencyException extends DomainException
 {

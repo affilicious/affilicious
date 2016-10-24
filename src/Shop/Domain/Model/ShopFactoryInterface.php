@@ -1,11 +1,10 @@
 <?php
-namespace Affilicious\Product\Domain\Model\Shop;
+namespace Affilicious\Shop\Domain\Model;
 
 use Affilicious\Common\Domain\Model\FactoryInterface;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Shop\Domain\Model\ShopTemplateId;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

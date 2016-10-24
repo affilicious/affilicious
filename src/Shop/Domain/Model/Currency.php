@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Domain\Model\Shop;
+namespace Affilicious\Shop\Domain\Model;
 
 use Affilicious\Common\Domain\Model\AbstractValueObject;
 use Affilicious\Product\Domain\Exception\InvalidValueException;

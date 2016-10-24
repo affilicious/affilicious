@@ -28,10 +28,9 @@ use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
 use Affilicious\Product\Domain\Model\Review\Rating;
 use Affilicious\Product\Domain\Model\Review\ReviewFactoryInterface;
 use Affilicious\Product\Domain\Model\Review\Votes;
-use Affilicious\Product\Domain\Model\Shop\Shop;
-use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
+use Affilicious\Shop\Domain\Model\ShopFactoryInterface;
 use Affilicious\Shop\Domain\Model\ShopTemplateId;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 

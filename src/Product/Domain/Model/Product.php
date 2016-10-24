@@ -13,8 +13,8 @@ use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
 use Affilicious\Product\Domain\Exception\DuplicatedShopException;
 use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
 use Affilicious\Product\Domain\Model\Review\Review;
-use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
-use Affilicious\Product\Domain\Model\Shop\Shop;
+use Affilicious\Shop\Domain\Model\AffiliateLink;
+use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 
 if(!defined('ABSPATH')) {

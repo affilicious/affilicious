@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Domain\Model\Shop;
+namespace Affilicious\Shop\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
@@ -7,8 +7,7 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Exception\InvalidPriceCurrencyException;
-use Affilicious\Shop\Domain\Model\ShopTemplateId;
+use Affilicious\Shop\Domain\Exception\InvalidPriceCurrencyException;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -235,7 +234,7 @@ class Shop extends AbstractAggregate
     public function setAffiliateId($affiliateId)
     {
         if($affiliateId !== null && !($affiliateId instanceof AffiliateId)) {
-            throw new InvalidTypeException($affiliateId, 'Affilicious\Product\Domain\Model\Shop\AffiliateId');
+            throw new InvalidTypeException($affiliateId, 'Affilicious\Shop\Domain\Model\AffiliateId');
         }
 
         $this->affiliateId = $affiliateId;

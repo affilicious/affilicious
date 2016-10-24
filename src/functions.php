@@ -5,10 +5,10 @@ use Affilicious\Detail\Application\Helper\DetailTemplateGroupHelper;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
 use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Shop\Application\Helper\ShopTemplateHelper;
+use Affilicious\Shop\Domain\Model\AffiliateLink;
 use Affilicious\Shop\Domain\Model\ShopTemplate;
 
 if (!defined('ABSPATH')) {
