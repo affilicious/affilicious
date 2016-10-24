@@ -17,7 +17,7 @@ class ShopTemplateSetup implements SetupInterface
 	 */
 	public function init()
 	{
-        do_action('affilicious_shop_before_init');
+        do_action('affilicious_shop_template_before_init');
 
         $singular = __('Shop Template', 'affilicious');
         $plural = __('Shop Templates', 'affilicious');
@@ -57,7 +57,7 @@ class ShopTemplateSetup implements SetupInterface
 			'show_in_menu'    => 'edit.php?post_type=product',
 		));
 
-        do_action('affilicious_shop_after_init');
+        do_action('affilicious_shop_template_after_init');
 	}
 
 	/**
@@ -65,11 +65,11 @@ class ShopTemplateSetup implements SetupInterface
 	 */
 	public function render()
 	{
-        do_action('affilicious_shop_before_render');
+        do_action('affilicious_shop_template_before_render');
 
 		// Nothing to do here yet
 
-        do_action('affilicious_shop_after_render');
+        do_action('affilicious_shop_template_after_render');
 	}
 
 	/**
@@ -103,29 +103,15 @@ class ShopTemplateSetup implements SetupInterface
 	public function columnsContent($columnName, $shopId)
 	{
 		if ($columnName == 'logo') {
-			$shopLogo = $this->getLogo($shopId);
+            $shopLogoId = get_post_thumbnail_id($shopId);
+            if (!$shopLogoId) {
+                return;
+            }
+
+            $shopLogo = wp_get_attachment_image_src($shopLogoId, 'featured_preview');
 			if ($shopLogo) {
-				echo '<img src="' . $shopLogo . '" />';
+				echo '<img src="' . $shopLogo[0] . '" />';
 			}
 		}
-	}
-
-	/**
-	 * Get the logo by the shop ID
-	 *
-	 * @since 0.2
-	 * @param int $shopId
-	 * @return null|string
-	 */
-	private function getLogo($shopId)
-	{
-		$shopLogoId = get_post_thumbnail_id($shopId);
-		if (!$shopLogoId) {
-			return null;
-		}
-
-		$shopLogo = wp_get_attachment_image_src($shopLogoId, 'featured_preview');
-
-		return $shopLogo[0];
 	}
 }
