@@ -26,7 +26,7 @@ use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
 use Affilicious\Product\Domain\Model\Review\Rating;
-use Affilicious\Product\Domain\Model\Review\Review;
+use Affilicious\Product\Domain\Model\Review\ReviewFactoryInterface;
 use Affilicious\Product\Domain\Model\Review\Votes;
 use Affilicious\Product\Domain\Model\Shop\Shop;
 use Affilicious\Product\Domain\Model\Shop\ShopFactoryInterface;
@@ -81,6 +81,11 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     const DETAIL_GROUP_ID = 'detail_group_id';
 
     /**
+     * @var ReviewFactoryInterface
+     */
+    protected $reviewFactory;
+
+    /**
      * @var DetailGroupFactoryInterface
      */
     protected $detailGroupFactory;
@@ -97,16 +102,19 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
 
     /**
      * @since 0.6
+     * @param ReviewFactoryInterface $reviewFactory
      * @param DetailGroupFactoryInterface $detailGroupFactory
-     * @param AttributeGroupFactoryInterface $attributeGroupFactory,
+     * @param AttributeGroupFactoryInterface $attributeGroupFactory ,
      * @param ShopFactoryInterface $shopFactory
      */
     public function __construct(
+        ReviewFactoryInterface $reviewFactory,
         DetailGroupFactoryInterface $detailGroupFactory,
         AttributeGroupFactoryInterface $attributeGroupFactory,
         ShopFactoryInterface $shopFactory
     )
     {
+        $this->reviewFactory = $reviewFactory;
         $this->detailGroupFactory = $detailGroupFactory;
         $this->attributeGroupFactory = $attributeGroupFactory;
         $this->shopFactory = $shopFactory;
@@ -605,7 +613,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     {
         $rating = carbon_get_post_meta($post->ID, self::REVIEW_RATING);
         if(!empty($rating) && $rating !== 'none') {
-            $review = new Review(new Rating($rating));
+            $review = $this->reviewFactory->create(new Rating($rating));
 
             $votes = carbon_get_post_meta($post->ID, self::REVIEW_VOTES);
             if (!empty($votes)) {

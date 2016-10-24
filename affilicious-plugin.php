@@ -248,6 +248,7 @@ class AffiliciousPlugin
 
         $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
             return new \Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository(
+                $c['affilicious.product.infrastructure.factory.review'],
                 $c['affilicious.product.infrastructure.factory.detail_group'],
                 $c['affilicious.product.infrastructure.factory.attribute_group'],
                 $c['affilicious.product.infrastructure.factory.shop']
@@ -284,6 +285,10 @@ class AffiliciousPlugin
             return new \Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository(
                 $c['affilicious.shop.infrastructure.factory.shop_template']
             );
+        };
+
+        $this->container['affilicious.product.infrastructure.factory.review'] = function () {
+            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryReviewFactory();
         };
 
         $this->container['affilicious.shop.infrastructure.factory.shop_template'] = function () {
