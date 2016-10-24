@@ -1,11 +1,11 @@
 <?php
-namespace Affilicious\Product\Presentation\Setup;
+namespace Affilicious\Product\Presentation\Filter;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class TableCountSetup
+class TableCountFilter
 {
     /**
      * Update the product table counts since the product variants are hidden
@@ -14,7 +14,7 @@ class TableCountSetup
      * @param $views
      * @return mixed
      */
-    public function setUp($views)
+    public function filter($views)
     {
         global $current_screen, $wpdb;
 

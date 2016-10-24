@@ -362,12 +362,12 @@ class AffiliciousPlugin
             return new \Affilicious\Product\Presentation\Setup\AdminBarSetup();
         };
 
-        $this->container['affilicious.product.presentation.setup.table_content'] = function () {
-            return new \Affilicious\Product\Presentation\Setup\TableContentSetup();
+        $this->container['affilicious.product.presentation.filter.table_content'] = function () {
+            return new \Affilicious\Product\Presentation\Filter\TableContentFilter();
         };
 
-        $this->container['affilicious.product.presentation.setup.table_count'] = function () {
-            return new \Affilicious\Product\Presentation\Setup\TableCountSetup();
+        $this->container['affilicious.product.presentation.filter.table_count'] = function () {
+            return new \Affilicious\Product\Presentation\Filter\TableCountFilter();
         };
 
         $this->container['affilicious.product.presentation.filter.complex_product'] = function () {
@@ -515,11 +515,10 @@ class AffiliciousPlugin
         add_action('admin_menu', array($feedbackSetup, 'init'), 30);
 
         // Hook the product table setup
-        $tableContentSetup = $this->container['affilicious.product.presentation.setup.table_content'];
-        $tableCountSetup = $this->container['affilicious.product.presentation.setup.table_count'];
-        add_action('pre_get_posts', array($tableContentSetup, 'setUp'));
-        add_filter("views_edit-product", array($tableCountSetup, 'setUp'), 10, 1);
-
+        $tableContentFilter = $this->container['affilicious.product.presentation.filter.table_content'];
+        $tableCountFilter = $this->container['affilicious.product.presentation.filter.table_count'];
+        add_action('pre_get_posts', array($tableContentFilter, 'filter'));
+        add_filter("views_edit-product", array($tableCountFilter, 'filter'), 10, 1);
     }
 }
 
