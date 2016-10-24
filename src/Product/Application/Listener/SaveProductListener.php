@@ -49,10 +49,15 @@ class SaveProductListener
         $variants = $product->getVariants();
         if(!empty($variants)) {
             foreach ($variants as $variant) {
-                $this->productRepository->store($variant);
+                $storedVariant = $this->productRepository->store($variant);
+
+                if ($storedVariant->hasId() && !$storedVariant->getId()->isEqualTo($variant->getId())) {
+                    $variant->setId($storedVariant->getId());
+                }
             }
         }
 
+        $product = $this->productRepository->store($product);
         $this->productRepository->deleteAllVariantsFromParentExcept($variants, $product->getId());
     }
 

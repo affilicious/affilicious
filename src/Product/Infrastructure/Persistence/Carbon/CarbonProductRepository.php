@@ -61,6 +61,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
     const ATTRIBUTE_GROUP_ATTRIBUTES = 'attributes';
 
     const VARIANTS = 'affilicious_product_variants';
+    const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
     const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'template_group_id';
@@ -521,6 +522,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
 
         foreach ($rawVariants as $rawVariant)
         {
+            $id = !empty($rawVariant[self::VARIANT_ID]) ? $rawVariant[self::VARIANT_ID] : null;
             $title = !empty($rawVariant[self::VARIANT_TITLE]) ? $rawVariant[self::VARIANT_TITLE] : null;
             $thumbnailId = !empty($rawVariant[self::VARIANT_THUMBNAIL]) ? $rawVariant[self::VARIANT_THUMBNAIL] : null;
             $shops = !empty($rawVariant[self::VARIANT_SHOPS]) ? $rawVariant[self::VARIANT_SHOPS] : null;
@@ -543,6 +545,10 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
                 $key,
                 $attributeGroup
             );
+
+            if(!empty($id)) {
+                $productVariant->setId(new ProductId($id));
+            }
 
             $thumbnail = $this->getImageFromAttachmentId($thumbnailId);
             if(!empty($thumbnail)) {
@@ -879,7 +885,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      */
     protected function storeAttributeGroup(ProductVariant $productVariant)
     {
-        if($productVariant->hasId()) {
+        if(!$productVariant->hasId()) {
             return;
         }
 
@@ -921,12 +927,12 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      */
     protected function storeVariants(Product $product)
     {
-        if($product->hasId()) {
+        if(!$product->hasId()) {
             return;
         }
 
         $variants = $product->getVariants();
-        if(empty($variant)) {
+        if(empty($variants)) {
             return;
         }
 
@@ -972,10 +978,11 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
                 );
             }
 
-            $carbonVariants['_'][] = array(
+            $carbonVariants[$variant->getAttributeGroup()->getKey()->getValue()][] = array(
                 'default' => $variant->isDefault() ? 'yes' : null,
+                'variant_id' => $variant->hasId() ? $variant->getId()->getValue() : null,
                 'title' => $variant->getTitle()->getValue(),
-                'thumbnail' => $variant->getThumbnail()->getId()->getValue(),
+                'thumbnail' => $variant->hasThumbnail() ? $variant->getThumbnail()->getId()->getValue() : null,
                 'shops' => !empty($carbonShops) ? $carbonShops : null,
             );
         }

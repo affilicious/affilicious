@@ -562,6 +562,23 @@ class Product extends AbstractEntity
     }
 
     /**
+     * Get the default variant
+     *
+     * @since 0.6
+     * @return ProductVariant|mixed|null
+     */
+    public function getDefaultVariant()
+    {
+        foreach ($this->variants as $variant) {
+            if($variant->isDefault()) {
+                return $variant;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get all product variants
      *
      * @since 0.6

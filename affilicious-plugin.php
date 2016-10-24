@@ -30,7 +30,9 @@
  */
 use Pimple\Container;
 
-if(!defined('ABSPATH')) exit('Not allowed to access pages directly.');
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
 
 class AffiliciousPlugin
 {

@@ -66,6 +66,10 @@ class InMemoryAttributeGroupFactory implements AttributeGroupFactoryInterface
 
         $attributeTemplates = $attributeTemplateGroup->getAttributeTemplates();
         foreach ($attributeTemplates as $index => $attributeTemplate) {
+            if(!isset($data[$index])) {
+                return null;
+            }
+
             $rawAttribute = $data[$index];
             if(empty($rawAttribute)) {
                 return null;

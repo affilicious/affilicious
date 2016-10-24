@@ -610,7 +610,7 @@ function aff_product_is_simple($productOrId = null)
  */
 function aff_product_is_complex($productOrId = null)
 {
-    return aff_product_is_type(Type::simple(), $productOrId);
+    return aff_product_is_type(Type::complex(), $productOrId);
 }
 
 /**
@@ -623,7 +623,7 @@ function aff_product_is_complex($productOrId = null)
  */
 function aff_product_is_variant($productOrId = null)
 {
-    return aff_product_is_type(Type::simple(), $productOrId);
+    return aff_product_is_type(Type::variant(), $productOrId);
 }
 
 /**
@@ -657,27 +657,33 @@ function aff_product_get_parent($productOrId = null)
 }
 
 /**
- * Check if the given product contains any variants.
+ * Check if the given product contains the variant
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
  * @param int|\WP_Post|Product|null $productOrId
+ * @param int|\WP_Post|Product|null $variantOrId
  * @return bool
  */
-function aff_product_has_variants($productOrId = null)
+function aff_product_has_variant($productOrId = null, $variantOrId = null)
 {
     $product = aff_get_product($productOrId);
     if($product === null) {
         return false;
     }
 
-    if(aff_product_is_variant($product)) {
+    if(aff_product_is_complex($product)) {
         return false;
     }
 
-    $variants = $product->getVariants();
+    $variant = aff_get_product($variantOrId);
+    if($variant === null) {
+        return false;
+    }
 
-    return empty($variants);
+    $result = $product->hasVariant($variant->getName());
+
+    return $result;
 }
 
 /**
@@ -695,7 +701,7 @@ function aff_product_get_variants($productOrId = null)
         return null;
     }
 
-    if(!aff_product_is_variant($product)) {
+    if(!aff_product_is_complex($product)) {
         return null;
     }
 
@@ -705,38 +711,308 @@ function aff_product_get_variants($productOrId = null)
 }
 
 /**
- * Get the product attributes of the given product
+ * Get the default variant of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @return null|ProductVariant
+ */
+function aff_product_get_default_variant($productOrId = null)
+{
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
+    if(!aff_product_is_complex($product)) {
+        return null;
+    }
+
+    $defaultVariant = $product->getDefaultVariant();
+
+    return $defaultVariant;
+}
+
+/**
+ * Check if the given variant is the default one
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @param int|\WP_Post|Product|null $variantOrId
+ * @return bool
+ */
+function aff_product_is_default_variant($productOrId = null, $variantOrId = null) {
+
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return false;
+    }
+
+    $variant = aff_get_product($variantOrId);
+    if($variant === null) {
+        return false;
+    }
+
+    $defaultVariant = aff_product_get_default_variant($product);
+
+    return $variant->isEqualTo($defaultVariant);
+}
+
+/**
+ * Get the attribute group of the product variant
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a variant, the default variant will be used.
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ * @param int|\WP_Post|Product|null $variantOrId
+ * @return null|array
+ */
+function aff_product_get_variant_attribute_group($productOrId = null, $variantOrId = null)
+{
+    $product = aff_get_product($productOrId);
+    if($product === null) {
+        return null;
+    }
+
+    $variant = null;
+    if($variantOrId === null) {
+        $variant = $product->getDefaultVariant();
+    } else {
+        if($variantOrId instanceof ProductVariant) {
+            $variant = $variantOrId;
+        } elseif(!aff_product_has_variant($product, $variantOrId)) {
+            $variant = aff_get_product($variantOrId);
+        }
+    }
+
+    if($variant === null) {
+        return null;
+    }
+
+    $attributeGroup = $variant->getAttributeGroup();
+    $attributes = $attributeGroup->getAttributes();
+
+    $rawAttributeGroup = array(
+        'title' => $attributeGroup->getTitle()->getValue(),
+        'name' => $attributeGroup->getName()->getValue(),
+        'key' => $attributeGroup->getKey()->getValue(),
+        'attributes' => array(),
+    );
+
+    foreach ($attributes as $attribute) {
+        $rawAttributeGroup['attributes'][] = array(
+            'title' => $attribute->getTitle()->getValue(),
+            'name' => $attribute->getName()->getValue(),
+            'key' => $attribute->getKey()->getValue(),
+            'value' => $attribute->getValue()->getValue(),
+            'type' => $attribute->getType()->getValue(),
+            'unit' => $attribute->hasUnit() ? $attribute->getUnit()->getValue() : null,
+        );
+    }
+
+    return $rawAttributeGroup;
+}
+
+function aff_get_display($choices, $currentAttributeGroup, $attributeGroup, $index)
+{
+    array(
+        array(
+            'title' => 'Farbe',
+            'name' => 'farbe',
+            'choices' => array(
+                array(
+                    'value' => 'Grün',
+                    'unit' => null,
+                    'display' => 'current',
+                    'permalink' => 'http://lala.com',
+                ),
+                array(
+                    'value' => 'Blau',
+                    'unit' => null,
+                    'display' => 'unreachable',
+                    'permalink' => 'http://lala2.com',
+                )
+            )
+        ),
+        array(
+            'title' => 'Arbeitsfläche',
+            'name' => 'arbeitsflaeche',
+            'choices' => array(
+                array(
+                    'value' => '1200',
+                    'unit' => 'm2',
+                    'display' => 'current',
+                    'permalink' => 'http://lala.com',
+                ),
+                array(
+                    'value' => '1400',
+                    'unit' => 'm2',
+                    'display' => 'unreachable',
+                    'permalink' => 'http://lala2.com',
+                )
+            )
+        )
+    );
+
+
+
+
+
+    $display = 'unreachable';
+
+    $currentAttributes = $currentAttributeGroup['attributes'];
+    $attributes = $attributeGroup['attributes'];
+    $nextIndex = $index + 1 < count($attributes) ? $index + 1: count($attributes) - 1;
+    $prevIndex = $index - 1 >= 0 ? $index - 1 : 0;
+
+    if($attributes[$index]['value'] == $currentAttributes[$index]['value']) {
+        $display = 'current';
+    }
+
+    if($index == 0 && $display != 'current' && $attributes[$nextIndex]['value'] == $currentAttributes[$nextIndex]['value']) {
+        $display = 'reachable';
+    } elseif ($index == 1) {
+
+        if($attributes[$prevIndex]['value'] == $currentAttributes[$prevIndex]['value']) {
+            $display = 'reachable';
+        }
+    } else {
+
+    }
+
+
+    if($display == 'current')
+
+    return $display;
+}
+
+/**
+ * Get the product attributes choices
  *
  * @since 0.6
  * @param int|\WP_Post|Product|null $productOrId
  * @return null|array
  */
-function aff_get_product_attributes($productOrId = null)
+function aff_get_product_attribute_choices($productOrId = null)
 {
-    $product = aff_product_get_parent($productOrId);
+    // Current product
+    $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
 
-    $variants = $product->getVariants();
-    $rawAttributes = array();
-    foreach ($variants as $index => $variant) {
-        $attributeGroup = $variant->getAttributeGroup();
-        $attributes = $attributeGroup->getAttributes();
+    // Parent product
+    $parent = aff_product_get_parent($product);
+    if($parent === null) {
+        return null;
+    }
 
-        foreach ($attributes as $attribute) {
-            $rawAttributes[$index][] = array(
-                'title' => $attribute->getTitle()->getValue(),
-                'name' => $attribute->getName()->getValue(),
-                'key' => $attribute->getKey()->getValue(),
-                'type' => $attribute->getType()->getValue(),
-                'unit' => $attribute->hasUnit() ? $attribute->getUnit()->getValue() : null,
-                'value' => $attribute->getValue()->getValue(),
-            );
+    // Product variants
+    $variants = aff_product_get_variants($parent);
+    if($variants === null) {
+        return null;
+    }
+
+    // Current attribute group
+    $currentAttributeGroup = null;
+    if(aff_product_is_variant($product)) {
+        $currentAttributeGroup = aff_product_get_variant_attribute_group($parent, $product);
+    } elseif(aff_product_is_complex($product)) {
+        $currentAttributeGroup = aff_product_get_variant_attribute_group($product);
+    }
+
+    if($currentAttributeGroup === null) {
+        return null;
+    }
+
+    // Create the basic choices without permalinks and display
+    $choices = array();
+    foreach ($variants as $variant) {
+        if(!$variant->hasId()) {
+            continue;
+        }
+
+        $attributeGroup = aff_product_get_variant_attribute_group($product, $variant);
+        $attributes = $attributeGroup['attributes'];
+        $currentAttributes = $currentAttributeGroup['attributes'];
+
+        foreach ($attributes as $index => $attribute) {
+            if(!isset($choices[$attribute['name']])) {
+                $choices[$attribute['name']] = array(
+                    'title' => $attribute['title'],
+                    'name' => $attribute['name'],
+                    'key' => $attribute['key'],
+                    'choices' => array(),
+                );
+            }
+
+            // Get the previous and next index
+            $nextIndex = $index + 1 < count($attributes) ? $index + 1 : $index;
+            $prevIndex = $index - 1 >= 0 ? $index - 1 : 0;
+
+            $display = 'unreachable';
+            if($attribute['value'] == $currentAttributes[$index]['value']) {
+                $display = 'current';
+            }
+
+            if ($display == 'unreachable' && (
+                ($index !== $prevIndex && $attributes[$prevIndex]['value'] == $currentAttributes[$prevIndex]['value']) ||
+                ($index !== $nextIndex && $attributes[$nextIndex]['value'] == $currentAttributes[$nextIndex]['value']))) {
+                $display = 'reachable';
+            }
+
+            if( !isset($choices[$attribute['name']]['choices'][$attribute['value']]) ||
+                ($display == 'current' && $choices[$attribute['name']]['choices'][$attribute['value']]['display'] != 'current') ||
+               ($display == 'reachable' && $choices[$attribute['name']]['choices'][$attribute['value']]['display'] == 'unreachable')) {
+
+                $choices[$attribute['name']]['choices'][$attribute['value']] = array(
+                    'value' => $attribute['value'],
+                    'unit' => $attribute['unit'],
+                    'display' => $display,
+                    'permalink' => $display == 'current' ? '#' : get_permalink($variant->getRawPost()),
+                );
+            }
         }
     }
 
-    return $rawAttributes;
+    // Remove the keys
+    $choices = array_values($choices);
+    foreach ($choices as $index => $choice) {
+        $choices[$index]['choices'] = array_values($choices[$index]['choices']);
+    }
+
+    return $choices;
+}
+
+/**
+ * Prints the product attributes choices to the screen
+ *
+ * @since 0.6
+ * @param int|\WP_Post|Product|null $productOrId
+ */
+function aff_the_product_attribute_choices($productOrId = null)
+{
+    $attributeChoices = aff_get_product_attribute_choices($productOrId);
+    if(empty($attributeChoices)) {
+        return;
+    }
+
+    foreach ($attributeChoices as $name => $attributeChoice) {
+        echo '<div class="aff-product-attribute-choices">';
+        echo '<h5>' . $attributeChoice['title'] . '</h5>';
+        echo '<ul class="aff-product-attribute-choice-list" data-attribute-name="' . $name . '">';
+
+        foreach ($attributeChoice['choices'] as $choice) {
+            echo '<li class="aff-product-attribute-choices-item ' . $choice['display'] . '">';
+            echo '<a href="' . $choice['permalink'] .'">' . $choice['value'] . ' ' . $choice['unit'] . '</a>';
+            echo '</li>';
+        }
+
+        echo '</ul>';
+        echo '</div>';
+    }
 }
 
 /**

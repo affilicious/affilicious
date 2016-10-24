@@ -73,6 +73,7 @@ class AttributeTemplateGroupSetup implements SetupInterface
             ->show_on_post_type(AttributeTemplateGroup::POST_TYPE)
             ->add_fields(array(
                 CarbonField::make('complex', CarbonAttributeTemplateGroupRepository::ATTRIBUTES, __('Attributes', 'affilicious'))
+                    ->set_max(3)
                     ->add_fields(array(
                         CarbonField::make('text', CarbonAttributeTemplateGroupRepository::ATTRIBUTE_TITLE, __('Title', 'affilicious'))
                             ->set_required(true),

@@ -205,6 +205,7 @@ class ProductSetup implements SetupInterface
                     CarbonProductRepository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID,
                     __('Attribute Template Group ID', 'affilicious')
                 )->set_value($attributeTemplateGroup->getId()->getValue())->set_required(true),
+                CarbonField::make('hidden', CarbonProductRepository::VARIANT_ID, __('Variant ID', 'affilicious')),
                 CarbonField::make('text', CarbonProductRepository::VARIANT_TITLE, __('Title', 'affilicious'))
                     ->set_required(true)
                     ->set_width(70),
