@@ -5,10 +5,11 @@ use Affilicious\Detail\Application\Helper\DetailTemplateGroupHelper;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
 use Affilicious\Product\Application\Helper\ProductHelper;
 use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
+use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Shop\Application\Helper\ShopTemplateHelper;
 use Affilicious\Shop\Domain\Model\ShopTemplate;
-use Affilicious\Product\Domain\Model\Type;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -357,21 +358,29 @@ function aff_get_product_link($productOrId = null)
 /**
  * Get the shop of the given product.
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the first shop will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @param int|\WP_Post|ShopTemplate|null $shopOrId
+ * @param string|AffiliateLink|null $affiliateLink
  * @return null|array
  */
-function aff_get_product_shop($productOrId = null, $shopOrId = null)
+function aff_get_product_shop($productOrId = null, $affiliateLink = null)
 {
     $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
 
-    $shop = ProductHelper::getShop($product, $shopOrId);
+    $shop = null;
+    if($affiliateLink instanceof AffiliateLink) {
+        $shop = $product->getShop($affiliateLink);
+    } elseif ($affiliateLink === null) {
+        $shop = $product->getCheapestShop();
+    } elseif (is_string($affiliateLink)) {
+        $shop = $product->getShop(new AffiliateLink($affiliateLink));
+    }
+
     if($shop === null) {
         return null;
     }
@@ -463,21 +472,28 @@ function aff_get_product_cheapest_shop($productOrId = null)
 /**
  * Get the price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the first shop will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $productOrId
- * @param int|\WP_Post|ShopTemplate|null $shopOrId
+ * @param string|AffiliateLink|null $affiliateLink
  * @return null|string
  */
-function aff_get_product_price($productOrId = null, $shopOrId = null)
+function aff_get_product_price($productOrId = null, $affiliateLink = null)
 {
     $product = aff_get_product($productOrId);
     if($product === null) {
         return null;
     }
 
-    $shop = ProductHelper::getShop($product, $shopOrId);
+    $shop = null;
+    if($affiliateLink instanceof AffiliateLink) {
+        $shop = $product->getShop($affiliateLink);
+    } elseif ($affiliateLink === null) {
+        $shop = $product->getCheapestShop();
+    } elseif (is_string($affiliateLink)) {
+        $shop = $product->getShop(new AffiliateLink($affiliateLink));
+    }
     if (empty($shop)) {
         return null;
     }

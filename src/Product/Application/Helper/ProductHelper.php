@@ -3,6 +3,8 @@ namespace Affilicious\Product\Application\Helper;
 
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
+use Affilicious\Product\Domain\Model\Shop\AffiliateLink;
+use Affilicious\Product\Domain\Model\Shop\Shop;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

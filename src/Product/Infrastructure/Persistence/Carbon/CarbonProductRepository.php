@@ -391,7 +391,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
         // Shops
         $productVariant = $this->addShops($productVariant);
 
-        return $productVariant;
+         return $productVariant;
     }
 
     /**
@@ -853,7 +853,7 @@ class CarbonProductRepository extends AbstractCarbonRepository implements Produc
      */
     protected function storeShops(Product $product, $metaKey)
     {
-        if($product->hasId()) {
+        if(!$product->hasId()) {
             return;
         }
 
