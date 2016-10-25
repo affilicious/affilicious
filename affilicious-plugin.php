@@ -133,7 +133,7 @@ class AffiliciousPlugin
 		$this->registerAdminHooks();
 
         // TODO: This old legacy class will be removed later
-		new \Affilicious\Product\Application\MetaBox\MetaBoxManager();
+		new \Affilicious\Product\Presentation\MetaBox\MetaBoxManager();
 
 		// We have to call the container to the run code inside
 		$this->container['affilicious.common.application.setup.carbon'];
@@ -235,15 +235,15 @@ class AffiliciousPlugin
     public function registerServices()
     {
         $this->container['affilicious.common.application.setup.asset'] = function () {
-            return new \Affilicious\Common\Application\Setup\AssetSetup();
+            return new \Affilicious\Common\Presentation\Setup\AssetSetup();
         };
 
         $this->container['affilicious.common.application.setup.carbon'] = function () {
-            return new \Affilicious\Common\Application\Setup\CarbonSetup();
+            return new \Affilicious\Common\Presentation\Setup\CarbonSetup();
         };
 
         $this->container['affilicious.common.application.setup.feedback'] = function () {
-            return new \Affilicious\Common\Application\Setup\FeedbackSetup();
+            return new \Affilicious\Common\Presentation\Setup\FeedbackSetup();
         };
 
         $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
@@ -398,8 +398,8 @@ class AffiliciousPlugin
 	 */
     public function loadIncludes()
     {
-	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Hidden_Field.php');
-	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Application/Form/Carbon/Number_Field.php');
+	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Presentation/Form/Carbon/Hidden_Field.php');
+	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Presentation/Form/Carbon/Number_Field.php');
 
 	    if (!class_exists('EDD_SL_Plugin_Updater')) {
 		    include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
