@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Attribute\Domain\Model;
+namespace Affilicious\Attribute\Domain\Model\Attribute;
 
 use Affilicious\Common\Domain\Model\AbstractValueObject;
 use Affilicious\Product\Domain\Exception\InvalidOptionException;

@@ -1,5 +1,5 @@
 <?php
-use Affilicious\Attribute\Domain\ModelGroup;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Detail\Application\Helper\AttributeTemplateGroupHelper;
 use Affilicious\Detail\Application\Helper\DetailTemplateGroupHelper;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroup;

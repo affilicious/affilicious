@@ -1,9 +1,9 @@
 <?php
 namespace Affilicious\Attribute\Domain\Exception;
 
+use Affilicious\Attribute\Domain\Model\Attribute\AttributeTemplate;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Common\Domain\Exception\DomainException;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -19,7 +19,7 @@ class DuplicatedAttributeTemplateException extends DomainException
     public function __construct(AttributeTemplate $attributeTemplate, AttributeTemplateGroup $attributeTemplateGroup)
     {
         parent::__construct(sprintf(
-            'The attribute template %s (%s) does already exist in the attribute group #%s (%s)',
+            'The attribute template %s (%s) does already exist in the attribute template group #%s (%s)',
             $attributeTemplate->getName()->getValue(),
             $attributeTemplate->getTitle()->getValue(),
             $attributeTemplateGroup->getName()->getValue(),

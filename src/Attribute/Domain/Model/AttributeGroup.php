@@ -2,6 +2,7 @@
 namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Attribute\Domain\Exception\DuplicatedAttributeException;
+use Affilicious\Attribute\Domain\Model\Attribute\Attribute;
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;

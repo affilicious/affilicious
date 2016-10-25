@@ -1,9 +1,9 @@
 <?php
 namespace Affilicious\Attribute\Domain\Exception;
 
+use Affilicious\Attribute\Domain\Model\Attribute\Attribute;
 use Affilicious\Attribute\Domain\Model\AttributeGroup;
 use Affilicious\Common\Domain\Exception\DomainException;
-use Affilicious\Attribute\Domain\Model\Attribute;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

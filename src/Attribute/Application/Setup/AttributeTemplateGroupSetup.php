@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\Attribute\Application\Setup;
 
+use Affilicious\Attribute\Domain\Model\Attribute\Type;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
-use Affilicious\Attribute\Domain\Model\Type;
 use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository;
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Carbon_Fields\Container as CarbonContainer;
