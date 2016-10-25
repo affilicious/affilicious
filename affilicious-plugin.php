@@ -413,6 +413,7 @@ class AffiliciousPlugin
 	 */
     public function loadFunctions()
     {
+	    require_once(__DIR__ . '/src/fallbacks.php');
 	    require_once(__DIR__ . '/src/functions.php');
     }
 
