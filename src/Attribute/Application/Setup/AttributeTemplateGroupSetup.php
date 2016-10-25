@@ -3,7 +3,7 @@ namespace Affilicious\Attribute\Application\Setup;
 
 use Affilicious\Attribute\Domain\Model\Attribute\Type;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
-use Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository;
+use Affilicious\Attribute\Infrastructure\Repository\Carbon\CarbonAttributeTemplateGroupRepository;
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;

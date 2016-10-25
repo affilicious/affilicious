@@ -247,7 +247,7 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
-            return new \Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository(
+            return new \Affilicious\Product\Infrastructure\Repository\Carbon\CarbonProductRepository(
                 $c['affilicious.product.infrastructure.factory.review'],
                 $c['affilicious.detail.infrastructure.factory.detail_group'],
                 $c['affilicious.attribute.infrastructure.factory.attribute_group'],
@@ -282,7 +282,7 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.shop.infrastructure.repository.shop_template'] = function ($c) {
-            return new \Affilicious\Shop\Infrastructure\Persistence\Wordpress\WordpressShopTemplateRepository(
+            return new \Affilicious\Shop\Infrastructure\Repository\Wordpress\WordpressShopTemplateRepository(
                 $c['affilicious.shop.infrastructure.factory.shop_template']
             );
         };
@@ -296,7 +296,7 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.detail.infrastructure.repository.detail_template_group'] = function ($c) {
-            return new \Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailTemplateGroupRepository(
+            return new \Affilicious\Detail\Infrastructure\Repository\Carbon\CarbonDetailTemplateGroupRepository(
                 $c['affilicious.detail.infrastructure.factory.detail_template_group'],
                 $c['affilicious.detail.infrastructure.factory.detail_template']
             );
@@ -311,7 +311,7 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.attribute.infrastructure.repository.attribute_template_group'] = function ($c) {
-            return new \Affilicious\Attribute\Infrastructure\Persistence\Carbon\CarbonAttributeTemplateGroupRepository(
+            return new \Affilicious\Attribute\Infrastructure\Repository\Carbon\CarbonAttributeTemplateGroupRepository(
                 $c['affilicious.attribute.infrastructure.factory.attribute_template_group'],
                 $c['affilicious.attribute.infrastructure.factory.attribute_template']
             );

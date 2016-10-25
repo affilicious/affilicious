@@ -1,10 +1,10 @@
 <?php
-namespace Affilicious\Detail\Infrastructure\Persistence\Carbon;
+namespace Affilicious\Detail\Infrastructure\Repository\Carbon;
 
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
+use Affilicious\Common\Infrastructure\Repository\Carbon\AbstractCarbonRepository;
 use Affilicious\Detail\Domain\Model\Detail\DetailTemplate;
 use Affilicious\Detail\Domain\Model\Detail\DetailTemplateFactoryInterface;
 use Affilicious\Detail\Domain\Model\Detail\HelpText;

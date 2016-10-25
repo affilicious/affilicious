@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Attribute\Infrastructure\Persistence\Carbon;
+namespace Affilicious\Attribute\Infrastructure\Repository\Carbon;
 
 use Affilicious\Attribute\Domain\Model\Attribute\AttributeTemplate;
 use Affilicious\Attribute\Domain\Model\Attribute\AttributeTemplateFactoryInterface;
@@ -13,7 +13,7 @@ use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
+use Affilicious\Common\Infrastructure\Repository\Carbon\AbstractCarbonRepository;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

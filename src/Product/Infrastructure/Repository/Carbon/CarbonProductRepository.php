@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
+namespace Affilicious\Product\Infrastructure\Repository\Carbon;
 
 use Affilicious\Attribute\Domain\Model\AttributeGroup;
 use Affilicious\Attribute\Domain\Model\AttributeGroupFactoryInterface;
@@ -15,7 +15,7 @@ use Affilicious\Common\Domain\Model\Image\Source;
 use Affilicious\Common\Domain\Model\Image\Width;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
+use Affilicious\Common\Infrastructure\Repository\Carbon\AbstractCarbonRepository;
 use Affilicious\Detail\Domain\Model\DetailGroup;
 use Affilicious\Detail\Domain\Model\DetailGroupFactoryInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;

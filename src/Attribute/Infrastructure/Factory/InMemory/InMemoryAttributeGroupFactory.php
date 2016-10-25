@@ -12,7 +12,7 @@ use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\Product\Infrastructure\Repository\Carbon\CarbonProductRepository;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

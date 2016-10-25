@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Common\Infrastructure\Persistence\Wordpress;
+namespace Affilicious\Common\Infrastructure\Repository\Wordpress;
 
 use Affilicious\Common\Domain\Model\Image\Height;
 use Affilicious\Common\Domain\Model\Image\Image;

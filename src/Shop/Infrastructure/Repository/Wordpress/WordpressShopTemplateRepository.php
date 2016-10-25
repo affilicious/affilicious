@@ -1,10 +1,10 @@
 <?php
-namespace Affilicious\Shop\Infrastructure\Persistence\Wordpress;
+namespace Affilicious\Shop\Infrastructure\Repository\Wordpress;
 
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Infrastructure\Persistence\Wordpress\AbstractWordpressRepository;
+use Affilicious\Common\Infrastructure\Repository\Wordpress\AbstractWordpressRepository;
 use Affilicious\Shop\Domain\Exception\ShopTemplateDatabaseException;
 use Affilicious\Shop\Domain\Exception\ShopTemplateNotFoundException;
 use Affilicious\Shop\Domain\Model\ShopTemplate;

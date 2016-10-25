@@ -1,7 +1,7 @@
 <?php
-namespace Affilicious\Common\Infrastructure\Persistence\Carbon;
+namespace Affilicious\Common\Infrastructure\Repository\Carbon;
 
-use Affilicious\Common\Infrastructure\Persistence\Wordpress\AbstractWordpressRepository;
+use Affilicious\Common\Infrastructure\Repository\Wordpress\AbstractWordpressRepository;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

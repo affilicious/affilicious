@@ -6,7 +6,7 @@ use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface
 use Affilicious\Common\Application\Setup\SetupInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
 use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
+use Affilicious\Product\Infrastructure\Repository\Carbon\CarbonProductRepository;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;
 use Carbon_Fields\Container as CarbonContainer;
 use Carbon_Fields\Field as CarbonField;
