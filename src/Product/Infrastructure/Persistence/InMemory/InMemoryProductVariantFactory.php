@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Infrastructure\Persistence\InMemory;
 
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
+use Affilicious\Attribute\Domain\Model\AttributeGroup;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
 use Affilicious\Product\Domain\Model\Variant\ProductVariantFactoryInterface;

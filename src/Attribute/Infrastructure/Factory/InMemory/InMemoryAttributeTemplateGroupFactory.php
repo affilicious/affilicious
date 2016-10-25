@@ -1,10 +1,10 @@
 <?php
-namespace Affilicious\Attribute\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Attribute\Infrastructure\Factory\InMemory;
 
-use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupFactoryInterface;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

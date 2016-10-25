@@ -3,7 +3,7 @@ namespace Affilicious\Product\Domain\Model\Variant;
 
 use Affilicious\Common\Domain\Model\FactoryInterface;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
+use Affilicious\Attribute\Domain\Model\AttributeGroup;
 use Affilicious\Product\Domain\Model\Product;
 
 if(!defined('ABSPATH')) {

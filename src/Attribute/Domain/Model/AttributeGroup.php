@@ -1,14 +1,12 @@
 <?php
-namespace Affilicious\Product\Domain\Model\AttributeGroup;
+namespace Affilicious\Attribute\Domain\Model;
 
+use Affilicious\Attribute\Domain\Exception\DuplicatedAttributeException;
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
-use Affilicious\Product\Domain\Exception\DuplicatedAttributeException;
-use Affilicious\Product\Domain\Model\AttributeGroup\Attribute\Attribute;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -89,7 +87,7 @@ class AttributeGroup extends AbstractAggregate
     public function setTemplateId($templateId)
     {
         if($templateId !== null && !($templateId instanceof AttributeTemplateGroupId)) {
-            throw new InvalidTypeException($templateId, 'Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId');
+            throw new InvalidTypeException($templateId, 'Affilicious\Attribute\Domain\ModelGroupId');
         }
 
         $this->templateId = $templateId;

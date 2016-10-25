@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Attribute\Domain\Model\AttributeTemplate;
+namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
@@ -11,24 +11,24 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class AttributeTemplate extends AbstractAggregate
+class Attribute extends AbstractAggregate
 {
     /**
-     * The title of the attribute template for display usage
+     * The title of the attribute for display usage
      *
      * @var Title
      */
     protected $title;
 
     /**
-     * The unique name of the attribute template for url usage
+     * The unique name of the attribute for url usage
      *
      * @var Name
      */
     protected $name;
 
     /**
-     * The key of the attribute template for database usage
+     * The key of the attribute for database usage
      *
 	 * @var Key
 	 */
@@ -42,14 +42,18 @@ class AttributeTemplate extends AbstractAggregate
     protected $type;
 
     /**
+     * Holds the optional unit like kg, cm or m²
+     *
      * @var Unit
      */
     protected $unit;
 
     /**
-	 * @var HelpText
-	 */
-    protected $helpText;
+     * Holds the concrete value
+     *
+     * @var Value
+     */
+    protected $value;
 
     /**
      * @since 0.6
@@ -57,17 +61,19 @@ class AttributeTemplate extends AbstractAggregate
      * @param Name $name
      * @param Key $key
      * @param Type $type
+     * @param Value $value
      */
-	public function __construct(Title $title, Name $name, Key $key, Type $type)
+	public function __construct(Title $title, Name $name, Key $key, Type $type, Value $value)
 	{
         $this->title = $title;
         $this->name = $name;
         $this->key = $key;
 		$this->type = $type;
+        $this->value = $value;
     }
 
     /**
-     * Get the title of the attribute template for display usage
+     * Get the title of the attribute for display usage
      *
      * @since 0.6
      * @return Title
@@ -78,7 +84,7 @@ class AttributeTemplate extends AbstractAggregate
     }
 
     /**
-     * Get the unique name of the attribute template for url usage
+     * Get the unique name of the attribute for url usage
      *
      * @since 0.6
      * @return Name
@@ -89,7 +95,7 @@ class AttributeTemplate extends AbstractAggregate
     }
 
 	/**
-     * Get the key of the attribute template for database usage
+     * Get the key of the attribute for database usage
      *
 	 * @since 0.6
 	 * @return Key
@@ -111,7 +117,18 @@ class AttributeTemplate extends AbstractAggregate
 	}
 
     /**
-     * Check of the attribute template has an optional unit.
+     * Get the concrete value of the attribute
+     *
+     * @since 0.6
+     * @return Value
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Check of the attribute has an optional unit.
      *
      * @since 0.6
      * @return bool
@@ -122,7 +139,7 @@ class AttributeTemplate extends AbstractAggregate
     }
 
     /**
-     * Get the optional unit like text or numeric.
+     * Get the optional unit like kg, cm or m²
      *
      * @since 0.6
      * @return null|Unit
@@ -133,7 +150,7 @@ class AttributeTemplate extends AbstractAggregate
     }
 
     /**
-     * Set the optional unit like text or numeric.
+     * Set the optional unit like kg, cm or m².
      *
      * @since 0.6
      * @param null|Unit $unit
@@ -142,47 +159,10 @@ class AttributeTemplate extends AbstractAggregate
     public function setUnit($unit)
     {
         if($unit !== null && !($unit instanceof Unit)) {
-            throw new InvalidTypeException($unit, 'Affilicious\Attribute\Domain\Model\AttributeTemplate\Unit');
+            throw new InvalidTypeException($unit, 'Affilicious\Attribute\Domain\Model\Unit');
         }
 
         $this->unit = $unit;
-    }
-
-	/**
-     * Check if the optional help text exists
-     *
-	 * @since 0.6
-	 * @return bool
-	 */
-	public function hasHelpText()
-	{
-		return $this->helpText !== null;
-	}
-
-	/**
-     * Get the optional help text
-     *
-	 * @since 0.6
-	 * @return null|HelpText
-	 */
-	public function getHelpText()
-	{
-		return $this->helpText;
-	}
-
-    /**
-     * Set the optional help text
-     *
-     * @since 0.6
-     * @param null|HelpText $helpText
-     */
-    public function setHelpText($helpText)
-    {
-        if($helpText !== null && !($helpText instanceof HelpText)) {
-            throw new InvalidTypeException($helpText, 'Affilicious\Attribute\Domain\Model\AttributeTemplate\HelpText');
-        }
-
-        $this->helpText = $helpText;
     }
 
 	/**
@@ -195,7 +175,7 @@ class AttributeTemplate extends AbstractAggregate
 			$object instanceof self &&
 	        $this->getTitle()->isEqualTo($object->getTitle()) &&
 	        $this->getType()->isEqualTo($object->getType()) &&
-            ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
-			($this->hasHelpText() && $this->getHelpText()->isEqualTo($object->getHelpText()) || !$object->hasHelpText());
+	        $this->getValue()->isEqualTo($object->getValue()) &&
+            ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit());
 	}
 }

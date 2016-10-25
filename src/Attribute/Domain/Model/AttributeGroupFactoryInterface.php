@@ -1,7 +1,6 @@
 <?php
-namespace Affilicious\Product\Domain\Model\AttributeGroup;
+namespace Affilicious\Attribute\Domain\Model;
 
-use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
 use Affilicious\Common\Domain\Model\FactoryInterface;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;

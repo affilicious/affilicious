@@ -1,17 +1,17 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Attribute\Infrastructure\Factory\InMemory;
 
+use Affilicious\Attribute\Domain\Model\AttributeGroup;
+use Affilicious\Attribute\Domain\Model\AttributeGroupFactoryInterface;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
-use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface;
-use Affilicious\Product\Domain\Model\AttributeGroup\Attribute\Attribute;
-use Affilicious\Product\Domain\Model\AttributeGroup\Attribute\Type;
-use Affilicious\Product\Domain\Model\AttributeGroup\Attribute\Unit;
-use Affilicious\Product\Domain\Model\AttributeGroup\Attribute\Value;
-use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroup;
-use Affilicious\Product\Domain\Model\AttributeGroup\AttributeGroupFactoryInterface;
+use Affilicious\Attribute\Domain\Model\Attribute;
+use Affilicious\Attribute\Domain\Model\Type;
+use Affilicious\Attribute\Domain\Model\Unit;
+use Affilicious\Attribute\Domain\Model\Value;
 use Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository;
 
 if(!defined('ABSPATH')) {

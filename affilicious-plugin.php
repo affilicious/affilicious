@@ -250,7 +250,7 @@ class AffiliciousPlugin
             return new \Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository(
                 $c['affilicious.product.infrastructure.factory.review'],
                 $c['affilicious.product.infrastructure.factory.detail_group'],
-                $c['affilicious.product.infrastructure.factory.attribute_group'],
+                $c['affilicious.attribute.infrastructure.factory.attribute_group'],
                 $c['affilicious.shop.infrastructure.factory.shop']
             );
         };
@@ -269,8 +269,8 @@ class AffiliciousPlugin
             );
         };
 
-        $this->container['affilicious.product.infrastructure.factory.attribute_group'] = function ($c) {
-            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryAttributeGroupFactory(
+        $this->container['affilicious.attribute.infrastructure.factory.attribute_group'] = function ($c) {
+            return new \Affilicious\Attribute\Infrastructure\Factory\InMemory\InMemoryAttributeGroupFactory(
                 $c['affilicious.attribute.infrastructure.repository.attribute_template_group']
             );
         };
@@ -318,11 +318,11 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.attribute.infrastructure.factory.attribute_template'] = function () {
-            return new \Affilicious\Attribute\Infrastructure\Persistence\InMemory\InMemoryAttributeTemplateFactory();
+            return new \Affilicious\Attribute\Infrastructure\Factory\InMemory\InMemoryAttributeTemplateFactory();
         };
 
         $this->container['affilicious.attribute.infrastructure.factory.attribute_template_group'] = function () {
-            return new \Affilicious\Attribute\Infrastructure\Persistence\InMemory\InMemoryAttributeTemplateGroupFactory();
+            return new \Affilicious\Attribute\Infrastructure\Factory\InMemory\InMemoryAttributeTemplateGroupFactory();
         };
 
         $this->container['affilicious.product.application.setup.product'] = function ($c) {

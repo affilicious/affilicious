@@ -1,15 +1,15 @@
 <?php
 namespace Affilicious\Attribute\Infrastructure\Persistence\Carbon;
 
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplate;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplateFactoryInterface;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\HelpText;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\Type;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\Unit;
+use Affilicious\Attribute\Domain\Model\AttributeTemplate;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateFactoryInterface;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroup;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupFactoryInterface;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupRepositoryInterface;
+use Affilicious\Attribute\Domain\Model\HelpText;
+use Affilicious\Attribute\Domain\Model\Type;
+use Affilicious\Attribute\Domain\Model\Unit;
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;

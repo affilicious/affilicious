@@ -1,9 +1,9 @@
 <?php
-namespace Affilicious\Attribute\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Attribute\Infrastructure\Factory\InMemory;
 
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplate;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplateFactoryInterface;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\Type;
+use Affilicious\Attribute\Domain\Model\AttributeTemplate;
+use Affilicious\Attribute\Domain\Model\AttributeTemplateFactoryInterface;
+use Affilicious\Attribute\Domain\Model\Type;
 use Affilicious\Common\Domain\Model\Title;
 
 if(!defined('ABSPATH')) {

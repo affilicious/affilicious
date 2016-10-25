@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Attribute\Domain\Model\AttributeTemplate;
+namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Common\Domain\Model\FactoryInterface;
 use Affilicious\Common\Domain\Model\Title;

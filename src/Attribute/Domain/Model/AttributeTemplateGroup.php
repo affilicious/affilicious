@@ -2,7 +2,6 @@
 namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Attribute\Domain\Exception\DuplicatedAttributeTemplateException;
-use Affilicious\Attribute\Domain\Model\AttributeTemplate\AttributeTemplate;
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractEntity;
 use Affilicious\Common\Domain\Model\Key;
@@ -104,7 +103,7 @@ class AttributeTemplateGroup extends AbstractEntity
     public function setId($id)
     {
         if($id !== null && !($id instanceof AttributeTemplateGroupId)) {
-            throw new InvalidTypeException($id, 'Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId');
+            throw new InvalidTypeException($id, 'Affilicious\Attribute\Domain\ModelGroupId');
         }
 
         $this->id = $id;

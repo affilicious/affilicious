@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Attribute\Domain\Model\AttributeTemplate;
+namespace Affilicious\Attribute\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractValueObject;
