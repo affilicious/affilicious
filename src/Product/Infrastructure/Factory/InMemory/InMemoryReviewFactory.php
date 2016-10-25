@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Product\Infrastructure\Factory\InMemory;
 
 use Affilicious\Product\Domain\Model\Review\Rating;
 use Affilicious\Product\Domain\Model\Review\Review;

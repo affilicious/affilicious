@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Product\Infrastructure\Factory\InMemory;
 
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Attribute\Domain\Model\AttributeGroup;

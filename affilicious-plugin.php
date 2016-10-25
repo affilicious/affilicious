@@ -256,11 +256,11 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.infrastructure.factory.product'] = function () {
-            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductFactory();
+            return new \Affilicious\Product\Infrastructure\Factory\InMemory\InMemoryProductFactory();
         };
 
         $this->container['affilicious.product.infrastructure.factory.product_variant'] = function () {
-            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory();
+            return new \Affilicious\Product\Infrastructure\Factory\InMemory\InMemoryProductVariantFactory();
         };
 
         $this->container['affilicious.detail.infrastructure.factory.detail_group'] = function ($c) {
@@ -288,7 +288,7 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.infrastructure.factory.review'] = function () {
-            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryReviewFactory();
+            return new \Affilicious\Product\Infrastructure\Factory\InMemory\InMemoryReviewFactory();
         };
 
         $this->container['affilicious.shop.infrastructure.factory.shop_template'] = function () {
