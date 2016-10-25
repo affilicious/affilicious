@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Infrastructure\Persistence\Carbon;
 
+use Affilicious\Attribute\Domain\Model\AttributeGroup;
+use Affilicious\Attribute\Domain\Model\AttributeGroupFactoryInterface;
 use Affilicious\Attribute\Domain\Model\AttributeTemplateGroupId;
 use Affilicious\Common\Domain\Exception\InvalidPostTypeException;
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
@@ -13,16 +15,13 @@ use Affilicious\Common\Domain\Model\Image\Source;
 use Affilicious\Common\Domain\Model\Image\Width;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Common\Infrastructure\Persistence\Carbon\AbstractCarbonRepository;
+use Affilicious\Detail\Domain\Model\DetailGroup;
+use Affilicious\Detail\Domain\Model\DetailGroupFactoryInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
 use Affilicious\Product\Domain\Exception\FailedToDeleteProductException;
 use Affilicious\Product\Domain\Exception\MissingParentProductException;
 use Affilicious\Product\Domain\Exception\ProductNotFoundException;
-use Affilicious\Attribute\Domain\Model\AttributeGroup;
-use Affilicious\Attribute\Domain\Model\AttributeGroupFactoryInterface;
-use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
-use Affilicious\Product\Domain\Model\DetailGroup\DetailGroupFactoryInterface;
 use Affilicious\Product\Domain\Model\Product;
 use Affilicious\Product\Domain\Model\ProductId;
 use Affilicious\Product\Domain\Model\ProductRepositoryInterface;
@@ -31,6 +30,7 @@ use Affilicious\Product\Domain\Model\Review\ReviewFactoryInterface;
 use Affilicious\Product\Domain\Model\Review\Votes;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\ProductVariant;
+use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Shop\Domain\Model\ShopFactoryInterface;
 use Affilicious\Shop\Domain\Model\ShopTemplateId;
 use Affilicious\Shop\Domain\Model\ShopTemplateRepositoryInterface;

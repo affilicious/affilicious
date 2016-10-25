@@ -1,14 +1,13 @@
 <?php
-namespace Affilicious\Product\Domain\Model\DetailGroup;
+namespace Affilicious\Detail\Domain\Model;
 
 use Affilicious\Common\Domain\Exception\InvalidTypeException;
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
-use Affilicious\Product\Domain\Exception\DuplicatedDetailException;
-use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
+use Affilicious\Detail\Domain\Exception\DuplicatedDetailException;
+use Affilicious\Detail\Domain\Model\Detail\Detail;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

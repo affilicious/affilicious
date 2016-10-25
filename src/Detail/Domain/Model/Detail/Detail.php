@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Domain\Model\DetailGroup\Detail;
+namespace Affilicious\Detail\Domain\Model\Detail;
 
 use Affilicious\Common\Domain\Model\AbstractAggregate;
 use Affilicious\Common\Domain\Model\Key;

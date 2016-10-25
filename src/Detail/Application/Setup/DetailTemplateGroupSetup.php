@@ -2,7 +2,7 @@
 namespace Affilicious\Detail\Application\Setup;
 
 use Affilicious\Common\Application\Setup\SetupInterface;
-use Affilicious\Detail\Domain\Model\DetailTemplate\Type;
+use Affilicious\Detail\Domain\Model\Detail\Type;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroup;
 use Affilicious\Detail\Infrastructure\Persistence\Carbon\CarbonDetailTemplateGroupRepository;
 use Carbon_Fields\Container as CarbonContainer;

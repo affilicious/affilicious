@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Domain\Exception;
 
 use Affilicious\Common\Domain\Exception\DomainException;
-use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
+use Affilicious\Detail\Domain\Model\DetailGroup;
 use Affilicious\Product\Domain\Model\Product;
 
 if(!defined('ABSPATH')) {

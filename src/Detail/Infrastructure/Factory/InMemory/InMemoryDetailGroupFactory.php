@@ -1,17 +1,17 @@
 <?php
-namespace Affilicious\Product\Infrastructure\Persistence\InMemory;
+namespace Affilicious\Detail\Infrastructure\Factory\InMemory;
 
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Detail\Domain\Model\Detail\Detail;
+use Affilicious\Detail\Domain\Model\Detail\Value;
+use Affilicious\Detail\Domain\Model\DetailGroup;
+use Affilicious\Detail\Domain\Model\DetailGroupFactoryInterface;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupId;
 use Affilicious\Detail\Domain\Model\DetailTemplateGroupRepositoryInterface;
-use Affilicious\Product\Domain\Model\DetailGroup\Detail\Detail;
-use Affilicious\Product\Domain\Model\DetailGroup\Detail\Type;
-use Affilicious\Product\Domain\Model\DetailGroup\Detail\Unit;
-use Affilicious\Product\Domain\Model\DetailGroup\Detail\Value;
-use Affilicious\Product\Domain\Model\DetailGroup\DetailGroup;
-use Affilicious\Product\Domain\Model\DetailGroup\DetailGroupFactoryInterface;
+use Affilicious\Detail\Domain\Model\Detail\Type;
+use Affilicious\Detail\Domain\Model\Detail\Unit;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

@@ -249,7 +249,7 @@ class AffiliciousPlugin
         $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
             return new \Affilicious\Product\Infrastructure\Persistence\Carbon\CarbonProductRepository(
                 $c['affilicious.product.infrastructure.factory.review'],
-                $c['affilicious.product.infrastructure.factory.detail_group'],
+                $c['affilicious.detail.infrastructure.factory.detail_group'],
                 $c['affilicious.attribute.infrastructure.factory.attribute_group'],
                 $c['affilicious.shop.infrastructure.factory.shop']
             );
@@ -263,8 +263,8 @@ class AffiliciousPlugin
             return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryProductVariantFactory();
         };
 
-        $this->container['affilicious.product.infrastructure.factory.detail_group'] = function ($c) {
-            return new \Affilicious\Product\Infrastructure\Persistence\InMemory\InMemoryDetailGroupFactory(
+        $this->container['affilicious.detail.infrastructure.factory.detail_group'] = function ($c) {
+            return new \Affilicious\Detail\Infrastructure\Factory\InMemory\InMemoryDetailGroupFactory(
                 $c['affilicious.detail.infrastructure.repository.detail_template_group']
             );
         };
@@ -303,11 +303,11 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.detail.infrastructure.factory.detail_template_group'] = function () {
-            return new \Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateGroupFactory();
+            return new \Affilicious\Detail\Infrastructure\Factory\InMemory\InMemoryDetailTemplateGroupFactory();
         };
 
         $this->container['affilicious.detail.infrastructure.factory.detail_template'] = function () {
-            return new \Affilicious\Detail\Infrastructure\Persistence\InMemory\InMemoryDetailTemplateFactory();
+            return new \Affilicious\Detail\Infrastructure\Factory\InMemory\InMemoryDetailTemplateFactory();
         };
 
         $this->container['affilicious.attribute.infrastructure.repository.attribute_template_group'] = function ($c) {

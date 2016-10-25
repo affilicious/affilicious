@@ -7,7 +7,7 @@ use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Detail\Domain\Exception\DuplicatedDetailTemplateException;
-use Affilicious\Detail\Domain\Model\DetailTemplate\DetailTemplate;
+use Affilicious\Detail\Domain\Model\Detail\DetailTemplate;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
