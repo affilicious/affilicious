@@ -1,16 +1,16 @@
 <?php
 namespace Affilicious\Common\Domain\Model\Image;
 
-use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Image extends AbstractAggregate
+class Image extends Abstract_Aggregate
 {
     /**
-     * @var ImageId
+     * @var Image_Id
      */
     protected $id;
 
@@ -31,10 +31,10 @@ class Image extends AbstractAggregate
 
     /**
      * @since 0.6
-     * @param ImageId $id
+     * @param Image_Id $id
      * @param Source $source
      */
-    public function __construct(ImageId $id, Source $source)
+    public function __construct(Image_Id $id, Source $source)
     {
         $this->id = $id;
         $this->source = $source;
@@ -44,9 +44,9 @@ class Image extends AbstractAggregate
      * Get the ID
      *
      * @since 0.6
-     * @return ImageId
+     * @return Image_Id
      */
-    public function getId()
+    public function get_id()
     {
         return $this->id;
     }
@@ -57,7 +57,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @return Source
      */
-    public function getSource()
+    public function get_source()
     {
         return $this->source;
     }
@@ -68,7 +68,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasWidth()
+    public function has_width()
     {
         return $this->width !== null;
     }
@@ -79,7 +79,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @return Width
      */
-    public function getWidth()
+    public function get_width()
     {
         return $this->width;
     }
@@ -90,7 +90,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @param Width $width
      */
-    public function setWidth($width)
+    public function set_width($width)
     {
         $this->width = $width;
     }
@@ -101,7 +101,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasHeight()
+    public function has_height()
     {
         return $this->height !== null;
     }
@@ -112,7 +112,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @return Height
      */
-    public function getHeight()
+    public function get_height()
     {
         return $this->height;
     }
@@ -123,7 +123,7 @@ class Image extends AbstractAggregate
      * @since 0.6
      * @param Height $height
      */
-    public function setHeight($height)
+    public function set_height($height)
     {
         $this->height = $height;
     }
@@ -132,10 +132,10 @@ class Image extends AbstractAggregate
      * @inheritdoc
      * @since 0.6
      */
-    public function isEqualTo($object)
+    public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            $this->getId()->isEqualTo($object);
+            $this->get_id()->is_equal_to($object);
     }
 }

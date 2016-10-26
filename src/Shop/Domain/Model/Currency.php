@@ -1,14 +1,14 @@
 <?php
 namespace Affilicious\Shop\Domain\Model;
 
-use Affilicious\Common\Domain\Model\AbstractValueObject;
-use Affilicious\Product\Domain\Exception\InvalidValueException;
+use Affilicious\Common\Domain\Model\Abstract_Value_Object;
+use Affilicious\Product\Domain\Exception\Invalid_Value_Exception;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Currency extends AbstractValueObject
+class Currency extends Abstract_Value_Object
 {
     const EURO = 'euro';
     const US_DOLLAR = 'us-dollar';
@@ -19,7 +19,7 @@ class Currency extends AbstractValueObject
      * @since 0.6
      * @return Currency
      */
-    public static function getEuro()
+    public static function get_euro()
     {
         return new self(self::EURO);
     }
@@ -30,7 +30,7 @@ class Currency extends AbstractValueObject
      * @since 0.6
      * @return Currency
      */
-    public static function getUsDollar()
+    public static function get_us_dollar()
     {
         return new self(self::US_DOLLAR);
     }
@@ -46,7 +46,7 @@ class Currency extends AbstractValueObject
         );
 
         if(!in_array($value, $currencies)) {
-            throw new InvalidValueException($value, $currencies, get_class($this));
+            throw new Invalid_Value_Exception($value, $currencies, get_class($this));
         }
 
         parent::__construct($value);
@@ -58,13 +58,13 @@ class Currency extends AbstractValueObject
      * @since 0.6
      * @return string
      */
-    public function getLabel()
+    public function get_label()
     {
-        $currencyLabel = ucwords($this->value);
-        $currencyLabel = strpos($currencyLabel, 'Us-') === 0 ? str_replace('Us-', 'US-', $currencyLabel) : $currencyLabel;
-        $currencyLabel = __($currencyLabel, 'affilicious');
+        $currency_label = ucwords($this->value);
+        $currency_label = strpos($currency_label, 'us-') === 0 ? str_replace('us-', 'US-', $currency_label) : $currency_label;
+        $currency_label = __($currency_label, 'affilicious');
 
-        return $currencyLabel;
+        return $currency_label;
     }
 
     /**
@@ -73,15 +73,15 @@ class Currency extends AbstractValueObject
      * @since 0.6
      * @return null|string
      */
-    public function getSymbol()
+    public function get_symbol()
     {
         $currencies = array(
             'euro' => '€',
             'us-dollar' => '$',
         );
 
-        $currencySymbol = isset($currencies[$this->value]) ? $currencies[$this->value] : null;
+        $currency_symbol = isset($currencies[$this->value]) ? $currencies[$this->value] : null;
 
-        return $currencySymbol;
+        return $currency_symbol;
     }
 }

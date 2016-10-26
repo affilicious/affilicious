@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Detail\Domain\Model\Detail;
 
-use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Detail extends AbstractAggregate
+class Detail extends Abstract_Aggregate
 {
     /**
      * @var Title
@@ -63,7 +63,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return Title
      */
-    public function getTitle()
+    public function get_title()
     {
         return $this->title;
     }
@@ -74,7 +74,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return Name
      */
-    public function getName()
+    public function get_name()
     {
         return $this->name;
     }
@@ -85,7 +85,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return Key
      */
-    public function getKey()
+    public function get_key()
     {
         return $this->key;
     }
@@ -96,7 +96,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return Type
      */
-    public function getType()
+    public function get_type()
     {
         return $this->type;
     }
@@ -107,7 +107,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasUnit()
+    public function has_unit()
     {
         return $this->unit !== null;
     }
@@ -118,7 +118,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return Unit
      */
-    public function getUnit()
+    public function get_unit()
     {
         return $this->unit;
     }
@@ -129,7 +129,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @param Unit $unit
      */
-    public function setUnit(Unit $unit)
+    public function set_unit(Unit $unit)
     {
         $this->unit = $unit;
     }
@@ -140,7 +140,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasValue()
+    public function has_value()
     {
         return $this->value !== null;
     }
@@ -151,7 +151,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @return Value
      */
-    public function getValue()
+    public function get_value()
     {
         return $this->value;
     }
@@ -162,7 +162,7 @@ class Detail extends AbstractAggregate
      * @since 0.6
      * @param Value $value
      */
-    public function setValue(Value $value)
+    public function set_value(Value $value)
     {
         $this->value = $value;
     }
@@ -170,15 +170,15 @@ class Detail extends AbstractAggregate
     /**
      * @inheritdoc
      */
-    public function isEqualTo($object)
+    public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            $this->getTitle()->isEqualTo($object->getTitle()) &&
-            $this->getName()->isEqualTo($object->getName()) &&
-            $this->getKey()->isEqualTo($object->getKey()) &&
-            $this->getType()->isEqualTo($object->getType()) &&
-            ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit()) &&
-            ($this->hasValue() && $this->getValue()->isEqualTo($object->getValue()) || !$object->hasValue());
+            $this->get_title()->is_equal_to($object->get_title()) &&
+            $this->get_name()->is_equal_to($object->get_name()) &&
+            $this->get_key()->is_equal_to($object->get_key()) &&
+            $this->get_type()->is_equal_to($object->get_type()) &&
+            ($this->has_unit() && $this->get_unit()->is_equal_to($object->get_unit()) || !$object->has_unit()) &&
+            ($this->has_value() && $this->get_value()->is_equal_to($object->get_value()) || !$object->has_value());
     }
 }

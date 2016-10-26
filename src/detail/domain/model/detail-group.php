@@ -1,0 +1,230 @@
+<?php
+namespace Affilicious\Detail\Domain\Model;
+
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Detail\Domain\Exception\Duplicated_Detail_Exception;
+use Affilicious\Detail\Domain\Model\Detail\Detail;
+
+if (!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
+class Detail_Group extends Abstract_Aggregate
+{
+    /**
+     * This ID is the same as the related template
+     *
+     * @var Detail_Template_Group_id
+     */
+    protected $template_id;
+
+    /**
+     * @var Title
+     */
+    protected $title;
+
+    /**
+     * @var Name
+     */
+    protected $name;
+
+    /**
+     * @var Key
+     */
+    protected $key;
+
+    /**
+     * @var Detail[]
+     */
+    protected $details;
+
+    /**
+     * @since 0.6
+     * @param Title $title
+     * @param Name $name
+     * @param Key $key
+     */
+    public function __construct(Title $title, Name $name, Key $key)
+    {
+        $this->title = $title;
+        $this->name = $name;
+        $this->key = $key;
+        $this->details = array();
+    }
+
+    /**
+     * Check if the detail group has a template ID
+     *
+     * @since 0.6
+     * @return bool
+     */
+    public function has_template_id()
+    {
+        return $this->template_id !== null;
+    }
+
+    /**
+     * Get the detail group template ID
+     *
+     * @since 0.6
+     * @return null|Detail_Template_Group_id
+     */
+    public function get_template_id()
+    {
+        return $this->template_id;
+    }
+
+    /**
+     * Set the detail group template ID
+     *
+     * @since 0.6
+     * @param null|Detail_Template_Group_id $template_id
+     * @throws Invalid_Type_Exception
+     */
+    public function set_template_id($template_id)
+    {
+        if($template_id !== null && !($template_id instanceof Detail_Template_Group_id)) {
+            throw new Invalid_Type_Exception($template_id, 'Affilicious\Detail\Domain\Model\Detail_Template_Group_id');
+        }
+
+        $this->template_id = $template_id;
+    }
+
+    /**
+     * Get the title
+     *
+     * @since 0.6
+     * @return Title
+     */
+    public function get_title()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Get the name for url usage
+     *
+     * @since 0.6
+     * @return Name
+     */
+    public function get_name()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the key for database usage
+     *
+     * @return Key
+     */
+    public function get_key()
+    {
+        return $this->key;
+    }
+
+    /**
+     * Check if a detail with the given name exists
+     *
+     * @since 0.6
+     * @param Name $name
+     * @return bool
+     */
+    public function has_detail(Name $name)
+    {
+        return isset($this->details[$name->get_value()]);
+    }
+
+    /**
+     * Add a new detail
+     *
+     * @since 0.6
+     * @param Detail $detail
+     * @throws Duplicated_Detail_Exception
+     */
+    public function add_detail(Detail $detail)
+    {
+        /*
+        if($this->has_detail($detail->get_name())) {
+            throw new Duplicated_Detail_Exception($detail, $this);
+        }
+        */
+
+        $this->details[$detail->get_name()->get_value()] = $detail;
+    }
+
+    /**
+     * Remove an existing detail by the name
+     *
+     * @since 0.6
+     * @param Name $name
+     */
+    public function remove_detail(Name $name)
+    {
+        unset($this->details[$name->get_value()]);
+    }
+
+    /**
+     * Get an existing detail by the name
+     * You don't need to check for the name, but you will get null on non-existence
+     *
+     * @since 0.6
+     * @param Name $name
+     * @return null|Detail
+     */
+    public function get_detail(Name $name)
+    {
+        if($this->has_detail($name)) {
+            return $this->details[$name->get_value()];
+        }
+
+        return null;
+    }
+
+    /**
+     * Get all details
+     *
+     * @since 0.6
+     * @return Detail[]
+     */
+    public function get_details()
+    {
+        $details = array_values($this->details);
+
+        return $details;
+    }
+
+    /**
+     * Set all details
+     *
+     * @since 0.6
+     * @param Detail[] $details
+     */
+    public function set_details($details)
+    {
+        $this->details = array();
+
+        // add_detail checks for the type
+        foreach ($details as $detail) {
+            $this->add_detail($detail);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function is_equal_to($object)
+    {
+        return
+            $object instanceof self &&
+            ($this->has_template_id() && $this->get_template_id()->is_equal_to($object->get_template_id()) || !$object->has_template_id()) &&
+            $this->get_title()->is_equal_to($object->get_title()) &&
+            $this->get_name()->is_equal_to($object->get_name()) &&
+            $this->get_key()->is_equal_to($object->get_key());
+            // TODO: _a good way to compare two arrays with objects
+    }
+}

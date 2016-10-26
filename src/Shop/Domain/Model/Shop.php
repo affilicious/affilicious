@@ -1,24 +1,24 @@
 <?php
 namespace Affilicious\Shop\Domain\Model;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Shop\Domain\Exception\InvalidPriceCurrencyException;
+use Affilicious\Shop\Domain\Exception\Invalid_Price_Currency_Exception;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Shop extends AbstractAggregate
+class Shop extends Abstract_Aggregate
 {
     /**
-     * @var ShopTemplateId
+     * @var Shop_Template_Id
      */
-    protected $templateId;
+    protected $template_id;
 
     /**
      * @var Title
@@ -41,14 +41,14 @@ class Shop extends AbstractAggregate
     protected $thumbnail;
 
     /**
-     * @var AffiliateLink
+     * @var Affiliate_Link
      */
-    protected $affiliateLink;
+    protected $affiliate_link;
 
     /**
-     * @var AffiliateId
+     * @var Affiliate_Id
      */
-    protected $affiliateId;
+    protected $affiliate_id;
 
     /**
      * @var Price
@@ -58,7 +58,7 @@ class Shop extends AbstractAggregate
     /**
      * @var Price
      */
-    protected $oldPrice;
+    protected $old_price;
 
     /**
      * @var Currency
@@ -70,15 +70,15 @@ class Shop extends AbstractAggregate
      * @param Title $title
      * @param Name $name
      * @param Key $key
-     * @param AffiliateLink $affiliateLink
+     * @param Affiliate_Link $affiliate_link
      * @param Currency $currency
      */
-    public function __construct(Title $title, Name $name, Key $key, AffiliateLink $affiliateLink, Currency $currency)
+    public function __construct(Title $title, Name $name, Key $key, Affiliate_Link $affiliate_link, Currency $currency)
     {
         $this->title = $title;
         $this->name = $name;
         $this->key = $key;
-        $this->affiliateLink = $affiliateLink;
+        $this->affiliate_link = $affiliate_link;
         $this->currency = $currency;
     }
 
@@ -88,38 +88,38 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasTemplateId()
+    public function has_template_id()
     {
-        return $this->templateId !== null;
+        return $this->template_id !== null;
     }
 
     /**
      * Get the shop template ID
      *
      * @since 0.6
-     * @return null|ShopTemplateId
+     * @return null|Shop_Template_Id
      *
      */
-    public function getTemplateId()
+    public function get_template_id()
     {
-        return $this->templateId;
+        return $this->template_id;
     }
 
     /**
      * Set the shop template ID
      *
      * @since 0.6
-     * @param null|ShopTemplateId
-     * $templateId
-     * @throws InvalidTypeException
+     * @param null|Shop_Template_Id
+     * $template_id
+     * @throws Invalid_Type_Exception
      */
-    public function setTemplateId($templateId)
+    public function set_template_id($template_id)
     {
-        if($templateId !== null && !($templateId instanceof ShopTemplateId)) {
-            throw new InvalidTypeException($templateId, 'Affilicious\Shop\Domain\Model\ShopTemplateId');
+        if($template_id !== null && !($template_id instanceof Shop_Template_Id)) {
+            throw new Invalid_Type_Exception($template_id, 'Affilicious\Shop\Domain\Model\Shop_Template_Id');
         }
 
-        $this->templateId = $templateId;
+        $this->template_id = $template_id;
     }
 
     /**
@@ -128,7 +128,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return Title
      */
-    public function getTitle()
+    public function get_title()
     {
         return $this->title;
     }
@@ -139,7 +139,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return Name
      */
-    public function getName()
+    public function get_name()
     {
         return $this->name;
     }
@@ -150,7 +150,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return Key
      */
-    public function getKey()
+    public function get_key()
     {
         return $this->key;
     }
@@ -161,7 +161,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasThumbnail()
+    public function has_thumbnail()
     {
         return $this->thumbnail !== null;
     }
@@ -172,7 +172,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return null|Image
      */
-    public function getThumbnail()
+    public function get_thumbnail()
     {
         return $this->thumbnail;
     }
@@ -183,10 +183,10 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @param null|Image $thumbnail
      */
-    public function setThumbnail($thumbnail)
+    public function set_thumbnail($thumbnail)
     {
         if($thumbnail !== null && !($thumbnail instanceof Image)) {
-            throw new InvalidTypeException($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
+            throw new Invalid_Type_Exception($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
         }
 
         $this->thumbnail = $thumbnail;
@@ -196,11 +196,11 @@ class Shop extends AbstractAggregate
      * Get the affiliate link
      *
      * @since 0.6
-     * @return AffiliateLink
+     * @return Affiliate_Link
      */
-    public function getAffiliateLink()
+    public function get_affiliate_link()
     {
-        return $this->affiliateLink;
+        return $this->affiliate_link;
     }
 
     /**
@@ -209,35 +209,35 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasAffiliateId()
+    public function has_affiliate_id()
     {
-        return $this->affiliateId !== null;
+        return $this->affiliate_id !== null;
     }
 
     /**
      * Get the optional affiliate ID
      *
      * @since 0.6
-     * @return AffiliateId
+     * @return Affiliate_Id
      */
-    public function getAffiliateId()
+    public function get_affiliate_id()
     {
-        return $this->affiliateId;
+        return $this->affiliate_id;
     }
 
     /**
      * Set the optional affiliate ID
      *
      * @since 0.6
-     * @param null|AffiliateId $affiliateId
+     * @param null|Affiliate_Id $affiliate_id
      */
-    public function setAffiliateId($affiliateId)
+    public function set_affiliate_id($affiliate_id)
     {
-        if($affiliateId !== null && !($affiliateId instanceof AffiliateId)) {
-            throw new InvalidTypeException($affiliateId, 'Affilicious\Shop\Domain\Model\AffiliateId');
+        if($affiliate_id !== null && !($affiliate_id instanceof Affiliate_Id)) {
+            throw new Invalid_Type_Exception($affiliate_id, 'Affilicious\Shop\Domain\Model\Affiliate_Id');
         }
 
-        $this->affiliateId = $affiliateId;
+        $this->affiliate_id = $affiliate_id;
     }
 
     /**
@@ -246,7 +246,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasPrice()
+    public function has_price()
     {
         return $this->price !== null;
     }
@@ -257,7 +257,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return null|Price
      */
-    public function getPrice()
+    public function get_price()
     {
         return $this->price;
     }
@@ -267,11 +267,11 @@ class Shop extends AbstractAggregate
      *
      * @since 0.6
      * @param null|Price $price
-     * @throws InvalidPriceCurrencyException
+     * @throws Invalid_Price_Currency_Exception
      */
-    public function setPrice($price)
+    public function set_price($price)
     {
-        $this->checkPriceCurrency($price);
+        $this->check_price_currency($price);
         $this->price = $price;
     }
 
@@ -281,9 +281,9 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasOldPrice()
+    public function has_old_price()
     {
-        return $this->oldPrice !== null;
+        return $this->old_price !== null;
     }
 
     /**
@@ -292,22 +292,22 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return null|Price
      */
-    public function getOldPrice()
+    public function get_old_price()
     {
-        return $this->oldPrice;
+        return $this->old_price;
     }
 
     /**
      * Set the old price or set it to null to keep it empty.
      *
      * @since 0.6
-     * @param null|Price $oldPrice
-     * @throws InvalidPriceCurrencyException
+     * @param null|Price $old_price
+     * @throws Invalid_Price_Currency_Exception
      */
-    public function setOldPrice($oldPrice)
+    public function set_old_price($old_price)
     {
-        $this->checkPriceCurrency($oldPrice);
-        $this->oldPrice = $oldPrice;
+        $this->check_price_currency($old_price);
+        $this->old_price = $old_price;
     }
 
     /**
@@ -316,7 +316,7 @@ class Shop extends AbstractAggregate
      * @since 0.6
      * @return Currency
      */
-    public function getCurrency()
+    public function get_currency()
     {
         return $this->currency;
     }
@@ -324,20 +324,20 @@ class Shop extends AbstractAggregate
     /**
      * @inheritdoc
      */
-    public function isEqualTo($object)
+    public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            ($this->hasTemplateId() && $this->getTemplateId()->isEqualTo($object->getTemplateId()) || !$object->hasTemplateId()) &&
-            $this->getTitle()->isEqualTo($object->getTitle()) &&
-            $this->getName()->isEqualTo($object->getName()) &&
-            $this->getKey()->isEqualTo($object->getKey()) &&
-            ($this->hasThumbnail() && $this->getThumbnail()->isEqualTo($object->getThumbnail()) || !$object->hasThumbnail()) &&
-            ($this->hasAffiliateId() && $this->getAffiliateId()->isEqualTo($object->getAffiliateId()) || !$object->hasAffiliateId()) &&
-            $this->getAffiliateLink()->isEqualTo($object->getAffiliateLink()) &&
-            ($this->hasPrice() && $this->getPrice()->isEqualTo($object->getPrice()) || !$object->hasPrice()) &&
-            ($this->hasOldPrice() && $this->getOldPrice()->isEqualTo($object->getOldPrice()) || !$object->hasOldPrice()) &&
-            $this->getCurrency()->isEqualTo($object->getCurrency());
+            ($this->has_template_id() && $this->get_template_id()->is_equal_to($object->get_template_id()) || !$object->has_template_id()) &&
+            $this->get_title()->is_equal_to($object->get_title()) &&
+            $this->get_name()->is_equal_to($object->get_name()) &&
+            $this->get_key()->is_equal_to($object->get_key()) &&
+            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($object->get_thumbnail()) || !$object->has_thumbnail()) &&
+            ($this->has_affiliate_id() && $this->get_affiliate_id()->is_equal_to($object->get_affiliate_id()) || !$object->has_affiliate_id()) &&
+            $this->get_affiliate_link()->is_equal_to($object->get_affiliate_link()) &&
+            ($this->has_price() && $this->get_price()->is_equal_to($object->get_price()) || !$object->has_price()) &&
+            ($this->has_old_price() && $this->get_old_price()->is_equal_to($object->get_old_price()) || !$object->has_old_price()) &&
+            $this->get_currency()->is_equal_to($object->get_currency());
     }
 
     /**
@@ -345,12 +345,12 @@ class Shop extends AbstractAggregate
      *
      * @since 0.6
      * @param Price $price
-     * @throws InvalidPriceCurrencyException
+     * @throws Invalid_Price_Currency_Exception
      */
-    protected function checkPriceCurrency($price)
+    protected function check_price_currency($price)
     {
-        if(!empty($price) && !$this->currency->isEqualTo($price->getCurrency())) {
-            throw new InvalidPriceCurrencyException($price, $this->currency);
+        if(!empty($price) && !$this->currency->is_equal_to($price->get_currency())) {
+            throw new Invalid_Price_Currency_Exception($price, $this->currency);
         }
     }
 }

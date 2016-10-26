@@ -1,14 +1,14 @@
 <?php
 namespace Affilicious\Detail\Domain\Model\Detail;
 
-use Affilicious\Common\Domain\Model\AbstractValueObject;
-use Affilicious\Product\Domain\Exception\InvalidOptionException;
+use Affilicious\Common\Domain\Model\Abstract_Value_Object;
+use Affilicious\Product\Domain\Exception\Invalid_Option_Exception;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Type extends AbstractValueObject
+class Type extends Abstract_Value_Object
 {
 	const TEXT = 'text';
 	const NUMBER = 'number';
@@ -44,12 +44,12 @@ class Type extends AbstractValueObject
 	/**
 	 * @inheritdoc
 	 * @since 0.6
-	 * @throws InvalidOptionException
+	 * @throws Invalid_Option_Exception
 	 */
 	public function __construct($value)
 	{
 		if (!in_array($value, array(self::TEXT, self::NUMBER, self::FILE))) {
-			throw new InvalidOptionException($value, array(
+			throw new Invalid_Option_Exception($value, array(
 				self::TEXT,
 				self::NUMBER,
 				self::FILE

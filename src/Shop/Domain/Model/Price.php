@@ -1,14 +1,14 @@
 <?php
 namespace Affilicious\Shop\Domain\Model;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Price extends AbstractAggregate
+class Price extends Abstract_Aggregate
 {
     /**
      * @var int
@@ -28,7 +28,7 @@ class Price extends AbstractAggregate
     public function __construct($value, Currency $currency)
     {
         if(!is_numeric($value)) {
-            throw new InvalidTypeException($value, 'int|float|double');
+            throw new Invalid_Type_Exception($value, 'int|float|double');
         }
 
         $this->value = $value;
@@ -41,7 +41,7 @@ class Price extends AbstractAggregate
      * @since 0.6
      * @return int
      */
-    public function getValue()
+    public function get_value()
     {
         return $this->value;
     }
@@ -52,7 +52,7 @@ class Price extends AbstractAggregate
      * @since 0.6
      * @return Currency
      */
-    public function getCurrency()
+    public function get_currency()
     {
         return $this->currency;
     }
@@ -61,12 +61,12 @@ class Price extends AbstractAggregate
      * @inheritdoc
      * @since 0.6
      */
-    public function isEqualTo($object)
+    public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            $this->getValue() === $object->getValue() &&
-            $this->getCurrency()->isEqualTo($object->getCurrency());
+            $this->get_value() === $object->get_value() &&
+            $this->get_currency()->is_equal_to($object->get_currency());
     }
 
     /**
@@ -77,12 +77,12 @@ class Price extends AbstractAggregate
      * @param mixed|Price $price
      * @return bool
      */
-    public function isSmallerThan($price)
+    public function is_smaller_than($price)
     {
         return
             $price instanceof self &&
-            $this->getValue() < $price->getValue() &&
-            $this->getCurrency()->isEqualTo($price->getCurrency());
+            $this->get_value() < $price->get_value() &&
+            $this->get_currency()->is_equal_to($price->get_currency());
     }
 
     /**
@@ -93,12 +93,12 @@ class Price extends AbstractAggregate
      * @param mixed|Price $price
      * @return bool
      */
-    public function isGreaterThan($price)
+    public function is_greater_than($price)
     {
         return
             $price instanceof self &&
-            $this->getValue() > $price->getValue() &&
-            $this->getCurrency()->isEqualTo($price->getCurrency());
+            $this->get_value() > $price->get_value() &&
+            $this->get_currency()->is_equal_to($price->get_currency());
     }
 
     /**
@@ -109,12 +109,12 @@ class Price extends AbstractAggregate
      * @param mixed|Price $price
      * @return bool
      */
-    public function isSmallerThanOrEqualTo($price)
+    public function is_smaller_than_or_equal_to($price)
     {
         return
             $price instanceof self &&
-            $this->isSmallerThan($price) ||
-            $this->isEqualTo($price);
+            $this->is_smaller_than($price) ||
+            $this->is_equal_to($price);
     }
 
     /**
@@ -125,12 +125,12 @@ class Price extends AbstractAggregate
      * @param mixed|Price $price
      * @return bool
      */
-    public function isGreaterThanOrEqualTo($price)
+    public function is_greater_than_or_equal_to($price)
     {
         return
             $price instanceof self &&
-            $this->isSmallerThan($price) ||
-            $this->isEqualTo($price);
+            $this->is_smaller_than($price) ||
+            $this->is_equal_to($price);
     }
 
     /**
@@ -141,13 +141,13 @@ class Price extends AbstractAggregate
      */
     public function __toString()
     {
-        $currencySymbol = $this->currency->getSymbol();
-        if (empty($value) || empty($currencySymbol)) {
+        $currency_symbol = $this->currency->get_symbol();
+        if (empty($value) || empty($currency_symbol)) {
             return null;
         }
 
         $value = number_format($value, 2, '.', '');
-        $price = $value . ' ' . $currencySymbol;
+        $price = $value . ' ' . $currency_symbol;
 
         return $price;
     }

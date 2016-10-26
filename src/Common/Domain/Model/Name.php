@@ -1,23 +1,23 @@
 <?php
 namespace Affilicious\Common\Domain\Model;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Name extends AbstractValueObject
+class Name extends Abstract_Value_Object
 {
 	/**
 	 * @inheritdoc
 	 * @since 0.6
-	 * @throws InvalidTypeException
+	 * @throws Invalid_Type_Exception
 	 */
 	public function __construct($value)
 	{
 		if (!is_string($value)) {
-			throw new InvalidTypeException($value, 'string');
+			throw new Invalid_Type_Exception($value, 'string');
 		}
 
 		parent::__construct($value);
@@ -29,11 +29,11 @@ class Name extends AbstractValueObject
      * @since 0.6
      * @return Key
      */
-    public function toKey()
+    public function to_key()
     {
         $key = str_replace('-', '_', $this->value);
 
-        // Names cannot contain underscores followed by digits if you want to support carbon fields
+        // _names cannot contain underscores followed by digits if you want to support carbon fields
         $key = preg_replace('/_([0-9])/', '$1', $key);
 
         $key = new Key($key);

@@ -1,12 +1,12 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Review;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractValueObject;
-use Affilicious\Product\Domain\Exception\InvalidBigNumberException;
-use Affilicious\Product\Domain\Exception\InvalidSmallNumberException;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Value_Object;
+use Affilicious\Product\Domain\Exception\Invalid_Big_Number_Exception;
+use Affilicious\Product\Domain\Exception\Invalid_Small_Number_Exception;
 
-class Rating extends AbstractValueObject
+class Rating extends Abstract_Value_Object
 {
     const MIN = 0;
     const MAX = 5;
@@ -17,7 +17,7 @@ class Rating extends AbstractValueObject
      * @since 0.6
      * @return Rating
      */
-    public static function getMin()
+    public static function get_min()
     {
         return new self(self::MIN);
     }
@@ -28,7 +28,7 @@ class Rating extends AbstractValueObject
      * @since 0.6
      * @return Rating
      */
-    public static function getMax()
+    public static function get_max()
     {
         return new self(self::MAX);
     }
@@ -36,9 +36,9 @@ class Rating extends AbstractValueObject
     /**
      * @inheritdoc
      * @since 0.6
-     * @throws InvalidTypeException
-     * @throws InvalidSmallNumberException
-     * @throws InvalidBigNumberException
+     * @throws Invalid_Type_Exception
+     * @throws Invalid_Small_Number_Exception
+     * @throws Invalid_Big_Number_Exception
      */
     public function __construct($value)
     {
@@ -47,15 +47,15 @@ class Rating extends AbstractValueObject
         }
 
         if (!is_float($value)) {
-            throw new InvalidTypeException($value, 'float');
+            throw new Invalid_Type_Exception($value, 'float');
         }
 
         if($value < self::MIN) {
-            throw new InvalidSmallNumberException($value, self::MIN);
+            throw new Invalid_Small_Number_Exception($value, self::MIN);
         }
 
         if($value > self::MAX) {
-            throw new InvalidBigNumberException($value, self::MAX);
+            throw new Invalid_Big_Number_Exception($value, self::MAX);
         }
 
         parent::__construct($value);

@@ -1,13 +1,13 @@
 <?php
 
-class TestAffiliciousPlugin extends WP_UnitTestCase
+class TestAffilicious_Plugin extends WP_UnitTestCase
 {
     /**
-     * @convers AffiliciousPlugin::registerPublicHooks
+     * @convers Affilicious_Plugin::registerPublicHooks
      */
     public function testRegisterPublicHooks()
     {
-        $plugin = $this->getMockBuilder('AffiliciousPlugin')
+        $plugin = $this->getMockBuilder('Affilicious_Plugin')
             ->setMethods(array('registerPublicHooks'))
             ->getMock();
 
@@ -18,11 +18,11 @@ class TestAffiliciousPlugin extends WP_UnitTestCase
     }
 
     /**
-     * @convers AffiliciousPlugin::registerAdminHooks
+     * @convers Affilicious_Plugin::registerAdminHooks
      */
     public function testRegisterAdminHooks()
     {
-        $plugin = $this->getMockBuilder('AffiliciousPlugin')
+        $plugin = $this->getMockBuilder('Affilicious_Plugin')
             ->setMethods(array('registerAdminHooks'))
             ->getMock();
 

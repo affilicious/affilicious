@@ -1,10 +1,10 @@
 <?php
 namespace Affilicious\Product\Domain\Model;
 
-use Affilicious\Common\Domain\Model\AbstractValueObject;
-use Affilicious\Product\Domain\Exception\InvalidValueException;
+use Affilicious\Common\Domain\Model\Abstract_Value_Object;
+use Affilicious\Product\Domain\Exception\Invalid_Value_Exception;
 
-class Type extends AbstractValueObject
+class Type extends Abstract_Value_Object
 {
 	const SIMPLE = 'simple';
 	const COMPLEX = 'complex';
@@ -39,7 +39,7 @@ class Type extends AbstractValueObject
 
 	/**
 	 * @inheritdoc
-	 * @throws InvalidValueException
+	 * @throws Invalid_Value_Exception
 	 */
 	public function __construct($value)
 	{
@@ -50,7 +50,7 @@ class Type extends AbstractValueObject
         );
 
 		if(!in_array($value, $types)) {
-			throw new InvalidValueException($value, $types, get_class($this));
+			throw new Invalid_Value_Exception($value, $types, get_class($this));
 		}
 
 		parent::__construct($value);

@@ -1,10 +1,10 @@
 <?php
 namespace Affilicious\Product\Domain\Model\Review;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 
-class Review extends AbstractAggregate
+class Review extends Abstract_Aggregate
 {
     /**
      * @var Rating
@@ -31,7 +31,7 @@ class Review extends AbstractAggregate
      * @since 0.6
      * @return Rating
      */
-    public function getRating()
+    public function get_rating()
     {
         return $this->rating;
     }
@@ -42,7 +42,7 @@ class Review extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasVotes()
+    public function has_votes()
     {
         return $this->votes !== null;
     }
@@ -53,7 +53,7 @@ class Review extends AbstractAggregate
      * @since 0.6
      * @return null|Votes
      */
-    public function getVotes()
+    public function get_votes()
     {
         return $this->votes;
     }
@@ -64,10 +64,10 @@ class Review extends AbstractAggregate
      * @since 0.6
      * @param null|Votes $votes
      */
-    public function setVotes($votes)
+    public function set_votes($votes)
     {
         if($votes !== null && !($votes instanceof Votes)) {
-            throw new InvalidTypeException($votes, 'Affilicious\Product\Domain\Model\Review\Votes');
+            throw new Invalid_Type_Exception($votes, 'Affilicious\Product\Domain\Model\Review\Votes');
         }
 
         $this->votes = $votes;
@@ -76,11 +76,11 @@ class Review extends AbstractAggregate
     /**
      * @inheritdoc
      */
-    public function isEqualTo($object)
+    public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            $this->getRating()->isEqualTo($object->getRating()) &&
-            ($this->hasVotes() && $this->getVotes()->isEqualTo($object->getVotes()) || !$object->hasVotes());
+            $this->get_rating()->is_equal_to($object->get_rating()) &&
+            ($this->has_votes() && $this->get_votes()->is_equal_to($object->get_votes()) || !$object->has_votes());
     }
 }

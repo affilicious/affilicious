@@ -34,7 +34,7 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class AffiliciousPlugin
+class Affilicious_Plugin
 {
     const PLUGIN_NAME = 'affilicious';
     const PLUGIN_VERSION = '0.5.2';
@@ -50,7 +50,7 @@ class AffiliciousPlugin
      * Stores the singleton instance
      *
      * @since 0.3
-     * @var AffiliciousPlugin
+     * @var Affilicious_Plugin
      */
     private static $instance;
 
@@ -66,12 +66,12 @@ class AffiliciousPlugin
      * Get the instance of the affilicious plugin
      *
      * @since 0.3
-     * @return AffiliciousPlugin
+     * @return Affilicious_Plugin
      */
-    public static function getInstance()
+    public static function get_instance()
     {
         if (self::$instance === null) {
-            self::$instance = new AffiliciousPlugin();
+            self::$instance = new Affilicious_Plugin();
         }
 
         return self::$instance;
@@ -83,7 +83,7 @@ class AffiliciousPlugin
      * @since 0.3
      * @return string
      */
-    public static function getRootDir()
+    public static function get_root_dir()
     {
         return plugin_dir_url( __FILE__ );
     }
@@ -111,7 +111,7 @@ class AffiliciousPlugin
      * @since 0.3
      * @return Container
      */
-    public function getContainer()
+    public function get_container()
     {
         return $this->container;
     }
@@ -126,14 +126,14 @@ class AffiliciousPlugin
 		register_activation_hook( __FILE__, array($this, 'activate'));
 		register_deactivation_hook( __FILE__, array($this, 'deactivate'));
 
-		$this->loadIncludes();
-		$this->loadFunctions();
-		$this->registerServices();
-		$this->registerPublicHooks();
-		$this->registerAdminHooks();
+		$this->load_includes();
+		$this->load_functions();
+		$this->register_services();
+		$this->register_public_hooks();
+		$this->register_admin_Hooks();
 
         // TODO: This old legacy class will be removed later
-		new \Affilicious\Product\Presentation\MetaBox\MetaBoxManager();
+		new \Affilicious\Product\Presentation\Meta_Box\Meta_Box_Manager();
 
 		// We have to call the container to the run code inside
 		$this->container['affilicious.common.application.setup.carbon'];
@@ -166,8 +166,14 @@ class AffiliciousPlugin
         if (stripos($class, $prefix) === false) {
             return;
         }
-        $file_path = __DIR__ . '/' . self::PLUGIN_SOURCE_DIR . str_ireplace(self::PLUGIN_NAMESPACE, '', $class) . '.php';
+
+        $file_path = str_ireplace(self::PLUGIN_NAMESPACE, '', $class) . '.php';
+        $file_path = strtolower($file_path);
+        $file_path = str_replace('_', '-', $file_path);
+        $file_path = __DIR__ . '/' . self::PLUGIN_SOURCE_DIR . $file_path;
         $file_path = str_replace('\\', DIRECTORY_SEPARATOR, $file_path);
+
+        /** @noinspection PhpIncludeInspection */
         include_once($file_path);
     }
 
@@ -194,9 +200,9 @@ class AffiliciousPlugin
         ));
 
         // Make sure the response came back okay
-        $isError = is_wp_error($response);
+        $is_error = is_wp_error($response);
 
-	    return $isError;
+	    return $is_error;
     }
 
     /**
@@ -222,9 +228,9 @@ class AffiliciousPlugin
 	    ));
 
 	    // Make sure the response came back okay
-	    $isError = is_wp_error($response);
+	    $is_error = is_wp_error($response);
 
-	    return $isError;
+	    return $is_error;
     }
 
     /**
@@ -232,22 +238,22 @@ class AffiliciousPlugin
      *
      * @since 0.3
      */
-    public function registerServices()
+    public function register_services()
     {
         $this->container['affilicious.common.application.setup.asset'] = function () {
-            return new \Affilicious\Common\Presentation\Setup\AssetSetup();
+            return new \Affilicious\Common\Presentation\Setup\Asset_Setup();
         };
 
         $this->container['affilicious.common.application.setup.carbon'] = function () {
-            return new \Affilicious\Common\Presentation\Setup\CarbonSetup();
+            return new \Affilicious\Common\Presentation\Setup\Carbon_Setup();
         };
 
         $this->container['affilicious.common.application.setup.feedback'] = function () {
-            return new \Affilicious\Common\Presentation\Setup\FeedbackSetup();
+            return new \Affilicious\Common\Presentation\Setup\Feedback_Setup();
         };
 
         $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
-            return new \Affilicious\Product\Infrastructure\Repository\Carbon\CarbonProductRepository(
+            return new \Affilicious\Product\Infrastructure\Repository\Carbon\Carbon_Product_Repository(
                 $c['affilicious.product.infrastructure.factory.review'],
                 $c['affilicious.detail.infrastructure.factory.detail_group'],
                 $c['affilicious.attribute.infrastructure.factory.attribute_group'],
@@ -256,77 +262,77 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.infrastructure.factory.product'] = function () {
-            return new \Affilicious\Product\Infrastructure\Factory\InMemory\InMemoryProductFactory();
+            return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Product_Factory();
         };
 
         $this->container['affilicious.product.infrastructure.factory.product_variant'] = function () {
-            return new \Affilicious\Product\Infrastructure\Factory\InMemory\InMemoryProductVariantFactory();
+            return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Product_Variant_Factory();
         };
 
         $this->container['affilicious.detail.infrastructure.factory.detail_group'] = function ($c) {
-            return new \Affilicious\Detail\Infrastructure\Factory\InMemory\InMemoryDetailGroupFactory(
+            return new \Affilicious\Detail\Infrastructure\Factory\In_Memory\In_Memory_Detail_Group_Factory(
                 $c['affilicious.detail.infrastructure.repository.detail_template_group']
             );
         };
 
         $this->container['affilicious.attribute.infrastructure.factory.attribute_group'] = function ($c) {
-            return new \Affilicious\Attribute\Infrastructure\Factory\InMemory\InMemoryAttributeGroupFactory(
+            return new \Affilicious\Attribute\Infrastructure\Factory\In_Memory\In_Memory_Attribute_Group_Factory(
                 $c['affilicious.attribute.infrastructure.repository.attribute_template_group']
             );
         };
 
         $this->container['affilicious.shop.infrastructure.factory.shop'] = function ($c) {
-            return new \Affilicious\Shop\Infrastructure\Factory\InMemory\InMemoryShopFactory(
+            return new \Affilicious\Shop\Infrastructure\Factory\In_Memory\In_Memory_Shop_Factory(
                 $c['affilicious.shop.infrastructure.repository.shop_template']
             );
         };
 
         $this->container['affilicious.shop.infrastructure.repository.shop_template'] = function ($c) {
-            return new \Affilicious\Shop\Infrastructure\Repository\Wordpress\WordpressShopTemplateRepository(
+            return new \Affilicious\Shop\Infrastructure\Repository\Wordpress\Wordpress_Shop_Template_Repository(
                 $c['affilicious.shop.infrastructure.factory.shop_template']
             );
         };
 
         $this->container['affilicious.product.infrastructure.factory.review'] = function () {
-            return new \Affilicious\Product\Infrastructure\Factory\InMemory\InMemoryReviewFactory();
+            return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Review_Factory();
         };
 
         $this->container['affilicious.shop.infrastructure.factory.shop_template'] = function () {
-            return new \Affilicious\Shop\Infrastructure\Factory\InMemory\InMemoryShopTemplateFactory();
+            return new \Affilicious\Shop\Infrastructure\Factory\In_Memory\In_Memory_Shop_Template_Factory();
         };
 
         $this->container['affilicious.detail.infrastructure.repository.detail_template_group'] = function ($c) {
-            return new \Affilicious\Detail\Infrastructure\Repository\Carbon\CarbonDetailTemplateGroupRepository(
+            return new \Affilicious\Detail\Infrastructure\Repository\Carbon\Carbon_Detail_Template_Group_Repository(
                 $c['affilicious.detail.infrastructure.factory.detail_template_group'],
                 $c['affilicious.detail.infrastructure.factory.detail_template']
             );
         };
 
         $this->container['affilicious.detail.infrastructure.factory.detail_template_group'] = function () {
-            return new \Affilicious\Detail\Infrastructure\Factory\InMemory\InMemoryDetailTemplateGroupFactory();
+            return new \Affilicious\Detail\Infrastructure\Factory\In_Memory\In_Memory_Detail_Template_Group_Factory();
         };
 
         $this->container['affilicious.detail.infrastructure.factory.detail_template'] = function () {
-            return new \Affilicious\Detail\Infrastructure\Factory\InMemory\InMemoryDetailTemplateFactory();
+            return new \Affilicious\Detail\Infrastructure\Factory\In_Memory\In_Memory_Detail_Template_Factory();
         };
 
         $this->container['affilicious.attribute.infrastructure.repository.attribute_template_group'] = function ($c) {
-            return new \Affilicious\Attribute\Infrastructure\Repository\Carbon\CarbonAttributeTemplateGroupRepository(
+            return new \Affilicious\Attribute\Infrastructure\Repository\Carbon\Carbon_Attribute_Template_Group_Repository(
                 $c['affilicious.attribute.infrastructure.factory.attribute_template_group'],
                 $c['affilicious.attribute.infrastructure.factory.attribute_template']
             );
         };
 
         $this->container['affilicious.attribute.infrastructure.factory.attribute_template'] = function () {
-            return new \Affilicious\Attribute\Infrastructure\Factory\InMemory\InMemoryAttributeTemplateFactory();
+            return new \Affilicious\Attribute\Infrastructure\Factory\In_Memory\In_Memory_Attribute_Template_Factory();
         };
 
         $this->container['affilicious.attribute.infrastructure.factory.attribute_template_group'] = function () {
-            return new \Affilicious\Attribute\Infrastructure\Factory\InMemory\InMemoryAttributeTemplateGroupFactory();
+            return new \Affilicious\Attribute\Infrastructure\Factory\In_Memory\In_Memory_Attribute_Template_Group_Factory();
         };
 
         $this->container['affilicious.product.application.setup.product'] = function ($c) {
-            return new \Affilicious\Product\Application\Setup\ProductSetup(
+            return new \Affilicious\Product\Application\Setup\Product_Setup(
                 $c['affilicious.shop.infrastructure.repository.shop_template'],
                 $c['affilicious.attribute.infrastructure.repository.attribute_template_group'],
                 $c['affilicious.detail.infrastructure.repository.detail_template_group']
@@ -334,49 +340,49 @@ class AffiliciousPlugin
         };
 
         $this->container['affilicious.product.application.listener.save_product'] = function ($c) {
-            return new \Affilicious\Product\Application\Listener\SaveProductListener(
+            return new \Affilicious\Product\Application\Listener\Save_Product_Listener(
                 $c['affilicious.product.infrastructure.repository.product']
             );
         };
 
         $this->container['affilicious.shop.application.setup.shop_template'] = function () {
-            return new \Affilicious\Shop\Application\Setup\ShopTemplateSetup();
+            return new \Affilicious\Shop\Application\Setup\Shop_Template_Setup();
         };
 
         $this->container['affilicious.detail.application.setup.detail_template_group'] = function () {
-            return new \Affilicious\Detail\Application\Setup\DetailTemplateGroupSetup();
+            return new \Affilicious\Detail\Application\Setup\Detail_Template_Group_Setup();
         };
 
         $this->container['affilicious.attribute.application.setup.attribute_template_group'] = function () {
-            return new \Affilicious\Attribute\Application\Setup\AttributeTemplateGroupSetup();
+            return new \Affilicious\Attribute\Application\Setup\Attribute_Template_Group_Setup();
         };
 
 	    $this->container['affilicious.settings.application.setting.affilicious'] = function () {
-		    return new \Affilicious\Settings\Application\Setting\AffiliciousSettings();
+		    return new \Affilicious\Settings\Application\Setting\Affilicious_Settings();
 	    };
 
 	    $this->container['affilicious.settings.application.setting.product'] = function () {
-		    return new \Affilicious\Settings\Application\Setting\ProductSettings();
+		    return new \Affilicious\Settings\Application\Setting\Product_Settings();
 	    };
 
         $this->container['affilicious.product.presentation.setup.canonical'] = function () {
-            return new \Affilicious\Product\Presentation\Setup\CanonicalSetup();
+            return new \Affilicious\Product\Presentation\Setup\Canonical_Setup();
         };
 
         $this->container['affilicious.product.presentation.setup.admin_bar'] = function () {
-            return new \Affilicious\Product\Presentation\Setup\AdminBarSetup();
+            return new \Affilicious\Product\Presentation\Setup\Admin_Bar_Setup();
         };
 
         $this->container['affilicious.product.presentation.filter.table_content'] = function () {
-            return new \Affilicious\Product\Presentation\Filter\TableContentFilter();
+            return new \Affilicious\Product\Presentation\Filter\Table_Content_Filter();
         };
 
         $this->container['affilicious.product.presentation.filter.table_count'] = function () {
-            return new \Affilicious\Product\Presentation\Filter\TableCountFilter();
+            return new \Affilicious\Product\Presentation\Filter\Table_Count_Filter();
         };
 
         $this->container['affilicious.product.presentation.filter.complex_product'] = function () {
-            return new \Affilicious\Product\Presentation\Filter\ComplexProductFilter();
+            return new \Affilicious\Product\Presentation\Filter\Complex_Product_Filter();
         };
     }
 
@@ -396,10 +402,10 @@ class AffiliciousPlugin
 	 *
 	 * @since 0.5.1
 	 */
-    public function loadIncludes()
+    public function load_includes()
     {
-	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Presentation/Form/Carbon/Hidden_Field.php');
-	    require_once(self::PLUGIN_SOURCE_DIR . 'Common/Presentation/Form/Carbon/Number_Field.php');
+	    require_once(self::PLUGIN_SOURCE_DIR . 'common/presentation/form/carbon/hidden-field.php');
+	    require_once(self::PLUGIN_SOURCE_DIR . 'common/presentation/form/carbon/number-field.php');
 
 	    if (!class_exists('EDD_SL_Plugin_Updater')) {
 		    include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
@@ -411,7 +417,7 @@ class AffiliciousPlugin
 	 *
 	 * @since 0.5.1
 	 */
-    public function loadFunctions()
+    public function load_functions()
     {
 	    require_once(__DIR__ . '/src/fallbacks.php');
 	    require_once(__DIR__ . '/src/functions.php');
@@ -422,34 +428,34 @@ class AffiliciousPlugin
      *
      * @since 0.3
      */
-    public function registerPublicHooks()
+    public function register_public_hooks()
     {
     	// Hook the text domain
 	    add_action('plugins_loaded', array($this, 'loadTextdomain'));
 
         // Hook the public assets
-        $assetSetup = $this->container['affilicious.common.application.setup.asset'];
-        add_action('wp_enqueue_scripts', array($assetSetup, 'addPublicStyles'), 10);
-        add_action('wp_enqueue_scripts', array($assetSetup, 'addPublicScripts'), 20);
+        $asset_setup = $this->container['affilicious.common.application.setup.asset'];
+        add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_styles'), 10);
+        add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_scripts'), 20);
 
         // Hook the Carbon Fields
-        $carbonFieldsSetup = $this->container['affilicious.common.application.setup.carbon'];
-        add_action('after_setup_theme', array($carbonFieldsSetup, 'crb_init_carbon_field_hidden'), 15);
+        $carbon_fields_setup = $this->container['affilicious.common.application.setup.carbon'];
+        add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
 
         // Hook the shops
-        $shopTemplateSetup = $this->container['affilicious.shop.application.setup.shop_template'];
-        add_action('init', array($shopTemplateSetup, 'init'), 1);
-        add_action('init', array($shopTemplateSetup, 'render'), 2);
+        $shop_template_setup = $this->container['affilicious.shop.application.setup.shop_template'];
+        add_action('init', array($shop_template_setup, 'init'), 1);
+        add_action('init', array($shop_template_setup, 'render'), 2);
 
         // Hook the attribute groups
-        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
-        add_action('init', array($attributeTemplateGroupSetup, 'init'), 3);
-        add_action('init', array($attributeTemplateGroupSetup, 'render'), 4);
+        $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
+        add_action('init', array($attribute_template_group_setup, 'init'), 3);
+        add_action('init', array($attribute_template_group_setup, 'render'), 4);
 
         // Hook the detail groups
-        $detailTemplateGroupSetup = $this->container['affilicious.detail.application.setup.detail_template_group'];
-        add_action('init', array($detailTemplateGroupSetup, 'init'), 3);
-        add_action('init', array($detailTemplateGroupSetup, 'render'), 4);
+        $detail_template_group_setup = $this->container['affilicious.detail.application.setup.detail_template_group'];
+        add_action('init', array($detail_template_group_setup, 'init'), 3);
+        add_action('init', array($detail_template_group_setup, 'render'), 4);
 
         // Hook the products
         $productSetup = $this->container['affilicious.product.application.setup.product'];
@@ -457,24 +463,24 @@ class AffiliciousPlugin
         add_action('init', array($productSetup, 'render'), 6);
 
         // Hook the product listeners
-        $saveProductListener = $this->container['affilicious.product.application.listener.save_product'];
-        add_action('carbon_after_save_post_meta', array($saveProductListener, 'listen'), 10, 3);
+        $save_product_listener = $this->container['affilicious.product.application.listener.save_product'];
+        add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
 
 	    // Hook the settings
-        $affiliciousSettings = $this->container['affilicious.settings.application.setting.affilicious'];
-        $productSettings = $this->container['affilicious.settings.application.setting.product'];
-	    add_action('init', array($affiliciousSettings, 'render'), 10);
-	    add_action('init', array($affiliciousSettings, 'apply'), 11);
-	    add_action('init', array($productSettings, 'render'), 12);
-	    add_action('init', array($productSettings, 'apply'), 13);
+        $affilicious_settings = $this->container['affilicious.settings.application.setting.affilicious'];
+        $product_settings = $this->container['affilicious.settings.application.setting.product'];
+	    add_action('init', array($affilicious_settings, 'render'), 10);
+	    add_action('init', array($affilicious_settings, 'apply'), 11);
+	    add_action('init', array($product_settings, 'render'), 12);
+	    add_action('init', array($product_settings, 'apply'), 13);
 
         // Hook the canonical tags
-        $canonicalSetup = $this->container['affilicious.product.presentation.setup.canonical'];
-        add_action('wp_head', array($canonicalSetup, 'setUp'));
+        $canonical_setup = $this->container['affilicious.product.presentation.setup.canonical'];
+        add_action('wp_head', array($canonical_setup, 'set_up'));
 
         // Hook the admin bar setup
-        $adminBarSetup = $this->container['affilicious.product.presentation.setup.admin_bar'];
-        add_action('admin_bar_menu', array($adminBarSetup, 'setUp'), 999);
+        $admin_bar_setup = $this->container['affilicious.product.presentation.setup.admin_bar'];
+        add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 999);
 
         // Filter the complex products from the search
         $complexProductFilter = $this->container['affilicious.product.presentation.filter.complex_product'];
@@ -486,47 +492,47 @@ class AffiliciousPlugin
      *
      * @since 0.3
      */
-    public function registerAdminHooks()
+    public function register_admin_Hooks()
     {
     	// Hook the plugin updater
 	    add_action('admin_init', array($this, 'update'), 0);
 
         // Hook the shops
-        $shopTemplateSetup = $this->container['affilicious.shop.application.setup.shop_template'];
-        add_action('manage_shop_posts_columns', array($shopTemplateSetup, 'columnsHead'), 9, 2);
-        add_action('manage_shop_posts_custom_column', array($shopTemplateSetup, 'columnsContent'), 10, 2);
+        $shop_template_setup = $this->container['affilicious.shop.application.setup.shop_template'];
+        add_action('manage_shop_posts_columns', array($shop_template_setup, 'columns_head'), 9, 2);
+        add_action('manage_shop_posts_custom_column', array($shop_template_setup, 'columns_content'), 10, 2);
 
         // Hook the attribute groups
-        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
-        add_action('manage_aff_attribute_group_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
-        add_action('manage_aff_attribute_group_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
+        $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
+        add_action('manage_aff_attribute_group_posts_columns', array($attribute_template_group_setup, 'columnsHead'), 9, 2);
+        add_action('manage_aff_attribute_group_posts_custom_column', array($attribute_template_group_setup, 'columnsContent'), 10, 2);
 
         // Hook the attribute groups
-        $attributeTemplateGroupSetup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
-        add_action('manage_aff_attr_template_posts_columns', array($attributeTemplateGroupSetup, 'columnsHead'), 9, 2);
-        add_action('manage_aff_attr_template_posts_custom_column', array($attributeTemplateGroupSetup, 'columnsContent'), 10, 2);
+        $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
+        add_action('manage_aff_attr_template_posts_columns', array($attribute_template_group_setup, 'columns_head'), 9, 2);
+        add_action('manage_aff_attr_template_posts_custom_column', array($attribute_template_group_setup, 'columns_content'), 10, 2);
 
         // Hook the detail groups
-        $detailTemplateGroupSetup = $this->container['affilicious.detail.application.setup.detail_template_group'];
-        add_action('manage_detail_group_posts_columns', array($detailTemplateGroupSetup, 'columnsHead'), 9, 2);
-        add_action('manage_detail_group_posts_custom_column', array($detailTemplateGroupSetup, 'columnsContent'), 10, 2);
+        $detail_template_group_setup = $this->container['affilicious.detail.application.setup.detail_template_group'];
+        add_action('manage_detail_group_posts_columns', array($detail_template_group_setup, 'columns_head'), 9, 2);
+        add_action('manage_detail_group_posts_custom_column', array($detail_template_group_setup, 'columns_content'), 10, 2);
 
         // Hook the admin assets
-        $assetSetup = $this->container['affilicious.common.application.setup.asset'];
-        add_action('admin_enqueue_scripts', array($assetSetup, 'addAdminStyles'), 10);
-        add_action('admin_enqueue_scripts', array($assetSetup, 'addAdminScripts'), 20);
+        $asset_setup = $this->container['affilicious.common.application.setup.asset'];
+        add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_styles'), 10);
+        add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_scripts'), 20);
 
         // Hook the feedback form
-        $feedbackSetup = $this->container['affilicious.common.application.setup.feedback'];
-        add_action('admin_menu', array($feedbackSetup, 'init'), 30);
+        $feedback_setup = $this->container['affilicious.common.application.setup.feedback'];
+        add_action('admin_menu', array($feedback_setup, 'init'), 30);
 
         // Hook the product table setup
-        $tableContentFilter = $this->container['affilicious.product.presentation.filter.table_content'];
-        $tableCountFilter = $this->container['affilicious.product.presentation.filter.table_count'];
-        add_action('pre_get_posts', array($tableContentFilter, 'filter'));
-        add_filter("views_edit-product", array($tableCountFilter, 'filter'), 10, 1);
+        $table_content_filter = $this->container['affilicious.product.presentation.filter.table_content'];
+        $table_count_filter = $this->container['affilicious.product.presentation.filter.table_count'];
+        add_action('pre_get_posts', array($table_content_filter, 'filter'));
+        add_filter("views_edit-product", array($table_count_filter, 'filter'), 10, 1);
     }
 }
 
-$affiliciousPlugin = AffiliciousPlugin::getInstance();
-$affiliciousPlugin->run();
+$affilicious_plugin = Affilicious_Plugin::get_instance();
+$affilicious_plugin->run();

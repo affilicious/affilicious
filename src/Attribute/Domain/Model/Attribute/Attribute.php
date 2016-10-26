@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\Attribute\Domain\Model\Attribute;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractAggregate;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Attribute extends AbstractAggregate
+class Attribute extends Abstract_Aggregate
 {
     /**
      * The title of the attribute for display usage
@@ -78,7 +78,7 @@ class Attribute extends AbstractAggregate
      * @since 0.6
      * @return Title
      */
-    public function getTitle()
+    public function get_title()
     {
         return $this->title;
     }
@@ -89,7 +89,7 @@ class Attribute extends AbstractAggregate
      * @since 0.6
      * @return Name
      */
-    public function getName()
+    public function get_name()
     {
         return $this->name;
     }
@@ -100,7 +100,7 @@ class Attribute extends AbstractAggregate
 	 * @since 0.6
 	 * @return Key
 	 */
-	public function getKey()
+	public function get_key()
 	{
 		return $this->key;
 	}
@@ -111,7 +111,7 @@ class Attribute extends AbstractAggregate
 	 * @since 0.6
 	 * @return Type
 	 */
-	public function getType()
+	public function get_type()
 	{
 		return $this->type;
 	}
@@ -122,7 +122,7 @@ class Attribute extends AbstractAggregate
      * @since 0.6
      * @return Value
      */
-    public function getValue()
+    public function get_value()
     {
         return $this->value;
     }
@@ -133,7 +133,7 @@ class Attribute extends AbstractAggregate
      * @since 0.6
      * @return bool
      */
-    public function hasUnit()
+    public function has_unit()
     {
         return $this->unit !== null;
     }
@@ -144,7 +144,7 @@ class Attribute extends AbstractAggregate
      * @since 0.6
      * @return null|Unit
      */
-    public function getUnit()
+    public function get_unit()
     {
         return $this->unit;
     }
@@ -154,12 +154,12 @@ class Attribute extends AbstractAggregate
      *
      * @since 0.6
      * @param null|Unit $unit
-     * @throws InvalidTypeException
+     * @throws Invalid_Type_Exception
      */
-    public function setUnit($unit)
+    public function set_unit($unit)
     {
         if($unit !== null && !($unit instanceof Unit)) {
-            throw new InvalidTypeException($unit, 'Affilicious\Attribute\Domain\Model\Unit');
+            throw new Invalid_Type_Exception($unit, 'Affilicious\Attribute\Domain\Model\Unit');
         }
 
         $this->unit = $unit;
@@ -169,13 +169,13 @@ class Attribute extends AbstractAggregate
 	 * @inheritdoc
 	 * @since 0.6
 	 */
-	public function isEqualTo($object)
+	public function is_equal_to($object)
 	{
 		return
 			$object instanceof self &&
-	        $this->getTitle()->isEqualTo($object->getTitle()) &&
-	        $this->getType()->isEqualTo($object->getType()) &&
-	        $this->getValue()->isEqualTo($object->getValue()) &&
-            ($this->hasUnit() && $this->getUnit()->isEqualTo($object->getUnit()) || !$object->hasUnit());
+	        $this->get_title()->is_equal_to($object->get_title()) &&
+	        $this->get_type()->is_equal_to($object->get_type()) &&
+	        $this->get_value()->is_equal_to($object->get_value()) &&
+            ($this->has_unit() && $this->get_unit()->is_equal_to($object->get_unit()) || !$object->has_unit());
 	}
 }

@@ -1,31 +1,31 @@
 <?php
 namespace Affilicious\Product\Domain\Model;
 
-use Affilicious\Common\Domain\Exception\InvalidTypeException;
-use Affilicious\Common\Domain\Model\AbstractEntity;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
+use Affilicious\Common\Domain\Model\Abstract_Entity;
 use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Excerpt;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Detail\Domain\Model\DetailGroup;
-use Affilicious\Product\Domain\Exception\DuplicatedDetailGroupException;
-use Affilicious\Product\Domain\Exception\DuplicatedShopException;
+use Affilicious\Detail\Domain\Model\Detail_Group;
+use Affilicious\Product\Domain\Exception\Duplicated_Detail_Group_Exception;
+use Affilicious\Product\Domain\Exception\Duplicated_Shop_Exception;
 use Affilicious\Product\Domain\Model\Review\Review;
-use Affilicious\Product\Domain\Model\Variant\ProductVariant;
-use Affilicious\Shop\Domain\Model\AffiliateLink;
+use Affilicious\Product\Domain\Model\Variant\Product_Variant;
+use Affilicious\Shop\Domain\Model\Affiliate_Link;
 use Affilicious\Shop\Domain\Model\Shop;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product extends AbstractEntity
+class Product extends Abstract_Entity
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
-     * TODO: Change the post type to 'aff_product' before the beta release
+     * TODO: _change the post type to 'aff_product' before the beta release
      */
     const POST_TYPE = 'product';
 
@@ -36,10 +36,9 @@ class Product extends AbstractEntity
 
     /**
      * The unique ID of the product
-     *
      * Note that you just get the ID in Wordpress, if you store a post.
      *
-     * @var ProductId
+     * @var Product_Id
      */
     protected $id;
 
@@ -102,16 +101,16 @@ class Product extends AbstractEntity
     /**
      * Holds all product variants of the product
      *
-     * @var ProductVariant[]
+     * @var Product_Variant[]
      */
     protected $variants;
 
     /**
      * Holds the detail groups of the product
      *
-     * @var DetailGroup[]
+     * @var Detail_group[]
      */
-    protected $detailGroups;
+    protected $detail_groups;
 
     /**
      * Stores the rating in 0.5 steps from 0 to 5 and the number of votes
@@ -125,21 +124,21 @@ class Product extends AbstractEntity
      *
      * @var int[]
      */
-    protected $relatedProducts;
+    protected $related_products;
 
     /**
      * Stores the IDs of the related accessories
      *
      * @var int[]
      */
-    protected $relatedAccessories;
+    protected $related_accessories;
 
     /**
      * Stores the IDs of the image gallery attachments
      *
      * @var int[]
      */
-    protected $imageGallery;
+    protected $image_gallery;
 
     /**
      * @since 0.6
@@ -156,10 +155,10 @@ class Product extends AbstractEntity
         $this->type = $type;
         $this->shops = array();
         $this->variants = array();
-        $this->detailGroups = array();
-        $this->relatedProducts = array();
-        $this->relatedAccessories = array();
-        $this->imageGallery = array();
+        $this->detail_groups = array();
+        $this->related_products = array();
+        $this->related_accessories = array();
+        $this->image_gallery = array();
     }
 
     /**
@@ -168,7 +167,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return bool
      */
-    public function hasId()
+    public function has_id()
     {
         return $this->id !== null;
     }
@@ -177,9 +176,9 @@ class Product extends AbstractEntity
      * Get the optional product ID
      *
      * @since 0.6
-     * @return null|ProductId
+     * @return null|Product_Id
      */
-    public function getId()
+    public function get_id()
     {
         return $this->id;
     }
@@ -191,12 +190,12 @@ class Product extends AbstractEntity
      * Normally, you place the ID to the constructor, but it's not possible here
      *
      * @since 0.6
-     * @param null|ProductId $id
+     * @param null|Product_Id $id
      */
-    public function setId($id)
+    public function set_id($id)
     {
-        if($id !== null && !($id instanceof ProductId)) {
-            throw new InvalidTypeException($id, 'Affilicious\Product\Domain\Model\ProductId');
+        if($id !== null && !($id instanceof Product_Id)) {
+            throw new Invalid_Type_Exception($id, 'Affilicious\Product\Domain\Model\Product_Id');
         }
 
         $this->id = $id;
@@ -208,7 +207,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Type
      */
-    public function getType()
+    public function get_type()
     {
         return $this->type;
     }
@@ -219,7 +218,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Type $type
      */
-    public function setType(Type $type)
+    public function set_type(Type $type)
     {
         $this->type = $type;
     }
@@ -230,7 +229,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Title
      */
-    public function getTitle()
+    public function get_title()
     {
         return $this->title;
     }
@@ -241,7 +240,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Title $title
      */
-    public function setTitle(Title $title)
+    public function set_title(Title $title)
     {
         $this->title = $title;
     }
@@ -252,7 +251,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Name
      */
-    public function getName()
+    public function get_name()
     {
         return $this->name;
     }
@@ -263,7 +262,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Name $name
      */
-    public function setName(Name $name)
+    public function set_name(Name $name)
     {
         $this->name = $name;
     }
@@ -274,7 +273,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Key
      */
-    public function getKey()
+    public function get_key()
     {
         return $this->key;
     }
@@ -285,7 +284,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Key $key
      */
-    public function setKey(Key $key)
+    public function set_key(Key $key)
     {
         $this->key = $key;
     }
@@ -296,7 +295,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return bool
      */
-    public function hasContent()
+    public function has_content()
     {
         return $this->content !== null;
     }
@@ -307,7 +306,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return null|Content
      */
-    public function getContent()
+    public function get_content()
     {
         return $this->content;
     }
@@ -318,10 +317,10 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param null|Content $content
      */
-    public function setContent($content)
+    public function set_content($content)
     {
         if($content !== null && !($content instanceof Content)) {
-            throw new InvalidTypeException($content, 'Affilicious\Common\Domain\Model\Content');
+            throw new Invalid_Type_Exception($content, 'Affilicious\Common\Domain\Model\Content');
         }
 
         $this->content = $content;
@@ -333,7 +332,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return bool
      */
-    public function hasExcerpt()
+    public function has_excerpt()
     {
         return $this->excerpt !== null;
     }
@@ -344,7 +343,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return null|Excerpt
      */
-    public function getExcerpt()
+    public function get_excerpt()
     {
         return $this->excerpt;
     }
@@ -355,10 +354,10 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Excerpt $excerpt
      */
-    public function setExcerpt($excerpt)
+    public function set_excerpt($excerpt)
     {
         if(!($excerpt instanceof Excerpt)) {
-            throw new InvalidTypeException($excerpt, 'Affilicious\Common\Domain\Model\Excerpt');
+            throw new Invalid_Type_Exception($excerpt, 'Affilicious\Common\Domain\Model\Excerpt');
         }
 
         $this->excerpt = $excerpt;
@@ -370,7 +369,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return bool
      */
-    public function hasThumbnail()
+    public function has_thumbnail()
     {
         return $this->thumbnail !== null;
     }
@@ -381,7 +380,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Image
      */
-    public function getThumbnail()
+    public function get_thumbnail()
     {
         return $this->thumbnail;
     }
@@ -392,7 +391,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Image $thumbnail
      */
-    public function setThumbnail(Image $thumbnail)
+    public function set_thumbnail(Image $thumbnail)
     {
         $this->thumbnail = $thumbnail;
     }
@@ -401,12 +400,12 @@ class Product extends AbstractEntity
      * Check if the product has a specific shop by the affiliate link
      *
      * @since 0.6
-     * @param AffiliateLink $affiliateLink
+     * @param Affiliate_Link $affiliate_link
      * @return bool
      */
-    public function hasShop(AffiliateLink $affiliateLink)
+    public function has_shop(Affiliate_Link $affiliate_link)
     {
-        return isset($this->shops[$affiliateLink->getValue()]);
+        return isset($this->shops[$affiliate_link->get_value()]);
     }
 
     /**
@@ -414,42 +413,42 @@ class Product extends AbstractEntity
      *
      * @since 0.6
      * @param Shop $shop
-     * @throws DuplicatedShopException
+     * @throws Duplicated_Shop_Exception
      */
-    public function addShop(Shop $shop)
+    public function add_shop(Shop $shop)
     {
-        /*if($this->hasShop($shop->getName())) {
-            throw new DuplicatedShopException($shop, $this);
+        /*if($this->has_shop($shop->get_name())) {
+            throw new Duplicated_Shop_Exception($shop, $this);
         }*/
 
-        $this->shops[$shop->getAffiliateLink()->getValue()] = $shop;
+        $this->shops[$shop->get_affiliate_link()->get_value()] = $shop;
     }
 
     /**
      * Remove a shop by the affiliate link
      *
      * @since 0.6
-     * @param AffiliateLink $affiliateLink
+     * @param Affiliate_Link $affiliate_link
      */
-    public function removeShop(AffiliateLink $affiliateLink)
+    public function remove_shop(Affiliate_Link $affiliate_link)
     {
-        unset($this->shops[$affiliateLink->getValue()]);
+        unset($this->shops[$affiliate_link->get_value()]);
     }
 
     /**
      * Get a shop by the name
      *
      * @since 0.6
-     * @param AffiliateLink $affiliateLink
+     * @param Affiliate_Link $affiliate_link
      * @return null|Shop
      */
-    public function getShop(AffiliateLink $affiliateLink)
+    public function get_shop(Affiliate_Link $affiliate_link)
     {
-        if(!$this->hasShop($affiliateLink)) {
+        if(!$this->has_shop($affiliate_link)) {
             return null;
         }
 
-        $shop = $this->shops[$affiliateLink->getValue()];
+        $shop = $this->shops[$affiliate_link->get_value()];
 
         return $shop;
     }
@@ -460,18 +459,18 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return null|Shop
      */
-    public function getCheapestShop()
+    public function get_cheapest_shop()
     {
-        /** @var Shop $cheapestShop */
-        $cheapestShop = null;
+        /** @var Shop $cheapest_shop */
+        $cheapest_shop = null;
         foreach ($this->shops as $shop) {
-            if ($cheapestShop === null ||
-                ($cheapestShop->hasPrice() && $cheapestShop->getPrice()->isGreaterThan($shop->hasPrice()))) {
-                $cheapestShop = $shop;
+            if ($cheapest_shop === null ||
+                ($cheapest_shop->has_price() && $cheapest_shop->get_price()->is_greater_than($shop->has_price()))) {
+                $cheapest_shop = $shop;
             }
         }
 
-        return $cheapestShop;
+        return $cheapest_shop;
     }
 
     /**
@@ -480,7 +479,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Shop[]
      */
-    public function getShops()
+    public function get_shops()
     {
         $shops = array_values($this->shops);
 
@@ -493,15 +492,15 @@ class Product extends AbstractEntity
      *
      * @since 0.6
      * @param Shop[] $shops
-     * @throws InvalidTypeException
+     * @throws Invalid_Type_Exception
      */
-    public function setShops($shops)
+    public function set_shops($shops)
     {
         $this->shops = array();
 
-        // addShop checks for the type
+        // add_shop checks for the type
         foreach ($shops as $shop) {
-            $this->addShop($shop);
+            $this->add_shop($shop);
         }
     }
 
@@ -512,24 +511,24 @@ class Product extends AbstractEntity
      * @param Name $name
      * @return bool
      */
-    public function hasVariant(Name $name)
+    public function has_variant(Name $name)
     {
-        return isset($this->variants[$name->getValue()]);
+        return isset($this->variants[$name->get_value()]);
     }
 
     /**
      * Add a new product variant
      *
      * @since 0.6
-     * @param ProductVariant $variant
+     * @param Product_Variant $variant
      */
-    public function addVariant(ProductVariant $variant)
+    public function add_variant(Product_Variant $variant)
     {
-        /*if($this->hasVariant($variant->getName())) {
-            throw new DuplicatedVariantException($variant, $this);
+        /*if($this->has_variant($variant->get_name())) {
+            throw new Duplicated_Variant_Exception($variant, $this);
         }*/
 
-        $this->variants[$variant->getName()->getValue()] = $variant;
+        $this->variants[$variant->get_name()->get_value()] = $variant;
     }
 
     /**
@@ -538,9 +537,9 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Name $name
      */
-    public function removeVariant(Name $name)
+    public function remove_variant(Name $name)
     {
-        unset($this->variants[$name->getValue()]);
+        unset($this->variants[$name->get_value()]);
     }
 
     /**
@@ -548,15 +547,15 @@ class Product extends AbstractEntity
      *
      * @since 0.6
      * @param Name $name
-     * @return null|ProductVariant
+     * @return null|Product_Variant
      */
-    public function getVariant(Name $name)
+    public function get_variant(Name $name)
     {
-        if(!$this->hasVariant($name)) {
+        if(!$this->has_variant($name)) {
             return null;
         }
 
-        $variant = $this->variants[$name->getValue()];
+        $variant = $this->variants[$name->get_value()];
 
         return $variant;
     }
@@ -565,12 +564,12 @@ class Product extends AbstractEntity
      * Get the default variant
      *
      * @since 0.6
-     * @return ProductVariant|mixed|null
+     * @return Product_Variant|mixed|null
      */
-    public function getDefaultVariant()
+    public function get_default_variant()
     {
         foreach ($this->variants as $variant) {
-            if($variant->isDefault()) {
+            if($variant->is_default()) {
                 return $variant;
             }
         }
@@ -582,9 +581,9 @@ class Product extends AbstractEntity
      * Get all product variants
      *
      * @since 0.6
-     * @return ProductVariant[]
+     * @return Product_Variant[]
      */
-    public function getVariants()
+    public function get_variants()
     {
         $variants = array_values($this->variants);
 
@@ -596,16 +595,16 @@ class Product extends AbstractEntity
      * If you do this, the old product variants going to be replaced.
      *
      * @since 0.6
-     * @param ProductVariant[] $variants
-     * @throws InvalidTypeException
+     * @param Product_Variant[] $variants
+     * @throws Invalid_Type_Exception
      */
-    public function setVariants($variants)
+    public function set_variants($variants)
     {
         $this->variants = array();
 
-        // addVariant checks for the type
+        // add_variant checks for the type
         foreach ($variants as $variant) {
-            $this->addVariant($variant);
+            $this->add_variant($variant);
         }
     }
 
@@ -616,25 +615,25 @@ class Product extends AbstractEntity
      * @param Name $name
      * @return bool
      */
-    public function hasDetailGroup(Name $name)
+    public function has_detail_group(Name $name)
     {
-        return isset($this->detailGroups[$name->getValue()]);
+        return isset($this->detail_groups[$name->get_value()]);
     }
 
     /**
      * Add a new detail group
      *
      * @since 0.6
-     * @param DetailGroup $detailGroup
-     * @throws DuplicatedDetailGroupException
+     * @param Detail_Group $detail_group
+     * @throws Duplicated_Detail_Group_Exception
      */
-    public function addDetailGroup(DetailGroup $detailGroup)
+    public function add_detail_group(Detail_Group $detail_group)
     {
-        /*if($this->hasDetailGroup($detailGroup->getName())) {
-            throw new DuplicatedDetailGroupException($detailGroup, $this);
+        /*if($this->has_detail_group($detail_group->get_name())) {
+            throw new Duplicated_Detail_Group_Exception($detail_group, $this);
         }*/
 
-        $this->detailGroups[$detailGroup->getName()->getValue()] = $detailGroup;
+        $this->detail_groups[$detail_group->get_name()->get_value()] = $detail_group;
     }
 
     /**
@@ -643,9 +642,9 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param Name $name
      */
-    public function removeDetailGroup(Name $name)
+    public function remove_detail_group(Name $name)
     {
-        unset($this->detailGroups[$name->getValue()]);
+        unset($this->detail_groups[$name->get_value()]);
     }
 
     /**
@@ -653,30 +652,30 @@ class Product extends AbstractEntity
      *
      * @since 0.6
      * @param Name $name
-     * @return null|DetailGroup
+     * @return null|Detail_group
      */
-    public function getDetailGroup(Name $name)
+    public function get_detail_group(Name $name)
     {
-        if(!$this->hasDetailGroup($name)) {
+        if(!$this->has_detail_group($name)) {
             return null;
         }
 
-        $detailGroup = $this->detailGroups[$name->getValue()];
+        $detail_group = $this->detail_groups[$name->get_value()];
 
-        return $detailGroup;
+        return $detail_group;
     }
 
     /**
      * Get all detail groups
      *
      * @since 0.6
-     * @return DetailGroup[]
+     * @return Detail_Group[]
      */
-    public function getDetailGroups()
+    public function get_detail_groups()
     {
-        $detailGroups = array_values($this->detailGroups);
+        $detail_groups = array_values($this->detail_groups);
 
-        return $detailGroups;
+        return $detail_groups;
     }
 
     /**
@@ -684,16 +683,16 @@ class Product extends AbstractEntity
      * If you do this, the old detail groups going to be replaced.
      *
      * @since 0.6
-     * @param DetailGroup[] $detailGroups
-     * @throws InvalidTypeException
+     * @param Detail_group[] $detail_groups
+     * @throws Invalid_Type_Exception
      */
-    public function setDetailGroups($detailGroups)
+    public function set_detail_groups($detail_groups)
     {
-        $this->detailGroups = array();
+        $this->detail_groups = array();
 
-        // addDetailGroup checks for the type
-        foreach ($detailGroups as $detail) {
-            $this->addDetailGroup($detail);
+        // add_detail_group checks for the type
+        foreach ($detail_groups as $detail) {
+            $this->add_detail_group($detail);
         }
     }
 
@@ -703,7 +702,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return bool
      */
-    public function hasReview()
+    public function has_review()
     {
         return $this->review !== null;
     }
@@ -714,7 +713,7 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return null|Review
      */
-    public function getReview()
+    public function get_review()
     {
         return $this->review;
     }
@@ -725,10 +724,10 @@ class Product extends AbstractEntity
      * @since 0.6
      * @param null|Review $review
      */
-    public function setReview($review)
+    public function set_review($review)
     {
         if($review !== null && !($review instanceof Review)) {
-            throw new InvalidTypeException($review, 'Affilicious\Product\Domain\Model\Review\Review');
+            throw new Invalid_Type_Exception($review, 'Affilicious\Product\Domain\Model\Review\Review');
         }
 
         $this->review = $review;
@@ -738,11 +737,11 @@ class Product extends AbstractEntity
      * Get the IDs of all related products
      *
      * @since 0.6
-     * @return ProductId[]
+     * @return Product_Id[]
      */
-    public function getRelatedProducts()
+    public function get_related_products()
     {
-        return $this->relatedProducts;
+        return $this->related_products;
     }
 
     /**
@@ -750,29 +749,29 @@ class Product extends AbstractEntity
      * If you do this, the old IDs going to be replaced.
      *
      * @since 0.6
-     * @param ProductId[] $relatedProducts
-     * @throws InvalidTypeException
+     * @param Product_Id[] $related_products
+     * @throws Invalid_Type_Exception
      */
-    public function setRelatedProducts($relatedProducts)
+    public function set_related_products($related_products)
     {
-        foreach ($relatedProducts as $relatedProduct) {
-            if (!($relatedProduct instanceof ProductId)) {
-                throw new InvalidTypeException($relatedProduct, get_class(new ProductId(0)));
+        foreach ($related_products as $related_product) {
+            if (!($related_product instanceof Product_Id)) {
+                throw new Invalid_Type_Exception($related_product, get_class(new Product_Id(0)));
             }
         }
 
-        $this->relatedProducts = $relatedProducts;
+        $this->related_products = $related_products;
     }
 
     /**
      * Get the IDs of all related accessories
      *
      * @since 0.6
-     * @return ProductId[]
+     * @return Product_Id[]
      */
-    public function getRelatedAccessories()
+    public function get_related_accessories()
     {
-        return $this->relatedAccessories;
+        return $this->related_accessories;
     }
 
     /**
@@ -780,18 +779,18 @@ class Product extends AbstractEntity
      * If you do this, the old IDs going to be replaced.
      *
      * @since 0.6
-     * @param ProductId[] $relatedAccessories
-     * @throws InvalidTypeException
+     * @param Product_Id[] $related_accessories
+     * @throws Invalid_Type_Exception
      */
-    public function setRelatedAccessories($relatedAccessories)
+    public function set_related_accessories($related_accessories)
     {
-        foreach ($relatedAccessories as $relatedAccessory) {
-            if (!($relatedAccessory instanceof ProductId)) {
-                throw new InvalidTypeException($relatedAccessory, 'Affilicious\Product\Domain\Model\ProductId');
+        foreach ($related_accessories as $related_accessory) {
+            if (!($related_accessory instanceof Product_Id)) {
+                throw new Invalid_Type_Exception($related_accessory, 'Affilicious\Product\Domain\Model\Product_Id');
             }
         }
 
-        $this->relatedAccessories = $relatedAccessories;
+        $this->related_accessories = $related_accessories;
     }
 
     /**
@@ -800,9 +799,9 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return Image[]
      */
-    public function getImageGallery()
+    public function get_image_gallery()
     {
-        return $this->imageGallery;
+        return $this->image_gallery;
     }
 
     /**
@@ -810,18 +809,18 @@ class Product extends AbstractEntity
      * If you do this, the old images going to be replaced.
      *
      * @since 0.6
-     * @param Image[] $imageGallery
-     * @throws InvalidTypeException
+     * @param Image[] $image_gallery
+     * @throws Invalid_Type_Exception
      */
-    public function setImageGallery($imageGallery)
+    public function set_image_gallery($image_gallery)
     {
-        foreach ($imageGallery as $image) {
+        foreach ($image_gallery as $image) {
             if (!($image instanceof Image)) {
-                throw new InvalidTypeException($image, 'Affilicious\Common\Domain\Model\Image\Image');
+                throw new Invalid_Type_Exception($image, 'Affilicious\Common\Domain\Model\Image\Image');
             }
         }
 
-        $this->imageGallery = $imageGallery;
+        $this->image_gallery = $image_gallery;
     }
 
     /**
@@ -830,27 +829,27 @@ class Product extends AbstractEntity
      * @since 0.6
      * @return null|\WP_Post
      */
-    public function getRawPost()
+    public function get_raw_post()
     {
-        if(!$this->hasId()) {
+        if(!$this->has_id()) {
             return null;
         }
 
-        return get_post($this->id->getValue());
+        return get_post($this->id->get_value());
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function isEqualTo($object)
+    public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            ($this->hasId() && $this->getId()->isEqualTo($object->getId()) || !$object->hasId()) &&
-            $this->getTitle()->isEqualTo($object->getTitle()) &&
-            $this->getName()->isEqualTo($object->getName()) &&
-            $this->getKey()->isEqualTo($object->getKey());
+            ($this->has_id() && $this->get_id()->is_equal_to($object->get_id()) || !$object->has_id()) &&
+            $this->get_title()->is_equal_to($object->get_title()) &&
+            $this->get_name()->is_equal_to($object->get_name()) &&
+            $this->get_key()->is_equal_to($object->get_key());
             // TODO: Compare the rest and check the best way to compare two arrays with objects inside
     }
 }

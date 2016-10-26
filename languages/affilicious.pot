@@ -66,15 +66,15 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:24
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:24
 msgid "Attribute Template Group"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:25
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:25
 msgid "Attribute Template Groups"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:31
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:31
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:31
 #: src/Product/Application/Setup/ProductSetup.php:67
 #: src/Shop/Application/Setup/ShopTemplateSetup.php:29
@@ -82,7 +82,7 @@ msgstr ""
 msgid "%s Archives"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:32
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:32
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:32
 #: src/Product/Application/Setup/ProductSetup.php:68
 #: src/Settings/Application/Setting/ProductSettings.php:108
@@ -91,15 +91,15 @@ msgstr ""
 msgid "Parent %s:"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:33
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:75
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:116
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:33
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:75
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:116
 #: src/Product/Application/Setup/ProductSetup.php:215
 #: src/Product/Application/Setup/ProductSetup.php:435
 msgid "Attributes"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:34
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:34
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:34
 #: src/Product/Application/Setup/ProductSetup.php:70
 #: src/Settings/Application/Setting/ProductSettings.php:111
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Add New %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:35
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:35
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:35
 #: src/Product/Application/Setup/ProductSetup.php:71
 #: src/Settings/Application/Setting/ProductSettings.php:112
@@ -117,7 +117,7 @@ msgstr ""
 msgid "New %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:36
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:36
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:36
 #: src/Product/Application/Setup/ProductSetup.php:72
 #: src/Settings/Application/Setting/ProductSettings.php:109
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Edit %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:37
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:37
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:37
 #: src/Product/Application/Setup/ProductSetup.php:73
 #: src/Settings/Application/Setting/ProductSettings.php:110
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Update %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:38
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:38
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:38
 #: src/Product/Application/Setup/ProductSetup.php:74
 #: src/Shop/Application/Setup/ShopTemplateSetup.php:36
@@ -143,7 +143,7 @@ msgstr ""
 msgid "View %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:39
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:39
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:39
 #: src/Product/Application/Setup/ProductSetup.php:75
 #: src/Settings/Application/Setting/ProductSettings.php:105
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Search %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:40
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:40
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:40
 #: src/Product/Application/Setup/ProductSetup.php:76
 #: src/Shop/Application/Setup/ShopTemplateSetup.php:38
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Insert Into %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:41
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:41
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:41
 #: src/Product/Application/Setup/ProductSetup.php:77
 #: src/Shop/Application/Setup/ShopTemplateSetup.php:39
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Uploaded To This %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:43
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:43
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:43
 #: src/Product/Application/Setup/ProductSetup.php:79
 #: src/Shop/Application/Setup/ShopTemplateSetup.php:41
@@ -176,7 +176,7 @@ msgstr ""
 msgid "%s Navigation"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:44
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:44
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:44
 #: src/Product/Application/Setup/ProductSetup.php:80
 #: src/Shop/Application/Setup/ShopTemplateSetup.php:42
@@ -184,38 +184,38 @@ msgstr ""
 msgid "Filter %s"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:72
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:72
 msgid "Attribute Templates"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:77
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:77
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:78
 #: src/Product/Application/Setup/ProductSetup.php:210
 msgid "Title"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:79
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:79
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:80
 #: src/Product/Application/Setup/ProductSetup.php:144
 msgid "Type"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:82
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:82
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:83
 msgid "Text"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:83
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:83
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:84
 msgid "Number"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:85
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:85
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:87
 msgid "Unit"
 msgstr ""
 
-#: src/Attribute/Application/Setup/AttributeTemplateGroupSetup.php:94
+#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:94
 #: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:96
 msgid "Help Text"
 msgstr ""
