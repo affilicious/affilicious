@@ -31,7 +31,7 @@ class Table_Count_Filter
             AND post_parent = 0"
             );
 
-            $views['all'] = preg_replace('/\(.+\)/_u', '(' . $all . ')', $views['all']);
+            $views['all'] = preg_replace('/\(.+\)/U', '(' . $all . ')', $views['all']);
         }
 
         if (isset($views['publish'])) {
@@ -43,7 +43,7 @@ class Table_Count_Filter
             AND post_parent = 0"
             );
 
-            $views['publish'] = preg_replace('/\(.+\)/_u', '(' . $publish . ')', $views['publish']);
+            $views['publish'] = preg_replace('/\(.+\)/U', '(' . $publish . ')', $views['publish']);
         }
 
         if (isset($views['draft'])) {
@@ -55,7 +55,7 @@ class Table_Count_Filter
             AND post_parent = 0"
             );
 
-            $views['draft'] = preg_replace('/\(.+\)/_u', '(' . $draft . ')', $views['draft']);
+            $views['draft'] = preg_replace('/\(.+\)/U', '(' . $draft . ')', $views['draft']);
         }
 
         if (isset($views['pending'])) {
@@ -67,7 +67,7 @@ class Table_Count_Filter
             AND post_parent = 0"
             );
 
-            $views['pending'] = preg_replace('/\(.+\)/_u', '(' . $pending . ')', $views['pending']);
+            $views['pending'] = preg_replace('/\(.+\)/U', '(' . $pending . ')', $views['pending']);
         }
 
         if (isset($views['trash'])) {
@@ -79,7 +79,7 @@ class Table_Count_Filter
             AND post_parent = 0"
             );
 
-            $views['trash'] = preg_replace('/\(.+\)/_u', '(' . $trash . ')', $views['trash']);
+            $views['trash'] = preg_replace('/\(.+\)/U', '(' . $trash . ')', $views['trash']);
         }
 
         return $views;
