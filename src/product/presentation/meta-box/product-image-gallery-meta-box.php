@@ -22,6 +22,7 @@ class Product_Image_Gallery_Meta_Box implements Meta_Box_Interface
 
     /**
      * @inheritdoc
+     * @since 0.6
      */
     public static function render(\WP_Post $post, $args)
     {
@@ -85,6 +86,7 @@ class Product_Image_Gallery_Meta_Box implements Meta_Box_Interface
 
     /**
      * @inheritdoc
+     * @since 0.6
      */
     public static function update($post_id, \WP_Post $post)
     {

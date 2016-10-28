@@ -14,6 +14,7 @@ class Shop_Template_Setup implements Setup_Interface
 {
 	/**
 	 * @inheritdoc
+     * @since 0.6
 	 */
 	public function init()
 	{
@@ -61,6 +62,7 @@ class Shop_Template_Setup implements Setup_Interface
 
 	/**
 	 * @inheritdoc
+     * @since 0.6
 	 */
 	public function render()
 	{
@@ -74,7 +76,7 @@ class Shop_Template_Setup implements Setup_Interface
 	/**
 	 * Add a column header for the logo
 	 *
-	 * @since 0.2
+	 * @since 0.6
 	 * @param array $defaults
 	 * @return array
 	 */
@@ -95,7 +97,7 @@ class Shop_Template_Setup implements Setup_Interface
 	/**
 	 * Add a column for the logo
 	 *
-	 * @since 0.2
+	 * @since 0.6
 	 * @param string $column_name
 	 * @param int $shop_id
 	 */

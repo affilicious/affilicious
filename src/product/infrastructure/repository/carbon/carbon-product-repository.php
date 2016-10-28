@@ -263,7 +263,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     /**
      * Convert the Wordpress post into a product
      *
-     * @since 0.3
+     * @since 0.6
      * @param \WP_Post $post
      * @return Product
      */

@@ -8,7 +8,7 @@ class Affilicious_Settings implements Settings_Interface
 {
 	/**
 	 * @inheritdoc
-	 * @since 0.5
+	 * @since 0.6
 	 */
 	public function render()
 	{
@@ -29,7 +29,7 @@ class Affilicious_Settings implements Settings_Interface
 
 	/**
 	 * @inheritdoc
-	 * @since 0.5
+	 * @since 0.6
 	 */
 	public function apply()
 	{

@@ -10,7 +10,7 @@ class Asset_Setup
     /**
      * Get the path to the style directory
      *
-     * @since 0.3
+     * @since 0.6
      * @return string
      */
     public static function get_styles_dir()
@@ -21,7 +21,7 @@ class Asset_Setup
     /**
      * Get the path to the script directory
      *
-     * @since 0.3
+     * @since 0.6
      * @return string
      */
     public static function get_script_dir()
@@ -32,7 +32,7 @@ class Asset_Setup
     /**
      * Add the public styles for the front end
      *
-     * @since 0.3
+     * @since 0.6
      */
     public function add_public_styles()
     {
@@ -42,7 +42,7 @@ class Asset_Setup
     /**
      * Add the admin styles for the back end
      *
-     * @since 0.3
+     * @since 0.6
      */
     public function add_admin_styles()
     {
@@ -52,7 +52,7 @@ class Asset_Setup
     /**
      * Add the public scripts for the front end
      *
-     * @since 0.3
+     * @since 0.6
      */
     public function add_public_scripts()
     {
@@ -62,11 +62,11 @@ class Asset_Setup
     /**
      * Add the admin scripts for the back end
      *
-     * @since 0.3
+     * @since 0.6
      */
     public function add_admin_scripts()
     {
-        // _localize the script with new data
+        // Localize the script with new data
         $translations = array(
             'container' => __('Affilicious Product', 'affilicious'),
             'variants' => __('Variants', 'affilicious'),

@@ -14,7 +14,7 @@ class Product_Helper
      * Get the product by the ID or Wordpress post.
      * If you pass in nothing as a parameter, the current post will be used.
      *
-     * @since 0.3
+     * @since 0.6
      * @param int|\WP_Post|Product|null $product_or_id
      * @return null|Product
      */

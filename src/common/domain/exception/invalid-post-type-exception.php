@@ -8,7 +8,7 @@ if(!defined('ABSPATH')) {
 class Invalid_Post_Type_Exception extends \RuntimeException
 {
     /**
-     * @since 0.3
+     * @since 0.6
      * @param string $invalid_post_type
      * @param string|array $valid_post_type
      */

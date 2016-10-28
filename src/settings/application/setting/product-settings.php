@@ -12,7 +12,7 @@ class Product_Settings implements Settings_Interface
 
 	/**
 	 * @inheritdoc
-	 * @since 0.5
+	 * @since 0.6
 	 */
 	public function render()
 	{
@@ -59,7 +59,7 @@ class Product_Settings implements Settings_Interface
 
 	/**
 	 * @inheritdoc
-	 * @since 0.5
+	 * @since 0.6
 	 */
 	public function apply()
 	{
@@ -90,7 +90,7 @@ class Product_Settings implements Settings_Interface
 
 	/**
 	 * @param array $taxonomy
-	 * @since 0.5
+	 * @since 0.6
 	 * @return array|null
 	 */
 	private function get_labels($taxonomy)

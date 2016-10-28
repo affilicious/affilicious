@@ -7,6 +7,12 @@ if (!defined('ABSPATH')) {
 
 class Complex_Product_Filter
 {
+    /**
+     * Filter the complex products in the front end. Just show the variants.
+     *
+     * @since 0.6
+     * @param \WP_Query $query
+     */
     function filter(\WP_Query $query)
     {
         if (!is_admin() && $query->is_main_query() && ($query->is_archive() || $query->is_search() || $query->is_home())) {

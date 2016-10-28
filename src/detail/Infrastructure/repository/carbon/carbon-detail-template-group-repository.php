@@ -21,7 +21,7 @@ if(!defined('ABSPATH')) {
 
 class Carbon_Detail_Template_Group_Repository extends Abstract_Carbon_Repository implements Detail_Template_Group_Repository_Interface
 {
-    //TODO: _convert the database structure from name to title
+    //TODO: Convert the database structure from name to title
     const DETAILS = 'affilicious_detail_group_fields';
     const DETAIL_TITLE = 'name';
     const DETAIL_TYPE = 'type';

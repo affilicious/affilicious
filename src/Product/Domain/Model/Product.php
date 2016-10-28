@@ -25,7 +25,7 @@ class Product extends Abstract_Entity
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
-     * TODO: _change the post type to 'aff_product' before the beta release
+     * TODO: Change the post type to 'aff_product' before the beta release
      */
     const POST_TYPE = 'product';
 

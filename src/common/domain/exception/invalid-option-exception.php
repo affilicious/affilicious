@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 class Invalid_Option_Exception extends Domain_Exception
 {
 	/**
-	 * @since 0.3
+	 * @since 0.6
 	 * @param mixed $invalid_option
 	 * @param array[] $valid_options
 	 */

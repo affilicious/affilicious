@@ -204,7 +204,7 @@ class Shop_Template extends Abstract_Entity
     /**
      * Get the raw Wordpress post
      *
-     * @since 0.3
+     * @since 0.6
      * @return null|\WP_Post
      */
     public function get_raw_post()

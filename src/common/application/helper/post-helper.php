@@ -14,7 +14,7 @@ class Post_Helper
      * Get the Wordpress post from the ID, Product, detail template group,
      * attribute template group and shop template
      *
-     * @since 0.3
+     * @since 0.6
      * @param mixed $post_or_id
      * @return \WP_Post
      * @throws Post_Not_Found_Exception

@@ -13,6 +13,7 @@ class In_Memory_Review_Factory implements Review_Factory_Interface
 {
     /**
      * @inheritdoc
+     * @since 0.6
      */
     public function create(Rating $rating)
     {

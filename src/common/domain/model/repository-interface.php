@@ -10,7 +10,7 @@ interface Repository_Interface
     /**
      * Find all entities
      *
-     * @since 0.3
+     * @since 0.6
      * @return array[]
      */
     public function find_all();

@@ -24,6 +24,7 @@ interface Product_Repository_Interface extends Repository_Interface
     /**
      * Store all products
      *
+     * @since 0.6
      * @param $products
      * @return Product[]
      */
@@ -44,6 +45,7 @@ interface Product_Repository_Interface extends Repository_Interface
     /**
      * Delete all products
      *
+     * @since 0.6
      * @param Product[] $products
      * @return Product[]
      * @throws Product_Not_Found_Exception
@@ -66,7 +68,7 @@ interface Product_Repository_Interface extends Repository_Interface
     /**
      * Find a product by the given ID
      *
-     * @since 0.3
+     * @since 0.6
      * @param Product_Id $product_id
      * @return null|Product
      */
@@ -75,7 +77,7 @@ interface Product_Repository_Interface extends Repository_Interface
     /**
      * Find all products
      *
-     * @since 0.3
+     * @since 0.6
      * @return Product[]
      */
     public function find_all();

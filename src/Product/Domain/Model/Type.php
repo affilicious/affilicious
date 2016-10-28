@@ -39,6 +39,7 @@ class Type extends Abstract_Value_Object
 
 	/**
 	 * @inheritdoc
+     * @since 0.6
 	 * @throws Invalid_Value_Exception
 	 */
 	public function __construct($value)
