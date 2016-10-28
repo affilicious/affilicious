@@ -42,7 +42,7 @@ function aff_is_product($product_or_id = null)
 }
 
 /**
- * Get the product by the _wordpress ID or post.
+ * Get the product by the Wordpress ID or post.
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
@@ -785,7 +785,7 @@ function aff_product_is_default_variant($product_or_id = null, $variant_or_id = 
  * @param int|\WP_Post|Product|null $variant_or_id
  * @return null|array
  */
-function aff_product_get_variant_attribute__group($product_or_id = null, $variant_or_id = null)
+function aff_product_get_variant_attribute_group($product_or_id = null, $variant_or_id = null)
 {
     $product = aff_get_product($product_or_id);
     if($product === null) {
@@ -861,9 +861,9 @@ function aff_get_product_attribute_choices($product_or_id = null)
     // Current attribute group
     $current_attribute_group = null;
     if(aff_product_is_variant($product)) {
-        $current_attribute_group = aff_product_get_variant_attribute__group($parent, $product);
+        $current_attribute_group = aff_product_get_variant_attribute_group($parent, $product);
     } elseif(aff_product_is_complex($product)) {
-        $current_attribute_group = aff_product_get_variant_attribute__group($product);
+        $current_attribute_group = aff_product_get_variant_attribute_group($product);
     }
 
     if($current_attribute_group === null) {
@@ -877,7 +877,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
             continue;
         }
 
-        $attribute_group = aff_product_get_variant_attribute__group($product, $variant);
+        $attribute_group = aff_product_get_variant_attribute_group($product, $variant);
         $attributes = $attribute_group['attributes'];
         $current_attributes = $current_attribute_group['attributes'];
 
@@ -887,7 +887,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
                     'title' => $attribute['title'],
                     'name' => $attribute['name'],
                     'key' => $attribute['key'],
-                    'choices' => array(),
+                    'attributes' => array(),
                 );
             }
 
@@ -897,7 +897,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
 
             $display = 'unreachable';
             if($attribute['value'] == $current_attributes[$index]['value']) {
-                $display = 'current';
+                $display = 'selected';
             }
 
             if ($display == 'unreachable' && (
@@ -906,15 +906,15 @@ function aff_get_product_attribute_choices($product_or_id = null)
                 $display = 'reachable';
             }
 
-            if( !isset($choices[$attribute['name']]['choices'][$attribute['value']]) ||
-                ($display == 'current' && $choices[$attribute['name']]['choices'][$attribute['value']]['display'] != 'current') ||
-               ($display == 'reachable' && $choices[$attribute['name']]['choices'][$attribute['value']]['display'] == 'unreachable')) {
+            if( !isset($choices[$attribute['name']]['attributes'][$attribute['value']]) ||
+                ($display == 'selected' && $choices[$attribute['name']]['attributes'][$attribute['value']]['display'] != 'selected') ||
+               ($display == 'reachable' && $choices[$attribute['name']]['attributes'][$attribute['value']]['display'] == 'unreachable')) {
 
-                $choices[$attribute['name']]['choices'][$attribute['value']] = array(
+                $choices[$attribute['name']]['attributes'][$attribute['value']] = array(
                     'value' => $attribute['value'],
                     'unit' => $attribute['unit'],
                     'display' => $display,
-                    'permalink' => $display == 'current' ? '#' : get_permalink($variant->get_raw_post()),
+                    'permalink' => $display == 'selected' ? null : get_permalink($variant->get_raw_post()),
                 );
             }
         }
@@ -923,7 +923,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
     // Remove the keys
     $choices = array_values($choices);
     foreach ($choices as $index => $choice) {
-        $choices[$index]['choices'] = array_values($choices[$index]['choices']);
+        $choices[$index]['attributes'] = array_values($choices[$index]['attributes']);
     }
 
     return $choices;
@@ -942,31 +942,40 @@ function aff_the_product_attribute_choices($product_or_id = null)
         return;
     }
 
-    foreach ($attribute_choices as $name => $attribute_choice) {
-        echo '<div class="aff-product-attribute-choices">';
-        echo '<h5>' . $attribute_choice['title'] . '</h5>';
-        echo '<ul class="aff-product-attribute-choice-list" data-attribute-name="' . $name . '">';
+    echo '<div class="aff-product-attributes-container">';
+    echo '<ul class="aff-product-attributes-choices-list">';
 
-        foreach ($attribute_choice['choices'] as $choice) {
-            echo '<li class="aff-product-attribute-choices-item ' . $choice['display'] . '">';
-            echo '<a href="' . $choice['permalink'] .'">' . $choice['value'] . ' ' . $choice['unit'] . '</a>';
+    foreach ($attribute_choices as $name => $attribute_choice) {
+        echo '<li class="aff-product-attributes-choices">';
+        echo '<span class="aff-product-attributes-choices-title">' . $attribute_choice['title'] . '</span>';
+        echo '<ul class="aff-product-attributes-choice-list">';
+
+        foreach ($attribute_choice['attributes'] as $attribute) {
+            echo '<li class="aff-product-attributes-choice ' . $attribute['display'] . '">';
+            if(!empty($attribute['permalink'])): echo '<a href="' . $attribute['permalink'] .'">'; endif;
+            echo $attribute['value'];
+            if(!empty($attribute['unit'])): echo ' <span class="unit">' . $attribute['unit'] . '</span>'; endif;
+            if(!empty($attribute['permalink'])): echo '</a>'; endif;
             echo '</li>';
         }
 
         echo '</ul>';
-        echo '</div>';
+        echo '</li>';
     }
+
+    echo "</ul>";
+    echo "</div>";
 }
 
 /**
- * Get the shop template by the ID or _wordpress post.
+ * Get the shop template by the ID or Wordpress post.
  * If you pass in nothing as a shop template, the current post will be used.
  *
  * @since 0.6
  * @param int|array|\WP_Post|Shop_Template|null $shop_or_id
  * @return Shop_Template
  */
-function aff_getShop_Template($shop_or_id = null)
+function aff_get_shop_template($shop_or_id = null)
 {
     $shop = Shop_Template_Helper::get_shop_template($shop_or_id);
 
@@ -974,7 +983,7 @@ function aff_getShop_Template($shop_or_id = null)
 }
 
 /**
- * Get the detail template group by the ID or _wordpress post.
+ * Get the detail template group by the ID or Wordpress post.
  * If you pass in nothing as a detail template group template, the current post will be used.
  *
  * @since 0.6
@@ -989,16 +998,16 @@ function aff_get_detail_template_group($detail_template_group_or_id = null)
 }
 
 /**
- * Get the attribute template group by the ID or _wordpress post.
+ * Get the attribute template group by the ID or Wordpress post.
  * If you pass in nothing as a attribute template group template, the current post will be used.
  *
  * @since 0.6
  * @param int|array|\WP_Post|Attribute_Template_Group|null $attribute_template_group_or_id
  * @return Attribute_Template_Group
  */
-function aff_getAttribute_Template_Group($attribute_template_group_or_id = null)
+function aff_get_attribute_template_group($attribute_template_group_or_id = null)
 {
-    $attribute_template_group = Attribute_Template_Group_Helper::getAttribute_Template_Group($attribute_template_group_or_id);
+    $attribute_template_group = Attribute_Template_Group_Helper::get_attribute_template_group($attribute_template_group_or_id);
 
     return $attribute_template_group;
 }

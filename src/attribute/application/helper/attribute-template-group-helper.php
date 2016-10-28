@@ -19,7 +19,7 @@ class Attribute_Template_Group_Helper
      * @return Attribute_Template_Group
      * @throws Post_Not_Found_Exception
      */
-    public static function getAttribute_Template_Group($post_or_id = null)
+    public static function get_attribute_template_group($post_or_id = null)
     {
         $container = \Affilicious_Plugin::get_instance()->get_container();
         $attribute_template_group_repository = $container['affilicious.attribute.infrastructure.repository.attribute_template_group'];
