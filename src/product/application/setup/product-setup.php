@@ -504,7 +504,7 @@ class Product_Setup implements Setup_Interface
                 );
 
                 if ($detail->has_help_text()) {
-                    $field->help_text($detail->get_help_text());
+                    $field->help_text($detail->get_help_text()->get_value());
                 }
 
                 $fields[] = $field;
