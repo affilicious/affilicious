@@ -34,6 +34,11 @@ class Product_Setup implements Setup_Interface
     protected $attribute_template_group_repository;
 
     /**
+     * @var int
+     */
+    protected $post_id;
+
+    /**
      * @since 0.6
      * @param Detail_Template_Group_Repository_Interface $detail_template_group_repository
      * @param Attribute_Template_Group_Repository_Interface $attribute_template_group_repository
@@ -48,6 +53,7 @@ class Product_Setup implements Setup_Interface
         $this->shop_template_repository = $shop_template_repository;
         $this->attribute_template_group_repository = $attribute_template_group_repository;
         $this->detail_template_group_repository = $detail_template_group_repository;
+        $this->post_id = isset($_GET['post']) ? $_GET['post'] : null;
     }
 
     /**
@@ -128,7 +134,7 @@ class Product_Setup implements Setup_Interface
             ->add_tab(__('Review', 'affilicious'), $this->get_review_fields())
             ->add_tab(__('Relations', 'affilicious'), $this->get_relations_fields());
 
-        apply_filters('affilicious_product_render_affilicious_container', $carbon_container);
+        apply_filters('affilicious_product_render_affilicious_product_container', $this->post_id, $carbon_container);
         do_action('affilicious_product_after_render');
     }
 
@@ -148,7 +154,7 @@ class Product_Setup implements Setup_Interface
                 ))
         );
 
-        return $fields;
+        return apply_filters('affilicious_product_render_affilicious_product_container_general_fields', $fields, $this->post_id);
     }
 
     /**
@@ -170,7 +176,7 @@ class Product_Setup implements Setup_Interface
             ),
         );
 
-        return $fields;
+        return apply_filters('affilicious_product_render_affilicious_product_container_variants_fields', $fields, $this->post_id);
     }
 
     /**
@@ -254,7 +260,7 @@ class Product_Setup implements Setup_Interface
             ),
         );
 
-        return $fields;
+        return apply_filters('affilicious_product_render_affilicious_product_container_shops_fields', $fields, $this->post_id);
     }
 
     /**
@@ -272,7 +278,7 @@ class Product_Setup implements Setup_Interface
             )
         );
 
-        return $fields;
+        return apply_filters('affilicious_product_render_affilicious_product_container_details_fields', $fields, $this->post_id);
     }
 
     /**
@@ -311,7 +317,7 @@ class Product_Setup implements Setup_Interface
                 )),
         );
 
-        return $fields;
+        return apply_filters('affilicious_product_render_affilicious_product_container_review_fields', $fields, $this->post_id);
     }
 
     /**
@@ -331,7 +337,7 @@ class Product_Setup implements Setup_Interface
                 ->set_post_type(Product::POST_TYPE),
         );
 
-        return $fields;
+        return apply_filters('affilicious_product_render_affilicious_product_container_relations_fields', $fields, $this->post_id);
     }
 
     /**
