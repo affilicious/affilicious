@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-10-18 15:52+0200\n"
+"POT-Creation-Date: 2016-10-28 17:35+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -50,167 +50,179 @@ msgstr "Du hast nicht die Berechtigung um Plugin-Updates zu installieren."
 msgid "Error"
 msgstr "Fehler"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:24
+#: src/attribute/application/setup/attribute-template-group-setup.php:24
 msgid "Attribute Template Group"
 msgstr "Attribut-Vorlagengruppe"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:25
+#: src/attribute/application/setup/attribute-template-group-setup.php:25
 msgid "Attribute Template Groups"
 msgstr "Attribut-Vorlagengruppen"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:31
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:31
-#: src/Product/Application/Setup/ProductSetup.php:67
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:29
+#: src/attribute/application/setup/attribute-template-group-setup.php:31
+#: src/detail/application/setup/detail-template-group-setup.php:31
+#: src/product/application/setup/product-setup.php:73
+#: src/shop/application/setup/shop-template-setup.php:30
 #, php-format
 msgid "%s Archives"
 msgstr "%s Archive"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:32
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:32
-#: src/Product/Application/Setup/ProductSetup.php:68
-#: src/Settings/Application/Setting/ProductSettings.php:108
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:30
+#: src/attribute/application/setup/attribute-template-group-setup.php:32
+#: src/detail/application/setup/detail-template-group-setup.php:32
+#: src/product/application/setup/product-setup.php:74
+#: src/settings/application/setting/product-settings.php:102
+#: src/shop/application/setup/shop-template-setup.php:31
 #, php-format
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:33
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:75
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:116
-#: src/Product/Application/Setup/ProductSetup.php:215
-#: src/Product/Application/Setup/ProductSetup.php:435
+#: src/attribute/application/setup/attribute-template-group-setup.php:33
+#: src/attribute/application/setup/attribute-template-group-setup.php:74
+#: src/attribute/application/setup/attribute-template-group-setup.php:116
+#: src/product/application/setup/product-setup.php:222
+#: src/product/application/setup/product-setup.php:435
 msgid "Attributes"
 msgstr "Attribute"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:34
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:34
-#: src/Product/Application/Setup/ProductSetup.php:70
-#: src/Settings/Application/Setting/ProductSettings.php:111
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:32
+#: src/attribute/application/setup/attribute-template-group-setup.php:34
+#: src/detail/application/setup/detail-template-group-setup.php:34
+#: src/product/application/setup/product-setup.php:76
+#: src/settings/application/setting/product-settings.php:105
+#: src/shop/application/setup/shop-template-setup.php:33
 #, php-format
 msgid "Add New %s"
 msgstr "Erstelle %s"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:35
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:35
-#: src/Product/Application/Setup/ProductSetup.php:71
-#: src/Settings/Application/Setting/ProductSettings.php:112
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:33
+#: src/attribute/application/setup/attribute-template-group-setup.php:35
+#: src/detail/application/setup/detail-template-group-setup.php:35
+#: src/product/application/setup/product-setup.php:77
+#: src/settings/application/setting/product-settings.php:106
+#: src/shop/application/setup/shop-template-setup.php:34
 #, php-format
 msgid "New %s"
 msgstr "Neue %s"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:36
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:36
-#: src/Product/Application/Setup/ProductSetup.php:72
-#: src/Settings/Application/Setting/ProductSettings.php:109
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:34
+#: src/attribute/application/setup/attribute-template-group-setup.php:36
+#: src/detail/application/setup/detail-template-group-setup.php:36
+#: src/product/application/setup/product-setup.php:78
+#: src/settings/application/setting/product-settings.php:103
+#: src/shop/application/setup/shop-template-setup.php:35
 #, php-format
 msgid "Edit %s"
 msgstr "Bearbeite %s"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:37
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:37
-#: src/Product/Application/Setup/ProductSetup.php:73
-#: src/Settings/Application/Setting/ProductSettings.php:110
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:35
+#: src/attribute/application/setup/attribute-template-group-setup.php:37
+#: src/detail/application/setup/detail-template-group-setup.php:37
+#: src/product/application/setup/product-setup.php:79
+#: src/settings/application/setting/product-settings.php:104
+#: src/shop/application/setup/shop-template-setup.php:36
 #, php-format
 msgid "Update %s"
 msgstr "Aktualisiere %s"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:38
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:38
-#: src/Product/Application/Setup/ProductSetup.php:74
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:36
+#: src/attribute/application/setup/attribute-template-group-setup.php:38
+#: src/detail/application/setup/detail-template-group-setup.php:38
+#: src/product/application/setup/product-setup.php:80
+#: src/shop/application/setup/shop-template-setup.php:37
 #, php-format
 msgid "View %s"
 msgstr "%s anzeigen"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:39
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:39
-#: src/Product/Application/Setup/ProductSetup.php:75
-#: src/Settings/Application/Setting/ProductSettings.php:105
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:37
+#: src/attribute/application/setup/attribute-template-group-setup.php:39
+#: src/detail/application/setup/detail-template-group-setup.php:39
+#: src/product/application/setup/product-setup.php:81
+#: src/settings/application/setting/product-settings.php:99
+#: src/shop/application/setup/shop-template-setup.php:38
 #, php-format
 msgid "Search %s"
 msgstr "Suche %s"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:40
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:40
-#: src/Product/Application/Setup/ProductSetup.php:76
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:38
+#: src/attribute/application/setup/attribute-template-group-setup.php:40
+#: src/detail/application/setup/detail-template-group-setup.php:40
+#: src/product/application/setup/product-setup.php:82
+#: src/shop/application/setup/shop-template-setup.php:39
 #, php-format
 msgid "Insert Into %s"
 msgstr "In die %s einfügen"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:41
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:41
-#: src/Product/Application/Setup/ProductSetup.php:77
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:39
+#: src/attribute/application/setup/attribute-template-group-setup.php:41
+#: src/detail/application/setup/detail-template-group-setup.php:41
+#: src/product/application/setup/product-setup.php:83
+#: src/shop/application/setup/shop-template-setup.php:40
 #, php-format
-msgid "Uploaded To This %s"
-msgstr "Zu %s hochladen"
+msgid "Uploaded to this %s"
+msgstr "Hochgeladen zu %s"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:43
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:43
-#: src/Product/Application/Setup/ProductSetup.php:79
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:41
+#: src/attribute/application/setup/attribute-template-group-setup.php:43
+#: src/detail/application/setup/detail-template-group-setup.php:43
+#: src/product/application/setup/product-setup.php:85
+#: src/shop/application/setup/shop-template-setup.php:42
 #, php-format
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:44
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:44
-#: src/Product/Application/Setup/ProductSetup.php:80
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:42
+#: src/attribute/application/setup/attribute-template-group-setup.php:44
+#: src/detail/application/setup/detail-template-group-setup.php:44
+#: src/product/application/setup/product-setup.php:86
+#: src/shop/application/setup/shop-template-setup.php:43
 #, php-format
 msgid "Filter %s"
 msgstr "%s filtern"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:72
+#: src/attribute/application/setup/attribute-template-group-setup.php:71
 msgid "Attribute Templates"
 msgstr "Attribut-Vorlagen"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:77
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:78
-#: src/Product/Application/Setup/ProductSetup.php:210
+#: src/attribute/application/setup/attribute-template-group-setup.php:77
+#: src/detail/application/setup/detail-template-group-setup.php:77
+#: src/product/application/setup/product-setup.php:215
 msgid "Title"
 msgstr "Titel"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:79
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:80
-#: src/Product/Application/Setup/ProductSetup.php:144
+#: src/attribute/application/setup/attribute-template-group-setup.php:79
+#: src/detail/application/setup/detail-template-group-setup.php:79
+#: src/product/application/setup/product-setup.php:150
 msgid "Type"
 msgstr "Typ"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:82
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:83
+#: src/attribute/application/setup/attribute-template-group-setup.php:82
+#: src/detail/application/setup/detail-template-group-setup.php:82
 msgid "Text"
 msgstr "Text"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:83
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:84
+#: src/attribute/application/setup/attribute-template-group-setup.php:83
+#: src/detail/application/setup/detail-template-group-setup.php:83
 msgid "Number"
 msgstr "Numerisch"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:85
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:87
+#: src/attribute/application/setup/attribute-template-group-setup.php:85
+#: src/detail/application/setup/detail-template-group-setup.php:86
 msgid "Unit"
 msgstr "Einheit"
 
-#: src/Attribute/Application/Setup/Attribute_Template_GroupSetup.php:94
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:96
+#: src/attribute/application/setup/attribute-template-group-setup.php:94
+#: src/detail/application/setup/detail-template-group-setup.php:95
 msgid "Help Text"
 msgstr "Hilfstext"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:20
-#: src/Common/Application/Setup/FeedbackSetup.php:21
-#: src/Common/Application/Setup/FeedbackSetup.php:41
+#: src/common/presentation/setup/asset-setup.php:71
+#: src/product/application/setup/product-setup.php:127
+msgid "Affilicious Product"
+msgstr "Affilicious Produkt"
+
+#: src/common/presentation/setup/asset-setup.php:72
+#: src/product/application/setup/product-setup.php:131
+#: src/product/application/setup/product-setup.php:175
+#: src/product/application/setup/product-setup.php:197
+msgid "Variants"
+msgstr "Varianten"
+
+#: src/common/presentation/setup/feedback-setup.php:22
+#: src/common/presentation/setup/feedback-setup.php:23
+#: src/common/presentation/setup/feedback-setup.php:43
 msgid "Feedback"
 msgstr "Feedback"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:42
+#: src/common/presentation/setup/feedback-setup.php:44
 msgid ""
 "Please fill out the fields below and click on submit. As an alternative, you "
 "can write your feedback to our german <a href=\"https://www.facebook.com/"
@@ -220,314 +232,310 @@ msgstr ""
 "kannst du das Feedback in die deutsche <a href=\"https://www.facebook.com/"
 "groups/1139863846078608/\">Facebook Community</a> schreiben."
 
-#: src/Common/Application/Setup/FeedbackSetup.php:50
-#: src/Common/Application/Setup/FeedbackSetup.php:54
-#: src/Common/Application/Setup/FeedbackSetup.php:121
+#: src/common/presentation/setup/feedback-setup.php:52
+#: src/common/presentation/setup/feedback-setup.php:56
+#: src/common/presentation/setup/feedback-setup.php:122
 msgid "Email"
 msgstr "Email"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:59
-#: src/Common/Application/Setup/FeedbackSetup.php:63
-#: src/Common/Application/Setup/FeedbackSetup.php:122
+#: src/common/presentation/setup/feedback-setup.php:61
+#: src/common/presentation/setup/feedback-setup.php:65
+#: src/common/presentation/setup/feedback-setup.php:123
 msgid "Name"
 msgstr "Name"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:68
-#: src/Common/Application/Setup/FeedbackSetup.php:72
-#: src/Common/Application/Setup/FeedbackSetup.php:123
+#: src/common/presentation/setup/feedback-setup.php:70
+#: src/common/presentation/setup/feedback-setup.php:74
+#: src/common/presentation/setup/feedback-setup.php:124
 msgid "Subject"
 msgstr "Betreff"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:77
-#: src/Common/Application/Setup/FeedbackSetup.php:81
+#: src/common/presentation/setup/feedback-setup.php:79
+#: src/common/presentation/setup/feedback-setup.php:83
 msgid "Message"
 msgstr "Nachricht"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:88
+#: src/common/presentation/setup/feedback-setup.php:90
 msgid "Submit"
 msgstr "Senden"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:126
-#: src/Common/Application/Setup/FeedbackSetup.php:130
+#: src/common/presentation/setup/feedback-setup.php:127
+#: src/common/presentation/setup/feedback-setup.php:131
 msgid "Feedback:"
 msgstr "Feedback:"
 
-#: src/Common/Application/Setup/FeedbackSetup.php:132
+#: src/common/presentation/setup/feedback-setup.php:133
 msgid ""
 "Thanks, your feedback has been sent! We will read every single feedback."
 msgstr ""
 "Danke, dein Feedback wurde gesendet. Wir werden jedes einzelne Feedback "
 "persönlich lesen."
 
-#: src/Common/Application/Setup/FeedbackSetup.php:138
+#: src/common/presentation/setup/feedback-setup.php:138
 msgid "Failed to send the email. Please try it again"
 msgstr "Die Email wurde nicht gesendet. Bitte probiere es nochmal."
 
-#: src/Common/Application/Setup/FeedbackSetup.php:151
+#: src/common/presentation/setup/feedback-setup.php:151
 msgid "Empty fields aren't allowed. Please fill out all fields."
 msgstr "Leere Felder sind nicht erlaubt. Bitte fülle alle Felder aus."
 
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:24
+#: src/detail/application/setup/detail-template-group-setup.php:24
 msgid "Detail Template Group"
 msgstr "Detail-Vorlagengruppe"
 
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:25
+#: src/detail/application/setup/detail-template-group-setup.php:25
 msgid "Detail Template Groups"
 msgstr "Detail-Vorlagengruppen"
 
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:33
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:75
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:118
-#: src/Product/Application/Setup/ProductSetup.php:127
+#: src/detail/application/setup/detail-template-group-setup.php:33
+#: src/detail/application/setup/detail-template-group-setup.php:74
+#: src/detail/application/setup/detail-template-group-setup.php:117
+#: src/product/application/setup/product-setup.php:133
 msgid "Details"
 msgstr "Details"
 
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:72
+#: src/detail/application/setup/detail-template-group-setup.php:71
 msgid "Detail Templates"
 msgstr "Detail-Vorlagen"
 
-#: src/Detail/Application/Setup/DetailTemplateGroupSetup.php:85
+#: src/detail/application/setup/detail-template-group-setup.php:84
 msgid "File"
 msgstr "Datei"
 
-#: src/Product/Application/MetaBox/MetaBoxManager.php:38
-msgid "Image Gallery"
-msgstr "Bildergallerie"
-
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:50
-msgid "Delete"
-msgstr "Löschen"
-
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:73
-msgid "Add Images"
-msgstr "Bilder hinzufügen"
-
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:74
-msgid "Add Image"
-msgstr "Bild hinzufügen"
-
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:75
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:76
-msgid "Delete Image"
-msgstr "Bild löschen"
-
-#: src/Product/Application/MetaBox/ProductImageGalleryMetaBox.php:77
-msgid "Add Images To Image Gallery"
-msgstr "Bilder zur Bildergallerie hinzufügen"
-
-#: src/Product/Application/Setup/ProductSetup.php:60
-#: src/Product/Application/Setup/ProductSetup.php:89
-#: src/Settings/Application/Setting/ProductSettings.php:50
+#: src/product/application/setup/product-setup.php:66
+#: src/product/application/setup/product-setup.php:95
+#: src/settings/application/setting/product-settings.php:45
 msgid "Product"
 msgstr "Produkt"
 
-#: src/Product/Application/Setup/ProductSetup.php:61
-#: src/Product/Application/Setup/ProductSetup.php:69
+#: src/product/application/setup/product-setup.php:67
+#: src/product/application/setup/product-setup.php:75
 msgid "Products"
 msgstr "Produkte"
 
-#: src/Product/Application/Setup/ProductSetup.php:90
+#: src/product/application/setup/product-setup.php:96
 msgid "Product Type Description"
 msgstr "Produkttyp Beschreibung"
 
-#: src/Product/Application/Setup/ProductSetup.php:124
-#: src/Settings/Application/Setting/ProductSettings.php:52
+#: src/product/application/setup/product-setup.php:130
+#: src/settings/application/setting/product-settings.php:47
 msgid "General"
 msgstr "Allgemein"
 
-#: src/Product/Application/Setup/ProductSetup.php:125
-#: src/Product/Application/Setup/ProductSetup.php:147
-#: src/Product/Application/Setup/ProductSetup.php:169
-#: src/Product/Application/Setup/ProductSetup.php:191
-#: src/Settings/Application/Setting/ProductSettings.php:53
-msgid "Variants"
-msgstr "Varianten"
-
-#: src/Product/Application/Setup/ProductSetup.php:126
-#: src/Product/Application/Setup/ProductSetup.php:223
-#: src/Product/Application/Setup/ProductSetup.php:259
-#: src/Product/Application/Setup/ProductSetup.php:359
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:31
+#: src/product/application/setup/product-setup.php:132
+#: src/product/application/setup/product-setup.php:224
+#: src/product/application/setup/product-setup.php:259
+#: src/product/application/setup/product-setup.php:359
+#: src/shop/application/setup/shop-template-setup.php:32
 msgid "Shops"
 msgstr "Shops"
 
-#: src/Product/Application/Setup/ProductSetup.php:128
+#: src/product/application/setup/product-setup.php:134
 msgid "Review"
 msgstr "Rezension"
 
-#: src/Product/Application/Setup/ProductSetup.php:129
+#: src/product/application/setup/product-setup.php:135
 msgid "Relations"
 msgstr "Beziehungen"
 
-#: src/Product/Application/Setup/ProductSetup.php:146
+#: src/product/application/setup/product-setup.php:152
 msgid "Simple"
 msgstr "Einfach"
 
-#: src/Product/Application/Setup/ProductSetup.php:165
+#: src/product/application/setup/product-setup.php:153
+msgid "Complex"
+msgstr "Komplex"
+
+#: src/product/application/setup/product-setup.php:171
 msgid "Attribute Group"
 msgstr "Attributgruppe"
 
-#: src/Product/Application/Setup/ProductSetup.php:192
+#: src/product/application/setup/product-setup.php:198
 msgid "Variant"
 msgstr "Variante"
 
-#: src/Product/Application/Setup/ProductSetup.php:206
+#: src/product/application/setup/product-setup.php:212
 msgid "Attribute Template Group ID"
 msgstr "Attribut-Vorlagengruppe ID"
 
-#: src/Product/Application/Setup/ProductSetup.php:219
+#: src/product/application/setup/product-setup.php:214
+msgid "Variant ID"
+msgstr "Varianten ID"
+
+#: src/product/application/setup/product-setup.php:218
+msgid "Default Variant"
+msgstr "Standartvariante"
+
+#: src/product/application/setup/product-setup.php:220
+msgid "This variant will be shown as default for the parent product."
+msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
+
+#: src/product/application/setup/product-setup.php:223
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/Product/Application/Setup/ProductSetup.php:277
-#: src/Product/Application/Setup/ProductSetup.php:482
+#: src/product/application/setup/product-setup.php:277
+#: src/product/application/setup/product-setup.php:482
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
-#: src/Product/Application/Setup/ProductSetup.php:293
+#: src/product/application/setup/product-setup.php:293
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/Product/Application/Setup/ProductSetup.php:295
-#: src/Product/Application/Setup/ProductSetup.php:400
+#: src/product/application/setup/product-setup.php:295
+#: src/product/application/setup/product-setup.php:400
 msgid "None"
 msgstr "Keine"
 
-#: src/Product/Application/Setup/ProductSetup.php:296
-#: src/Product/Application/Setup/ProductSetup.php:297
-#: src/Product/Application/Setup/ProductSetup.php:299
-#: src/Product/Application/Setup/ProductSetup.php:300
-#: src/Product/Application/Setup/ProductSetup.php:301
-#: src/Product/Application/Setup/ProductSetup.php:302
-#: src/Product/Application/Setup/ProductSetup.php:303
-#: src/Product/Application/Setup/ProductSetup.php:304
-#: src/Product/Application/Setup/ProductSetup.php:305
-#: src/Product/Application/Setup/ProductSetup.php:306
+#: src/product/application/setup/product-setup.php:296
+#: src/product/application/setup/product-setup.php:297
+#: src/product/application/setup/product-setup.php:299
+#: src/product/application/setup/product-setup.php:300
+#: src/product/application/setup/product-setup.php:301
+#: src/product/application/setup/product-setup.php:302
+#: src/product/application/setup/product-setup.php:303
+#: src/product/application/setup/product-setup.php:304
+#: src/product/application/setup/product-setup.php:305
+#: src/product/application/setup/product-setup.php:306
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/Product/Application/Setup/ProductSetup.php:298
+#: src/product/application/setup/product-setup.php:298
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/Product/Application/Setup/ProductSetup.php:308
+#: src/product/application/setup/product-setup.php:308
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/Product/Application/Setup/ProductSetup.php:309
+#: src/product/application/setup/product-setup.php:309
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/Product/Application/Setup/ProductSetup.php:332
+#: src/product/application/setup/product-setup.php:332
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/Product/Application/Setup/ProductSetup.php:335
+#: src/product/application/setup/product-setup.php:335
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/Product/Application/Setup/ProductSetup.php:360
+#: src/product/application/setup/product-setup.php:360
 msgid "Shop"
 msgstr "Shop"
 
-#: src/Product/Application/Setup/ProductSetup.php:365
+#: src/product/application/setup/product-setup.php:365
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/Product/Application/Setup/ProductSetup.php:368
+#: src/product/application/setup/product-setup.php:368
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/Product/Application/Setup/ProductSetup.php:370
+#: src/product/application/setup/product-setup.php:370
 msgid "Affiliate ID"
 msgstr "Affiliate ID"
 
-#: src/Product/Application/Setup/ProductSetup.php:371
+#: src/product/application/setup/product-setup.php:371
 msgid ""
 "Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc."
 msgstr ""
 "Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, usw."
 
-#: src/Product/Application/Setup/ProductSetup.php:372
+#: src/product/application/setup/product-setup.php:372
 msgid "Price"
 msgstr "Preis"
 
-#: src/Product/Application/Setup/ProductSetup.php:373
+#: src/product/application/setup/product-setup.php:373
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/Product/Application/Setup/ProductSetup.php:374
+#: src/product/application/setup/product-setup.php:374
 msgid "Currency"
 msgstr "Währung"
 
-#: src/Product/Application/Setup/ProductSetup.php:377
+#: src/product/application/setup/product-setup.php:377
 msgid "Euro"
 msgstr "Euro"
 
-#: src/Product/Application/Setup/ProductSetup.php:378
+#: src/product/application/setup/product-setup.php:378
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/Product/Application/Setup/ProductSetup.php:436
+#: src/product/application/setup/product-setup.php:436
 msgid "Attribute"
 msgstr "Attribut"
 
-#: src/Product/Application/Setup/ProductSetup.php:441
+#: src/product/application/setup/product-setup.php:441
 msgid "Custom Value"
 msgstr "Eigener Wert"
 
-#: src/Product/Application/Setup/ProductSetup.php:483
+#: src/product/application/setup/product-setup.php:483
 msgid "Detail Group"
-msgstr ""
+msgstr "Detailgruppe"
 
-#: src/Product/Application/Setup/ProductSetup.php:516
+#: src/product/application/setup/product-setup.php:516
 msgid "Detail Template Group ID"
-msgstr ""
+msgstr "Detail-Vorlagengruppe ID"
 
-#: src/Settings/Application/Setting/AffiliciousSettings.php:18
+#: src/product/presentation/meta-box/meta-box-manager.php:40
+msgid "Image Gallery"
+msgstr "Bildergallerie"
+
+#: src/product/presentation/meta-box/product-image-gallery-meta-box.php:54
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/product/presentation/meta-box/product-image-gallery-meta-box.php:77
+msgid "Add Images"
+msgstr "Bilder hinzufügen"
+
+#: src/product/presentation/meta-box/product-image-gallery-meta-box.php:78
+msgid "Add Image"
+msgstr "Bild hinzufügen"
+
+#: src/product/presentation/meta-box/product-image-gallery-meta-box.php:79
+#: src/product/presentation/meta-box/product-image-gallery-meta-box.php:80
+msgid "Delete Image"
+msgstr "Bild löschen"
+
+#: src/product/presentation/meta-box/product-image-gallery-meta-box.php:81
+msgid "Add Images To Image Gallery"
+msgstr "Bilder zur Bildergallerie hinzufügen"
+
+#: src/settings/application/setting/affilicious-settings.php:18
 msgid "Custom CSS"
 msgstr "Eigenes CSS"
 
-#: src/Settings/Application/Setting/AffiliciousSettings.php:19
+#: src/settings/application/setting/affilicious-settings.php:19
 msgid "Custom JS"
 msgstr "Eigenes JS"
 
-#: src/Settings/Application/Setting/AffiliciousSettings.php:22
-#: src/Settings/Application/Setting/ProductSettings.php:50
-#: src/Settings/Application/Setting/ProductSettings.php:51
-#, php-format
-msgid "%s Settings"
-msgstr "%s Einstellungen"
-
-#: src/Settings/Application/Setting/AffiliciousSettings.php:24
+#: src/settings/application/setting/affilicious-settings.php:24
 msgid "Scripts"
 msgstr "Skripte"
 
-#: src/Settings/Application/Setting/ProductSettings.php:22
-#: src/Settings/Application/Setting/ProductSettings.php:27
-#: src/Settings/Application/Setting/ProductSettings.php:40
+#: src/settings/application/setting/product-settings.php:22
+#: src/settings/application/setting/product-settings.php:35
 msgid "Slug"
 msgstr "Slug"
 
-#: src/Settings/Application/Setting/ProductSettings.php:23
+#: src/settings/application/setting/product-settings.php:23
 #, php-format
 msgid ""
 "Used as pretty permalink text (i.e. /slug/). Default is \"%s\". To apply "
 "this change, please press the save button under Settings > Permalinks."
 msgstr ""
+"So hübsch Permalink Text (d. h./Slug /) verwendet. Standardwert ist \"%s\". "
+"Um diese Änderung zu übernehmen, klicken Sie die Speichern Schaltfläche "
+"unter Einstellungen > Permalinks."
 
-#: src/Settings/Application/Setting/ProductSettings.php:28
-msgid ""
-"Used as pretty permalink text (i.e. /slug/). Default is \"product-variant\". "
-"To apply this change, please press the save button under Settings > "
-"Permalinks."
-msgstr ""
-
-#: src/Settings/Application/Setting/ProductSettings.php:33
+#: src/settings/application/setting/product-settings.php:28
 #, php-format
 msgid ""
 "Create custom taxonomies to group products together. See this <a href=\"%s"
@@ -536,22 +544,22 @@ msgstr ""
 "Erstelle eigene Taxonomien um Produkte logisch zu gruppieren. Klicke auf "
 "diesen <a href=\"%s\">Link</a> für eine bessere Beschreibung."
 
-#: src/Settings/Application/Setting/ProductSettings.php:34
-#: src/Settings/Application/Setting/ProductSettings.php:54
+#: src/settings/application/setting/product-settings.php:29
+#: src/settings/application/setting/product-settings.php:48
 msgid "Taxonomies"
 msgstr "Taxonomien"
 
-#: src/Settings/Application/Setting/ProductSettings.php:36
+#: src/settings/application/setting/product-settings.php:31
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: src/Settings/Application/Setting/ProductSettings.php:38
+#: src/settings/application/setting/product-settings.php:33
 #, php-format
 msgid ""
 "The name of the taxonomy. Name should only contain lowercase letters and the "
 "underscore character, and not be more than 32 characters long. Care should "
 "be used in selecting a taxonomy name so that it does not conflict with other "
-"taxonomies, post types, and reserved WordPress public and private query "
+"taxonomies, post types, and reserved Wordpress public and private query "
 "variables. A complete list of those is described in the <a href=\"%s"
 "\">Reserved Terms</a> section."
 msgstr ""
@@ -562,7 +570,7 @@ msgstr ""
 "Anfragenvariablen in Konflikt stehen darf. Hier findest du eine komplette "
 "Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
-#: src/Settings/Application/Setting/ProductSettings.php:41
+#: src/settings/application/setting/product-settings.php:36
 msgid ""
 "Used as pretty permalink text (i.e. /slug/). To apply this change, please "
 "press the save button under Settings > Permalinks."
@@ -571,42 +579,78 @@ msgstr ""
 "machen, musst du den Speichern-Button unter Einstellungen > Permalinks "
 "drücken."
 
-#: src/Settings/Application/Setting/ProductSettings.php:43
+#: src/settings/application/setting/product-settings.php:38
 msgid "Singular Name"
 msgstr "Name im Singular"
 
-#: src/Settings/Application/Setting/ProductSettings.php:45
+#: src/settings/application/setting/product-settings.php:40
 msgid "Plural Name"
 msgstr "Name im Plural"
 
-#: src/Settings/Application/Setting/ProductSettings.php:103
-#: src/Settings/Application/Setting/ProductSettings.php:104
-#: src/Settings/Application/Setting/ProductSettings.php:113
+#: src/settings/application/setting/product-settings.php:97
+#: src/settings/application/setting/product-settings.php:98
+#: src/settings/application/setting/product-settings.php:107
 #, php-format
 msgid "%s"
 msgstr "%s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:106
+#: src/settings/application/setting/product-settings.php:100
 #, php-format
 msgid "All %s"
 msgstr "Alle %s"
 
-#: src/Settings/Application/Setting/ProductSettings.php:107
+#: src/settings/application/setting/product-settings.php:101
 #, php-format
 msgid "Parent %s"
 msgstr "Eltern %s"
 
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:22
+#: src/shop/application/setup/shop-template-setup.php:23
 msgid "Shop Template"
 msgstr "Shop-Vorlage"
 
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:23
+#: src/shop/application/setup/shop-template-setup.php:24
 msgid "Shop Templates"
 msgstr "Shop-Vorlagen"
 
-#: src/Shop/Application/Setup/ShopTemplateSetup.php:88
+#: src/shop/application/setup/shop-template-setup.php:89
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid "Singular name"
+#~ msgstr "Name im Singular"
+
+#~ msgid "Plural name"
+#~ msgstr "Name im Plural"
+
+#~ msgid ""
+#~ "Used as pretty permalink text (i.e. /slug/). Default is \"product-variant"
+#~ "\". To apply this change, please press the save button under Settings > "
+#~ "Permalinks."
+#~ msgstr ""
+#~ "Wird als Pretty Permalink benutzt (z.B /slug/). Der Standartwert ist "
+#~ "\"product-variant“. Um diese Änderung wirksam zu machen, musst du den "
+#~ "Speichern-Button unter Einstellungen > Permalinks drücken."
+
+#~ msgid "Uploaded To This %s"
+#~ msgstr "Zu %s hochladen"
+
+#~ msgid "%s Settings"
+#~ msgstr "%s Einstellungen"
+
+#~ msgid ""
+#~ "The name of the taxonomy. Name should only contain lowercase letters and "
+#~ "the underscore character, and not be more than 32 characters long. Care "
+#~ "should be used in selecting a taxonomy name so that it does not conflict "
+#~ "with other taxonomies, post types, and reserved WordPress public and "
+#~ "private query variables. A complete list of those is described in the <a "
+#~ "href=\"%s\">Reserved Terms</a> section."
+#~ msgstr ""
+#~ "Der Name der Taxonomie. Der Name soll nur <b>Kleinbuchstaben</b> und das "
+#~ "<b>Zeichen _</b> enthalten und nicht mehr als <b>32 Zeichen</b> lang "
+#~ "sein. Vorsichtig sollest du bei der Auswahl des Namens sein, da der Name "
+#~ "nicht mit anderen Taxonomien, Beitragstypen und Wordpress öffentlichen "
+#~ "und privaten Anfragenvariablen in Konflikt stehen darf. Hier findest du "
+#~ "eine komplette Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
 #~ msgid "Value"
 #~ msgstr "Wert"
