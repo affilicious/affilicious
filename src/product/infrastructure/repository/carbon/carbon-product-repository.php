@@ -13,9 +13,13 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Image\Image_Id;
 use Affilicious\Common\Domain\Model\Image\Source;
 use Affilicious\Common\Domain\Model\Image\Width;
+use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Common\Infrastructure\Repository\Carbon\Abstract_Carbon_Repository;
+use Affilicious\Detail\Domain\Model\Detail\Detail;
+use Affilicious\Detail\Domain\Model\Detail\Unit;
+use Affilicious\Detail\Domain\Model\Detail\Value;
 use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Detail\Domain\Model\Detail_Group_Factory_Interface;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group_id;
@@ -34,6 +38,7 @@ use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Shop\Domain\Model\Shop_Factory_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template_Id;
 use Affilicious\Shop\Domain\Model\Shop_Template_Repository_Interface;
+use Affilicious\Detail\Domain\Model\Detail\Type as DetailType;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -587,6 +592,29 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     protected function add_detail_groups(Product $product, \WP_Post $post)
     {
+        // Add the default detail group with the price as a detail
+        $cheapest_shop = $product->get_cheapest_shop();
+        if($cheapest_shop !== null && $cheapest_shop->has_price()) {
+            $default_detail_group = $this->detail_group_factory->create(
+                new Title(__('Default')),
+                new Name('default'),
+                new Key('default')
+            );
+
+            $price_detail = new Detail(
+                new Title(__('Price', 'affilicious')),
+                new Name('price'),
+                new Key('price'),
+                DetailType::number()
+            );
+
+            $price_detail->set_unit(new Unit($cheapest_shop->get_price()->get_currency()->get_symbol()));
+            $price_detail->set_value(new Value($cheapest_shop->get_price()->get_value()));
+
+            $default_detail_group->add_detail($price_detail);
+            $product->add_detail_group($default_detail_group);
+        }
+
         $raw_detail_groups = carbon_get_post_meta($post->ID, self::DETAIL_GROUPS, 'complex');
         if (!empty($raw_detail_groups)) {
             foreach ($raw_detail_groups as $raw_detail_group) {
