@@ -67,12 +67,10 @@ jQuery(function($) {
         var affiliciousView = getAffiliciousView(),
             variantsView = getVariantsView();
 
-
-
         var select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
             value = select.val();
 
-        if(variantsView.model.get('temp_attribute_group_key') == null) {
+        if(typeof variantsView.model.get('temp_attribute_group_key') == 'undefined') {
             variantsView.model.set('temp_attribute_group_key', value);
         }
 
