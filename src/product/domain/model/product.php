@@ -574,6 +574,11 @@ class Product extends Abstract_Entity
             }
         }
 
+        // If there is no default, just take out the first one
+        if(count($this->variants) > 0) {
+            return $this->variants[0];
+        }
+
         return null;
     }
 
