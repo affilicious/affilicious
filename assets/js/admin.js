@@ -41,21 +41,17 @@ jQuery(function ($) {
     // ------------------------------------------------------------------------
     function removeActions() {
         var affiliciousView = getAffiliciousView(), variantsView = getVariantsView();
-        /*if(affiliciousView || variantsView == null) {
-            return;
-        }*/
         var select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'), value = select.val();
+        if (variantsView.model.get('temp_attribute_group_key') == null) {
+            variantsView.model.set('temp_attribute_group_key', value);
+        }
         variantsView.$actions.find('ul').remove();
         variantsView.$actions.find('a.button').data('group', value != 'none' ? '_' + value : '');
     }
     function changeVariants(evt) {
         var affiliciousView = getAffiliciousView(), variantsView = getVariantsView();
-        /*if(affiliciousView || variantsView == null) {
-            return;
-        }*/
         var select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'), value = select.val();
         removeActions();
-        console.log(variantsView.model.get('temp_attribute_group_key') + " " + value);
         if (variantsView.model.get('temp_attribute_group_key') != value) {
             variantsView.model.set('temp_attribute_group_key', value);
             variantsView.$groupsHolder.find('.carbon-row').remove();
