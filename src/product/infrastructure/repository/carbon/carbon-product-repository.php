@@ -791,7 +791,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param array $raw_attribute_group
      * @return Attribute_Group|null
      */
-    protected function get_attribute_group_from_id_and_array($attribute_template_group_id, array $raw_attribute_group)
+    protected function get_attribute_group_from_id_and_array($attribute_template_group_id, $raw_attribute_group)
     {
         if (empty($attribute_template_group_id) || empty($raw_attribute_group)) {
             return null;
