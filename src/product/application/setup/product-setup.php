@@ -10,7 +10,7 @@ use Affilicious\Product\Infrastructure\Repository\Carbon\Carbon_Product_Reposito
 use Affilicious\Shop\Domain\Model\Shop_Template_Repository_Interface;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
-use Carbon_Fields\Field\Complex_Field as _carbon_complex_field;
+use Carbon_Fields\Field\Complex_Field as Carbon_Complex_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -170,11 +170,16 @@ class Product_Setup implements Setup_Interface
                 Carbon_Product_Repository::ATTRIBUTE_GROUP_KEY,
                 __('Attribute Group', 'affilicious')
             ),
-            $this->get_variants_complex_fields(
-                Carbon_Product_Repository::VARIANTS,
-                __('Variants', 'affilicious')
-            ),
         );
+
+        $variantComplexFields = $this->get_variants_complex_fields(
+            Carbon_Product_Repository::VARIANTS,
+            __('Variants', 'affilicious')
+        );
+
+        if($variantComplexFields !== null) {
+            $fields = array_merge($fields, array($variantComplexFields));
+        }
 
         return apply_filters('affilicious_product_render_affilicious_product_container_variants_fields', $fields, $this->post_id);
     }
@@ -185,13 +190,17 @@ class Product_Setup implements Setup_Interface
      * @since 0.6
      * @param string $name
      * @param null|string $label
-     * @return _carbon_complex_field
+     * @return Carbon_Complex_Field
      */
     private function get_variants_complex_fields($name, $label = null)
     {
         $attribute_template_groups = $this->attribute_template_group_repository->find_all();
 
-        /** @var _carbon_complex_field $field */
+        if(empty($attribute_template_groups)) {
+            return null;
+        }
+
+        /** @var Carbon_Complex_Field $field */
         $field = Carbon_Field::make('complex', $name, $label)
             ->setup_labels(array(
                 'plural_name' => __('Variants', 'affilicious'),
@@ -346,13 +355,13 @@ class Product_Setup implements Setup_Interface
      * @since 0.6
      * @param string $name
      * @param null|string $label
-     * @return _carbon_complex_field
+     * @return Carbon_Complex_Field
      */
     private function get_shop_tabs($name, $label = null)
     {
         $shop_templates = $this->shop_template_repository->find_all();
 
-        /** @var _carbon_complex_field $tabs */
+        /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
             ->set_layout('tabbed-horizontal')
             ->setup_labels(array(
@@ -423,11 +432,11 @@ class Product_Setup implements Setup_Interface
      * @param Attribute_Template_Group $attribute_template_group
      * @param string $name
      * @param null|string $label
-     * @return _carbon_complex_field
+     * @return Carbon_Complex_Field
      */
     private function get_attribute_tabs(Attribute_Template_Group $attribute_template_group, $name, $label = null)
     {
-        /** @var _carbon_complex_field $tabs */
+        /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
             ->set_layout('tabbed-horizontal')
             ->set_static(true)
@@ -469,13 +478,13 @@ class Product_Setup implements Setup_Interface
      * @since 0.6
      * @param string $name
      * @param null|string $label
-     * @return _carbon_complex_field
+     * @return Carbon_Complex_Field
      */
     private function get_detail_group_tabs($name, $label = null)
     {
         $detail_template_groups = $this->detail_template_group_repository->find_all();
 
-        /** @var _carbon_complex_field $tabs */
+        /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
             ->set_layout('tabbed-horizontal')
             ->setup_labels(array(
