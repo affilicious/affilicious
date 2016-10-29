@@ -50,6 +50,10 @@ class In_Memory_Detail_Group_Factory implements Detail_Group_Factory_Interface
      */
     public function create_from_template_id_and_data(Detail_Template_Group_id $detail_template_group_id, $data)
     {
+        if(empty($data)) {
+            return null;
+        }
+
         $detail_template_group = $this->detail_template_group_repository->find_by_id($detail_template_group_id);
         if($detail_template_group === null || !is_array($data)) {
             return null;

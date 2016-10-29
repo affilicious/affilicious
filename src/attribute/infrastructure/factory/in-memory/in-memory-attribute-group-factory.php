@@ -51,6 +51,10 @@ class In_Memory_Attribute_Group_Factory implements Attribute_Group_Factory_Inter
      */
     public function create_from_template_id_and_data(Attribute_Template_Group_Id $attribute_template_group_id, $data)
     {
+        if(empty($data)) {
+            return null;
+        }
+
         $attribute_template_group = $this->attribute_template_group_repository->find_by_id($attribute_template_group_id);
         if($attribute_template_group === null || !is_array($data)) {
             return null;

@@ -51,6 +51,10 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
      */
     public function create_from_template_id_and_data(Shop_Template_Id $shop_template_id, $data)
     {
+        if(empty($data)) {
+            return null;
+        }
+
         $shop_template = $this->shop_template_repository->find_by_id($shop_template_id);
         if($shop_template === null || !is_array($data)) {
             return null;
