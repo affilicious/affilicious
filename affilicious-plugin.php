@@ -162,7 +162,7 @@ class Affilicious_Plugin
      */
     public function autoload($class)
     {
-        $prefix = 'Affilicious';
+        $prefix = self::PLUGIN_NAMESPACE;
         if (stripos($class, $prefix) === false) {
             return;
         }
