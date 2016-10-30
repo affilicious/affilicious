@@ -637,7 +637,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     protected function add_review(Product $product, \WP_Post $post)
     {
         $rating = carbon_get_post_meta($post->ID, self::REVIEW_RATING);
-        if(!empty($rating) && $rating !== 'none') {
+        if((!empty($rating) || $rating == '0') && $rating !== 'none') {
             $review = $this->review_factory->create(new Rating($rating));
 
             $votes = carbon_get_post_meta($post->ID, self::REVIEW_VOTES);
