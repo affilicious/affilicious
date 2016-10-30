@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5afe97d031bac1f3de5fe9d74c6ea732",
-    "content-hash": "62294e912db91a9ea026eee136773cc5",
+    "hash": "8ae2161f155f0b44ce17e2074cf949c4",
+    "content-hash": "21211f34de1cc2bae5b1f662eca97ce1",
     "packages": [
         {
             "name": "htmlburger/carbon-fields",
-            "version": "dev-feature/static-groups",
+            "version": "v1.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/affilicious/carbon-fields.git",
-                "reference": "596cbf532202aeed6ab3e8651199d3c74e118544"
+                "url": "https://github.com/htmlburger/carbon-fields.git",
+                "reference": "7dedea882d463b7bfd89a91e37653ad2155fca24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/affilicious/carbon-fields/zipball/596cbf532202aeed6ab3e8651199d3c74e118544",
-                "reference": "596cbf532202aeed6ab3e8651199d3c74e118544",
+                "url": "https://api.github.com/repos/htmlburger/carbon-fields/zipball/7dedea882d463b7bfd89a91e37653ad2155fca24",
+                "reference": "7dedea882d463b7bfd89a91e37653ad2155fca24",
                 "shasum": ""
             },
             "type": "library",
@@ -31,6 +31,7 @@
                     "core/functions.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0"
             ],
@@ -39,27 +40,6 @@
                     "name": "htmlBurger",
                     "email": "wordpress@htmlburger.com",
                     "homepage": "https://htmlburger.com/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Miroslav Mitev",
-                    "email": "mmitev.2create@gmail.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Georgi Stoyanov",
-                    "email": "stoyanov.gs@gmail.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Plamen Kostadinov",
-                    "email": "pkostadinov.2create@gmail.com",
-                    "homepage": "http://plasmen.info/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Stanimir Panchev",
-                    "email": "Stan4omir@gmail.com",
                     "role": "Developer"
                 },
                 {
@@ -74,8 +54,24 @@
                     "role": "Developer"
                 },
                 {
+                    "name": "Georgi Stoyanov",
+                    "email": "stoyanov.gs@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Stanimir Panchev",
+                    "email": "Stan4omir@gmail.com",
+                    "role": "Developer"
+                },
+                {
                     "name": "Peter Petrov",
                     "email": "peter.petrov89@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Plamen Kostadinov",
+                    "email": "pkostadinov.2create@gmail.com",
+                    "homepage": "http://plasmen.info/",
                     "role": "Developer"
                 },
                 {
@@ -104,17 +100,16 @@
                     "email": "brutalenemy666@gmail.com",
                     "homepage": "http://errorfactory.com/",
                     "role": "Developer"
+                },
+                {
+                    "name": "Miroslav Mitev",
+                    "email": "mmitev.2create@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "WordPress developer-friendly custom fields for post types, taxonomy terms, users, comments, widgets, options and more.",
             "homepage": "http://carbonfields.net/",
-            "support": {
-                "source": "https://github.com/htmlburger/carbon-fields",
-                "docs": "http://carbonfields.net/docs/",
-                "issues": "https://github.com/htmlburger/carbon-fields/issues",
-                "email": "wordpress@htmlburger.com"
-            },
-            "time": "2016-10-18 13:09:13"
+            "time": "2016-10-20 11:11:55"
         },
         {
             "name": "pimple/pimple",
@@ -1171,16 +1166,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3"
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/368b9738d4033c8b93454cb0dbd45d305135a6d3",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27",
                 "shasum": ""
             },
             "require": {
@@ -1216,7 +1211,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-25 08:27:07"
+            "time": "2016-10-24 18:41:13"
         },
         {
             "name": "webmozart/assert",
@@ -1271,9 +1266,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "htmlburger/carbon-fields": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
