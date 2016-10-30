@@ -452,7 +452,7 @@ class Product_Setup implements Setup_Interface
             );
 
             if ($attribute->has_help_text()) {
-                $field->help_text($attribute->get_help_text());
+                $field->help_text($attribute->get_help_text()->get_value());
             }
 
             $field->set_required(true);
