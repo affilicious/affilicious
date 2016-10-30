@@ -1,6 +1,6 @@
 <?php
+use Affilicious\Attribute\Application\Helper\Attribute_Template_Group_Helper;
 use Affilicious\Attribute\Domain\Model\Attribute_Template_Group;
-use Affilicious\Detail\Application\Helper\Attribute_Template_Group_Helper;
 use Affilicious\Detail\Application\Helper\Detail_Template_Group_Helper;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group;
 use Affilicious\Product\Application\Helper\Product_Helper;
@@ -13,6 +13,68 @@ use Affilicious\Shop\Domain\Model\Shop_Template;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
+}
+
+
+
+
+//add_action('post_updated', 'test2');
+function test2($post_id)
+{
+    global $wpdb;
+
+    $attribute_template_group = aff_get_attribute_template_group($post_id);
+    if(empty($attribute_template_group)) {
+        return;
+    }
+    $id = $attribute_template_group->get_id()->get_value();
+
+    $postmetas = $wpdb->get_results("
+        SELECT * 
+        FROM $wpdb->postmeta
+        WHERE meta_key LIKE '_affilicious_product_variants_%-_attributes_%'
+        AND post_id IN (
+            SELECT DISTINCT post_id
+            FROM $wpdb->postmeta
+            WHERE meta_key LIKE '_affilicious_product_variants_%-_template_group_id_%'
+            AND meta_value = $id
+        )
+    ");
+
+
+
+
+
+
+
+
+    $attribute_keys = array();
+    $attribute_templates = $attribute_template_group->get_attribute_templates();
+    foreach ($attribute_templates as $attribute_template) {
+        $attribute_keys[] = $attribute_template->get_key()->get_value();
+    }
+
+    $delete = array();
+    foreach ($postmetas as $postmeta) {
+        $meta_key = $postmeta->meta_key;
+        $meta_key = explode('-_', $meta_key);
+        $sub_meta_key = $meta_key[1];
+
+        $found = false;
+        foreach ($attribute_keys as $attribute_key) {
+            if(strpos($sub_meta_key, $attribute_key) !== false) {
+                $found = true;
+            }
+        }
+
+        if(!$found) {
+            $delete[] = $postmeta;
+        }
+    }
+
+    foreach ($delete as $d) {
+        delete_post_meta($d->post_id, $d->meta_key);
+    }
 }
 
 /**

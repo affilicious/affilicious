@@ -1,7 +1,8 @@
 <?php
-namespace Affilicious\Detail\Application\Helper;
+namespace Affilicious\Attribute\Application\Helper;
 
 use Affilicious\Attribute\Domain\Model\Attribute_Template_Group;
+use Affilicious\Attribute\Domain\Model\Attribute_Template_Group_Id;
 use Affilicious\Common\Domain\Exception\Post_Not_Found_Exception;
 
 if(!defined('ABSPATH')) {
@@ -27,14 +28,14 @@ class Attribute_Template_Group_Helper
         if ($post_or_id instanceof Attribute_Template_Group) {
             $attribute_template_group = $post_or_id;
         } elseif($post_or_id instanceof \WP_Post) {
-            $attribute_template_group = $attribute_template_group_repository->find_by_id($post_or_id->ID);
+            $attribute_template_group = $attribute_template_group_repository->find_by_id(new Attribute_Template_Group_Id($post_or_id->ID));
         } elseif (is_array($post_or_id) && !empty($post_or_id['attribute_template_group_id'])) {
-            $attribute_template_group = $attribute_template_group_repository->find_by_id($post_or_id['attribute_template_group_id']);
+            $attribute_template_group = $attribute_template_group_repository->find_by_id(new Attribute_Template_Group_Id($post_or_id['attribute_template_group_id']));
         } elseif (is_int($post_or_id)) {
-            $attribute_template_group = $attribute_template_group_repository->find_by_id($post_or_id);
+            $attribute_template_group = $attribute_template_group_repository->find_by_id(new Attribute_Template_Group_Id($post_or_id));
         } else {
             $post = get_post();
-            $attribute_template_group = $attribute_template_group_repository->find_by_id($post->ID);
+            $attribute_template_group = $attribute_template_group_repository->find_by_id(new Attribute_Template_Group_Id($post->ID));
         }
 
         if ($attribute_template_group === null) {

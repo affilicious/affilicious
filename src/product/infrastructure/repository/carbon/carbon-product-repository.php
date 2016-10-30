@@ -63,15 +63,14 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const ATTRIBUTE_GROUP_KEY = 'affilicious_product_attribute_group_key';
     const ATTRIBUTE_GROUPS = 'affilicious_product_attribute_groups';
     const ATTRIBUTE_GROUP_TEMPLATE_ID = 'template_id';
-    const ATTRIBUTE_GROUP_ATTRIBUTES = 'attributes';
+    const ATTRIBUTE_GROUP_ATTRIBUTE = 'attribute';
 
     const VARIANTS = 'affilicious_product_variants';
     const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
     const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'template_group_id';
-    const VARIANT_ATTRIBUTES = 'attributes';
-    const VARIANT_ATTRIBUTES_CUSTOM_VALUE = 'custom_value';
+    const VARIANT_ATTRIBUTE = 'attribute';
     const VARIANT_THUMBNAIL = 'thumbnail';
     const VARIANT_SHOPS = 'shops';
 
@@ -155,7 +154,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $this->store_review($product);
 
         if($product instanceof Product_Variant){
-            $this->storeAttribute_Group($product);
+            $this->store_attribute_group($product);
         }
 
         if(!($product instanceof Product_Variant)){
@@ -366,9 +365,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         // There is always just one group inside the array
         $raw_attribute_group = $raw_attribute_groups[0];
         $raw_template_id = $raw_attribute_group[self::ATTRIBUTE_GROUP_TEMPLATE_ID];
-        $raw_attributes = $raw_attribute_group[self::ATTRIBUTE_GROUP_ATTRIBUTES];
 
-        $attribute_group = $this->get_attribute_group_from_id_and_array($raw_template_id, $raw_attributes);
+        $attribute_group = $this->get_attribute_group_from_id_and_array($raw_template_id, $raw_attribute_group);
         if ($attribute_group === null) {
             return null;
         }
@@ -541,8 +539,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $shops = !empty($raw_variant[self::VARIANT_SHOPS]) ? $raw_variant[self::VARIANT_SHOPS] : null;
             $default = !empty($raw_variant[self::VARIANT_DEFAULT]) ? $raw_variant[self::VARIANT_DEFAULT] : null;
             $attribute_template_group_id = !empty($raw_variant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID]) ? $raw_variant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID] : null;
-            $attributes = !empty($raw_variant[self::VARIANT_ATTRIBUTES]) ? $raw_variant[self::VARIANT_ATTRIBUTES] : null;
-            $attribute_group = $this->get_attribute_group_from_id_and_array($attribute_template_group_id, $attributes);
+            $attribute_group = $this->get_attribute_group_from_id_and_array($attribute_template_group_id, $raw_variant);
 
             if(empty($title) || empty($attribute_group)) {
                 continue;
@@ -788,18 +785,18 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      *
      * @since 0.6
      * @param int $attribute_template_group_id
-     * @param array $raw_attribute_group
+     * @param array $raw_variant
      * @return Attribute_Group|null
      */
-    protected function get_attribute_group_from_id_and_array($attribute_template_group_id, $raw_attribute_group)
+    protected function get_attribute_group_from_id_and_array($attribute_template_group_id, $raw_variant)
     {
-        if (empty($attribute_template_group_id) || empty($raw_attribute_group)) {
+        if (empty($attribute_template_group_id) || empty($raw_variant)) {
             return null;
         }
 
         $attribute_group = $this->attribute_group_factory->create_from_template_id_and_data(
             new Attribute_Template_Group_Id($attribute_template_group_id),
-            $raw_attribute_group
+            $raw_variant
         );
 
         return $attribute_group;
@@ -919,7 +916,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.6
      * @param Product_Variant $product_variant
      */
-    protected function storeAttribute_Group(Product_Variant $product_variant)
+    protected function store_attribute_group(Product_Variant $product_variant)
     {
         if(!$product_variant->has_id()) {
             return;
@@ -929,23 +926,20 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $attributes = $attribute_group->get_attributes();
 
         $carbon_attributes = array();
-        foreach ($attributes as $index => $attribute) {
-            if(!isset($carbon_shops[$attribute->get_key()->get_value()])) {
-                $carbon_shops[$attribute->get_key()->get_value()] = array();
-            }
-
-            $carbon_attributes[$attribute->get_key()->get_value()][$index] = array(
-                self::VARIANT_ATTRIBUTES_CUSTOM_VALUE => $attribute->get_value()->get_value(),
-            );
-        }
-
-        $carbon_attribute_groups = array();
-        $carbon_attribute_groups[$attribute_group->get_key()->get_value()][] = array(
+        $carbon_attributes[0] = array(
             self::ATTRIBUTE_GROUP_TEMPLATE_ID => $attribute_group->has_template_id() ? $attribute_group->get_template_id()->get_value() : null,
-            self::ATTRIBUTE_GROUP_ATTRIBUTES => $carbon_attributes,
         );
 
-        $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_attribute_groups, self::ATTRIBUTE_GROUPS);
+        foreach ($attributes as $attribute) {
+            $carbon_key = self::ATTRIBUTE_GROUP_ATTRIBUTE . '_' .  $attribute->get_key()->get_value();
+            $carbon_attributes[0][$carbon_key] = $attribute->get_value()->get_value();
+        }
+
+        $carbon_attribute_group = array(
+            $attribute_group->get_key()->get_value() => $carbon_attributes
+        );
+
+        $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_attribute_group, self::ATTRIBUTE_GROUPS);
         foreach ($carbon_meta_keys as $carbon_meta_key => $carbon_meta_value) {
             if($carbon_meta_value !== null) {
                 $this->store_post_meta($product_variant->get_id(), $carbon_meta_key, $carbon_meta_value);

@@ -70,24 +70,19 @@ class In_Memory_Attribute_Group_Factory implements Attribute_Group_Factory_Inter
 
         $attribute_templates = $attribute_template_group->get_attribute_templates();
         foreach ($attribute_templates as $index => $attribute_template) {
-            if(!isset($data[$index])) {
+            if(!isset($data['attribute_' . $attribute_template->get_key()->get_value()])) {
                 return null;
             }
 
-            $raw_attribute = $data[$index];
-            if(empty($raw_attribute)) {
-                return null;
-            }
-
-            $custom_value = $raw_attribute[Carbon_Product_Repository::VARIANT_ATTRIBUTES_CUSTOM_VALUE];
-            $custom_value = $attribute_template->get_type()->is_equal_to(Type::number()) ? floatval($custom_value) : $custom_value;
+            $value = $data['attribute_' . $attribute_template->get_key()->get_value()];
+            $value = $attribute_template->get_type()->is_equal_to(Type::number()) ? floatval($value) : $value;
 
             $attribute = new Attribute(
                 $attribute_template->get_title(),
                 $attribute_template->get_name(),
                 $attribute_template->get_key(),
                 new Type($attribute_template->get_type()->get_value()),
-                new Value($custom_value)
+                new Value($value)
             );
 
             if($attribute_template->has_unit()) {

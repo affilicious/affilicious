@@ -215,11 +215,7 @@ class Product_Setup implements Setup_Interface
                 continue;
             }
 
-            $field->add_fields($key->get_value(), $title->get_value(), array(
-                Carbon_Field::make('hidden',
-                    Carbon_Product_Repository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID,
-                    __('Attribute Template Group ID', 'affilicious')
-                )->set_value($attribute_template_group->get_id()->get_value())->set_required(true),
+            $fields = array_merge(array(
                 Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ID, __('Variant ID', 'affilicious')),
                 Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_TITLE, __('Title', 'affilicious'))
                     ->set_required(true)
@@ -228,10 +224,15 @@ class Product_Setup implements Setup_Interface
                     ->set_option_value('yes')
                     ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
                     ->set_width(30),
-                $this->get_attribute_tabs($attribute_template_group, Carbon_Product_Repository::VARIANT_ATTRIBUTES, __('Attributes', 'affilicious')),
-                Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL, __('Thumbnail', 'affilicious')),
-                $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious')),
-            ));
+                ),
+                $this->get_attribute_fields($attribute_template_group),
+                array(
+                    Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL, __('Thumbnail', 'affilicious')),
+                    $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious')),
+                )
+            );
+
+            $field->add_fields($key->get_value(),  $title->get_value(), $fields);
 
             $field->set_header_template('
                 <# if (' . Carbon_Product_Repository::VARIANT_TITLE . ') { #>
@@ -426,33 +427,27 @@ class Product_Setup implements Setup_Interface
     }
 
     /**
-     * Get the detail groups tabs
+     * Get the attribute fields
      *
      * @since 0.6
      * @param Attribute_Template_Group $attribute_template_group
-     * @param string $name
-     * @param null|string $label
-     * @return Carbon_Complex_Field
+     * @return Carbon_Field[]
      */
-    private function get_attribute_tabs(Attribute_Template_Group $attribute_template_group, $name, $label = null)
+    private function get_attribute_fields(Attribute_Template_Group $attribute_template_group)
     {
-        /** @var Carbon_Complex_Field $tabs */
-        $tabs = Carbon_Field::make('complex', $name, $label)
-            ->set_layout('tabbed-horizontal')
-            ->set_static(true)
-            ->setup_labels(array(
-                'plural_name' => __('Attributes', 'affilicious'),
-                'singular_name' => __('Attribute', 'affilicious'),
-            ));
+        $fields = array(
+            Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID, __('Attribute Template Group ID', 'affilicious'))
+                ->set_value($attribute_template_group->get_id()->get_value())
+        );
 
         $attributes = $attribute_template_group->get_attribute_templates();
         foreach ($attributes as $attribute) {
-            $field_name = sprintf('%s %s', __('Custom Value', 'affilicious'), $attribute->get_unit());
+            $field_name = sprintf('%s %s', $attribute->get_title(), $attribute->get_unit());
             $field_name = trim($field_name);
 
             $field = Carbon_Field::make(
-                $attribute->get_type(),
-                Carbon_Product_Repository::VARIANT_ATTRIBUTES_CUSTOM_VALUE,
+                $attribute->get_type()->get_value(),
+                Carbon_Product_Repository::VARIANT_ATTRIBUTE . '_' . $attribute->get_key()->get_value(),
                 $field_name
             );
 
@@ -461,15 +456,12 @@ class Product_Setup implements Setup_Interface
             }
 
             $field->set_required(true);
+            $field->set_width(100 / count($attributes));
 
-            $tabs->add_fields(
-                $attribute->get_key()->get_value(),
-                $attribute->get_title()->get_value(),
-                array($field)
-            );
+            $fields[] = $field;
         }
 
-        return $tabs;
+        return $fields;
     }
 
     /**
