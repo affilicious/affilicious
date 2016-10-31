@@ -130,7 +130,7 @@ class Affilicious_Plugin
 		$this->load_functions();
 		$this->register_services();
 		$this->register_public_hooks();
-		$this->register_admin_Hooks();
+		$this->register_admin_hooks();
 
         // TODO: This old legacy class will be removed later
 		new \Affilicious\Product\Presentation\Meta_Box\Meta_Box_Manager();
@@ -401,9 +401,9 @@ class Affilicious_Plugin
      *
      * @since 0.5.1
      */
-    public function loadTextdomain()
+    public function load_textdomain()
     {
-        $dir = basename( dirname( __FILE__ ) ) . '/' . self::PLUGIN_LANGUAGE_DIR;
+        $dir = basename(dirname( __FILE__ ) ) . '/' . self::PLUGIN_LANGUAGE_DIR;
         load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
     }
 
@@ -441,7 +441,7 @@ class Affilicious_Plugin
     public function register_public_hooks()
     {
     	// Hook the text domain
-	    add_action('plugins_loaded', array($this, 'loadTextdomain'));
+	    add_action('plugins_loaded', array($this, 'load_textdomain'));
 
         // Hook the public assets
         $asset_setup = $this->container['affilicious.common.application.setup.asset'];
@@ -508,7 +508,7 @@ class Affilicious_Plugin
      *
      * @since 0.3
      */
-    public function register_admin_Hooks()
+    public function register_admin_hooks()
     {
     	// Hook the plugin updater
 	    add_action('admin_init', array($this, 'update'), 0);
