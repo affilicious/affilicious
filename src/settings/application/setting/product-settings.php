@@ -16,17 +16,17 @@ class Product_Settings implements Settings_Interface
 	 */
 	public function render()
 	{
-		do_action('affilicious_settings_product_before_render');
+		do_action('affilicious_options_product_before_render');
 
-		$general_fields = apply_filters('affilicious_settings_product_general_fields', array(
-			Carbon_Field::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
+		$general_tab = apply_filters('affilicious_options_product_container_general_tab', array(
+			Carbon_Field::make('text', 'affilicious_options_product_container_general_tab_slug_field', __('Slug', 'affilicious'))
 				->help_text(sprintf(__('Used as pretty permalink text (i.e. "http://test.com/your-slug/product-name").', 'affilicious'), 'product')),
 		));
 
-		$taxonomies_fields = apply_filters('affilicious_settings_product_taxonomies_fields', array(
-			Carbon_Field::make('html', 'affilicious_settings_product_taxonomies_description')
+		$taxonomies_tab = apply_filters('affilicious_options_product_container_taxonomies_tab', array(
+			Carbon_Field::make('html', 'affilicious_options_product_container_taxonomies_tab_description_field')
 	            ->set_html(sprintf('<p>%s</p>', sprintf(__('Create custom taxonomies to group products together. See this <a href="%s">link</a> for a better description.', 'affilicious'), self::LINK_WHAT_IS_TAXONOMY))),
-			Carbon_Field::make('complex', 'affilicious_settings_product_taxonomies', __('Taxonomies', 'affilicious'))
+			Carbon_Field::make('complex', 'affilicious_options_product_container_taxonomies_tab_taxonomies_field', __('Taxonomies', 'affilicious'))
 	           ->add_fields(array(
 		           Carbon_Field::make('text', 'taxonomy', __('Taxonomy', 'affilicious'))
                       ->help_text(sprintf(
@@ -44,11 +44,11 @@ class Product_Settings implements Settings_Interface
 
 		$container = Carbon_Container::make('theme_options',  __('Product', 'affilicious'))
            ->set_page_parent('affilicious')
-           ->add_tab(__('General', 'affilicious'), $general_fields)
-           ->add_tab(__('Taxonomies', 'affilicious'), $taxonomies_fields);
+           ->add_tab(__('General', 'affilicious'), $general_tab)
+           ->add_tab(__('Taxonomies', 'affilicious'), $taxonomies_tab);
 
-		apply_filters('affilicious_settings_product_container', $container);
-        do_action('affilicious_settings_product_after_render');
+		apply_filters('affilicious_options_product_container', $container);
+        do_action('affilicious_options_product_after_render');
 	}
 
 	/**
@@ -57,9 +57,9 @@ class Product_Settings implements Settings_Interface
 	 */
 	public function apply()
 	{
-		do_action('affilicious_settings_product_before_apply');
+		do_action('affilicious_options_product_before_apply');
 
-		$taxonomies = carbon_get_theme_option('affilicious_settings_product_taxonomies', 'complex');
+		$taxonomies = carbon_get_theme_option('affilicious_options_product_container_taxonomies_tab_taxonomies_field', 'complex');
 		if(!empty($taxonomies)) {
 			foreach ($taxonomies as $taxonomy) {
 				$labels = $this->get_labels($taxonomy);
@@ -79,7 +79,7 @@ class Product_Settings implements Settings_Interface
 			}
 		}
 
-        do_action('affilicious_settings_product_after_apply');
+        do_action('affilicious_options_product_after_apply');
 	}
 
 	/**

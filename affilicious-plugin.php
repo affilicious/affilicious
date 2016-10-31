@@ -34,6 +34,8 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+define('AFFILICIOUS_PLUGIN_ROOT_DIR', plugin_dir_path(__FILE__));
+
 class Affilicious_Plugin
 {
     const PLUGIN_NAME = 'affilicious';

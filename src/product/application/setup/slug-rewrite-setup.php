@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) {
 
 class Slug_Rewrite_Setup
 {
-    const OPTION_SETTINGS_PRODUCT_GENERAL_SLUG = 'affilicious_settings_product_general_slug';
+    const OPTION_SETTINGS_PRODUCT_GENERAL_SLUG = 'affilicious_options_product_general_slug';
     const PRODUCT_SLUG_HAS_CHANGED = 'affilicious_product_slug_has_changed';
 
     /**
