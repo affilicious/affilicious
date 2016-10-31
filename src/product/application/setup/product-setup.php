@@ -86,7 +86,7 @@ class Product_Setup implements Setup_Interface
             'filter_items_list'     => sprintf(_x('Filter %s', 'Product', 'affilicious'), $plural),
         );
 
-	    $slug = carbon_get_theme_option('affilicious_options_product_general_slug');
+	    $slug = carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field');
 	    if(empty($slug)) {
 	    	$slug = Product::SLUG;
 	    }
