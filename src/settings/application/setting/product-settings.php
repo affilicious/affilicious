@@ -20,7 +20,7 @@ class Product_Settings implements Settings_Interface
 
 		$general_fields = apply_filters('affilicious_settings_product_general_fields', array(
 			Carbon_Field::make('text', 'affilicious_settings_product_general_slug', __('Slug', 'affilicious'))
-				->help_text(sprintf(__('Used as pretty permalink text (i.e. /slug/). Default is "%s". To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'), 'product')),
+				->help_text(sprintf(__('Used as pretty permalink text (i.e. "http://test.com/your-slug/product-name").', 'affilicious'), 'product')),
 		));
 
 		$taxonomies_fields = apply_filters('affilicious_settings_product_taxonomies_fields', array(
@@ -33,7 +33,7 @@ class Product_Settings implements Settings_Interface
 			             __('The name of the taxonomy. Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved Wordpress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'), self::LINK_RESERVED_TERMS))
 		              ->set_required(true),
 		           Carbon_Field::make('text', 'slug', __('Slug', 'affilicious'))
-		              ->help_text(__('Used as pretty permalink text (i.e. /slug/). To apply this change, please press the save button under Settings > Permalinks.', 'affilicious'))
+		              ->help_text(__('Used as pretty permalink text (i.e. "http://test.com/your-slug/product-name").', 'affilicious'))
 		              ->set_required(true),
 		           Carbon_Field::make('text', 'singular_name', __('Singular Name', 'affilicious'))
 			           ->set_required(true),

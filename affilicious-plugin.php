@@ -184,6 +184,9 @@ class Affilicious_Plugin
      */
     public function activate()
     {
+        $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
+        $slug_rewrite_setup->activate();
+
         // Data to send in our API request.
         $api_params = array(
             'edd_action'=> 'activate_license',
@@ -212,6 +215,9 @@ class Affilicious_Plugin
      */
     public function deactivate()
     {
+        $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
+        $slug_rewrite_setup->deactivate();
+
     	// Data to send in our API request.
 	    $api_params = array(
 		    'edd_action'=> 'deactivate_license',
@@ -384,6 +390,10 @@ class Affilicious_Plugin
         $this->container['affilicious.product.presentation.filter.complex_product'] = function () {
             return new \Affilicious\Product\Presentation\Filter\Complex_Product_Filter();
         };
+
+        $this->container['affilicious.product.application.setup.slug_rewrite'] = function () {
+            return new \Affilicious\Product\Application\Setup\Slug_Rewrite_Setup();
+        };
     }
 
     /**
@@ -465,6 +475,12 @@ class Affilicious_Plugin
         // Hook the product listeners
         $save_product_listener = $this->container['affilicious.product.application.listener.save_product'];
         add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
+
+        // Hook the slug rewrite
+        $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
+        add_action('init', array($slug_rewrite_setup, 'run'), 1);
+        add_action('added_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
+        add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
 
 	    // Hook the settings
         $affilicious_settings = $this->container['affilicious.settings.application.setting.affilicious'];

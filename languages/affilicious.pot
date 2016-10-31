@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2016-10-28 "
-"17:34+0200\n"
+"POT-Creation-Date: 2016-10-31 "
+"12:20+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -94,8 +94,6 @@ msgstr ""
 #: src/attribute/application/setup/attribute-template-group-setup.php:33
 #: src/attribute/application/setup/attribute-template-group-setup.php:74
 #: src/attribute/application/setup/attribute-template-group-setup.php:116
-#: src/product/application/setup/product-setup.php:222
-#: src/product/application/setup/product-setup.php:435
 msgid "Attributes"
 msgstr ""
 
@@ -190,7 +188,7 @@ msgstr ""
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:77
 #: src/detail/application/setup/detail-template-group-setup.php:77
-#: src/product/application/setup/product-setup.php:215
+#: src/product/application/setup/product-setup.php:220
 msgid "Title"
 msgstr ""
 
@@ -227,8 +225,8 @@ msgstr ""
 
 #: src/common/presentation/setup/asset-setup.php:72
 #: src/product/application/setup/product-setup.php:131
-#: src/product/application/setup/product-setup.php:175
-#: src/product/application/setup/product-setup.php:197
+#: src/product/application/setup/product-setup.php:177
+#: src/product/application/setup/product-setup.php:206
 msgid "Variants"
 msgstr ""
 
@@ -344,9 +342,9 @@ msgid "General"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:132
-#: src/product/application/setup/product-setup.php:224
-#: src/product/application/setup/product-setup.php:259
-#: src/product/application/setup/product-setup.php:359
+#: src/product/application/setup/product-setup.php:231
+#: src/product/application/setup/product-setup.php:269
+#: src/product/application/setup/product-setup.php:369
 #: src/shop/application/setup/shop-template-setup.php:32
 msgid "Shops"
 msgstr ""
@@ -371,140 +369,137 @@ msgstr ""
 msgid "Attribute Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:198
+#: src/product/application/setup/product-setup.php:207
 msgid "Variant"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:212
-msgid "Attribute Template Group ID"
-msgstr ""
-
-#: src/product/application/setup/product-setup.php:214
+#: src/product/application/setup/product-setup.php:219
 msgid "Variant ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:218
+#: src/product/application/setup/product-setup.php:223
 msgid "Default Variant"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:220
+#: src/product/application/setup/product-setup.php:225
 msgid ""
 "This variant will be shown as "
 "default for the parent product."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:223
+#: src/product/application/setup/product-setup.php:230
 msgid "Thumbnail"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:277
-#: src/product/application/setup/product-setup.php:482
+#: src/product/application/setup/product-setup.php:287
+#: src/product/application/setup/product-setup.php:483
 msgid "Detail Groups"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:293
+#: src/product/application/setup/product-setup.php:303
 msgid "Rating"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:295
-#: src/product/application/setup/product-setup.php:400
+#: src/product/application/setup/product-setup.php:305
+#: src/product/application/setup/product-setup.php:410
 msgid "None"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:296
-#: src/product/application/setup/product-setup.php:297
-#: src/product/application/setup/product-setup.php:299
-#: src/product/application/setup/product-setup.php:300
-#: src/product/application/setup/product-setup.php:301
-#: src/product/application/setup/product-setup.php:302
-#: src/product/application/setup/product-setup.php:303
-#: src/product/application/setup/product-setup.php:304
-#: src/product/application/setup/product-setup.php:305
 #: src/product/application/setup/product-setup.php:306
+#: src/product/application/setup/product-setup.php:307
+#: src/product/application/setup/product-setup.php:309
+#: src/product/application/setup/product-setup.php:310
+#: src/product/application/setup/product-setup.php:311
+#: src/product/application/setup/product-setup.php:312
+#: src/product/application/setup/product-setup.php:313
+#: src/product/application/setup/product-setup.php:314
+#: src/product/application/setup/product-setup.php:315
+#: src/product/application/setup/product-setup.php:316
 #, php-format
 msgid "%s stars"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:298
+#: src/product/application/setup/product-setup.php:308
 #, php-format
 msgid "%s star"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:308
+#: src/product/application/setup/product-setup.php:318
 msgid "Votes"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:309
+#: src/product/application/setup/product-setup.php:319
 msgid ""
 "If you want to hide the votes, "
 "just leave it empty."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:332
+#: src/product/application/setup/product-setup.php:342
 msgid "Related Products"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:335
+#: src/product/application/setup/product-setup.php:345
 msgid "Related Accessories"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:360
+#: src/product/application/setup/product-setup.php:370
 msgid "Shop"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:365
+#: src/product/application/setup/product-setup.php:375
 msgid "Shop Template ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:368
+#: src/product/application/setup/product-setup.php:378
 msgid "Affiliate Link"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:370
+#: src/product/application/setup/product-setup.php:380
 msgid "Affiliate ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:371
+#: src/product/application/setup/product-setup.php:381
 msgid ""
 "Unique product ID of the shop "
 "like Amazon ASIN, Affilinet ID, "
 "ebay ID, etc."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:372
+#: src/product/application/setup/product-setup.php:382
+#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:602
 msgid "Price"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:373
+#: src/product/application/setup/product-setup.php:383
 msgid "Old Price"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:374
+#: src/product/application/setup/product-setup.php:384
 msgid "Currency"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:377
+#: src/product/application/setup/product-setup.php:387
 msgid "Euro"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:378
+#: src/product/application/setup/product-setup.php:388
 msgid "US-Dollar"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:436
-msgid "Attribute"
+#: src/product/application/setup/product-setup.php:439
+msgid "Attribute Template Group ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:441
-msgid "Custom Value"
-msgstr ""
-
-#: src/product/application/setup/product-setup.php:483
+#: src/product/application/setup/product-setup.php:484
 msgid "Detail Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:516
+#: src/product/application/setup/product-setup.php:517
 msgid "Detail Template Group ID"
+msgstr ""
+
+#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:596
+msgid "Default"
 msgstr ""
 
 #: src/product/presentation/meta-box/meta-box-manager.php:40
@@ -550,13 +545,11 @@ msgid "Slug"
 msgstr ""
 
 #: src/settings/application/setting/product-settings.php:23
-#, php-format
+#: src/settings/application/setting/product-settings.php:36
 msgid ""
 "Used as pretty permalink text (i."
-"e. /slug/). Default is \"%s\". "
-"To apply this change, please "
-"press the save button under "
-"Settings > Permalinks."
+"e. \"http://test.com/your-slug/"
+"product-name\")."
 msgstr ""
 
 #: src/settings/application/setting/product-settings.php:28
@@ -594,15 +587,6 @@ msgid ""
 "of those is described in the <a "
 "href=\"%s\">Reserved Terms</a> "
 "section."
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:36
-msgid ""
-"Used as pretty permalink text (i."
-"e. /slug/). To apply this "
-"change, please press the save "
-"button under Settings > "
-"Permalinks."
 msgstr ""
 
 #: src/settings/application/setting/product-settings.php:38
