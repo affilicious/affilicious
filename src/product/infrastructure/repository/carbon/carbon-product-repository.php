@@ -150,7 +150,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         // Store the product meta
         $this->store_type($product);
         $this->store_thumbnail($product);
-        $this->store_shops($product, self::SHOPS);
+
+        if(!Type::complex()->is_equal_to($product->get_type())) {
+            $this->store_shops($product, self::SHOPS);
+        }
+
         $this->store_review($product);
 
         if($product instanceof Product_Variant){
@@ -319,10 +323,14 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $product = $this->add_excerpt($product, $post);
 
         // Shops
-        $product = $this->add_shops($product);
+        if(!Type::complex()->is_equal_to($product->get_type())) {
+            $product = $this->add_shops($product);
+        }
 
         // Variants
-        $product = $this->add_variants($product);
+        if(Type::complex()->is_equal_to($product->get_type())) {
+            $product = $this->add_variants($product);
+        }
 
         // Detail groups
         $product = $this->add_detail_groups($product, $post);

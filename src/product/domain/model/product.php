@@ -405,7 +405,18 @@ class Product extends Abstract_Entity
      */
     public function has_shop(Affiliate_Link $affiliate_link)
     {
-        return isset($this->shops[$affiliate_link->get_value()]);
+        $shops = $this->shops;
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+
+            if($default_variant === null) {
+                return false;
+            }
+
+            $shops = $default_variant->get_shops();
+        }
+
+        return isset($shops[$affiliate_link->get_value()]);
     }
 
     /**
@@ -421,6 +432,16 @@ class Product extends Abstract_Entity
             throw new Duplicated_Shop_Exception($shop, $this);
         }*/
 
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+            if($default_variant === null) {
+                return;
+            }
+
+            $default_variant->add_shop($shop);
+            return;
+        }
+
         $this->shops[$shop->get_affiliate_link()->get_value()] = $shop;
     }
 
@@ -432,6 +453,16 @@ class Product extends Abstract_Entity
      */
     public function remove_shop(Affiliate_Link $affiliate_link)
     {
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+            if($default_variant === null) {
+                return;
+            }
+
+            $default_variant->remove_shop($affiliate_link);
+            return;
+        }
+
         unset($this->shops[$affiliate_link->get_value()]);
     }
 
@@ -444,6 +475,16 @@ class Product extends Abstract_Entity
      */
     public function get_shop(Affiliate_Link $affiliate_link)
     {
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+            if($default_variant === null) {
+                return null;
+            }
+
+            $shop = $default_variant->get_shop($affiliate_link);
+            return $shop;
+        }
+
         if(!$this->has_shop($affiliate_link)) {
             return null;
         }
@@ -461,6 +502,16 @@ class Product extends Abstract_Entity
      */
     public function get_cheapest_shop()
     {
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+            if($default_variant === null) {
+                return null;
+            }
+
+            $cheapest_shop = $default_variant->get_cheapest_shop();
+            return $cheapest_shop;
+        }
+
         /** @var Shop $cheapest_shop */
         $cheapest_shop = null;
         foreach ($this->shops as $shop) {
@@ -481,8 +532,17 @@ class Product extends Abstract_Entity
      */
     public function get_shops()
     {
-        $shops = array_values($this->shops);
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+            if($default_variant === null) {
+                return array();
+            }
 
+            $shops = $default_variant->get_shops();
+            return $shops;
+        }
+
+        $shops = array_values($this->shops);
         return $shops;
     }
 
@@ -496,6 +556,16 @@ class Product extends Abstract_Entity
      */
     public function set_shops($shops)
     {
+        if(Type::complex()->is_equal_to($this->get_type())) {
+            $default_variant = $this->get_default_variant();
+            if($default_variant === null) {
+                return;
+            }
+
+            $default_variant->set_shops($shops);
+            return;
+        }
+
         $this->shops = array();
 
         // add_shop checks for the type
