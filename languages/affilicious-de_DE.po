@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-10-31 12:20+0100\n"
+"POT-Creation-Date: 2016-11-05 13:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -442,7 +442,7 @@ msgstr ""
 "Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, usw."
 
 #: src/product/application/setup/product-setup.php:382
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:602
+#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:610
 msgid "Price"
 msgstr "Preis"
 
@@ -474,7 +474,7 @@ msgstr "Detailgruppe"
 msgid "Detail Template Group ID"
 msgstr "Detail-Vorlagengruppe ID"
 
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:596
+#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:604
 msgid "Default"
 msgstr "Standard"
 
@@ -588,6 +588,82 @@ msgstr "Alle %s"
 #, php-format
 msgid "Parent %s"
 msgstr "Eltern %s"
+
+#: src/shop/application/options/provider-options.php:22
+msgid "Access Key ID"
+msgstr "Access Key ID"
+
+#: src/shop/application/options/provider-options.php:23
+msgid "Secret Access Key"
+msgstr "Secret Access Key"
+
+#: src/shop/application/options/provider-options.php:24
+msgid "Country"
+msgstr "Land"
+
+#: src/shop/application/options/provider-options.php:26
+msgid "Germany"
+msgstr "Deutschland"
+
+#: src/shop/application/options/provider-options.php:27
+msgid "America"
+msgstr "Amerika"
+
+#: src/shop/application/options/provider-options.php:28
+msgid "England"
+msgstr "England"
+
+#: src/shop/application/options/provider-options.php:29
+msgid "Canada"
+msgstr "Kanada"
+
+#: src/shop/application/options/provider-options.php:30
+msgid "France"
+msgstr "Frankreich"
+
+#: src/shop/application/options/provider-options.php:31
+msgid "Japan"
+msgstr "Japan"
+
+#: src/shop/application/options/provider-options.php:32
+msgid "Italy"
+msgstr "Italien"
+
+#: src/shop/application/options/provider-options.php:33
+msgid "China"
+msgstr "China"
+
+#: src/shop/application/options/provider-options.php:34
+msgid "Spain"
+msgstr "Spanien"
+
+#: src/shop/application/options/provider-options.php:35
+msgid "India"
+msgstr "Indien"
+
+#: src/shop/application/options/provider-options.php:36
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: src/shop/application/options/provider-options.php:37
+msgid "Mexico"
+msgstr "Mexiko"
+
+#: src/shop/application/options/provider-options.php:38
+msgid "Australia"
+msgstr "Australien"
+
+#: src/shop/application/options/provider-options.php:40
+msgid "Partner Tag"
+msgstr "Partner Tag"
+
+#: src/shop/application/options/provider-options.php:43
+msgid "Provider"
+msgstr "Provider"
+
+#: src/shop/application/options/provider-options.php:45
+msgid "Amazon"
+msgstr "Amazon"
 
 #: src/shop/application/setup/shop-template-setup.php:23
 msgid "Shop Template"

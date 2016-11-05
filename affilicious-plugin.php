@@ -377,6 +377,10 @@ class Affilicious_Plugin
             return new \Affilicious\Product\Presentation\Setup\Canonical_Setup();
         };
 
+        $this->container['affilicious.shop.application.options.provider'] = function () {
+            return new \Affilicious\Shop\Application\Options\Provider_Options();
+        };
+
         $this->container['affilicious.product.presentation.setup.admin_bar'] = function () {
             return new \Affilicious\Product\Presentation\Setup\Admin_Bar_Setup();
         };
@@ -396,6 +400,7 @@ class Affilicious_Plugin
         $this->container['affilicious.product.application.setup.slug_rewrite'] = function () {
             return new \Affilicious\Product\Application\Setup\Slug_Rewrite_Setup();
         };
+
     }
 
     /**
@@ -519,6 +524,9 @@ class Affilicious_Plugin
         $shop_template_setup = $this->container['affilicious.shop.application.setup.shop_template'];
         add_action('manage_shop_posts_columns', array($shop_template_setup, 'columns_head'), 9, 2);
         add_action('manage_shop_posts_custom_column', array($shop_template_setup, 'columns_content'), 10, 2);
+
+        $shop_provider_options = $this->container['affilicious.shop.application.options.provider'];
+        add_action('init', array($shop_provider_options, 'render'), 12);
 
         // Hook the attribute groups
         $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
