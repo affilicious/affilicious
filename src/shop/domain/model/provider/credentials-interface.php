@@ -1,25 +1,23 @@
 <?php
 namespace Affilicious\Shop\Domain\Model\Provider;
 
-use Affilicious\Common\Domain\Model\Aggregate_Interface;
+use Affilicious\Common\Domain\Model\Value_Object_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Credentials_Interface extends Aggregate_Interface
+interface Credentials_Interface extends Value_Object_Interface
 {
     /**
+     * @inheritdoc
      * @since 0.7
-     * @param array $credentials
      */
-    public function __construct($credentials);
+    public function __construct($value);
 
     /**
-     * Get the credentials
-     *
+     * @inheritdoc
      * @since 0.7
-     * @return array
      */
-    public function get_credentials();
+    public function get_value();
 }

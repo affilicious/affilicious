@@ -1,33 +1,26 @@
 <?php
 namespace Affilicious\Shop\Domain\Model\Provider;
 
+use Affilicious\Common\Domain\Model\Abstract_Value_Object;
+
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-abstract class Abstract_Credentials implements Credentials_Interface
+abstract class Abstract_Credentials extends Abstract_Value_Object implements Credentials_Interface
 {
     /**
      * @var array
      */
-    protected $credentials;
+    protected $value;
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct($credentials)
+    public function get_value()
     {
-        $this->credentials;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function get_credentials()
-    {
-        return $this->credentials;
+        return $this->value;
     }
 
     /**
@@ -38,6 +31,6 @@ abstract class Abstract_Credentials implements Credentials_Interface
     {
         return
             $object instanceof self &&
-            $this->get_credentials() == $object->get_credentials();
+            $this->get_value() == $object->get_value();
     }
 }

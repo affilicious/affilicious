@@ -5,6 +5,6 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Amazon_Credentials extends Abstract_Amazon_Credentials
+class Amazon_Provider extends Abstract_Amazon_Provider
 {
 }
