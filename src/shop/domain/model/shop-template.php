@@ -7,19 +7,14 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Shop\Domain\Model\Provider\Provider_Interface;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Shop_Template extends Abstract_Entity
+class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
 {
-    /**
-     * There is a limit of 20 characters for post types in Wordpress
-     * TODO: _change the post type to 'aff_shop_template' before the beta release
-     */
-	const POST_TYPE = 'shop';
-
     /**
      * The unique ID of the shop template
      * Note that you just get the ID in Wordpress, if you store a post.
@@ -57,10 +52,15 @@ class Shop_Template extends Abstract_Entity
 	protected $thumbnail;
 
     /**
+     * The provider for the shop updates which holds all credentials.
+     *
+     * @var Provider_Interface
+     */
+    protected $provider;
+
+    /**
+     * @inheritdoc
      * @since 0.6
-     * @param Title $title
-     * @param Name $name
-     * @param Key $key
      */
 	public function __construct(Title $title, Name $name, Key $key)
 	{
@@ -70,10 +70,8 @@ class Shop_Template extends Abstract_Entity
     }
 
     /**
-     * Check if the shop template has an ID
-     *
+     * @inheritdoc
      * @since 0.6
-     * @return bool
      */
     public function has_id()
     {
@@ -81,10 +79,8 @@ class Shop_Template extends Abstract_Entity
     }
 
     /**
-     * Get the shop template ID
-     *
+     * @inheritdoc
      * @since 0.6
-     * @return Shop_Template_Id
      */
     public function get_id()
     {
@@ -92,13 +88,8 @@ class Shop_Template extends Abstract_Entity
     }
 
     /**
-     * Set the optional shop template ID
-     *
-     * Note that you just get the ID in Wordpress, if you store a post.
-     * Normally, you place the ID to the constructor, but it's not possible here
-     *
+     * @inheritdoc
      * @since 0.6
-     * @param null|Shop_Template_Id $id
      */
     public function set_id($id)
     {
@@ -110,10 +101,8 @@ class Shop_Template extends Abstract_Entity
     }
 
 	/**
-	 * Get the title for display usage
-	 *
+	 * @inheritdoc
 	 * @since 0.6
-	 * @return Title
 	 */
 	public function get_title()
 	{
@@ -121,10 +110,8 @@ class Shop_Template extends Abstract_Entity
 	}
 
     /**
-     * Get the unique name for url usage
-     *
+     * @inheritdoc
      * @since 0.6
-     * @return Name
      */
     public function get_name()
     {
@@ -132,10 +119,8 @@ class Shop_Template extends Abstract_Entity
     }
 
     /**
-     * Set the unique name for url usage
-     *
+     * @inheritdoc
      * @since 0.6
-     * @param Name $name
      */
     public function set_name(Name $name)
     {
@@ -143,10 +128,8 @@ class Shop_Template extends Abstract_Entity
     }
 
     /**
-     * Get the key for database usage
-     *
+     * @inheritdoc
      * @since 0.6
-     * @return Key
      */
     public function get_key()
     {
@@ -154,10 +137,8 @@ class Shop_Template extends Abstract_Entity
     }
 
     /**
-     * Set the unique key for database usage
-     *
+     * @inheritdoc
      * @since 0.6
-     * @param Key $key
      */
     public function set_key(Key $key)
     {
@@ -165,10 +146,8 @@ class Shop_Template extends Abstract_Entity
     }
 
 	/**
-	 * Check if the shop has an optional thumbnail
-	 *
+	 * @inheritdoc
 	 * @since 0.6
-	 * @return bool
 	 */
 	public function has_thumbnail()
 	{
@@ -176,10 +155,8 @@ class Shop_Template extends Abstract_Entity
 	}
 
     /**
-     * Set the optional thumbnail image
-     *
+     * @inheritdoc
      * @since 0.6
-     * @param null|Image $thumbnail
      */
 	public function set_thumbnail($thumbnail)
     {
@@ -191,10 +168,8 @@ class Shop_Template extends Abstract_Entity
     }
 
 	/**
-	 * Get the optional thumbnail image
-	 *
+	 * @inheritdoc
 	 * @since 0.6
-	 * @return null|Image
 	 */
 	public function get_thumbnail()
 	{
@@ -202,10 +177,39 @@ class Shop_Template extends Abstract_Entity
 	}
 
     /**
-     * Get the raw Wordpress post
-     *
+     * @inheritdoc
+     * @since 0.7
+     */
+	public function has_provider()
+    {
+        return $this->provider !== null;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_provider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function set_provider($provider)
+    {
+        if($provider !== null && !($provider instanceof Provider_Interface)) {
+            throw new Invalid_Type_Exception($provider, 'Affilicious\Shop\Domain\Model\Provider\Provider_Interface');
+        }
+
+        $this->provider = $provider;
+    }
+
+    /**
+     * @inheritdoc
      * @since 0.6
-     * @return null|\WP_Post
      */
     public function get_raw_post()
     {

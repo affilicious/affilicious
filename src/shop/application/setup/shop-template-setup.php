@@ -2,7 +2,10 @@
 namespace Affilicious\Shop\Application\Setup;
 
 use Affilicious\Common\Application\Setup\Setup_Interface;
+use Affilicious\Shop\Domain\Model\Provider\Provider_Repository_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template;
+use Affilicious\Shop\Domain\Model\Shop_Template_Interface;
+use Affilicious\Shop\Infrastructure\Repository\Carbon\Carbon_Shop_Template_Repository;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -12,13 +15,33 @@ if (!defined('ABSPATH')) {
 
 class Shop_Template_Setup implements Setup_Interface
 {
-	/**
+    /**
+     * @var Provider_Repository_Interface
+     */
+    private $provider_repository;
+
+    /**
+     * @var int
+     */
+    private $post_id;
+
+    /**
+     * @since 0.7
+     * @param Provider_Repository_Interface $provider_repository
+     */
+    public function __construct(Provider_Repository_Interface $provider_repository)
+    {
+        $this->provider_repository = $provider_repository;
+        $this->post_id = isset($_GET['post']) ? $_GET['post'] : null;
+    }
+
+    /**
 	 * @inheritdoc
      * @since 0.6
 	 */
 	public function init()
 	{
-        do_action('affilicious_shop_template_before_init');
+        do_action('affilicious_shop_template_setup_before_init');
 
         $singular = __('Shop Template', 'affilicious');
         $plural = __('Shop Templates', 'affilicious');
@@ -57,7 +80,7 @@ class Shop_Template_Setup implements Setup_Interface
 			'show_in_menu'    => 'edit.php?post_type=product',
 		));
 
-        do_action('affilicious_shop_template_after_init');
+        do_action('affilicious_shop_template_setup_after_init');
 	}
 
 	/**
@@ -66,53 +89,50 @@ class Shop_Template_Setup implements Setup_Interface
 	 */
 	public function render()
 	{
-        do_action('affilicious_shop_template_before_render');
+        do_action('affilicious_shop_template_setup_before_render');
 
-		// _nothing to do here yet
+        $container = Carbon_Container::make('post_meta', __('Shop Template Options', 'affilicious'))
+            ->show_on_post_type(Shop_Template_Interface::POST_TYPE)
+            ->set_priority('core')
+            ->add_tab(__('Provider', 'affilicious'), $this->get_provider_fields());
 
-        do_action('affilicious_shop_template_after_render');
+        apply_filters('affilicious_shop_template_setup_render_shop_template_options_container', $container, $this->post_id);
+        do_action('affilicious_shop_template_setup_after_render');
 	}
 
-	/**
-	 * Add a column header for the logo
-	 *
-	 * @since 0.6
-	 * @param array $defaults
-	 * @return array
-	 */
-	public function columns_head($defaults)
-	{
-		$new = array();
-		foreach ($defaults as $key => $title) {
-			// _put the logo column before the date column
-			if ($key == 'date') {
-				$new['logo'] = __('Featured Image');
-			}
-			$new[$key] = $title;
-		}
+    /**
+     * Get the provider fields
+     *
+     * @since 0.6
+     * @return array
+     */
+	private function get_provider_fields()
+    {
+        $fields = array(
+            Carbon_Field::make('select', Carbon_Shop_Template_Repository::PROVIDER, __('Provider', 'affilicious'))
+                ->set_required(true)
+                ->add_options($this->get_provider_options())
+                ->set_help_text(__('The provider is used for the automatic update like the prices and much more of the product using this shop.', 'affilicious')),
+        );
 
-		return $new;
-	}
+        return apply_filters('affilicious_shop_template_render_shop_template_options_container_provider_fields', $fields, $this->post_id);
+    }
 
-	/**
-	 * Add a column for the logo
-	 *
-	 * @since 0.6
-	 * @param string $column_name
-	 * @param int $shop_id
-	 */
-	public function columns_content($column_name, $shop_id)
-	{
-		if ($column_name == 'logo') {
-            $shop_logo_id = get_post_thumbnail_id($shop_id);
-            if (!$shop_logo_id) {
-                return;
-            }
+    /**
+     * Get the options for the provider choice.
+     *
+     * @since 0.7
+     * @return array
+     */
+	private function get_provider_options()
+    {
+        $providers = $this->provider_repository->find_all();
 
-            $shop_logo = wp_get_attachment_image_src($shop_logo_id, 'featured_preview');
-			if ($shop_logo) {
-				echo '<img src="' . $shop_logo[0] . '" />';
-			}
-		}
-	}
+        $options = array('none' => __('None', 'affilicious'));
+        foreach ($providers as $provider) {
+            $options[$provider->get_name()->get_value()] = $provider->get_title()->get_value();
+        }
+
+        return $options;
+    }
 }

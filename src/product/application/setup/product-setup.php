@@ -124,7 +124,7 @@ class Product_Setup implements Setup_Interface
     {
         do_action('affilicious_product_before_render');
 
-        $carbon_container = Carbon_Container::make('post_meta', __('Affilicious Product', 'affilicious'))
+        $container = Carbon_Container::make('post_meta', __('Affilicious Product', 'affilicious'))
             ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->get_general_fields())
@@ -134,7 +134,7 @@ class Product_Setup implements Setup_Interface
             ->add_tab(__('Review', 'affilicious'), $this->get_review_fields())
             ->add_tab(__('Relations', 'affilicious'), $this->get_relations_fields());
 
-        apply_filters('affilicious_product_render_affilicious_product_container', $this->post_id, $carbon_container);
+        apply_filters('affilicious_product_render_affilicious_product_container', $container, $this->post_id);
         do_action('affilicious_product_after_render');
     }
 

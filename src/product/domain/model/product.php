@@ -21,19 +21,8 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product extends Abstract_Entity
+class Product extends Abstract_Entity implements Product_Interface
 {
-    /**
-     * There is a limit of 20 characters for post types in Wordpress
-     * TODO: Change the post type to 'aff_product' before the beta release
-     */
-    const POST_TYPE = 'product';
-
-    /**
-     * The default slug is in English but can be translated in the settings
-     */
-    const SLUG = 'product';
-
     /**
      * The unique ID of the product
      * Note that you just get the ID in Wordpress, if you store a post.
@@ -141,6 +130,11 @@ class Product extends Abstract_Entity
     protected $image_gallery;
 
     /**
+     * @var \DateTime
+     */
+    protected $updated_at;
+
+    /**
      * @since 0.6
      * @param Title $title
      * @param Name $name
@@ -159,6 +153,7 @@ class Product extends Abstract_Entity
         $this->related_products = array();
         $this->related_accessories = array();
         $this->image_gallery = array();
+        $this->updated_at = new \DateTime('now');
     }
 
     /**
@@ -896,6 +891,24 @@ class Product extends Abstract_Entity
         }
 
         $this->image_gallery = $image_gallery;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_updated_at()
+    {
+        return clone $this->updated_at;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function set_updated_at(\DateTime $updated_at)
+    {
+        $this->updated_at = clone $updated_at;
     }
 
     /**

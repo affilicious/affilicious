@@ -1,12 +1,13 @@
 <?php
-namespace Affilicious\Shop\Infrastructure\Repository\Wordpress;
+namespace Affilicious\Shop\Infrastructure\Repository\Carbon;
 
 use Affilicious\Common\Domain\Exception\Invalid_Post_Type_Exception;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Infrastructure\Repository\Wordpress\Abstract_Wordpress_Repository;
+use Affilicious\Common\Infrastructure\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Shop\Domain\Exception\Shop_Template_Database_Exception;
 use Affilicious\Shop\Domain\Exception\Shop_Template_Not_Found_Exception;
+use Affilicious\Shop\Domain\Model\Provider\Provider_Repository_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template;
 use Affilicious\Shop\Domain\Model\Shop_Template_Id;
 use Affilicious\Shop\Domain\Model\Shop_Template_Repository_Interface;
@@ -15,8 +16,24 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository implements Shop_Template_Repository_Interface
+class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository implements Shop_Template_Repository_Interface
 {
+    const PROVIDER = 'affilicious_shop_template_provider';
+
+    /**
+     * @var Provider_Repository_Interface
+     */
+    private $provider_repository;
+
+    /**
+     * @since 0.7
+     * @param Provider_Repository_Interface $provider_repository
+     */
+    public function __construct(Provider_Repository_Interface $provider_repository)
+    {
+        $this->provider_repository = $provider_repository;
+    }
+
     /**
      * @inheritdoc
      * @since 0.6
@@ -39,6 +56,7 @@ class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository i
 
         // _store the shop template meta
         $this->store_thumbnail($shop_template);
+        $this->store_provider($shop_template);
 
         return $shop_template;
     }
@@ -110,7 +128,7 @@ class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository i
     }
 
     /**
-     * Convert the Wordpress post into a shop template
+     * Convert the Carbon post into a shop template.
      *
      * @since 0.6
      * @param \WP_Post $post
@@ -137,12 +155,13 @@ class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository i
 
         // _thumbnail
         $shop_template = $this->add_thumbnail($shop_template);
+        $shop_template = $this->add_provider($shop_template);
 
         return $shop_template;
     }
 
     /**
-     * Add the thumbnail to the shop template
+     * Add the thumbnail to the shop template.
      *
      * @since 0.6
      * @param Shop_template $shop_template
@@ -163,7 +182,27 @@ class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository i
     }
 
     /**
-     * Store the thumbnail into the shop template
+     * Add the provider to the shop template.
+     *
+     * @since 0.7
+     * @param Shop_Template $shop_template
+     * @return Shop_Template
+     */
+    protected function add_provider(Shop_Template $shop_template)
+    {
+        $provider_name = carbon_get_post_meta($shop_template->get_id()->get_value(), self::PROVIDER);
+        if(!empty($provider_name)) {
+            $provider = $this->provider_repository->find_by_name(new Name($provider_name));
+            if($provider !== null) {
+                $shop_template->set_provider($provider);
+            }
+        }
+
+        return $shop_template;
+    }
+
+    /**
+     * Store the thumbnail into the shop template.
      *
      * @since 0.6
      * @param Shop_template $shop_template
@@ -177,7 +216,23 @@ class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository i
     }
 
     /**
-     * Build the default args from the saved shop template in the database
+     * Store the provider into the shop template.
+     *
+     * @since 0.7
+     * @param Shop_Template $shop_template
+     */
+    protected function store_provider(Shop_Template $shop_template)
+    {
+        if(!$shop_template->has_provider()) {
+            return;
+        }
+
+        $name = $shop_template->get_provider()->get_name();
+        $this->store_post_meta($shop_template->get_id(), self::PROVIDER, $name);
+    }
+
+    /**
+     * Build the default args from the saved shop template in the database.
      *
      * @since 0.6
      * @param Shop_template $shop_template
@@ -195,7 +250,7 @@ class Wordpress_Shop_Template_Repository extends Abstract_Wordpress_Repository i
     }
 
     /**
-     * Build the args to save the shop template
+     * Build the args to save the shop template.
      *
      * @since 0.6
      * @param Shop_template $shop_template
