@@ -31,15 +31,6 @@ interface Product_Interface extends Entity_Interface
     const SLUG = 'product';
 
     /**
-     * @since 0.7
-     * @param Title $title
-     * @param Name $name
-     * @param Key $key
-     * @param Type $type
-     */
-    public function __construct(Title $title, Name $name, Key $key, Type $type);
-
-    /**
      * Check if the product has an ID
      *
      * @since 0.7

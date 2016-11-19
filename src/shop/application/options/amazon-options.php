@@ -7,7 +7,6 @@ use Carbon_Fields\Field as Carbon_Field;
 class Amazon_Options
 {
     /**
-     * @inheritdoc
      * @since 0.6
      */
     public function render()

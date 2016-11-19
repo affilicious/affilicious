@@ -1,9 +1,6 @@
 <?php
 namespace Affilicious\Shop\Infrastructure\Factory\In_Memory;
 
-use Affilicious\Common\Domain\Model\Key;
-use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Infrastructure\Repository\Carbon\Carbon_Product_Repository;
 use Affilicious\Shop\Domain\Model\Affiliate_Id;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
@@ -12,6 +9,7 @@ use Affilicious\Shop\Domain\Model\Price;
 use Affilicious\Shop\Domain\Model\Shop;
 use Affilicious\Shop\Domain\Model\Shop_Factory_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template_Id;
+use Affilicious\Shop\Domain\Model\Shop_Template_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template_Repository_Interface;
 
 if (!defined('ABSPATH')) {
@@ -38,9 +36,9 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
      * @inheritdoc
      * @since 0.6
      */
-    public function create(Title $title, Name $name, Key $key, Affiliate_Link $affiliate_link, Currency $currency)
+    public function create(Shop_Template_Interface $shop_template, Affiliate_Link $affiliate_link, Currency $currency)
     {
-        $shop = new Shop($title, $name, $key, $affiliate_link, $currency);
+        $shop = new Shop($shop_template, $affiliate_link, $currency);
 
         return $shop;
     }
@@ -71,14 +69,10 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
         }
 
         $shop = $this->create(
-            $shop_template->get_title(),
-            $shop_template->get_name(),
-            $shop_template->get_key(),
+            $shop_template,
             new Affiliate_Link($affiliate_link),
             new Currency($currency)
         );
-
-        $shop->set_template_id($shop_template_id);
 
         if($shop_template->has_thumbnail()) {
             $shop->set_thumbnail($shop_template->get_thumbnail());

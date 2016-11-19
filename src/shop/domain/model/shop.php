@@ -4,9 +4,6 @@ namespace Affilicious\Shop\Domain\Model;
 use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 use Affilicious\Common\Domain\Model\Image\Image;
-use Affilicious\Common\Domain\Model\Key;
-use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Shop\Domain\Exception\Invalid_Price_Currency_Exception;
 
 if (!defined('ABSPATH')) {
@@ -16,24 +13,9 @@ if (!defined('ABSPATH')) {
 class Shop extends Abstract_Aggregate implements Shop_Interface
 {
     /**
-     * @var Shop_Template_Id
+     * @var Shop_Template_Interface
      */
-    protected $template_id;
-
-    /**
-     * @var Title
-     */
-    protected $title;
-
-    /**
-     * @var Name
-     */
-    protected $name;
-
-    /**
-     * @var Key
-     */
-    protected $key;
+    protected $template;
 
     /**
      * @var Image
@@ -66,75 +48,29 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     protected $currency;
 
     /**
+     * @var \DateTime
+     */
+    protected $updated_at;
+
+    /**
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct(Title $title, Name $name, Key $key, Affiliate_Link $affiliate_link, Currency $currency)
+    public function __construct(Shop_Template_Interface $template, Affiliate_Link $affiliate_link, Currency $currency)
     {
-        $this->title = $title;
-        $this->name = $name;
-        $this->key = $key;
+        $this->template = $template;
         $this->affiliate_link = $affiliate_link;
         $this->currency = $currency;
+        $this->updated_at = new \DateTime('now');
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function has_template_id()
+    public function get_template()
     {
-        return $this->template_id !== null;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     *
-     */
-    public function get_template_id()
-    {
-        return $this->template_id;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function set_template_id($template_id)
-    {
-        if($template_id !== null && !($template_id instanceof Shop_Template_Id)) {
-            throw new Invalid_Type_Exception($template_id, 'Affilicious\Shop\Domain\Model\Shop_Template_Id');
-        }
-
-        $this->template_id = $template_id;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function get_title()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function get_name()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function get_key()
-    {
-        return $this->key;
+        return $this->template;
     }
 
     /**
@@ -277,20 +213,36 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
      * @inheritdoc
      * @since 0.7
      */
+    public function get_updated_at()
+    {
+        return clone $this->updated_at;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function set_updated_at(\DateTime $updated_at)
+    {
+        $this->updated_at = clone $updated_at;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
     public function is_equal_to($object)
     {
         return
             $object instanceof self &&
-            ($this->has_template_id() && $this->get_template_id()->is_equal_to($object->get_template_id()) || !$object->has_template_id()) &&
-            $this->get_title()->is_equal_to($object->get_title()) &&
-            $this->get_name()->is_equal_to($object->get_name()) &&
-            $this->get_key()->is_equal_to($object->get_key()) &&
+            $this->get_template()->is_equal_to($object->get_template()) &&
             ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($object->get_thumbnail()) || !$object->has_thumbnail()) &&
             ($this->has_affiliate_id() && $this->get_affiliate_id()->is_equal_to($object->get_affiliate_id()) || !$object->has_affiliate_id()) &&
             $this->get_affiliate_link()->is_equal_to($object->get_affiliate_link()) &&
             ($this->has_price() && $this->get_price()->is_equal_to($object->get_price()) || !$object->has_price()) &&
             ($this->has_old_price() && $this->get_old_price()->is_equal_to($object->get_old_price()) || !$object->has_old_price()) &&
-            $this->get_currency()->is_equal_to($object->get_currency());
+            $this->get_currency()->is_equal_to($object->get_currency()) &&
+            $this->get_updated_at() == $object->get_updated_at();
     }
 
     /**

@@ -423,6 +423,16 @@ class Affilicious_Plugin
                 $c['affilicious.shop.infrastructure.repository.provider']
             );
         };
+
+        $this->container['affilicious.product.application.updater.request_exchange'] = function () {
+            return new \Affilicious\Product\Application\Updater\Request\Update_Request_Exchange();
+        };
+
+        $this->container['affilicious.product.application.listener.create_provider'] = function ($c) {
+            return new \Affilicious\Product\Application\Listener\Create_Provider_Listener(
+                $c['affilicious.product.application.updater.request_exchange']
+            );
+        };
     }
 
     /**
@@ -502,9 +512,9 @@ class Affilicious_Plugin
         add_action('init', array($detail_template_group_setup, 'render'), 70);
 
         // Hook the products
-        $productSetup = $this->container['affilicious.product.application.setup.product'];
-        add_action('init', array($productSetup, 'init'), 80);
-        add_action('init', array($productSetup, 'render'), 90);
+        $product_setup = $this->container['affilicious.product.application.setup.product'];
+        add_action('init', array($product_setup, 'init'), 80);
+        add_action('init', array($product_setup, 'render'), 90);
 
         // Hook the product listeners
         $save_product_listener = $this->container['affilicious.product.application.listener.save_product'];
@@ -533,8 +543,11 @@ class Affilicious_Plugin
         add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 999);
 
         // Filter the complex products from the search
-        $complexProductFilter = $this->container['affilicious.product.presentation.filter.complex_product'];
-        add_action('pre_get_posts', array($complexProductFilter, 'filter'));
+        $complex_product_filter = $this->container['affilicious.product.presentation.filter.complex_product'];
+        add_action('pre_get_posts', array($complex_product_filter, 'filter'));
+
+        $create_provider_listener = $this->container['affilicious.product.application.listener.create_provider'];
+        add_action('affilicious_shop_provider_after_create', array($create_provider_listener, 'listen'));
     }
 
     /**

@@ -894,12 +894,12 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $carbon_shops = array();
         foreach ($shops as $index => $shop) {
-            if(!isset($carbon_shops[$shop->get_key()->get_value()])) {
-                $carbon_shops[$shop->get_key()->get_value()] = array();
+            if(!isset($carbon_shops[$shop->get_template()->get_key()->get_value()])) {
+                $carbon_shops[$shop->get_template()->get_key()->get_value()] = array();
             }
 
-            $carbon_shops[$shop->get_key()->get_value()][$index] = array(
-                self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
+            $carbon_shops[$shop->get_template()->get_key()->get_value()][$index] = array(
+                self::SHOP_TEMPLATE_ID => $shop->get_template()->get_id()->get_value(),
                 self::SHOP_AFFILIATE_ID => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
                 self::SHOP_AFFILIATE_LINK => $shop->get_affiliate_link()->get_value(),
                 self::SHOP_PRICE => $shop->has_price() ? $shop->get_price()->get_value() : null,
@@ -1002,12 +1002,12 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $shops = $variant->get_shops();
             $carbon_shops = array();
             foreach ($shops as $shop) {
-                if(!isset($carbon_shops[$shop->get_key()->get_value()])) {
-                    $carbon_shops[$shop->get_key()->get_value()] = array();
+                if(!isset($carbon_shops[$shop->get_template()->get_key()->get_value()])) {
+                    $carbon_shops[$shop->get_template()->get_key()->get_value()] = array();
                 }
 
-                $carbon_shops[$shop->get_key()->get_value()][$index] = array(
-                    self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
+                $carbon_shops[$shop->get_template()->get_key()->get_value()][$index] = array(
+                    self::SHOP_TEMPLATE_ID => $shop->get_template()->get_id()->get_value(),
                     self::SHOP_AFFILIATE_ID => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
                     self::SHOP_AFFILIATE_LINK => $shop->get_affiliate_link()->get_value(),
                     self::SHOP_CURRENCY => $shop->get_currency()->get_value(),

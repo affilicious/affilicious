@@ -1,12 +1,8 @@
 <?php
 namespace Affilicious\Shop\Domain\Model;
 
-use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Domain\Model\Aggregate_Interface;
 use Affilicious\Common\Domain\Model\Image\Image;
-use Affilicious\Common\Domain\Model\Key;
-use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Shop\Domain\Exception\Invalid_Price_Currency_Exception;
 
 if (!defined('ABSPATH')) {
@@ -17,67 +13,22 @@ interface Shop_Interface extends Aggregate_Interface
 {
     /**
      * @since 0.7
-     * @param Title $title
-     * @param Name $name
-     * @param Key $key
+     * @param Shop_Template_Interface $template
      * @param Affiliate_Link $affiliate_link
      * @param Currency $currency
      */
-    public function __construct(Title $title, Name $name, Key $key, Affiliate_Link $affiliate_link, Currency $currency);
+    public function __construct(Shop_Template_Interface $template, Affiliate_Link $affiliate_link, Currency $currency);
 
     /**
-     * Check if the shop has a template ID
+     * Get the shop template.
      *
      * @since 0.7
-     * @return bool
+     * @return Shop_Template
      */
-    public function has_template_id();
+    public function get_template();
 
     /**
-     * Get the shop template ID
-     *
-     * @since 0.7
-     * @return null|Shop_Template_Id
-     *
-     */
-    public function get_template_id();
-
-    /**
-     * Set the shop template ID
-     *
-     * @since 0.7
-     * @param null|Shop_Template_Id
-     * $template_id
-     * @throws Invalid_Type_Exception
-     */
-    public function set_template_id($template_id);
-
-    /**
-     * Get the title for display usage
-     *
-     * @since 0.7
-     * @return Title
-     */
-    public function get_title();
-
-    /**
-     * Get the name for url usage
-     *
-     * @since 0.7
-     * @return Name
-     */
-    public function get_name();
-
-    /**
-     * Get the key for database usage
-     *
-     * @since 0.7
-     * @return Key
-     */
-    public function get_key();
-
-    /**
-     * Check if the shop has a thumbnail
+     * Check if the shop has a thumbnail.
      *
      * @since 0.7
      * @return bool
@@ -189,4 +140,20 @@ interface Shop_Interface extends Aggregate_Interface
      * @return Currency
      */
     public function get_currency();
+
+    /**
+     * Get the date and time of the last update.
+     *
+     * @since 0.7
+     * @return \DateTime
+     */
+    public function get_updated_at();
+
+    /**
+     * Set the date and time of the last update.
+     *
+     * @since 0.7
+     * @param \DateTime $updated_at
+     */
+    public function set_updated_at(\DateTime $updated_at);
 }

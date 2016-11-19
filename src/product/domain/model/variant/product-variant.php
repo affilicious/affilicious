@@ -7,6 +7,7 @@ use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Type;
 
 if(!defined('ABSPATH')) {
@@ -34,13 +35,13 @@ class Product_Variant extends Product
 
     /**
      * @since 0.6
-     * @param Product $parent
+     * @param Product_Interface $parent
      * @param Title $title
      * @param Name $name
      * @param Key $key
      * @param Attribute_Group $attribute_group
      */
-    public function __construct(Product $parent, Title $title, Name $name, Key $key, Attribute_Group $attribute_group)
+    public function __construct(Product_Interface $parent, Title $title, Name $name, Key $key, Attribute_Group $attribute_group)
     {
         parent::__construct($title, $name, $key, Type::variant());
         $this->parent = $parent;
