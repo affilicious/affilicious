@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Settings\Application\Setting;
 
-use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Product_Interface;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -65,7 +65,7 @@ class Product_Settings implements Settings_Interface
 				$labels = $this->get_labels($taxonomy);
 
 				if(!empty($labels)) {
-					register_taxonomy($taxonomy['taxonomy'], Product::POST_TYPE, array(
+					register_taxonomy($taxonomy['taxonomy'], Product_Interface::POST_TYPE, array(
 						'hierarchical'      => true,
 						'labels'            => $labels,
 						'show_ui'           => true,

@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Domain\Model;
 
-use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Domain\Model\Content;
 use Affilicious\Common\Domain\Model\Entity_Interface;
 use Affilicious\Common\Domain\Model\Excerpt;
@@ -9,9 +8,11 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Product\Domain\Exception\Duplicated_Shop_Exception;
+use Affilicious\Detail\Domain\Model\Detail_Group;
+use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
 use Affilicious\Shop\Domain\Model\Shop;
+use Affilicious\Shop\Domain\Model\Shop_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -20,18 +21,18 @@ if(!defined('ABSPATH')) {
 interface Product_Interface extends Entity_Interface
 {
     /**
-     * There is a limit of 20 characters for post types in Wordpress
+     * There is a limit of 20 characters for post types in Wordpress.
      * TODO: Change the post type to 'aff_product' before the beta release
      */
     const POST_TYPE = 'product';
 
     /**
-     * The default slug is in English but can be translated in the settings
+     * The default slug is in English but can be translated in the options.
      */
     const SLUG = 'product';
 
     /**
-     * Check if the product has an ID
+     * Check if the product has an optional ID.
      *
      * @since 0.7
      * @return bool
@@ -47,7 +48,7 @@ interface Product_Interface extends Entity_Interface
     public function get_id();
 
     /**
-     * Set the optional product ID
+     * Set the optional product ID.
      *
      * Note that you just get the ID in Wordpress, if you store a post.
      * Normally, you place the ID to the constructor, but it's not possible here
@@ -58,7 +59,7 @@ interface Product_Interface extends Entity_Interface
     public function set_id($id);
 
     /**
-     * Get the type like simple or variants.
+     * Get the type like simple, complex or variants.
      *
      * @since 0.7
      * @return Type
@@ -66,15 +67,7 @@ interface Product_Interface extends Entity_Interface
     public function get_type();
 
     /**
-     * Set the type like simple or variants
-     *
-     * @since 0.7
-     * @param Type $type
-     */
-    public function set_type(Type $type);
-
-    /**
-     * Get the title
+     * Get the title for display usage.
      *
      * @since 0.7
      * @return Title
@@ -82,7 +75,7 @@ interface Product_Interface extends Entity_Interface
     public function get_title();
 
     /**
-     * Set the title
+     * Set the title for display usage.
      *
      * @since 0.7
      * @param Title $title
@@ -90,7 +83,7 @@ interface Product_Interface extends Entity_Interface
     public function set_title(Title $title);
 
     /**
-     * Get the name for url usage
+     * Get the name for url usage.
      *
      * @since 0.7
      * @return Name
@@ -98,7 +91,7 @@ interface Product_Interface extends Entity_Interface
     public function get_name();
 
     /**
-     * Set the name for the url usage
+     * Set the name for the url usage.
      *
      * @since 0.7
      * @param Name $name
@@ -106,7 +99,7 @@ interface Product_Interface extends Entity_Interface
     public function set_name(Name $name);
 
     /**
-     * Get the key for database usage
+     * Get the key for database usage.
      *
      * @since 0.7
      * @return Key
@@ -114,7 +107,7 @@ interface Product_Interface extends Entity_Interface
     public function get_key();
 
     /**
-     * Set the unique key for database usage
+     * Set the unique key for database usage.
      *
      * @since 0.7
      * @param Key $key
@@ -122,7 +115,7 @@ interface Product_Interface extends Entity_Interface
     public function set_key(Key $key);
 
     /**
-     * Check if the product has any content
+     * Check if the product has any content.
      *
      * @since 0.7
      * @return bool
@@ -130,7 +123,7 @@ interface Product_Interface extends Entity_Interface
     public function has_content();
 
     /**
-     * Get the optional content
+     * Get the optional content.
      *
      * @since 0.7
      * @return null|Content
@@ -138,7 +131,7 @@ interface Product_Interface extends Entity_Interface
     public function get_content();
 
     /**
-     * Set the optional content
+     * Set the optional content.
      *
      * @since 0.7
      * @param null|Content $content
@@ -146,7 +139,7 @@ interface Product_Interface extends Entity_Interface
     public function set_content($content);
 
     /**
-     * Check if the product has any excerpt
+     * Check if the product has any excerpt.
      *
      * @since 0.7
      * @return bool
@@ -154,7 +147,7 @@ interface Product_Interface extends Entity_Interface
     public function has_excerpt();
 
     /**
-     * Get the optional excerpt
+     * Get the optional excerpt.
      *
      * @since 0.7
      * @return null|Excerpt
@@ -162,15 +155,15 @@ interface Product_Interface extends Entity_Interface
     public function get_excerpt();
 
     /**
-     * Set the optional excerpt
+     * Set the optional excerpt.
      *
      * @since 0.7
-     * @param Excerpt $excerpt
+     * @param null|Excerpt $excerpt
      */
     public function set_excerpt($excerpt);
 
     /**
-     * Check if the product has a thumbnail
+     * Check if the product has a thumbnail.
      *
      * @since 0.7
      * @return bool
@@ -178,7 +171,7 @@ interface Product_Interface extends Entity_Interface
     public function has_thumbnail();
 
     /**
-     * Get the thumbnail
+     * Get the thumbnail.
      *
      * @since 0.7
      * @return Image
@@ -186,15 +179,124 @@ interface Product_Interface extends Entity_Interface
     public function get_thumbnail();
 
     /**
-     * Set the thumbnail
+     * Set the thumbnail.
      *
      * @since 0.7
-     * @param Image $thumbnail
+     * @param null|Image $thumbnail
      */
-    public function set_thumbnail(Image $thumbnail);
+    public function set_thumbnail($thumbnail);
 
     /**
-     * Check if the product has a specific shop by the affiliate link
+     * Check if the product has a specific detail group.
+     *
+     * @since 0.7
+     * @param Name $name
+     * @return bool
+     */
+    public function has_detail_group(Name $name);
+
+    /**
+     * Add a new detail group.
+     *
+     * @since 0.7
+     * @param Detail_Group $detail_group
+     */
+    public function add_detail_group(Detail_Group $detail_group);
+
+    /**
+     * Remove a detail group by the name.
+     *
+     * @since 0.7
+     * @param Name $name
+     */
+    public function remove_detail_group(Name $name);
+
+    /**
+     * Get a detail group by the name.
+     *
+     * @since 0.7
+     * @param Name $name
+     * @return null|Detail_Group
+     */
+    public function get_detail_group(Name $name);
+
+    /**
+     * Get all detail groups.
+     *
+     * @since 0.7
+     * @return Detail_Group[]
+     */
+    public function get_detail_groups();
+
+    /**
+     * Set all detail groups.
+     * If you do this, the old detail groups going to be replaced.
+     *
+     * @since 0.7
+     * @param Detail_Group[] $detail_groups
+     */
+    public function set_detail_groups($detail_groups);
+
+    /**
+     * Check if the product has a review.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    public function has_review();
+
+    /**
+     * Get the optional review.
+     *
+     * @since 0.7
+     * @return null|Review
+     */
+    public function get_review();
+
+    /**
+     * Set the optional review.
+     *
+     * @since 0.7
+     * @param null|Review $review
+     */
+    public function set_review($review);
+
+    /**
+     * Get the IDs of all related products.
+     *
+     * @since 0.7
+     * @return Product_Id[]
+     */
+    public function get_related_products();
+
+    /**
+     * Set the IDs of all related products.
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.7
+     * @param Product_Id[] $related_products
+     */
+    public function set_related_products($related_products);
+
+    /**
+     * Get the IDs of all related accessories.
+     *
+     * @since 0.7
+     * @return Product_Id[]
+     */
+    public function get_related_accessories();
+
+    /**
+     * Set the IDs of all related accessories.
+     * If you do this, the old IDs going to be replaced.
+     *
+     * @since 0.7
+     * @param Product_Id[] $related_accessories
+     */
+    public function set_related_accessories($related_accessories);
+
+    /**
+     * Check if the product has a specific shop by the affiliate link.
      *
      * @since 0.7
      * @param Affiliate_Link $affiliate_link
@@ -203,16 +305,15 @@ interface Product_Interface extends Entity_Interface
     public function has_shop(Affiliate_Link $affiliate_link);
 
     /**
-     * Add a new shop
+     * Add a new shop.
      *
      * @since 0.7
-     * @param Shop $shop
-     * @throws Duplicated_Shop_Exception
+     * @param Shop_Interface $shop
      */
-    public function add_shop(Shop $shop);
+    public function add_shop(Shop_Interface $shop);
 
     /**
-     * Remove a shop by the affiliate link
+     * Remove THE shop by the affiliate link.
      *
      * @since 0.7
      * @param Affiliate_Link $affiliate_link
@@ -220,27 +321,27 @@ interface Product_Interface extends Entity_Interface
     public function remove_shop(Affiliate_Link $affiliate_link);
 
     /**
-     * Get a shop by the name
+     * Get THE shop by the name.
      *
      * @since 0.7
      * @param Affiliate_Link $affiliate_link
-     * @return null|Shop
+     * @return null|Shop_Interface
      */
     public function get_shop(Affiliate_Link $affiliate_link);
 
     /**
-     * Get the cheapest shop
+     * Get the cheapest shop.
      *
      * @since 0.7
-     * @return null|Shop
+     * @return null|Shop_Interface
      */
     public function get_cheapest_shop();
 
     /**
-     * Get all shops
+     * Get all shops.
      *
      * @since 0.7
-     * @return Shop[]
+     * @return Shop_Interface[]
      */
     public function get_shops();
 
@@ -250,7 +351,6 @@ interface Product_Interface extends Entity_Interface
      *
      * @since 0.7
      * @param Shop[] $shops
-     * @throws Invalid_Type_Exception
      */
     public function set_shops($shops);
 

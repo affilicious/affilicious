@@ -1,8 +1,9 @@
 <?php
 namespace Affilicious\Product\Application\Listener;
 
-use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Id;
+use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Repository_Interface;
 
 if (!defined('ABSPATH')) {
@@ -37,12 +38,16 @@ class Save_Product_Listener
             return;
         }
 
-        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
+        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product_Interface::POST_TYPE) {
             return;
         }
 
         $product = $this->product_repository->find_by_id(new Product_Id($post_id));
         if($product === null) {
+            return;
+        }
+
+        if(!($product instanceof Complex_Product_Interface)) {
             return;
         }
 

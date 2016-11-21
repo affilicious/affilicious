@@ -56,4 +56,37 @@ class Type extends Abstract_Value_Object
 
 		parent::__construct($value);
 	}
+
+    /**
+     * Check if the type is simple.
+     *
+     * @since 0.7
+     * @return bool
+     */
+	public function is_simple()
+    {
+        return $this->value === self::SIMPLE;
+    }
+
+    /**
+     * Check if the type is complex.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    public function is_complex()
+    {
+        return $this->value === self::COMPLEX;
+    }
+
+    /**
+     * Check if the type is complex.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    public function is_variant()
+    {
+        return $this->value === self::VARIANT;
+    }
 }

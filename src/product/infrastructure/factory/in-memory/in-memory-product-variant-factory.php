@@ -1,9 +1,10 @@
 <?php
 namespace Affilicious\Product\Infrastructure\Factory\In_Memory;
 
+use Affilicious\Common\Domain\Model\Key;
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Attribute\Domain\Model\Attribute_Group;
-use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant_Factory_Interface;
 
@@ -15,19 +16,12 @@ class In_Memory_Product_Variant_Factory implements Product_Variant_Factory_Inter
 {
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
-    public function create(Product $parent_product, Title $title, Attribute_Group $attribute_group)
+    public function create(Complex_Product_Interface $parent, Title $title, Name $name, Key $key)
     {
-        $name = $title->to_name();
-        $product_variant = new Product_Variant(
-            $parent_product,
-            $title,
-            $name,
-            $name->to_key(),
-            $attribute_group
-        );
+        $product = new Product_Variant($parent, $title, $name, $key);
 
-        return $product_variant;
+        return $product;
     }
 }

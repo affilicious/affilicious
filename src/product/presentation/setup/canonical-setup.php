@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Presentation\Setup;
 
-use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Product_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -17,7 +17,7 @@ class Canonical_Setup
     public function set_up()
     {
         $post = get_post();
-        if(empty($post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
+        if(empty($post) || $post->post_type !== Product_Interface::POST_TYPE || $post->post_parent == 0) {
             return;
         }
 

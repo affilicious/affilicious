@@ -28,7 +28,6 @@ interface Entity_Interface
      *
      * @since 0.7
      * @param null|Value_Object_Interface $id
-     * @return Value_Object_Interface
      */
     public function set_id($id);
 

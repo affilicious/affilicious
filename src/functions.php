@@ -4,7 +4,7 @@ use Affilicious\Attribute\Domain\Model\Attribute_Template_Group;
 use Affilicious\Detail\Application\Helper\Detail_Template_Group_Helper;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group;
 use Affilicious\Product\Application\Helper\Product_Helper;
-use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant;
 use Affilicious\Shop\Application\Helper\Shop_Template_Helper;
@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
  */
 function aff_is_product_page()
 {
-    return is_singular(Product::POST_TYPE);
+    return is_singular(Product_Interface::POST_TYPE);
 }
 
 /**
@@ -31,7 +31,7 @@ function aff_is_product_page()
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return bool
  */
 function aff_is_product($product_or_id = null)
@@ -46,8 +46,8 @@ function aff_is_product($product_or_id = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
- * @return Product
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return Product_Interface
  */
 function aff_get_product($product_or_id = null)
 {
@@ -60,7 +60,7 @@ function aff_get_product($product_or_id = null)
  * Get the product review rating from 0 to 5
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|float
  */
 function aff_get_product_review_rating($product_or_id = null)
@@ -81,7 +81,7 @@ function aff_get_product_review_rating($product_or_id = null)
  * Get the product review votes
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|int
  */
 function aff_get_product_review_votes($product_or_id = null)
@@ -107,7 +107,7 @@ function aff_get_product_review_votes($product_or_id = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|array
  */
 function aff_get_product_details($product_or_id = null)
@@ -145,13 +145,13 @@ function aff_get_product_details($product_or_id = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|array
  */
 function aff_get_product_image_gallery($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || aff_product_is_variant($product)) {
         return null;
     }
 
@@ -177,7 +177,7 @@ function aff_get_product_image_gallery($product_or_id = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|array
  */
 function aff_get_product_shops($product_or_id = null)
@@ -192,8 +192,8 @@ function aff_get_product_shops($product_or_id = null)
     $raw_shops = array();
     foreach ($shops as $shop) {
         $raw_shop = array(
-            'shop_template_id' => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
-            'title' => $shop->get_title()->get_value(),
+            'shop_template_id' => $shop->get_template()->get_id()->get_value(),
+            'title' => $shop->get_template()->get_title()->get_value(),
             'affiliate_link' => $shop->get_affiliate_link()->get_value(),
             'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
             'thumbnail' => !$shop->has_thumbnail() ? null : array(
@@ -231,7 +231,7 @@ function aff_get_product_shops($product_or_id = null)
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|int[]
  */
 function aff_get_product_related_products($product_or_id = null)
@@ -258,7 +258,7 @@ function aff_get_product_related_products($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @param array $args
  * @return null|WP_Query
  */
@@ -270,7 +270,7 @@ function aff_get_product_related_products_query($product_or_id = null, $args = a
     }
 
     $options = wp_parse_args($args, array(
-        'post_type' => Product::POST_TYPE,
+        'post_type' => Product_Interface::POST_TYPE,
         'post__in' => $related_product_ids,
         'order_by' => 'ASC',
     ));
@@ -285,7 +285,7 @@ function aff_get_product_related_products_query($product_or_id = null, $args = a
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|int[]
  */
 function aff_get_product_related_accessories($product_or_id = null)
@@ -311,7 +311,7 @@ function aff_get_product_related_accessories($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @param array $args
  * @return null|WP_Query
  */
@@ -323,7 +323,7 @@ function aff_get_product_related_accessories_query($product_or_id = null, $args 
     }
 
     $options = wp_parse_args($args, array(
-        'post_type' => Product::POST_TYPE,
+        'post_type' => Product_Interface::POST_TYPE,
         'post__in' => $related_accessories_ids,
         'order_by' => 'ASC',
     ));
@@ -337,7 +337,7 @@ function aff_get_product_related_accessories_query($product_or_id = null, $args 
  * Get the product link.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|string
  */
 function aff_get_product_link($product_or_id = null)
@@ -361,7 +361,7 @@ function aff_get_product_link($product_or_id = null)
  * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
  * @return null|array
  */
@@ -386,8 +386,8 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
     }
 
     $raw_shop = array(
-        'shop_template_id' => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
-        'title' => $shop->get_title()->get_value(),
+        'shop_template_id' => $shop->get_template()->get_id()->get_value(),
+        'title' => $shop->get_template()->get_title()->get_value(),
         'affiliate_link' => $shop->get_affiliate_link()->get_value(),
         'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
         'thumbnail' => !$shop->has_thumbnail() ? null : array(
@@ -422,7 +422,7 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.5.1
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|array
  */
 function aff_get_product_cheapest_shop($product_or_id = null)
@@ -438,8 +438,8 @@ function aff_get_product_cheapest_shop($product_or_id = null)
     }
 
     $raw_shop = array(
-        'shop_template_id' => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
-        'title' => $shop->get_title()->get_value(),
+        'shop_template_id' => $shop->get_template()->get_id()->get_value(),
+        'title' => $shop->get_template()->get_title()->get_value(),
         'affiliate_link' => $shop->get_affiliate_link()->get_value(),
         'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
         'thumbnail' => !$shop->has_thumbnail() ? null : array(
@@ -475,7 +475,7 @@ function aff_get_product_cheapest_shop($product_or_id = null)
  * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
  * @return null|string
  */
@@ -513,7 +513,7 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.5.1
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|string
  */
 function aff_get_product_cheapest_price($product_or_id = null)
@@ -544,7 +544,7 @@ function aff_get_product_cheapest_price($product_or_id = null)
  * If you pass in nothing as a shop, the first shop will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @param int|\WP_Post|Shop_Template|null $shop_or_id
  * @return null|string
  */
@@ -565,7 +565,7 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.5.1
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|string
  */
 function aff_get_product_cheapest_affiliate_link($product_or_id = null)
@@ -586,7 +586,7 @@ function aff_get_product_cheapest_affiliate_link($product_or_id = null)
  *
  * @since 0.6
  * @param string|Type $type
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return bool
  */
 function aff_product_is_type($type, $product_or_id = null)
@@ -608,7 +608,7 @@ function aff_product_is_type($type, $product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return bool
  */
 function aff_product_is_simple($product_or_id = null)
@@ -621,7 +621,7 @@ function aff_product_is_simple($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return bool
  */
 function aff_product_is_complex($product_or_id = null)
@@ -634,7 +634,7 @@ function aff_product_is_complex($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return bool
  */
 function aff_product_is_variant($product_or_id = null)
@@ -648,8 +648,8 @@ function aff_product_is_variant($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
- * @return null|Product
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return null|Product_Interface
  */
 function aff_product_get_parent($product_or_id = null)
 {
@@ -677,8 +677,8 @@ function aff_product_get_parent($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
- * @param int|\WP_Post|Product|null $variant_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $variant_or_id
  * @return bool
  */
 function aff_product_has_variant($product_or_id = null, $variant_or_id = null)
@@ -707,7 +707,7 @@ function aff_product_has_variant($product_or_id = null, $variant_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|Product_variant[]
  */
 function aff_product_get_variants($product_or_id = null)
@@ -731,7 +731,7 @@ function aff_product_get_variants($product_or_id = null)
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|Product_variant
  */
 function aff_product_get_default_variant($product_or_id = null)
@@ -754,8 +754,8 @@ function aff_product_get_default_variant($product_or_id = null)
  * Check if the given variant is the default one
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
- * @param int|\WP_Post|Product|null $variant_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $variant_or_id
  * @return bool
  */
 function aff_product_is_default_variant($product_or_id = null, $variant_or_id = null) {
@@ -781,8 +781,8 @@ function aff_product_is_default_variant($product_or_id = null, $variant_or_id = 
  * If you pass in nothing as a variant, the default variant will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
- * @param int|\WP_Post|Product|null $variant_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $variant_or_id
  * @return null|array
  */
 function aff_product_get_variant_attribute_group($product_or_id = null, $variant_or_id = null)
@@ -808,6 +808,10 @@ function aff_product_get_variant_attribute_group($product_or_id = null, $variant
     }
 
     $attribute_group = $variant->get_attribute_group();
+    if($attribute_group === null) {
+        return null;
+    }
+
     $attributes = $attribute_group->get_attributes();
 
     $raw_attribute_group = array(
@@ -835,7 +839,7 @@ function aff_product_get_variant_attribute_group($product_or_id = null, $variant
  * Get the product attributes choices
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  * @return null|array
  */
 function aff_get_product_attribute_choices($product_or_id = null)
@@ -933,7 +937,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
  * Prints the product attributes choices to the screen
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
  */
 function aff_the_product_attribute_choices($product_or_id = null)
 {

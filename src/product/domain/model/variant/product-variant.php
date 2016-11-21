@@ -6,23 +6,23 @@ use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Detail\Domain\Model\Detail_Group;
-use Affilicious\Product\Domain\Model\Product;
-use Affilicious\Product\Domain\Model\Product_Interface;
+use Affilicious\Product\Domain\Model\Abstract_Product;
+use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Type;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product_Variant extends Product
+class Product_Variant extends Abstract_Product implements Product_Variant_Interface
 {
     /**
-     * @var Product
+     * @var Complex_Product_Interface
      */
     protected $parent;
 
     /**
-     * True, if the variant is the default for the parent product
+     * Indicates if the variant is the default one for the parent complex product.
      *
      * @var bool
      */
@@ -34,26 +34,22 @@ class Product_Variant extends Product
     protected $attribute_group;
 
     /**
-     * @since 0.6
-     * @param Product_Interface $parent
+     * @since 0.7
+     * @param Complex_Product_Interface $parent
      * @param Title $title
      * @param Name $name
      * @param Key $key
-     * @param Attribute_Group $attribute_group
      */
-    public function __construct(Product_Interface $parent, Title $title, Name $name, Key $key, Attribute_Group $attribute_group)
+    public function __construct(Complex_Product_Interface $parent, Title $title, Name $name, Key $key)
     {
         parent::__construct($title, $name, $key, Type::variant());
         $this->parent = $parent;
         $this->default = false;
-        $this->attribute_group = $attribute_group;
     }
 
     /**
-     * Get the parent product
-     *
-     * @since 0.6
-     * @return Product
+     * @inheritdoc
+     * @since 0.7
      */
     public function get_parent()
     {
@@ -62,7 +58,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function has_content()
     {
@@ -71,7 +67,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_content()
     {
@@ -80,7 +76,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function set_content($content)
     {
@@ -89,7 +85,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function has_excerpt()
     {
@@ -98,7 +94,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_excerpt()
     {
@@ -107,7 +103,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function set_excerpt($excerpt)
     {
@@ -116,7 +112,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function has_detail_group(Name $name)
     {
@@ -125,7 +121,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function add_detail_group(Detail_Group $detail_group)
     {
@@ -134,7 +130,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function remove_detail_group(Name $name)
     {
@@ -143,7 +139,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_detail_group(Name $name)
     {
@@ -152,7 +148,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_detail_groups()
     {
@@ -160,10 +156,17 @@ class Product_Variant extends Product
     }
 
     /**
-     * Get the attribute groups which stores the attributes like color or size.
-     *
-     * @since 0.6
-     * @return Attribute_Group
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function has_attribute_group()
+    {
+        return $this->attribute_group !== null;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
      */
     public function get_attribute_group()
     {
@@ -172,7 +175,16 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
+     */
+    public function set_attribute_group(Attribute_Group $attribute_group)
+    {
+        $this->attribute_group = $attribute_group;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
      */
     public function has_review()
     {
@@ -181,7 +193,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_review()
     {
@@ -190,7 +202,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function set_review($review)
     {
@@ -198,10 +210,8 @@ class Product_Variant extends Product
     }
 
     /**
-     * Set true, if you want to set the variant as the default one
-     *
-     * @since 0.6
-     * @param $default
+     * @inheritdoc
+     * @since 0.7
      */
     public function set_default($default)
     {
@@ -209,10 +219,8 @@ class Product_Variant extends Product
     }
 
     /**
-     * Check if the variant is the default one for the parent product
-     *
-     * @since 0.6
-     * @return bool
+     * @inheritdoc
+     * @since 0.7
      */
     public function is_default()
     {
@@ -221,7 +229,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_related_products()
     {
@@ -230,7 +238,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function set_related_products($related_products)
     {
@@ -239,7 +247,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function get_related_accessories()
     {
@@ -248,7 +256,7 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function set_related_accessories($related_accessories)
     {
@@ -257,12 +265,13 @@ class Product_Variant extends Product
 
     /**
      * @inheritdoc
-     * @since 0.6
+     * @since 0.7
      */
     public function is_equal_to($object)
     {
         return
+            $object instanceof self &&
             parent::is_equal_to($object) &&
-            $this->get_name()->is_equal_to($object->get_name());
+            $this->is_default() == $object->is_default();
     }
 }

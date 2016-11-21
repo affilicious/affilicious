@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Helper;
 
-use Affilicious\Product\Domain\Model\Product;
+use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Id;
 
 if(!defined('ABSPATH')) {
@@ -15,8 +15,8 @@ class Product_Helper
      * If you pass in nothing as a parameter, the current post will be used.
      *
      * @since 0.6
-     * @param int|\WP_Post|Product|null $product_or_id
-     * @return null|Product
+     * @param int|\WP_Post|Product_Interface|null $product_or_id
+     * @return null|Product_Interface
      */
     public static function get_product($product_or_id = null)
     {
@@ -25,7 +25,7 @@ class Product_Helper
         $product = null;
 
         // the argument is already a product or a product variant
-        if ($product_or_id instanceof Product) {
+        if ($product_or_id instanceof Product_Interface) {
             $product = $product_or_id;
         }
 
