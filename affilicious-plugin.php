@@ -4,8 +4,8 @@
  * Description: Manage affiliate products in Wordpress with price comparisons, shops, details and more
  * Version: 0.6
  * Author: Affilicious Team
- * Author URI: http://affilicioustheme.de/
- * Plugin URI: http://affilicioustheme.de/downloads/affilicious/
+ * Author URI: https://affilicioustheme.de/
+ * Plugin URI: https://affilicioustheme.de/downloads/affilicious/
  * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.6
@@ -109,7 +109,7 @@ class Affilicious_Plugin
     /**
      * Get a reference to the dependency injection container
      *
-     * @see https://easydigitaldownloads.com/downloads/software-licensing/
+     * @see http://pimple.sensiolabs.org
      * @since 0.3
      * @return Container
      */
@@ -186,31 +186,14 @@ class Affilicious_Plugin
      */
     public function activate()
     {
+        $license_manager = $this->container['affilicious.common.application.license.manager'];
+        $license_manager->activate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
+
         $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
         $slug_rewrite_setup->activate();
 
         $update_timer = $this->container['affilicious.product.application.update.timer'];
         $update_timer->activate();
-
-        // Data to send in our API request.
-        $api_params = array(
-            'edd_action'=> 'activate_license',
-            'license' 	=> self::PLUGIN_LICENSE_KEY,
-            'item_name' => urlencode(self::PLUGIN_ITEM_NAME),
-            'url'       => home_url()
-        );
-
-        // Call the custom API.
-        $response = wp_remote_post(self::PLUGIN_STORE_URL, array(
-            'timeout' => 15,
-            'sslverify' => false,
-            'body' => $api_params
-        ));
-
-        // Make sure the response came back okay
-        $is_error = is_wp_error($response);
-
-	    return $is_error;
     }
 
     /**
@@ -220,31 +203,14 @@ class Affilicious_Plugin
      */
     public function deactivate()
     {
+        $license_manager = $this->container['affilicious.common.application.license.manager'];
+        $license_manager->deactivate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
+
         $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
         $slug_rewrite_setup->deactivate();
 
         $update_timer = $this->container['affilicious.product.application.update.timer'];
         $update_timer->deactivate();
-
-    	// Data to send in our API request.
-	    $api_params = array(
-		    'edd_action'=> 'deactivate_license',
-		    'license' 	=> self::PLUGIN_LICENSE_KEY,
-		    'item_name' => urlencode(self::PLUGIN_ITEM_NAME),
-		    'url'       => home_url()
-	    );
-
-	    // Call the custom API.
-	    $response = wp_remote_post(self::PLUGIN_STORE_URL, array(
-	    	'timeout' => 15,
-		    'sslverify' => false,
-		    'body' => $api_params
-	    ));
-
-	    // Make sure the response came back okay
-	    $is_error = is_wp_error($response);
-
-	    return $is_error;
     }
 
     /**
@@ -254,6 +220,10 @@ class Affilicious_Plugin
      */
     public function register_services()
     {
+        $this->container['affilicious.common.application.license.manager'] = function () {
+            return new \Affilicious\Common\Application\License\EDD_License_Manager();
+        };
+
         $this->container['affilicious.common.application.setup.asset'] = function () {
             return new \Affilicious\Common\Presentation\Setup\Asset_Setup();
         };
