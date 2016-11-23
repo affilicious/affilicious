@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Application\Updater\Response;
+namespace Affilicious\Product\Application\Update\Task;
 
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Interface;
@@ -8,7 +8,7 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Update_Response_Interface
+interface Update_Task_Interface
 {
     /**
      * @since 0.7
@@ -18,7 +18,7 @@ interface Update_Response_Interface
     public function __construct(Product_Interface $product, Shop_Interface $shop);
 
     /**
-     * Get the product for the last update.
+     * Get the product for the next update.
      *
      * @since 0.7
      * @return Product_Interface
@@ -26,7 +26,7 @@ interface Update_Response_Interface
     public function get_product();
 
     /**
-     * Get the shop for the last update.
+     * Get the shop for the next update.
      *
      * @since 0.7
      * @return Shop_Interface

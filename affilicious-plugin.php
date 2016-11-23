@@ -189,6 +189,9 @@ class Affilicious_Plugin
         $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
         $slug_rewrite_setup->activate();
 
+        $update_timer = $this->container['affilicious.product.application.update.timer'];
+        $update_timer->activate();
+
         // Data to send in our API request.
         $api_params = array(
             'edd_action'=> 'activate_license',
@@ -219,6 +222,9 @@ class Affilicious_Plugin
     {
         $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
         $slug_rewrite_setup->deactivate();
+
+        $update_timer = $this->container['affilicious.product.application.update.timer'];
+        $update_timer->deactivate();
 
     	// Data to send in our API request.
 	    $api_params = array(
@@ -269,8 +275,12 @@ class Affilicious_Plugin
             );
         };
 
-        $this->container['affilicious.product.infrastructure.factory.product'] = function () {
-            return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Product_Factory();
+        $this->container['affilicious.product.infrastructure.factory.simple_product'] = function () {
+            return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Simple_Product_Factory();
+        };
+
+        $this->container['affilicious.product.infrastructure.factory.complex_product'] = function () {
+            return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Complex_Product_Factory();
         };
 
         $this->container['affilicious.product.infrastructure.factory.product_variant'] = function () {
@@ -424,13 +434,25 @@ class Affilicious_Plugin
             );
         };
 
-        $this->container['affilicious.product.application.updater.request_exchange'] = function () {
-            return new \Affilicious\Product\Application\Updater\Request\Update_Request_Exchange();
+        $this->container['affilicious.product.application.update.timer'] = function ($c) {
+            return new \Affilicious\Product\Application\Update\Update_Timer(
+                $c['affilicious.product.application.update.manager']
+            );
+        };
+
+        $this->container['affilicious.product.application.update.mediator'] = function () {
+            return new \Affilicious\Product\Application\Update\Queue\Update_Mediator();
+        };
+
+        $this->container['affilicious.product.application.update.manager'] = function ($c) {
+            return new \Affilicious\Product\Application\Update\Manager\Update_Manager(
+                $c['affilicious.product.application.update.mediator']
+            );
         };
 
         $this->container['affilicious.product.application.listener.create_provider'] = function ($c) {
             return new \Affilicious\Product\Application\Listener\Create_Provider_Listener(
-                $c['affilicious.product.application.updater.request_exchange']
+                $c['affilicious.product.application.update.mediator']
             );
         };
     }
@@ -547,7 +569,10 @@ class Affilicious_Plugin
         add_action('pre_get_posts', array($complex_product_filter, 'filter'));
 
         $create_provider_listener = $this->container['affilicious.product.application.listener.create_provider'];
-        add_action('affilicious_shop_provider_after_create', array($create_provider_listener, 'listen'));
+        add_action('affilicious_shop_provider_create', array($create_provider_listener, 'listen'));
+
+        $create_worker_listener = $this->container['affilicious.product.application.listener.create_worker'];
+        add_action('affilicious_product_update_worker_create', array($create_worker_listener, 'listen'));
     }
 
     /**

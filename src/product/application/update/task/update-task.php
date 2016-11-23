@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Application\Updater\Request;
+namespace Affilicious\Product\Application\Update\Task;
 
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Interface;
@@ -8,7 +8,7 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Update_Request implements Update_Request_Interface
+class Update_Task implements Update_Task_Interface
 {
     /**
      * @var Product_Interface

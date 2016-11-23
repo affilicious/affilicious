@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\Product\Application\Listener;
 
-use Affilicious\Product\Application\Updater\Request\Update_Request_Exchange_Interface;
-use Affilicious\Product\Application\Updater\Request\Update_Request_Queue;
+use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
+use Affilicious\Product\Application\Update\Queue\Update_Queue;
 use Affilicious\Shop\Domain\Model\Provider\Provider_Interface;
 
 if (!defined('ABSPATH')) {
@@ -12,21 +12,21 @@ if (!defined('ABSPATH')) {
 class Create_Provider_Listener
 {
     /**
-     * @var Update_Request_Exchange_Interface
+     * @var Update_Mediator_Interface
      */
-    private $exchange;
+    private $mediator;
 
     /**
      * @since 0.7
-     * @param Update_Request_Exchange_Interface $exchange
+     * @param Update_Mediator_Interface $mediator
      */
-    public function __construct(Update_Request_Exchange_Interface $exchange)
+    public function __construct(Update_Mediator_Interface $mediator)
     {
-        $this->exchange = $exchange;
+        $this->mediator = $mediator;
     }
 
     /**
-     * Listen for the 'affilicious_shop_provider_after_create' action.
+     * Listen for the 'affilicious_shop_provider_create' action.
      *
      * @since 0.7
      * @param Provider_Interface $provider
@@ -34,8 +34,8 @@ class Create_Provider_Listener
     public function listen(Provider_Interface $provider)
     {
         $name = $provider->get_name();
-        $queue = new Update_Request_Queue($name->get_value());
+        $queue = new Update_Queue($name->get_value());
 
-        $this->exchange->add_queue($queue);
+        $this->mediator->add_queue($queue);
     }
 }
