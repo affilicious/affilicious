@@ -425,6 +425,12 @@ class Affilicious_Plugin
                 $c['affilicious.product.application.update.mediator']
             );
         };
+
+        $this->container['affilicious.product.application.listener.create_worker'] = function ($c) {
+            return new \Affilicious\Product\Application\Listener\Create_Worker_Listener(
+                $c['affilicious.product.application.update.manager']
+            );
+        };
     }
 
     /**
@@ -543,6 +549,11 @@ class Affilicious_Plugin
 
         $create_worker_listener = $this->container['affilicious.product.application.listener.create_worker'];
         add_action('affilicious_product_update_worker_create', array($create_worker_listener, 'listen'));
+
+        $update_timer = $this->container['affilicious.product.application.update.timer'];
+        add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
+        add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
+        add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
     }
 
     /**
