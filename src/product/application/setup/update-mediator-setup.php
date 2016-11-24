@@ -1,15 +1,17 @@
 <?php
-namespace Affilicious\Product\Application\Listener;
+namespace Affilicious\Product\Application\Setup;
 
 use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Application\Update\Queue\Update_Queue;
 use Affilicious\Shop\Domain\Model\Provider\Provider_Interface;
+use Carbon_Fields\Container as Carbon_Container;
+use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Create_Provider_Listener
+class Update_Mediator_Setup
 {
     /**
      * @var Update_Mediator_Interface
@@ -26,16 +28,18 @@ class Create_Provider_Listener
     }
 
     /**
-     * Listen for the 'affilicious_shop_provider_after_create' action.
+     * Init the update mediator by adding all update workers.
      *
      * @since 0.7
-     * @param Provider_Interface $provider
+     * @param Provider_Interface[] $providers
      */
-    public function listen(Provider_Interface $provider)
+    public function init($providers)
     {
-        $name = $provider->get_name();
-        $queue = new Update_Queue($name->get_value());
+        foreach ($providers as $provider) {
+            $name = $provider->get_name();
+            $queue = new Update_Queue($name->get_value());
 
-        $this->mediator->add_queue($queue);
+            $this->mediator->add_queue($queue);
+        }
     }
 }

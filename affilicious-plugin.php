@@ -288,6 +288,12 @@ class Affilicious_Plugin
             );
         };
 
+        $this->container['affilicious.shop.application.setup.amazon_provider'] = function ($c) {
+            return new \Affilicious\Shop\Application\Setup\Amazon_Provider_Setup(
+                $c['affilicious.shop.infrastructure.factory.provider.amazon']
+            );
+        };
+
         $this->container['affilicious.shop.infrastructure.repository.provider'] = function () {
             return new \Affilicious\Shop\Infrastructure\Repository\In_Memory\In_Memory_Provider_Repository();
         };
@@ -421,20 +427,20 @@ class Affilicious_Plugin
             );
         };
 
-        $this->container['affilicious.product.application.listener.create_provider'] = function ($c) {
-            return new \Affilicious\Product\Application\Listener\Create_Provider_Listener(
-                $c['affilicious.product.application.update.mediator']
-            );
-        };
-
         $this->container['affilicious.product.application.setup.update_worker'] = function ($c) {
             return new \Affilicious\Product\Application\Setup\Update_Worker_Setup(
                 $c['affilicious.product.application.update.manager']
             );
         };
 
-        $this->container['affilicious.product.application.setup.amazon_update_worker'] = function ($c) {
+        $this->container['affilicious.product.application.setup.amazon_update_worker'] = function () {
             return new \Affilicious\Product\Application\Setup\Amazon_Update_Worker_Setup();
+        };
+
+        $this->container['affilicious.product.application.setup.update_mediator'] = function ($c) {
+            return new \Affilicious\Product\Application\Setup\Update_Mediator_Setup(
+                $c['affilicious.product.application.update.mediator']
+            );
         };
     }
 
@@ -497,7 +503,10 @@ class Affilicious_Plugin
         // Hook the providers
         $provider_setup = $this->container['affilicious.shop.application.setup.provider'];
         add_action('init', array($provider_setup, 'init'), 10);
-        add_filter('affilicious_shop_provider_init', array($provider_setup, 'init_amazon'));
+
+        // Hook the amazon provider
+        $amazon_provider_setup = $this->container['affilicious.shop.application.setup.amazon_provider'];
+        add_filter('affilicious_shop_provider_setup_init', array($amazon_provider_setup, 'init'));
 
         // Hook the shops
         $shop_template_setup = $this->container['affilicious.shop.application.setup.shop_template'];
@@ -549,15 +558,19 @@ class Affilicious_Plugin
         $complex_product_filter = $this->container['affilicious.product.presentation.filter.complex_product'];
         add_action('pre_get_posts', array($complex_product_filter, 'filter'));
 
-        $create_provider_listener = $this->container['affilicious.product.application.listener.create_provider'];
-        add_action('affilicious_shop_provider_after_create', array($create_provider_listener, 'listen'));
-
+        // Hook the update workers
         $update_worker_setup = $this->container['affilicious.product.application.setup.update_worker'];
         add_action('init', array($update_worker_setup, 'init'), 15);
 
+        // Hook the amazon update worker
         $amazon_update_worker_setup = $this->container['affilicious.product.application.setup.amazon_update_worker'];
         add_filter('affilicious_product_update_worker_setup_init', array($amazon_update_worker_setup, 'init'));
 
+        // Hook the update mediator setup
+        $update_mediator_setup = $this->container['affilicious.product.application.setup.update_mediator'];
+        add_filter('affilicious_shop_provider_setup_after_init', array($update_mediator_setup, 'init'));
+
+        // Hook the update timer to update the products regularly
         $update_timer = $this->container['affilicious.product.application.update.timer'];
         add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
         add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
