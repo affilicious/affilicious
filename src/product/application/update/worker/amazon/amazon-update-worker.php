@@ -33,6 +33,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      */
     public function execute($update_tasks)
     {
+        $i = 0;
         // TODO: Implement execute() method.
     }
 }

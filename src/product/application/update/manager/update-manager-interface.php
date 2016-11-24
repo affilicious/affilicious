@@ -52,6 +52,14 @@ interface Update_Manager_Interface
     public function get_workers();
 
     /**
+     * Set all update workers.
+     *
+     * @since 0.7
+     * @param Update_Worker_Interface[] $workers
+     */
+    public function set_workers($workers);
+
+    /**
      * Run the tasks for the given update interval like hourly, twice daily or daily.
      *
      * @since 0.7

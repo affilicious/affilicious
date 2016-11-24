@@ -4,8 +4,8 @@ namespace Affilicious\Product\Application\Update\Manager;
 use Affilicious\Product\Application\Update\Configuration\Configuration_Context;
 use Affilicious\Product\Application\Update\Configuration\Configuration_Resolver;
 use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
+use Affilicious\Product\Application\Update\Queue\Update_Queue_Interface;
 use Affilicious\Product\Application\Update\Task\Update_Task;
-use Affilicious\Product\Application\Update\Worker\Amazon\Amazon_Update_Worker;
 use Affilicious\Product\Application\Update\Worker\Update_Worker_Interface;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
@@ -86,21 +86,37 @@ class Update_Manager implements Update_Manager_Interface
      * @inheritdoc
      * @since 0.7
      */
+    public function set_workers($workers)
+    {
+        $this->workers = array();
+
+        foreach ($workers as $worker) {
+            $this->add_worker($worker);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
     public function run_tasks($update_interval)
     {
         $this->prepare_tasks();
 
-        $amazon_worker = new Amazon_Update_Worker('amazon');
-        $this->add_worker($amazon_worker);
+        $queues = $this->mediator->get_queues();
+        foreach ($queues as $queue) {
+            $worker = $this->find_worker_for_queue($queue);
+            if($worker === null) {
+                continue;
+            }
 
-        $config = $amazon_worker->configure();
-        $config_context = new Configuration_Context(array('update_interval' => $update_interval));
-        $config_resolver = new Configuration_Resolver($config_context);
+            $config = $worker->configure();
+            $config_context = new Configuration_Context(array('update_interval' => $update_interval));
+            $config_resolver = new Configuration_Resolver($config_context);
 
-        $queue = $this->mediator->get_queue($config->get('provider'));
-        $update_tasks = $config_resolver->resolve($config, $queue);
-
-        $amazon_worker->execute($update_tasks);
+            $update_tasks = $config_resolver->resolve($config, $queue);
+            $worker->execute($update_tasks);
+        }
     }
 
     /**
@@ -153,5 +169,25 @@ class Update_Manager implements Update_Manager_Interface
         $provider = $template->get_provider();
         $update_task = new Update_Task($provider, $product);
         $this->mediator->mediate($update_task);
+    }
+
+    /**
+     * Find the worker for the queue.
+     *
+     * @since 0.7
+     * @param Update_Queue_Interface $queue
+     * @return null|Update_Worker_Interface
+     */
+    private function find_worker_for_queue(Update_Queue_Interface $queue)
+    {
+        foreach ($this->workers as $worker) {
+            $config = $worker->configure();
+
+            if($config->get('provider') === $queue->get_name()) {
+                return $worker;
+            }
+        }
+
+        return null;
     }
 }

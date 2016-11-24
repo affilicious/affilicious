@@ -427,10 +427,14 @@ class Affilicious_Plugin
             );
         };
 
-        $this->container['affilicious.product.application.listener.create_worker'] = function ($c) {
-            return new \Affilicious\Product\Application\Listener\Create_Worker_Listener(
+        $this->container['affilicious.product.application.setup.update_worker'] = function ($c) {
+            return new \Affilicious\Product\Application\Setup\Update_Worker_Setup(
                 $c['affilicious.product.application.update.manager']
             );
+        };
+
+        $this->container['affilicious.product.application.setup.amazon_update_worker'] = function ($c) {
+            return new \Affilicious\Product\Application\Setup\Amazon_Update_Worker_Setup();
         };
     }
 
@@ -548,8 +552,11 @@ class Affilicious_Plugin
         $create_provider_listener = $this->container['affilicious.product.application.listener.create_provider'];
         add_action('affilicious_shop_provider_after_create', array($create_provider_listener, 'listen'));
 
-        $create_worker_listener = $this->container['affilicious.product.application.listener.create_worker'];
-        add_action('affilicious_product_update_worker_create', array($create_worker_listener, 'listen'));
+        $update_worker_setup = $this->container['affilicious.product.application.setup.update_worker'];
+        add_action('init', array($update_worker_setup, 'init'), 15);
+
+        $amazon_update_worker_setup = $this->container['affilicious.product.application.setup.amazon_update_worker'];
+        add_filter('affilicious_product_update_worker_setup_init', array($amazon_update_worker_setup, 'init'));
 
         $update_timer = $this->container['affilicious.product.application.update.timer'];
         add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
