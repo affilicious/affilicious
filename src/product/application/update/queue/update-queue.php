@@ -45,7 +45,7 @@ class Update_Queue implements Update_Queue_Interface
      */
     public function put(Update_Task_Interface $update_task)
     {
-        $updated_at = $update_task->get_shop()->get_updated_at()->getTimestamp();
+        $updated_at = $update_task->get_product()->get_updated_at()->getTimestamp();
         $this->min_priority_queue->insert($update_task, $updated_at);
     }
 
@@ -71,8 +71,10 @@ class Update_Queue implements Update_Queue_Interface
 
         $result = array();
         for($i = 0; $i < $number; $i++) {
-            $update_task = $this->min_priority_queue->extract();
-            $result[] = $update_task;
+            if (!$this->is_empty()) {
+                $update_task = $this->min_priority_queue->extract();
+                $result[] = $update_task;
+            }
         }
 
         return $result;
@@ -95,6 +97,8 @@ class Update_Queue implements Update_Queue_Interface
      */
     public function is_empty()
     {
-        return $this->get_size() == 0;
+        $empty = $this->get_size() == 0;
+
+        return $empty;
     }
 }

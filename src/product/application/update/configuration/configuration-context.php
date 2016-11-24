@@ -1,16 +1,16 @@
 <?php
-namespace Affilicious\Product\Application\Update\Worker;
+namespace Affilicious\Product\Application\Update\Configuration;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Configuration_Resolver implements Configuration_Resolver_Interface
+class Configuration_Context implements Configuration_Context_Interface
 {
     /**
      * @var array
      */
-    protected $config;
+    protected $context;
 
     /**
      * @inheritdoc
@@ -18,7 +18,9 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
      */
     public function __construct(array $defaults = array())
     {
-        $this->config = $defaults;
+        $this->context = wp_parse_args($defaults, array(
+            self::UPDATE_INTERVAL => self::DEFAULT_UPDATE_INTERVAL,
+        ));
     }
 
     /**
@@ -27,7 +29,7 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
      */
     public function has($key)
     {
-        return isset($this->config[$key]);
+        return isset($this->context[$key]);
     }
 
     /**
@@ -36,7 +38,7 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
      */
     public function set($key, $value)
     {
-        $this->config[$key] = $value;
+        $this->context[$key] = $value;
 
         return $this;
     }
@@ -47,7 +49,7 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
      */
     public function delete($key)
     {
-        unset($this->config[$key]);
+        unset($this->context[$key]);
 
         return $this;
     }
@@ -62,7 +64,7 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
             return null;
         }
 
-        return $this->config[$key];
+        return $this->context[$key];
     }
 
     /**
@@ -71,6 +73,6 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
      */
     public function get_all()
     {
-        return $this->config;
+        return $this->context;
     }
 }

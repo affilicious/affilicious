@@ -3,6 +3,7 @@ namespace Affilicious\Product\Application\Update\Manager;
 
 use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Application\Update\Worker\Update_Worker_Interface;
+use Affilicious\Product\Domain\Model\Product_Repository_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -13,8 +14,9 @@ interface Update_Manager_Interface
     /**
      * @since 0.7
      * @param Update_Mediator_Interface $mediator
+     * @param Product_Repository_Interface $product_repository
      */
-    public function __construct(Update_Mediator_Interface $mediator);
+    public function __construct(Update_Mediator_Interface $mediator, Product_Repository_Interface $product_repository);
 
     /**
      * Check by name if the worker exists in the manager.

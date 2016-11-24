@@ -26,7 +26,7 @@ class Create_Provider_Listener
     }
 
     /**
-     * Listen for the 'affilicious_shop_provider_create' action.
+     * Listen for the 'affilicious_shop_provider_after_create' action.
      *
      * @since 0.7
      * @param Provider_Interface $provider

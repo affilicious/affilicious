@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Update\Worker;
 
+use Affilicious\Product\Application\Update\Configuration\Configuration_Interface;
 use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
 
 if(!defined('ABSPATH')) {
@@ -27,10 +28,9 @@ interface Update_Worker_Interface
      * Configure the worker for the update.
      *
      * @since 0.7
-     * @param Configuration_Resolver_Interface $configuration
-     * @return Configuration_Resolver_Interface
+     * @return Configuration_Interface
      */
-    public function configure(Configuration_Resolver_Interface $configuration);
+    public function configure();
 
     /**
      * Execute the update tasks.

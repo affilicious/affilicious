@@ -416,7 +416,8 @@ class Affilicious_Plugin
 
         $this->container['affilicious.product.application.update.manager'] = function ($c) {
             return new \Affilicious\Product\Application\Update\Manager\Update_Manager(
-                $c['affilicious.product.application.update.mediator']
+                $c['affilicious.product.application.update.mediator'],
+                $c['affilicious.product.infrastructure.repository.product']
             );
         };
 
@@ -545,7 +546,7 @@ class Affilicious_Plugin
         add_action('pre_get_posts', array($complex_product_filter, 'filter'));
 
         $create_provider_listener = $this->container['affilicious.product.application.listener.create_provider'];
-        add_action('affilicious_shop_provider_create', array($create_provider_listener, 'listen'));
+        add_action('affilicious_shop_provider_after_create', array($create_provider_listener, 'listen'));
 
         $create_worker_listener = $this->container['affilicious.product.application.listener.create_worker'];
         add_action('affilicious_product_update_worker_create', array($create_worker_listener, 'listen'));

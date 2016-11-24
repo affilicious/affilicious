@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Application\Update\Task;
 
 use Affilicious\Product\Domain\Model\Product_Interface;
-use Affilicious\Shop\Domain\Model\Shop_Interface;
+use Affilicious\Shop\Domain\Model\Provider\Provider_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -11,23 +11,32 @@ if(!defined('ABSPATH')) {
 class Update_Task implements Update_Task_Interface
 {
     /**
-     * @var Product_Interface
+     * @var Provider_Interface
      */
-    private $product;
+    protected $provider;
 
     /**
-     * @var Shop_Interface
+     * @var Product_Interface
      */
-    private $shop;
+    protected $product;
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct(Product_Interface $product, Shop_Interface $shop)
+    public function __construct(Provider_Interface $provider, Product_Interface $product)
     {
+        $this->provider = $provider;
         $this->product = $product;
-        $this->shop = $shop;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_provider()
+    {
+        return $this->provider;
     }
 
     /**
@@ -37,14 +46,5 @@ class Update_Task implements Update_Task_Interface
     public function get_product()
     {
         return $this->product;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function get_shop()
-    {
-        return $this->shop;
     }
 }

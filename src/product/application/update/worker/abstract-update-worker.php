@@ -29,12 +29,4 @@ abstract class Abstract_Update_Worker implements Update_Worker_Interface
     {
         return $this->name;
     }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function configure(Configuration_Resolver_Interface $configuration)
-    {
-    }
 }

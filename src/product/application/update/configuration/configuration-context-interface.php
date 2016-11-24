@@ -1,19 +1,18 @@
 <?php
-namespace Affilicious\Product\Application\Update\Worker;
+namespace Affilicious\Product\Application\Update\Configuration;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Configuration_Resolver_Interface
+interface Configuration_Context_Interface
 {
     const UPDATE_INTERVAL = 'update_interval';
-    const FORCE_UPDATE_INTERVAL = 'force_update_interval';
-    const MIN_TASKS = 'min_tasks';
-    const MAX_TASKS = 'max_tasks';
+
+    const DEFAULT_UPDATE_INTERVAL = 'hourly';
 
     /**
-     * Create a new configuration with default values.
+     * Create a new configuration context with default values.
      *
      * @since 0.7
      * @param array $defaults
@@ -21,7 +20,7 @@ interface Configuration_Resolver_Interface
     public function __construct(array $defaults = array());
 
     /**
-     * Check by the key if the configuration does exist.
+     * Check by the key if the configuration context does exist.
      *
      * @since 0.7
      * @param string $key
@@ -30,26 +29,26 @@ interface Configuration_Resolver_Interface
     public function has($key);
 
     /**
-     * Set a new configuration for the key.
+     * Set a new configuration context for the key.
      *
      * @since 0.7
      * @param string $key
      * @param mixed $value
-     * @return Configuration_Resolver_Interface
+     * @return Configuration_Interface
      */
     public function set($key, $value);
 
     /**
-     * Delete an existing configuration by the key.
+     * Delete an existing configuration context by the key.
      *
      * @since 0.7
      * @param string $key
-     * @return Configuration_Resolver_Interface
+     * @return Configuration_Interface
      */
     public function delete($key);
 
     /**
-     * Get the configuration by the key.
+     * Get the configuration context by the key.
      *
      * @since 0.7
      * @param string $key
@@ -58,7 +57,7 @@ interface Configuration_Resolver_Interface
     public function get($key);
 
     /**
-     * Get all configurations.
+     * Get all configuration contexts.
      *
      * @since 0.7
      * @return array

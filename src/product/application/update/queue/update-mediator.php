@@ -28,9 +28,7 @@ class Update_Mediator implements Update_Mediator_Interface
      */
     public function mediate(Update_Task_Interface $update_task)
     {
-        $shop = $update_task->get_shop();
-        $template = $shop->get_template();
-        $provider = $template->get_provider();
+        $provider = $update_task->get_provider();
         $name = $provider->get_name()->get_value();
 
         foreach ($this->queues as $queue_name => $queue){
@@ -66,6 +64,19 @@ class Update_Mediator implements Update_Mediator_Interface
     public function remove_queue($name)
     {
         unset($this->queues[$name]);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_queue($name)
+    {
+        if(!$this->has_queue($name)) {
+            return null;
+        }
+
+        return $this->queues[$name];
     }
 
     /**

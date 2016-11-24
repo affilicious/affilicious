@@ -21,7 +21,7 @@ interface Update_Mediator_Interface
      * Check if the queue with the name already exists.
      *
      * @sine 0.7
-     * @param $name
+     * @param string $name
      * @return bool
      */
     public function has_queue($name);
@@ -38,9 +38,18 @@ interface Update_Mediator_Interface
      * Remove the queue by the name from the mediator.
      *
      * @since 0.7
-     * @param $name
+     * @param string $name
      */
     public function remove_queue($name);
+
+    /**
+     * Get the queue by the name from the mediator.
+     *
+     * @since 0.7
+     * @param string $name
+     * @return null|Update_Queue_Interface
+     */
+    public function get_queue($name);
 
     /**
      * Get all queues from the mediator.
