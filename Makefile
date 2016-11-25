@@ -32,7 +32,7 @@ tests-database:
 
 tests-install:
 	@composer install
-	@bin/install-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST) $(WP_VERSION)
+	@bin/install-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST) $(WP_VERSION) true
 
 tests:
 	@phpunit

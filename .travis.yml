@@ -28,11 +28,11 @@ env:
 
 matrix:
   include:
-    - php: 5.3
+    - php: 5.5
       env: WP_VERSION=latest WP_MULTISITE=1
 
 before_script:
   - bash bin/install-tests-database.sh affilicious_test root '' localhost
-  - bash bin/install-tests.sh affilicious_test root '' localhost $WP_VERSION
+  - bash bin/install-tests.sh affilicious_test root '' localhost $WP_VERSION true
 
 script: phpunit
