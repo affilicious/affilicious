@@ -39,12 +39,12 @@ Here is why developing with the Affilicious Plugin is really fun:
 For the latest stable master version:
 
 1. Clone the GitHub repository: `https://github.com/affilicious/affilicious.git`
-2. Download the it directly as a ZIP file: `https://github.com/affilicious/affilicious/archive/master.zip`
+2. Download the plugin directly as a ZIP file: [https://github.com/affilicious/affilicious/archive/master.zip](https://github.com/affilicious/affilicious/archive/master.zip)
 
 For the latest developer version:
 
 1. Clone the GitHub repository: `https://github.com/affilicious/affilicious.git`
-2. Download the it directly as a ZIP file: `https://github.com/affilicious/affilicious/archive/develop.zip`
+2. Download the plugin directly as a ZIP file: [https://github.com/affilicious/affilicious/archive/master.zip](https://github.com/affilicious/affilicious/archive/develop.zip)
 
 ## Bugs ##
 If you find an issue, write it [here](https://github.com/affilicious/affilicious/issues?state=open), dude!
