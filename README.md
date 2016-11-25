@@ -1,7 +1,9 @@
-# [Affilicious](https://affilicioustheme.de) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicioustheme.de) #
+# [Affilicious](https://affilicioustheme.de) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicioustheme.de) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/affilicious/affilicious/blob/master/LICENSE) #
 
-Affilicious is a Affiliate platform build on top of Wordpress. It allows affiliate marketers to easily maintain better websites with
+Affilicious is an Affiliate platform build on top of Wordpress. It allows affiliate marketers to easily maintain websites with support for
 product & variants, automatic product updates, price comparisons, details, attributes and more. Everything for free.
+
+Visit our german website at [https://affilicioustheme.de](https://affilicioustheme.de) for more information.
 
 ### Does this affect me as an affiliate marketer? ###
 
