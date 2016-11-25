@@ -1,10 +1,16 @@
-prod:
-	@composer install --no-dev
-	make clean
+DB_HOST := 127.0.0.1:8889
+DB_NAME := affilicious_test
+DB_USER := root
+DB_PASSWORD := root
+WP_VERSION := latest
 
-dev:
+prod: clean
+	@composer install --no-dev --optimize-autoloader
+
+ready: dev
+dev: tests-install
 	@composer install
-	@npm install --only=dev
+	@npm install
 
 watch:
 	@gulp watch
@@ -15,27 +21,21 @@ install:
 update:
 	@composer update
 
-npm:
-	@npm install --only=dev
-
 clean:
-	@rm -rf vendor/
-	@rm -rf tmp/
 	@rm -rf assets/.cache
 	@rm -rf assets/.sass-cache
 	@rm -rf assets/*/*.map
 	@rm -rf node_modules/
-	@composer install --no-dev
 
-test-install-mamp:
-	if [[ ! -d "vendor/phpunit" ]]; then composer install --dev; fi
-	@./tests/install.sh affilicious-plugin-test root root 127.0.0.1:8889
+tests-database:
+	@bin/install-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST)
 
-test:
-	if [[ ! -d "vendor/phpunit" ]]; then composer install; fi
+tests-install:
+	@composer install
+	@bin/install-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST) $(WP_VERSION)
+
+tests:
 	@phpunit
 
-test-uninstall:
-	@rm -rf vendor/
-	@rm -rf tmp/
+tests-uninstall:
 	@composer install --no-dev

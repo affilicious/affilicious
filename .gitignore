@@ -1,12 +1,10 @@
-/tmp/
-/node_modules/
-/assets/.sass-cache
-/assets/.cache
-/assets/css/*.css.map
-/assets/js/*.js.map
-/.htaccess
-/license.txt
-/readme.html
-/sitemap.xml
-/sitemap.xml.gz
+# Miscellanea
 .DS_Store
+.htaccess
+
+# Assets
+assets/.sass-cache
+assets/.cache
+assets/css/*.css.map
+assets/js/*.js.map
+node_modules/

@@ -41,7 +41,9 @@ class Affilicious_Plugin
     const PLUGIN_NAME = 'affilicious';
     const PLUGIN_VERSION = '0.6';
     const PLUGIN_NAMESPACE = 'Affilicious\\';
+    const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
     const PLUGIN_SOURCE_DIR = 'src/';
+    const PLUGIN_TESTS_DIR = 'tests/';
     const PLUGIN_LANGUAGE_DIR = 'languages/';
     const PLUGIN_STORE_URL = 'http://affilicioustheme.de';
     const PLUGIN_ITEM_NAME = 'Affilicious';
@@ -172,7 +174,14 @@ class Affilicious_Plugin
         $file_path = str_ireplace(self::PLUGIN_NAMESPACE, '', $class) . '.php';
         $file_path = strtolower($file_path);
         $file_path = str_replace('_', '-', $file_path);
-        $file_path = __DIR__ . '/' . self::PLUGIN_SOURCE_DIR . $file_path;
+
+        $test_prefix = self::PLUGIN_TESTS_NAMESPACE;
+        if (stripos($class, $test_prefix) !== false) {
+            $file_path = __DIR__ . '/' . $file_path;
+        } else {
+            $file_path = __DIR__ . '/' . self::PLUGIN_SOURCE_DIR . $file_path;
+        }
+
         $file_path = str_replace('\\', DIRECTORY_SEPARATOR, $file_path);
 
         /** @noinspection PhpIncludeInspection */
