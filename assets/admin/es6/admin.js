@@ -1,10 +1,3 @@
-declare var jQuery: any;
-declare var _: any;
-declare var wp: any;
-declare var Backbone: any;
-declare var translations: any;
-interface Window {listElement: any, carbon: any}
-
 jQuery(function($) {
     // ------------------------------------------------------------------------
     var carbon = window.carbon;

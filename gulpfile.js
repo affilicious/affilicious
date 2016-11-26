@@ -16,12 +16,16 @@ var assetsPath = 'assets/',
     adminPath = assetsPath + 'admin/'
 ;
 
-var sourcePaths = {
+var assetPaths = {
     public: {
         css: [],
-        sass: [],
+        sass: [
+            'assets/public/scss/**'
+        ],
         js: [],
-        es6: [],
+        es6: [
+            'assets/public/es6/**'
+        ],
         fonts: [],
         images: []
     },
@@ -32,18 +36,20 @@ var sourcePaths = {
             'assets/admin/scss/**'
         ],
         js: [],
-        es6: [],
+        es6: [
+            'assets/admin/es6/**'
+        ],
         fonts: [],
         images: []
     }
 };
 
 gulp.task('public-css', function() {
-    var cssStream = gulp.src(sourcePaths.public.css)
+    var cssStream = gulp.src(assetPaths.public.css)
         .pipe(concat('css-files.css'))
     ;
 
-    var sassStream = gulp.src(sourcePaths.public.sass)
+    var sassStream = gulp.src(assetPaths.public.sass)
         .pipe(sass())
         .pipe(concat('sass-files.scss'))
     ;
@@ -60,11 +66,11 @@ gulp.task('public-css', function() {
 });
 
 gulp.task('admin-css', function() {
-    var cssStream = gulp.src(sourcePaths.admin.css)
+    var cssStream = gulp.src(assetPaths.admin.css)
         .pipe(concat('css-files.css'))
     ;
 
-    var sassStream = gulp.src(sourcePaths.admin.sass)
+    var sassStream = gulp.src(assetPaths.admin.sass)
         .pipe(sass())
         .pipe(concat('sass-files.scss'))
     ;
@@ -80,18 +86,18 @@ gulp.task('admin-css', function() {
 });
 
 gulp.task('public-js', function () {
-    var jsStream = gulp.src(sourcePaths.public.js)
+    var jsStream = gulp.src(assetPaths.public.js)
         .pipe(concat('js-files.js'))
     ;
 
-    var es6Stream = gulp.src(sourcePaths.public.es6)
+    var es6Stream = gulp.src(assetPaths.public.es6)
         .pipe(es6())
         .pipe(concat('es6-files.js'))
     ;
 
     return merge(jsStream, es6Stream)
         .pipe(order(['js-files.js', 'es6-files.js']))
-        .pipe(concat('script.css'))
+        .pipe(concat('script.js'))
         .pipe(gulp.dest(publicPath + 'js/'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
@@ -100,67 +106,67 @@ gulp.task('public-js', function () {
 });
 
 gulp.task('admin-js', function () {
-    var jsStream = gulp.src(sourcePaths.admin.js)
+    var jsStream = gulp.src(assetPaths.admin.js)
         .pipe(concat('js-files.js'))
     ;
 
-    var es6Stream = gulp.src(sourcePaths.admin.es6)
+    var es6Stream = gulp.src(assetPaths.admin.es6)
         .pipe(es6())
         .pipe(concat('es6-files.js'))
     ;
 
     return merge(jsStream, es6Stream)
         .pipe(order(['js-files.js', 'es6-files.js']))
-        .pipe(concat('admin.css'))
-        .pipe(gulp.dest(publicPath + 'js/'))
+        .pipe(concat('admin.js'))
+        .pipe(gulp.dest(adminPath + 'js/'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
-        .pipe(gulp.dest(publicPath + 'js/'))
+        .pipe(gulp.dest(adminPath + 'js/'))
     ;
 });
 
 gulp.task('public-images', function() {
-    return gulp.src(sourcePaths.public.images)
+    return gulp.src(assetPaths.public.images)
         .pipe(imageMin())
         .pipe(gulp.dest(publicPath + 'images/'))
     ;
 });
 
 gulp.task('admin-images', function() {
-    return gulp.src(sourcePaths.admin.images)
+    return gulp.src(assetPaths.admin.images)
         .pipe(imageMin())
         .pipe(gulp.dest(adminPath + 'images/'))
     ;
 });
 
 gulp.task('public-fonts', function() {
-    return gulp.src(sourcePaths.public.fonts)
+    return gulp.src(assetPaths.public.fonts)
         .pipe(gulp.dest(publicPath + 'fonts/'))
     ;
 });
 
 gulp.task('admin-fonts', function() {
-    return gulp.src(sourcePaths.admin.fonts)
+    return gulp.src(assetPaths.admin.fonts)
         .pipe(gulp.dest(adminPath + 'fonts/'))
     ;
 });
 
 gulp.task('public-watch', function() {
-    gulp.watch(sourcePaths.public.css, ['public-css']);
-    gulp.watch(sourcePaths.public.sass, ['public-css']);
-    gulp.watch(sourcePaths.public.js, ['public-js']);
-    gulp.watch(sourcePaths.public.es, ['public-js']);
-    gulp.watch(sourcePaths.public.images, ['public-images']);
-    gulp.watch(sourcePaths.public.fonts, ['public-fonts']);
+    gulp.watch(assetPaths.public.css, ['public-css']);
+    gulp.watch(assetPaths.public.sass, ['public-css']);
+    gulp.watch(assetPaths.public.js, ['public-js']);
+    gulp.watch(assetPaths.public.es6, ['public-js']);
+    gulp.watch(assetPaths.public.images, ['public-images']);
+    gulp.watch(assetPaths.public.fonts, ['public-fonts']);
 });
 
 gulp.task('admin-watch', function() {
-    gulp.watch(sourcePaths.admin.css, ['admin-css']);
-    gulp.watch(sourcePaths.admin.sass, ['admin-css']);
-    gulp.watch(sourcePaths.admin.js, ['admin-js']);
-    gulp.watch(sourcePaths.admin.es, ['admin-js']);
-    gulp.watch(sourcePaths.admin.images, ['admin-images']);
-    gulp.watch(sourcePaths.admin.fonts, ['admin-fonts']);
+    gulp.watch(assetPaths.admin.css, ['admin-css']);
+    gulp.watch(assetPaths.admin.sass, ['admin-css']);
+    gulp.watch(assetPaths.admin.js, ['admin-js']);
+    gulp.watch(assetPaths.admin.es6, ['admin-js']);
+    gulp.watch(assetPaths.admin.images, ['admin-images']);
+    gulp.watch(assetPaths.admin.fonts, ['admin-fonts']);
 });
 
 gulp.task('default', ['public-css', 'public-js', 'public-images', 'public-fonts', 'admin-css', 'admin-js', 'admin-images', 'admin-fonts']);
