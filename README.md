@@ -28,7 +28,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 3. [Carbon Fields](https://carbonfields.net) and [Backbone](http://backbonejs.org) for building complex forms with ease.
 4. [Pimple](http://pimple.sensiolabs.org) as a small Dependency Injection Container.
 5. [NodeJS](https://nodejs.org) with [Gulp](http://gulpjs.com) for building assets.
-6. [Sass](http://sass-lang.com) and [ES2015](https://babeljs.io/docs/learn-es2015/) Support.
+6. [Sass](http://sass-lang.com) and [ECMAscript 6](https://babeljs.io/docs/learn-es2015/) Support.
 7. Lots of build-in Wordpress [Hooks](https://codex.wordpress.org/Plugin_API/Hooks) and [Filters](https://codex.wordpress.org/Plugin_API/Filter_Reference).
 8. [Composer](https://getcomposer.org) for easy vendor usage. 
 9. Automated tests with [PHPUnit](https://phpunit.de).
