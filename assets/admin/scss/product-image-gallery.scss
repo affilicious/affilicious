@@ -1,5 +1,5 @@
-@import "compass";
 // TODO: This file was inspired by Woocommerce. We will extend carbon fields with an image gallery in a later point of time
+@import "mixins";
 
 .add_product_images {
   padding: 0 12px 12px;
@@ -9,7 +9,6 @@
   padding: 0 0 0 9px;
 
   ul {
-    @include clearfix();
     margin: 0;
     padding: 0;
 
@@ -23,7 +22,7 @@
       border: 1px solid #d5d5d5;
       margin: 9px 9px 0 0;
       background: #f7f7f7;
-      @include border-radius(2px);
+      border-radius: 2px;
       position: relative;
       box-sizing: border-box;
 

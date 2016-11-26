@@ -12,6 +12,9 @@ dev: tests-install
 	@composer install
 	@npm install
 
+asset:
+	@gulp default
+
 watch:
 	@gulp watch
 
