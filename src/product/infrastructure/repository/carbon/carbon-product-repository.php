@@ -61,6 +61,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const SHOP_CURRENCY = 'currency';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
+    const SHOP_UPDATED_AT = 'updated_at';
 
     const DETAIL_GROUPS = 'affilicious_product_detail_groups';
     const DETAIL_TEMPLATE_GROUP_ID = 'affilicious_product_detail_template_group_id';
@@ -977,6 +978,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 self::SHOP_PRICE => $shop->has_price() ? $shop->get_price()->get_value() : null,
                 self::SHOP_CURRENCY => $shop->get_currency()->get_value(),
                 self::SHOP_OLD_PRICE => $shop->has_old_price() ? $shop->get_old_price()->get_value() : null,
+                self::SHOP_UPDATED_AT => $shop->get_updated_at()->format('Y-m-d H:i:s'),
             );
         }
 

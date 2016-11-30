@@ -63,9 +63,15 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
         $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? floatval($data[Carbon_Product_Repository::SHOP_PRICE]) : null;
         $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? floatval($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) : null;
         $currency = !empty($data[Carbon_Product_Repository::SHOP_CURRENCY]) ? $data[Carbon_Product_Repository::SHOP_CURRENCY] : null;
+        $updated_at = !empty($data[Carbon_Product_Repository::SHOP_UPDATED_AT]) ? $data[Carbon_Product_Repository::SHOP_UPDATED_AT] : null;
 
         if(empty($affiliate_link) || empty($currency)) {
             return null;
+        }
+
+        // Legacy support
+        if(empty($updated_at)) {
+            $updated_at = date('Y-m-d H:i:s');
         }
 
         $shop = $this->create(
@@ -88,6 +94,10 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
 
         if(!empty($old_price)) {
             $shop->set_old_price(new Price($old_price, $shop->get_currency()));
+        }
+
+        if(!empty($updated_at)) {
+            $shop->set_updated_at(new \DateTime($updated_at));
         }
 
         return $shop;

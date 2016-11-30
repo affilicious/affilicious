@@ -366,7 +366,7 @@ class Product_Setup implements Setup_Interface
 
         /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
-            ->set_layout('tabbed-vertical')
+            ->set_layout('tabbed-horizontal')
             ->set_max(self::SHOP_LIMIT)
             ->setup_labels(array(
                 'plural_name' => __('Shops', 'affilicious'),
@@ -389,7 +389,10 @@ class Product_Setup implements Setup_Interface
                     ->add_options(array(
                         'euro' => __('Euro', 'affilicious'),
                         'us-dollar' => __('US-Dollar', 'affilicious'),
-                    ))
+                    )),
+                Carbon_Field::make('hidden', Carbon_Product_Repository::SHOP_UPDATED_AT, __('Updated At', 'affilicious'))
+                    ->set_default_value(date('Y-m-d H:i:s'))
+                    ->set_required(true)
             );
 
             $tabs->add_fields($shop_template->get_key()->get_value(), $shop_template->get_title()->get_value(), $fields);
