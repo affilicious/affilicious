@@ -18,6 +18,8 @@ if (!defined('ABSPATH')) {
 
 class Product_Setup implements Setup_Interface
 {
+    const SHOP_LIMIT = 10;
+
     /**
      * @var Shop_Template_Repository_Interface
      */
@@ -364,7 +366,8 @@ class Product_Setup implements Setup_Interface
 
         /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
-            ->set_layout('tabbed-horizontal')
+            ->set_layout('tabbed-vertical')
+            ->set_max(self::SHOP_LIMIT)
             ->setup_labels(array(
                 'plural_name' => __('Shops', 'affilicious'),
                 'singular_name' => __('Shop', 'affilicious'),
