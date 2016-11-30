@@ -6,6 +6,7 @@ use Affilicious\Common\Domain\Model\Abstract_Entity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Common\Domain\Model\Updateable_Interface;
 use Affilicious\Detail\Domain\Exception\Duplicated_Detail_Template_Exception;
 use Affilicious\Detail\Domain\Model\Detail\Detail_Template;
 
@@ -13,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Detail_Template_Group extends Abstract_Entity
+class Detail_Template_Group extends Abstract_Entity implements Updateable_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
@@ -25,7 +26,7 @@ class Detail_Template_Group extends Abstract_Entity
      * The unique ID of the detail template group
      * Note that you just get the ID in Wordpress, if you store a post.
      *
-	 * @var Detail_Template_Group_id
+	 * @var Detail_Template_Group_Id
 	 */
 	protected $id;
 
@@ -86,7 +87,7 @@ class Detail_Template_Group extends Abstract_Entity
      * Get the optional detail template group ID
      *
      * @since 0.6
-     * @return null|Detail_Template_Group_id
+     * @return null|Detail_Template_Group_Id
      */
     public function get_id()
     {
@@ -100,11 +101,11 @@ class Detail_Template_Group extends Abstract_Entity
      * Normally, you place the ID to the constructor, but it's not possible here
      *
      * @since 0.6
-     * @param null|Detail_Template_Group_id $id
+     * @param null|Detail_Template_Group_Id $id
      */
     public function set_id($id)
     {
-        if($id !== null && !($id instanceof Detail_Template_Group_id)) {
+        if($id !== null && !($id instanceof Detail_Template_Group_Id)) {
             throw new Invalid_Type_Exception($id, 'Affilicious\Detail\Domain\Model\Detail_Template_Group_id');
         }
 
@@ -252,6 +253,24 @@ class Detail_Template_Group extends Abstract_Entity
     }
 
     /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_updated_at()
+    {
+        return clone $this->updated_at;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function set_updated_at(\DateTime $updated_at)
+    {
+        $this->updated_at = clone $updated_at;
+    }
+
+    /**
      * Get the raw post
      *
      * @since 0.6
@@ -276,7 +295,8 @@ class Detail_Template_Group extends Abstract_Entity
             $object instanceof self &&
             ($this->has_id() && $this->get_id()->is_equal_to($object->get_id()) || !$object->has_id()) &&
             $this->get_title()->is_equal_to($object->get_title()) &&
-            $this->get_name()->is_equal_to($object->get_name());
+            $this->get_name()->is_equal_to($object->get_name()) &&
+            $this->get_updated_at() == $object->get_updated_at();
             // TODO: Compare the rest and check the best way to compare two arrays with objects inside
     }
 }

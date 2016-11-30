@@ -18,7 +18,7 @@ class Detail_Group extends Abstract_Aggregate
     /**
      * This ID is the same as the related template
      *
-     * @var Detail_Template_Group_id
+     * @var Detail_Template_Group_Id
      */
     protected $template_id;
 
@@ -71,7 +71,7 @@ class Detail_Group extends Abstract_Aggregate
      * Get the detail group template ID
      *
      * @since 0.6
-     * @return null|Detail_Template_Group_id
+     * @return null|Detail_Template_Group_Id
      */
     public function get_template_id()
     {
@@ -82,12 +82,12 @@ class Detail_Group extends Abstract_Aggregate
      * Set the detail group template ID
      *
      * @since 0.6
-     * @param null|Detail_Template_Group_id $template_id
+     * @param null|Detail_Template_Group_Id $template_id
      * @throws Invalid_Type_Exception
      */
     public function set_template_id($template_id)
     {
-        if($template_id !== null && !($template_id instanceof Detail_Template_Group_id)) {
+        if($template_id !== null && !($template_id instanceof Detail_Template_Group_Id)) {
             throw new Invalid_Type_Exception($template_id, 'Affilicious\Detail\Domain\Model\Detail_Template_Group_id');
         }
 

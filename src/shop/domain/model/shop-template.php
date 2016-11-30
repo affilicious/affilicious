@@ -59,6 +59,13 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
     protected $provider;
 
     /**
+     * The date and time of the last update
+     *
+     * @var \DateTime
+     */
+    protected $updated_at;
+
+    /**
      * @inheritdoc
      * @since 0.6
      */
@@ -67,6 +74,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
 		$this->title = $title;
         $this->name = $name;
         $this->key = $key;
+        $this->updated_at = new \DateTime('now');
     }
 
     /**
@@ -209,6 +217,24 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
 
     /**
      * @inheritdoc
+     * @since 0.7
+     */
+    public function get_updated_at()
+    {
+        return clone $this->updated_at;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function set_updated_at(\DateTime $updated_at)
+    {
+        $this->updated_at = clone $updated_at;
+    }
+
+    /**
+     * @inheritdoc
      * @since 0.6
      */
     public function get_raw_post()
@@ -232,6 +258,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
             $this->get_title()->is_equal_to($object->get_title()) &&
             $this->get_name()->is_equal_to($object->get_name()) &&
             $this->get_key()->is_equal_to($object->get_key()) &&
-            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($object->get_thumbnail()) || !$object->has_thumbnail());
+            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($object->get_thumbnail()) || !$object->has_thumbnail()) &&
+            $this->get_updated_at() == $object->get_updated_at();
 	}
 }

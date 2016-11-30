@@ -13,10 +13,10 @@ interface Detail_Template_Group_Repository_Interface extends Repository_Interfac
      * Find the detail template group by the given ID
      *
      * @since 0.6
-     * @param Detail_Template_Group_id $detail_template_group_id
+     * @param Detail_Template_Group_Id $detail_template_group_id
      * @return null|Detail_Template_Group
      */
-    public function find_by_id(Detail_Template_Group_id $detail_template_group_id);
+    public function find_by_id(Detail_Template_Group_Id $detail_template_group_id);
 
     /**
      * Find all detail template groups

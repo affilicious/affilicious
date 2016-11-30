@@ -27,9 +27,9 @@ interface Detail_Group_Factory_Interface extends Factory_Interface
      * Create a new detail group from the template.
      *
      * @since 0.6
-     * @param Detail_Template_Group_id $detail_template_group_id
+     * @param Detail_Template_Group_Id $detail_template_group_id
      * @param mixed $data The structure of the data varies and depends on the implementation
      * @return Detail_Group
      */
-    public function create_from_template_id_and_data(Detail_Template_Group_id $detail_template_group_id, $data);
+    public function create_from_template_id_and_data(Detail_Template_Group_Id $detail_template_group_id, $data);
 }

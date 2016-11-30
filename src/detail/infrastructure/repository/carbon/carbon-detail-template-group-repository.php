@@ -12,7 +12,7 @@ use Affilicious\Detail\Domain\Model\Detail\Type;
 use Affilicious\Detail\Domain\Model\Detail\Unit;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group_Factory_Interface;
-use Affilicious\Detail\Domain\Model\Detail_Template_Group_id;
+use Affilicious\Detail\Domain\Model\Detail_Template_Group_Id;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group_Repository_Interface;
 
 if(!defined('ABSPATH')) {
@@ -55,7 +55,7 @@ class Carbon_Detail_Template_Group_Repository extends Abstract_Carbon_Repository
     /**
      * @inheritdoc
      */
-    public function find_by_id(Detail_Template_Group_id $detail_template_group_id)
+    public function find_by_id(Detail_Template_Group_Id $detail_template_group_id)
     {
         $post = get_post($detail_template_group_id->get_value());
         if ($post === null || $post->post_status !== 'publish') {
@@ -92,7 +92,7 @@ class Carbon_Detail_Template_Group_Repository extends Abstract_Carbon_Repository
     }
 
     /**
-     * Convert the post into a detail template group
+     * Convert the post into a detail template group.
      *
      * @since 0.6
      * @param \WP_Post $post
@@ -104,23 +104,35 @@ class Carbon_Detail_Template_Group_Repository extends Abstract_Carbon_Repository
             throw new Invalid_Post_Type_Exception($post->post_type, Detail_Template_Group::POST_TYPE);
         }
 
-        // _title, _name, _key
         $detail_template_group = $this->detail_template_group_factory->create(
             new Title($post->post_title),
             new Name($post->post_name)
         );
 
-        // ID
-        $detail_template_group->set_id(new Detail_Template_Group_id($post->ID));
-
-        // _details
+        $detail_template_group = $this->add_id($detail_template_group, $post);
         $detail_template_group = $this->add_details($detail_template_group);
+        $detail_template_group = $this->add_updated_at($detail_template_group, $post);
 
         return $detail_template_group;
     }
 
     /**
-     * Add the detail templates to the detail template group
+     * Add the ID to the detail template group.
+     *
+     * @since 0.7
+     * @param Detail_Template_Group $detail_template_group
+     * @param \WP_Post $post
+     * @return Detail_Template_Group
+     */
+    protected function add_id(Detail_Template_Group $detail_template_group, \WP_Post $post)
+    {
+        $detail_template_group->set_id(new Detail_Template_Group_Id($post->ID));
+
+        return $detail_template_group;
+    }
+
+    /**
+     * Add the detail templates to the detail template group.
      *
      * @since 0.6
      * @param Detail_Template_Group $detail_group
@@ -140,6 +152,22 @@ class Carbon_Detail_Template_Group_Repository extends Abstract_Carbon_Repository
         }
 
         return $detail_group;
+    }
+
+    /**
+     * Add the date and time of the last update to the shop template.
+     *
+     * @since 0.7
+     * @param Detail_Template_Group $detail_template_group
+     * @param \WP_Post $post
+     * @return Detail_Template_Group
+     */
+    protected function add_updated_at(Detail_Template_Group $detail_template_group, \WP_Post $post)
+    {
+        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $detail_template_group->set_updated_at($updated_at);
+
+        return $detail_template_group;
     }
 
     /**

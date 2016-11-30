@@ -3,13 +3,14 @@ namespace Affilicious\Shop\Domain\Model;
 
 use Affilicious\Common\Domain\Model\Aggregate_Interface;
 use Affilicious\Common\Domain\Model\Image\Image;
+use Affilicious\Common\Domain\Model\Updateable_Interface;
 use Affilicious\Shop\Domain\Exception\Invalid_Price_Currency_Exception;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Shop_Interface extends Aggregate_Interface
+interface Shop_Interface extends Aggregate_Interface, Updateable_Interface
 {
     /**
      * @since 0.7
@@ -140,20 +141,4 @@ interface Shop_Interface extends Aggregate_Interface
      * @return Currency
      */
     public function get_currency();
-
-    /**
-     * Get the date and time of the last update.
-     *
-     * @since 0.7
-     * @return \DateTime
-     */
-    public function get_updated_at();
-
-    /**
-     * Set the date and time of the last update.
-     *
-     * @since 0.7
-     * @param \DateTime $updated_at
-     */
-    public function set_updated_at(\DateTime $updated_at);
 }

@@ -65,7 +65,7 @@ class Carbon_Attribute_Template_Group_Repository extends Abstract_Carbon_Reposit
             throw new Invalid_Post_Type_Exception($post->post_type, Attribute_Template_Group::POST_TYPE);
         }
 
-        $attribute_group = $this->buildAttribute_Template_Group_from_post($post);
+        $attribute_group = $this->build_attribute_template_group_from_post($post);
         return $attribute_group;
     }
 
@@ -84,7 +84,7 @@ class Carbon_Attribute_Template_Group_Repository extends Abstract_Carbon_Reposit
         if($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
-                $attribute_group = self::buildAttribute_Template_Group_from_post($query->post);
+                $attribute_group = self::build_attribute_template_group_from_post($query->post);
                 $attribute_groups[] = $attribute_group;
             }
 
@@ -95,35 +95,47 @@ class Carbon_Attribute_Template_Group_Repository extends Abstract_Carbon_Reposit
     }
 
     /**
-     * Convert the post into a attribute template group
+     * Convert the post into a attribute template group.
      *
      * @since 0.6
      * @param \WP_Post $post
      * @return Attribute_Template_Group
      */
-    protected function buildAttribute_Template_Group_from_post(\WP_Post $post)
+    protected function build_attribute_template_group_from_post(\WP_Post $post)
     {
         if($post->post_type !== Attribute_Template_Group::POST_TYPE) {
             throw new Invalid_Post_Type_Exception($post->post_type, Attribute_Template_Group::POST_TYPE);
         }
 
-        // Title, Name, Key
         $attribute_group = $this->attribute_template_group_factory->create(
             new Title($post->post_title),
             new Name($post->post_name)
         );
 
-        // ID
-        $attribute_group->set_id(new Attribute_Template_Group_Id($post->ID));
-
-        // _attributes
+        $attribute_group = $this->add_id($attribute_group, $post);
         $attribute_group = $this->add_attributes($attribute_group);
+        $attribute_group = $this->add_updated_at($attribute_group, $post);
 
         return $attribute_group;
     }
 
     /**
-     * Add the attribute templates to the attribute template group
+     * Add the ID to the attribute template group.
+     *
+     * @since 0.7
+     * @param Attribute_Template_Group $attribute_template_group
+     * @param \WP_Post $post
+     * @return Attribute_Template_Group
+     */
+    protected function add_id(Attribute_Template_Group $attribute_template_group, \WP_Post $post)
+    {
+        $attribute_template_group->set_id(new Attribute_Template_Group_Id($post->ID));
+
+        return $attribute_template_group;
+    }
+
+    /**
+     * Add the attribute templates to the attribute template group.
      *
      * @since 0.6
      * @param Attribute_Template_Group $attribute_group
@@ -146,7 +158,23 @@ class Carbon_Attribute_Template_Group_Repository extends Abstract_Carbon_Reposit
     }
 
     /**
-     * Build the attribute template from the array
+     * Add the date and time of the last update to the shop template.
+     *
+     * @since 0.7
+     * @param Attribute_Template_Group $attribute_template_group
+     * @param \WP_Post $post
+     * @return Attribute_Template_Group
+     */
+    protected function add_updated_at(Attribute_Template_Group $attribute_template_group, \WP_Post $post)
+    {
+        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $attribute_template_group->set_updated_at($updated_at);
+
+        return $attribute_template_group;
+    }
+
+    /**
+     * Build the attribute template from the array.
      *
      * @since 0.6
      * @param array $raw_attribute_template

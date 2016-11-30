@@ -8,6 +8,7 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Common\Domain\Model\Updateable_Interface;
 use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Product\Domain\Model\Review\Review;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
@@ -18,7 +19,7 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Product_Interface extends Entity_Interface
+interface Product_Interface extends Entity_Interface, Updateable_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress.
@@ -353,22 +354,6 @@ interface Product_Interface extends Entity_Interface
      * @param Shop[] $shops
      */
     public function set_shops($shops);
-
-    /**
-     * Get the date and time of the last product update
-     *
-     * @since 0.7
-     * @return \DateTime
-     */
-    public function get_updated_at();
-
-    /**
-     * Set the date and time of the last product update
-     *
-     * @since 0.7
-     * @param \DateTime $updated_at
-     */
-    public function set_updated_at(\DateTime $updated_at);
 
     /**
      * Get the raw Wordpress post

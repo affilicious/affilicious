@@ -8,12 +8,13 @@ use Affilicious\Common\Domain\Model\Abstract_Entity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Common\Domain\Model\Updateable_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Attribute_Template_Group extends Abstract_Entity
+class Attribute_Template_Group extends Abstract_Entity implements Updateable_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
@@ -57,6 +58,13 @@ class Attribute_Template_Group extends Abstract_Entity
     protected $attribute_templates;
 
     /**
+     * The date and time of the last update.
+     *
+     * @var \DateTime
+     */
+    protected $update_at;
+
+    /**
      * @since 0.6
      * @param Title $title
      * @param Name $name
@@ -68,6 +76,7 @@ class Attribute_Template_Group extends Abstract_Entity
         $this->name = $name;
         $this->key = $key;
         $this->attribute_templates = array();
+        $this->update_at = new \DateTime('now');
     }
 
     /**
@@ -251,6 +260,24 @@ class Attribute_Template_Group extends Abstract_Entity
     }
 
     /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_updated_at()
+    {
+        return clone $this->updated_at;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function set_updated_at(\DateTime $updated_at)
+    {
+        $this->updated_at = clone $updated_at;
+    }
+
+    /**
      * Get the raw post
      *
      * @since 0.6
@@ -275,7 +302,8 @@ class Attribute_Template_Group extends Abstract_Entity
             $object instanceof self &&
             ($this->has_id() && $this->get_id()->is_equal_to($object->get_id()) || !$object->has_id()) &&
             $this->get_title()->is_equal_to($object->get_title()) &&
-            $this->get_name()->is_equal_to($object->get_name());
+            $this->get_name()->is_equal_to($object->get_name()) &&
+            $this->get_updated_at() == $object->get_updated_at();
             // TODO: Compare the rest and check the best way to compare two arrays with objects inside
     }
 }

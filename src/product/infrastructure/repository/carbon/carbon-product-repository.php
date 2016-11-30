@@ -22,7 +22,7 @@ use Affilicious\Detail\Domain\Model\Detail\Unit;
 use Affilicious\Detail\Domain\Model\Detail\Value;
 use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Detail\Domain\Model\Detail_Group_Factory_Interface;
-use Affilicious\Detail\Domain\Model\Detail_Template_Group_id;
+use Affilicious\Detail\Domain\Model\Detail_Template_Group_Id;
 use Affilicious\Product\Domain\Exception\Failed_To_Delete_Product_Exception;
 use Affilicious\Product\Domain\Exception\Missing_Parent_Product_Exception;
 use Affilicious\Product\Domain\Exception\Product_Not_Found_Exception;
@@ -338,6 +338,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $simple_product = $this->add_related_products($simple_product, $post);
         $simple_product = $this->add_related_accessories($simple_product, $post);
         $simple_product = $this->add_image_gallery($simple_product, $post);
+        $simple_product = $this->add_updated_at($simple_product, $post);
 
         return $simple_product;
     }
@@ -370,6 +371,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $complex_product = $this->add_related_products($complex_product, $post);
         $complex_product = $this->add_related_accessories($complex_product, $post);
         $complex_product = $this->add_image_gallery($complex_product, $post);
+        $complex_product = $this->add_updated_at($complex_product, $post);
 
         return $complex_product;
     }
@@ -401,6 +403,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $product_variant = $this->add_thumbnail($product_variant, $post);
         $product_variant = $this->add_attribute_group($product_variant, $post);
         $product_variant = $this->add_shops($product_variant);
+        $product_variant = $this->add_updated_at($product_variant, $post);
 
         return $product_variant;
     }
@@ -768,6 +771,23 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         return $product;
     }
 
+
+    /**
+     * Add the date and time of the last update to the product.
+     *
+     * @since 0.7
+     * @param Product_Interface $product
+     * @param \WP_Post $post
+     * @return Product_Interface
+     */
+    protected function add_updated_at(Product_Interface $product, \WP_Post $post)
+    {
+        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $product->set_updated_at($updated_at);
+
+        return $product;
+    }
+
     /**
      * Build the shop from the raw array.
      *
@@ -833,7 +853,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $detail_group = $this->detail_group_factory->create_from_template_id_and_data(
-            new Detail_Template_Group_id($detail_template_group_id),
+            new Detail_Template_Group_Id($detail_template_group_id),
             $raw_detail_group
         );
 
@@ -1196,7 +1216,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     }
 
     /**
-     * Build the args to save the product or product variant.
+     * Build the args to save the product.
      *
      * @since 0.6
      * @param Product_Interface $product
@@ -1210,6 +1230,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             'post_status' => 'publish',
             'post_name' => $product->get_name()->get_value(),
             'post_type' => Product_Interface::POST_TYPE,
+            'post_modified' => date('Y-m-d H:i:s', $product->get_updated_at()->getTimestamp()),
+            'post_modified_gmt' => gmdate('Y-m-d H:i:s', $product->get_updated_at()->getTimestamp()),
         ), $default_args);
 
         if($product->has_id()) {

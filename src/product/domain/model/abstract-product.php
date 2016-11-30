@@ -619,6 +619,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
             ($this->has_review() && $this->get_review()->is_equal_to($object->get_review()) || !$object->has_review()) &&
             $this->get_related_products() == $object->get_related_products() &&
             $this->get_related_accessories() == $object->get_related_accessories() &&
-            $this->get_shops() == $object->get_shops();
+            $this->get_shops() == $object->get_shops() &&
+            $this->get_updated_at() == $object->get_updated_at();
     }
 }

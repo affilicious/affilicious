@@ -10,6 +10,7 @@ use Affilicious\Shop\Domain\Exception\Shop_Template_Not_Found_Exception;
 use Affilicious\Shop\Domain\Model\Provider\Provider_Repository_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template;
 use Affilicious\Shop\Domain\Model\Shop_Template_Id;
+use Affilicious\Shop\Domain\Model\Shop_Template_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Template_Repository_Interface;
 
 if (!defined('ABSPATH')) {
@@ -40,12 +41,12 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     public function store(Shop_Template $shop_template)
     {
-        // _store the shop template into the database
+        // Store the shop template into the database
         $default_args = $this->get_default_args($shop_template);
         $args = $this->get_args($shop_template, $default_args);
         $id = !empty($args['id']) ? wp_update_post($args) : wp_insert_post($args);
 
-        // _the ID and the name might has changed. _update both values
+        // The ID and the name might has changed. Update both values
         if(empty($post)) {
             $post = get_post($id, OBJECT);
             $name = new Name($post->post_name);
@@ -54,7 +55,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             $shop_template->set_key($name->to_key());
         }
 
-        // _store the shop template meta
+        // Store the shop template meta
         $this->store_thumbnail($shop_template);
         $this->store_provider($shop_template);
 
@@ -141,21 +142,30 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             throw new Invalid_Post_Type_Exception($post->post_type, Shop_Template::POST_TYPE);
         }
 
-        // _title, _name, _key
         $title = new Title($post->post_title);
         $name = new Name($post->post_name);
-        $shop_template = new Shop_template(
-            $title,
-            $name,
-            $name->to_key()
-        );
+        $key = $name->to_key();
 
-        // ID
-        $shop_template->set_id(new Shop_Template_Id($post->ID));
-
-        // _thumbnail
+        $shop_template = new Shop_template($title, $name, $key);
+        $shop_template = $this->add_id($shop_template, $post);
         $shop_template = $this->add_thumbnail($shop_template);
         $shop_template = $this->add_provider($shop_template);
+        $shop_template = $this->add_updated_at($shop_template, $post);
+
+        return $shop_template;
+    }
+
+    /**
+     * Add the ID to the shop template
+     *
+     * @since 0.7
+     * @param Shop_Template_Interface $shop_template
+     * @param \WP_Post $post
+     * @return Shop_Template_Interface
+     */
+    protected function add_id(Shop_Template_Interface $shop_template, \WP_Post $post)
+    {
+        $shop_template->set_id(new Shop_Template_Id($post->ID));
 
         return $shop_template;
     }
@@ -197,6 +207,22 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
                 $shop_template->set_provider($provider);
             }
         }
+
+        return $shop_template;
+    }
+
+    /**
+     * Add the date and time of the last update to the shop template.
+     *
+     * @since 0.7
+     * @param Shop_Template $shop_template
+     * @param \WP_Post $post
+     * @return Shop_Template
+     */
+    protected function add_updated_at(Shop_Template $shop_template, \WP_Post $post)
+    {
+        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $shop_template->set_updated_at($updated_at);
 
         return $shop_template;
     }
@@ -265,6 +291,8 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             'post_status' => 'publish',
             'post_name' => $shop_template->get_name()->get_value(),
             'post_type' => Shop_Template::POST_TYPE,
+            'post_modified' => date('Y-m-d H:i:s', $shop_template->get_updated_at()->getTimestamp()),
+            'post_modified_gmt' => gmdate('Y-m-d H:i:s', $shop_template->get_updated_at()->getTimestamp()),
         ), $default_args);
 
         if($shop_template->has_id()) {

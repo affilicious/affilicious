@@ -8,7 +8,7 @@ use Affilicious\Detail\Domain\Model\Detail\Detail;
 use Affilicious\Detail\Domain\Model\Detail\Value;
 use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Detail\Domain\Model\Detail_Group_Factory_Interface;
-use Affilicious\Detail\Domain\Model\Detail_Template_Group_id;
+use Affilicious\Detail\Domain\Model\Detail_Template_Group_Id;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group_Repository_Interface;
 use Affilicious\Detail\Domain\Model\Detail\Type;
 use Affilicious\Detail\Domain\Model\Detail\Unit;
@@ -48,7 +48,7 @@ class In_Memory_Detail_Group_Factory implements Detail_Group_Factory_Interface
      * @inheritdoc
      * @since 0.6
      */
-    public function create_from_template_id_and_data(Detail_Template_Group_id $detail_template_group_id, $data)
+    public function create_from_template_id_and_data(Detail_Template_Group_Id $detail_template_group_id, $data)
     {
         if(empty($data)) {
             return null;

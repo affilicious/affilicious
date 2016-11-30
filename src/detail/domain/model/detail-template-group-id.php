@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Detail_Template_Group_id extends Abstract_Value_Object
+class Detail_Template_Group_Id extends Abstract_Value_Object
 {
 	/**
 	 * @inheritdoc
