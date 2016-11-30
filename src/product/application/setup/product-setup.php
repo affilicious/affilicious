@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 
 class Product_Setup implements Setup_Interface
 {
+    const VARIANTS_LIMIT = 50;
     const SHOP_LIMIT = 10;
 
     /**
@@ -204,6 +205,7 @@ class Product_Setup implements Setup_Interface
 
         /** @var Carbon_Complex_Field $field */
         $field = Carbon_Field::make('complex', $name, $label)
+            ->set_max(self::VARIANTS_LIMIT)
             ->setup_labels(array(
                 'plural_name' => __('Variants', 'affilicious'),
                 'singular_name' => __('Variant', 'affilicious'),
