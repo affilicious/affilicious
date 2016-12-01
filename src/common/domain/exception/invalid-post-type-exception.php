@@ -15,7 +15,7 @@ class Invalid_Post_Type_Exception extends \RuntimeException
     public function __construct($invalid_post_type, $valid_post_type)
     {
         parent::__construct(sprintf(
-            'Invalid post type: %s. _pleas use: %s',
+            'Invalid post type: %s. Please use: %s',
             $invalid_post_type,
             is_array($valid_post_type) ? implode(',', $valid_post_type) : $valid_post_type
         ));
