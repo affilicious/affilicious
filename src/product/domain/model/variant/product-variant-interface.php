@@ -7,12 +7,13 @@ use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
+use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface as Shop_Aware;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Product_Variant_Interface extends Product_Interface
+interface Product_Variant_Interface extends Product_Interface, Shop_Aware
 {
     /**
      * @since 0.7

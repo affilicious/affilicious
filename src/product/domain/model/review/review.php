@@ -4,7 +4,11 @@ namespace Affilicious\Product\Domain\Model\Review;
 use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Domain\Model\Abstract_Aggregate;
 
-class Review extends Abstract_Aggregate
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
+class Review extends Abstract_Aggregate implements Review_Interface
 {
     /**
      * @var Rating

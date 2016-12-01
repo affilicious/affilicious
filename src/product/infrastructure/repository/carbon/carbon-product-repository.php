@@ -28,12 +28,17 @@ use Affilicious\Product\Domain\Exception\Missing_Parent_Product_Exception;
 use Affilicious\Product\Domain\Exception\Product_Not_Found_Exception;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
+use Affilicious\Product\Domain\Model\Detail_Group_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Image_Gallery_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Id;
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Repository_Interface;
+use Affilicious\Product\Domain\Model\Relation_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Review\Rating;
 use Affilicious\Product\Domain\Model\Review\Review_Factory_Interface;
 use Affilicious\Product\Domain\Model\Review\Votes;
+use Affilicious\Product\Domain\Model\Review_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Simple\Simple_Product;
 use Affilicious\Product\Domain\Model\Simple\Simple_Product_Interface;
 use Affilicious\Product\Domain\Model\Type;
@@ -510,11 +515,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Add shops to the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Shop_Aware_Product_Interface $product
      * @param array $raw_shops
-     * @return Product_Interface
+     * @return Shop_Aware_Product_Interface
      */
-    protected function add_shops(Product_Interface $product, $raw_shops = array())
+    protected function add_shops(Shop_Aware_Product_Interface $product, $raw_shops = array())
     {
         if(empty($raw_shops)) {
             $raw_shops = carbon_get_post_meta($product->get_id()->get_value(), self::SHOPS, 'complex');
@@ -597,33 +602,35 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Add detail groups to the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Detail_Group_Aware_Product_Interface $product
      * @param \WP_Post $post
-     * @return Product_Interface
+     * @return Detail_Group_Aware_Product_Interface
      */
-    protected function add_detail_groups(Product_Interface $product, \WP_Post $post)
+    protected function add_detail_groups(Detail_Group_Aware_Product_Interface $product, \WP_Post $post)
     {
         // Add the default detail group with the price as a detail
-        $cheapest_shop = $product->get_cheapest_shop();
-        if($cheapest_shop !== null && $cheapest_shop->has_price()) {
-            $default_detail_group = $this->detail_group_factory->create(
-                new Title(__('Default')),
-                new Name('default'),
-                new Key('default')
-            );
+        if($product instanceof Shop_Aware_Product_Interface) {
+            $cheapest_shop = $product->get_cheapest_shop();
+            if ($cheapest_shop !== null && $cheapest_shop->has_price()) {
+                $default_detail_group = $this->detail_group_factory->create(
+                    new Title(__('Default')),
+                    new Name('default'),
+                    new Key('default')
+                );
 
-            $price_detail = new Detail(
-                new Title(__('Price', 'affilicious')),
-                new Name('price'),
-                new Key('price'),
-                DetailType::number()
-            );
+                $price_detail = new Detail(
+                    new Title(__('Price', 'affilicious')),
+                    new Name('price'),
+                    new Key('price'),
+                    DetailType::number()
+                );
 
-            $price_detail->set_unit(new Unit($cheapest_shop->get_price()->get_currency()->get_symbol()));
-            $price_detail->set_value(new Value($cheapest_shop->get_price()->get_value()));
+                $price_detail->set_unit(new Unit($cheapest_shop->get_price()->get_currency()->get_symbol()));
+                $price_detail->set_value(new Value($cheapest_shop->get_price()->get_value()));
 
-            $default_detail_group->add_detail($price_detail);
-            $product->add_detail_group($default_detail_group);
+                $default_detail_group->add_detail($price_detail);
+                $product->add_detail_group($default_detail_group);
+            }
         }
 
         $raw_detail_groups = carbon_get_post_meta($post->ID, self::DETAIL_GROUPS, 'complex');
@@ -674,11 +681,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Add the review to the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Review_Aware_Product_Interface $product
      * @param \WP_Post $post
-     * @return Product_Interface
+     * @return Review_Aware_Product_Interface
      */
-    protected function add_review(Product_Interface $product, \WP_Post $post)
+    protected function add_review(Review_Aware_Product_Interface $product, \WP_Post $post)
     {
         $rating = carbon_get_post_meta($post->ID, self::REVIEW_RATING);
         if((!empty($rating) || $rating == '0') && $rating !== 'none') {
@@ -699,11 +706,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Add related products to the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Relation_Aware_Product_Interface $product
      * @param \WP_Post $post
-     * @return Product_Interface
+     * @return Relation_Aware_Product_Interface
      */
-    protected function add_related_products(Product_Interface $product, \WP_Post $post)
+    protected function add_related_products(Relation_Aware_Product_Interface $product, \WP_Post $post)
     {
         $related_products = carbon_get_post_meta($post->ID, self::RELATED_PRODUCTS);
         if (!empty($related_products)) {
@@ -721,11 +728,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Add related accessories to the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Relation_Aware_Product_Interface $product
      * @param \WP_Post $post
-     * @return Product_Interface
+     * @return Relation_Aware_Product_Interface
      */
-    protected function add_related_accessories(Product_Interface $product, \WP_Post $post)
+    protected function add_related_accessories(Relation_Aware_Product_Interface $product, \WP_Post $post)
     {
         $related_accessories = carbon_get_post_meta($post->ID, self::RELATED_ACCESSORIES);
         if (!empty($related_accessories)) {
@@ -743,11 +750,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Add the image gallery to the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Image_Gallery_Aware_Product_Interface $product
      * @param \WP_Post $post
-     * @return Product_Interface
+     * @return Image_Gallery_Aware_Product_Interface
      */
-    protected function add_image_gallery(Product_Interface $product, \WP_Post $post)
+    protected function add_image_gallery(Image_Gallery_Aware_Product_Interface $product, \WP_Post $post)
     {
         if(!($product instanceof Simple_Product_Interface) || !($product instanceof Complex_Product_Interface)) {
             return $product;
@@ -771,7 +778,6 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         return $product;
     }
-
 
     /**
      * Add the date and time of the last update to the product.
@@ -954,10 +960,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Store the shops for the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Shop_Aware_Product_Interface $product
      * @param string $meta_key
      */
-    protected function store_shops(Product_Interface $product, $meta_key)
+    protected function store_shops(Shop_Aware_Product_Interface $product, $meta_key)
     {
         if(!$product->has_id()) {
             return;
@@ -1121,9 +1127,9 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * Store the review for the product.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Review_Aware_Product_Interface $product
      */
-    protected function store_review(Product_Interface $product)
+    protected function store_review(Review_Aware_Product_Interface $product)
     {
         if($product->has_review()) {
             $this->store_post_meta($product->get_id(), self::REVIEW_RATING, $product->get_review()->get_rating());

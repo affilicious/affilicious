@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Domain\Model\Variant;
 
 use Affilicious\Attribute\Domain\Model\Attribute_Group;
+use Affilicious\Common\Domain\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
@@ -9,6 +10,8 @@ use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Product\Domain\Model\Abstract_Product;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Type;
+use Affilicious\Shop\Domain\Model\Affiliate_Link;
+use Affilicious\Shop\Domain\Model\Shop_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -108,6 +111,91 @@ class Product_Variant extends Abstract_Product implements Product_Variant_Interf
     public function set_excerpt($excerpt)
     {
         $this->parent->set_excerpt($excerpt);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function has_shop(Affiliate_Link $affiliate_link)
+    {
+        return isset($this->shops[$affiliate_link->get_value()]);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function add_shop(Shop_Interface $shop)
+    {
+        $this->shops[$shop->get_affiliate_link()->get_value()] = $shop;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function remove_shop(Affiliate_Link $affiliate_link)
+    {
+        unset($this->shops[$affiliate_link->get_value()]);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_shop(Affiliate_Link $affiliate_link)
+    {
+        if(!$this->has_shop($affiliate_link)) {
+            return null;
+        }
+
+        $shop = $this->shops[$affiliate_link->get_value()];
+
+        return $shop;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_cheapest_shop()
+    {
+        /** @var Shop_Interface $cheapest_shop */
+        $cheapest_shop = null;
+        foreach ($this->shops as $shop) {
+            if ($cheapest_shop === null ||
+                ($cheapest_shop->has_price() && $cheapest_shop->get_price()->is_greater_than($shop->has_price()))) {
+                $cheapest_shop = $shop;
+            }
+        }
+
+        return $cheapest_shop;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_shops()
+    {
+        $shops = array_values($this->shops);
+
+        return $shops;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     * @throws Invalid_Type_Exception
+     */
+    public function set_shops($shops)
+    {
+        $this->shops = array();
+
+        foreach ($shops as $shop) {
+            $this->add_shop($shop);
+        }
     }
 
     /**

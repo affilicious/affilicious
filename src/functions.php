@@ -10,6 +10,13 @@ use Affilicious\Product\Domain\Model\Variant\Product_Variant;
 use Affilicious\Shop\Application\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
 use Affilicious\Shop\Domain\Model\Shop_Template;
+use Affilicious\Product\Domain\Model\Review_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Detail_Group_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Image_Gallery_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Relation_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
+use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -66,7 +73,7 @@ function aff_get_product($product_or_id = null)
 function aff_get_product_review_rating($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null || !$product->has_review()) {
+    if($product === null || !($product instanceof Review_Aware_Product_Interface) || !$product->has_review()) {
         return null;
     }
 
@@ -87,7 +94,7 @@ function aff_get_product_review_rating($product_or_id = null)
 function aff_get_product_review_votes($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null || !$product->has_review()) {
+    if($product === null || !($product instanceof Review_Aware_Product_Interface) || !$product->has_review()) {
         return null;
     }
 
@@ -113,7 +120,7 @@ function aff_get_product_review_votes($product_or_id = null)
 function aff_get_product_details($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Detail_Group_Aware_Product_Interface)) {
         return null;
     }
 
@@ -151,7 +158,7 @@ function aff_get_product_details($product_or_id = null)
 function aff_get_product_image_gallery($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null || aff_product_is_variant($product)) {
+    if($product === null || !($product instanceof Image_Gallery_Aware_Product_Interface)) {
         return null;
     }
 
@@ -187,7 +194,13 @@ function aff_get_product_shops($product_or_id = null)
         return null;
     }
 
-    $shops = $product->get_shops();
+    $shops = array();
+    if($product instanceof Shop_Aware_Product_Interface) {
+        $shops = $product->get_shops();
+    } elseif ($product instanceof Complex_Product_Interface) {
+        $default_variant = $product->get_default_variant();
+        $shops = $default_variant !== null ? $default_variant->get_shops() : array();
+    }
 
     $raw_shops = array();
     foreach ($shops as $shop) {
@@ -237,7 +250,7 @@ function aff_get_product_shops($product_or_id = null)
 function aff_get_product_related_products($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Relation_Aware_Product_Interface)) {
         return null;
     }
 
@@ -291,7 +304,7 @@ function aff_get_product_related_products_query($product_or_id = null, $args = a
 function aff_get_product_related_accessories($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Relation_Aware_Product_Interface)) {
         return null;
     }
 
@@ -368,7 +381,7 @@ function aff_get_product_link($product_or_id = null)
 function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Shop_Aware_Product_Interface)) {
         return null;
     }
 
@@ -428,7 +441,7 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
 function aff_get_product_cheapest_shop($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Shop_Aware_Product_Interface)) {
         return null;
     }
 
@@ -482,7 +495,7 @@ function aff_get_product_cheapest_shop($product_or_id = null)
 function aff_get_product_price($product_or_id = null, $affiliate_link = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Shop_Aware_Product_Interface)) {
         return null;
     }
 
@@ -519,7 +532,7 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null)
 function aff_get_product_cheapest_price($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Shop_Aware_Product_Interface)) {
         return null;
     }
 
@@ -658,12 +671,11 @@ function aff_product_get_parent($product_or_id = null)
         return null;
     }
 
-    if(aff_product_is_complex($product)) {
+    if($product instanceof Complex_Product_Interface) {
         return $product;
     }
 
-    if(aff_product_is_variant($product)) {
-        /** @var Product_Variant $product */
+    if($product instanceof Product_Variant_Interface) {
         $parent = $product->get_parent();
 
         return $parent;
@@ -684,16 +696,12 @@ function aff_product_get_parent($product_or_id = null)
 function aff_product_has_variant($product_or_id = null, $variant_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
-        return false;
-    }
-
-    if(aff_product_is_complex($product)) {
+    if($product === null || !($product instanceof Complex_Product_Interface)) {
         return false;
     }
 
     $variant = aff_get_product($variant_or_id);
-    if($variant === null) {
+    if($variant === null || !($variant instanceof Product_Variant_Interface)) {
         return false;
     }
 
@@ -713,11 +721,7 @@ function aff_product_has_variant($product_or_id = null, $variant_or_id = null)
 function aff_product_get_variants($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
-        return null;
-    }
-
-    if(!aff_product_is_complex($product)) {
+    if($product === null || !($product instanceof Complex_Product_Interface)) {
         return null;
     }
 
@@ -737,11 +741,7 @@ function aff_product_get_variants($product_or_id = null)
 function aff_product_get_default_variant($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
-        return null;
-    }
-
-    if(!aff_product_is_complex($product)) {
+    if($product === null || !($product instanceof Complex_Product_Interface)) {
         return null;
     }
 
@@ -761,12 +761,12 @@ function aff_product_get_default_variant($product_or_id = null)
 function aff_product_is_default_variant($product_or_id = null, $variant_or_id = null) {
 
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Complex_Product_Interface)) {
         return false;
     }
 
     $variant = aff_get_product($variant_or_id);
-    if($variant === null) {
+    if($variant === null || !($product instanceof Product_Variant_Interface)) {
         return false;
     }
 
@@ -788,7 +788,7 @@ function aff_product_is_default_variant($product_or_id = null, $variant_or_id = 
 function aff_product_get_variant_attribute_group($product_or_id = null, $variant_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null) {
+    if($product === null || !($product instanceof Complex_Product_Interface)) {
         return null;
     }
 

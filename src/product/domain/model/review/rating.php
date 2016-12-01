@@ -6,6 +6,10 @@ use Affilicious\Common\Domain\Model\Abstract_Value_Object;
 use Affilicious\Product\Domain\Exception\Invalid_Big_Number_Exception;
 use Affilicious\Product\Domain\Exception\Invalid_Small_Number_Exception;
 
+if(!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
 class Rating extends Abstract_Value_Object
 {
     const MIN = 0;
