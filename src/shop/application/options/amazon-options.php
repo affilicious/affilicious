@@ -14,9 +14,9 @@ class Amazon_Options
         do_action('affilicious_options_amazon_before_render');
 
         $credentials_tab = apply_filters('affilicious_options_amazon_container_credentials_tab', array(
-            Carbon_Field::make('password', 'affilicious_options_amazon_container_credentials_tab_access_key_id_field', __('Access Key ID', 'affilicious'))
+            Carbon_Field::make('text', 'affilicious_options_amazon_container_credentials_tab_access_key_field', __('Access Key', 'affilicious'))
                 ->set_required(true),
-            Carbon_Field::make('password', 'affilicious_options_amazon_container_credentials_tab_secret_access_key_field', __('Secret Access Key', 'affilicious'))
+            Carbon_Field::make('password', 'affilicious_options_amazon_container_credentials_tab_secret_key_field', __('Secret Key', 'affilicious'))
                 ->set_required(true),
             Carbon_Field::make('select', 'affilicious_options_amazon_container_credentials_tab_country_field', __('Country', 'affilicious'))
                 ->add_options(array(
@@ -35,7 +35,7 @@ class Amazon_Options
                     'com.au' => __('Australia', 'affilicious'),
                 ))
                 ->set_required(true),
-            Carbon_Field::make('text', 'affilicious_options_amazon_container_credentials_tab_partner_tag_field', __('Partner Tag', 'affilicious'))
+            Carbon_Field::make('text', 'affilicious_options_amazon_container_credentials_tab_associate_tag_field', __('Associate Tag', 'affilicious'))
                 ->set_required(true),
         ));
 

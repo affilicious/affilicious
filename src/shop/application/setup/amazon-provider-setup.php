@@ -40,12 +40,12 @@ class Amazon_Provider_Setup
      */
     public function init($providers)
     {
-        $access_key_id = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_access_key_id_field');
-        $secret_access_key = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_secret_access_key_field');
+        $access_key = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_access_key_field');
+        $secret_key = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_secret_key_field');
         $country = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_country_field');
-        $partner_tag = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_partner_tag_field');
+        $associate_tag = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_associate_tag_field');
 
-        if(empty($access_key_id) || empty($secret_access_key) || empty($country) || empty($partner_tag)) {
+        if(empty($access_key) || empty($secret_key) || empty($country) || empty($associate_tag)) {
             return $providers;
         }
 
@@ -54,10 +54,10 @@ class Amazon_Provider_Setup
             new Name('amazon'),
             new Key('amazon'),
             new Credentials(array(
-                'access_key_id' => $access_key_id,
-                'secret_access_key' => $secret_access_key,
+                'access_key' => $access_key,
+                'secret_key' => $secret_key,
                 'country' => $country,
-                'partner_tag' => $partner_tag
+                'associate_tag' => $associate_tag
             ))
         );
 

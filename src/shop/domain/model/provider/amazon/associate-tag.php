@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Secret_Access_Key extends Abstract_Value_Object
+class Associate_Tag extends Abstract_Value_Object
 {
     /**
      * @inheritdoc

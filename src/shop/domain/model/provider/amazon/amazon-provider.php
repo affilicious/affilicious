@@ -14,20 +14,20 @@ if (!defined('ABSPATH')) {
 
 class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Interface
 {
-    const CREDENTIALS_ACCESS_KEY_ID = 'access_key_id';
-    const CREDENTIALS_SECRET_ACCESS_KEY = 'secret_access_key';
+    const CREDENTIALS_ACCESS_KEY_ID = 'access_key';
+    const CREDENTIALS_SECRET_ACCESS_KEY = 'secret_key';
     const CREDENTIALS_COUNTRY = 'country';
-    const CREDENTIALS_PARTNER_TAG = 'partner_tag';
+    const CREDENTIALS_PARTNER_TAG = 'associate_tag';
 
     /**
-     * @var Access_Key_Id
+     * @var Access_Key
      */
-    protected $access_key_id;
+    protected $access_key;
 
     /**
-     * @var Secret_Access_Key
+     * @var Secret_Key
      */
-    protected $secret_access_key;
+    protected $secret_key;
 
     /**
      * @var Country
@@ -35,9 +35,9 @@ class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Inter
     protected $country;
 
     /**
-     * @var Partner_Tag
+     * @var Associate_Tag
      */
-    protected $partner_tag;
+    protected $associate_tag;
 
     /**
      * @inheritdoc
@@ -50,28 +50,28 @@ class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Inter
         parent::__construct($title, $name, $key, $credentials);
 
         $raw_credentials = $credentials->get_value();
-        $this->access_key_id = new Access_Key_Id($raw_credentials[self::CREDENTIALS_ACCESS_KEY_ID]);
-        $this->secret_access_key = new Secret_Access_Key($raw_credentials[self::CREDENTIALS_SECRET_ACCESS_KEY]);
+        $this->access_key = new Access_Key($raw_credentials[self::CREDENTIALS_ACCESS_KEY_ID]);
+        $this->secret_key = new Secret_Key($raw_credentials[self::CREDENTIALS_SECRET_ACCESS_KEY]);
         $this->country = new Country($raw_credentials[self::CREDENTIALS_COUNTRY]);
-        $this->partner_tag = new Partner_Tag($raw_credentials[self::CREDENTIALS_PARTNER_TAG]);
+        $this->associate_tag = new Associate_Tag($raw_credentials[self::CREDENTIALS_PARTNER_TAG]);
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function get_access_key_id()
+    public function get_access_key()
     {
-        return $this->access_key_id;
+        return $this->access_key;
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function get_secret_access_key()
+    public function get_secret_key()
     {
-        return $this->secret_access_key;
+        return $this->secret_key;
     }
 
     /**
@@ -87,9 +87,9 @@ class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Inter
      * @inheritdoc
      * @since 0.7
      */
-    public function get_partner_tag()
+    public function get_associate_tag()
     {
-        return $this->partner_tag;
+        return $this->associate_tag;
     }
 
     /**
