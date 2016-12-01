@@ -15,7 +15,7 @@ class Asset_Setup
      */
     public static function get_public_styles_dir()
     {
-        return \Affilicious_Plugin::get_root_dir() . '/assets/public/css/';
+        return \Affilicious_Plugin::get_root_url() . '/assets/public/css/';
     }
 
     /**
@@ -26,7 +26,7 @@ class Asset_Setup
      */
     public static function get_public_script_dir()
     {
-        return \Affilicious_Plugin::get_root_dir() . '/assets/public/js/';
+        return \Affilicious_Plugin::get_root_url() . '/assets/public/js/';
     }
 
     /**
@@ -37,7 +37,7 @@ class Asset_Setup
      */
     public static function get_admin_styles_dir()
     {
-        return \Affilicious_Plugin::get_root_dir() . '/assets/admin/css/';
+        return \Affilicious_Plugin::get_root_url() . '/assets/admin/css/';
     }
 
     /**
@@ -48,7 +48,7 @@ class Asset_Setup
      */
     public static function get_admin_script_dir()
     {
-        return \Affilicious_Plugin::get_root_dir() . '/assets/admin/js/';
+        return \Affilicious_Plugin::get_root_url() . '/assets/admin/js/';
     }
 
     /**

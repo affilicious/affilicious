@@ -14,11 +14,6 @@ if (!defined('ABSPATH')) {
 
 class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Interface
 {
-    const CREDENTIALS_ACCESS_KEY_ID = 'access_key';
-    const CREDENTIALS_SECRET_ACCESS_KEY = 'secret_key';
-    const CREDENTIALS_COUNTRY = 'country';
-    const CREDENTIALS_PARTNER_TAG = 'associate_tag';
-
     /**
      * @var Access_Key
      */
@@ -50,10 +45,10 @@ class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Inter
         parent::__construct($title, $name, $key, $credentials);
 
         $raw_credentials = $credentials->get_value();
-        $this->access_key = new Access_Key($raw_credentials[self::CREDENTIALS_ACCESS_KEY_ID]);
-        $this->secret_key = new Secret_Key($raw_credentials[self::CREDENTIALS_SECRET_ACCESS_KEY]);
-        $this->country = new Country($raw_credentials[self::CREDENTIALS_COUNTRY]);
-        $this->associate_tag = new Associate_Tag($raw_credentials[self::CREDENTIALS_PARTNER_TAG]);
+        $this->access_key = new Access_Key($raw_credentials[self::ACCESS_KEY]);
+        $this->secret_key = new Secret_Key($raw_credentials[self::SECRET_KEY]);
+        $this->country = new Country($raw_credentials[self::COUNTRY]);
+        $this->associate_tag = new Associate_Tag($raw_credentials[self::ASSOCIATE_TAG]);
     }
 
     /**
@@ -103,27 +98,27 @@ class Amazon_Provider extends Abstract_Provider implements Amazon_Provider_Inter
     {
         $value = $credentials->get_value();
 
-        if(!key_exists(self::CREDENTIALS_ACCESS_KEY_ID, $value)) {
+        if(!key_exists(self::ACCESS_KEY, $value)) {
             throw new Missing_Credentials_Exception(sprintf(
                 'The access key ID for the Amazon provider is missing.'
             ));
         }
 
-        if(!key_exists(self::CREDENTIALS_SECRET_ACCESS_KEY, $value)) {
+        if(!key_exists(self::SECRET_KEY, $value)) {
             throw new Missing_Credentials_Exception(sprintf(
                 'The secret access key for the Amazon provider is missing.'
             ));
         }
 
-        if(!key_exists(self::CREDENTIALS_COUNTRY, $value)) {
+        if(!key_exists(self::COUNTRY, $value)) {
             throw new Missing_Credentials_Exception(sprintf(
                 'The country for the Amazon provider is missing.'
             ));
         }
 
-        if(!key_exists(self::CREDENTIALS_PARTNER_TAG, $value)) {
+        if(!key_exists(self::ASSOCIATE_TAG, $value)) {
             throw new Missing_Credentials_Exception(sprintf(
-                'The partner tag for the Amazon provider is missing.'
+                'The associate tag for the Amazon provider is missing.'
             ));
         }
     }

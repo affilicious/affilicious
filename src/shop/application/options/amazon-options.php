@@ -1,12 +1,37 @@
 <?php
 namespace Affilicious\Shop\Application\Options;
 
+use Affilicious\Common\Application\Helper\View_Helper;
+use Affilicious\Shop\Application\Validator\Amazon_Credentials_Validator_Interface;
+use Affilicious\Shop\Domain\Model\Provider\Credentials;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
 class Amazon_Options
 {
+    const VALIDATION_STATUS = 'affilicious_options_amazon_container_credentials_tab_validation_status_field';
+    const ACCESS_KEY = 'affilicious_options_amazon_container_credentials_tab_access_key_field';
+    const SECRET_KEY = 'affilicious_options_amazon_container_credentials_tab_secret_key_field';
+    const COUNTRY = 'affilicious_options_amazon_container_credentials_tab_country_field';
+    const ASSOCIATE_TAG = 'affilicious_options_amazon_container_credentials_tab_associate_tag_field';
+
     /**
+     * @var Amazon_Credentials_Validator_Interface
+     */
+    private $amazon_credentials_validator;
+
+    /**
+     * @since 0.7
+     * @param Amazon_Credentials_Validator_Interface $amazon_credentials_validator
+     */
+    public function __construct(Amazon_Credentials_Validator_Interface $amazon_credentials_validator)
+    {
+        $this->amazon_credentials_validator = $amazon_credentials_validator;
+    }
+
+    /**
+     * Render the amazon options.
+     *
      * @since 0.6
      */
     public function render()
@@ -14,11 +39,13 @@ class Amazon_Options
         do_action('affilicious_options_amazon_before_render');
 
         $credentials_tab = apply_filters('affilicious_options_amazon_container_credentials_tab', array(
-            Carbon_Field::make('text', 'affilicious_options_amazon_container_credentials_tab_access_key_field', __('Access Key', 'affilicious'))
+            Carbon_Field::make('html', self::VALIDATION_STATUS)
+                ->set_html($this->get_validation_notice()),
+            Carbon_Field::make('text', self::ACCESS_KEY, __('Access Key', 'affilicious'))
                 ->set_required(true),
-            Carbon_Field::make('password', 'affilicious_options_amazon_container_credentials_tab_secret_key_field', __('Secret Key', 'affilicious'))
+            Carbon_Field::make('password', self::SECRET_KEY, __('Secret Key', 'affilicious'))
                 ->set_required(true),
-            Carbon_Field::make('select', 'affilicious_options_amazon_container_credentials_tab_country_field', __('Country', 'affilicious'))
+            Carbon_Field::make('select', self::COUNTRY, __('Country', 'affilicious'))
                 ->add_options(array(
                     'de' => __('Germany', 'affilicious'),
                     'com' => __('America', 'affilicious'),
@@ -35,7 +62,7 @@ class Amazon_Options
                     'com.au' => __('Australia', 'affilicious'),
                 ))
                 ->set_required(true),
-            Carbon_Field::make('text', 'affilicious_options_amazon_container_credentials_tab_associate_tag_field', __('Associate Tag', 'affilicious'))
+            Carbon_Field::make('text', self::ASSOCIATE_TAG, __('Associate Tag', 'affilicious'))
                 ->set_required(true),
         ));
 
@@ -45,5 +72,61 @@ class Amazon_Options
 
         apply_filters('affilicious_options_amazon_container', $container);
         do_action('affilicious_options_amazon_after_render');
+    }
+
+    /**
+     * Get the validation notice for Amazon.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    protected function get_validation_notice()
+    {
+        $valid = $this->check_validation_status();
+
+        if($valid) {
+            $notice = View_Helper::stringify('src/common/presentation/view/notifications/success-notice.php', array(
+                'message' => __('<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API was successfully established.', 'affilicious')
+            ));
+        } else {
+            $notice = View_Helper::stringify('src/common/presentation/view/notifications/error-notice.php', array(
+                'message' => __('<b>The credentials are invalid!</b> Failed to connect to the Amazon Product Advertising API.', 'affilicious')
+            ));
+        }
+
+        return $notice;
+    }
+
+    /**
+     * Check the validation status of the credentials for Amazon.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    protected function check_validation_status()
+    {
+        $access_key = carbon_get_theme_option(Amazon_Options::ACCESS_KEY);
+        $secret_key = carbon_get_theme_option(Amazon_Options::SECRET_KEY);
+        $country = carbon_get_theme_option(Amazon_Options::COUNTRY);
+        $associate_tag = carbon_get_theme_option(Amazon_Options::ASSOCIATE_TAG);
+
+        if(empty($access_key) || empty($secret_key) || empty($country) || empty($associate_tag)) {
+            return false;
+        }
+
+        $credentials = new Credentials(array(
+            'access_key' => $access_key,
+            'secret_key' => $secret_key,
+            'country' => $country,
+            'associate_tag' => $associate_tag
+        ));
+
+        try {
+            $this->amazon_credentials_validator->validate($credentials);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -9,6 +9,11 @@ if(!defined('ABSPATH')) {
 
 interface Amazon_Provider_Interface extends Provider_Interface
 {
+    const ACCESS_KEY = 'access_key';
+    const SECRET_KEY = 'secret_key';
+    const COUNTRY = 'country';
+    const ASSOCIATE_TAG = 'associate_tag';
+
     /**
      * Get the access key id from the credentials.
      *

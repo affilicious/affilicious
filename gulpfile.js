@@ -40,7 +40,9 @@ var assetPaths = {
             'assets/admin/es6/**'
         ],
         fonts: [],
-        images: []
+        images: [
+            'assets/admin/images/**'
+        ]
     }
 };
 

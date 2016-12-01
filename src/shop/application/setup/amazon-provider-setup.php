@@ -4,6 +4,7 @@ namespace Affilicious\Shop\Application\Setup;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
+use Affilicious\Shop\Application\Options\Amazon_Options;
 use Affilicious\Shop\Domain\Model\Provider\Amazon\Amazon_Provider_Factory_Interface;
 use Affilicious\Shop\Domain\Model\Provider\Credentials;
 use Affilicious\Shop\Domain\Model\Provider\Provider_Interface;
@@ -40,10 +41,10 @@ class Amazon_Provider_Setup
      */
     public function init($providers)
     {
-        $access_key = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_access_key_field');
-        $secret_key = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_secret_key_field');
-        $country = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_country_field');
-        $associate_tag = carbon_get_theme_option('affilicious_options_amazon_container_credentials_tab_associate_tag_field');
+        $access_key = carbon_get_theme_option(Amazon_Options::ACCESS_KEY);
+        $secret_key = carbon_get_theme_option(Amazon_Options::SECRET_KEY);
+        $country = carbon_get_theme_option(Amazon_Options::COUNTRY);
+        $associate_tag = carbon_get_theme_option(Amazon_Options::ASSOCIATE_TAG);
 
         if(empty($access_key) || empty($secret_key) || empty($country) || empty($associate_tag)) {
             return $providers;

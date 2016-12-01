@@ -82,14 +82,37 @@ class Affilicious_Plugin
     }
 
     /**
-     * Get the root dir of the plugin
+     * Get the root url to the plugin.
      *
+     * @since 0.7
+     * @return string
+     */
+    public static function get_root_url()
+    {
+        return plugin_dir_url(__FILE__);
+    }
+
+    /**
+     * Get the root path to the plugin.
+     *
+     * @since 0.7
+     * @return string
+     */
+    public static function get_root_path()
+    {
+        return plugin_dir_path(__FILE__);
+    }
+
+    /**
+     * Get the root url to the plugin.
+     *
+     * @deprecated
      * @since 0.3
      * @return string
      */
     public static function get_root_dir()
     {
-        return plugin_dir_url( __FILE__ );
+        return self::get_root_url();
     }
 
     /**
@@ -389,8 +412,10 @@ class Affilicious_Plugin
             return new \Affilicious\Product\Presentation\Setup\Canonical_Setup();
         };
 
-        $this->container['affilicious.shop.application.options.amazon'] = function () {
-            return new \Affilicious\Shop\Application\Options\Amazon_Options();
+        $this->container['affilicious.shop.application.options.amazon'] = function ($c) {
+            return new \Affilicious\Shop\Application\Options\Amazon_Options(
+                $c['affilicious.shop.application.validator.amazon_credentials']
+            );
         };
 
         $this->container['affilicious.product.presentation.setup.admin_bar'] = function () {
@@ -450,6 +475,10 @@ class Affilicious_Plugin
             return new \Affilicious\Product\Application\Setup\Update_Mediator_Setup(
                 $c['affilicious.product.application.update.mediator']
             );
+        };
+
+        $this->container['affilicious.shop.application.validator.amazon_credentials'] = function() {
+            return new \Affilicious\Shop\Application\Validator\Amazon_Credentials_Validator();
         };
     }
 
