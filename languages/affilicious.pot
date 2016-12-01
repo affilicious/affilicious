@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2016-12-01 "
-"21:15+0100\n"
+"22:04+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -620,83 +620,166 @@ msgstr ""
 msgid "Parent %s"
 msgstr ""
 
-#: src/shop/application/options/amazon-options.php:44
+#: src/shop/application/options/amazon-options.php:47
 msgid "Access Key"
 msgstr ""
 
-#: src/shop/application/options/amazon-options.php:46
-msgid "Secret Key"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:48
-msgid "Country"
+#: src/shop/application/options/amazon-options.php:49
+msgid ""
+"The access key is used to "
+"identify you as an API user."
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:50
-msgid "Germany"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:51
-msgid "America"
+msgid "Secret Key"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:52
-msgid "England"
+msgid ""
+"The secret key is used like a "
+"password to sign your API "
+"requests."
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:53
-msgid "Canada"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:54
-msgid "France"
+msgid "Country"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:55
-msgid "Japan"
+msgid "Germany"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:56
-msgid "Italy"
+msgid "America"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:57
-msgid "China"
+msgid "England"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:58
-msgid "Spain"
+msgid "Canada"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:59
-msgid "India"
+msgid "France"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:60
-msgid "Brazil"
+msgid "Japan"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:61
-msgid "Mexico"
+msgid "Italy"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:62
-msgid "Australia"
+msgid "China"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:63
+msgid "Spain"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:64
+msgid "India"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:65
-msgid "Associate Tag"
+msgid "Brazil"
 msgstr ""
 
-#: src/shop/application/options/amazon-options.php:69
-msgid "Amazon"
+#: src/shop/application/options/amazon-options.php:66
+msgid "Mexico"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:67
+msgid "Australia"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:70
+msgid ""
+"The country has to match the "
+"locale of your Amazon account. "
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:71
+msgid "Associate Tag"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:73
+msgid ""
+"Amazon uses this ID to credit an "
+"associate for a sale."
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:77
+msgid "Price Update Interval"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:79
+#: src/shop/application/options/amazon-options.php:88
+#: src/shop/application/options/amazon-options.php:97
+msgid "Hourly"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:80
+#: src/shop/application/options/amazon-options.php:89
+#: src/shop/application/options/amazon-options.php:98
+msgid "Twice Daily"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:81
+#: src/shop/application/options/amazon-options.php:90
+#: src/shop/application/options/amazon-options.php:99
+msgid "Daily"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:82
+#: src/shop/application/options/amazon-options.php:91
+#: src/shop/application/options/amazon-options.php:100
+msgid "No Updates"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:84
+msgid ""
+"The automatic update interval "
+"for the prices in the shops."
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:86
+msgid "Rating Update Interval"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:93
+msgid ""
+"The automatic update interval "
+"for the ratings in the reviews."
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:95
+msgid "Votes Update Interval"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:102
+msgid ""
+"The automatic update interval "
+"for the votes in the reviews."
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:106
+msgid "Amazon"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:108
 msgid "Credentials"
 msgstr ""
 
-#: src/shop/application/options/amazon-options.php:89
+#: src/shop/application/options/amazon-options.php:109
+msgid "Updates"
+msgstr ""
+
+#: src/shop/application/options/amazon-options.php:127
 msgid ""
 "<b>The credentials are valid!</"
 "b> A connection to the Amazon "
@@ -704,7 +787,7 @@ msgid ""
 "successfully established."
 msgstr ""
 
-#: src/shop/application/options/amazon-options.php:93
+#: src/shop/application/options/amazon-options.php:131
 msgid ""
 "<b>The credentials are invalid!</"
 "b> Failed to connect to the "

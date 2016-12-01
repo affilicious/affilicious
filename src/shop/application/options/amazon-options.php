@@ -14,6 +14,9 @@ class Amazon_Options
     const SECRET_KEY = 'affilicious_options_amazon_container_credentials_tab_secret_key_field';
     const COUNTRY = 'affilicious_options_amazon_container_credentials_tab_country_field';
     const ASSOCIATE_TAG = 'affilicious_options_amazon_container_credentials_tab_associate_tag_field';
+    const PRICE_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_price_update_interval_field';
+    const RATING_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_rating_update_interval_field';
+    const VOTES_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_votes_update_interval_field';
 
     /**
      * @var Amazon_Credentials_Validator_Interface
@@ -42,9 +45,11 @@ class Amazon_Options
             Carbon_Field::make('html', self::VALIDATION_STATUS)
                 ->set_html($this->get_validation_notice()),
             Carbon_Field::make('text', self::ACCESS_KEY, __('Access Key', 'affilicious'))
-                ->set_required(true),
+                ->set_required(true)
+                ->set_help_text(__('The access key is used to identify you as an API user.', 'affilicious')),
             Carbon_Field::make('password', self::SECRET_KEY, __('Secret Key', 'affilicious'))
-                ->set_required(true),
+                ->set_required(true)
+                ->set_help_text(__('The secret key is used like a password to sign your API requests.', 'affilicious')),
             Carbon_Field::make('select', self::COUNTRY, __('Country', 'affilicious'))
                 ->add_options(array(
                     'de' => __('Germany', 'affilicious'),
@@ -61,14 +66,47 @@ class Amazon_Options
                     'com.mx' => __('Mexico', 'affilicious'),
                     'com.au' => __('Australia', 'affilicious'),
                 ))
-                ->set_required(true),
+                ->set_required(true)
+                ->set_help_text(__('The country has to match the locale of your Amazon account. ', 'affilicious')),
             Carbon_Field::make('text', self::ASSOCIATE_TAG, __('Associate Tag', 'affilicious'))
+                ->set_required(true)
+                ->set_help_text(__('Amazon uses this ID to credit an associate for a sale.', 'affilicious'))
+        ));
+
+        $updates_tab = apply_filters('affilicious_options_amazon_container_updates_interval_tab', array(
+            Carbon_Field::make('select', self::PRICE_UPDATE_INTERVAL, __('Price Update Interval', 'affilicious'))
+                ->add_options(array(
+                    'hourly' => __('Hourly', 'affilicious'),
+                    'twice_daily' => __('Twice Daily', 'affilicious'),
+                    'daily' => __('Daily', 'affilicious'),
+                    'none' => __('No Updates', 'affilicious'),
+                ))
+                ->set_help_text(__('The automatic update interval for the prices in the shops.', 'affilicious'))
+                ->set_required(true),
+            Carbon_Field::make('select', self::RATING_UPDATE_INTERVAL, __('Rating Update Interval', 'affilicious'))
+                ->add_options(array(
+                    'hourly' => __('Hourly', 'affilicious'),
+                    'twice_daily' => __('Twice Daily', 'affilicious'),
+                    'daily' => __('Daily', 'affilicious'),
+                    'none' => __('No Updates', 'affilicious'),
+                ))
+                ->set_help_text(__('The automatic update interval for the ratings in the reviews.', 'affilicious'))
+                ->set_required(true),
+            Carbon_Field::make('select', self::VOTES_UPDATE_INTERVAL, __('Votes Update Interval', 'affilicious'))
+                ->add_options(array(
+                    'hourly' => __('Hourly', 'affilicious'),
+                    'twice_daily' => __('Twice Daily', 'affilicious'),
+                    'daily' => __('Daily', 'affilicious'),
+                    'none' => __('No Updates', 'affilicious'),
+                ))
+                ->set_help_text(__('The automatic update interval for the votes in the reviews.', 'affilicious'))
                 ->set_required(true),
         ));
 
         $container = Carbon_Container::make('theme_options', __('Amazon', 'affilicious'))
             ->set_page_parent('affilicious')
-            ->add_tab(__('Credentials', 'affilicious'), $credentials_tab);
+            ->add_tab(__('Credentials', 'affilicious'), $credentials_tab)
+            ->add_tab(__('Updates', 'affilicious'), $updates_tab);
 
         apply_filters('affilicious_options_amazon_container', $container);
         do_action('affilicious_options_amazon_after_render');
