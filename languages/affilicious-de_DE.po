@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-11-05 13:12+0100\n"
+"POT-Creation-Date: 2016-12-01 21:15+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -60,17 +60,17 @@ msgstr "Attribut-Vorlagengruppen"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:31
 #: src/detail/application/setup/detail-template-group-setup.php:31
-#: src/product/application/setup/product-setup.php:73
-#: src/shop/application/setup/shop-template-setup.php:30
+#: src/product/application/setup/product-setup.php:76
+#: src/shop/application/setup/shop-template-setup.php:53
 #, php-format
 msgid "%s Archives"
 msgstr "%s Archive"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:32
 #: src/detail/application/setup/detail-template-group-setup.php:32
-#: src/product/application/setup/product-setup.php:74
+#: src/product/application/setup/product-setup.php:77
 #: src/settings/application/setting/product-settings.php:102
-#: src/shop/application/setup/shop-template-setup.php:31
+#: src/shop/application/setup/shop-template-setup.php:54
 #, php-format
 msgid "Parent %s:"
 msgstr "Eltern %s:"
@@ -83,85 +83,85 @@ msgstr "Attribute"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:34
 #: src/detail/application/setup/detail-template-group-setup.php:34
-#: src/product/application/setup/product-setup.php:76
+#: src/product/application/setup/product-setup.php:79
 #: src/settings/application/setting/product-settings.php:105
-#: src/shop/application/setup/shop-template-setup.php:33
+#: src/shop/application/setup/shop-template-setup.php:56
 #, php-format
 msgid "Add New %s"
 msgstr "Erstelle %s"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:35
 #: src/detail/application/setup/detail-template-group-setup.php:35
-#: src/product/application/setup/product-setup.php:77
+#: src/product/application/setup/product-setup.php:80
 #: src/settings/application/setting/product-settings.php:106
-#: src/shop/application/setup/shop-template-setup.php:34
+#: src/shop/application/setup/shop-template-setup.php:57
 #, php-format
 msgid "New %s"
 msgstr "Neue %s"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:36
 #: src/detail/application/setup/detail-template-group-setup.php:36
-#: src/product/application/setup/product-setup.php:78
+#: src/product/application/setup/product-setup.php:81
 #: src/settings/application/setting/product-settings.php:103
-#: src/shop/application/setup/shop-template-setup.php:35
+#: src/shop/application/setup/shop-template-setup.php:58
 #, php-format
 msgid "Edit %s"
 msgstr "Bearbeite %s"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:37
 #: src/detail/application/setup/detail-template-group-setup.php:37
-#: src/product/application/setup/product-setup.php:79
+#: src/product/application/setup/product-setup.php:82
 #: src/settings/application/setting/product-settings.php:104
-#: src/shop/application/setup/shop-template-setup.php:36
+#: src/shop/application/setup/shop-template-setup.php:59
 #, php-format
 msgid "Update %s"
 msgstr "Aktualisiere %s"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:38
 #: src/detail/application/setup/detail-template-group-setup.php:38
-#: src/product/application/setup/product-setup.php:80
-#: src/shop/application/setup/shop-template-setup.php:37
+#: src/product/application/setup/product-setup.php:83
+#: src/shop/application/setup/shop-template-setup.php:60
 #, php-format
 msgid "View %s"
 msgstr "%s anzeigen"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:39
 #: src/detail/application/setup/detail-template-group-setup.php:39
-#: src/product/application/setup/product-setup.php:81
+#: src/product/application/setup/product-setup.php:84
 #: src/settings/application/setting/product-settings.php:99
-#: src/shop/application/setup/shop-template-setup.php:38
+#: src/shop/application/setup/shop-template-setup.php:61
 #, php-format
 msgid "Search %s"
 msgstr "Suche %s"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:40
 #: src/detail/application/setup/detail-template-group-setup.php:40
-#: src/product/application/setup/product-setup.php:82
-#: src/shop/application/setup/shop-template-setup.php:39
+#: src/product/application/setup/product-setup.php:85
+#: src/shop/application/setup/shop-template-setup.php:62
 #, php-format
 msgid "Insert Into %s"
 msgstr "In die %s einfügen"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:41
 #: src/detail/application/setup/detail-template-group-setup.php:41
-#: src/product/application/setup/product-setup.php:83
-#: src/shop/application/setup/shop-template-setup.php:40
+#: src/product/application/setup/product-setup.php:86
+#: src/shop/application/setup/shop-template-setup.php:63
 #, php-format
 msgid "Uploaded to this %s"
 msgstr "Hochgeladen zu %s"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:43
 #: src/detail/application/setup/detail-template-group-setup.php:43
-#: src/product/application/setup/product-setup.php:85
-#: src/shop/application/setup/shop-template-setup.php:42
+#: src/product/application/setup/product-setup.php:88
+#: src/shop/application/setup/shop-template-setup.php:65
 #, php-format
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:44
 #: src/detail/application/setup/detail-template-group-setup.php:44
-#: src/product/application/setup/product-setup.php:86
-#: src/shop/application/setup/shop-template-setup.php:43
+#: src/product/application/setup/product-setup.php:89
+#: src/shop/application/setup/shop-template-setup.php:66
 #, php-format
 msgid "Filter %s"
 msgstr "%s filtern"
@@ -172,13 +172,13 @@ msgstr "Attribut-Vorlagen"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:77
 #: src/detail/application/setup/detail-template-group-setup.php:77
-#: src/product/application/setup/product-setup.php:220
+#: src/product/application/setup/product-setup.php:224
 msgid "Title"
 msgstr "Titel"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:79
 #: src/detail/application/setup/detail-template-group-setup.php:79
-#: src/product/application/setup/product-setup.php:150
+#: src/product/application/setup/product-setup.php:153
 msgid "Type"
 msgstr "Typ"
 
@@ -202,15 +202,15 @@ msgstr "Einheit"
 msgid "Help Text"
 msgstr "Hilfstext"
 
-#: src/common/presentation/setup/asset-setup.php:71
-#: src/product/application/setup/product-setup.php:127
+#: src/common/presentation/setup/asset-setup.php:93
+#: src/product/application/setup/product-setup.php:130
 msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
-#: src/common/presentation/setup/asset-setup.php:72
-#: src/product/application/setup/product-setup.php:131
-#: src/product/application/setup/product-setup.php:177
-#: src/product/application/setup/product-setup.php:206
+#: src/common/presentation/setup/asset-setup.php:94
+#: src/product/application/setup/product-setup.php:134
+#: src/product/application/setup/product-setup.php:180
+#: src/product/application/setup/product-setup.php:210
 msgid "Variants"
 msgstr "Varianten"
 
@@ -288,7 +288,7 @@ msgstr "Detail-Vorlagengruppen"
 #: src/detail/application/setup/detail-template-group-setup.php:33
 #: src/detail/application/setup/detail-template-group-setup.php:74
 #: src/detail/application/setup/detail-template-group-setup.php:117
-#: src/product/application/setup/product-setup.php:133
+#: src/product/application/setup/product-setup.php:136
 msgid "Details"
 msgstr "Details"
 
@@ -300,181 +300,187 @@ msgstr "Detail-Vorlagen"
 msgid "File"
 msgstr "Datei"
 
-#: src/product/application/setup/product-setup.php:66
-#: src/product/application/setup/product-setup.php:95
+#: src/product/application/setup/product-setup.php:69
+#: src/product/application/setup/product-setup.php:98
 #: src/settings/application/setting/product-settings.php:45
 msgid "Product"
 msgstr "Produkt"
 
-#: src/product/application/setup/product-setup.php:67
-#: src/product/application/setup/product-setup.php:75
+#: src/product/application/setup/product-setup.php:70
+#: src/product/application/setup/product-setup.php:78
 msgid "Products"
 msgstr "Produkte"
 
-#: src/product/application/setup/product-setup.php:96
+#: src/product/application/setup/product-setup.php:99
 msgid "Product Type Description"
 msgstr "Produkttyp Beschreibung"
 
-#: src/product/application/setup/product-setup.php:130
+#: src/product/application/setup/product-setup.php:133
 #: src/settings/application/setting/product-settings.php:47
 msgid "General"
 msgstr "Allgemein"
 
-#: src/product/application/setup/product-setup.php:132
-#: src/product/application/setup/product-setup.php:231
-#: src/product/application/setup/product-setup.php:269
-#: src/product/application/setup/product-setup.php:369
-#: src/shop/application/setup/shop-template-setup.php:32
+#: src/product/application/setup/product-setup.php:135
+#: src/product/application/setup/product-setup.php:235
+#: src/product/application/setup/product-setup.php:273
+#: src/product/application/setup/product-setup.php:374
+#: src/shop/application/setup/shop-template-setup.php:55
 msgid "Shops"
 msgstr "Shops"
 
-#: src/product/application/setup/product-setup.php:134
+#: src/product/application/setup/product-setup.php:137
 msgid "Review"
 msgstr "Rezension"
 
-#: src/product/application/setup/product-setup.php:135
+#: src/product/application/setup/product-setup.php:138
 msgid "Relations"
 msgstr "Beziehungen"
 
-#: src/product/application/setup/product-setup.php:152
+#: src/product/application/setup/product-setup.php:155
 msgid "Simple"
 msgstr "Einfach"
 
-#: src/product/application/setup/product-setup.php:153
+#: src/product/application/setup/product-setup.php:156
 msgid "Complex"
 msgstr "Komplex"
 
-#: src/product/application/setup/product-setup.php:171
+#: src/product/application/setup/product-setup.php:174
 msgid "Attribute Group"
 msgstr "Attributgruppe"
 
-#: src/product/application/setup/product-setup.php:207
+#: src/product/application/setup/product-setup.php:211
 msgid "Variant"
 msgstr "Variante"
 
-#: src/product/application/setup/product-setup.php:219
+#: src/product/application/setup/product-setup.php:223
 msgid "Variant ID"
 msgstr "Varianten ID"
 
-#: src/product/application/setup/product-setup.php:223
+#: src/product/application/setup/product-setup.php:227
 msgid "Default Variant"
 msgstr "Standartvariante"
 
-#: src/product/application/setup/product-setup.php:225
+#: src/product/application/setup/product-setup.php:229
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
 
-#: src/product/application/setup/product-setup.php:230
+#: src/product/application/setup/product-setup.php:234
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/product/application/setup/product-setup.php:287
-#: src/product/application/setup/product-setup.php:483
+#: src/product/application/setup/product-setup.php:291
+#: src/product/application/setup/product-setup.php:491
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
-#: src/product/application/setup/product-setup.php:303
+#: src/product/application/setup/product-setup.php:307
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/product/application/setup/product-setup.php:305
-#: src/product/application/setup/product-setup.php:410
+#: src/product/application/setup/product-setup.php:309
+#: src/product/application/setup/product-setup.php:418
+#: src/shop/application/setup/shop-template-setup.php:131
+#: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
 msgstr "Keine"
 
-#: src/product/application/setup/product-setup.php:306
-#: src/product/application/setup/product-setup.php:307
-#: src/product/application/setup/product-setup.php:309
 #: src/product/application/setup/product-setup.php:310
 #: src/product/application/setup/product-setup.php:311
-#: src/product/application/setup/product-setup.php:312
 #: src/product/application/setup/product-setup.php:313
 #: src/product/application/setup/product-setup.php:314
 #: src/product/application/setup/product-setup.php:315
 #: src/product/application/setup/product-setup.php:316
+#: src/product/application/setup/product-setup.php:317
+#: src/product/application/setup/product-setup.php:318
+#: src/product/application/setup/product-setup.php:319
+#: src/product/application/setup/product-setup.php:320
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/product/application/setup/product-setup.php:308
+#: src/product/application/setup/product-setup.php:312
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/product/application/setup/product-setup.php:318
+#: src/product/application/setup/product-setup.php:322
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/product/application/setup/product-setup.php:319
+#: src/product/application/setup/product-setup.php:323
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/product/application/setup/product-setup.php:342
+#: src/product/application/setup/product-setup.php:346
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/product/application/setup/product-setup.php:345
+#: src/product/application/setup/product-setup.php:349
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/product/application/setup/product-setup.php:370
+#: src/product/application/setup/product-setup.php:375
 msgid "Shop"
 msgstr "Shop"
 
-#: src/product/application/setup/product-setup.php:375
+#: src/product/application/setup/product-setup.php:380
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/product/application/setup/product-setup.php:378
+#: src/product/application/setup/product-setup.php:383
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/product/application/setup/product-setup.php:380
+#: src/product/application/setup/product-setup.php:385
 msgid "Affiliate ID"
 msgstr "Affiliate ID"
 
-#: src/product/application/setup/product-setup.php:381
+#: src/product/application/setup/product-setup.php:386
 msgid ""
 "Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc."
 msgstr ""
 "Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, usw."
 
-#: src/product/application/setup/product-setup.php:382
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:610
+#: src/product/application/setup/product-setup.php:387
+#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:622
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/application/setup/product-setup.php:383
+#: src/product/application/setup/product-setup.php:388
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/application/setup/product-setup.php:384
+#: src/product/application/setup/product-setup.php:389
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/application/setup/product-setup.php:387
+#: src/product/application/setup/product-setup.php:392
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/application/setup/product-setup.php:388
+#: src/product/application/setup/product-setup.php:393
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/application/setup/product-setup.php:439
+#: src/product/application/setup/product-setup.php:395
+msgid "Updated At"
+msgstr "Aktualisiert am"
+
+#: src/product/application/setup/product-setup.php:447
 msgid "Attribute Template Group ID"
 msgstr "Attribut-Vorlagengruppe ID"
 
-#: src/product/application/setup/product-setup.php:484
+#: src/product/application/setup/product-setup.php:492
 msgid "Detail Group"
 msgstr "Detailgruppe"
 
-#: src/product/application/setup/product-setup.php:517
+#: src/product/application/setup/product-setup.php:525
 msgid "Detail Template Group ID"
 msgstr "Detail-Vorlagengruppe ID"
 
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:604
+#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:616
 msgid "Default"
 msgstr "Standard"
 
@@ -589,93 +595,145 @@ msgstr "Alle %s"
 msgid "Parent %s"
 msgstr "Eltern %s"
 
-#: src/shop/application/options/provider-options.php:22
-msgid "Access Key ID"
-msgstr "Access Key ID"
+#: src/shop/application/options/amazon-options.php:44
+msgid "Access Key"
+msgstr "Access Key"
 
-#: src/shop/application/options/provider-options.php:23
-msgid "Secret Access Key"
-msgstr "Secret Access Key"
+#: src/shop/application/options/amazon-options.php:46
+msgid "Secret Key"
+msgstr "Secret Key"
 
-#: src/shop/application/options/provider-options.php:24
+#: src/shop/application/options/amazon-options.php:48
 msgid "Country"
 msgstr "Land"
 
-#: src/shop/application/options/provider-options.php:26
+#: src/shop/application/options/amazon-options.php:50
 msgid "Germany"
 msgstr "Deutschland"
 
-#: src/shop/application/options/provider-options.php:27
+#: src/shop/application/options/amazon-options.php:51
 msgid "America"
 msgstr "Amerika"
 
-#: src/shop/application/options/provider-options.php:28
+#: src/shop/application/options/amazon-options.php:52
 msgid "England"
 msgstr "England"
 
-#: src/shop/application/options/provider-options.php:29
+#: src/shop/application/options/amazon-options.php:53
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/shop/application/options/provider-options.php:30
+#: src/shop/application/options/amazon-options.php:54
 msgid "France"
 msgstr "Frankreich"
 
-#: src/shop/application/options/provider-options.php:31
+#: src/shop/application/options/amazon-options.php:55
 msgid "Japan"
 msgstr "Japan"
 
-#: src/shop/application/options/provider-options.php:32
+#: src/shop/application/options/amazon-options.php:56
 msgid "Italy"
 msgstr "Italien"
 
-#: src/shop/application/options/provider-options.php:33
+#: src/shop/application/options/amazon-options.php:57
 msgid "China"
 msgstr "China"
 
-#: src/shop/application/options/provider-options.php:34
+#: src/shop/application/options/amazon-options.php:58
 msgid "Spain"
 msgstr "Spanien"
 
-#: src/shop/application/options/provider-options.php:35
+#: src/shop/application/options/amazon-options.php:59
 msgid "India"
 msgstr "Indien"
 
-#: src/shop/application/options/provider-options.php:36
+#: src/shop/application/options/amazon-options.php:60
 msgid "Brazil"
 msgstr "Brasilien"
 
-#: src/shop/application/options/provider-options.php:37
+#: src/shop/application/options/amazon-options.php:61
 msgid "Mexico"
 msgstr "Mexiko"
 
-#: src/shop/application/options/provider-options.php:38
+#: src/shop/application/options/amazon-options.php:62
 msgid "Australia"
 msgstr "Australien"
 
-#: src/shop/application/options/provider-options.php:40
-msgid "Partner Tag"
-msgstr "Partner Tag"
+#: src/shop/application/options/amazon-options.php:65
+msgid "Associate Tag"
+msgstr "Associate Tag"
 
-#: src/shop/application/options/provider-options.php:43
-msgid "Provider"
-msgstr "Provider"
-
-#: src/shop/application/options/provider-options.php:45
+#: src/shop/application/options/amazon-options.php:69
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/shop/application/setup/shop-template-setup.php:23
+#: src/shop/application/options/amazon-options.php:71
+msgid "Credentials"
+msgstr "Zugangsdaten"
+
+#: src/shop/application/options/amazon-options.php:89
+msgid ""
+"<b>The credentials are valid!</b> A connection to the Amazon Product "
+"Advertising API was successfully established."
+msgstr ""
+"<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
+"Advertising API wurde erfolgreich aufgebaut."
+
+#: src/shop/application/options/amazon-options.php:93
+msgid ""
+"<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
+"Advertising API."
+msgstr ""
+"<b>Die Zugangsdaten sind ungültig!</b> Leider konnte keine Verbindung zur "
+"Amazon Product Advertising API aufgebaut werden."
+
+#: src/shop/application/setup/shop-template-setup.php:46
 msgid "Shop Template"
 msgstr "Shop-Vorlage"
 
-#: src/shop/application/setup/shop-template-setup.php:24
+#: src/shop/application/setup/shop-template-setup.php:47
 msgid "Shop Templates"
 msgstr "Shop-Vorlagen"
 
-#: src/shop/application/setup/shop-template-setup.php:89
+#: src/shop/application/setup/shop-template-setup.php:94
+msgid "Shop Template Options"
+msgstr "Shop-Vorlagen Optionen"
+
+#: src/shop/application/setup/shop-template-setup.php:97
+#: src/shop/application/setup/shop-template-setup.php:112
+#: src/shop/presentation/setup/table-column-setup.php:37
+msgid "Provider"
+msgstr "Provider"
+
+#: src/shop/application/setup/shop-template-setup.php:115
+msgid ""
+"The provider is used for the automatic updates for products using this shop."
+msgstr ""
+"Der Provider wird für automatische Aktualisierungen für Produkte benutzt, "
+"die diesen Shop nutzen."
+
+#: src/shop/presentation/setup/table-column-setup.php:36
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid ""
+#~ "The provider is used for the automatic update for products using this "
+#~ "shop."
+#~ msgstr "Der Provider wird für automatische Aktualisierungen "
+
+#~ msgid ""
+#~ "The provider is used for the automatic update like the prices and much "
+#~ "more of the product using this shop."
+#~ msgstr "Der Provider ist für automatische Aktualisierungen wie Preise"
+
+#~ msgid "Access Key ID"
+#~ msgstr "Access Key ID"
+
+#~ msgid "Secret Access Key"
+#~ msgstr "Secret Access Key"
+
+#~ msgid "Partner Tag"
+#~ msgstr "Partner Tag"
 
 #~ msgid "Attribute"
 #~ msgstr "Attribut"

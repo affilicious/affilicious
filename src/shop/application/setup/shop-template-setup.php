@@ -112,7 +112,7 @@ class Shop_Template_Setup implements Setup_Interface
             Carbon_Field::make('select', Carbon_Shop_Template_Repository::PROVIDER, __('Provider', 'affilicious'))
                 ->set_required(true)
                 ->add_options($this->get_provider_options())
-                ->set_help_text(__('The provider is used for the automatic update like the prices and much more of the product using this shop.', 'affilicious')),
+                ->set_help_text(__('The provider is used for the automatic updates for products using this shop.', 'affilicious')),
         );
 
         return apply_filters('affilicious_shop_template_render_shop_template_options_container_provider_fields', $fields, $this->post_id);
