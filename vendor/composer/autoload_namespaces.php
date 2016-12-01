@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Pimple' => array($vendorDir . '/pimple/pimple/src'),
+    'ApaiIO' => array($vendorDir . '/exeu/apai-io/lib'),
 );

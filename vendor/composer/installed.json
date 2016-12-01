@@ -152,5 +152,68 @@
             "container",
             "dependency injection"
         ]
+    },
+    {
+        "name": "exeu/apai-io",
+        "version": "1.10.0",
+        "version_normalized": "1.10.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Exeu/apai-io.git",
+            "reference": "d8a0009a262d77f96eeb6deb930b3ab0562d1ac3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Exeu/apai-io/zipball/d8a0009a262d77f96eeb6deb930b3ab0562d1ac3",
+            "reference": "d8a0009a262d77f96eeb6deb930b3ab0562d1ac3",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mayflower/php-codebrowser": "1.*",
+            "pdepend/pdepend": "2.*",
+            "phploc/phploc": "2.*",
+            "phpmd/phpmd": "2.*",
+            "phpunit/phpunit": "4.5.*",
+            "sebastian/phpcpd": "2.*",
+            "squizlabs/php_codesniffer": "2.*"
+        },
+        "time": "2016-03-08 07:37:18",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "ApaiIO": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Jan Eichhorn",
+                "email": "exeu65@googlemail.com",
+                "role": "Maintainer"
+            },
+            {
+                "name": "Dejan Spasic",
+                "email": "dejan.spasic@bitweise.biz",
+                "role": "Developer"
+            }
+        ],
+        "description": "Amazon Product Advertising PHP Library",
+        "homepage": "https://github.com/Exeu/apai-io",
+        "keywords": [
+            "ECS",
+            "Product Advertising",
+            "amazon",
+            "products",
+            "rest",
+            "soap"
+        ]
     }
 ]
