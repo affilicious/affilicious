@@ -105,6 +105,11 @@ class Amazon_Options
      */
     protected function check_validation_status()
     {
+        // Don't make unnecessary Amazon API calls.
+        if(!isset($_GET['page']) || !($_GET['page'] === 'crbn-amazon.php')) {
+            return false;
+        }
+
         $access_key = carbon_get_theme_option(Amazon_Options::ACCESS_KEY);
         $secret_key = carbon_get_theme_option(Amazon_Options::SECRET_KEY);
         $country = carbon_get_theme_option(Amazon_Options::COUNTRY);
