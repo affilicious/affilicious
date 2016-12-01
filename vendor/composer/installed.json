@@ -154,66 +154,55 @@
         ]
     },
     {
-        "name": "exeu/apai-io",
-        "version": "1.10.0",
-        "version_normalized": "1.10.0.0",
+        "name": "psr/http-message",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/Exeu/apai-io.git",
-            "reference": "d8a0009a262d77f96eeb6deb930b3ab0562d1ac3"
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Exeu/apai-io/zipball/d8a0009a262d77f96eeb6deb930b3ab0562d1ac3",
-            "reference": "d8a0009a262d77f96eeb6deb930b3ab0562d1ac3",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
             "shasum": ""
         },
         "require": {
-            "ext-curl": "*",
             "php": ">=5.3.0"
         },
-        "require-dev": {
-            "mayflower/php-codebrowser": "1.*",
-            "pdepend/pdepend": "2.*",
-            "phploc/phploc": "2.*",
-            "phpmd/phpmd": "2.*",
-            "phpunit/phpunit": "4.5.*",
-            "sebastian/phpcpd": "2.*",
-            "squizlabs/php_codesniffer": "2.*"
-        },
-        "time": "2016-03-08 07:37:18",
+        "time": "2016-08-06 14:39:51",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "ApaiIO": "lib/"
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "Apache-2.0"
+            "MIT"
         ],
         "authors": [
             {
-                "name": "Jan Eichhorn",
-                "email": "exeu65@googlemail.com",
-                "role": "Maintainer"
-            },
-            {
-                "name": "Dejan Spasic",
-                "email": "dejan.spasic@bitweise.biz",
-                "role": "Developer"
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
             }
         ],
-        "description": "Amazon Product Advertising PHP Library",
-        "homepage": "https://github.com/Exeu/apai-io",
+        "description": "Common interface for HTTP messages",
+        "homepage": "https://github.com/php-fig/http-message",
         "keywords": [
-            "ECS",
-            "Product Advertising",
-            "amazon",
-            "products",
-            "rest",
-            "soap"
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
         ]
     },
     {
@@ -267,58 +256,6 @@
         "description": "Guzzle promises library",
         "keywords": [
             "promise"
-        ]
-    },
-    {
-        "name": "psr/http-message",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/php-fig/http-message.git",
-            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2016-08-06 14:39:51",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Psr\\Http\\Message\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "PHP-FIG",
-                "homepage": "http://www.php-fig.org/"
-            }
-        ],
-        "description": "Common interface for HTTP messages",
-        "homepage": "https://github.com/php-fig/http-message",
-        "keywords": [
-            "http",
-            "http-message",
-            "psr",
-            "psr-7",
-            "request",
-            "response"
         ]
     },
     {
@@ -382,41 +319,97 @@
         ]
     },
     {
-        "name": "guzzlehttp/guzzle",
-        "version": "6.2.2",
-        "version_normalized": "6.2.2.0",
+        "name": "exeu/apai-io",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60"
+            "url": "https://github.com/Exeu/apai-io.git",
+            "reference": "86c554a06883374fae7c0ad726231dc087f87e92"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-            "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
+            "url": "https://api.github.com/repos/Exeu/apai-io/zipball/86c554a06883374fae7c0ad726231dc087f87e92",
+            "reference": "86c554a06883374fae7c0ad726231dc087f87e92",
             "shasum": ""
         },
         "require": {
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.3.1",
-            "php": ">=5.5"
+            "guzzlehttp/guzzle": "~6.0",
+            "php": ">=5.6.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~5.0"
+        },
+        "time": "2016-05-28 20:30:49",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ApaiIO\\": "src/ApaiIO"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Jan Eichhorn",
+                "email": "exeu65@googlemail.com",
+                "role": "Maintainer"
+            },
+            {
+                "name": "Dejan Spasic",
+                "email": "dejan.spasic@bitweise.biz",
+                "role": "Developer"
+            }
+        ],
+        "description": "Amazon Product Advertising PHP Library",
+        "homepage": "https://github.com/Exeu/apai-io",
+        "keywords": [
+            "ECS",
+            "Product Advertising",
+            "amazon",
+            "products",
+            "rest"
+        ]
+    },
+    {
+        "name": "guzzlehttp/guzzle",
+        "version": "6.0.0",
+        "version_normalized": "6.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "df897ae757ad329d2affc38ffb5bbce782b2b510"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/df897ae757ad329d2affc38ffb5bbce782b2b510",
+            "reference": "df897ae757ad329d2affc38ffb5bbce782b2b510",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/promises": "^1.0.0",
+            "guzzlehttp/psr7": "^1.0.0",
+            "php": ">=5.5.0"
         },
         "require-dev": {
             "ext-curl": "*",
             "phpunit/phpunit": "^4.0",
             "psr/log": "^1.0"
         },
-        "time": "2016-10-08 15:01:37",
+        "time": "2015-05-26 18:22:06",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "6.2-dev"
+                "dev-master": "6.0-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "files": [
-                "src/functions_include.php"
+                "src/functions.php"
             ],
             "psr-4": {
                 "GuzzleHttp\\": "src/"

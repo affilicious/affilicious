@@ -5,7 +5,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Cookie jar that stores cookies as an array
+ * Cookie jar that stores cookies an an array
  */
 class CookieJar implements CookieJarInterface
 {
@@ -18,9 +18,8 @@ class CookieJar implements CookieJarInterface
     /**
      * @param bool $strictMode   Set to true to throw exceptions when invalid
      *                           cookies are added to the cookie jar.
-     * @param array $cookieArray Array of SetCookie objects or a hash of
-     *                           arrays that can be used with the SetCookie
-     *                           constructor
+     * @param array $cookieArray Array of SetCookie objects or a hash of arrays
+     *                           that can be used with the SetCookie constructor
      */
     public function __construct($strictMode = false, $cookieArray = [])
     {
@@ -58,32 +57,23 @@ class CookieJar implements CookieJarInterface
     }
 
     /**
-     * @deprecated
+     * Quote the cookie value if it is not already quoted and it contains
+     * problematic characters.
+     *
+     * @param string $value Value that may or may not need to be quoted
+     *
+     * @return string
      */
     public static function getCookieValue($value)
     {
-        return $value;
-    }
-
-    /**
-     * Evaluate if this cookie should be persisted to storage
-     * that survives between requests.
-     *
-     * @param SetCookie $cookie Being evaluated.
-     * @param bool $allowSessionCookies If we should persist session cookies
-     * @return bool
-     */
-    public static function shouldPersist(
-        SetCookie $cookie,
-        $allowSessionCookies = false
-    ) {
-        if ($cookie->getExpires() || $allowSessionCookies) {
-            if (!$cookie->getDiscard()) {
-                return true;
-            }
+        if (substr($value, 0, 1) !== '"' &&
+            substr($value, -1, 1) !== '"' &&
+            strpbrk($value, ';,')
+        ) {
+            $value = '"' . $value . '"';
         }
 
-        return false;
+        return $value;
     }
 
     public function toArray()
@@ -137,13 +127,6 @@ class CookieJar implements CookieJarInterface
 
     public function setCookie(SetCookie $cookie)
     {
-        // If the name string is empty (but not 0), ignore the set-cookie
-        // string entirely.
-        $name = $cookie->getName();
-        if (!$name && $name !== '0') {
-            return false;
-        }
-
         // Only allow cookies with set and valid domain, name, value
         $result = $cookie->validate();
         if ($result !== true) {
@@ -233,10 +216,10 @@ class CookieJar implements CookieJarInterface
             if ($cookie->matchesPath($path) &&
                 $cookie->matchesDomain($host) &&
                 !$cookie->isExpired() &&
-                (!$cookie->getSecure() || $scheme === 'https')
+                (!$cookie->getSecure() || $scheme == 'https')
             ) {
                 $values[] = $cookie->getName() . '='
-                    . $cookie->getValue();
+                    . self::getCookieValue($cookie->getValue());
             }
         }
 

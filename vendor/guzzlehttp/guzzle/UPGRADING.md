@@ -70,7 +70,7 @@ functions that wrap handlers (or are injected into a
   - `GuzzleHttp\Subscriber\History` is now provided by
     `GuzzleHttp\Middleware::history`
   - `GuzzleHttp\Subscriber\Mock` is now provided by
-    `GuzzleHttp\Handler\MockHandler`
+    `GuzzleHttp\Middleware::mock`
   - `GuzzleHttp\Subscriber\Prepare` is now provided by
     `GuzzleHttp\PrepareBodyMiddleware`
   - `GuzzleHttp\Subscriber\Redirect` is now provided by
@@ -83,10 +83,6 @@ functions that wrap handlers (or are injected into a
 - `GuzzleHttp\ClientInterface::getDefaultOption` has been renamed to
   `GuzzleHttp\ClientInterface::getConfig`.
 - `GuzzleHttp\ClientInterface::setDefaultOption` has been removed.
-- The `json` and `xml` methods of response objects has been removed. With the
-  migration to strictly adhering to PSR-7 as the interface for Guzzle messages,
-  adding methods to message interfaces would actually require Guzzle messages
-  to extend from PSR-7 messages rather then work with them directly.
 
 ## Migrating to middleware
 
@@ -132,27 +128,10 @@ $handler = GuzzleHttp\HandlerStack::create();
 $handler->push(Middleware::mapRequest(function (RequestInterface $request) {
     // Notice that we have to return a request object
     return $request->withHeader('X-Foo', 'Bar');
-}));
+});
 // Inject the handler into the client
 $client = new GuzzleHttp\Client(['handler' => $handler]);
 ```
-
-## POST Requests
-
-This version added the [`form_params`](http://guzzle.readthedocs.org/en/latest/request-options.html#form_params)
-and `multipart` request options. `form_params` is an associative array of
-strings or array of strings and is used to serialize an
-`application/x-www-form-urlencoded` POST request. The
-[`multipart`](http://guzzle.readthedocs.org/en/latest/request-options.html#multipart)
-option is now used to send a multipart/form-data POST request.
-
-`GuzzleHttp\Post\PostFile` has been removed. Use the `multipart` option to add
-POST files to a multipart/form-data request.
-
-The `body` option no longer accepts an array to send POST requests. Please use
-`multipart` or `form_params` instead.
-
-The `base_url` option has been renamed to `base_uri`.
 
 4.x to 5.0
 ----------
@@ -600,7 +579,7 @@ these if needed):
 The following plugins are not part of the core Guzzle package, but are provided
 in separate repositories:
 
-- `Guzzle\Http\Plugin\BackoffPlugin` has been rewritten to be much simpler
+- `Guzzle\Http\Plugin\BackoffPlugin` has been rewritten to be muchs simpler
   to build custom retry policies using simple functions rather than various
   chained classes. See: https://github.com/guzzle/retry-subscriber
 - `Guzzle\Http\Plugin\Cache\CachePlugin` has moved to
@@ -664,8 +643,8 @@ that contain additional metadata accessible via `getMetadata()`.
 
 The entire concept of the StreamRequestFactory has been removed. The way this
 was used in Guzzle 3 broke the actual interface of sending streaming requests
-(instead of getting back a Response, you got a StreamInterface). Streaming
-PHP requests are now implemented through the `GuzzleHttp\Adapter\StreamAdapter`.
+(instead of getting back a Response, you got a StreamInterface). Streeaming
+PHP requests are now implemented throught the `GuzzleHttp\Adapter\StreamAdapter`.
 
 3.6 to 3.7
 ----------

@@ -11,5 +11,6 @@ return array(
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Carbon_Fields\\' => array($vendorDir . '/htmlburger/carbon-fields/core'),
+    'ApaiIO\\' => array($vendorDir . '/exeu/apai-io/src/ApaiIO'),
     'Affilicious\\' => array($baseDir . '/src'),
 );
