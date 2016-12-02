@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Affilicious
- * Description: Manage affiliate products in Wordpress with price comparisons, shops, details and more
+ * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
  * Version: 0.6
  * Author: Affilicious Team
  * Author URI: https://affilicioustheme.de/
