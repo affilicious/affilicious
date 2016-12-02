@@ -77,7 +77,7 @@ class Shop_Template_Setup implements Setup_Interface
 			'hierarchical'    => true,
 			'rewrite'         => false,
 			'query_var'       => Shop_Template::POST_TYPE,
-			'show_in_menu'    => 'edit.php?post_type=product',
+			'show_in_menu'    => 'edit.php?post_type=aff_product',
 		));
 
         do_action('affilicious_shop_template_setup_after_init');

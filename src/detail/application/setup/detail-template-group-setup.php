@@ -55,7 +55,7 @@ class Detail_Template_Group_Setup implements Setup_Interface
             'rewrite' => false,
             'query_var' => Detail_Template_Group::POST_TYPE,
             'supports' => array('title'),
-            'show_in_menu' => 'edit.php?post_type=product',
+            'show_in_menu' => 'edit.php?post_type=aff_product',
         ));
 
         do_action('affilicious_detail_template_group_after_init');
