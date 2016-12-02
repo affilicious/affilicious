@@ -17,9 +17,8 @@ interface Shop_Template_Interface extends Entity_Interface, Updateable_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
-     * TODO: Change the post type to 'aff_shop_template' before the beta release
      */
-    const POST_TYPE = 'shop';
+    const POST_TYPE = 'aff_shop_template';
 
     /**
      * @since 0.6

@@ -9,11 +9,6 @@ use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Common\Domain\Model\Updateable_Interface;
-use Affilicious\Detail\Domain\Model\Detail_Group;
-use Affilicious\Product\Domain\Model\Review\Review;
-use Affilicious\Shop\Domain\Model\Affiliate_Link;
-use Affilicious\Shop\Domain\Model\Shop;
-use Affilicious\Shop\Domain\Model\Shop_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -23,9 +18,8 @@ interface Product_Interface extends Entity_Interface, Updateable_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress.
-     * TODO: Change the post type to 'aff_product' before the beta release
      */
-    const POST_TYPE = 'product';
+    const POST_TYPE = 'aff_product';
 
     /**
      * The default slug is in English but can be translated in the options.

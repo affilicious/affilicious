@@ -221,6 +221,12 @@ class Affilicious_Plugin
         $license_manager = $this->container['affilicious.common.application.license.manager'];
         $license_manager->activate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
 
+        $product_post_type_migration = $this->container['affilicious.product.application.migration.post_type'];
+        $product_post_type_migration->migrate();
+
+        $shop_post_type_migration = $this->container['affilicious.shop.application.migration.post_type'];
+        $shop_post_type_migration->migrate();
+
         $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
         $slug_rewrite_setup->activate();
 
@@ -479,6 +485,14 @@ class Affilicious_Plugin
 
         $this->container['affilicious.shop.application.validator.amazon_credentials'] = function() {
             return new \Affilicious\Shop\Application\Validator\Amazon_Credentials_Validator();
+        };
+
+        $this->container['affilicious.product.application.migration.post_type'] = function() {
+            return new \Affilicious\Product\Application\Migration\Post_Type_Migration();
+        };
+
+        $this->container['affilicious.shop.application.migration.post_type'] = function() {
+            return new \Affilicious\Shop\Application\Migration\Post_Type_Migration();
         };
     }
 
