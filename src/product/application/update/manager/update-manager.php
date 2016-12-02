@@ -7,10 +7,9 @@ use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Application\Update\Queue\Update_Queue_Interface;
 use Affilicious\Product\Application\Update\Task\Update_Task;
 use Affilicious\Product\Application\Update\Worker\Update_Worker_Interface;
-use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Repository_Interface;
-use Affilicious\Product\Domain\Model\Simple\Simple_Product_Interface;
+use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Interface;
 
 if(!defined('ABSPATH')) {
@@ -115,6 +114,10 @@ class Update_Manager implements Update_Manager_Interface
             $config_resolver = new Configuration_Resolver($config_context);
 
             $update_tasks = $config_resolver->resolve($config, $queue);
+            if(count($update_tasks) == 0) {
+                continue;
+            }
+
             $worker->execute($update_tasks);
         }
     }
@@ -132,21 +135,10 @@ class Update_Manager implements Update_Manager_Interface
         }
 
         foreach ($products as $product) {
-
-            if($product instanceof Simple_Product_Interface || $product instanceof Complex_Product_Interface) {
+            if($product instanceof Shop_Aware_Product_Interface) {
                 $shops = $product->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
-                }
-            }
-
-            if($product instanceof Complex_Product_Interface) {
-                $variants = $product->get_variants();
-                foreach ($variants as $variant) {
-                    $shops = $variant->get_shops();
-                    foreach ($shops as $shop) {
-                        $this->mediate_product($variant, $shop);
-                    }
                 }
             }
         }

@@ -20,7 +20,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
             'provider' => 'amazon',
             'update_interval' => 'hourly',
             'force_update_interval' => 'twicedaily',
-            'min_tasks' => 3,
+            'min_tasks' => 1,
             'max_tasks' => 10,
         ));
 

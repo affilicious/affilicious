@@ -3,6 +3,7 @@ namespace Affilicious\Product\Application\Update\Queue;
 
 use Affilicious\Common\Application\Queue\Min_Priority_Queue;
 use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
+use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -45,7 +46,16 @@ class Update_Queue implements Update_Queue_Interface
      */
     public function put(Update_Task_Interface $update_task)
     {
-        $updated_at = $update_task->get_product()->get_updated_at()->getTimestamp();
+        $product = $update_task->get_product();
+        $shops = $product instanceof Shop_Aware_Product_Interface ? $product->get_shops() : array();
+
+        $updated_at = $product->get_updated_at()->getTimestamp();
+        foreach ($shops as $shop) {
+            if($shop->get_updated_at()->getTimestamp() < $updated_at) {
+                $updated_at = $shop->get_updated_at()->getTimestamp();
+            }
+        }
+
         $this->min_priority_queue->insert($update_task, $updated_at);
     }
 
