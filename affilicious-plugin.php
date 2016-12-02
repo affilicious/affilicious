@@ -641,8 +641,8 @@ class Affilicious_Plugin
 
         // Hook the shops
         $table_columns_filter = $this->container['affilicious.shop.presentation.setup.table_column'];
-        add_action('manage_shop_posts_columns', array($table_columns_filter, 'columns_head'), 9, 2);
-        add_action('manage_shop_posts_custom_column', array($table_columns_filter, 'columns_content'), 10, 2);
+        add_action('manage_aff_shop_template_posts_columns', array($table_columns_filter, 'columns_head'), 9, 2);
+        add_action('manage_aff_shop_template_posts_custom_column', array($table_columns_filter, 'columns_content'), 10, 2);
 
         $shop_options = $this->container['affilicious.shop.application.options.amazon'];
         add_action('init', array($shop_options, 'render'), 12);
@@ -675,7 +675,7 @@ class Affilicious_Plugin
         $table_content_filter = $this->container['affilicious.product.presentation.filter.table_content'];
         $table_count_filter = $this->container['affilicious.product.presentation.filter.table_count'];
         add_action('pre_get_posts', array($table_content_filter, 'filter'));
-        add_filter("views_edit-product", array($table_count_filter, 'filter'), 10, 1);
+        add_filter("views_edit-aff_product", array($table_count_filter, 'filter'), 10, 1);
     }
 }
 
