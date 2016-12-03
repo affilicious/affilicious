@@ -60,8 +60,8 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
 
         $affiliate_link = !empty($data[Carbon_Product_Repository::SHOP_AFFILIATE_LINK]) ? $data[Carbon_Product_Repository::SHOP_AFFILIATE_LINK] : null;
         $affiliate_id = !empty($data[Carbon_Product_Repository::SHOP_AFFILIATE_ID]) ? $data[Carbon_Product_Repository::SHOP_AFFILIATE_ID] : null;
-        $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? floatval($data[Carbon_Product_Repository::SHOP_PRICE]) : null;
-        $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? floatval($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) : null;
+        $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_PRICE]),  2, '.', '') : null;
+        $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_OLD_PRICE]),  2, '.', '') : null;
         $currency = !empty($data[Carbon_Product_Repository::SHOP_CURRENCY]) ? $data[Carbon_Product_Repository::SHOP_CURRENCY] : null;
         $updated_at = !empty($data[Carbon_Product_Repository::SHOP_UPDATED_AT]) ? $data[Carbon_Product_Repository::SHOP_UPDATED_AT] : null;
 
