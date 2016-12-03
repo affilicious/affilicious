@@ -120,6 +120,10 @@ function aff_get_product_review_votes($product_or_id = null)
 function aff_get_product_details($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
+    if($product instanceof Product_Variant_Interface) {
+        $product = $product->get_parent();
+    }
+    
     if($product === null || !($product instanceof Detail_Group_Aware_Product_Interface)) {
         return null;
     }
@@ -788,6 +792,10 @@ function aff_product_is_default_variant($product_or_id = null, $variant_or_id = 
 function aff_product_get_variant_attribute_group($product_or_id = null, $variant_or_id = null)
 {
     $product = aff_get_product($product_or_id);
+    if($product instanceof Product_Variant_Interface) {
+        $product = $product->get_parent();
+    }
+
     if($product === null || !($product instanceof Complex_Product_Interface)) {
         return null;
     }
@@ -882,6 +890,10 @@ function aff_get_product_attribute_choices($product_or_id = null)
         }
 
         $attribute_group = aff_product_get_variant_attribute_group($product, $variant);
+        if($attribute_group === null) {
+            continue;
+        }
+
         $attributes = $attribute_group['attributes'];
         $current_attributes = $current_attribute_group['attributes'];
 
