@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Application\Update\Queue;
 
 use Affilicious\Common\Application\Queue\Min_Priority_Queue;
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 
@@ -12,7 +13,7 @@ if(!defined('ABSPATH')) {
 class Update_Queue implements Update_Queue_Interface
 {
     /**
-     * @var string
+     * @var Name
      */
     protected $name;
 
@@ -25,7 +26,7 @@ class Update_Queue implements Update_Queue_Interface
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct($name)
+    public function __construct(Name $name)
     {
         $this->name = $name;
         $this->min_priority_queue = new Min_Priority_Queue();

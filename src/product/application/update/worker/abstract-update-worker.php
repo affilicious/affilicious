@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Application\Update\Worker;
 
+use Affilicious\Common\Domain\Model\Name;
+
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
@@ -8,7 +10,7 @@ if(!defined('ABSPATH')) {
 abstract class Abstract_Update_Worker implements Update_Worker_Interface
 {
     /**
-     * @var string
+     * @var Name
      */
     protected $name;
 
@@ -16,7 +18,7 @@ abstract class Abstract_Update_Worker implements Update_Worker_Interface
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct($name)
+    public function __construct(Name $name)
     {
         $this->name = $name;
     }

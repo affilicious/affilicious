@@ -123,7 +123,7 @@ function aff_get_product_details($product_or_id = null)
     if($product instanceof Product_Variant_Interface) {
         $product = $product->get_parent();
     }
-    
+
     if($product === null || !($product instanceof Detail_Group_Aware_Product_Interface)) {
         return null;
     }

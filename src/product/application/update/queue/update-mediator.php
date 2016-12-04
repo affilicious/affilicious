@@ -54,7 +54,7 @@ class Update_Mediator implements Update_Mediator_Interface
      */
     public function add_queue(Update_Queue_Interface $queue)
     {
-        $this->queues[$queue->get_name()] = $queue;
+        $this->queues[$queue->get_name()->get_value()] = $queue;
     }
 
     /**

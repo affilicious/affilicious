@@ -37,7 +37,7 @@ class Update_Mediator_Setup
     {
         foreach ($providers as $provider) {
             $name = $provider->get_name();
-            $queue = new Update_Queue($name->get_value());
+            $queue = new Update_Queue($name);
 
             $this->mediator->add_queue($queue);
         }

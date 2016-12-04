@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Update\Queue;
 
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
 
 if(!defined('ABSPATH')) {
@@ -16,15 +17,15 @@ interface Update_Queue_Interface
      * Create a new queue with the given name
      *
      * @since 0.7
-     * @param string $name
+     * @param Name $name
      */
-    public function __construct($name);
+    public function __construct(Name $name);
 
     /**
      * Get the name of the queue.
      *
      * @since 0.7
-     * @return string
+     * @return Name
      */
     public function get_name();
 

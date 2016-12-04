@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Application\Setup;
 
+use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Product\Application\Update\Worker\Amazon\Amazon_Update_Worker;
 use Affilicious\Product\Application\Update\Worker\Update_Worker_Interface;
 use Carbon_Fields\Container as Carbon_Container;
@@ -21,8 +22,8 @@ class Amazon_Update_Worker_Setup
      */
     public function init($update_workers)
     {
-        $amazon_worker = new Amazon_Update_Worker('amazon');
-        $update_workers[$amazon_worker->get_name()] = $amazon_worker;
+        $amazon_worker = new Amazon_Update_Worker(new Name('amazon'));
+        $update_workers['amazon'] = $amazon_worker;
 
         return $update_workers;
     }

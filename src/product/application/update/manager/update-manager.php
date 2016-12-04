@@ -58,7 +58,7 @@ class Update_Manager implements Update_Manager_Interface
      */
     public function add_worker(Update_Worker_Interface $worker)
     {
-        $this->workers[$worker->get_name()] = $worker;
+        $this->workers[$worker->get_name()->get_value()] = $worker;
     }
 
     /**
