@@ -440,8 +440,8 @@ class Affilicious_Plugin
             return new \Affilicious\Product\Presentation\Filter\Complex_Product_Filter();
         };
 
-        $this->container['affilicious.product.application.setup.slug_rewrite'] = function () {
-            return new \Affilicious\Product\Application\Setup\Slug_Rewrite_Setup();
+        $this->container['affilicious.product.presentation.setup.slug_rewrite'] = function () {
+            return new \Affilicious\Product\Presentation\Setup\Slug_Rewrite_Setup();
         };
 
         $this->container['affilicious.shop.presentation.setup.table_column'] = function ($c) {
@@ -585,7 +585,7 @@ class Affilicious_Plugin
         add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
 
         // Hook the slug rewrite
-        $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
+        $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
         add_action('init', array($slug_rewrite_setup, 'run'), 1);
         add_action('added_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
         add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 800, 1);

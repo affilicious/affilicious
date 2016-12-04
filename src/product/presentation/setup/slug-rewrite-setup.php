@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Application\Setup;
+namespace Affilicious\Product\Presentation\Setup;
 
 use Pimple\Container;
 
