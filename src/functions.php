@@ -73,6 +73,10 @@ function aff_get_product($product_or_id = null)
 function aff_get_product_review_rating($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
+    if($product instanceof Product_Variant_Interface) {
+        $product = $product->get_parent();
+    }
+
     if($product === null || !($product instanceof Review_Aware_Product_Interface) || !$product->has_review()) {
         return null;
     }
@@ -94,6 +98,10 @@ function aff_get_product_review_rating($product_or_id = null)
 function aff_get_product_review_votes($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
+    if($product instanceof Product_Variant_Interface) {
+        $product = $product->get_parent();
+    }
+
     if($product === null || !($product instanceof Review_Aware_Product_Interface) || !$product->has_review()) {
         return null;
     }
