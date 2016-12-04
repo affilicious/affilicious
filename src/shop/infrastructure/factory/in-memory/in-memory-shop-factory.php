@@ -97,7 +97,7 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
         }
 
         if(!empty($updated_at)) {
-            $shop->set_updated_at(new \DateTime($updated_at));
+            $shop->set_updated_at(new \DateTimeImmutable($updated_at));
         }
 
         return $shop;

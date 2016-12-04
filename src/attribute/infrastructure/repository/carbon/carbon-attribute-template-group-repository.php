@@ -167,7 +167,7 @@ class Carbon_Attribute_Template_Group_Repository extends Abstract_Carbon_Reposit
      */
     protected function add_updated_at(Attribute_Template_Group $attribute_template_group, \WP_Post $post)
     {
-        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $updated_at = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $post->post_modified);
         $attribute_template_group->set_updated_at($updated_at);
 
         return $attribute_template_group;

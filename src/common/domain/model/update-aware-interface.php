@@ -5,13 +5,13 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Updateable_Interface
+interface Update_Aware_Interface
 {
     /**
      * Get the date and time of the last update.
      *
      * @since 0.7
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function get_updated_at();
 
@@ -19,7 +19,7 @@ interface Updateable_Interface
      * Set the date and time of the last update.
      *
      * @since 0.7
-     * @param \DateTime $updated_at
+     * @param \DateTimeImmutable $updated_at
      */
-    public function set_updated_at(\DateTime $updated_at);
+    public function set_updated_at(\DateTimeImmutable $updated_at);
 }

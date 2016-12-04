@@ -6,7 +6,7 @@ use Affilicious\Common\Domain\Model\Abstract_Entity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Domain\Model\Updateable_Interface;
+use Affilicious\Common\Domain\Model\Update_Aware_Interface;
 use Affilicious\Detail\Domain\Exception\Duplicated_Detail_Template_Exception;
 use Affilicious\Detail\Domain\Model\Detail\Detail_Template;
 
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Detail_Template_Group extends Abstract_Entity implements Updateable_Interface
+class Detail_Template_Group extends Abstract_Entity implements Update_Aware_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
@@ -57,6 +57,13 @@ class Detail_Template_Group extends Abstract_Entity implements Updateable_Interf
      * @var Detail_Template[]
      */
     protected $detail_templates;
+
+    /**
+     * The date and time of the last update.
+     *
+     * @var \DateTimeImmutable
+     */
+    protected $updated_at;
 
     /**
      * @since 0.6
@@ -265,9 +272,9 @@ class Detail_Template_Group extends Abstract_Entity implements Updateable_Interf
      * @inheritdoc
      * @since 0.7
      */
-    public function set_updated_at(\DateTime $updated_at)
+    public function set_updated_at(\DateTimeImmutable $updated_at)
     {
-        $this->updated_at = clone $updated_at;
+        $this->updated_at = $updated_at;
     }
 
     /**

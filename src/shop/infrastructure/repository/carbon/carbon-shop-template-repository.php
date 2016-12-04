@@ -221,7 +221,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     protected function add_updated_at(Shop_Template $shop_template, \WP_Post $post)
     {
-        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $updated_at = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $post->post_modified);
         $shop_template->set_updated_at($updated_at);
 
         return $shop_template;

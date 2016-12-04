@@ -789,7 +789,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     protected function add_updated_at(Product_Interface $product, \WP_Post $post)
     {
-        $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $post->post_modified);
+        $updated_at = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $post->post_modified);
         $product->set_updated_at($updated_at);
 
         return $product;

@@ -114,7 +114,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
     /**
      * The date and time of the last update.
      *
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     protected $updated_at;
 
@@ -132,7 +132,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
         $this->key = $key;
         $this->type = $type;
         $this->shops = array();
-        $this->updated_at = new \DateTime('now');
+        $this->updated_at = new \DateTimeImmutable('now');
     }
 
     /**
@@ -339,9 +339,9 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
      * @inheritdoc
      * @since 0.7
      */
-    public function set_updated_at(\DateTime $updated_at)
+    public function set_updated_at(\DateTimeImmutable $updated_at)
     {
-        $this->updated_at = clone $updated_at;
+        $this->updated_at = $updated_at;
     }
 
     /**

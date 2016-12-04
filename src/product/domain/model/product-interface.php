@@ -8,13 +8,13 @@ use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Domain\Model\Updateable_Interface;
+use Affilicious\Common\Domain\Model\Update_Aware_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Product_Interface extends Entity_Interface, Updateable_Interface
+interface Product_Interface extends Entity_Interface, Update_Aware_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress.

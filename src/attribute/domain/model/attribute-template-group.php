@@ -8,13 +8,13 @@ use Affilicious\Common\Domain\Model\Abstract_Entity;
 use Affilicious\Common\Domain\Model\Key;
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Common\Domain\Model\Title;
-use Affilicious\Common\Domain\Model\Updateable_Interface;
+use Affilicious\Common\Domain\Model\Update_Aware_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Attribute_Template_Group extends Abstract_Entity implements Updateable_Interface
+class Attribute_Template_Group extends Abstract_Entity implements Update_Aware_Interface
 {
     /**
      * There is a limit of 20 characters for post types in Wordpress
@@ -60,9 +60,9 @@ class Attribute_Template_Group extends Abstract_Entity implements Updateable_Int
     /**
      * The date and time of the last update.
      *
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
-    protected $update_at;
+    protected $updated_at;
 
     /**
      * @since 0.6
@@ -76,7 +76,7 @@ class Attribute_Template_Group extends Abstract_Entity implements Updateable_Int
         $this->name = $name;
         $this->key = $key;
         $this->attribute_templates = array();
-        $this->update_at = new \DateTime('now');
+        $this->updated_at = new \DateTimeImmutable('now');
     }
 
     /**
@@ -272,9 +272,9 @@ class Attribute_Template_Group extends Abstract_Entity implements Updateable_Int
      * @inheritdoc
      * @since 0.7
      */
-    public function set_updated_at(\DateTime $updated_at)
+    public function set_updated_at(\DateTimeImmutable $updated_at)
     {
-        $this->updated_at = clone $updated_at;
+        $this->updated_at = $updated_at;
     }
 
     /**

@@ -61,7 +61,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
     /**
      * The date and time of the last update
      *
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     protected $updated_at;
 
@@ -74,7 +74,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
 		$this->title = $title;
         $this->name = $name;
         $this->key = $key;
-        $this->updated_at = new \DateTime('now');
+        $this->updated_at = new \DateTimeImmutable('now');
     }
 
     /**
@@ -228,9 +228,9 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
      * @inheritdoc
      * @since 0.7
      */
-    public function set_updated_at(\DateTime $updated_at)
+    public function set_updated_at(\DateTimeImmutable $updated_at)
     {
-        $this->updated_at = clone $updated_at;
+        $this->updated_at = $updated_at;
     }
 
     /**

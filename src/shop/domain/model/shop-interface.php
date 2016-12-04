@@ -3,14 +3,14 @@ namespace Affilicious\Shop\Domain\Model;
 
 use Affilicious\Common\Domain\Model\Aggregate_Interface;
 use Affilicious\Common\Domain\Model\Image\Image;
-use Affilicious\Common\Domain\Model\Updateable_Interface;
+use Affilicious\Common\Domain\Model\Update_Aware_Interface;
 use Affilicious\Shop\Domain\Exception\Invalid_Price_Currency_Exception;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Shop_Interface extends Aggregate_Interface, Updateable_Interface
+interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
 {
     /**
      * @since 0.7
