@@ -406,12 +406,12 @@ class Affilicious_Plugin
             return new \Affilicious\Attribute\Application\Setup\Attribute_Template_Group_Setup();
         };
 
-	    $this->container['affilicious.settings.application.setting.affilicious'] = function () {
-		    return new \Affilicious\Settings\Application\Setting\Affilicious_Settings();
+	    $this->container['affilicious.common.application.options.affilicious'] = function () {
+		    return new \Affilicious\Common\Application\Options\Affilicious_Options();
 	    };
 
-	    $this->container['affilicious.settings.application.setting.product'] = function () {
-		    return new \Affilicious\Settings\Application\Setting\Product_Settings();
+	    $this->container['affilicious.product.application.options.product'] = function () {
+		    return new \Affilicious\Product\Application\Options\Product_Options();
 	    };
 
         $this->container['affilicious.product.presentation.setup.canonical'] = function () {
@@ -591,8 +591,8 @@ class Affilicious_Plugin
         add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
 
 	    // Hook the settings
-        $affilicious_settings = $this->container['affilicious.settings.application.setting.affilicious'];
-        $product_settings = $this->container['affilicious.settings.application.setting.product'];
+        $affilicious_settings = $this->container['affilicious.common.application.options.affilicious'];
+        $product_settings = $this->container['affilicious.product.application.options.product'];
 	    add_action('init', array($affilicious_settings, 'render'), 10);
 	    add_action('init', array($affilicious_settings, 'apply'), 11);
 	    add_action('init', array($product_settings, 'render'), 12);

@@ -1,11 +1,11 @@
 <?php
-namespace Affilicious\Settings\Application\Setting;
+namespace Affilicious\Product\Application\Options;
 
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
-class Product_Settings implements Settings_Interface
+class Product_Options
 {
 	const LINK_WHAT_IS_TAXONOMY = 'https://codex.wordpress.org/Taxonomies';
 	const LINK_RESERVED_TERMS = 'https://codex.wordpress.org/Function_Reference/register_taxonomy#Reserved_Terms';

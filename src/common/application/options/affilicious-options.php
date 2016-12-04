@@ -1,14 +1,15 @@
 <?php
-namespace Affilicious\Settings\Application\Setting;
+namespace Affilicious\Common\Application\Options;
 
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
-class Affilicious_Settings implements Settings_Interface
+class Affilicious_Options
 {
 	/**
-	 * @inheritdoc
-	 * @since 0.6
+	 * Render the settings into the admin area.
+     *
+	 * @since 0.7
 	 */
 	public function render()
 	{
@@ -28,8 +29,9 @@ class Affilicious_Settings implements Settings_Interface
 	}
 
 	/**
-	 * @inheritdoc
-	 * @since 0.6
+	 * Apply the saved settings.
+     *
+	 * @since 0.7
 	 */
 	public function apply()
 	{
