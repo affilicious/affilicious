@@ -6,6 +6,7 @@ use Affilicious\Product\Application\Update\Configuration\Configuration_Resolver;
 use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Application\Update\Queue\Update_Queue_Interface;
 use Affilicious\Product\Application\Update\Task\Update_Task;
+use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Application\Update\Worker\Update_Worker_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Repository_Interface;
@@ -109,16 +110,13 @@ class Update_Manager implements Update_Manager_Interface
                 continue;
             }
 
-            $config = $worker->configure();
-            $config_context = new Configuration_Context(array('update_interval' => $update_interval));
-            $config_resolver = new Configuration_Resolver($config_context);
-
-            $update_tasks = $config_resolver->resolve($config, $queue);
+            $update_tasks = $this->get_update_tasks($worker, $queue, $update_interval);
             if(count($update_tasks) == 0) {
                 continue;
             }
 
             $worker->execute($update_tasks);
+            $this->store_update_tasks($update_tasks);
         }
     }
 
@@ -151,7 +149,7 @@ class Update_Manager implements Update_Manager_Interface
      * @param Product_Interface $product
      * @param Shop_Interface $shop
      */
-    private function mediate_product(Product_Interface $product, Shop_Interface $shop)
+    protected function mediate_product(Product_Interface $product, Shop_Interface $shop)
     {
         $template = $shop->get_template();
         if(!$template->has_provider()) {
@@ -170,16 +168,51 @@ class Update_Manager implements Update_Manager_Interface
      * @param Update_Queue_Interface $queue
      * @return null|Update_Worker_Interface
      */
-    private function find_worker_for_queue(Update_Queue_Interface $queue)
+    protected function find_worker_for_queue(Update_Queue_Interface $queue)
     {
         foreach ($this->workers as $worker) {
             $config = $worker->configure();
 
-            if($config->get('provider') === $queue->get_name()) {
+            if($config->get('provider') === $queue->get_name()->get_value()) {
                 return $worker;
             }
         }
 
         return null;
+    }
+
+    /**
+     * Store all products of the update tasks.
+     *
+     * @since 0.7
+     * @param Update_Task_Interface[] $update_tasks
+     */
+    protected function store_update_tasks($update_tasks)
+    {
+        $products = array();
+        foreach ($update_tasks as $update_task) {
+            $products[] = $update_task->get_product();
+        }
+
+        $this->product_repository->store_all($products);
+    }
+
+    /**
+     * Find the update tasks for the worker and queue.
+     *
+     * @since 0.7
+     * @param Update_Worker_Interface $worker
+     * @param Update_Queue_Interface $queue
+     * @param string $update_interval
+     * @return Update_Task_Interface[]
+     */
+    protected function get_update_tasks(Update_Worker_Interface $worker, Update_Queue_Interface $queue, $update_interval)
+    {
+        $config = $worker->configure();
+        $config_context = new Configuration_Context(array('update_interval' => $update_interval));
+        $config_resolver = new Configuration_Resolver($config_context);
+        $update_tasks = $config_resolver->resolve($config, $queue);
+
+        return $update_tasks;
     }
 }
