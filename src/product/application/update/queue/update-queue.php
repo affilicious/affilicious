@@ -3,6 +3,7 @@ namespace Affilicious\Product\Application\Update\Queue;
 
 use Affilicious\Common\Application\Queue\Min_Priority_Queue;
 use Affilicious\Common\Domain\Model\Name;
+use Affilicious\Product\Application\Update\Task\Update_Task;
 use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 
@@ -80,11 +81,21 @@ class Update_Queue implements Update_Queue_Interface
             return array();
         }
 
+        $already_used = array();
         $result = array();
         for($i = 0; $i < $number; $i++) {
             if (!$this->is_empty()) {
+                /** @var Update_Task $update_task */
                 $update_task = $this->min_priority_queue->extract();
+                $product_id = $update_task->get_product()->get_id();
+
+                // We don't want to use the same update task twice...
+                if(in_array($product_id->get_value(), $already_used)) {
+                    continue;
+                }
+
                 $result[] = $update_task;
+                $already_used[] = $product_id->get_value();
             }
         }
 
