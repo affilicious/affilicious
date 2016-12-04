@@ -155,7 +155,7 @@ class Affilicious_Plugin
 
 		$this->load_includes();
 		$this->load_functions();
-		$this->register_services();
+		$this->load_services();
 		$this->register_public_hooks();
 		$this->register_admin_hooks();
 
@@ -256,7 +256,7 @@ class Affilicious_Plugin
      *
      * @since 0.3
      */
-    public function register_services()
+    public function load_services()
     {
         $this->container['affilicious.common.application.license.manager'] = function () {
             return new \Affilicious\Common\Application\License\EDD_License_Manager();
