@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2016-12-03 "
-"17:42+0100\n"
+"POT-Creation-Date: 2016-12-04 "
+"11:21+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -65,6 +65,16 @@ msgstr ""
 
 #: affilicious-plugin-updater.php:340
 msgid "Error"
+msgstr ""
+
+#: affilicious-plugin.php:227
+#, php-format
+msgid ""
+"The Affilicious Plugin requires "
+"at least the PHP Version %s to "
+"reveal the full potential. "
+"Please switch the PHP version in "
+"your hosting provider."
 msgstr ""
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:24
@@ -187,6 +197,18 @@ msgstr ""
 #: src/attribute/application/setup/attribute-template-group-setup.php:94
 #: src/detail/application/setup/detail-template-group-setup.php:95
 msgid "Help Text"
+msgstr ""
+
+#: src/common/application/options/affilicious-options.php:19
+msgid "Custom CSS"
+msgstr ""
+
+#: src/common/application/options/affilicious-options.php:20
+msgid "Custom JS"
+msgstr ""
+
+#: src/common/application/options/affilicious-options.php:25
+msgid "Scripts"
 msgstr ""
 
 #: src/common/presentation/setup/asset-setup.php:93
@@ -364,10 +386,120 @@ msgstr ""
 msgid "File"
 msgstr ""
 
+#: src/product/application/options/product-options.php:22
+#: src/product/application/options/product-options.php:35
+msgid "Slug"
+msgstr ""
+
+#: src/product/application/options/product-options.php:23
+#: src/product/application/options/product-options.php:36
+msgid ""
+"Used as pretty permalink text (i."
+"e. \"http://test.com/your-slug/"
+"product-name\")."
+msgstr ""
+
+#: src/product/application/options/product-options.php:28
+#, php-format
+msgid ""
+"Create custom taxonomies to "
+"group products together. See "
+"this <a href=\"%s\">link</a> for "
+"a better description."
+msgstr ""
+
+#: src/product/application/options/product-options.php:29
+#: src/product/application/options/product-options.php:48
+msgid "Taxonomies"
+msgstr ""
+
+#: src/product/application/options/product-options.php:31
+msgid "Taxonomy"
+msgstr ""
+
+#: src/product/application/options/product-options.php:33
+#, php-format
+msgid ""
+"The name of the taxonomy. Name "
+"should only contain lowercase "
+"letters and the underscore "
+"character, and not be more than "
+"32 characters long. Care should "
+"be used in selecting a taxonomy "
+"name so that it does not "
+"conflict with other taxonomies, "
+"post types, and reserved "
+"Wordpress public and private "
+"query variables. A complete list "
+"of those is described in the <a "
+"href=\"%s\">Reserved Terms</a> "
+"section."
+msgstr ""
+
+#: src/product/application/options/product-options.php:38
+msgid "Singular Name"
+msgstr ""
+
+#: src/product/application/options/product-options.php:40
+msgid "Plural Name"
+msgstr ""
+
+#: src/product/application/options/product-options.php:45
 #: src/product/application/setup/product-setup.php:69
 #: src/product/application/setup/product-setup.php:98
-#: src/settings/application/setting/product-settings.php:45
 msgid "Product"
+msgstr ""
+
+#: src/product/application/options/product-options.php:47
+#: src/product/application/setup/product-setup.php:133
+msgid "General"
+msgstr ""
+
+#: src/product/application/options/product-options.php:97
+#: src/product/application/options/product-options.php:98
+#: src/product/application/options/product-options.php:107
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:99
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:100
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:101
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:102
+#, php-format
+msgid "Parent %s:"
+msgstr ""
+
+#: src/product/application/options/product-options.php:103
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:104
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:105
+#, php-format
+msgid "Add New %s"
+msgstr ""
+
+#: src/product/application/options/product-options.php:106
+#, php-format
+msgid "New %s"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:70
@@ -449,11 +581,6 @@ msgstr ""
 
 #: src/product/application/setup/product-setup.php:99
 msgid "Product Type Description"
-msgstr ""
-
-#: src/product/application/setup/product-setup.php:133
-#: src/settings/application/setting/product-settings.php:47
-msgid "General"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:135
@@ -646,123 +773,6 @@ msgstr ""
 
 #: src/product/presentation/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
-msgstr ""
-
-#: src/settings/application/setting/affilicious-settings.php:18
-msgid "Custom CSS"
-msgstr ""
-
-#: src/settings/application/setting/affilicious-settings.php:19
-msgid "Custom JS"
-msgstr ""
-
-#: src/settings/application/setting/affilicious-settings.php:24
-msgid "Scripts"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:22
-#: src/settings/application/setting/product-settings.php:35
-msgid "Slug"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:23
-#: src/settings/application/setting/product-settings.php:36
-msgid ""
-"Used as pretty permalink text (i."
-"e. \"http://test.com/your-slug/"
-"product-name\")."
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:28
-#, php-format
-msgid ""
-"Create custom taxonomies to "
-"group products together. See "
-"this <a href=\"%s\">link</a> for "
-"a better description."
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:29
-#: src/settings/application/setting/product-settings.php:48
-msgid "Taxonomies"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:31
-msgid "Taxonomy"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:33
-#, php-format
-msgid ""
-"The name of the taxonomy. Name "
-"should only contain lowercase "
-"letters and the underscore "
-"character, and not be more than "
-"32 characters long. Care should "
-"be used in selecting a taxonomy "
-"name so that it does not "
-"conflict with other taxonomies, "
-"post types, and reserved "
-"Wordpress public and private "
-"query variables. A complete list "
-"of those is described in the <a "
-"href=\"%s\">Reserved Terms</a> "
-"section."
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:38
-msgid "Singular Name"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:40
-msgid "Plural Name"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:97
-#: src/settings/application/setting/product-settings.php:98
-#: src/settings/application/setting/product-settings.php:107
-#, php-format
-msgid "%s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:99
-#, php-format
-msgid "Search %s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:100
-#, php-format
-msgid "All %s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:101
-#, php-format
-msgid "Parent %s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:102
-#, php-format
-msgid "Parent %s:"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:103
-#, php-format
-msgid "Edit %s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:104
-#, php-format
-msgid "Update %s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:105
-#, php-format
-msgid "Add New %s"
-msgstr ""
-
-#: src/settings/application/setting/product-settings.php:106
-#, php-format
-msgid "New %s"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:47

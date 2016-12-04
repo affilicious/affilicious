@@ -41,6 +41,7 @@ class Affilicious_Plugin
 {
     const PLUGIN_NAME = 'affilicious';
     const PLUGIN_VERSION = '0.6';
+    const PLUGIN_MIN_PHP_VERSION = '5.6';
     const PLUGIN_NAMESPACE = 'Affilicious\\';
     const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
     const PLUGIN_SOURCE_DIR = 'src/';
@@ -219,6 +220,17 @@ class Affilicious_Plugin
      */
     public function activate()
     {
+        // Check the PHP version requirement
+        if(!version_compare(phpversion(), self::PLUGIN_MIN_PHP_VERSION, '>=')) {
+            deactivate_plugins(AFFILICIOUS_PLUGIN_BASE_NAME);
+
+            $this->load_textdomain();
+            wp_die(sprintf(
+                __('The Affilicious Plugin requires at least the PHP Version %s to reveal the full potential. Please switch the PHP version in your hosting provider.', 'affilicious'),
+                self::PLUGIN_MIN_PHP_VERSION
+            ));
+        }
+
         $license_manager = $this->container['affilicious.common.application.license.manager'];
         $license_manager->activate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
 
