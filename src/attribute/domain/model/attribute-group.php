@@ -88,7 +88,7 @@ class Attribute_Group extends Abstract_Aggregate
     public function set_template_id($template_id)
     {
         if($template_id !== null && !($template_id instanceof Attribute_Template_Group_Id)) {
-            throw new Invalid_Type_Exception($template_id, 'Affilicious\Attribute\Domain\Model\Attribute_Template_Group_Id');
+            throw new Invalid_Type_Exception($template_id, Attribute_Template_Group_Id::class);
         }
 
         $this->template_id = $template_id;

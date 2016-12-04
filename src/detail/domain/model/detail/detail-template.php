@@ -134,7 +134,7 @@ class Detail_Template extends Abstract_Aggregate
     public function set_unit($unit)
     {
         if($unit !== null && !($unit instanceof Unit)) {
-            throw new Invalid_Type_Exception($unit, 'Affilicious\Detail\Domain\Model\Detail_Template\Unit');
+            throw new Invalid_Type_Exception($unit, Unit::class);
         }
 
         $this->unit = $unit;
@@ -172,7 +172,7 @@ class Detail_Template extends Abstract_Aggregate
     public function set_help_text($help_text)
     {
         if($help_text !== null && !($help_text instanceof Help_Text)) {
-            throw new Invalid_Type_Exception($help_text, 'Affilicious\Detail\Domain\Model\Detail_Template\Help_Text');
+            throw new Invalid_Type_Exception($help_text, Help_Text::class);
         }
 
         $this->help_text = $help_text;

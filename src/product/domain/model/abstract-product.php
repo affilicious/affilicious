@@ -161,7 +161,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
     public function set_id($id)
     {
         if($id !== null && !($id instanceof Product_Id)) {
-            throw new Invalid_Type_Exception($id, 'Affilicious\Product\Domain\Model\Product_Id');
+            throw new Invalid_Type_Exception($id, Product_Id::class);
         }
 
         $this->id = $id;
@@ -256,7 +256,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
     public function set_content($content)
     {
         if($content !== null && !($content instanceof Content)) {
-            throw new Invalid_Type_Exception($content, 'Affilicious\Common\Domain\Model\Content');
+            throw new Invalid_Type_Exception($content, Content::class);
         }
 
         $this->content = $content;
@@ -288,7 +288,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
     public function set_excerpt($excerpt)
     {
         if($excerpt !== null && !($excerpt instanceof Excerpt)) {
-            throw new Invalid_Type_Exception($excerpt, 'Affilicious\Common\Domain\Model\Excerpt');
+            throw new Invalid_Type_Exception($excerpt, Excerpt::class);
         }
 
         $this->excerpt = $excerpt;
@@ -320,7 +320,7 @@ abstract class Abstract_Product extends Abstract_Entity implements Product_Inter
     public function set_thumbnail($thumbnail)
     {
         if($thumbnail !== null && !($thumbnail instanceof Image)) {
-            throw new Invalid_Type_Exception($thumbnail, 'Affilicious\Common\Domain\Model\Image');
+            throw new Invalid_Type_Exception($thumbnail, Image::class);
         }
 
         $this->thumbnail = $thumbnail;

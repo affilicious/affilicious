@@ -159,7 +159,7 @@ class Attribute extends Abstract_Aggregate
     public function set_unit($unit)
     {
         if($unit !== null && !($unit instanceof Unit)) {
-            throw new Invalid_Type_Exception($unit, 'Affilicious\Attribute\Domain\Model\Unit');
+            throw new Invalid_Type_Exception($unit, Unit::class);
         }
 
         $this->unit = $unit;

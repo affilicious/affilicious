@@ -55,7 +55,7 @@ class Abstract_Provider extends Abstract_Entity implements Provider_Interface
     public function set_id($id)
     {
         if($id !== null && !($id instanceof Provider_Id)) {
-            throw new Invalid_Type_Exception($id, 'Affilicious\Shop\Domain\Model\Provider\Provider_Id');
+            throw new Invalid_Type_Exception($id, Provider_Id::class);
         }
 
         parent::set_id($id);

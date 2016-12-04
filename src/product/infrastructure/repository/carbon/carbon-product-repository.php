@@ -1162,8 +1162,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     {
         $not_to_delete = array();
         foreach ($product_variants as $product_variant) {
-            if(!($product_variant instanceof Product_Variant)) {
-                throw new Invalid_Type_Exception($product_variant, 'Affilicious\Product\Domain\Model\Variant\Product_Variant');
+            if(!($product_variant instanceof Product_Variant_Interface)) {
+                throw new Invalid_Type_Exception($product_variant, Product_Variant_Interface::class);
             }
 
             if(!$product_variant->get_parent()->has_id() || !$product_variant->has_id()) {
@@ -1179,7 +1179,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $to_delete = array();
         foreach ($product_variants as $product_variant) {
-            if($product_variant instanceof Product_Variant) {
+            if($product_variant instanceof Product_Variant_Interface) {
 
                 $parent_id = $product_variant->get_parent()->get_id()->get_value();
                 if(!isset($to_delete[$parent_id])) {

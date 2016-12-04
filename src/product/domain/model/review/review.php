@@ -71,7 +71,7 @@ class Review extends Abstract_Aggregate implements Review_Interface
     public function set_votes($votes)
     {
         if($votes !== null && !($votes instanceof Votes)) {
-            throw new Invalid_Type_Exception($votes, 'Affilicious\Product\Domain\Model\Review\Votes');
+            throw new Invalid_Type_Exception($votes, Votes::class);
         }
 
         $this->votes = $votes;

@@ -98,7 +98,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     public function set_thumbnail($thumbnail)
     {
         if($thumbnail !== null && !($thumbnail instanceof Image)) {
-            throw new Invalid_Type_Exception($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
+            throw new Invalid_Type_Exception($thumbnail, Image::class);
         }
 
         $this->thumbnail = $thumbnail;
@@ -138,7 +138,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     public function set_affiliate_id($affiliate_id)
     {
         if($affiliate_id !== null && !($affiliate_id instanceof Affiliate_Id)) {
-            throw new Invalid_Type_Exception($affiliate_id, 'Affilicious\Shop\Domain\Model\Affiliate_Id');
+            throw new Invalid_Type_Exception($affiliate_id, Affiliate_Id::class);
         }
 
         $this->affiliate_id = $affiliate_id;

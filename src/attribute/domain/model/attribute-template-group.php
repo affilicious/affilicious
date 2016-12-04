@@ -113,7 +113,7 @@ class Attribute_Template_Group extends Abstract_Entity implements Update_Aware_I
     public function set_id($id)
     {
         if($id !== null && !($id instanceof Attribute_Template_Group_Id)) {
-            throw new Invalid_Type_Exception($id, 'Affilicious\Attribute\Domain\Model\Attribute_Template_Group_Id');
+            throw new Invalid_Type_Exception($id, Attribute_Template_Group_Id::class);
         }
 
         $this->id = $id;

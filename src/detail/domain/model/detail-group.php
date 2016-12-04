@@ -88,7 +88,7 @@ class Detail_Group extends Abstract_Aggregate
     public function set_template_id($template_id)
     {
         if($template_id !== null && !($template_id instanceof Detail_Template_Group_Id)) {
-            throw new Invalid_Type_Exception($template_id, 'Affilicious\Detail\Domain\Model\Detail_Template_Group_id');
+            throw new Invalid_Type_Exception($template_id, Detail_Template_Group_Id::class);
         }
 
         $this->template_id = $template_id;

@@ -113,7 +113,7 @@ class Detail_Template_Group extends Abstract_Entity implements Update_Aware_Inte
     public function set_id($id)
     {
         if($id !== null && !($id instanceof Detail_Template_Group_Id)) {
-            throw new Invalid_Type_Exception($id, 'Affilicious\Detail\Domain\Model\Detail_Template_Group_id');
+            throw new Invalid_Type_Exception($id, Detail_Template_Group_Id::class);
         }
 
         $this->id = $id;

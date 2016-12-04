@@ -227,7 +227,7 @@ class Complex_Product extends Abstract_Product implements Complex_Product_Interf
     public function set_review($review)
     {
         if($review !== null && !($review instanceof Review_Interface)) {
-            throw new Invalid_Type_Exception($review, 'Affilicious\Product\Domain\Model\Review\ReviewInterface');
+            throw new Invalid_Type_Exception($review, Review_Interface::class);
         }
 
         $this->review = $review;
@@ -251,7 +251,7 @@ class Complex_Product extends Abstract_Product implements Complex_Product_Interf
     {
         foreach ($image_gallery as $image) {
             if (!($image instanceof Image)) {
-                throw new Invalid_Type_Exception($image, 'Affilicious\Common\Domain\Model\Image\Image');
+                throw new Invalid_Type_Exception($image, Image::class);
             }
         }
 
@@ -276,7 +276,7 @@ class Complex_Product extends Abstract_Product implements Complex_Product_Interf
     {
         foreach ($related_products as $related_product) {
             if (!($related_product instanceof Product_Id)) {
-                throw new Invalid_Type_Exception($related_product, 'Affilicious\Product\Domain\Model\Product_Id');
+                throw new Invalid_Type_Exception($related_product, Product_Id::class);
             }
         }
 
@@ -301,7 +301,7 @@ class Complex_Product extends Abstract_Product implements Complex_Product_Interf
     {
         foreach ($related_accessories as $related_accessory) {
             if (!($related_accessory instanceof Product_Id)) {
-                throw new Invalid_Type_Exception($related_accessory, 'Affilicious\Product\Domain\Model\Product_Id');
+                throw new Invalid_Type_Exception($related_accessory, Product_Id::class);
             }
         }
 

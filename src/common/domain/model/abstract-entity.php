@@ -39,7 +39,7 @@ abstract class Abstract_Entity implements Entity_Interface
     public function set_id($id)
     {
         if($id !== null && !($id instanceof Value_Object_Interface)) {
-            throw new Invalid_Type_Exception($id, 'Affilicious\Common\Domain\Model\Value_Object_Interface');
+            throw new Invalid_Type_Exception($id, Value_Object_Interface::class);
         }
 
         $this->id = $id;

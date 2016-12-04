@@ -102,7 +102,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
     public function set_id($id)
     {
         if($id !== null && !($id instanceof Shop_Template_Id)) {
-            throw new Invalid_Type_Exception($id, 'Affilicious\Shop\Domain\Model\Shop_Template_Id');
+            throw new Invalid_Type_Exception($id, Shop_Template_Id::class);
         }
 
         $this->id = $id;
@@ -169,7 +169,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
 	public function set_thumbnail($thumbnail)
     {
         if($thumbnail !== null && !($thumbnail instanceof Image)) {
-            throw new Invalid_Type_Exception($thumbnail, 'Affilicious\Common\Domain\Model\Image\Image');
+            throw new Invalid_Type_Exception($thumbnail, Image::class);
         }
 
         $this->thumbnail = $thumbnail;
@@ -209,7 +209,7 @@ class Shop_Template extends Abstract_Entity implements Shop_Template_Interface
     public function set_provider($provider)
     {
         if($provider !== null && !($provider instanceof Provider_Interface)) {
-            throw new Invalid_Type_Exception($provider, 'Affilicious\Shop\Domain\Model\Provider\Provider_Interface');
+            throw new Invalid_Type_Exception($provider, Provider_Interface::class);
         }
 
         $this->provider = $provider;
