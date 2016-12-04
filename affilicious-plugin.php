@@ -35,6 +35,7 @@ if(!defined('ABSPATH')) {
 }
 
 define('AFFILICIOUS_PLUGIN_ROOT_DIR', plugin_dir_path(__FILE__));
+define('AFFILICIOUS_PLUGIN_BASE_NAME', plugin_basename(__FILE__));
 
 class Affilicious_Plugin
 {
@@ -227,7 +228,7 @@ class Affilicious_Plugin
         $shop_post_type_migration = $this->container['affilicious.shop.application.migration.post_type'];
         $shop_post_type_migration->migrate();
 
-        $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
+        $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
         $slug_rewrite_setup->activate();
 
         $update_timer = $this->container['affilicious.product.application.update.timer'];
@@ -244,7 +245,7 @@ class Affilicious_Plugin
         $license_manager = $this->container['affilicious.common.application.license.manager'];
         $license_manager->deactivate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
 
-        $slug_rewrite_setup = $this->container['affilicious.product.application.setup.slug_rewrite'];
+        $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
         $slug_rewrite_setup->deactivate();
 
         $update_timer = $this->container['affilicious.product.application.update.timer'];
