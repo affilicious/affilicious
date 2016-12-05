@@ -404,7 +404,7 @@ class Product_Setup implements Setup_Interface
                         'out-of-stock' => __('Out Of Stock', 'affilicious'),
                     )),
                 Carbon_Field::make('hidden', Carbon_Product_Repository::SHOP_UPDATED_AT, __('Updated At', 'affilicious'))
-                    ->set_default_value(date('Y-m-d H:i:s'))
+                    ->set_default_value(current_time('timestamp'))
                     ->set_required(true)
             );
 

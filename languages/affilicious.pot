@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2016-12-05 "
-"20:50+0100\n"
+"22:07+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -384,6 +384,12 @@ msgstr ""
 
 #: src/detail/application/setup/detail-template-group-setup.php:84
 msgid "File"
+msgstr ""
+
+#: src/functions.php:225
+#: src/functions.php:429
+#: src/functions.php:491
+msgid "Y-m-d H:i"
 msgstr ""
 
 #: src/product/application/options/product-options.php:22

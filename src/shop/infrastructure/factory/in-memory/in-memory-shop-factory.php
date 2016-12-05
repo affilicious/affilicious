@@ -74,7 +74,7 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
 
         // Legacy support
         if(empty($updated_at)) {
-            $updated_at = date('Y-m-d H:i:s');
+            $updated_at = current_time('timestamp');
         }
 
         $shop = $this->create(
@@ -108,7 +108,7 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
         }
 
         if(!empty($updated_at)) {
-            $shop->set_updated_at(new \DateTimeImmutable($updated_at));
+            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp($updated_at));
         }
 
         return $shop;
