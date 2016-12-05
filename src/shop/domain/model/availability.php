@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 class Availability extends Abstract_Value_Object
 {
     const AVAILABLE = 'available';
-    const OUT_OF_STOCK = 'out_of_stock';
+    const OUT_OF_STOCK = 'out-of-stock';
 
     /**
      * Create the availability for available.

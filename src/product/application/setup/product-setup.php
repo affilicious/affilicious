@@ -401,7 +401,7 @@ class Product_Setup implements Setup_Interface
                     ->set_required(true)
                     ->add_options(array(
                         'available' => __('Available', 'affilicious'),
-                        'out_of_stock' => __('Out Of Stock', 'affilicious'),
+                        'out-of-stock' => __('Out Of Stock', 'affilicious'),
                     )),
                 Carbon_Field::make('hidden', Carbon_Product_Repository::SHOP_UPDATED_AT, __('Updated At', 'affilicious'))
                     ->set_default_value(date('Y-m-d H:i:s'))
