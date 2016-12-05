@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 class Price extends Abstract_Aggregate
 {
     /**
-     * @var int
+     * @var string
      */
     private $value;
 
@@ -22,13 +22,17 @@ class Price extends Abstract_Aggregate
 
     /**
      * @since 0.6
-     * @param int|float|double $value
+     * @param int|float|double|string $value
      * @param Currency $currency
      */
     public function __construct($value, Currency $currency)
     {
-        if(!is_numeric($value)) {
-            throw new Invalid_Type_Exception($value, 'int|float|double');
+        if(!is_numeric($value) && !is_string($value)) {
+            $value = number_format($value, 2, '.', '');
+        }
+
+        if(!is_string($value)) {
+            throw new Invalid_Type_Exception($value, 'string');
         }
 
         $this->value = $value;

@@ -61,9 +61,9 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
 
         $affiliate_link = !empty($data[Carbon_Product_Repository::SHOP_AFFILIATE_LINK]) ? $data[Carbon_Product_Repository::SHOP_AFFILIATE_LINK] : null;
         $affiliate_id = !empty($data[Carbon_Product_Repository::SHOP_AFFILIATE_ID]) ? $data[Carbon_Product_Repository::SHOP_AFFILIATE_ID] : null;
-        $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_PRICE]),  2, '.', '') : null;
-        $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_OLD_PRICE]),  2, '.', '') : null;
-        $delivery_rates = !empty($data[Carbon_Product_Repository::SHOP_DELIVERY_RATES]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_DELIVERY_RATES]),  2, '.', '') : null;
+        $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? $data[Carbon_Product_Repository::SHOP_PRICE] : null;
+        $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? $data[Carbon_Product_Repository::SHOP_OLD_PRICE] : null;
+        $delivery_rates = !empty($data[Carbon_Product_Repository::SHOP_DELIVERY_RATES]) ? $data[Carbon_Product_Repository::SHOP_DELIVERY_RATES] : null;
         $availability = !empty($data[Carbon_Product_Repository::SHOP_AVAILABILITY]) ? $data[Carbon_Product_Repository::SHOP_AVAILABILITY] : null;
         $currency = !empty($data[Carbon_Product_Repository::SHOP_CURRENCY]) ? $data[Carbon_Product_Repository::SHOP_CURRENCY] : null;
         $updated_at = !empty($data[Carbon_Product_Repository::SHOP_UPDATED_AT]) ? $data[Carbon_Product_Repository::SHOP_UPDATED_AT] : null;
