@@ -384,14 +384,20 @@ class Product_Setup implements Setup_Interface
                     ->set_required(true),
                 Carbon_Field::make('text', Carbon_Product_Repository::SHOP_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
                     ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_PRICE, __('Price', 'affilicious')),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_OLD_PRICE, __('Old Price', 'affilicious')),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)
+                    ->set_width(50)
                     ->add_options(array(
                         'euro' => __('Euro', 'affilicious'),
                         'us-dollar' => __('US-Dollar', 'affilicious'),
                     )),
+                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_PRICE, __('Price', 'affilicious'))
+                    ->set_width(50),
+                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_OLD_PRICE, __('Old Price', 'affilicious'))
+                    ->set_width(50),
+                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_DELIVERY_RATES, __('Delivery Rates', 'affilicious'))
+                    ->set_width(50),
+
                 Carbon_Field::make('hidden', Carbon_Product_Repository::SHOP_UPDATED_AT, __('Updated At', 'affilicious'))
                     ->set_default_value(date('Y-m-d H:i:s'))
                     ->set_required(true)

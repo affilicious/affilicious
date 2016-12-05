@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-12-04 11:21+0100\n"
+"POT-Creation-Date: 2016-12-05 20:08+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -50,7 +50,7 @@ msgstr "Du hast nicht die Berechtigung um Plugin-Updates zu installieren."
 msgid "Error"
 msgstr "Fehler"
 
-#: affilicious-plugin.php:227
+#: affilicious-plugin.php:229
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
@@ -609,7 +609,7 @@ msgid "Thumbnail"
 msgstr "Beitragsbild"
 
 #: src/product/application/setup/product-setup.php:291
-#: src/product/application/setup/product-setup.php:491
+#: src/product/application/setup/product-setup.php:497
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
@@ -618,7 +618,7 @@ msgid "Rating"
 msgstr "Bewertung"
 
 #: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:418
+#: src/product/application/setup/product-setup.php:424
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
@@ -684,45 +684,44 @@ msgstr ""
 "Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, usw."
 
 #: src/product/application/setup/product-setup.php:387
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:622
-msgid "Price"
-msgstr "Preis"
-
-#: src/product/application/setup/product-setup.php:388
-msgid "Old Price"
-msgstr "Alter Preis"
-
-#: src/product/application/setup/product-setup.php:389
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/application/setup/product-setup.php:392
+#: src/product/application/setup/product-setup.php:391
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/application/setup/product-setup.php:393
+#: src/product/application/setup/product-setup.php:392
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/application/setup/product-setup.php:395
+#: src/product/application/setup/product-setup.php:394
+msgid "Price"
+msgstr "Preis"
+
+#: src/product/application/setup/product-setup.php:396
+msgid "Old Price"
+msgstr "Alter Preis"
+
+#: src/product/application/setup/product-setup.php:398
+msgid "Delivery Rates"
+msgstr "Versandkosten"
+
+#: src/product/application/setup/product-setup.php:401
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/application/setup/product-setup.php:447
+#: src/product/application/setup/product-setup.php:453
 msgid "Attribute Template Group ID"
 msgstr "Attribut-Vorlagengruppe ID"
 
-#: src/product/application/setup/product-setup.php:492
+#: src/product/application/setup/product-setup.php:498
 msgid "Detail Group"
 msgstr "Detailgruppe"
 
-#: src/product/application/setup/product-setup.php:525
+#: src/product/application/setup/product-setup.php:531
 msgid "Detail Template Group ID"
 msgstr "Detail-Vorlagengruppe ID"
-
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:616
-msgid "Default"
-msgstr "Standard"
 
 #: src/product/presentation/meta-box/meta-box-manager.php:40
 msgid "Image Gallery"
@@ -1013,6 +1012,9 @@ msgstr ""
 #: src/shop/presentation/setup/table-column-setup.php:36
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid "Default"
+#~ msgstr "Standard"
 
 #~ msgid "%s Archives"
 #~ msgstr "%s Archive"

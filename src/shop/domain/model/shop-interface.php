@@ -4,7 +4,6 @@ namespace Affilicious\Shop\Domain\Model;
 use Affilicious\Common\Domain\Model\Aggregate_Interface;
 use Affilicious\Common\Domain\Model\Image\Image;
 use Affilicious\Common\Domain\Model\Update_Aware_Interface;
-use Affilicious\Shop\Domain\Exception\Invalid_Price_Currency_Exception;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -61,7 +60,7 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function get_affiliate_link();
 
     /**
-     * Check if the shop has an affiliate ID
+     * Check if the shop has an affiliate ID.
      *
      * @since 0.7
      * @return bool
@@ -69,7 +68,7 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function has_affiliate_id();
 
     /**
-     * Get the optional affiliate ID
+     * Get the optional affiliate ID.
      *
      * @since 0.7
      * @return Affiliate_Id
@@ -77,7 +76,7 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function get_affiliate_id();
 
     /**
-     * Set the optional affiliate ID
+     * Set the optional affiliate ID.
      *
      * @since 0.7
      * @param null|Affiliate_Id $affiliate_id
@@ -85,7 +84,7 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function set_affiliate_id($affiliate_id);
 
     /**
-     * Check if the shop has a price
+     * Check if the shop has a price.
      *
      * @since 0.7
      * @return bool
@@ -93,7 +92,7 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function has_price();
 
     /**
-     * Get the price
+     * Get the optional price.
      *
      * @since 0.7
      * @return null|Price
@@ -101,16 +100,15 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function get_price();
 
     /**
-     * Set the price or set it to null to keep it empty.
+     * Set the optional price.
      *
      * @since 0.7
      * @param null|Price $price
-     * @throws Invalid_Price_Currency_Exception
      */
     public function set_price($price);
 
     /**
-     * Check if the shop has an old price
+     * Check if the shop has an old price.
      *
      * @since 0.7
      * @return bool
@@ -118,7 +116,7 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function has_old_price();
 
     /**
-     * Get the old price
+     * Get the optional old price.
      *
      * @since 0.7
      * @return null|Price
@@ -126,16 +124,39 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function get_old_price();
 
     /**
-     * Set the old price or set it to null to keep it empty.
+     * Set the optional old price.
      *
      * @since 0.7
      * @param null|Price $old_price
-     * @throws Invalid_Price_Currency_Exception
      */
     public function set_old_price($old_price);
 
     /**
-     * Get the currency
+     * Check if the shop has any delivery rates.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    public function has_delivery_rates();
+
+    /**
+     * Get the optional delivery rates.
+     *
+     * @since 0.7
+     * @return null|Price
+     */
+    public function get_delivery_rates();
+
+    /**
+     * Set the optional delivery rates.
+     *
+     * @since 0.7
+     * @param null|Price $delivery_rates
+     */
+    public function set_delivery_rates($delivery_rates);
+
+    /**
+     * Get the currency.
      *
      * @since 0.7
      * @return Currency

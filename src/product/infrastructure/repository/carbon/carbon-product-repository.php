@@ -58,6 +58,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const SHOP_TEMPLATE_ID = 'shop_template_id';
     const SHOP_PRICE = 'price';
     const SHOP_OLD_PRICE = 'old_price';
+    const SHOP_DELIVERY_RATES = 'delivery_rates';
     const SHOP_CURRENCY = 'currency';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
@@ -951,9 +952,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 self::SHOP_TEMPLATE_ID => $shop->get_template()->get_id()->get_value(),
                 self::SHOP_AFFILIATE_ID => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
                 self::SHOP_AFFILIATE_LINK => $shop->get_affiliate_link()->get_value(),
-                self::SHOP_PRICE => $shop->has_price() ? $shop->get_price()->get_value() : null,
                 self::SHOP_CURRENCY => $shop->get_currency()->get_value(),
+                self::SHOP_PRICE => $shop->has_price() ? $shop->get_price()->get_value() : null,
                 self::SHOP_OLD_PRICE => $shop->has_old_price() ? $shop->get_old_price()->get_value() : null,
+                self::SHOP_DELIVERY_RATES => $shop->has_delivery_rates() ? $shop->get_delivery_rates()->get_value() : null,
                 self::SHOP_UPDATED_AT => $shop->get_updated_at()->format('Y-m-d H:i:s'),
             );
         }

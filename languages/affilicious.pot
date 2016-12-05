@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2016-12-04 "
-"11:21+0100\n"
+"POT-Creation-Date: 2016-12-05 "
+"20:08+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: affilicious-plugin.php:227
+#: affilicious-plugin.php:229
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -634,7 +634,7 @@ msgid "Thumbnail"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:291
-#: src/product/application/setup/product-setup.php:491
+#: src/product/application/setup/product-setup.php:497
 msgid "Detail Groups"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgid "Rating"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:418
+#: src/product/application/setup/product-setup.php:424
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
@@ -710,44 +710,43 @@ msgid ""
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:387
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:622
-msgid "Price"
-msgstr ""
-
-#: src/product/application/setup/product-setup.php:388
-msgid "Old Price"
-msgstr ""
-
-#: src/product/application/setup/product-setup.php:389
 msgid "Currency"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:392
+#: src/product/application/setup/product-setup.php:391
 msgid "Euro"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:393
+#: src/product/application/setup/product-setup.php:392
 msgid "US-Dollar"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:395
+#: src/product/application/setup/product-setup.php:394
+msgid "Price"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:396
+msgid "Old Price"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:398
+msgid "Delivery Rates"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:401
 msgid "Updated At"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:447
+#: src/product/application/setup/product-setup.php:453
 msgid "Attribute Template Group ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:492
+#: src/product/application/setup/product-setup.php:498
 msgid "Detail Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:525
+#: src/product/application/setup/product-setup.php:531
 msgid "Detail Template Group ID"
-msgstr ""
-
-#: src/product/infrastructure/repository/carbon/carbon-product-repository.php:616
-msgid "Default"
 msgstr ""
 
 #: src/product/presentation/meta-box/meta-box-manager.php:40

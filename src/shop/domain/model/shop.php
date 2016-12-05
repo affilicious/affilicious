@@ -43,6 +43,11 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     protected $old_price;
 
     /**
+     * @var Price
+     */
+    protected $delivery_rates;
+
+    /**
      * @var Currency
      */
     protected $currency;
@@ -94,6 +99,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     /**
      * @inheritdoc
      * @since 0.7
+     * @throws Invalid_Type_Exception
      */
     public function set_thumbnail($thumbnail)
     {
@@ -134,6 +140,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     /**
      * @inheritdoc
      * @since 0.7
+     * @throws Invalid_Type_Exception
      */
     public function set_affiliate_id($affiliate_id)
     {
@@ -165,9 +172,15 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     /**
      * @inheritdoc
      * @since 0.7
+     * @throws Invalid_Type_Exception
+     * @throws Invalid_Price_Currency_Exception
      */
     public function set_price($price)
     {
+        if($price !== null && !($price instanceof Price)) {
+            throw new Invalid_Type_Exception($price, Price::class);
+        }
+
         $this->check_price_currency($price);
         $this->price = $price;
     }
@@ -193,11 +206,51 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     /**
      * @inheritdoc
      * @since 0.7
+     * @throws Invalid_Type_Exception
+     * @throws Invalid_Price_Currency_Exception
      */
     public function set_old_price($old_price)
     {
+        if($old_price !== null && !($old_price instanceof Price)) {
+            throw new Invalid_Type_Exception($old_price, Price::class);
+        }
+
         $this->check_price_currency($old_price);
         $this->old_price = $old_price;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function has_delivery_rates()
+    {
+        return $this->delivery_rates !== null;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_delivery_rates()
+    {
+       return $this->delivery_rates;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     * @throws Invalid_Type_Exception
+     * @throws Invalid_Price_Currency_Exception
+     */
+    public function set_delivery_rates($delivery_rates)
+    {
+        if($delivery_rates !== null && !($delivery_rates instanceof Price)) {
+            throw new Invalid_Type_Exception($delivery_rates, Price::class);
+        }
+
+        $this->check_price_currency($delivery_rates);
+        $this->old_price = $delivery_rates;
     }
 
     /**
@@ -254,7 +307,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
      */
     protected function check_price_currency($price)
     {
-        if(!empty($price) && !$this->currency->is_equal_to($price->get_currency())) {
+        if(!$this->currency->is_equal_to($price->get_currency())) {
             throw new Invalid_Price_Currency_Exception($price, $this->currency);
         }
     }
