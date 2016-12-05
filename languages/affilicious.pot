@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2016-12-05 "
-"20:08+0100\n"
+"20:50+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -634,7 +634,7 @@ msgid "Thumbnail"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:291
-#: src/product/application/setup/product-setup.php:497
+#: src/product/application/setup/product-setup.php:502
 msgid "Detail Groups"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgid "Rating"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:424
+#: src/product/application/setup/product-setup.php:429
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
@@ -733,19 +733,31 @@ msgstr ""
 msgid "Delivery Rates"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:401
+#: src/product/application/setup/product-setup.php:400
+msgid "Availability"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:403
+msgid "Available"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:404
+msgid "Out Of Stock"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:406
 msgid "Updated At"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:453
+#: src/product/application/setup/product-setup.php:458
 msgid "Attribute Template Group ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:498
+#: src/product/application/setup/product-setup.php:503
 msgid "Detail Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:531
+#: src/product/application/setup/product-setup.php:536
 msgid "Detail Template Group ID"
 msgstr ""
 

@@ -84,6 +84,30 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
     public function set_affiliate_id($affiliate_id);
 
     /**
+     * Get the currency.
+     *
+     * @since 0.7
+     * @return Currency
+     */
+    public function get_currency();
+
+    /**
+     * Get the availability like available or out of stock.
+     *
+     * @since 0.7
+     * @return Availability
+     */
+    public function get_availability();
+
+    /**
+     * Set the availability like available or out of stock.
+     *
+     * @since 0.7
+     * @param Availability $availability
+     */
+    public function set_availability(Availability $availability);
+
+    /**
      * Check if the shop has a price.
      *
      * @since 0.7
@@ -154,12 +178,4 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
      * @param null|Price $delivery_rates
      */
     public function set_delivery_rates($delivery_rates);
-
-    /**
-     * Get the currency.
-     *
-     * @since 0.7
-     * @return Currency
-     */
-    public function get_currency();
 }

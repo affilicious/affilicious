@@ -397,7 +397,12 @@ class Product_Setup implements Setup_Interface
                     ->set_width(50),
                 Carbon_Field::make('number', Carbon_Product_Repository::SHOP_DELIVERY_RATES, __('Delivery Rates', 'affilicious'))
                     ->set_width(50),
-
+                Carbon_Field::make('select', Carbon_Product_Repository::SHOP_AVAILABILITY, __('Availability', 'affilicious'))
+                    ->set_required(true)
+                    ->add_options(array(
+                        'available' => __('Available', 'affilicious'),
+                        'out_of_stock' => __('Out Of Stock', 'affilicious'),
+                    )),
                 Carbon_Field::make('hidden', Carbon_Product_Repository::SHOP_UPDATED_AT, __('Updated At', 'affilicious'))
                     ->set_default_value(date('Y-m-d H:i:s'))
                     ->set_required(true)

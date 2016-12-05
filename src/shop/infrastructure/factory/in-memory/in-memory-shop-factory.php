@@ -4,6 +4,7 @@ namespace Affilicious\Shop\Infrastructure\Factory\In_Memory;
 use Affilicious\Product\Infrastructure\Repository\Carbon\Carbon_Product_Repository;
 use Affilicious\Shop\Domain\Model\Affiliate_Id;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
+use Affilicious\Shop\Domain\Model\Availability;
 use Affilicious\Shop\Domain\Model\Currency;
 use Affilicious\Shop\Domain\Model\Price;
 use Affilicious\Shop\Domain\Model\Shop;
@@ -63,6 +64,7 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
         $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_PRICE]),  2, '.', '') : null;
         $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_OLD_PRICE]),  2, '.', '') : null;
         $delivery_rates = !empty($data[Carbon_Product_Repository::SHOP_DELIVERY_RATES]) ? number_format(floatval($data[Carbon_Product_Repository::SHOP_DELIVERY_RATES]),  2, '.', '') : null;
+        $availability = !empty($data[Carbon_Product_Repository::SHOP_AVAILABILITY]) ? $data[Carbon_Product_Repository::SHOP_AVAILABILITY] : null;
         $currency = !empty($data[Carbon_Product_Repository::SHOP_CURRENCY]) ? $data[Carbon_Product_Repository::SHOP_CURRENCY] : null;
         $updated_at = !empty($data[Carbon_Product_Repository::SHOP_UPDATED_AT]) ? $data[Carbon_Product_Repository::SHOP_UPDATED_AT] : null;
 
@@ -99,6 +101,10 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
 
         if(!empty($delivery_rates)) {
             $shop->set_delivery_rates(new Price($delivery_rates, $shop->get_currency()));
+        }
+
+        if(!empty($availability)) {
+            $shop->set_availability(new Availability($availability));
         }
 
         if(!empty($updated_at)) {

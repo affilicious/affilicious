@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-12-05 20:08+0100\n"
+"POT-Creation-Date: 2016-12-05 20:51+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -609,7 +609,7 @@ msgid "Thumbnail"
 msgstr "Beitragsbild"
 
 #: src/product/application/setup/product-setup.php:291
-#: src/product/application/setup/product-setup.php:497
+#: src/product/application/setup/product-setup.php:502
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
@@ -618,7 +618,7 @@ msgid "Rating"
 msgstr "Bewertung"
 
 #: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:424
+#: src/product/application/setup/product-setup.php:429
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
@@ -707,19 +707,31 @@ msgstr "Alter Preis"
 msgid "Delivery Rates"
 msgstr "Versandkosten"
 
-#: src/product/application/setup/product-setup.php:401
+#: src/product/application/setup/product-setup.php:400
+msgid "Availability"
+msgstr "Verfügbarkeit"
+
+#: src/product/application/setup/product-setup.php:403
+msgid "Available"
+msgstr "Verfügbar"
+
+#: src/product/application/setup/product-setup.php:404
+msgid "Out Of Stock"
+msgstr "Nicht verfügbar"
+
+#: src/product/application/setup/product-setup.php:406
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/application/setup/product-setup.php:453
+#: src/product/application/setup/product-setup.php:458
 msgid "Attribute Template Group ID"
 msgstr "Attribut-Vorlagengruppe ID"
 
-#: src/product/application/setup/product-setup.php:498
+#: src/product/application/setup/product-setup.php:503
 msgid "Detail Group"
 msgstr "Detailgruppe"
 
-#: src/product/application/setup/product-setup.php:531
+#: src/product/application/setup/product-setup.php:536
 msgid "Detail Template Group ID"
 msgstr "Detail-Vorlagengruppe ID"
 

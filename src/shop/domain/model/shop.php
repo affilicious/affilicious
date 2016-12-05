@@ -33,6 +33,16 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     protected $affiliate_id;
 
     /**
+     * @var Currency
+     */
+    protected $currency;
+
+    /**
+     * @var Availability
+     */
+    protected $availability;
+
+    /**
      * @var Price
      */
     protected $price;
@@ -48,11 +58,6 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     protected $delivery_rates;
 
     /**
-     * @var Currency
-     */
-    protected $currency;
-
-    /**
      * @var \DateTimeImmutable
      */
     protected $updated_at;
@@ -66,6 +71,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
         $this->template = $template;
         $this->affiliate_link = $affiliate_link;
         $this->currency = $currency;
+        $this->availability = Availability::available();
         $this->updated_at = new \DateTimeImmutable('now');
     }
 
@@ -149,6 +155,15 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
         }
 
         $this->affiliate_id = $affiliate_id;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_currency()
+    {
+        return $this->currency;
     }
 
     /**
@@ -250,16 +265,25 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
         }
 
         $this->check_price_currency($delivery_rates);
-        $this->old_price = $delivery_rates;
+        $this->delivery_rates= $delivery_rates;
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function get_currency()
+    public function set_availability(Availability $availability)
     {
-        return $this->currency;
+        $this->availability = $availability;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7
+     */
+    public function get_availability()
+    {
+        return $this->availability;
     }
 
     /**
