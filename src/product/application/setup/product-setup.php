@@ -388,8 +388,8 @@ class Product_Setup implements Setup_Interface
                     ->set_required(true)
                     ->set_width(50)
                     ->add_options(array(
-                        'euro' => __('Euro', 'affilicious'),
-                        'us-dollar' => __('US-Dollar', 'affilicious'),
+                        'EUR' => __('Euro', 'affilicious'),
+                        'USD' => __('US-Dollar', 'affilicious'),
                     )),
                 Carbon_Field::make('number', Carbon_Product_Repository::SHOP_PRICE, __('Price', 'affilicious'))
                     ->set_width(50),

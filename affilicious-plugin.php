@@ -240,6 +240,9 @@ class Affilicious_Plugin
         $shop_post_type_migration = $this->container['affilicious.shop.application.migration.post_type'];
         $shop_post_type_migration->migrate();
 
+        $currency_code_migration = $this->container['affilicious.shop.application.migration.currency_code'];
+        $currency_code_migration->migrate();
+
         $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
         $slug_rewrite_setup->activate();
 
@@ -506,6 +509,10 @@ class Affilicious_Plugin
 
         $this->container['affilicious.shop.application.migration.post_type'] = function() {
             return new \Affilicious\Shop\Application\Migration\Post_Type_Migration();
+        };
+
+        $this->container['affilicious.shop.application.migration.currency_code'] = function() {
+            return new \Affilicious\Shop\Application\Migration\Currency_Code_Migration();
         };
     }
 

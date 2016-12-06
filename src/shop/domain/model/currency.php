@@ -10,8 +10,18 @@ if (!defined('ABSPATH')) {
 
 class Currency extends Abstract_Value_Object
 {
-    const EURO = 'euro';
-    const US_DOLLAR = 'us-dollar';
+    /**
+     * @deprecated
+     */
+    const LEGACY_EURO = 'euro';
+
+    /**
+     * @deprecated
+     */
+    const LEGACY_US_DOLLAR = 'us-dollar';
+
+    const EURO = 'EUR';
+    const US_DOLLAR = 'USD';
 
     /**
      * Get a Euro currency
@@ -40,6 +50,14 @@ class Currency extends Abstract_Value_Object
      */
     public function __construct($value)
     {
+        if($value === self::LEGACY_EURO) {
+            $value = self::EURO;
+        }
+
+        if($value === self::LEGACY_US_DOLLAR) {
+            $value = self::US_DOLLAR;
+        }
+
         $currencies = array(
             self::EURO,
             self::US_DOLLAR,
@@ -60,9 +78,13 @@ class Currency extends Abstract_Value_Object
      */
     public function get_label()
     {
-        $currency_label = ucwords($this->value);
-        $currency_label = strpos($currency_label, 'us-') === 0 ? str_replace('us-', 'US-', $currency_label) : $currency_label;
-        $currency_label = __($currency_label, 'affilicious');
+        $labels = array(
+            self::EURO => 'Euro',
+            self::US_DOLLAR => 'US-Dollar',
+        );
+
+        $currency_label = isset($labels[$this->value]) ? $labels[$this->value] : null;
+        $currency_label = __($currency_label, 'affilicous');
 
         return $currency_label;
     }
@@ -76,8 +98,8 @@ class Currency extends Abstract_Value_Object
     public function get_symbol()
     {
         $currencies = array(
-            'euro' => '€',
-            'us-dollar' => '$',
+            self::EURO => '€',
+            self::US_DOLLAR => '$',
         );
 
         $currency_symbol = isset($currencies[$this->value]) ? $currencies[$this->value] : null;
