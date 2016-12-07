@@ -245,14 +245,6 @@ function aff_get_product_shops($product_or_id = null)
                     'symbol' => $shop->get_old_price()->get_currency()->get_symbol(),
                 ),
             ),
-            'delivery_rates' => !$shop->has_delivery_rates() ? null : array(
-                'value' => $shop->get_delivery_rates()->get_value(),
-                'currency' => array(
-                    'value' => $shop->get_delivery_rates()->get_currency()->get_value(),
-                    'label' => $shop->get_delivery_rates()->get_currency()->get_label(),
-                    'symbol' => $shop->get_delivery_rates()->get_currency()->get_symbol(),
-                ),
-            ),
         );
 
         $raw_shops[] = $raw_shop;
@@ -449,14 +441,6 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
                 'symbol' => $shop->get_old_price()->get_currency()->get_symbol(),
             ),
         ),
-        'delivery_rates' => !$shop->has_delivery_rates() ? null : array(
-            'value' => $shop->get_delivery_rates()->get_value(),
-            'currency' => array(
-                'value' => $shop->get_delivery_rates()->get_currency()->get_value(),
-                'label' => $shop->get_delivery_rates()->get_currency()->get_label(),
-                'symbol' => $shop->get_delivery_rates()->get_currency()->get_symbol(),
-            ),
-        ),
     );
 
     return $raw_shop;
@@ -509,14 +493,6 @@ function aff_get_product_cheapest_shop($product_or_id = null)
                 'value' => $shop->get_old_price()->get_currency()->get_value(),
                 'label' => $shop->get_old_price()->get_currency()->get_label(),
                 'symbol' => $shop->get_old_price()->get_currency()->get_symbol(),
-            ),
-        ),
-        'delivery_rates' => !$shop->has_delivery_rates() ? null : array(
-            'value' => $shop->get_delivery_rates()->get_value(),
-            'currency' => array(
-                'value' => $shop->get_delivery_rates()->get_currency()->get_value(),
-                'label' => $shop->get_delivery_rates()->get_currency()->get_label(),
-                'symbol' => $shop->get_delivery_rates()->get_currency()->get_symbol(),
             ),
         ),
     );

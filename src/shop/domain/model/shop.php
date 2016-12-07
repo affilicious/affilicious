@@ -53,11 +53,6 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
     protected $old_price;
 
     /**
-     * @var Price
-     */
-    protected $delivery_rates;
-
-    /**
      * @var \DateTimeImmutable
      */
     protected $updated_at;
@@ -232,40 +227,6 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
 
         $this->check_price_currency($old_price);
         $this->old_price = $old_price;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function has_delivery_rates()
-    {
-        return $this->delivery_rates !== null;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function get_delivery_rates()
-    {
-       return $this->delivery_rates;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     * @throws Invalid_Type_Exception
-     * @throws Invalid_Price_Currency_Exception
-     */
-    public function set_delivery_rates($delivery_rates)
-    {
-        if($delivery_rates !== null && !($delivery_rates instanceof Price)) {
-            throw new Invalid_Type_Exception($delivery_rates, Price::class);
-        }
-
-        $this->check_price_currency($delivery_rates);
-        $this->delivery_rates= $delivery_rates;
     }
 
     /**

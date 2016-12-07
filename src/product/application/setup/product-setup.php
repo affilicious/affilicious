@@ -386,7 +386,6 @@ class Product_Setup implements Setup_Interface
                     ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)
-                    ->set_width(50)
                     ->add_options(array(
                         'EUR' => __('Euro', 'affilicious'),
                         'USD' => __('US-Dollar', 'affilicious'),
@@ -394,8 +393,6 @@ class Product_Setup implements Setup_Interface
                 Carbon_Field::make('number', Carbon_Product_Repository::SHOP_PRICE, __('Price', 'affilicious'))
                     ->set_width(50),
                 Carbon_Field::make('number', Carbon_Product_Repository::SHOP_OLD_PRICE, __('Old Price', 'affilicious'))
-                    ->set_width(50),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_DELIVERY_RATES, __('Delivery Rates', 'affilicious'))
                     ->set_width(50),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_AVAILABILITY, __('Availability', 'affilicious'))
                     ->set_required(true)

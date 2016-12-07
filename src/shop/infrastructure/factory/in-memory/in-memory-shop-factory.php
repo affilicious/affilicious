@@ -63,7 +63,6 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
         $affiliate_id = !empty($data[Carbon_Product_Repository::SHOP_AFFILIATE_ID]) ? $data[Carbon_Product_Repository::SHOP_AFFILIATE_ID] : null;
         $price = !empty($data[Carbon_Product_Repository::SHOP_PRICE]) ? $data[Carbon_Product_Repository::SHOP_PRICE] : null;
         $old_price = !empty($data[Carbon_Product_Repository::SHOP_OLD_PRICE]) ? $data[Carbon_Product_Repository::SHOP_OLD_PRICE] : null;
-        $delivery_rates = !empty($data[Carbon_Product_Repository::SHOP_DELIVERY_RATES]) ? $data[Carbon_Product_Repository::SHOP_DELIVERY_RATES] : null;
         $availability = !empty($data[Carbon_Product_Repository::SHOP_AVAILABILITY]) ? $data[Carbon_Product_Repository::SHOP_AVAILABILITY] : null;
         $currency = !empty($data[Carbon_Product_Repository::SHOP_CURRENCY]) ? $data[Carbon_Product_Repository::SHOP_CURRENCY] : null;
         $updated_at = !empty($data[Carbon_Product_Repository::SHOP_UPDATED_AT]) ? $data[Carbon_Product_Repository::SHOP_UPDATED_AT] : null;
@@ -97,10 +96,6 @@ class In_Memory_Shop_Factory implements Shop_Factory_Interface
 
         if(!empty($old_price)) {
             $shop->set_old_price(new Price($old_price, $shop->get_currency()));
-        }
-
-        if(!empty($delivery_rates)) {
-            $shop->set_delivery_rates(new Price($delivery_rates, $shop->get_currency()));
         }
 
         if(!empty($availability)) {

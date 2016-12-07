@@ -154,28 +154,4 @@ interface Shop_Interface extends Aggregate_Interface, Update_Aware_Interface
      * @param null|Price $old_price
      */
     public function set_old_price($old_price);
-
-    /**
-     * Check if the shop has any delivery rates.
-     *
-     * @since 0.7
-     * @return bool
-     */
-    public function has_delivery_rates();
-
-    /**
-     * Get the optional delivery rates.
-     *
-     * @since 0.7
-     * @return null|Price
-     */
-    public function get_delivery_rates();
-
-    /**
-     * Set the optional delivery rates.
-     *
-     * @since 0.7
-     * @param null|Price $delivery_rates
-     */
-    public function set_delivery_rates($delivery_rates);
 }
