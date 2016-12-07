@@ -292,7 +292,7 @@ class Shop extends Abstract_Aggregate implements Shop_Interface
      */
     protected function check_price_currency($price)
     {
-        if(!$this->currency->is_equal_to($price->get_currency())) {
+        if($price !== null && !$this->currency->is_equal_to($price->get_currency())) {
             throw new Invalid_Price_Currency_Exception($price, $this->currency);
         }
     }

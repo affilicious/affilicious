@@ -62,4 +62,26 @@ class Availability extends Abstract_Value_Object
 
         parent::__construct($value);
     }
+
+    /**
+     * Check if the availability is available.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    public function is_available()
+    {
+        return $this->value === self::AVAILABLE;
+    }
+
+    /**
+     * Check if the availability is out of stock.
+     *
+     * @since 0.7
+     * @return bool
+     */
+    public function is_out_of_stock()
+    {
+        return $this->value === self::OUT_OF_STOCK;
+    }
 }

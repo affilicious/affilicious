@@ -228,6 +228,11 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
                             $shop->set_price($result['price']);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
+
+                        if($shop->get_availability()->is_out_of_stock()) {
+                            $shop->set_price(null);
+                            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                        }
                     }
                 }
             }
