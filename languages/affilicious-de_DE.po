@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-12-05 22:07+0100\n"
+"POT-Creation-Date: 2016-12-07 17:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -364,9 +364,18 @@ msgstr "Detail-Vorlagen"
 msgid "File"
 msgstr "Datei"
 
-#: src/functions.php:225 src/functions.php:429 src/functions.php:491
+#: src/functions.php:225 src/functions.php:421 src/functions.php:475
 msgid "Y-m-d H:i"
 msgstr "H:i d.m.Y"
+
+#: src/functions.php:1053
+msgid "Incl. 19 % VAT and excl. shipping costs."
+msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
+
+#: src/functions.php:1077
+#, php-format
+msgid "Updated at %s."
+msgstr "Aktualisiert am %s Uhr."
 
 #: src/product/application/options/product-options.php:22
 #: src/product/application/options/product-options.php:35
@@ -613,7 +622,7 @@ msgid "Thumbnail"
 msgstr "Beitragsbild"
 
 #: src/product/application/setup/product-setup.php:291
-#: src/product/application/setup/product-setup.php:502
+#: src/product/application/setup/product-setup.php:499
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
@@ -622,7 +631,7 @@ msgid "Rating"
 msgstr "Bewertung"
 
 #: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:429
+#: src/product/application/setup/product-setup.php:426
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
@@ -691,51 +700,47 @@ msgstr ""
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/application/setup/product-setup.php:391
+#: src/product/application/setup/product-setup.php:390
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/application/setup/product-setup.php:392
+#: src/product/application/setup/product-setup.php:391
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/application/setup/product-setup.php:394
+#: src/product/application/setup/product-setup.php:393
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/application/setup/product-setup.php:396
+#: src/product/application/setup/product-setup.php:395
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/application/setup/product-setup.php:398
-msgid "Delivery Rates"
-msgstr "Versandkosten"
-
-#: src/product/application/setup/product-setup.php:400
+#: src/product/application/setup/product-setup.php:397
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
-#: src/product/application/setup/product-setup.php:403
+#: src/product/application/setup/product-setup.php:400
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/product/application/setup/product-setup.php:404
+#: src/product/application/setup/product-setup.php:401
 msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/application/setup/product-setup.php:406
+#: src/product/application/setup/product-setup.php:403
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/application/setup/product-setup.php:458
+#: src/product/application/setup/product-setup.php:455
 msgid "Attribute Template Group ID"
 msgstr "Attribut-Vorlagengruppe ID"
 
-#: src/product/application/setup/product-setup.php:503
+#: src/product/application/setup/product-setup.php:500
 msgid "Detail Group"
 msgstr "Detailgruppe"
 
-#: src/product/application/setup/product-setup.php:536
+#: src/product/application/setup/product-setup.php:533
 msgid "Detail Template Group ID"
 msgstr "Detail-Vorlagengruppe ID"
 
@@ -793,50 +798,6 @@ msgstr "Deutschland"
 #: src/shop/application/options/amazon-options.php:56
 msgid "America"
 msgstr "Amerika"
-
-#: src/shop/application/options/amazon-options.php:57
-msgid "England"
-msgstr "England"
-
-#: src/shop/application/options/amazon-options.php:58
-msgid "Canada"
-msgstr "Kanada"
-
-#: src/shop/application/options/amazon-options.php:59
-msgid "France"
-msgstr "Frankreich"
-
-#: src/shop/application/options/amazon-options.php:60
-msgid "Japan"
-msgstr "Japan"
-
-#: src/shop/application/options/amazon-options.php:61
-msgid "Italy"
-msgstr "Italien"
-
-#: src/shop/application/options/amazon-options.php:62
-msgid "China"
-msgstr "China"
-
-#: src/shop/application/options/amazon-options.php:63
-msgid "Spain"
-msgstr "Spanien"
-
-#: src/shop/application/options/amazon-options.php:64
-msgid "India"
-msgstr "Indien"
-
-#: src/shop/application/options/amazon-options.php:65
-msgid "Brazil"
-msgstr "Brasilien"
-
-#: src/shop/application/options/amazon-options.php:66
-msgid "Mexico"
-msgstr "Mexiko"
-
-#: src/shop/application/options/amazon-options.php:67
-msgid "Australia"
-msgstr "Australien"
 
 #: src/shop/application/options/amazon-options.php:70
 msgid "The country has to match the locale of your Amazon account. "
@@ -1028,6 +989,45 @@ msgstr ""
 #: src/shop/presentation/setup/table-column-setup.php:36
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid "Updated at %s"
+#~ msgstr "Aktualisert am %s Uhr"
+
+#~ msgid "Delivery Rates"
+#~ msgstr "Versandkosten"
+
+#~ msgid "England"
+#~ msgstr "England"
+
+#~ msgid "Canada"
+#~ msgstr "Kanada"
+
+#~ msgid "France"
+#~ msgstr "Frankreich"
+
+#~ msgid "Japan"
+#~ msgstr "Japan"
+
+#~ msgid "Italy"
+#~ msgstr "Italien"
+
+#~ msgid "China"
+#~ msgstr "China"
+
+#~ msgid "Spain"
+#~ msgstr "Spanien"
+
+#~ msgid "India"
+#~ msgstr "Indien"
+
+#~ msgid "Brazil"
+#~ msgstr "Brasilien"
+
+#~ msgid "Mexico"
+#~ msgstr "Mexiko"
+
+#~ msgid "Australia"
+#~ msgstr "Australien"
 
 #~ msgid "Default"
 #~ msgstr "Standard"

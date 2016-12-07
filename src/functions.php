@@ -1041,3 +1041,54 @@ function aff_get_attribute_template_group($attribute_template_group_or_id = null
 
     return $attribute_template_group;
 }
+
+/**
+ * Get the price indication like VAT and shipping costs.
+ *
+ * @since 0.7
+ * @return string
+ */
+function aff_get_shop_price_indication()
+{
+    return __('Incl. 19 % VAT and excl. shipping costs.', 'affilicious');
+}
+
+/**
+ * Print the price indication like VAT and shipping costs.
+ *
+ * @since 0.7
+ */
+function aff_the_shop_price_indication()
+{
+    echo aff_get_shop_price_indication();
+}
+
+/**
+ * Get the last update indication for the shop.
+ *
+ * @since 0.7
+ * @param array $shop
+ * @return string
+ */
+function aff_get_shop_update_at_indication($shop)
+{
+    if(!empty($shop['updated_at'])) {
+        return sprintf(
+            __('Updated at %s.', 'affilicious'),
+            $shop['updated_at']
+        );
+    }
+
+    return '';
+}
+
+/**
+ * Print the last update indication for the shop.
+ *
+ * @since 0.7
+ * @param array $shop
+ */
+function aff_the_shop_update_at_indication($shop)
+{
+    echo aff_get_shop_update_at_indication($shop);
+}

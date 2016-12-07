@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2016-12-05 "
-"22:07+0100\n"
+"POT-Creation-Date: 2016-12-07 "
+"17:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -387,9 +387,20 @@ msgid "File"
 msgstr ""
 
 #: src/functions.php:225
-#: src/functions.php:429
-#: src/functions.php:491
+#: src/functions.php:421
+#: src/functions.php:475
 msgid "Y-m-d H:i"
+msgstr ""
+
+#: src/functions.php:1053
+msgid ""
+"Incl. 19 % VAT and excl. "
+"shipping costs."
+msgstr ""
+
+#: src/functions.php:1077
+#, php-format
+msgid "Updated at %s."
 msgstr ""
 
 #: src/product/application/options/product-options.php:22
@@ -640,7 +651,7 @@ msgid "Thumbnail"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:291
-#: src/product/application/setup/product-setup.php:502
+#: src/product/application/setup/product-setup.php:499
 msgid "Detail Groups"
 msgstr ""
 
@@ -649,7 +660,7 @@ msgid "Rating"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:429
+#: src/product/application/setup/product-setup.php:426
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
@@ -719,51 +730,47 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:391
+#: src/product/application/setup/product-setup.php:390
 msgid "Euro"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:392
+#: src/product/application/setup/product-setup.php:391
 msgid "US-Dollar"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:394
+#: src/product/application/setup/product-setup.php:393
 msgid "Price"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:396
+#: src/product/application/setup/product-setup.php:395
 msgid "Old Price"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:398
-msgid "Delivery Rates"
-msgstr ""
-
-#: src/product/application/setup/product-setup.php:400
+#: src/product/application/setup/product-setup.php:397
 msgid "Availability"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:403
+#: src/product/application/setup/product-setup.php:400
 msgid "Available"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:404
+#: src/product/application/setup/product-setup.php:401
 msgid "Out Of Stock"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:406
+#: src/product/application/setup/product-setup.php:403
 msgid "Updated At"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:458
+#: src/product/application/setup/product-setup.php:455
 msgid "Attribute Template Group ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:503
+#: src/product/application/setup/product-setup.php:500
 msgid "Detail Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:536
+#: src/product/application/setup/product-setup.php:533
 msgid "Detail Template Group ID"
 msgstr ""
 
@@ -823,50 +830,6 @@ msgstr ""
 
 #: src/shop/application/options/amazon-options.php:56
 msgid "America"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:57
-msgid "England"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:58
-msgid "Canada"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:59
-msgid "France"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:60
-msgid "Japan"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:61
-msgid "Italy"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:62
-msgid "China"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:63
-msgid "Spain"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:64
-msgid "India"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:65
-msgid "Brazil"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:66
-msgid "Mexico"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:67
-msgid "Australia"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:70
