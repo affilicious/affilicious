@@ -727,10 +727,6 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     protected function add_image_gallery(Image_Gallery_Aware_Product_Interface $product, \WP_Post $post)
     {
-        if(!($product instanceof Simple_Product_Interface) || !($product instanceof Complex_Product_Interface)) {
-            return $product;
-        }
-
         $image_gallery = get_post_meta($post->ID, self::IMAGE_GALLERY);
         if (!empty($image_gallery)) {
             $image_ids = explode(',', $image_gallery[0]);

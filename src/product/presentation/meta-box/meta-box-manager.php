@@ -27,7 +27,7 @@ final class Meta_Box_Manager
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'), 10);
         add_action('save_post', array($this, 'update_meta_boxes'), 1, 2);
 
-        add_action('affilicious_process_product_meta', __NAMESPACE__ . '\Product_Image_Gallery_Meta_Box::update', 10, 2);
+        add_action('affilicious_process_aff_product_meta', __NAMESPACE__ . '\Product_Image_Gallery_Meta_Box::update', 10, 2);
     }
 
     /**
@@ -37,7 +37,7 @@ final class Meta_Box_Manager
      */
     public function add_meta_boxes()
     {
-        add_meta_box('affilicious_image_gallery', __('Image Gallery', 'affilicious'), __NAMESPACE__ . '\Product_Image_Gallery_Meta_Box::render', 'product', 'side', 'low');
+        add_meta_box('affilicious_image_gallery', __('Image Gallery', 'affilicious'), __NAMESPACE__ . '\Product_Image_Gallery_Meta_Box::render', 'aff_product', 'side', 'low');
     }
 
     /**
