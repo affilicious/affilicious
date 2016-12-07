@@ -1071,7 +1071,7 @@ function aff_the_shop_price_indication()
  * @param array $shop
  * @return string
  */
-function aff_get_shop_update_at_indication($shop)
+function aff_get_shop_updated_at_indication($shop)
 {
     if(!empty($shop['updated_at'])) {
         return sprintf(
@@ -1089,9 +1089,9 @@ function aff_get_shop_update_at_indication($shop)
  * @since 0.7
  * @param array $shop
  */
-function aff_the_shop_update_at_indication($shop)
+function aff_the_shop_updated_at_indication($shop)
 {
-    echo aff_get_shop_update_at_indication($shop);
+    echo aff_get_shop_updated_at_indication($shop);
 }
 
 /**
