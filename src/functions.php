@@ -17,6 +17,7 @@ use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Relation_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
+use Affilicious\Shop\Domain\Model\Availability;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -1091,4 +1092,16 @@ function aff_get_shop_update_at_indication($shop)
 function aff_the_shop_update_at_indication($shop)
 {
     echo aff_get_shop_update_at_indication($shop);
+}
+
+/**
+ * Check if the shop is available or out of stock.
+ *
+ * @since 0.7
+ * @param array $shop
+ * @return bool
+ */
+function aff_is_shop_available($shop)
+{
+    return isset($shop['availability']) && $shop['availability'] === Availability::AVAILABLE;
 }
