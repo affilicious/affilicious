@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Presentation\Filter;
 
+use Affilicious\Product\Domain\Model\Product_Interface;
+
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
@@ -18,7 +20,7 @@ class Table_Count_Filter
     {
         global $current_screen, $wpdb;
 
-        if($current_screen->id !== 'edit-product') {
+        if($current_screen->id !== 'edit-' . Product_Interface::POST_TYPE) {
             return $views;
         }
 
@@ -27,7 +29,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status IN ('publish', 'draft', 'pending') 
-            AND post_type = 'product'
+            AND post_type = '" . Product_Interface::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -39,7 +41,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'publish'
-            AND post_type = 'product'
+            AND post_type = '" . Product_Interface::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -51,7 +53,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'draft'
-            AND post_type = 'product'
+            AND post_type = '" . Product_Interface::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -63,7 +65,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'pending'
-            AND post_type = 'product'
+            AND post_type = '" . Product_Interface::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -75,7 +77,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'trash'
-            AND post_type = 'product'
+            AND post_type = '" . Product_Interface::POST_TYPE . "'
             AND post_parent = 0"
             );
 
