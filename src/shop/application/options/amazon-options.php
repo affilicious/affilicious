@@ -17,6 +17,7 @@ class Amazon_Options
     const PRICE_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_price_update_interval_field';
     const RATING_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_rating_update_interval_field';
     const VOTES_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_votes_update_interval_field';
+    const AVAILABILITY_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_availability_update_interval_field';
 
     /**
      * @var Amazon_Credentials_Validator_Interface
@@ -77,16 +78,25 @@ class Amazon_Options
             Carbon_Field::make('select', self::PRICE_UPDATE_INTERVAL, __('Price Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
-                    'twice_daily' => __('Twice Daily', 'affilicious'),
+                    'twicedaily' => __('Twice Daily', 'affilicious'),
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
                 ->set_help_text(__('The automatic update interval for the prices in the shops.', 'affilicious'))
                 ->set_required(true),
+            Carbon_Field::make('select', self::AVAILABILITY_UPDATE_INTERVAL, __('Availability Update Interval', 'affilicious'))
+                ->add_options(array(
+                    'hourly' => __('Hourly', 'affilicious'),
+                    'twicedaily' => __('Twice Daily', 'affilicious'),
+                    'daily' => __('Daily', 'affilicious'),
+                    'none' => __('No Updates', 'affilicious'),
+                ))
+                ->set_help_text(__('The automatic update interval for the availability in the shops.', 'affilicious'))
+                ->set_required(true),
             Carbon_Field::make('select', self::RATING_UPDATE_INTERVAL, __('Rating Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
-                    'twice_daily' => __('Twice Daily', 'affilicious'),
+                    'twicedaily' => __('Twice Daily', 'affilicious'),
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
@@ -95,7 +105,7 @@ class Amazon_Options
             Carbon_Field::make('select', self::VOTES_UPDATE_INTERVAL, __('Votes Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
-                    'twice_daily' => __('Twice Daily', 'affilicious'),
+                    'twicedaily' => __('Twice Daily', 'affilicious'),
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))

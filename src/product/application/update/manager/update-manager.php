@@ -115,7 +115,7 @@ class Update_Manager implements Update_Manager_Interface
                 continue;
             }
 
-            $worker->execute($update_tasks);
+            $worker->execute($update_tasks, $update_interval);
             $this->store_update_tasks($update_tasks);
         }
     }

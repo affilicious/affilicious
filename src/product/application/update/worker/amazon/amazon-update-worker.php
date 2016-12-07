@@ -4,6 +4,7 @@ namespace Affilicious\Product\Application\Update\Worker\Amazon;
 use Affilicious\Product\Application\Update\Configuration\Configuration;
 use Affilicious\Product\Application\Update\Worker\Abstract_Update_Worker;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
+use Affilicious\Shop\Application\Options\Amazon_Options;
 use Affilicious\Shop\Domain\Model\Affiliate_Id;
 use Affilicious\Shop\Domain\Model\Availability;
 use Affilicious\Shop\Domain\Model\Currency;
@@ -46,7 +47,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      * @inheritdoc
      * @since 0.7
      */
-    public function execute($update_tasks)
+    public function execute($update_tasks, $update_interval)
     {
         if(count($update_tasks) == 0) {
             return;
@@ -78,7 +79,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
             return;
         }
 
-        $this->apply_results_to_products($results, $products);
+        $this->apply_results_to_products($results, $products, $update_interval);
     }
 
     /**
@@ -201,7 +202,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      * @param array $results
      * @param Shop_Aware_Product_Interface[] $products
      */
-    protected function apply_results_to_products($results, $products)
+    protected function apply_results_to_products($results, $products, $update_interval)
     {
         foreach ($results as $result) {
             /** @var Affiliate_Id $affiliate_id */
@@ -219,17 +220,17 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
                 foreach ($shops as $shop) {
                     if($affiliate_id->is_equal_to($shop->get_affiliate_id())) {
 
-                        if($result['availability'] !== null) {
+                        if($result['availability'] !== null && $this->should_update_availability($update_interval)) {
                             $shop->set_availability($result['availability']);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
-                        if($result['price'] !== null) {
+                        if($result['price'] !== null && $this->should_update_price($update_interval)) {
                             $shop->set_price($result['price']);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
-                        if($shop->get_availability()->is_out_of_stock()) {
+                        if($shop->get_availability()->is_out_of_stock() && $this->should_update_price($update_interval)) {
                             $shop->set_price(null);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
@@ -333,5 +334,81 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
         }
 
         return $price;
+    }
+
+    /**
+     * Check if we have to update the availability.
+     *
+     * @since 0.7
+     * @param string $update_interval
+     * @return bool
+     */
+    protected function should_update_availability($update_interval)
+    {
+        $availability_update_interval = carbon_get_theme_option(Amazon_Options::AVAILABILITY_UPDATE_INTERVAL);
+        if(empty($availability_update_interval) || $availability_update_interval === 'none') {
+            return false;
+        }
+
+        $should_update = $availability_update_interval === $update_interval;
+
+        return $should_update;
+    }
+
+    /**
+     * Check if we have to update the price.
+     *
+     * @since 0.7
+     * @param string $update_interval
+     * @return bool
+     */
+    protected function should_update_price($update_interval)
+    {
+        $price_update_interval = carbon_get_theme_option(Amazon_Options::PRICE_UPDATE_INTERVAL);
+        if(empty($price_update_interval) || $price_update_interval === 'none') {
+            return false;
+        }
+
+        $should_update = $price_update_interval === $update_interval;
+
+        return $should_update;
+    }
+
+    /**
+     * Check if we have to update the rating.
+     *
+     * @since 0.7
+     * @param string $update_interval
+     * @return bool
+     */
+    protected function should_update_rating($update_interval)
+    {
+        $rating_update_interval = carbon_get_theme_option(Amazon_Options::RATING_UPDATE_INTERVAL);
+        if(empty($rating_update_interval) || $rating_update_interval === 'none') {
+            return false;
+        }
+
+        $should_update = $rating_update_interval === $update_interval;
+
+        return $should_update;
+    }
+
+    /**
+     * Check if we have to update the votes.
+     *
+     * @since 0.7
+     * @param string $update_interval
+     * @return bool
+     */
+    protected function should_update_votes($update_interval)
+    {
+        $votes_update_interval = carbon_get_theme_option(Amazon_Options::VOTES_UPDATE_INTERVAL);
+        if(empty($votes_update_interval) || $votes_update_interval === 'none') {
+            return false;
+        }
+
+        $should_update = $votes_update_interval === $update_interval;
+
+        return $should_update;
     }
 }

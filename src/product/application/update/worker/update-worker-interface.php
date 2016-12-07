@@ -38,6 +38,7 @@ interface Update_Worker_Interface
      *
      * @since 0.7
      * @param Update_Task_Interface[] $update_tasks
+     * @param string $update_interval
      */
-    public function execute($update_tasks);
+    public function execute($update_tasks, $update_interval);
 }
