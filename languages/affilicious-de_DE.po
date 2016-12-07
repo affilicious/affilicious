@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-12-07 17:12+0100\n"
+"POT-Creation-Date: 2016-12-07 17:25+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -692,9 +692,11 @@ msgstr "Affiliate ID"
 
 #: src/product/application/setup/product-setup.php:386
 msgid ""
-"Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc."
+"Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
+"automatic shop update."
 msgstr ""
-"Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, usw."
+"Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw., die für "
+"die automatische Aktualisierung benutzt wird."
 
 #: src/product/application/setup/product-setup.php:387
 msgid "Currency"
@@ -989,6 +991,13 @@ msgstr ""
 #: src/shop/presentation/setup/table-column-setup.php:36
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid ""
+#~ "Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, "
+#~ "etc."
+#~ msgstr ""
+#~ "Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, "
+#~ "usw."
 
 #~ msgid "Updated at %s"
 #~ msgstr "Aktualisert am %s Uhr"

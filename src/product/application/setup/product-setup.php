@@ -383,7 +383,7 @@ class Product_Setup implements Setup_Interface
                 Carbon_Field::make('text', Carbon_Product_Repository::SHOP_AFFILIATE_LINK, __('Affiliate Link', 'affilicious'))
                     ->set_required(true),
                 Carbon_Field::make('text', Carbon_Product_Repository::SHOP_AFFILIATE_ID, __('Affiliate ID', 'affilicious'))
-                    ->set_help_text(__('Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, etc.', 'affilicious')),
+                    ->set_help_text(__('Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the automatic shop update.', 'affilicious')),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)
                     ->add_options(array(
