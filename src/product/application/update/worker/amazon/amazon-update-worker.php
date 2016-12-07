@@ -69,8 +69,16 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
         }
 
         $response = $this->item_lookups($provider, $affiliate_ids);
-        $result = $this->map_item_to_affiliate_id($response);
-        $this->map_result_to_products($result, $products);
+        if(empty($response)) {
+            return;
+        }
+
+        $results = $this->map_response_to_results($response);
+        if(count($results) == 0) {
+            return;
+        }
+
+        $this->apply_results_to_products($results, $products);
     }
 
     /**
@@ -164,11 +172,13 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
     }
 
     /**
+     * Map the Amazon Item Lookup Response to the update results.
+     *
      * @since 0.7
      * @param array $response
      * @return array
      */
-    protected function map_item_to_affiliate_id($response)
+    protected function map_response_to_results($response)
     {
         $result = array();
 
@@ -185,11 +195,13 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
     }
 
     /**
+     * Apply the results to the products.
+     *
      * @since 0.7
      * @param array $results
      * @param Shop_Aware_Product_Interface[] $products
      */
-    protected function map_result_to_products($results, $products)
+    protected function apply_results_to_products($results, $products)
     {
         foreach ($results as $result) {
             /** @var Affiliate_Id $affiliate_id */
