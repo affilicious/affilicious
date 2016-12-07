@@ -695,8 +695,8 @@ msgid ""
 "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
 "automatic shop update."
 msgstr ""
-"Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw., die für "
-"die automatische Aktualisierung benutzt wird."
+"Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
+"automatische Shop Aktualisierung."
 
 #: src/product/application/setup/product-setup.php:387
 msgid "Currency"
