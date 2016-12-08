@@ -5,9 +5,12 @@ use Affilicious\Product\Application\Update\Configuration\Configuration_Context;
 use Affilicious\Product\Application\Update\Configuration\Configuration_Resolver;
 use Affilicious\Product\Application\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Application\Update\Queue\Update_Queue_Interface;
+use Affilicious\Product\Application\Update\Task\Batch_Update_Task;
+use Affilicious\Product\Application\Update\Task\Batch_Update_Task_Interface;
 use Affilicious\Product\Application\Update\Task\Update_Task;
 use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Application\Update\Worker\Update_Worker_Interface;
+use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Repository_Interface;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
@@ -110,13 +113,13 @@ class Update_Manager implements Update_Manager_Interface
                 continue;
             }
 
-            $update_tasks = $this->get_update_tasks($worker, $queue, $update_interval);
-            if(count($update_tasks) == 0) {
+            $batch_update_task = $this->get_batch_update_task($worker, $queue, $update_interval);
+            if($batch_update_task === null) {
                 continue;
             }
 
-            $worker->execute($update_tasks, $update_interval);
-            $this->store_update_tasks($update_tasks);
+            $worker->execute($batch_update_task, $update_interval);
+            $this->store_batch_update_task($batch_update_task);
         }
     }
 
@@ -128,13 +131,19 @@ class Update_Manager implements Update_Manager_Interface
     public function prepare_tasks()
     {
         $products = $this->product_repository->find_all();
-        if(count($products) == 0) {
-            return;
-        }
-
         foreach ($products as $product) {
             if($product instanceof Shop_Aware_Product_Interface) {
                 $shops = $product->get_shops();
+                foreach ($shops as $shop) {
+                    $this->mediate_product($product, $shop);
+                }
+            } elseif ($product instanceof Complex_Product_Interface) {
+                $default_variant = $product->get_default_variant();
+                if($default_variant === null) {
+                    continue;
+                }
+
+                $shops = $default_variant->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
                 }
@@ -152,11 +161,11 @@ class Update_Manager implements Update_Manager_Interface
     protected function mediate_product(Product_Interface $product, Shop_Interface $shop)
     {
         $template = $shop->get_template();
-        if(!$template->has_provider()) {
+        $provider = $template->get_provider();
+        if($provider === null) {
             return;
         }
 
-        $provider = $template->get_provider();
         $update_task = new Update_Task($provider, $product);
         $this->mediator->mediate($update_task);
     }
@@ -182,37 +191,45 @@ class Update_Manager implements Update_Manager_Interface
     }
 
     /**
-     * Store all products of the update tasks.
-     *
-     * @since 0.7
-     * @param Update_Task_Interface[] $update_tasks
-     */
-    protected function store_update_tasks($update_tasks)
-    {
-        $products = array();
-        foreach ($update_tasks as $update_task) {
-            $products[] = $update_task->get_product();
-        }
-
-        $this->product_repository->store_all($products);
-    }
-
-    /**
      * Find the update tasks for the worker and queue.
      *
      * @since 0.7
      * @param Update_Worker_Interface $worker
      * @param Update_Queue_Interface $queue
      * @param string $update_interval
-     * @return Update_Task_Interface[]
+     * @return null|Batch_Update_Task_Interface
      */
-    protected function get_update_tasks(Update_Worker_Interface $worker, Update_Queue_Interface $queue, $update_interval)
+    protected function get_batch_update_task(Update_Worker_Interface $worker, Update_Queue_Interface $queue, $update_interval)
     {
         $config = $worker->configure();
         $config_context = new Configuration_Context(array('update_interval' => $update_interval));
         $config_resolver = new Configuration_Resolver($config_context);
-        $update_tasks = $config_resolver->resolve($config, $queue);
 
-        return $update_tasks;
+        /** @var Update_Task_Interface[] $update_tasks */
+        $update_tasks = $config_resolver->resolve($config, $queue);
+        if(empty($update_tasks)) {
+            return null;
+        }
+
+        $provider = $update_tasks[0]->get_provider();
+        $batch_update_task = new Batch_Update_Task($provider);
+        foreach ($update_tasks as $update_task) {
+            $product = $update_task->get_product();
+            $batch_update_task->add_product($product);
+        }
+
+        return $batch_update_task;
+    }
+
+    /**
+     * Store all products of the update tasks.
+     *
+     * @since 0.7
+     * @param Batch_Update_Task_Interface $batch_update_task
+     */
+    protected function store_batch_update_task(Batch_Update_Task_Interface $batch_update_task)
+    {
+        $products = $batch_update_task->get_products();
+        $this->product_repository->store_all($products);
     }
 }

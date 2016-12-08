@@ -3,7 +3,7 @@ namespace Affilicious\Product\Application\Update\Worker;
 
 use Affilicious\Common\Domain\Model\Name;
 use Affilicious\Product\Application\Update\Configuration\Configuration_Interface;
-use Affilicious\Product\Application\Update\Task\Update_Task_Interface;
+use Affilicious\Product\Application\Update\Task\Batch_Update_Task_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -37,8 +37,8 @@ interface Update_Worker_Interface
      * Execute the update tasks.
      *
      * @since 0.7
-     * @param Update_Task_Interface[] $update_tasks
+     * @param Batch_Update_Task_Interface $batch_update_task
      * @param string $update_interval
      */
-    public function execute($update_tasks, $update_interval);
+    public function execute(Batch_Update_Task_Interface $batch_update_task, $update_interval);
 }

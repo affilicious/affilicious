@@ -2,7 +2,10 @@
 namespace Affilicious\Product\Application\Update\Worker\Amazon;
 
 use Affilicious\Product\Application\Update\Configuration\Configuration;
+use Affilicious\Product\Application\Update\Task\Batch_Update_Task_Interface;
 use Affilicious\Product\Application\Update\Worker\Abstract_Update_Worker;
+use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
+use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 use Affilicious\Shop\Application\Options\Amazon_Options;
 use Affilicious\Shop\Domain\Model\Affiliate_Id;
@@ -47,25 +50,20 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      * @inheritdoc
      * @since 0.7
      */
-    public function execute($update_tasks, $update_interval)
+    public function execute(Batch_Update_Task_Interface $batch_update_task, $update_interval)
     {
-        if(count($update_tasks) == 0) {
-            return;
-        }
-
-        $provider = $update_tasks[0]->get_provider();
+        $provider = $batch_update_task->get_provider();
         if(!($provider instanceof Amazon_Provider_Interface)) {
             return;
         }
 
-        $products = array();
-        foreach ($update_tasks as $update_task) {
-            $product = $update_task->get_product();
-            $products[] = $product;
+        $products = $batch_update_task->get_products();
+        if(empty($products)) {
+            return;
         }
 
         $affiliate_ids = $this->extract_affiliate_ids($products, self::MAX_UPDATES);
-        if(count($affiliate_ids) == 0) {
+        if(empty($affiliate_ids)) {
             return;
         }
 
@@ -75,7 +73,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
         }
 
         $results = $this->map_response_to_results($response);
-        if(count($results) == 0) {
+        if(empty($results)) {
             return;
         }
 
@@ -86,7 +84,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      * Extract the given number of affiliate IDs from the products.
      *
      * @since 0.7
-     * @param Shop_Aware_Product_Interface[] $products
+     * @param Product_Interface[] $products
      * @param int $limit
      * @return Affiliate_Id[]
      */
@@ -96,7 +94,14 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
 
         $affiliate_ids = array();
         foreach ($products as $product) {
-            $shops = $product->get_shops();
+
+            if($product instanceof Complex_Product_Interface) {
+                $shops = $product->get_default_variant()->get_shops();
+            } elseif($product instanceof Shop_Aware_Product_Interface) {
+                $shops = $product->get_shops();
+            } else {
+                continue;
+            }
 
             foreach ($shops as $shop) {
                 if($current == $limit) {
@@ -119,13 +124,13 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
                 }
 
                 if($provider->get_name()->get_value() === self::PROVIDER) {
-                    $affiliate_ids[] = $affiliate_id;
+                    $affiliate_ids[$affiliate_id->get_value()] = $affiliate_id;
                     $current++;
                 }
             }
         }
 
-        return $affiliate_ids;
+        return array_values($affiliate_ids);
     }
 
     /**
@@ -200,7 +205,8 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      *
      * @since 0.7
      * @param array $results
-     * @param Shop_Aware_Product_Interface[] $products
+     * @param Product_Interface[] $products
+     * @param string $update_interval
      */
     protected function apply_results_to_products($results, $products, $update_interval)
     {
@@ -212,8 +218,12 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
             }
 
             foreach ($products as $product) {
+                if(!($product instanceof Shop_Aware_Product_Interface)) {
+                    continue;
+                }
+
                 $shops = $product->get_shops();
-                if(count($shops) == 0) {
+                if(empty($shops)) {
                     continue;
                 }
 

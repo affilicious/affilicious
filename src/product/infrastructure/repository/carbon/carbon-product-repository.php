@@ -159,11 +159,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $this->store_thumbnail($product);
 
-        if(!($product instanceof Complex_Product_Interface)) {
+        if($product instanceof Shop_Aware_Product_Interface) {
             $this->store_shops($product, self::SHOPS);
         }
 
-        if(!($product instanceof Product_Variant_Interface)) {
+        if($product instanceof Review_Aware_Product_Interface) {
             $this->store_review($product);
         }
 
