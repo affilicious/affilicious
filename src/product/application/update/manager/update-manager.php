@@ -14,6 +14,7 @@ use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Product_Repository_Interface;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
+use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
 use Affilicious\Shop\Domain\Model\Shop_Interface;
 
 if(!defined('ABSPATH')) {
@@ -131,8 +132,9 @@ class Update_Manager implements Update_Manager_Interface
     public function prepare_tasks()
     {
         $products = $this->product_repository->find_all();
+
         foreach ($products as $product) {
-            if($product instanceof Shop_Aware_Product_Interface) {
+            if($product instanceof Shop_Aware_Product_Interface && !($product instanceof Product_Variant_Interface)) {
                 $shops = $product->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
@@ -143,9 +145,19 @@ class Update_Manager implements Update_Manager_Interface
                     continue;
                 }
 
+                // Mediate the complex product
                 $shops = $default_variant->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
+                }
+
+                // Mediate the product variants
+                $variants = $product->get_variants();
+                foreach ($variants as $variant) {
+                    $shops = $variant->get_shops();
+                    foreach ($shops as $shop) {
+                        $this->mediate_product($variant, $shop);
+                    }
                 }
             }
         }
