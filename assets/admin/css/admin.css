@@ -155,15 +155,15 @@
     #product_images_container ul li:hover ul.actions {
       display: block; }
 
-.post-type-shop .wp-list-table .column-title {
+.post-type-aff_shop_template .wp-list-table .column-title {
   width: 30%; }
 
-.post-type-shop .wp-list-table .column-logo {
-  width: 10%; }
-  .post-type-shop .wp-list-table .column-logo img {
-    width: 80px;
+.post-type-aff_shop_template .wp-list-table .column-logo {
+  width: 15%; }
+  .post-type-aff_shop_template .wp-list-table .column-logo img {
+    width: 100px;
     height: auto; }
 
-.post-type-shop .wp-list-table .column-date {
-  width: 10%; }
+.post-type-aff_shop_template .wp-list-table .column-date {
+  width: 15%; }
 

@@ -1,6 +1,6 @@
 @import "variables";
 
-.post-type-shop {
+.post-type-aff_shop_template {
   .wp-list-table {
     .column {
       &-title {
@@ -10,7 +10,7 @@
         width: $shop-column-logo-width;
 
         img {
-          width: $shop-column-logo-thumbail-width;
+          width: $shop-column-logo-thumbnail-width;
           height: auto;
         }
       }
