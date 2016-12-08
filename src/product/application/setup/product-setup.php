@@ -3,6 +3,7 @@ namespace Affilicious\Product\Application\Setup;
 
 use Affilicious\Attribute\Domain\Model\Attribute_Template_Group;
 use Affilicious\Attribute\Domain\Model\Attribute_Template_Group_Repository_Interface;
+use Affilicious\Common\Application\Helper\View_Helper;
 use Affilicious\Common\Application\Setup\Setup_Interface;
 use Affilicious\Detail\Domain\Model\Detail_Template_Group_Repository_Interface;
 use Affilicious\Product\Domain\Model\Product_Interface;
@@ -168,12 +169,24 @@ class Product_Setup implements Setup_Interface
      */
     private function get_variants_fields()
     {
-        $fields = array(
-            $this->get_attribute_group_choices(
+        $fields = array();
+
+        $attribute_template_groups = $this->attribute_template_group_repository->find_all();
+        if(empty($attribute_template_groups)) {
+            $notice = View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
+                'message' => __('<b>No Attribute Group Templates available!</b> Please create an attribute group template.', 'affilicious')
+            ));
+
+            $fields[] = Carbon_Field::make('html', 'affilicious_product_no_attributes')
+                ->set_html($notice);
+
+            return $fields;
+        }
+
+        $fields[] = $this->get_attribute_group_choices(
                 Carbon_Product_Repository::ATTRIBUTE_GROUP_KEY,
                 __('Attribute Group', 'affilicious')
-            ),
-        );
+            );
 
         $variantComplexFields = $this->get_variants_complex_fields(
             Carbon_Product_Repository::VARIANTS,
@@ -198,7 +211,6 @@ class Product_Setup implements Setup_Interface
     private function get_variants_complex_fields($name, $label = null)
     {
         $attribute_template_groups = $this->attribute_template_group_repository->find_all();
-
         if(empty($attribute_template_groups)) {
             return null;
         }
@@ -267,12 +279,19 @@ class Product_Setup implements Setup_Interface
      */
     private function get_shops_fields()
     {
-        $fields = array(
-            $this->get_shop_tabs(
-                Carbon_Product_Repository::SHOPS,
-                __('Shops', 'affilicious')
-            ),
-        );
+        $fields = array();
+
+        $tabs = $this->get_shop_tabs(Carbon_Product_Repository::SHOPS, __('Shops', 'affilicious'));
+        if(!empty($tabs)) {
+            $fields[] = $tabs;
+        } else {
+            $notice = $notice = View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
+                'message' => __('<b>No Shop Templates available!</b> Please create a shop template.', 'affilicious')
+            ));
+
+            $fields[] = Carbon_Field::make('html', 'affilicious_product_no_shops')
+                ->set_html($notice);
+        }
 
         return apply_filters('affilicious_product_render_affilicious_product_container_shops_fields', $fields, $this->post_id);
     }
@@ -285,12 +304,19 @@ class Product_Setup implements Setup_Interface
      */
     private function get_details_fields()
     {
-        $fields = array(
-            $this->get_detail_group_tabs(
-                Carbon_Product_Repository::DETAIL_GROUPS,
-                __('Detail Groups', 'affilicious')
-            )
-        );
+        $fields = array();
+
+        $tabs = $this->get_detail_group_tabs(Carbon_Product_Repository::DETAIL_GROUPS, __('Detail Groups', 'affilicious'));
+        if(!empty($tabs)) {
+            $fields[] = $tabs;
+        } else {
+            $notice = $notice = View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
+                'message' => __('<b>No Detail Group Templates available!</b> Please create a detail group template.', 'affilicious')
+            ));
+
+            $fields[] = Carbon_Field::make('html', 'affilicious_product_no_details')
+                ->set_html($notice);
+        }
 
         return apply_filters('affilicious_product_render_affilicious_product_container_details_fields', $fields, $this->post_id);
     }
@@ -365,6 +391,9 @@ class Product_Setup implements Setup_Interface
     private function get_shop_tabs($name, $label = null)
     {
         $shop_templates = $this->shop_template_repository->find_all();
+        if(empty($shop_templates)) {
+            return null;
+        }
 
         /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
@@ -491,6 +520,9 @@ class Product_Setup implements Setup_Interface
     private function get_detail_group_tabs($name, $label = null)
     {
         $detail_template_groups = $this->detail_template_group_repository->find_all();
+        if(empty($shop_templates)) {
+            return null;
+        }
 
         /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
