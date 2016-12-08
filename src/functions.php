@@ -1105,3 +1105,23 @@ function aff_is_shop_available($shop)
 {
     return isset($shop['availability']) && $shop['availability'] === Availability::AVAILABLE;
 }
+
+/**
+ * Check if the shop should display the old price.
+ * This is important if the price is greater than the old price.
+ *
+ * @since 0.7
+ * @param array $shop
+ * @return bool
+ */
+function aff_should_shop_display_old_price($shop)
+{
+    if(!isset($shop['price']['value']) || !isset($shop['old_price']['value'])) {
+        return false;
+    }
+
+    $price = floatval($shop['price']['value']);
+    $old_price = floatval($shop['old_price']['value']);
+
+    return $old_price > $price;
+}
