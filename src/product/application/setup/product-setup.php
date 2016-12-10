@@ -310,7 +310,7 @@ class Product_Setup implements Setup_Interface
         if(!empty($tabs)) {
             $fields[] = $tabs;
         } else {
-            $notice = $notice = View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
+            $notice =  View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
                 'message' => __('<b>No Detail Group Templates available!</b> Please create a detail group template.', 'affilicious')
             ));
 
@@ -520,7 +520,7 @@ class Product_Setup implements Setup_Interface
     private function get_detail_group_tabs($name, $label = null)
     {
         $detail_template_groups = $this->detail_template_group_repository->find_all();
-        if(empty($shop_templates)) {
+        if(empty($detail_template_groups)) {
             return null;
         }
 
