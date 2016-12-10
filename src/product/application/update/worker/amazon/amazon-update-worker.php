@@ -383,42 +383,4 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
 
         return $should_update;
     }
-
-    /**
-     * Check if we have to update the rating.
-     *
-     * @since 0.7
-     * @param string $update_interval
-     * @return bool
-     */
-    protected function should_update_rating($update_interval)
-    {
-        $rating_update_interval = carbon_get_theme_option(Amazon_Options::RATING_UPDATE_INTERVAL);
-        if(empty($rating_update_interval) || $rating_update_interval === 'none') {
-            return false;
-        }
-
-        $should_update = $rating_update_interval === $update_interval;
-
-        return $should_update;
-    }
-
-    /**
-     * Check if we have to update the votes.
-     *
-     * @since 0.7
-     * @param string $update_interval
-     * @return bool
-     */
-    protected function should_update_votes($update_interval)
-    {
-        $votes_update_interval = carbon_get_theme_option(Amazon_Options::VOTES_UPDATE_INTERVAL);
-        if(empty($votes_update_interval) || $votes_update_interval === 'none') {
-            return false;
-        }
-
-        $should_update = $votes_update_interval === $update_interval;
-
-        return $should_update;
-    }
 }

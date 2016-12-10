@@ -93,7 +93,7 @@ class Amazon_Options
                 ))
                 ->set_help_text(__('The automatic update interval for the availability in the shops.', 'affilicious'))
                 ->set_required(true),
-            Carbon_Field::make('select', self::RATING_UPDATE_INTERVAL, __('Rating Update Interval', 'affilicious'))
+            /*Carbon_Field::make('select', self::RATING_UPDATE_INTERVAL, __('Rating Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
                     'twicedaily' => __('Twice Daily', 'affilicious'),
@@ -110,7 +110,7 @@ class Amazon_Options
                     'none' => __('No Updates', 'affilicious'),
                 ))
                 ->set_help_text(__('The automatic update interval for the votes in the reviews.', 'affilicious'))
-                ->set_required(true),
+                ->set_required(true),*/
         ));
 
         $container = Carbon_Container::make('theme_options', __('Amazon', 'affilicious'))
