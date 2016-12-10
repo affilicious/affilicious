@@ -194,9 +194,9 @@ class Attribute_Template_Group extends Abstract_Entity implements Update_Aware_I
      */
     public function add_attribute_template(Attribute_Template $attribute_template)
     {
-        if($this->has_attribute_template($attribute_template->get_name())) {
+        /*if($this->has_attribute_template($attribute_template->get_name())) {
             throw new Duplicated_Attribute_Template_Exception($attribute_template, $this);
-        }
+        }*/
 
         $this->attribute_templates[$attribute_template->get_name()->get_value()] = $attribute_template;
     }

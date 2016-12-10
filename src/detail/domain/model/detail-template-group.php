@@ -190,13 +190,12 @@ class Detail_Template_Group extends Abstract_Entity implements Update_Aware_Inte
      *
      * @since 0.6
      * @param Detail_Template $detail_template
-     * @throws Duplicated_Detail_Template_Exception
      */
     public function add_detail_template(Detail_Template $detail_template)
     {
-        if($this->has_detail_template($detail_template->get_name())) {
+        /*if($this->has_detail_template($detail_template->get_name())) {
             throw new Duplicated_Detail_Template_Exception($detail_template, $this);
-        }
+        }*/
 
         $this->detail_templates[$detail_template->get_key()->get_value()] = $detail_template;
     }
