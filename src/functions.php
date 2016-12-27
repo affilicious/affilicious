@@ -193,6 +193,32 @@ function aff_get_product_image_gallery($product_or_id = null)
 }
 
 /**
+ * Count the shops of the product.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return int
+ */
+function aff_count_product_shops($product_or_id = null)
+{
+    return count(aff_get_product_shops($product_or_id));
+}
+
+/**
+ * Check if the product has any shops.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return bool
+ */
+function aff_has_product_shops($product_or_id = null)
+{
+    return aff_count_product_shops($product_or_id) > 0;
+}
+
+/**
  * Get the shops by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
@@ -300,6 +326,25 @@ function aff_get_product_related_products_query($product_or_id = null, $args = a
     $options = wp_parse_args($args, array(
         'post_type' => Product_Interface::POST_TYPE,
         'post__in' => $related_product_ids,
+        'order_by' => 'ASC',
+    ));
+
+    $query = new \WP_Query($options);
+
+    return $query;
+}
+
+/**
+ * Get the query for the products.
+ *
+ * @since 0.7.1
+ * @param array $args
+ * @return WP_Query
+ */
+function aff_get_products_query($args = array())
+{
+    $options = wp_parse_args($args, array(
+        'post_type' => Product_Interface::POST_TYPE,
         'order_by' => 'ASC',
     ));
 
