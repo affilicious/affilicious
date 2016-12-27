@@ -21,7 +21,7 @@ if(!defined('ABSPATH')) {
 
 class Carbon_Attribute_Template_Group_Repository extends Abstract_Carbon_Repository implements Attribute_Template_Group_Repository_Interface
 {
-    const ATTRIBUTES = 'affilicious_attribute_group_attributes';
+    const ATTRIBUTES = '_affilicious_attribute_group_attributes';
     const ATTRIBUTE_TITLE = 'title';
     const ATTRIBUTE_TYPE = 'type';
     const ATTRIBUTE_UNIT = 'unit';

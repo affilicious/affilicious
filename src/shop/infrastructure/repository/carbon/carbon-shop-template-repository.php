@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 
 class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository implements Shop_Template_Repository_Interface
 {
-    const PROVIDER = 'affilicious_shop_template_provider';
+    const PROVIDER = '_affilicious_shop_template_provider';
 
     /**
      * @var Provider_Repository_Interface

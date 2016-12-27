@@ -51,10 +51,10 @@ if(!defined('ABSPATH')) {
 
 class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Product_Repository_Interface
 {
-    const TYPE = 'affilicious_product_type';
+    const TYPE = '_affilicious_product_type';
     const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
-    const SHOPS = 'affilicious_product_shops';
+    const SHOPS = '_affilicious_product_shops';
     const SHOP_TEMPLATE_ID = 'shop_template_id';
     const SHOP_PRICE = 'price';
     const SHOP_OLD_PRICE = 'old_price';
@@ -64,15 +64,15 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
     const SHOP_UPDATED_AT = 'updated_at';
 
-    const DETAIL_GROUPS = 'affilicious_product_detail_groups';
-    const DETAIL_TEMPLATE_GROUP_ID = 'affilicious_product_detail_template_group_id';
+    const DETAIL_GROUPS = '_affilicious_product_detail_groups';
+    const DETAIL_TEMPLATE_GROUP_ID = '_affilicious_product_detail_template_group_id';
 
-    const ATTRIBUTE_GROUP_KEY = 'affilicious_product_attribute_group_key';
-    const ATTRIBUTE_GROUPS = 'affilicious_product_attribute_groups';
+    const ATTRIBUTE_GROUP_KEY = '_affilicious_product_attribute_group_key';
+    const ATTRIBUTE_GROUPS = '_affilicious_product_attribute_groups';
     const ATTRIBUTE_GROUP_TEMPLATE_ID = 'template_id';
     const ATTRIBUTE_GROUP_ATTRIBUTE = 'attribute';
 
-    const VARIANTS = 'affilicious_product_variants';
+    const VARIANTS = '_affilicious_product_variants';
     const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
@@ -81,11 +81,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const VARIANT_THUMBNAIL = 'thumbnail';
     const VARIANT_SHOPS = 'shops';
 
-    const REVIEW_RATING = 'affilicious_product_review_rating';
-    const REVIEW_VOTES = 'affilicious_product_review_votes';
+    const REVIEW_RATING = '_affilicious_product_review_rating';
+    const REVIEW_VOTES = '_affilicious_product_review_votes';
 
-    const RELATED_PRODUCTS = 'affilicious_product_related_products';
-    const RELATED_ACCESSORIES = 'affilicious_product_related_accessories';
+    const RELATED_PRODUCTS = '_affilicious_product_related_products';
+    const RELATED_ACCESSORIES = '_affilicious_product_related_accessories';
 
     // TODO: Remove the legacy support in the beta
     const SHOP_ID = 'shop_id';
