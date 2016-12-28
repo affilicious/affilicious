@@ -65,7 +65,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const SHOP_UPDATED_AT = 'updated_at';
 
     const DETAIL_GROUPS = '_affilicious_product_detail_groups';
-    const DETAIL_TEMPLATE_GROUP_ID = '_affilicious_product_detail_template_group_id';
+    const DETAIL_TEMPLATE_GROUP_ID = 'detail_template_group_id';
 
     const ATTRIBUTE_GROUP_KEY = '_affilicious_product_attribute_group_key';
     const ATTRIBUTE_GROUPS = '_affilicious_product_attribute_groups';
@@ -820,6 +820,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         // TODO: Remove the legacy support in the beta
         if(empty($detail_template_group_id)) {
             $detail_template_group_id = !empty($raw_detail_group[self::DETAIL_GROUP_ID]) ? intval($raw_detail_group[self::DETAIL_GROUP_ID]) : null;
+        }
+
+        if(empty($detail_template_group_id)) {
+            $detail_template_group_id = !empty($raw_detail_group['affilicious_product_detail_template_group_id']) ? intval($raw_detail_group['affilicious_product_detail_template_group_id']) : null;
         }
 
         if (empty($detail_template_group_id)) {
