@@ -44,9 +44,9 @@ function aff_is_product_page()
  */
 function aff_is_product($product_or_id = null)
 {
-    $product = Product_Helper::get_product($product_or_id);
+    $result = Product_Helper::is_product($product_or_id);
 
-    return $product !== null;
+    return $result;
 }
 
 /**
