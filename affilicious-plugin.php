@@ -37,7 +37,7 @@ if(!defined('ABSPATH')) {
 define('AFFILICIOUS_PLUGIN_ROOT_DIR', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_PLUGIN_BASE_NAME', plugin_basename(__FILE__));
 
-class Affilicious_Plugin
+final class Affilicious_Plugin
 {
     const PLUGIN_NAME = 'affilicious';
     const PLUGIN_VERSION = '0.7';
