@@ -18,6 +18,7 @@ use Affilicious\Product\Domain\Model\Relation_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
 use Affilicious\Shop\Domain\Model\Availability;
+use Affilicious\Common\Application\Helper\Time_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -249,7 +250,7 @@ function aff_get_product_shops($product_or_id = null)
             'affiliate_link' => $shop->get_affiliate_link()->get_value(),
             'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
             'availability' => $shop->get_availability()->get_value(),
-            'updated_at' => date(__('Y-m-d H:i', 'affilicious'), $shop->get_updated_at()->getTimestamp()),
+            'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
             'thumbnail' => !$shop->has_thumbnail() ? null : array(
                 'id' => $shop->get_thumbnail()->get_id()->get_value(),
                 'src' => $shop->get_thumbnail()->get_source()->get_value(),
@@ -464,7 +465,7 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
         'affiliate_link' => $shop->get_affiliate_link()->get_value(),
         'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
         'availability' => $shop->get_availability()->get_value(),
-        'updated_at' => date(__('Y-m-d H:i', 'affilicious'), $shop->get_updated_at()->getTimestamp()),
+        'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
         'thumbnail' => !$shop->has_thumbnail() ? null : array(
             'id' => $shop->get_thumbnail()->get_id()->get_value(),
             'src' => $shop->get_thumbnail()->get_source()->get_value(),
@@ -518,7 +519,7 @@ function aff_get_product_cheapest_shop($product_or_id = null)
         'affiliate_link' => $shop->get_affiliate_link()->get_value(),
         'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
         'availability' => $shop->get_availability()->get_value(),
-        'updated_at' => date(__('Y-m-d H:i', 'affilicious'), $shop->get_updated_at()->getTimestamp()),
+        'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
         'thumbnail' => !$shop->has_thumbnail() ? null : array(
             'id' => $shop->get_thumbnail()->get_id()->get_value(),
             'src' => $shop->get_thumbnail()->get_source()->get_value(),
@@ -1120,7 +1121,7 @@ function aff_get_shop_updated_at_indication($shop)
 {
     if(!empty($shop['updated_at'])) {
         return sprintf(
-            __('Updated at %s.', 'affilicious'),
+            __('Last updated: %s.', 'affilicious'),
             $shop['updated_at']
         );
     }

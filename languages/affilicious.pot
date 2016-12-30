@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2016-12-08 "
-"15:59+0100\n"
+"POT-Creation-Date: 2016-12-30 "
+"17:56+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: affilicious-plugin.php:229
+#: affilicious-plugin.php:221
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -386,21 +386,15 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: src/functions.php:226
-#: src/functions.php:422
-#: src/functions.php:476
-msgid "Y-m-d H:i"
-msgstr ""
-
-#: src/functions.php:1054
+#: src/functions.php:1100
 msgid ""
 "Incl. 19 % VAT and excl. "
 "shipping costs."
 msgstr ""
 
-#: src/functions.php:1078
+#: src/functions.php:1124
 #, php-format
-msgid "Updated at %s."
+msgid "Last updated: %s."
 msgstr ""
 
 #: src/product/application/options/product-options.php:22
@@ -875,29 +869,21 @@ msgstr ""
 
 #: src/shop/application/options/amazon-options.php:80
 #: src/shop/application/options/amazon-options.php:89
-#: src/shop/application/options/amazon-options.php:98
-#: src/shop/application/options/amazon-options.php:107
 msgid "Hourly"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:81
 #: src/shop/application/options/amazon-options.php:90
-#: src/shop/application/options/amazon-options.php:99
-#: src/shop/application/options/amazon-options.php:108
 msgid "Twice Daily"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:82
 #: src/shop/application/options/amazon-options.php:91
-#: src/shop/application/options/amazon-options.php:100
-#: src/shop/application/options/amazon-options.php:109
 msgid "Daily"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:83
 #: src/shop/application/options/amazon-options.php:92
-#: src/shop/application/options/amazon-options.php:101
-#: src/shop/application/options/amazon-options.php:110
 msgid "No Updates"
 msgstr ""
 
@@ -917,26 +903,6 @@ msgid ""
 "The automatic update interval "
 "for the availability in the "
 "shops."
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:96
-msgid "Rating Update Interval"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:103
-msgid ""
-"The automatic update interval "
-"for the ratings in the reviews."
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:105
-msgid "Votes Update Interval"
-msgstr ""
-
-#: src/shop/application/options/amazon-options.php:112
-msgid ""
-"The automatic update interval "
-"for the votes in the reviews."
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:116

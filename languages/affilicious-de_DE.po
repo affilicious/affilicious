@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-12-08 15:59+0100\n"
+"POT-Creation-Date: 2016-12-30 17:56+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -50,7 +50,7 @@ msgstr "Du hast nicht die Berechtigung um Plugin-Updates zu installieren."
 msgid "Error"
 msgstr "Fehler"
 
-#: affilicious-plugin.php:229
+#: affilicious-plugin.php:221
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
@@ -364,18 +364,14 @@ msgstr "Detail-Vorlagen"
 msgid "File"
 msgstr "Datei"
 
-#: src/functions.php:226 src/functions.php:422 src/functions.php:476
-msgid "Y-m-d H:i"
-msgstr "H:i d.m.Y"
-
-#: src/functions.php:1054
+#: src/functions.php:1100
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: src/functions.php:1078
+#: src/functions.php:1124
 #, php-format
-msgid "Updated at %s."
-msgstr "Aktualisiert am %s Uhr."
+msgid "Last updated: %s."
+msgstr "Zuletzt aktualisiert:  %s."
 
 #: src/product/application/options/product-options.php:22
 #: src/product/application/options/product-options.php:35
@@ -840,29 +836,21 @@ msgstr "Preis Aktualisierungsintervall"
 
 #: src/shop/application/options/amazon-options.php:80
 #: src/shop/application/options/amazon-options.php:89
-#: src/shop/application/options/amazon-options.php:98
-#: src/shop/application/options/amazon-options.php:107
 msgid "Hourly"
 msgstr "Stündlich"
 
 #: src/shop/application/options/amazon-options.php:81
 #: src/shop/application/options/amazon-options.php:90
-#: src/shop/application/options/amazon-options.php:99
-#: src/shop/application/options/amazon-options.php:108
 msgid "Twice Daily"
 msgstr "2x Täglich"
 
 #: src/shop/application/options/amazon-options.php:82
 #: src/shop/application/options/amazon-options.php:91
-#: src/shop/application/options/amazon-options.php:100
-#: src/shop/application/options/amazon-options.php:109
 msgid "Daily"
 msgstr "Täglich"
 
 #: src/shop/application/options/amazon-options.php:83
 #: src/shop/application/options/amazon-options.php:92
-#: src/shop/application/options/amazon-options.php:101
-#: src/shop/application/options/amazon-options.php:110
 msgid "No Updates"
 msgstr "Keine Aktualisierungen"
 
@@ -879,24 +867,6 @@ msgid "The automatic update interval for the availability in the shops."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
 "Produkten."
-
-#: src/shop/application/options/amazon-options.php:96
-msgid "Rating Update Interval"
-msgstr "Rating Aktualisierungsintervall"
-
-#: src/shop/application/options/amazon-options.php:103
-msgid "The automatic update interval for the ratings in the reviews."
-msgstr ""
-"Das automatische Aktualisierungsintervall für das Rating in den Bewertungen."
-
-#: src/shop/application/options/amazon-options.php:105
-msgid "Votes Update Interval"
-msgstr "Stimmen Aktualisierungsintervall"
-
-#: src/shop/application/options/amazon-options.php:112
-msgid "The automatic update interval for the votes in the reviews."
-msgstr ""
-"Das automatische Aktualisierungsintervall für das Stimmen in den Bewertungen."
 
 #: src/shop/application/options/amazon-options.php:116
 msgid "Amazon"
@@ -1026,6 +996,28 @@ msgstr ""
 #: src/shop/presentation/setup/table-column-setup.php:36
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid "Y-m-d H:i"
+#~ msgstr "H:i d.m.Y"
+
+#~ msgid "Updated at %s."
+#~ msgstr "Aktualisiert am %s Uhr."
+
+#~ msgid "Rating Update Interval"
+#~ msgstr "Rating Aktualisierungsintervall"
+
+#~ msgid "The automatic update interval for the ratings in the reviews."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für das Rating in den "
+#~ "Bewertungen."
+
+#~ msgid "Votes Update Interval"
+#~ msgstr "Stimmen Aktualisierungsintervall"
+
+#~ msgid "The automatic update interval for the votes in the reviews."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für das Stimmen in den "
+#~ "Bewertungen."
 
 #~ msgid ""
 #~ "Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, "
