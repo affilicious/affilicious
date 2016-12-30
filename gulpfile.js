@@ -31,11 +31,15 @@ var assetPaths = {
     },
 
     admin: {
-        css: [],
+        css: [
+            'assets/vendor/jquery-tags-input/css/jquery.tagsinput.min.css'
+        ],
         sass: [
             'assets/admin/scss/**'
         ],
-        js: [],
+        js: [
+            'assets/vendor/jquery-tags-input/js/jquery.tagsinput.min.js'
+        ],
         es6: [
             'assets/admin/es6/**'
         ],

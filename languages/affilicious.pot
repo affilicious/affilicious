@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2016-12-30 "
-"17:56+0100\n"
+"20:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -169,7 +169,7 @@ msgstr ""
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:77
 #: src/detail/application/setup/detail-template-group-setup.php:77
-#: src/product/application/setup/product-setup.php:236
+#: src/product/application/setup/product-setup.php:238
 msgid "Title"
 msgstr ""
 
@@ -218,9 +218,13 @@ msgstr ""
 
 #: src/common/presentation/setup/asset-setup.php:94
 #: src/product/application/setup/product-setup.php:135
-#: src/product/application/setup/product-setup.php:193
-#: src/product/application/setup/product-setup.php:222
+#: src/product/application/setup/product-setup.php:195
+#: src/product/application/setup/product-setup.php:224
 msgid "Variants"
+msgstr ""
+
+#: src/common/presentation/setup/asset-setup.php:95
+msgid "Add"
 msgstr ""
 
 #: src/common/presentation/setup/feedback-setup.php:22
@@ -595,9 +599,9 @@ msgid "Product Type Description"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:136
-#: src/product/application/setup/product-setup.php:247
-#: src/product/application/setup/product-setup.php:284
-#: src/product/application/setup/product-setup.php:403
+#: src/product/application/setup/product-setup.php:249
+#: src/product/application/setup/product-setup.php:286
+#: src/product/application/setup/product-setup.php:405
 #: src/shop/application/setup/shop-template-setup.php:55
 msgid "Shops"
 msgstr ""
@@ -618,122 +622,132 @@ msgstr ""
 msgid "Complex"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:177
+#: src/product/application/setup/product-setup.php:159
+msgid "Tags"
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:160
+msgid ""
+"Custom product tags like \"test "
+"winner\" or \"best price\"."
+msgstr ""
+
+#: src/product/application/setup/product-setup.php:179
 msgid ""
 "<b>No Attribute Group Templates "
 "available!</b> Please create an "
 "attribute group template."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:188
+#: src/product/application/setup/product-setup.php:190
 msgid "Attribute Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:223
+#: src/product/application/setup/product-setup.php:225
 msgid "Variant"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:235
+#: src/product/application/setup/product-setup.php:237
 msgid "Variant ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:239
+#: src/product/application/setup/product-setup.php:241
 msgid "Default Variant"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:241
+#: src/product/application/setup/product-setup.php:243
 msgid ""
 "This variant will be shown as "
 "default for the parent product."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:246
+#: src/product/application/setup/product-setup.php:248
 msgid "Thumbnail"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:289
+#: src/product/application/setup/product-setup.php:291
 msgid ""
 "<b>No Shop Templates available!</"
 "b> Please create a shop template."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:531
+#: src/product/application/setup/product-setup.php:311
+#: src/product/application/setup/product-setup.php:533
 msgid "Detail Groups"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:314
+#: src/product/application/setup/product-setup.php:316
 msgid ""
 "<b>No Detail Group Templates "
 "available!</b> Please create a "
 "detail group template."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:333
+#: src/product/application/setup/product-setup.php:335
 msgid "Rating"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:335
-#: src/product/application/setup/product-setup.php:455
+#: src/product/application/setup/product-setup.php:337
+#: src/product/application/setup/product-setup.php:457
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:336
-#: src/product/application/setup/product-setup.php:337
+#: src/product/application/setup/product-setup.php:338
 #: src/product/application/setup/product-setup.php:339
-#: src/product/application/setup/product-setup.php:340
 #: src/product/application/setup/product-setup.php:341
 #: src/product/application/setup/product-setup.php:342
 #: src/product/application/setup/product-setup.php:343
 #: src/product/application/setup/product-setup.php:344
 #: src/product/application/setup/product-setup.php:345
 #: src/product/application/setup/product-setup.php:346
+#: src/product/application/setup/product-setup.php:347
+#: src/product/application/setup/product-setup.php:348
 #, php-format
 msgid "%s stars"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:338
+#: src/product/application/setup/product-setup.php:340
 #, php-format
 msgid "%s star"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:348
+#: src/product/application/setup/product-setup.php:350
 msgid "Votes"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:349
+#: src/product/application/setup/product-setup.php:351
 msgid ""
 "If you want to hide the votes, "
 "just leave it empty."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:372
+#: src/product/application/setup/product-setup.php:374
 msgid "Related Products"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:375
+#: src/product/application/setup/product-setup.php:377
 msgid "Related Accessories"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:404
+#: src/product/application/setup/product-setup.php:406
 msgid "Shop"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:409
+#: src/product/application/setup/product-setup.php:411
 msgid "Shop Template ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:412
+#: src/product/application/setup/product-setup.php:414
 msgid "Affiliate Link"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:414
+#: src/product/application/setup/product-setup.php:416
 msgid "Affiliate ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:415
+#: src/product/application/setup/product-setup.php:417
 msgid ""
 "Unique Product ID like Amazon "
 "ASIN, Affilinet ID, Ebay ID, "
@@ -741,51 +755,51 @@ msgid ""
 "update."
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:416
+#: src/product/application/setup/product-setup.php:418
 msgid "Currency"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:419
+#: src/product/application/setup/product-setup.php:421
 msgid "Euro"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:420
+#: src/product/application/setup/product-setup.php:422
 msgid "US-Dollar"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:422
+#: src/product/application/setup/product-setup.php:424
 msgid "Price"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:424
+#: src/product/application/setup/product-setup.php:426
 msgid "Old Price"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:426
+#: src/product/application/setup/product-setup.php:428
 msgid "Availability"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:429
+#: src/product/application/setup/product-setup.php:431
 msgid "Available"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:430
+#: src/product/application/setup/product-setup.php:432
 msgid "Out Of Stock"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:432
+#: src/product/application/setup/product-setup.php:434
 msgid "Updated At"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:484
+#: src/product/application/setup/product-setup.php:486
 msgid "Attribute Template Group ID"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:532
+#: src/product/application/setup/product-setup.php:534
 msgid "Detail Group"
 msgstr ""
 
-#: src/product/application/setup/product-setup.php:565
+#: src/product/application/setup/product-setup.php:567
 msgid "Detail Template Group ID"
 msgstr ""
 

@@ -37,6 +37,8 @@ use Affilicious\Product\Domain\Model\Review_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Simple\Simple_Product;
 use Affilicious\Product\Domain\Model\Simple\Simple_Product_Interface;
+use Affilicious\Product\Domain\Model\Tag;
+use Affilicious\Product\Domain\Model\Tag_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant;
 use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
@@ -52,6 +54,7 @@ if(!defined('ABSPATH')) {
 class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Product_Repository_Interface
 {
     const TYPE = '_affilicious_product_type';
+    const TAGS = '_affilicious_product_tags';
     const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
     const SHOPS = '_affilicious_product_shops';
@@ -76,6 +79,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
+    const VARIANT_TAGS = 'tags';
     const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'template_group_id';
     const VARIANT_ATTRIBUTE = 'attribute';
     const VARIANT_THUMBNAIL = 'thumbnail';
@@ -173,6 +177,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         if($product instanceof Complex_Product_Interface) {
             $this->store_variants($product);
+        }
+
+        if($product instanceof Tag_Aware_Product_Interface) {
+            $this->store_tags($product);
         }
 
         return $product;
@@ -335,6 +343,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $simple_product = $this->add_excerpt($simple_product, $post);
         $simple_product = $this->add_thumbnail($simple_product, $post);
         $simple_product = $this->add_shops($simple_product);
+        $simple_product = $this->add_tags($simple_product);
         $simple_product = $this->add_detail_groups($simple_product, $post);
         $simple_product = $this->add_review($simple_product, $post);
         $simple_product = $this->add_related_products($simple_product, $post);
@@ -405,6 +414,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $product_variant = $this->add_thumbnail($product_variant, $post);
         $product_variant = $this->add_attribute_group($product_variant, $post);
         $product_variant = $this->add_shops($product_variant);
+        $product_variant = $this->add_tags($product_variant);
         $product_variant = $this->add_updated_at($product_variant, $post);
 
         return $product_variant;
@@ -551,6 +561,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $title = !empty($raw_variant[self::VARIANT_TITLE]) ? $raw_variant[self::VARIANT_TITLE] : null;
             $thumbnail_id = !empty($raw_variant[self::VARIANT_THUMBNAIL]) ? $raw_variant[self::VARIANT_THUMBNAIL] : null;
             $shops = !empty($raw_variant[self::VARIANT_SHOPS]) ? $raw_variant[self::VARIANT_SHOPS] : null;
+            $tags = !empty($raw_variant[self::VARIANT_TAGS]) ? $raw_variant[self::VARIANT_TAGS] : null;
             $default = !empty($raw_variant[self::VARIANT_DEFAULT]) ? $raw_variant[self::VARIANT_DEFAULT] : null;
             $attribute_template_group_id = !empty($raw_variant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID]) ? $raw_variant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID] : null;
             $attribute_group = $this->get_attribute_group_from_id_and_array($attribute_template_group_id, $raw_variant);
@@ -586,6 +597,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             if(!empty($shops)) {
                 $this->add_shops($product_variant, $shops);
+            }
+
+            if(!empty($tags)) {
+                $this->add_tags($product_variant, $tags);
             }
 
             $complex_product->add_variant($product_variant);
@@ -741,6 +756,32 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             }
 
             $product->set_image_gallery($images);
+        }
+
+        return $product;
+    }
+
+    /**
+     * Add the tags to the product.
+     *
+     * @since 0.6
+     * @param Tag_Aware_Product_Interface $product
+     * @param array $raw_tags
+     * @return Tag_Aware_Product_Interface
+     */
+    protected function add_tags(Tag_Aware_Product_Interface $product, $raw_tags = array())
+    {
+        if(empty($raw_tags)) {
+            $raw_tags = carbon_get_post_meta($product->get_id()->get_value(), self::TAGS);
+        }
+
+        if(!empty($raw_tags)) {
+            $raw_tags = explode(';', $raw_tags);
+            $tags = array_map(function($raw_tag) {
+                return new Tag($raw_tag);
+            }, $raw_tags);
+
+            $product->set_tags($tags);
         }
 
         return $product;
@@ -1076,11 +1117,23 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 );
             }
 
+
+            if(!$variant->has_tags()) {
+                $tags = $variant->get_tags();
+                $raw_tags = array();
+                foreach ($tags as $tag) {
+                    $raw_tags[] = $tag->get_value();
+                }
+
+                $raw_tags = implode(';', $raw_tags);
+            }
+
             $carbon_variants[$variant->get_attribute_group()->get_key()->get_value()][] = array(
                 'default' => $variant->is_default() ? 'yes' : null,
                 'variant_id' => $variant->has_id() ? $variant->get_id()->get_value() : null,
                 'title' => $variant->get_title()->get_value(),
                 'thumbnail' => $variant->has_thumbnail() ? $variant->get_thumbnail()->get_id()->get_value() : null,
+                'tags' => !empty($raw_tags) ? $raw_tags : null,
                 'shops' => !empty($carbon_shops) ? $carbon_shops : null,
             );
         }
@@ -1125,6 +1178,29 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $this->store_post_meta($product->get_id(), self::THUMBNAIL_ID, $product->get_thumbnail()->get_id());
+    }
+
+    /**
+     * Store the tags for the product.
+     *
+     * @since 0.7.1
+     * @param Tag_Aware_Product_Interface $product
+     */
+    protected function store_tags(Tag_Aware_Product_Interface $product)
+    {
+        if(!$product->has_tags()) {
+            return;
+        }
+
+        $tags = $product->get_tags();
+        $raw_tags = array();
+        foreach ($tags as $tag) {
+            $raw_tags[] = $tag->get_value();
+        }
+
+        $raw_tags = implode(';', $raw_tags);
+        $this->store_post_meta($product->get_id(), self::TAGS, $raw_tags);
+
     }
 
     /**

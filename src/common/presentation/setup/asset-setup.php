@@ -92,6 +92,7 @@ class Asset_Setup
         $translations = array(
             'container' => __('Affilicious Product', 'affilicious'),
             'variants' => __('Variants', 'affilicious'),
+            'addTag' => __('Add', 'affilicious'),
         );
 
         wp_register_script('affilicious-admin', self::get_admin_script_dir() . 'admin.min.js', array('jquery', 'carbon-fields'), \Affilicious_Plugin::PLUGIN_VERSION, true);

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-12-30 17:56+0100\n"
+"POT-Creation-Date: 2016-12-30 20:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -152,7 +152,7 @@ msgstr "Attribut-Vorlagen"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:77
 #: src/detail/application/setup/detail-template-group-setup.php:77
-#: src/product/application/setup/product-setup.php:236
+#: src/product/application/setup/product-setup.php:238
 msgid "Title"
 msgstr "Titel"
 
@@ -201,10 +201,14 @@ msgstr "Affilicious Produkt"
 
 #: src/common/presentation/setup/asset-setup.php:94
 #: src/product/application/setup/product-setup.php:135
-#: src/product/application/setup/product-setup.php:193
-#: src/product/application/setup/product-setup.php:222
+#: src/product/application/setup/product-setup.php:195
+#: src/product/application/setup/product-setup.php:224
 msgid "Variants"
 msgstr "Varianten"
+
+#: src/common/presentation/setup/asset-setup.php:95
+msgid "Add"
+msgstr "Hinzufügen"
 
 #: src/common/presentation/setup/feedback-setup.php:22
 #: src/common/presentation/setup/feedback-setup.php:23
@@ -570,9 +574,9 @@ msgid "Product Type Description"
 msgstr "Produkttyp Beschreibung"
 
 #: src/product/application/setup/product-setup.php:136
-#: src/product/application/setup/product-setup.php:247
-#: src/product/application/setup/product-setup.php:284
-#: src/product/application/setup/product-setup.php:403
+#: src/product/application/setup/product-setup.php:249
+#: src/product/application/setup/product-setup.php:286
+#: src/product/application/setup/product-setup.php:405
 #: src/shop/application/setup/shop-template-setup.php:55
 msgid "Shops"
 msgstr "Shops"
@@ -593,7 +597,15 @@ msgstr "Einfach"
 msgid "Complex"
 msgstr "Komplex"
 
-#: src/product/application/setup/product-setup.php:177
+#: src/product/application/setup/product-setup.php:159
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: src/product/application/setup/product-setup.php:160
+msgid "Custom product tags like \"test winner\" or \"best price\"."
+msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
+
+#: src/product/application/setup/product-setup.php:179
 msgid ""
 "<b>No Attribute Group Templates available!</b> Please create an attribute "
 "group template."
@@ -601,41 +613,41 @@ msgstr ""
 "<b>Keine Attributgruppen-Vorlagen verfügbar!</b> Bitte erstelle eine "
 "Attributgruppen-Vorlage."
 
-#: src/product/application/setup/product-setup.php:188
+#: src/product/application/setup/product-setup.php:190
 msgid "Attribute Group"
 msgstr "Attributgruppe"
 
-#: src/product/application/setup/product-setup.php:223
+#: src/product/application/setup/product-setup.php:225
 msgid "Variant"
 msgstr "Variante"
 
-#: src/product/application/setup/product-setup.php:235
+#: src/product/application/setup/product-setup.php:237
 msgid "Variant ID"
 msgstr "Varianten ID"
 
-#: src/product/application/setup/product-setup.php:239
+#: src/product/application/setup/product-setup.php:241
 msgid "Default Variant"
 msgstr "Standartvariante"
 
-#: src/product/application/setup/product-setup.php:241
+#: src/product/application/setup/product-setup.php:243
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
 
-#: src/product/application/setup/product-setup.php:246
+#: src/product/application/setup/product-setup.php:248
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/product/application/setup/product-setup.php:289
+#: src/product/application/setup/product-setup.php:291
 msgid "<b>No Shop Templates available!</b> Please create a shop template."
 msgstr ""
 "<b>Keine Shop-Vorlagen verfügbar!</b> Bitte erstelle eine Shop-Vorlage."
 
-#: src/product/application/setup/product-setup.php:309
-#: src/product/application/setup/product-setup.php:531
+#: src/product/application/setup/product-setup.php:311
+#: src/product/application/setup/product-setup.php:533
 msgid "Detail Groups"
 msgstr "Detailgruppen"
 
-#: src/product/application/setup/product-setup.php:314
+#: src/product/application/setup/product-setup.php:316
 msgid ""
 "<b>No Detail Group Templates available!</b> Please create a detail group "
 "template."
@@ -643,71 +655,71 @@ msgstr ""
 "<b>Keine Detailgruppen-Vorlagen verfügbar!</b> Bitte erstelle eine "
 "Detailgruppen-Vorlage."
 
-#: src/product/application/setup/product-setup.php:333
+#: src/product/application/setup/product-setup.php:335
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/product/application/setup/product-setup.php:335
-#: src/product/application/setup/product-setup.php:455
+#: src/product/application/setup/product-setup.php:337
+#: src/product/application/setup/product-setup.php:457
 #: src/shop/application/setup/shop-template-setup.php:131
 #: src/shop/presentation/setup/table-column-setup.php:70
 msgid "None"
 msgstr "Keine"
 
-#: src/product/application/setup/product-setup.php:336
-#: src/product/application/setup/product-setup.php:337
+#: src/product/application/setup/product-setup.php:338
 #: src/product/application/setup/product-setup.php:339
-#: src/product/application/setup/product-setup.php:340
 #: src/product/application/setup/product-setup.php:341
 #: src/product/application/setup/product-setup.php:342
 #: src/product/application/setup/product-setup.php:343
 #: src/product/application/setup/product-setup.php:344
 #: src/product/application/setup/product-setup.php:345
 #: src/product/application/setup/product-setup.php:346
+#: src/product/application/setup/product-setup.php:347
+#: src/product/application/setup/product-setup.php:348
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/product/application/setup/product-setup.php:338
+#: src/product/application/setup/product-setup.php:340
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/product/application/setup/product-setup.php:348
+#: src/product/application/setup/product-setup.php:350
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/product/application/setup/product-setup.php:349
+#: src/product/application/setup/product-setup.php:351
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/product/application/setup/product-setup.php:372
+#: src/product/application/setup/product-setup.php:374
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/product/application/setup/product-setup.php:375
+#: src/product/application/setup/product-setup.php:377
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/product/application/setup/product-setup.php:404
+#: src/product/application/setup/product-setup.php:406
 msgid "Shop"
 msgstr "Shop"
 
-#: src/product/application/setup/product-setup.php:409
+#: src/product/application/setup/product-setup.php:411
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/product/application/setup/product-setup.php:412
+#: src/product/application/setup/product-setup.php:414
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/product/application/setup/product-setup.php:414
+#: src/product/application/setup/product-setup.php:416
 msgid "Affiliate ID"
 msgstr "Affiliate ID"
 
-#: src/product/application/setup/product-setup.php:415
+#: src/product/application/setup/product-setup.php:417
 msgid ""
 "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
 "automatic shop update."
@@ -715,51 +727,51 @@ msgstr ""
 "Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
 "automatische Shop Aktualisierung."
 
-#: src/product/application/setup/product-setup.php:416
+#: src/product/application/setup/product-setup.php:418
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/application/setup/product-setup.php:419
+#: src/product/application/setup/product-setup.php:421
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/application/setup/product-setup.php:420
+#: src/product/application/setup/product-setup.php:422
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/application/setup/product-setup.php:422
+#: src/product/application/setup/product-setup.php:424
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/application/setup/product-setup.php:424
+#: src/product/application/setup/product-setup.php:426
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/application/setup/product-setup.php:426
+#: src/product/application/setup/product-setup.php:428
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
-#: src/product/application/setup/product-setup.php:429
+#: src/product/application/setup/product-setup.php:431
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/product/application/setup/product-setup.php:430
+#: src/product/application/setup/product-setup.php:432
 msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/application/setup/product-setup.php:432
+#: src/product/application/setup/product-setup.php:434
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/application/setup/product-setup.php:484
+#: src/product/application/setup/product-setup.php:486
 msgid "Attribute Template Group ID"
 msgstr "Attribut-Vorlagengruppe ID"
 
-#: src/product/application/setup/product-setup.php:532
+#: src/product/application/setup/product-setup.php:534
 msgid "Detail Group"
 msgstr "Detailgruppe"
 
-#: src/product/application/setup/product-setup.php:565
+#: src/product/application/setup/product-setup.php:567
 msgid "Detail Template Group ID"
 msgstr "Detail-Vorlagengruppe ID"
 
@@ -996,6 +1008,21 @@ msgstr ""
 #: src/shop/presentation/setup/table-column-setup.php:36
 msgid "Featured Image"
 msgstr "Beitragsbild"
+
+#~ msgid "Add a tag"
+#~ msgstr "Schlagwort hinzufügen"
+
+#~ msgid ""
+#~ "You can provide custom product tags like \"test winner\" or \"best price"
+#~ "\"."
+#~ msgstr ""
+#~ "Du kannst eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“ "
+#~ "angeben."
+
+#~ msgid ""
+#~ "You can provide some product tags like \"test winner\" or \"best price\"."
+#~ msgstr ""
+#~ "Du kannst  Schlagwörter wie „Testsieger“ oder „Bester Preis“ angeben."
 
 #~ msgid "Y-m-d H:i"
 #~ msgstr "H:i d.m.Y"

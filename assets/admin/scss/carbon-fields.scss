@@ -5,11 +5,27 @@
   }
 
   .carbon-Number,
+  .carbon-Tags,
   .carbon-Password {
-    input {
+    input, .tagsinput {
       width: 100%;
       margin: 1px;
       padding: 3px 5px;
+    }
+  }
+
+  .carbon-Tags {
+    .tagsinput {
+      box-sizing: border-box;
+
+      .tag {
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+
+      input {
+        width: 80px !important;
+      }
     }
   }
 }

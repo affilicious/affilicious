@@ -17,6 +17,7 @@ class Carbon_Setup
             require_once(dirname(__FILE__) . '/../form/carbon/hidden-field.php');
             require_once(dirname(__FILE__) . '/../form/carbon/number-field.php');
             require_once(dirname(__FILE__) . '/../form/carbon/password-field.php');
+            require_once(dirname(__FILE__) . '/../form/carbon/tags-field.php');
         }
     }
 }

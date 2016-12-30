@@ -10,6 +10,7 @@ use Affilicious\Product\Domain\Model\Variant\Product_Variant;
 use Affilicious\Shop\Application\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
 use Affilicious\Shop\Domain\Model\Shop_Template;
+use Affilicious\Product\Domain\Model\Tag_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Review_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Detail_Group_Aware_Product_Interface;
 use Affilicious\Product\Domain\Model\Image_Gallery_Aware_Product_Interface;
@@ -491,6 +492,98 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
     );
 
     return $raw_shop;
+}
+
+/**
+ * Check if the given product has any tags.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param null $product_or_id
+ * @return bool
+ */
+function aff_has_product_tags($product_or_id = null)
+{
+    $product = aff_get_product($product_or_id);
+    if($product === null) {
+        return false;
+    }
+
+    if($product instanceof Tag_Aware_Product_Interface) {
+        return $product->has_tags();
+    }
+
+    if ($product instanceof Complex_Product_Interface) {
+        $default_variant = $product->get_default_variant();
+        if(empty($default_variant)) {
+            return false;
+        }
+
+        return $default_variant->has_tags();
+    }
+
+    return false;
+}
+
+/**
+ * Get the tags of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return null|array
+ */
+function aff_get_product_tags($product_or_id = null)
+{
+    $product = aff_get_product($product_or_id);
+    if($product === null) {
+        return null;
+    }
+
+    if($product instanceof Tag_Aware_Product_Interface) {
+        $tags = $product->get_tags();
+    }
+
+    if ($product instanceof Complex_Product_Interface) {
+        $default_variant = $product->get_default_variant();
+        if(empty($default_variant)) {
+            return null;
+        }
+
+        $tags = $default_variant->get_tags();
+    }
+
+    if(empty($tags)) {
+        return null;
+    }
+
+    $raw_tags = array();
+    foreach ($tags as $tag) {
+        $raw_tags[] = $tag->get_value();
+    }
+
+    return $raw_tags;
+}
+
+/**
+ * Print the tags of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @param string $before
+ * @param string $after
+ */
+function aff_the_product_tags($product_or_id = null, $before = '', $after = '')
+{
+    $tags = aff_get_product_tags($product_or_id);
+    if(empty($tags)) {
+        return;
+    }
+
+    foreach ($tags as $tag) {
+        echo $before . $tag . $after;
+    }
 }
 
 /**

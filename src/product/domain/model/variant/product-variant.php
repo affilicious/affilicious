@@ -9,6 +9,7 @@ use Affilicious\Common\Domain\Model\Title;
 use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Product\Domain\Model\Abstract_Product;
 use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
+use Affilicious\Product\Domain\Model\Tag;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
 use Affilicious\Shop\Domain\Model\Shop_Interface;
@@ -37,6 +38,11 @@ class Product_Variant extends Abstract_Product implements Product_Variant_Interf
     protected $attribute_group;
 
     /**
+     * @var Tag[]
+     */
+    protected $tags;
+
+    /**
      * @since 0.7
      * @param Complex_Product_Interface $parent
      * @param Title $title
@@ -48,6 +54,7 @@ class Product_Variant extends Abstract_Product implements Product_Variant_Interf
         parent::__construct($title, $name, $key, Type::variant());
         $this->parent = $parent;
         $this->default = false;
+        $this->tags = array();
     }
 
     /**
@@ -349,6 +356,33 @@ class Product_Variant extends Abstract_Product implements Product_Variant_Interf
     public function set_related_accessories($related_accessories)
     {
         return $this->parent->set_related_products($related_accessories);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7.1
+     */
+    public function has_tags()
+    {
+        return !empty($this->tags);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7.1
+     */
+    public function get_tags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7.1
+     */
+    public function set_tags($tags)
+    {
+        $this->tags = $tags;
     }
 
     /**

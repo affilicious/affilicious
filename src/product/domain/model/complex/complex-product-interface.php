@@ -2,12 +2,12 @@
 namespace Affilicious\Product\Domain\Model\Complex;
 
 use Affilicious\Common\Domain\Model\Name;
-use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
 use Affilicious\Product\Domain\Model\Detail_Group_Aware_Product_Interface as Detail_Group_Aware;
 use Affilicious\Product\Domain\Model\Image_Gallery_Aware_Product_Interface as Image_Gallery_Aware;
 use Affilicious\Product\Domain\Model\Product_Interface;
 use Affilicious\Product\Domain\Model\Relation_Aware_Product_Interface as Relation_Aware;
 use Affilicious\Product\Domain\Model\Review_Aware_Product_Interface as Review_Aware;
+use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
 
 if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

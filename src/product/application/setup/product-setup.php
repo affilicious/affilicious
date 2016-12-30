@@ -62,6 +62,7 @@ class Product_Setup implements Setup_Interface
 
     /**
      * @inheritdoc
+     * @since 0.6
      */
     public function init()
     {
@@ -123,6 +124,7 @@ class Product_Setup implements Setup_Interface
 
     /**
      * @inheritdoc
+     * @since 0.6
      */
     public function render()
     {
@@ -155,7 +157,17 @@ class Product_Setup implements Setup_Interface
                 ->add_options(array(
                     'simple' => __('Simple', 'affilicious'),
                     'complex' => __('Complex', 'affilicious'),
-                ))
+                )),
+            Carbon_Field::make('tags', Carbon_Product_Repository::TAGS, __('Tags', 'affilicious'))
+                ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious'))
+                ->set_conditional_logic(array(
+                    'relation' => 'and',
+                    array(
+                        'field' => Carbon_Product_Repository::TYPE,
+                        'value' => 'complex',
+                        'compare' => '!=',
+                    )
+                )),
         );
 
         return apply_filters('affilicious_product_render_affilicious_product_container_general_fields', $fields, $this->post_id);
@@ -240,6 +252,8 @@ class Product_Setup implements Setup_Interface
                     ->set_option_value('yes')
                     ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
                     ->set_width(30),
+                Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
+                    ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
                 ),
                 $this->get_attribute_fields($attribute_template_group),
                 array(

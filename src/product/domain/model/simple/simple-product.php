@@ -10,6 +10,7 @@ use Affilicious\Detail\Domain\Model\Detail_Group;
 use Affilicious\Product\Domain\Model\Abstract_Product;
 use Affilicious\Product\Domain\Model\Product_Id;
 use Affilicious\Product\Domain\Model\Review\Review_Interface;
+use Affilicious\Product\Domain\Model\Tag;
 use Affilicious\Product\Domain\Model\Type;
 use Affilicious\Shop\Domain\Model\Affiliate_Link;
 use Affilicious\Shop\Domain\Model\Shop_Interface;
@@ -28,6 +29,13 @@ class Simple_Product extends Abstract_Product implements Simple_Product_Interfac
     protected $image_gallery;
 
     /**
+     * Stores the product tags like "test winner" or "best price".
+     *
+     * @var Tag[]
+     */
+    protected $tags;
+
+    /**
      * @inheritdoc
      * @since 0.7
      */
@@ -38,6 +46,7 @@ class Simple_Product extends Abstract_Product implements Simple_Product_Interfac
         $this->related_products = array();
         $this->related_accessories = array();
         $this->image_gallery = array();
+        $this->tags = array();
     }
 
     /**
@@ -229,7 +238,6 @@ class Simple_Product extends Abstract_Product implements Simple_Product_Interfac
         $this->review = $review;
     }
 
-
     /**
      * @inheritdoc
      * @since 0.7
@@ -254,7 +262,6 @@ class Simple_Product extends Abstract_Product implements Simple_Product_Interfac
 
         $this->image_gallery = $image_gallery;
     }
-
 
     /**
      * @inheritdoc
@@ -304,6 +311,33 @@ class Simple_Product extends Abstract_Product implements Simple_Product_Interfac
         }
 
         $this->related_accessories = $related_accessories;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7.1
+     */
+    public function has_tags()
+    {
+        return !empty($this->tags);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7.1
+     */
+    public function get_tags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.7.1
+     */
+    public function set_tags($tags)
+    {
+        $this->tags = $tags;
     }
 
     /**

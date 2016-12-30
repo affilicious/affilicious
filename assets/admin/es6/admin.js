@@ -48,10 +48,8 @@ jQuery(function($) {
 
     var affiliciousView = getAffiliciousView();
 
-
-
-        affiliciousView.$el.find('select[name="_affilicious_product_type"]').ready(toggleTabs);
-        affiliciousView.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
+    affiliciousView.$el.find('select[name="_affilicious_product_type"]').ready(toggleTabs);
+    affiliciousView.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
 
 
     // ------------------------------------------------------------------------

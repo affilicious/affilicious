@@ -181,10 +181,6 @@ interface Product_Interface extends Entity_Interface, Update_Aware_Interface
      */
     public function set_thumbnail($thumbnail);
 
-
-
-
-
     /**
      * Get the raw Wordpress post
      *
