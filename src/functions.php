@@ -641,6 +641,23 @@ function aff_get_product_cheapest_shop($product_or_id = null)
 }
 
 /**
+ * Check if the product has any price.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @param string|Affiliate_Link|null $affiliate_link
+ * @return bool
+ */
+function aff_has_product_price($product_or_id = null, $affiliate_link = null)
+{
+    $price = aff_get_product_price($product_or_id, $affiliate_link);
+
+    return !empty($price);
+}
+
+/**
  * Get the price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as an affiliate link, the cheapest shop will be used.
@@ -677,6 +694,23 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null)
     $raw_price = $price->get_value() . ' ' . $price->get_currency()->get_symbol();
 
     return $raw_price;
+}
+
+/**
+ * Print the price with the currency of the product.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @param string|Affiliate_Link|null $affiliate_link
+ */
+function aff_the_product_price($product_or_id = null, $affiliate_link = null)
+{
+    $price = aff_get_product_price($product_or_id, $affiliate_link);
+    if(!empty($price)) {
+        echo $price;
+    };
 }
 
 /**
@@ -843,7 +877,7 @@ function aff_product_get_parent($product_or_id = null)
 }
 
 /**
- * Check if the given product contains the variant
+ * Check if the given product contains the variants
  * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.6
@@ -866,6 +900,24 @@ function aff_product_has_variant($product_or_id = null, $variant_or_id = null)
     $result = $product->has_variant($variant->get_name());
 
     return $result;
+}
+
+/**
+ * Check if the given product has any variants.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return bool
+ */
+function aff_product_has_variants($product_or_id = null)
+{
+    $product = aff_get_product($product_or_id);
+    if($product === null || !($product instanceof Complex_Product_Interface)) {
+        return null;
+    }
+
+    return $product->get_variants();
 }
 
 /**

@@ -60,6 +60,14 @@ interface Complex_Product_Interface extends Product_Interface, Relation_Aware, R
     /**
      * Get all product variants.
      *
+     * @since 0.7.1
+     * @return Product_Variant_Interface[]
+     */
+    public function has_variants();
+
+    /**
+     * Get all product variants.
+     *
      * @since 0.7
      * @return Product_Variant_Interface[]
      */

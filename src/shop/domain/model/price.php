@@ -27,7 +27,11 @@ class Price extends Abstract_Aggregate
      */
     public function __construct($value, Currency $currency)
     {
-        if(is_numeric($value) && !is_string($value)) {
+        if(is_string($value)) {
+            $value = floatval($value);
+        }
+        
+        if(is_numeric($value)) {
             $value = number_format($value, 2, '.', '');
         }
 

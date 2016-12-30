@@ -77,6 +77,15 @@ class Complex_Product extends Abstract_Product implements Complex_Product_Interf
 
     /**
      * @inheritdoc
+     * @since 0.7.1
+     */
+    public function has_variants()
+    {
+        return !empty($this->variants);
+    }
+
+    /**
+     * @inheritdoc
      * @since 0.7
      */
     public function get_variant(Name $name)
