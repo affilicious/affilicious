@@ -34,8 +34,12 @@ if(!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-define('AFFILICIOUS_PLUGIN_ROOT_DIR', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_PLUGIN_BASE_NAME', plugin_basename(__FILE__));
+define('AFFILICIOUS_PLUGIN_ROOT_PATH', plugin_dir_path(__FILE__));
+define('AFFILICIOUS_PLUGIN_ROOT_URL', plugin_dir_url(__FILE__));
+
+/** @deprecated */
+define('AFFILICIOUS_PLUGIN_ROOT_DIR', AFFILICIOUS_PLUGIN_ROOT_PATH);
 
 final class Affilicious_Plugin
 {
@@ -91,7 +95,7 @@ final class Affilicious_Plugin
      */
     public static function get_root_url()
     {
-        return plugin_dir_url(__FILE__);
+        return AFFILICIOUS_PLUGIN_ROOT_URL;
     }
 
     /**
@@ -102,19 +106,7 @@ final class Affilicious_Plugin
      */
     public static function get_root_path()
     {
-        return plugin_dir_path(__FILE__);
-    }
-
-    /**
-     * Get the root url to the plugin.
-     *
-     * @deprecated
-     * @since 0.3
-     * @return string
-     */
-    public static function get_root_dir()
-    {
-        return self::get_root_url();
+        return AFFILICIOUS_PLUGIN_ROOT_PATH;
     }
 
     /**
