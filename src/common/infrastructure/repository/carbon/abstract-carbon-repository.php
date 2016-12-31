@@ -32,13 +32,13 @@ abstract class Abstract_Carbon_Repository extends Abstract_Wordpress_Repository
      * array(
      *   '_' => array(
      *     0 => array(
-     *       'title' => '_product _variant 1',
+     *       'title' => 'Product Variant 1',
      *       'thumbnail' => 'http://url-to-thumbnail.com',
      *       'shops' => array(
      *         'amazon' =>array(
      *           0 => array(
      *             'shop_id' => 3,
-     *             'title' => '_amazon',
+     *             'title' => 'Amazon',
      *           )
      *         )
      *       )
@@ -48,10 +48,10 @@ abstract class Abstract_Carbon_Repository extends Abstract_Wordpress_Repository
      *
      * Example output:
      * array(
-     *    _affilicious_product_variants_-_title_0 => '_product _variant 1',
+     *    _affilicious_product_variants_-_title_0 => 'Product Variant 1',
      *    _affilicious_product_variants_-_thumbnail_0 => 'http://url-to-thumbnail.com',
      *    _affilicious_product_variants_-_shops_0_amazon-_shop_id_0 => 3,
-     *    _affilicious_product_variants_-_shops_0_amazon-_title_0 => '_amazon',
+     *    _affilicious_product_variants_-_shops_0_amazon-_title_0 => 'Amazon',
      * )
      */
     protected function build_complex_carbon_meta_key($values, $prefix, $depth = 0, $prev_key = '')
