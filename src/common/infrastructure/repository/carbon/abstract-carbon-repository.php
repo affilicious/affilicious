@@ -61,6 +61,10 @@ abstract class Abstract_Carbon_Repository extends Abstract_Wordpress_Repository
         $regex_field = '_%s_%d';
 
         if($depth === 0) {
+            if(strpos($prefix, '_') === 0) {
+                $prefix = substr($prefix, 1, strlen($prefix) - 1);
+            }
+
             $prefix = sprintf($regex_complex, $prefix);
         }
 
@@ -68,42 +72,42 @@ abstract class Abstract_Carbon_Repository extends Abstract_Wordpress_Repository
         if(is_array($values)) {
             foreach ($values as $key => $value) {
 
-                // _key is a string. _entry might be a complex field, a group or a simple field
+                // Key is a string. Entry might be a complex field, a group or a simple field
                 if(is_string($key)) {
 
-                    // _value is an array. _entry might be a complex field or a group
+                    // Value is an array. Entry might be a complex field or a group
                     if(is_array($value)) {
 
-                        // _the previous key is an int. _entry must be a complex field
+                        // The previous key is an int. Entry must be a complex field
                         if(is_int($prev_key)) {
                             $_prefix = $prefix . sprintf($regex_field, $key, $prev_key);
                             $temp[] = $this->build_complex_carbon_meta_key($value, $_prefix, $depth + 1, $key);
 
-                            // _the previous key is a string. _entry must be a group
+                            // The previous key is a string. Entry must be a group
                         } else {
                             $_prefix = $prefix . sprintf($regex_group, $key);
                             $temp[] = $this->build_complex_carbon_meta_key($value, $_prefix, $depth + 1, $key);
                         }
 
-                        // _key is a string. _entry must be a simple field
+                        // Key is a string. Entry must be a simple field
                     } else {
                         $_prefix = $prefix . sprintf($regex_field, $key, $prev_key);
                         $temp[$_prefix] = $value;
                     }
 
-                    // _key is int. _entry must be a repeatable field
+                    // Key is int. Entry must be a repeatable field
                 } else {
                     $temp[] = $this->build_complex_carbon_meta_key($value, $prefix, $depth + 1, $key);
                 }
             }
         }
 
-        // _break the recursion
+        // Break the recursion
         if($depth > 0) {
             return $temp;
         }
 
-        // _remove the nested arrays
+        // Remove the nested arrays
         $result = array();
         array_walk_recursive($temp, function($value, $key) use (&$result) {
             $result[$key] = $value;
