@@ -74,6 +74,12 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
 
 #product_images_container {
   padding: 0 0 0 9px; }
+  #product_images_container .product_images {
+    display: block;
+    width: 100%;
+    clear: both;
+    float: left;
+    margin-bottom: 10px; }
   #product_images_container ul {
     margin: 0;
     padding: 0; }

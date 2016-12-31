@@ -8,6 +8,14 @@
 #product_images_container {
   padding: 0 0 0 9px;
 
+  .product_images {
+    display: block;
+    width: 100%;
+    clear: both;
+    float: left;
+    margin-bottom: 10px;
+  }
+
   ul {
     margin: 0;
     padding: 0;
