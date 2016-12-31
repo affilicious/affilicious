@@ -283,6 +283,21 @@ function aff_get_product_shops($product_or_id = null)
 }
 
 /**
+ * Check if the product has any related products.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return bool
+ */
+function aff_has_product_related_products($product_or_id = null)
+{
+    $products = aff_get_product_related_products($product_or_id);
+
+    return !empty($products);
+}
+
+/**
  * Get the related products by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
@@ -353,6 +368,21 @@ function aff_get_products_query($args = array())
     $query = new \WP_Query($options);
 
     return $query;
+}
+
+/**
+ * Check if the product has any related accessories.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product_Interface|null $product_or_id
+ * @return bool
+ */
+function aff_has_product_related_accessories($product_or_id = null)
+{
+    $accessories = aff_get_product_related_accessories($product_or_id);
+
+    return !empty($accessories);
 }
 
 /**
