@@ -262,7 +262,14 @@ class Product_Setup implements Setup_Interface
                 )
             );
 
-            $field->add_fields($key->get_value(),  $title->get_value(), $fields);
+            // TODO: Remove the quick fix
+            foreach ($fields as $_key => $_field) {
+                if($_field === null) {
+                    unset($fields[$_key]);
+                }
+            }
+
+            $field->add_fields($key->get_value(), $title->get_value(), $fields);
 
             $field->set_header_template('
                 <# if (' . Carbon_Product_Repository::VARIANT_TITLE . ') { #>
