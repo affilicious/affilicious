@@ -1,19 +1,19 @@
 # [Affilicious](https://affilicioustheme.de) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicioustheme.de) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/affilicious/affilicious/blob/master/LICENSE) #
-Affilicious ist eine Affiliate Platform basierend auf Wordpress. Es erlaubt Affiliate Marketeren ihre Website mit Produkten und Varianten, automatischen Preisupdates, Preisvergleichen, Details, Attributen und vielem mehr zu versehen. Natürlich alles kostenlos.
+Affilicious ist eine Affiliate Platform basierend auf Wordpress. Es erlaubt Affiliate Marketeren Webseiten mit Produkten und Varianten, automatischen Preisupdates, Preisvergleichen, Details, Attributen und vielem mehr zu versehen. Natürlich alles kostenlos.
 
 Für weitere Informationen kannst du gerne auf unserer Homepage unter [https://affilicioustheme.de](https://affilicioustheme.de) vorbeischauen.
 
 Lese das in einer anderen Sprache: [English](README.md)
 
 ### Betrifft das mich als Affiliate Marketer? ###
-Ja, das tut es. Wir sind selbst Affiliate Marketers und kennen dieses Tätigkeitsfeld. Insbesondere wenn man am Anfang steht, kann es sehr herausfordernd aber auch teurer werden. 
+Ja, das tut es. Wir sind selbst Affiliate Marketere und kennen dieses Tätigkeitsfeld. Insbesondere wenn man am Anfang steht, kann es sehr herausfordernd und teurer werden. 
 
-Mit dem Affilicious Plugin bieten wir dir eine gute Möglichkeit, deine Website mit vielen nützlichen Features zu erweitern und deine Verkäufe zu steigern. Somit sparst du dir so einiges an Plugins. Wenn du auf der Suche nach tollen Themes und Plugins bist, besuche unsere [offizielle website](https://affilicioustheme.de).
+Mit dem Affilicious Plugin bieten wir dir eine gute Möglichkeit, deine Webseite mit vielen nützlichen Features zu erweitern und deine Verkäufe zu steigern. Somit sparst du dir so einiges an Plugins. Wenn du auf der Suche nach tollen Themes und Plugins bist, besuche unsere [offizielle Webseite](https://affilicioustheme.de).
 
 ### Warum betrifft es mich als Entwickler? ###
-Dafür gibt es Unzählige! Als Entwickler kannst du beim Ausbau von Affilicious helfen, indem du eigene Themes oder Plugins entwickelst. Hinzu kommt, dass der die Affiliate Marketing Community ständig weitermachst und eine hohe Nachfrage für ausgezeichnete Themes und Plugins besteht. Viele potenzielle Kunden sind schon gespannt darauf, was du ihnen so alles bieten kannst!
+Dafür gibt es unzählige Gründe! Als Entwickler kannst du beim Ausbau von Affilicious helfen, indem du eigene Themes oder Plugins entwickelst. Hinzu kommt, dass die Affiliate Marketing Community ständig weiterwächst und eine hohe Nachfrage für ausgezeichnete Themes und Plugins besteht. Viele potenzielle Kunden sind schon gespannt darauf, was du ihnen so alles bieten kannst!
 
-Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu entwickeln“ ? Und die Antwort ist: „Einfach im Vergleich zu anderen Lösungen!“.  Bei der Entwicklung von Affilicious haben wir uns auch sehr stark auf den Third Party Support gekümmert, und zwar von Anfang an. Nun einige Gründe, warum das Entwickeln mit dem Affilicious Plugin dir viel Freude bereiten wird:
+Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu entwickeln“? Und die Antwort ist: „Einfach im Vergleich zu anderen Lösungen!“. Bei der Entwicklung von Affilicious haben wir uns von Anfang an sehr stark um die Drittanbieterunterstützung gekümmert. Nun einige Gründe, warum die Entwickelung mit dem Affilicious Plugin dir viel Freude bereiten wird:
 
 1. [Wordpress](https://wordpress.com) als bekannte Platform.
 2. Die Softwarearchitektur basiert auf [Domain Driven Design (DDD)](https://de.wikipedia.org/wiki/Domain-driven_Design).
