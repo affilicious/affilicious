@@ -28,22 +28,26 @@ Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu 
  
 ### Über die Git-Versionsverwaltung ###
 Für die letzte stabile Master Version:
+
 1. Klone das Plugin in das Wordpress Plugin Verzeichnis: `https://github.com/affilicious/affilicious.git`
 2. Wechsel den Branch auf `master`.
 3. Aktiviere das Plugin im Adminbereich.
 
 Für die letzte stabile Entwickler Version über Git:
+
 1. Klone das Plugin in das Wordpress Plugin Verzeichnis: `https://github.com/affilicious/affilicious.git`
 2. Wechsel den Branch auf `develop`.
 3. Aktiviere das Plugin im Adminbereich.
  
 ### Über eine ZIP-Datei ###
 Für die letzte stabile Master Version über ZIP:
+
 1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious/affilicious/archive/master.zip](https://github.com/affilicious/affilicious/archive/master.zip)
 2. Lade das Plugin auf deine Wordpress Seite hoch.
 3. Aktiviere das Plugin im Adminbereich.
 
 Für die letzte stabile Entwickler Version über ZIP:
+
 1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious/affilicious/archive/develop.zip](https://github.com/affilicious/affilicious/archive/develop.zip)
 2. Lade das Plugin auf deine Wordpress Seite hoch.
 3. Aktiviere das Plugin im Adminbereich.

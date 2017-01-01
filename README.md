@@ -34,22 +34,26 @@ Here is why developing with the Affilicious Plugin is really fun:
 ## Installation ##
 ### Via the Git version managment ###
 For the latest stable master version:
+
 1. Clone the GitHub repository into your Wordpress plugin directory: `https://github.com/affilicious/affilicious.git`
 2. Switch the branch to `master`
 3. Activate it in the admin area.
 
 For the latest developer version:
+
 1. Clone the GitHub repository into your Wordpress plugin directory: `https://github.com/affilicious/affilicious.git`
 2. Switch the branch to `develop`
 3. Activate it in the admin area.
 
 ### Via a simple ZIP file ###
 For the latest stable master version:
+
 1. Download the plugin directly as a ZIP file: [https://github.com/affilicious/affilicious/archive/master.zip](https://github.com/affilicious/affilicious/archive/master.zip)
 2. Upload the plugin to your Wordpress site.
 3. Activate it in the admin area.
 
 For the latest developer version:
+
 1. Download the plugin directly as a ZIP file: [https://github.com/affilicious/affilicious/archive/develop.zip](https://github.com/affilicious/affilicious/archive/develop.zip)
 2. Upload the plugin to your Wordpress site.
 3. Activate it in the admin area.
