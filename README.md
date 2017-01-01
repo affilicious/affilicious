@@ -64,7 +64,7 @@ If you find an issue, write it [here](https://github.com/affilicious/affilicious
 ## Contributions ##
 Anyone is welcome to contribute to Affilicious. There are various ways you can contribute.
 
-1. Send us a Pull Request with your bug fixes or new features.
-2. Raise an [Issue](https://github.com/affilicious/affilicious/issues) on GitHub.
+1. Send us a pull request with your bug fixes or new features.
+2. Raise an [issue](https://github.com/affilicious/affilicious/issues) on GitHub.
 3. Translate Affilicious into different languages.
 4. Provide suggestions and feedback on [enhancements](https://github.com/affilicious/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)

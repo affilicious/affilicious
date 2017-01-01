@@ -39,7 +39,7 @@ Für die letzte stabile Entwickler Version über Git:
 2. Wechsel den Branch auf `develop`.
 3. Aktiviere das Plugin im Adminbereich.
  
-### Über eine ZIP-Datei ###
+### Über eine einfache ZIP-Datei ###
 Für die letzte stabile Master Version über ZIP:
 
 1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious/affilicious/archive/master.zip](https://github.com/affilicious/affilicious/archive/master.zip)
@@ -57,10 +57,10 @@ Eine ausführliche Anleitung für die Installation und viele weitere hilfreiche 
 ## Bugs ##
 Solltest du einen Bug finden, kannst du diesen gerne [hier](https://github.com/affilicious/affilicious/issues?state=open) melden!
 
-## Contributions ##
+## Wie kann ich helfen? ##
 Jeder ist Willkommen um zur Entwicklung vom Affilicious Plugin beizutragen. Es gibt viele Wege sich zu beteiligen:
 
 1. Schicke uns deinen Pull Request mit deinem Bug Fix oder Feature.
-2. Erstelle ein [Issue](https://github.com/affilicious/affilicious/issues) auf Github.
+2. Erstelle ein [Problem](https://github.com/affilicious/affilicious/issues) auf Github.
 3. Übersetze Affilicious in ein andere Sprache.
-4. Sende einen Vorschlag oder Feedback auf [enhancements](https://github.com/affilicious/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
+4. Sende einen Vorschlag oder Feedback auf [Verbesserungen](https://github.com/affilicious/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
