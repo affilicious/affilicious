@@ -22,14 +22,20 @@ window.carbon = window.carbon || {};
         },
 
         initField: function() {
+            var self = this;
+
             $('.aff-tags').tagsInput({
                 'width':'100%',
                 'height': 'auto',
                 'defaultText': translations.addTag,
+                'interactive': true,
                 'delimiter': ';',
                 'minChars' : 1,
                 'maxChars' : 100,
-                'placeholderColor' : '#666666'
+                'placeholderColor' : '#666666',
+                'onChange' : function() {
+                    self.model.set('value', $('input[name="_affilicious_product_tags"]').val());
+                },
             });
         },
     });
