@@ -8,6 +8,9 @@ License URI: https://opensource.org/licenses/GPL-2.0
 Create and manage affiliate websites in Wordpress with price comparisons, shop, details and more.
 
 == Changelog ==
+= 0.7.2 =
+* Added some update bug fixes.
+
 = 0.6 =
 * Added support for product variants and attributes
 
