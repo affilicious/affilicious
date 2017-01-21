@@ -1,4 +1,27 @@
 jQuery(function($) {
+
+
+
+
+
+
+
+
+
+
+    class Test {
+        hallo() {
+            return "Hallo";
+        }
+    }
+
+    let test = new Test();
+    test.hallo();
+
+
+
+
+
     // ------------------------------------------------------------------------
     var carbon = window.carbon;
     if (typeof carbon.fields === 'undefined') {

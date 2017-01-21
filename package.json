@@ -5,6 +5,7 @@
   "author": "Affilicious Team",
   "license": "GPL-2.0 or later",
   "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",

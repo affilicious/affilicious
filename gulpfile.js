@@ -24,7 +24,7 @@ var assetPaths = {
         ],
         js: [],
         es6: [
-            'assets/public/es6/**'
+            'assets/public/es6/*.js'
         ],
         fonts: [],
         images: []
@@ -97,8 +97,9 @@ gulp.task('public-js', function () {
     ;
 
     var es6Stream = gulp.src(assetPaths.public.es6)
-        .pipe(es6())
+        .pipe(es6({presets: ['es2015']}))
         .pipe(concat('es6-files.js'))
+
     ;
 
     return merge(jsStream, es6Stream)
@@ -117,7 +118,7 @@ gulp.task('admin-js', function () {
     ;
 
     var es6Stream = gulp.src(assetPaths.admin.es6)
-        .pipe(es6())
+        .pipe(es6({presets: ['es2015']}))
         .pipe(concat('es6-files.js'))
     ;
 
