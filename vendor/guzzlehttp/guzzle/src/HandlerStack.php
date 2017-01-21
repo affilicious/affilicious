@@ -86,7 +86,7 @@ class HandlerStack
         $result = '';
         foreach (array_reverse($this->stack) as $tuple) {
             $depth++;
-            $str = "{$depth}) Name: '{$tuple[1]}', ";
+            $str = "{$depth}) Slug: '{$tuple[1]}', ";
             $str .= "Function: " . $this->debugCallable($tuple[0]);
             $result = "> {$str}\n{$result}";
             $stack[] = $str;
@@ -125,7 +125,7 @@ class HandlerStack
      * Unshift a middleware to the bottom of the stack.
      *
      * @param callable $middleware Middleware function
-     * @param string   $name       Name to register for this middleware.
+     * @param string   $name       Slug to register for this middleware.
      */
     public function unshift(callable $middleware, $name = null)
     {
@@ -137,7 +137,7 @@ class HandlerStack
      * Push a middleware to the top of the stack.
      *
      * @param callable $middleware Middleware function
-     * @param string   $name       Name to register for this middleware.
+     * @param string   $name       Slug to register for this middleware.
      */
     public function push(callable $middleware, $name = '')
     {
@@ -150,7 +150,7 @@ class HandlerStack
      *
      * @param string   $findName   Middleware to find
      * @param callable $middleware Middleware function
-     * @param string   $withName   Name to register for this middleware.
+     * @param string   $withName   Slug to register for this middleware.
      */
     public function before($findName, callable $middleware, $withName = '')
     {
@@ -162,7 +162,7 @@ class HandlerStack
      *
      * @param string   $findName   Middleware to find
      * @param callable $middleware Middleware function
-     * @param string   $withName   Name to register for this middleware.
+     * @param string   $withName   Slug to register for this middleware.
      */
     public function after($findName, callable $middleware, $withName = '')
     {

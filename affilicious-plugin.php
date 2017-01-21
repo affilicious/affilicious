@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Affilicious
+ * Plugin Slug: Affilicious
  * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
  * Version: 0.7.2
  * Author: Affilicious Team
@@ -90,6 +90,21 @@ if(!class_exists('Affilicious_Plugin')) {
         }
 
         /**
+         * Convenient way to get the service from the dependency injection container.
+         *
+         * @since 0.8
+         * @param string $service_id
+         * @return mixed
+         */
+        public static function get($service_id)
+        {
+            $container = self::get_instance()->get_container();
+            $service = $container[$service_id];
+
+            return $service;
+        }
+
+        /**
          * Get the root url to the plugin.
          *
          * @since 0.7
@@ -156,10 +171,10 @@ if(!class_exists('Affilicious_Plugin')) {
             $this->register_admin_hooks();
 
             // TODO: This old legacy class will be removed later
-            new \Affilicious\Product\Presentation\Meta_Box\Meta_Box_Manager();
+            new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
 
             // We have to call the container to the run code inside
-            $this->container['affilicious.common.application.setup.carbon'];
+            $this->container['affilicious.common.setup.carbon'];
         }
 
         /**
@@ -225,22 +240,22 @@ if(!class_exists('Affilicious_Plugin')) {
                 ));
             }
 
-            $license_manager = $this->container['affilicious.common.application.license.manager'];
+            $license_manager = $this->container['affilicious.common.license.manager'];
             $license_manager->activate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
 
-            $product_post_type_migration = $this->container['affilicious.product.application.migration.post_type'];
+            $product_post_type_migration = $this->container['affilicious.product.migration.post_type'];
             $product_post_type_migration->migrate();
 
-            $shop_post_type_migration = $this->container['affilicious.shop.application.migration.post_type'];
+            $shop_post_type_migration = $this->container['affilicious.shop.migration.post_type'];
             $shop_post_type_migration->migrate();
 
-            $currency_code_migration = $this->container['affilicious.shop.application.migration.currency_code'];
+            $currency_code_migration = $this->container['affilicious.shop.migration.currency_code'];
             $currency_code_migration->migrate();
 
-            $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
+            $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->activate();
 
-            $update_timer = $this->container['affilicious.product.application.update.timer'];
+            $update_timer = $this->container['affilicious.product.update.timer'];
             $update_timer->activate();
         }
 
@@ -251,13 +266,13 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function deactivate()
         {
-            $license_manager = $this->container['affilicious.common.application.license.manager'];
+            $license_manager = $this->container['affilicious.common.license.manager'];
             $license_manager->deactivate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
 
-            $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
+            $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->deactivate();
 
-            $update_timer = $this->container['affilicious.product.application.update.timer'];
+            $update_timer = $this->container['affilicious.product.update.timer'];
             $update_timer->deactivate();
         }
 
@@ -268,245 +283,231 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function load_services()
         {
-            $this->container['affilicious.common.application.license.manager'] = function () {
-                return new \Affilicious\Common\Application\License\EDD_License_Manager();
+            $this->container['affilicious.common.generator.slug'] = function () {
+                return new \Affilicious\Common\Generator\Wordpress\Wordpress_Slug_Generator();
             };
 
-            $this->container['affilicious.common.application.setup.asset'] = function () {
-                return new \Affilicious\Common\Presentation\Setup\Asset_Setup();
+            $this->container['affilicious.common.generator.key'] = function () {
+                return new \Affilicious\Common\Generator\Carbon\Carbon_Key_Generator();
             };
 
-            $this->container['affilicious.common.application.setup.carbon'] = function () {
-                return new \Affilicious\Common\Presentation\Setup\Carbon_Setup();
+            $this->container['affilicious.common.license.manager'] = function () {
+                return new \Affilicious\Common\License\EDD_License_Manager();
             };
 
-            $this->container['affilicious.common.application.setup.feedback'] = function () {
-                return new \Affilicious\Common\Presentation\Setup\Feedback_Setup();
+            $this->container['affilicious.common.setup.asset'] = function () {
+                return new \Affilicious\Common\Setup\Asset_Setup();
             };
 
-            $this->container['affilicious.product.infrastructure.repository.product'] = function ($c) {
-                return new \Affilicious\Product\Infrastructure\Repository\Carbon\Carbon_Product_Repository(
-                    $c['affilicious.product.infrastructure.factory.review'],
-                    $c['affilicious.detail.infrastructure.factory.detail_group'],
-                    $c['affilicious.attribute.infrastructure.factory.attribute_group'],
-                    $c['affilicious.shop.infrastructure.factory.shop']
+            $this->container['affilicious.common.setup.carbon'] = function () {
+                return new \Affilicious\Common\Setup\Carbon_Setup();
+            };
+
+            $this->container['affilicious.common.setup.feedback'] = function () {
+                return new \Affilicious\Common\Setup\Feedback_Setup();
+            };
+
+            $this->container['affilicious.product.repository.product'] = function () {
+                return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository();
+            };
+
+            $this->container['affilicious.product.factory.simple_product'] = function () {
+                return new \Affilicious\Product\Factory\In_Memory\In_Memory_Simple_Product_Factory();
+            };
+
+            $this->container['affilicious.product.factory.complex_product'] = function () {
+                return new \Affilicious\Product\Factory\In_Memory\In_Memory_Complex_Product_Factory();
+            };
+
+            $this->container['affilicious.product.factory.product_variant'] = function () {
+                return new \Affilicious\Product\Factory\In_Memory\In_Memory_Product_Variant_Factory();
+            };
+
+            $this->container['affilicious.shop.repository.shop_template'] = function ($c) {
+                return new \Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository(
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 
-            $this->container['affilicious.product.infrastructure.factory.simple_product'] = function () {
-                return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Simple_Product_Factory();
-            };
-
-            $this->container['affilicious.product.infrastructure.factory.complex_product'] = function () {
-                return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Complex_Product_Factory();
-            };
-
-            $this->container['affilicious.product.infrastructure.factory.product_variant'] = function () {
-                return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Product_Variant_Factory();
-            };
-
-            $this->container['affilicious.detail.infrastructure.factory.detail_group'] = function ($c) {
-                return new \Affilicious\Detail\Infrastructure\Factory\In_Memory\In_Memory_Detail_Group_Factory(
-                    $c['affilicious.detail.infrastructure.repository.detail_template_group']
+            $this->container['affilicious.provider.setup.provider'] = function ($c) {
+                return new \Affilicious\Provider\Setup\Provider_Setup(
+                    $c['affilicious.provider.repository.provider'],
+                    $c['affilicious.provider.factory.provider.amazon']
                 );
             };
 
-            $this->container['affilicious.attribute.infrastructure.factory.attribute_group'] = function ($c) {
-                return new \Affilicious\Attribute\Infrastructure\Factory\In_Memory\In_Memory_Attribute_Group_Factory(
-                    $c['affilicious.attribute.infrastructure.repository.attribute_template_group']
+            $this->container['affilicious.provider.setup.amazon_provider'] = function ($c) {
+                return new \Affilicious\Provider\Setup\Amazon_Provider_Setup(
+                    $c['affilicious.provider.factory.provider.amazon']
                 );
             };
 
-            $this->container['affilicious.shop.infrastructure.factory.shop'] = function ($c) {
-                return new \Affilicious\Shop\Infrastructure\Factory\In_Memory\In_Memory_Shop_Factory(
-                    $c['affilicious.shop.infrastructure.repository.shop_template']
+            $this->container['affilicious.provider.repository.provider'] = function ($c) {
+                return new \Affilicious\Provider\Repository\Carbon\Carbon_Provider_Repository(
+                    $c['affilicious.common.generator.key']
                 );
             };
 
-            $this->container['affilicious.shop.infrastructure.repository.shop_template'] = function ($c) {
-                return new \Affilicious\Shop\Infrastructure\Repository\Carbon\Carbon_Shop_Template_Repository(
-                    $c['affilicious.shop.infrastructure.repository.provider']
+            $this->container['affilicious.provider.factory.provider.amazon'] = function ($c) {
+                return new \Affilicious\Provider\Factory\In_Memory\In_Memory_Amazon_Provider_Factory(
+                    $c['affilicious.common.generator.slug']
                 );
             };
 
-            $this->container['affilicious.shop.application.setup.provider'] = function ($c) {
-                return new \Affilicious\Shop\Application\Setup\Provider_Setup(
-                    $c['affilicious.shop.infrastructure.repository.provider'],
-                    $c['affilicious.shop.infrastructure.factory.provider.amazon']
+            $this->container['affilicious.product.factory.review'] = function () {
+                return new \Affilicious\Product\Factory\In_Memory\In_Memory_Review_Factory();
+            };
+
+            $this->container['affilicious.shop.factory.shop_template'] = function ($c) {
+                return new \Affilicious\Shop\Factory\In_Memory\In_Memory_Shop_Template_Factory(
+                    $c['affilicious.common.generator.slug'],
+                    $c['affilicious.common.generator.key']
                 );
             };
 
-            $this->container['affilicious.shop.application.setup.amazon_provider'] = function ($c) {
-                return new \Affilicious\Shop\Application\Setup\Amazon_Provider_Setup(
-                    $c['affilicious.shop.infrastructure.factory.provider.amazon']
+            $this->container['affilicious.attribute.repository.attribute_template'] = function () {
+                return new \Affilicious\Attribute\Repository\Carbon\Carbon_Attribute_Template_Repository();
+            };
+
+            $this->container['affilicious.attribute.factory.attribute_template'] = function ($c) {
+                return new \Affilicious\Attribute\Factory\In_Memory\In_Memory_Attribute_Template_Factory(
+                    $c['affilicious.common.generator.slug'],
+                    $c['affilicious.common.generator.key']
                 );
             };
 
-            $this->container['affilicious.shop.infrastructure.repository.provider'] = function () {
-                return new \Affilicious\Shop\Infrastructure\Repository\In_Memory\In_Memory_Provider_Repository();
-            };
-
-            $this->container['affilicious.shop.infrastructure.factory.provider.amazon'] = function () {
-                return new \Affilicious\Shop\Infrastructure\Factory\In_Memory\In_Memory_Amazon_Provider_Factory();
-            };
-
-            $this->container['affilicious.product.infrastructure.factory.review'] = function () {
-                return new \Affilicious\Product\Infrastructure\Factory\In_Memory\In_Memory_Review_Factory();
-            };
-
-            $this->container['affilicious.shop.infrastructure.factory.shop_template'] = function () {
-                return new \Affilicious\Shop\Infrastructure\Factory\In_Memory\In_Memory_Shop_Template_Factory();
-            };
-
-            $this->container['affilicious.detail.infrastructure.repository.detail_template_group'] = function ($c) {
-                return new \Affilicious\Detail\Infrastructure\Repository\Carbon\Carbon_Detail_Template_Group_Repository(
-                    $c['affilicious.detail.infrastructure.factory.detail_template_group'],
-                    $c['affilicious.detail.infrastructure.factory.detail_template']
+            $this->container['affilicious.product.setup.product'] = function ($c) {
+                return new \Affilicious\Product\Setup\Product_Setup(
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.attribute.repository.attribute_template'],
+                    $c['affilicious.detail.repository.detail_template'],
+                    $c['affilicious.common.generator.key']
                 );
             };
 
-            $this->container['affilicious.detail.infrastructure.factory.detail_template_group'] = function () {
-                return new \Affilicious\Detail\Infrastructure\Factory\In_Memory\In_Memory_Detail_Template_Group_Factory();
-            };
-
-            $this->container['affilicious.detail.infrastructure.factory.detail_template'] = function () {
-                return new \Affilicious\Detail\Infrastructure\Factory\In_Memory\In_Memory_Detail_Template_Factory();
-            };
-
-            $this->container['affilicious.attribute.infrastructure.repository.attribute_template_group'] = function ($c) {
-                return new \Affilicious\Attribute\Infrastructure\Repository\Carbon\Carbon_Attribute_Template_Group_Repository(
-                    $c['affilicious.attribute.infrastructure.factory.attribute_template_group'],
-                    $c['affilicious.attribute.infrastructure.factory.attribute_template']
+            $this->container['affilicious.product.listener.save_product'] = function ($c) {
+                return new \Affilicious\Product\Listener\Save_Product_Listener(
+                    $c['affilicious.product.repository.product']
                 );
             };
 
-            $this->container['affilicious.attribute.infrastructure.factory.attribute_template'] = function () {
-                return new \Affilicious\Attribute\Infrastructure\Factory\In_Memory\In_Memory_Attribute_Template_Factory();
-            };
-
-            $this->container['affilicious.attribute.infrastructure.factory.attribute_template_group'] = function () {
-                return new \Affilicious\Attribute\Infrastructure\Factory\In_Memory\In_Memory_Attribute_Template_Group_Factory();
-            };
-
-            $this->container['affilicious.product.application.setup.product'] = function ($c) {
-                return new \Affilicious\Product\Application\Setup\Product_Setup(
-                    $c['affilicious.shop.infrastructure.repository.shop_template'],
-                    $c['affilicious.attribute.infrastructure.repository.attribute_template_group'],
-                    $c['affilicious.detail.infrastructure.repository.detail_template_group']
+            $this->container['affilicious.shop.setup.shop_template'] = function ($c) {
+                return new \Affilicious\Shop\Setup\Shop_Template_Setup(
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 
-            $this->container['affilicious.product.application.listener.save_product'] = function ($c) {
-                return new \Affilicious\Product\Application\Listener\Save_Product_Listener(
-                    $c['affilicious.product.infrastructure.repository.product']
+            $this->container['affilicious.detail.repository.detail_template'] = function () {
+                return new \Affilicious\Detail\Repository\Carbon\Carbon_Detail_Template_Repository();
+            };
+
+            $this->container['affilicious.detail.setup.detail_template'] = function () {
+                return new \Affilicious\Detail\Setup\Detail_Template_Setup();
+            };
+
+            $this->container['affilicious.attribute.setup.attribute_template'] = function () {
+                return new \Affilicious\Attribute\Setup\Attribute_Template_Setup();
+            };
+
+            $this->container['affilicious.common.options.affilicious'] = function () {
+                return new \Affilicious\Common\Options\Affilicious_Options();
+            };
+
+            $this->container['affilicious.product.options.product'] = function () {
+                return new \Affilicious\Product\Options\Product_Options();
+            };
+
+            $this->container['affilicious.product.setup.canonical'] = function () {
+                return new \Affilicious\Product\Setup\Canonical_Setup();
+            };
+
+            $this->container['affilicious.provider.options.amazon'] = function ($c) {
+                return new \Affilicious\Provider\Options\Amazon_Options(
+                    $c['affilicious.provider.validator.amazon_credentials']
                 );
             };
 
-            $this->container['affilicious.shop.application.setup.shop_template'] = function ($c) {
-                return new \Affilicious\Shop\Application\Setup\Shop_Template_Setup(
-                    $c['affilicious.shop.infrastructure.repository.provider']
+            $this->container['affilicious.product.setup.admin_bar'] = function () {
+                return new \Affilicious\Product\Setup\Admin_Bar_Setup();
+            };
+
+            $this->container['affilicious.product.filter.table_content'] = function () {
+                return new \Affilicious\Product\Filter\Table_Content_Filter();
+            };
+
+            $this->container['affilicious.product.filter.table_count'] = function () {
+                return new \Affilicious\Product\Filter\Table_Count_Filter();
+            };
+
+            $this->container['affilicious.product.filter.complex_product'] = function () {
+                return new \Affilicious\Product\Filter\Complex_Product_Filter();
+            };
+
+            $this->container['affilicious.product.setup.slug_rewrite'] = function () {
+                return new \Affilicious\Product\Setup\Slug_Rewrite_Setup();
+            };
+
+            $this->container['affilicious.product.update.timer'] = function ($c) {
+                return new \Affilicious\Product\Update\Update_Timer(
+                    $c['affilicious.product.update.manager']
                 );
             };
 
-            $this->container['affilicious.detail.application.setup.detail_template_group'] = function () {
-                return new \Affilicious\Detail\Application\Setup\Detail_Template_Group_Setup();
+            $this->container['affilicious.product.update.mediator'] = function () {
+                return new \Affilicious\Product\Update\Queue\Update_Mediator();
             };
 
-            $this->container['affilicious.attribute.application.setup.attribute_template_group'] = function () {
-                return new \Affilicious\Attribute\Application\Setup\Attribute_Template_Group_Setup();
-            };
-
-            $this->container['affilicious.common.application.options.affilicious'] = function () {
-                return new \Affilicious\Common\Application\Options\Affilicious_Options();
-            };
-
-            $this->container['affilicious.product.application.options.product'] = function () {
-                return new \Affilicious\Product\Application\Options\Product_Options();
-            };
-
-            $this->container['affilicious.product.presentation.setup.canonical'] = function () {
-                return new \Affilicious\Product\Presentation\Setup\Canonical_Setup();
-            };
-
-            $this->container['affilicious.shop.application.options.amazon'] = function ($c) {
-                return new \Affilicious\Shop\Application\Options\Amazon_Options(
-                    $c['affilicious.shop.application.validator.amazon_credentials']
+            $this->container['affilicious.product.update.manager'] = function ($c) {
+                return new \Affilicious\Product\Update\Manager\Update_Manager(
+                    $c['affilicious.product.update.mediator'],
+                    $c['affilicious.product.repository.product']
                 );
             };
 
-            $this->container['affilicious.product.presentation.setup.admin_bar'] = function () {
-                return new \Affilicious\Product\Presentation\Setup\Admin_Bar_Setup();
-            };
-
-            $this->container['affilicious.product.presentation.filter.table_content'] = function () {
-                return new \Affilicious\Product\Presentation\Filter\Table_Content_Filter();
-            };
-
-            $this->container['affilicious.product.presentation.filter.table_count'] = function () {
-                return new \Affilicious\Product\Presentation\Filter\Table_Count_Filter();
-            };
-
-            $this->container['affilicious.product.presentation.filter.complex_product'] = function () {
-                return new \Affilicious\Product\Presentation\Filter\Complex_Product_Filter();
-            };
-
-            $this->container['affilicious.product.presentation.setup.slug_rewrite'] = function () {
-                return new \Affilicious\Product\Presentation\Setup\Slug_Rewrite_Setup();
-            };
-
-            $this->container['affilicious.shop.presentation.setup.table_column'] = function ($c) {
-                return new \Affilicious\Shop\Presentation\Setup\Table_Column_Setup(
-                    $c['affilicious.shop.infrastructure.repository.provider']
+            $this->container['affilicious.product.setup.update_worker'] = function ($c) {
+                return new \Affilicious\Product\Setup\Update_Worker_Setup(
+                    $c['affilicious.product.update.manager']
                 );
             };
 
-            $this->container['affilicious.product.application.update.timer'] = function ($c) {
-                return new \Affilicious\Product\Application\Update\Update_Timer(
-                    $c['affilicious.product.application.update.manager']
+            $this->container['affilicious.product.setup.amazon_update_worker'] = function () {
+                return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup();
+            };
+
+            $this->container['affilicious.product.setup.update_mediator'] = function ($c) {
+                return new \Affilicious\Product\Setup\Update_Mediator_Setup(
+                    $c['affilicious.product.update.mediator']
                 );
             };
 
-            $this->container['affilicious.product.application.update.mediator'] = function () {
-                return new \Affilicious\Product\Application\Update\Queue\Update_Mediator();
+            $this->container['affilicious.provider.validator.amazon_credentials'] = function () {
+                return new \Affilicious\Provider\Validator\Amazon_Credentials_Validator();
             };
 
-            $this->container['affilicious.product.application.update.manager'] = function ($c) {
-                return new \Affilicious\Product\Application\Update\Manager\Update_Manager(
-                    $c['affilicious.product.application.update.mediator'],
-                    $c['affilicious.product.infrastructure.repository.product']
+            $this->container['affilicious.product.migration.post_type'] = function () {
+                return new \Affilicious\Product\Migration\Post_Type_Migration();
+            };
+
+            $this->container['affilicious.shop.migration.post_type'] = function () {
+                return new \Affilicious\Shop\Migration\Post_Type_Migration();
+            };
+
+            $this->container['affilicious.shop.migration.currency_code'] = function () {
+                return new \Affilicious\Shop\Migration\Currency_Code_Migration();
+            };
+
+            $this->container['affilicious.attribute.setup.admin_table'] = function() {
+                return new \Affilicious\Attribute\Setup\Admin_Table_Setup();
+            };
+
+            $this->container['affilicious.detail.setup.admin_table'] = function() {
+                return new \Affilicious\Detail\Setup\Admin_Table_Setup();
+            };
+
+            $this->container['affilicious.shop.setup.admin_table'] = function($c) {
+                return new \Affilicious\Shop\Setup\Admin_Table_Setup(
+                    $c['affilicious.provider.repository.provider']
                 );
-            };
-
-            $this->container['affilicious.product.application.setup.update_worker'] = function ($c) {
-                return new \Affilicious\Product\Application\Setup\Update_Worker_Setup(
-                    $c['affilicious.product.application.update.manager']
-                );
-            };
-
-            $this->container['affilicious.product.application.setup.amazon_update_worker'] = function () {
-                return new \Affilicious\Product\Application\Setup\Amazon_Update_Worker_Setup();
-            };
-
-            $this->container['affilicious.product.application.setup.update_mediator'] = function ($c) {
-                return new \Affilicious\Product\Application\Setup\Update_Mediator_Setup(
-                    $c['affilicious.product.application.update.mediator']
-                );
-            };
-
-            $this->container['affilicious.shop.application.validator.amazon_credentials'] = function () {
-                return new \Affilicious\Shop\Application\Validator\Amazon_Credentials_Validator();
-            };
-
-            $this->container['affilicious.product.application.migration.post_type'] = function () {
-                return new \Affilicious\Product\Application\Migration\Post_Type_Migration();
-            };
-
-            $this->container['affilicious.shop.application.migration.post_type'] = function () {
-                return new \Affilicious\Shop\Application\Migration\Post_Type_Migration();
-            };
-
-            $this->container['affilicious.shop.application.migration.currency_code'] = function () {
-                return new \Affilicious\Shop\Application\Migration\Currency_Code_Migration();
             };
         }
 
@@ -528,8 +529,8 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function load_includes()
         {
-            require_once(self::PLUGIN_SOURCE_DIR . 'common/presentation/form/carbon/hidden-field.php');
-            require_once(self::PLUGIN_SOURCE_DIR . 'common/presentation/form/carbon/number-field.php');
+            require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/hidden-field.php');
+            require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/number-field.php');
 
             if (!class_exists('EDD_SL_Plugin_Updater')) {
                 include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
@@ -558,86 +559,86 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('plugins_loaded', array($this, 'load_textdomain'));
 
             // Hook the public assets
-            $asset_setup = $this->container['affilicious.common.application.setup.asset'];
+            $asset_setup = $this->container['affilicious.common.setup.asset'];
             add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_styles'), 10);
             add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_scripts'), 20);
 
             // Hook the Carbon Fields
-            $carbon_fields_setup = $this->container['affilicious.common.application.setup.carbon'];
+            $carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
             add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
 
             // Hook the providers
-            $provider_setup = $this->container['affilicious.shop.application.setup.provider'];
+            $provider_setup = $this->container['affilicious.provider.setup.provider'];
             add_action('init', array($provider_setup, 'init'), 10);
 
             // Hook the amazon provider
-            $amazon_provider_setup = $this->container['affilicious.shop.application.setup.amazon_provider'];
-            add_filter('affilicious_shop_provider_setup_init', array($amazon_provider_setup, 'init'));
+            $amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
+            add_filter('affilicious_provider_setup_init', array($amazon_provider_setup, 'init'));
 
-            // Hook the shops
-            $shop_template_setup = $this->container['affilicious.shop.application.setup.shop_template'];
+            // Hook the shop templates.
+            $shop_template_setup = $this->container['affilicious.shop.setup.shop_template'];
             add_action('init', array($shop_template_setup, 'init'), 20);
             add_action('init', array($shop_template_setup, 'render'), 30);
 
-            // Hook the attribute groups
-            $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
-            add_action('init', array($attribute_template_group_setup, 'init'), 40);
-            add_action('init', array($attribute_template_group_setup, 'render'), 50);
+            // Hook the attribute templates
+            $attribute_template_setup = $this->container['affilicious.attribute.setup.attribute_template'];
+            add_action('init', array($attribute_template_setup, 'init'), 40);
+            add_action('init', array($attribute_template_setup, 'render'), 50);
 
             // Hook the detail groups
-            $detail_template_group_setup = $this->container['affilicious.detail.application.setup.detail_template_group'];
+            $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
             add_action('init', array($detail_template_group_setup, 'init'), 60);
             add_action('init', array($detail_template_group_setup, 'render'), 70);
 
             // Hook the products
-            $product_setup = $this->container['affilicious.product.application.setup.product'];
+            $product_setup = $this->container['affilicious.product.setup.product'];
             add_action('init', array($product_setup, 'init'), 80);
             add_action('init', array($product_setup, 'render'), 90);
 
             // Hook the product listeners
-            $save_product_listener = $this->container['affilicious.product.application.listener.save_product'];
+            $save_product_listener = $this->container['affilicious.product.listener.save_product'];
             add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
 
             // Hook the slug rewrite
-            $slug_rewrite_setup = $this->container['affilicious.product.presentation.setup.slug_rewrite'];
+            $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             add_action('init', array($slug_rewrite_setup, 'run'), 1);
             add_action('added_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
             add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
 
             // Hook the settings
-            $affilicious_settings = $this->container['affilicious.common.application.options.affilicious'];
-            $product_settings = $this->container['affilicious.product.application.options.product'];
+            $affilicious_settings = $this->container['affilicious.common.options.affilicious'];
+            $product_settings = $this->container['affilicious.product.options.product'];
             add_action('init', array($affilicious_settings, 'render'), 10);
             add_action('init', array($affilicious_settings, 'apply'), 11);
             add_action('init', array($product_settings, 'render'), 12);
             add_action('init', array($product_settings, 'apply'), 13);
 
             // Hook the canonical tags
-            $canonical_setup = $this->container['affilicious.product.presentation.setup.canonical'];
+            $canonical_setup = $this->container['affilicious.product.setup.canonical'];
             add_action('wp_head', array($canonical_setup, 'set_up'));
 
             // Hook the admin bar setup
-            $admin_bar_setup = $this->container['affilicious.product.presentation.setup.admin_bar'];
+            $admin_bar_setup = $this->container['affilicious.product.setup.admin_bar'];
             add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 999);
 
             // Filter the complex products from the search
-            $complex_product_filter = $this->container['affilicious.product.presentation.filter.complex_product'];
+            $complex_product_filter = $this->container['affilicious.product.filter.complex_product'];
             add_action('pre_get_posts', array($complex_product_filter, 'filter'));
 
             // Hook the update workers
-            $update_worker_setup = $this->container['affilicious.product.application.setup.update_worker'];
+            $update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
             add_action('init', array($update_worker_setup, 'init'), 15);
 
             // Hook the amazon update worker
-            $amazon_update_worker_setup = $this->container['affilicious.product.application.setup.amazon_update_worker'];
+            $amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
             add_filter('affilicious_product_update_worker_setup_init', array($amazon_update_worker_setup, 'init'));
 
             // Hook the update mediator setup
-            $update_mediator_setup = $this->container['affilicious.product.application.setup.update_mediator'];
-            add_filter('affilicious_shop_provider_setup_after_init', array($update_mediator_setup, 'init'));
+            $update_mediator_setup = $this->container['affilicious.product.setup.update_mediator'];
+            add_filter('affilicious_provider_setup_after_init', array($update_mediator_setup, 'init'));
 
             // Hook the update timer to update the products regularly
-            $update_timer = $this->container['affilicious.product.application.update.timer'];
+            $update_timer = $this->container['affilicious.product.update.timer'];
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
@@ -653,47 +654,53 @@ if(!class_exists('Affilicious_Plugin')) {
             // Hook the plugin updater
             add_action('admin_init', array($this, 'update'), 0);
 
-            // Hook the shops
-            $table_columns_filter = $this->container['affilicious.shop.presentation.setup.table_column'];
-            add_action('manage_aff_shop_template_posts_columns', array($table_columns_filter, 'columns_head'), 9, 2);
-            add_action('manage_aff_shop_template_posts_custom_column', array($table_columns_filter, 'columns_content'), 10, 2);
-
-            $shop_options = $this->container['affilicious.shop.application.options.amazon'];
+            $shop_options = $this->container['affilicious.provider.options.amazon'];
             add_action('init', array($shop_options, 'render'), 12);
 
             // Hook the attribute groups
-            $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
+            $attribute_template_group_setup = $this->container['affilicious.attribute.setup.attribute_template'];
             add_action('manage_aff_attribute_group_posts_columns', array($attribute_template_group_setup, 'columnsHead'), 9, 2);
             add_action('manage_aff_attribute_group_posts_custom_column', array($attribute_template_group_setup, 'columnsContent'), 10, 2);
 
             // Hook the attribute groups
-            $attribute_template_group_setup = $this->container['affilicious.attribute.application.setup.attribute_template_group'];
+            $attribute_template_group_setup = $this->container['affilicious.attribute.setup.attribute_template'];
             add_action('manage_aff_attr_template_posts_columns', array($attribute_template_group_setup, 'columns_head'), 9, 2);
             add_action('manage_aff_attr_template_posts_custom_column', array($attribute_template_group_setup, 'columns_content'), 10, 2);
 
             // Hook the detail groups
-            $detail_template_group_setup = $this->container['affilicious.detail.application.setup.detail_template_group'];
+            $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
             add_action('manage_detail_group_posts_columns', array($detail_template_group_setup, 'columns_head'), 9, 2);
             add_action('manage_detail_group_posts_custom_column', array($detail_template_group_setup, 'columns_content'), 10, 2);
 
             // Hook the admin assets
-            $asset_setup = $this->container['affilicious.common.application.setup.asset'];
+            $asset_setup = $this->container['affilicious.common.setup.asset'];
             add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_styles'), 10);
             add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_scripts'), 20);
 
             // Hook the feedback form
-            $feedback_setup = $this->container['affilicious.common.application.setup.feedback'];
+            $feedback_setup = $this->container['affilicious.common.setup.feedback'];
             add_action('admin_menu', array($feedback_setup, 'init'), 30);
 
             // Hook the product table setup
-            $table_content_filter = $this->container['affilicious.product.presentation.filter.table_content'];
-            $table_count_filter = $this->container['affilicious.product.presentation.filter.table_count'];
+            $table_content_filter = $this->container['affilicious.product.filter.table_content'];
+            $table_count_filter = $this->container['affilicious.product.filter.table_count'];
             add_action('pre_get_posts', array($table_content_filter, 'filter'));
             add_filter("views_edit-aff_product", array($table_count_filter, 'filter'), 10, 1);
+
+            $attribute_template_table_setup = $this->container['affilicious.attribute.setup.admin_table'];
+            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_table_setup, 'setup_columns'));
+            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_table_setup, 'setup_rows'), 15, 3);
+
+            $detail_template_table_setup = $this->container['affilicious.detail.setup.admin_table'];
+            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_table_setup, 'setup_columns'));
+            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_table_setup, 'setup_rows'), 15, 3);
+
+            $shop_template_table_setup = $this->container['affilicious.shop.setup.admin_table'];
+            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_table_setup, 'setup_columns'));
+            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_table_setup, 'setup_rows'), 15, 3);
         }
     }
 
     $affilicious_plugin = Affilicious_Plugin::get_instance();
     $affilicious_plugin->run();
-
 }

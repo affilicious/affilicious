@@ -173,15 +173,13 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
     #product_images_container ul li:hover ul.actions {
       display: block; }
 
-.post-type-aff_shop_template .wp-list-table .column-title {
-  width: 30%; }
+.taxonomy-aff_shop_tmpl .term-description-wrap,
+.taxonomy-aff_attribute_tmpl .term-description-wrap,
+.taxonomy-aff_detail_tmpl .term-description-wrap {
+  display: none; }
 
-.post-type-aff_shop_template .wp-list-table .column-logo {
-  width: 15%; }
-  .post-type-aff_shop_template .wp-list-table .column-logo img {
-    width: 100px;
-    height: auto; }
-
-.post-type-aff_shop_template .wp-list-table .column-date {
-  width: 15%; }
+.taxonomy-aff_shop_tmpl .wp-list-table .column-thumbnail img {
+  width: 100%;
+  max-width: 100px;
+  height: auto; }
 

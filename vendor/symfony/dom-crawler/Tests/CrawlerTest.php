@@ -1066,7 +1066,7 @@ HTML;
     {
         $crawler = $this->createTestCrawler();
 
-        $result = $crawler->filterXPath('//form/input')->evaluate('substring-before(@name, "Name")');
+        $result = $crawler->filterXPath('//form/input')->evaluate('substring-before(@name, "Slug")');
 
         $this->assertSame(array('Text', 'Foo', 'Bar'), $result);
     }

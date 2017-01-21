@@ -8,7 +8,7 @@ class SetCookie
 {
     /** @var array */
     private static $defaults = [
-        'Name'     => null,
+        'Slug'     => null,
         'Value'    => null,
         'Domain'   => null,
         'Path'     => '/',
@@ -50,8 +50,8 @@ class SetCookie
                 : true;
 
             // Only check for non-cookies when cookies have been found
-            if (empty($data['Name'])) {
-                $data['Name'] = $key;
+            if (empty($data['Slug'])) {
+                $data['Slug'] = $key;
                 $data['Value'] = $value;
             } else {
                 foreach (array_keys(self::$defaults) as $search) {
@@ -84,9 +84,9 @@ class SetCookie
 
     public function __toString()
     {
-        $str = $this->data['Name'] . '=' . $this->data['Value'] . '; ';
+        $str = $this->data['Slug'] . '=' . $this->data['Value'] . '; ';
         foreach ($this->data as $k => $v) {
-            if ($k != 'Name' && $k != 'Value' && $v !== null && $v !== false) {
+            if ($k != 'Slug' && $k != 'Value' && $v !== null && $v !== false) {
                 if ($k == 'Expires') {
                     $str .= 'Expires=' . gmdate('D, d M Y H:i:s \G\M\T', $v) . '; ';
                 } else {
@@ -110,7 +110,7 @@ class SetCookie
      */
     public function getName()
     {
-        return $this->data['Name'];
+        return $this->data['Slug'];
     }
 
     /**
@@ -120,7 +120,7 @@ class SetCookie
      */
     public function setName($name)
     {
-        $this->data['Name'] = $name;
+        $this->data['Slug'] = $name;
     }
 
     /**

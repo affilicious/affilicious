@@ -126,7 +126,7 @@ class Search extends AbstractOperation
     /**
      * Sets the minimum price to a specified value for the search
      * Currency will be given by the site you are querying: EUR for IT, USD for COM
-     * Price should be given as integer. 8.99$ USD becomes 899
+     * Money should be given as integer. 8.99$ USD becomes 899
      *
      * @param integer $price
      *
@@ -152,7 +152,7 @@ class Search extends AbstractOperation
     /**
      * Sets the maximum price to a specified value for the search
      * Currency will be given by the site you are querying: EUR for IT, USD for COM
-     * Price should be given as integer. 8.99$ USD becomes 899
+     * Money should be given as integer. 8.99$ USD becomes 899
      *
      * @param integer $price
      *

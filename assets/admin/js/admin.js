@@ -230,7 +230,7 @@ window.carbon = window.carbon || {};
                 'maxChars': 100,
                 'placeholderColor': '#666666',
                 'onChange': function () {
-                    self.model.set('value', $('input[name="_affilicious_product_tags"]').val());
+                    self.model.set('value', $('input[name="' + self.templateVariables.name + '"]').val());
                 }
             });
         }

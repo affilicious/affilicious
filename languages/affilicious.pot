@@ -8,12 +8,12 @@ msgstr ""
 "POT-Creation-Date: 2016-12-30 "
 "20:36+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Your Name "
+"Last-Translator: Your Slug "
 "<you@example.com>\n"
 "Language-Team: Affilicious Team "
 "<team@affilicioustheme.de>\n"
 "Report-Msgid-Bugs-To: Translator "
-"Name <translations@example.com>\n"
+"Slug <translations@example.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; "
 "charset=UTF-8\n"
@@ -170,7 +170,7 @@ msgstr ""
 #: src/attribute/application/setup/attribute-template-group-setup.php:77
 #: src/detail/application/setup/detail-template-group-setup.php:77
 #: src/product/application/setup/product-setup.php:238
-msgid "Title"
+msgid "Name"
 msgstr ""
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:79
@@ -253,7 +253,7 @@ msgstr ""
 #: src/common/presentation/setup/feedback-setup.php:61
 #: src/common/presentation/setup/feedback-setup.php:65
 #: src/common/presentation/setup/feedback-setup.php:123
-msgid "Name"
+msgid "Slug"
 msgstr ""
 
 #: src/common/presentation/setup/feedback-setup.php:70
@@ -296,11 +296,11 @@ msgid ""
 msgstr ""
 
 #: src/detail/application/setup/detail-template-group-setup.php:24
-msgid "Detail Template Group"
+msgid "Detail Template"
 msgstr ""
 
 #: src/detail/application/setup/detail-template-group-setup.php:25
-msgid "Detail Template Groups"
+msgid "Detail Templates"
 msgstr ""
 
 #: src/detail/application/setup/detail-template-group-setup.php:31
@@ -435,7 +435,7 @@ msgstr ""
 #: src/product/application/options/product-options.php:33
 #, php-format
 msgid ""
-"The name of the taxonomy. Name "
+"The name of the taxonomy. Slug "
 "should only contain lowercase "
 "letters and the underscore "
 "character, and not be more than "
@@ -452,11 +452,11 @@ msgid ""
 msgstr ""
 
 #: src/product/application/options/product-options.php:38
-msgid "Singular Name"
+msgid "Singular Slug"
 msgstr ""
 
 #: src/product/application/options/product-options.php:40
-msgid "Plural Name"
+msgid "Plural Slug"
 msgstr ""
 
 #: src/product/application/options/product-options.php:45
@@ -768,11 +768,11 @@ msgid "US-Dollar"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:424
-msgid "Price"
+msgid "Money"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:426
-msgid "Old Price"
+msgid "Old Money"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:428
@@ -800,7 +800,7 @@ msgid "Detail Group"
 msgstr ""
 
 #: src/product/application/setup/product-setup.php:567
-msgid "Detail Template Group ID"
+msgid "Detail Template ID"
 msgstr ""
 
 #: src/product/presentation/meta-box/meta-box-manager.php:40
@@ -878,7 +878,7 @@ msgid ""
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:78
-msgid "Price Update Interval"
+msgid "Money Update Interval"
 msgstr ""
 
 #: src/shop/application/options/amazon-options.php:80

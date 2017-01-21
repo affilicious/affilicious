@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
 "POT-Creation-Date: 2016-12-30 20:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -153,7 +153,7 @@ msgstr "Attribut-Vorlagen"
 #: src/attribute/application/setup/attribute-template-group-setup.php:77
 #: src/detail/application/setup/detail-template-group-setup.php:77
 #: src/product/application/setup/product-setup.php:238
-msgid "Title"
+msgid "Name"
 msgstr "Titel"
 
 #: src/attribute/application/setup/attribute-template-group-setup.php:79
@@ -235,8 +235,8 @@ msgstr "Email"
 #: src/common/presentation/setup/feedback-setup.php:61
 #: src/common/presentation/setup/feedback-setup.php:65
 #: src/common/presentation/setup/feedback-setup.php:123
-msgid "Name"
-msgstr "Name"
+msgid "Slug"
+msgstr "Slug"
 
 #: src/common/presentation/setup/feedback-setup.php:70
 #: src/common/presentation/setup/feedback-setup.php:74
@@ -274,11 +274,11 @@ msgid "Empty fields aren't allowed. Please fill out all fields."
 msgstr "Leere Felder sind nicht erlaubt. Bitte fülle alle Felder aus."
 
 #: src/detail/application/setup/detail-template-group-setup.php:24
-msgid "Detail Template Group"
+msgid "Detail Template"
 msgstr "Detail-Vorlagengruppe"
 
 #: src/detail/application/setup/detail-template-group-setup.php:25
-msgid "Detail Template Groups"
+msgid "Detail Templates"
 msgstr "Detail-Vorlagengruppen"
 
 #: src/detail/application/setup/detail-template-group-setup.php:31
@@ -412,27 +412,27 @@ msgstr "Taxonomie"
 #: src/product/application/options/product-options.php:33
 #, php-format
 msgid ""
-"The name of the taxonomy. Name should only contain lowercase letters and the "
+"The name of the taxonomy. Slug should only contain lowercase letters and the "
 "underscore character, and not be more than 32 characters long. Care should "
 "be used in selecting a taxonomy name so that it does not conflict with other "
 "taxonomies, post types, and reserved Wordpress public and private query "
 "variables. A complete list of those is described in the <a href=\"%s"
 "\">Reserved Terms</a> section."
 msgstr ""
-"Der Name der Taxonomie. Der Name soll nur <b>Kleinbuchstaben</b> und das "
+"Der Slug der Taxonomie. Der Slug soll nur <b>Kleinbuchstaben</b> und das "
 "<b>Zeichen _</b> enthalten und nicht mehr als <b>32 Zeichen</b> lang sein. "
-"Vorsichtig sollest du bei der Auswahl des Namens sein, da der Name nicht mit "
+"Vorsichtig sollest du bei der Auswahl des Namens sein, da der Slug nicht mit "
 "anderen Taxonomien, Beitragstypen und Wordpress öffentlichen und privaten "
 "Anfragenvariablen in Konflikt stehen darf. Hier findest du eine komplette "
 "Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
 #: src/product/application/options/product-options.php:38
-msgid "Singular Name"
-msgstr "Name im Singular"
+msgid "Singular Slug"
+msgstr "Slug im Singular"
 
 #: src/product/application/options/product-options.php:40
-msgid "Plural Name"
-msgstr "Name im Plural"
+msgid "Plural Slug"
+msgstr "Slug im Plural"
 
 #: src/product/application/options/product-options.php:45
 #: src/product/application/setup/product-setup.php:70
@@ -740,11 +740,11 @@ msgid "US-Dollar"
 msgstr "US-Dollar"
 
 #: src/product/application/setup/product-setup.php:424
-msgid "Price"
+msgid "Money"
 msgstr "Preis"
 
 #: src/product/application/setup/product-setup.php:426
-msgid "Old Price"
+msgid "Old Money"
 msgstr "Alter Preis"
 
 #: src/product/application/setup/product-setup.php:428
@@ -772,7 +772,7 @@ msgid "Detail Group"
 msgstr "Detailgruppe"
 
 #: src/product/application/setup/product-setup.php:567
-msgid "Detail Template Group ID"
+msgid "Detail Template ID"
 msgstr "Detail-Vorlagengruppe ID"
 
 #: src/product/presentation/meta-box/meta-box-manager.php:40
@@ -843,7 +843,7 @@ msgid "Amazon uses this ID to credit an associate for a sale."
 msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
 
 #: src/shop/application/options/amazon-options.php:78
-msgid "Price Update Interval"
+msgid "Money Update Interval"
 msgstr "Preis Aktualisierungsintervall"
 
 #: src/shop/application/options/amazon-options.php:80
@@ -1155,10 +1155,10 @@ msgstr "Beitragsbild"
 #~ "drücken."
 
 #~ msgid "Singular name"
-#~ msgstr "Name im Singular"
+#~ msgstr "Slug im Singular"
 
 #~ msgid "Plural name"
-#~ msgstr "Name im Plural"
+#~ msgstr "Slug im Plural"
 
 #~ msgid ""
 #~ "Used as pretty permalink text (i.e. /slug/). Default is \"product-variant"
@@ -1176,16 +1176,16 @@ msgstr "Beitragsbild"
 #~ msgstr "%s Einstellungen"
 
 #~ msgid ""
-#~ "The name of the taxonomy. Name should only contain lowercase letters and "
+#~ "The name of the taxonomy. Slug should only contain lowercase letters and "
 #~ "the underscore character, and not be more than 32 characters long. Care "
 #~ "should be used in selecting a taxonomy name so that it does not conflict "
 #~ "with other taxonomies, post types, and reserved WordPress public and "
 #~ "private query variables. A complete list of those is described in the <a "
 #~ "href=\"%s\">Reserved Terms</a> section."
 #~ msgstr ""
-#~ "Der Name der Taxonomie. Der Name soll nur <b>Kleinbuchstaben</b> und das "
+#~ "Der Slug der Taxonomie. Der Slug soll nur <b>Kleinbuchstaben</b> und das "
 #~ "<b>Zeichen _</b> enthalten und nicht mehr als <b>32 Zeichen</b> lang "
-#~ "sein. Vorsichtig sollest du bei der Auswahl des Namens sein, da der Name "
+#~ "sein. Vorsichtig sollest du bei der Auswahl des Namens sein, da der Slug "
 #~ "nicht mit anderen Taxonomien, Beitragstypen und Wordpress öffentlichen "
 #~ "und privaten Anfragenvariablen in Konflikt stehen darf. Hier findest du "
 #~ "eine komplette Liste der <a href=\"%s\"> reservierten Wörter</a>."
@@ -1424,7 +1424,7 @@ msgstr "Beitragsbild"
 #~ msgid "Filter Shops"
 #~ msgstr "ShopTemplate filtern"
 
-#~ msgid "Price Comparison"
+#~ msgid "Money Comparison"
 #~ msgstr "Preisvergleich"
 
 #~ msgid "Accessories"
@@ -1495,8 +1495,8 @@ msgstr "Beitragsbild"
 #~ msgid "Add New Product Category"
 #~ msgstr "Produktkategorie erstellen"
 
-#~ msgid "New Product Category Name"
-#~ msgstr "Neuer Produktkategorie Name"
+#~ msgid "New Product Category Slug"
+#~ msgstr "Neuer Produktkategorie Slug"
 
 #~ msgid "Categories"
 #~ msgstr "Kategorien"

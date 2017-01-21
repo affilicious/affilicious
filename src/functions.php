@@ -1,25 +1,22 @@
 <?php
-use Affilicious\Attribute\Application\Helper\Attribute_Template_Group_Helper;
-use Affilicious\Attribute\Domain\Model\Attribute_Template_Group;
-use Affilicious\Detail\Application\Helper\Detail_Template_Group_Helper;
-use Affilicious\Detail\Domain\Model\Detail_Template_Group;
-use Affilicious\Product\Application\Helper\Product_Helper;
-use Affilicious\Product\Domain\Model\Product_Interface;
-use Affilicious\Product\Domain\Model\Type;
-use Affilicious\Product\Domain\Model\Variant\Product_Variant;
-use Affilicious\Shop\Application\Helper\Shop_Template_Helper;
-use Affilicious\Shop\Domain\Model\Affiliate_Link;
-use Affilicious\Shop\Domain\Model\Shop_Template;
-use Affilicious\Product\Domain\Model\Tag_Aware_Product_Interface;
-use Affilicious\Product\Domain\Model\Review_Aware_Product_Interface;
-use Affilicious\Product\Domain\Model\Detail_Group_Aware_Product_Interface;
-use Affilicious\Product\Domain\Model\Image_Gallery_Aware_Product_Interface;
-use Affilicious\Product\Domain\Model\Shop_Aware_Product_Interface;
-use Affilicious\Product\Domain\Model\Relation_Aware_Product_Interface;
-use Affilicious\Product\Domain\Model\Complex\Complex_Product_Interface;
-use Affilicious\Product\Domain\Model\Variant\Product_Variant_Interface;
-use Affilicious\Shop\Domain\Model\Availability;
-use Affilicious\Common\Application\Helper\Time_Helper;
+use Affilicious\Common\Helper\Time_Helper;
+use Affilicious\Detail\Helper\Detail_Template_Helper;
+use Affilicious\Product\Helper\Product_Helper;
+use Affilicious\Product\Model\Complex\Complex_Product_Interface;
+use Affilicious\Product\Model\Detail_Group_Aware_Product_Interface;
+use Affilicious\Product\Model\Image_Gallery_Aware_Product_Interface;
+use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Relation_Aware_Product_Interface;
+use Affilicious\Product\Model\Review_Aware_Product_Interface;
+use Affilicious\Product\Model\Shop_Aware_Product_Interface;
+use Affilicious\Product\Model\Tag_Aware_Product_Interface;
+use Affilicious\Product\Model\Type;
+use Affilicious\Product\Model\Variant\Product_Variant;
+use Affilicious\Product\Model\Variant\Product_Variant_Interface;
+use Affilicious\Shop\Helper\Shop_Template_Helper;
+use Affilicious\Shop\Model\Affiliate_Link;
+use Affilicious\Shop\Model\Availability;
+use Affilicious\Shop\Model\Shop_Template;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -1239,12 +1236,12 @@ function aff_get_shop_template($shop_or_id = null)
  * If you pass in nothing as a detail template group template, the current post will be used.
  *
  * @since 0.6
- * @param int|array|\WP_Post|Detail_Template_Group|null $detail_template_group_or_id
- * @return Detail_Template_Group
+ * @param int|array|\WP_Post|Detail_Template|null $detail_template_group_or_id
+ * @return Detail_Template
  */
 function aff_get_detail_template_group($detail_template_group_or_id = null)
 {
-    $detail_template_group = Detail_Template_Group_Helper::get_detail_template_group($detail_template_group_or_id);
+    $detail_template_group = Detail_Template_Helper::get_detail_template_group($detail_template_group_or_id);
 
     return $detail_template_group;
 }
@@ -1254,12 +1251,12 @@ function aff_get_detail_template_group($detail_template_group_or_id = null)
  * If you pass in nothing as a attribute template group template, the current post will be used.
  *
  * @since 0.6
- * @param int|array|\WP_Post|Attribute_Template_Group|null $attribute_template_group_or_id
- * @return Attribute_Template_Group
+ * @param int|array|\WP_Post|Attribute_Template|null $attribute_template_group_or_id
+ * @return Attribute_Template
  */
 function aff_get_attribute_template_group($attribute_template_group_or_id = null)
 {
-    $attribute_template_group = Attribute_Template_Group_Helper::get_attribute_template_group($attribute_template_group_or_id);
+    $attribute_template_group = Attribute_Template_Helper::get_attribute_template_group($attribute_template_group_or_id);
 
     return $attribute_template_group;
 }
@@ -1346,3 +1343,10 @@ function aff_should_shop_display_old_price($shop)
 
     return $old_price > $price;
 }
+
+
+
+
+
+
+
