@@ -20,7 +20,7 @@ jQuery(function ($) {
     function getVariantsView() {
         var variantsView = null;
         _.each(carbon.views, function (view) {
-            if (view.templateVariables && view.templateVariables.base_name == 'affilicious_product_variants') {
+            if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_variants') {
                 variantsView = view;
             }
         });
@@ -28,7 +28,27 @@ jQuery(function ($) {
         return variantsView;
     }
 
-    // ------------------------------------------------------------------------
+    function getEnabledAttributesView() {
+        var enabledViews = [];
+        _.each(carbon.views, function (view) {
+            if (view.templateVariables && view.templateVariables.base_name == 'enabled_attributes') {
+                enabledViews.push(view);
+            }
+        });
+
+        return enabledViews;
+    }
+
+    function getBaseEnabledAttributesView() {
+        var enabledView = null;
+        _.each(carbon.views, function (view) {
+            if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_enabled_attributes') {
+                enabledView = view;
+            }
+        });
+
+        return enabledView;
+    }
 
     function toggleTabs() {
         // Supports multiple languages
@@ -52,47 +72,72 @@ jQuery(function ($) {
     affiliciousView.$el.find('select[name="_affilicious_product_type"]').ready(toggleTabs);
     affiliciousView.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
 
-    // ------------------------------------------------------------------------
+    var variantsView = getVariantsView();
+    var baseAttributesView = getBaseEnabledAttributesView();
 
-    function removeActions() {
-        var affiliciousView = getAffiliciousView(),
-            variantsView = getVariantsView();
+    variantsView.model.on('change:value', function () {
+        var attributesViews = getEnabledAttributesView();
+        console.log(window.carbon);
+        var value = baseAttributesView.model.get('value');
 
-        var select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
-            value = select.val();
+        _.each(attributesViews, function (attributesView) {
+            attributesView.model.set('value', value);
+        });
+    });
 
-        if (typeof variantsView.model.get('temp_attribute_group_key') == 'undefined') {
-            variantsView.model.set('temp_attribute_group_key', value);
-        }
+    baseAttributesView.model.on('change:value', function () {
+        var attributesViews = getEnabledAttributesView();
+        console.log(window.carbon);
+        var value = baseAttributesView.model.get('value');
 
-        variantsView.$actions.find('ul').remove();
-        variantsView.$actions.find('a.button').data('group', value != 'none' ? '_' + value : '');
+        _.each(attributesViews, function (attributesView) {
+            attributesView.model.set('value', value);
+        });
+    });
+});
+window.carbon = window.carbon || {};
+
+(function ($) {
+    var carbon = window.carbon;
+    if (typeof carbon.fields === 'undefined') {
+        return false;
     }
 
-    function changeVariants(evt) {
-        var affiliciousView = getAffiliciousView(),
-            variantsView = getVariantsView();
-
-        var select = affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]'),
-            value = select.val();
-
-        removeActions();
-
-        if (variantsView.model.get('temp_attribute_group_key') != value) {
-            variantsView.model.set('temp_attribute_group_key', value);
-
-            variantsView.$groupsHolder.find('.carbon-row').remove();
-            variantsView.$introRow.show();
-
-            variantsView.groupsCollection.reset();
+    carbon.fields.Model.Tags = carbon.fields.Model.extend({
+        initialize: function () {
+            carbon.fields.Model.prototype.initialize.apply(this); // do not delete
         }
-    }
+    });
 
-    affiliciousView.$el.find('select[name="_affilicious_product_attribute_group_key"]').ready(removeActions);
-    affiliciousView.$el.on('change select[name="_affilicious_product_attribute_group_key"]', changeVariants);
+    carbon.fields.View.Tags = carbon.fields.View.extend({
+        initialize: function () {
+            // Initialize the parent view
+            carbon.fields.View.prototype.initialize.apply(this); // do not delete
 
-    // ------------------------------------------------------------------------
+            // Wait for the field to be added to the DOM and run an init method
+            this.on('field:rendered', this.initField);
+        },
 
+        initField: function () {
+            var self = this;
+
+            $('.aff-tags').tagsInput({
+                'width': '100%',
+                'height': 'auto',
+                'defaultText': translations.addTag,
+                'interactive': true,
+                'delimiter': ';',
+                'minChars': 1,
+                'maxChars': 100,
+                'placeholderColor': '#666666',
+                'onChange': function () {
+                    self.model.set('value', $('input[name="' + self.templateVariables.name + '"]').val());
+                }
+            });
+        }
+    });
+})(jQuery);
+jQuery(function ($) {
     // TODO: Remove the code below in the beta
     var product_gallery_frame;
     var $image_gallery_ids = $('#product_image_gallery');
@@ -194,45 +239,3 @@ jQuery(function ($) {
         return false;
     });
 });
-window.carbon = window.carbon || {};
-
-(function ($) {
-    var carbon = window.carbon;
-    if (typeof carbon.fields === 'undefined') {
-        return false;
-    }
-
-    carbon.fields.Model.Tags = carbon.fields.Model.extend({
-        initialize: function () {
-            carbon.fields.Model.prototype.initialize.apply(this); // do not delete
-        }
-    });
-
-    carbon.fields.View.Tags = carbon.fields.View.extend({
-        initialize: function () {
-            // Initialize the parent view
-            carbon.fields.View.prototype.initialize.apply(this); // do not delete
-
-            // Wait for the field to be added to the DOM and run an init method
-            this.on('field:rendered', this.initField);
-        },
-
-        initField: function () {
-            var self = this;
-
-            $('.aff-tags').tagsInput({
-                'width': '100%',
-                'height': 'auto',
-                'defaultText': translations.addTag,
-                'interactive': true,
-                'delimiter': ';',
-                'minChars': 1,
-                'maxChars': 100,
-                'placeholderColor': '#666666',
-                'onChange': function () {
-                    self.model.set('value', $('input[name="' + self.templateVariables.name + '"]').val());
-                }
-            });
-        }
-    });
-})(jQuery);

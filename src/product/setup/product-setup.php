@@ -44,11 +44,6 @@ class Product_Setup implements Setup_Interface
     private $key_generator;
 
     /**
-     * @var int
-     */
-    private $post_id;
-
-    /**
      * @since 0.6
      * @param Shop_Template_Repository_Interface $shop_template_repository
      * @param Attribute_Template_Repository_Interface $attribute_template_repository
@@ -66,8 +61,6 @@ class Product_Setup implements Setup_Interface
         $this->attribute_template_repository = $attribute_template_repository;
         $this->detail_template_repository = $detail_template_repository;
         $this->key_generator = $key_generator;
-        $this->post_id = isset($_GET['post']) ? $_GET['post'] : null;
-
     }
 
     /**
@@ -144,13 +137,13 @@ class Product_Setup implements Setup_Interface
             ->show_on_post_type(Product_Interface::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->get_general_fields())
-            //->add_tab(__('Variants', 'affilicious'), $this->get_variants_fields())
+            ->add_tab(__('Variants', 'affilicious'), $this->get_variants_fields())
             ->add_tab(__('Shops', 'affilicious'), $this->get_shops_fields())
             ->add_tab(__('Details', 'affilicious'), $this->get_detail_fields())
             ->add_tab(__('Review', 'affilicious'), $this->get_review_fields())
             ->add_tab(__('Relations', 'affilicious'), $this->get_relations_fields());
 
-        apply_filters('affilicious_product_render_affilicious_product_container', $container, $this->post_id);
+        apply_filters('affilicious_product_render_affilicious_product_container', $container);
         do_action('affilicious_product_after_render');
     }
 
@@ -203,111 +196,120 @@ class Product_Setup implements Setup_Interface
     {
         $fields = array();
 
-        $attribute_template_groups = $this->attribute_template_repository->find_all();
-        if(empty($attribute_template_groups)) {
-            $notice = View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
-                'message' => __('<b>No Attribute Group Templates available!</b> Please create an attribute group template.', 'affilicious')
-            ));
-
-            $fields[] = Carbon_Field::make('html', 'affilicious_product_no_attributes')
-                ->set_html($notice);
+        $attribute_templates = $this->attribute_template_repository->find_all();
+        if(empty($attribute_templates)) {
+            $fields[] = $this->get_variants_empty_attributes_notice_field();
 
             return $fields;
         }
 
-        $fields[] = $this->get_attribute_group_choices(
-                Carbon_Product_Repository::ATTRIBUTE_GROUP_KEY,
-                __('Attribute Group', 'affilicious')
-            );
+        $fields[] = Carbon_Field::make('tags', '_affilicious_product_enabled_attributes', __('Attribute', 'affilicious'));
 
-        $variantComplexFields = $this->get_variants_complex_fields(
-            Carbon_Product_Repository::VARIANTS,
-            __('Variants', 'affilicious')
-        );
-
-        if($variantComplexFields !== null) {
-            $fields = array_merge($fields, array($variantComplexFields));
-        }
-
-        return apply_filters('affilicious_product_render_affilicious_product_container_variants_fields', $fields, $this->post_id);
-    }
-
-    /**
-     * Get the complex fields for the variants related to the attribute template group
-     *
-     * @since 0.6
-     * @param string $name
-     * @param null|string $label
-     * @return Carbon_Complex_Field
-     */
-    private function get_variants_complex_fields($name, $label = null)
-    {
-        $attribute_template_groups = $this->attribute_template_repository->find_all();
-        if(empty($attribute_template_groups)) {
-            return null;
-        }
-
-        /** @var Carbon_Complex_Field $field */
-        $field = Carbon_Field::make('complex', $name, $label)
+        $fields[] = Carbon_Field::make('complex', Carbon_Product_Repository::VARIANTS, __('Variants', 'affilicious'))
             ->set_max(self::VARIANTS_LIMIT)
             ->setup_labels(array(
                 'plural_name' => __('Variants', 'affilicious'),
                 'singular_name' => __('Variant', 'affilicious'),
-            ));
-
-        foreach ($attribute_template_groups as $attribute_template_group) {
-            $title = $attribute_template_group->get_name();
-            $key = $attribute_template_group->get_slug();
-
-            if (empty($title) || empty($key)) {
-                continue;
-            }
-
-            $fields = array_merge(array(
-                Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ID, __('Variant ID', 'affilicious')),
-                Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_TITLE, __('Name', 'affilicious'))
-                    ->set_required(true)
-                    ->set_width(70),
-                Carbon_Field::make('checkbox', Carbon_Product_Repository::VARIANT_DEFAULT, __('Default Variant', 'affilicious'))
-                    ->set_option_value('yes')
-                    ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
-                    ->set_width(30),
-                Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
-                    ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
+            ))
+            ->add_fields(array_merge(array(
+                    Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious')),
+                    Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_TITLE, __('Name', 'affilicious'))
+                        ->set_required(true)
+                        ->set_width(70),
+                    Carbon_Field::make('checkbox', Carbon_Product_Repository::VARIANT_DEFAULT, __('Default Variant', 'affilicious'))
+                        ->set_option_value('yes')
+                        ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
+                        ->set_width(30),
                 ),
-                $this->get_attribute_fields($attribute_template_group),
+                $this->get_variants_attribute_fields($attribute_templates),
                 array(
+                    Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
+                        ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
                     Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL, __('Thumbnail', 'affilicious')),
                     $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious')),
                 )
-            );
-
-            // TODO: Remove the quick fix
-            foreach ($fields as $_key => $_field) {
-                if($_field === null) {
-                    unset($fields[$_key]);
-                }
-            }
-
-            $field->add_fields($key->get_value(), $title->get_value(), $fields);
-
-            $field->set_header_template('
+            ))
+            ->set_header_template('
                 <# if (' . Carbon_Product_Repository::VARIANT_TITLE . ') { #>
                     {{ ' . Carbon_Product_Repository::VARIANT_TITLE . ' }}
                 <# } #>
-            ');
+            ')
+            ->set_conditional_logic(array(
+                'relation' => 'and',
+                array(
+                    'field' => '_affilicious_product_enabled_attributes',
+                    'value' => '',
+                    'compare' => '!=',
+                )
+            ));
 
-            $fields[] = $field;
+        return apply_filters('affilicious_product_render_affilicious_product_container_variants_fields', $fields);
+    }
+
+    /**
+     * Get the attribute fields for the variants.
+     *
+     * @since 0.8
+     * @param Attribute_Template[] $attribute_templates
+     * @return array
+     */
+    public function get_variants_attribute_fields($attribute_templates)
+    {
+        $fields = array();
+
+        foreach ($attribute_templates as $attribute_template) {
+            $fields[] = $this->get_variants_attribute_field($attribute_template);
         }
 
-        $field->set_conditional_logic(array(
-            'relation' => 'and',
-            array(
-                'field' => Carbon_Product_Repository::ATTRIBUTE_GROUP_KEY,
-                'value' => 'none',
-                'compare' => '!=',
-            )
+        return $fields;
+    }
+
+    /**
+     * Get a single attribute field for the variants.
+     *
+     * @since 0.8
+     * @param Attribute_Template $attribute_template
+     * @return mixed
+     */
+    public function get_variants_attribute_field(Attribute_Template $attribute_template)
+    {
+        // Build the key
+        $attribute_key = $this->key_generator->generate_from_slug($attribute_template->get_slug())->get_value();
+        $field_key = sprintf(Carbon_Product_Repository::VARIANT_ATTRIBUTE, $attribute_key);
+
+        // Build the name
+        $field_name = trim(sprintf('%s %s', $attribute_template->get_name(), $attribute_template->get_unit()));
+
+        // Build the type
+        $field_type = $attribute_template->get_type()->get_value();
+
+        $field = Carbon_Field::make($field_type, $field_key, $field_name)->set_required(true)
+            ->set_required(true)
+            ->set_conditional_logic(array(
+                'relation' => 'and',
+                array(
+                    'field' => 'enabled_attributes',
+                    'value' => $attribute_template->get_name()->get_value(),
+                    'compare' => 'CONTAINS',
+                )
+            ));
+
+        return $field;
+    }
+
+    /**
+     * Get the empty attributes notice for the variants.
+     *
+     * @since 0.8
+     * @return Carbon_Field
+     */
+    public function get_variants_empty_attributes_notice_field()
+    {
+        $notice = View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+            'message' => __('<b>No Attribute Templates available!</b> Please create an attribute template.', 'affilicious')
         ));
+
+        $field = Carbon_Field::make('html', 'affilicious_product_no_attributes')->set_html($notice);
 
         return $field;
     }
@@ -345,27 +347,20 @@ class Product_Setup implements Setup_Interface
      */
     private function get_detail_fields()
     {
+        $fields = array();
+
         $detail_templates = $this->detail_template_repository->find_all();
         if(empty($detail_templates)) {
-            $notice =  View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
-                'message' => __('<b>No detail templates available!</b> Please create a detail template.', 'affilicious')
-            ));
+            $fields[] = $this->get_details_empty_notice_field();
 
-            return array(
-                Carbon_Field::make('html', 'affilicious_product_no_detail_templates')->set_html($notice)
-            );
+            return $fields;
         }
 
-        $fields = array(
-            Carbon_Field::make('tags', '_affilicious_product_enabled_details', __('Detail', 'affilicious'))->add_class('aff_details'),
-        );
+        $fields[] = Carbon_Field::make('tags', '_affilicious_product_enabled_details', __('Detail', 'affilicious'))
+            ->add_class('aff_details');
 
         foreach ($detail_templates as $detail_template) {
-            $field_name = trim(sprintf('%s %s',
-                $detail_template->get_name(),
-                $detail_template->get_unit())
-            );
-
+            $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));
             $field_type = $detail_template->get_type()->get_value();
             $detail_key = $this->key_generator->generate_from_slug($detail_template->get_slug())->get_value();
             $field_key = sprintf(Carbon_Product_Repository::DETAIL, $detail_key);
@@ -384,6 +379,23 @@ class Product_Setup implements Setup_Interface
         }
 
         return apply_filters('affilicious_product_render_affilicious_product_container_detail_fields', $fields, $this->post_id);
+    }
+
+    /**
+     * Get the empty notice field for thr details.
+     *
+     * @since 0.8
+     * @return Carbon_Field
+     */
+    private function get_details_empty_notice_field()
+    {
+        $notice =  View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+            'message' => __('<b>No detail templates available!</b> Please create a detail template.', 'affilicious')
+        ));
+
+        $field = Carbon_Field::make('html', 'affilicious_product_no_detail_templates')->set_html($notice);
+
+        return $field;
     }
 
     /**
@@ -505,74 +517,12 @@ class Product_Setup implements Setup_Interface
         return $tabs;
     }
 
-    /**
-     * Get the attribute group choice for the variants
-     *
-     * @param string $name
-     * @param null|string $label
-     * @return Carbon_Field
-     */
-    private function get_attribute_group_choices($name, $label = null)
-    {
-        $attribute_template_groups = $this->attribute_template_repository->find_all();
 
-        $options = array();
-        $options['none'] = __('None', 'affilicious');
 
-        foreach ($attribute_template_groups as $attribute_template_group) {
-            $title = $attribute_template_group->get_name();
-            $key = $attribute_template_group->get_slug();
 
-            if (empty($title) || empty($key)) {
-                continue;
-            }
 
-            $options[$key->get_value()] = $title->get_value();
-        }
 
-        $field = Carbon_Field::make('select', $name, $label)
-            ->add_options($options);
 
-        return $field;
-    }
-
-    /**
-     * Get the attribute fields
-     *
-     * @since 0.6
-     * @param Attribute_Template $attribute_template_group
-     * @return Carbon_Field[]
-     */
-    private function get_attribute_fields(Attribute_Template $attribute_template_group)
-    {
-        $fields = array(
-            Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID, __('Attribute Template Group ID', 'affilicious'))
-                ->set_value($attribute_template_group->get_id()->get_value())
-        );
-
-        $attributes = $attribute_template_group->get_attribute_templates();
-        foreach ($attributes as $attribute) {
-            $field_name = sprintf('%s %s', $attribute->get_title(), $attribute->get_unit());
-            $field_name = trim($field_name);
-
-            $field = Carbon_Field::make(
-                $attribute->get_type()->get_value(),
-                Carbon_Product_Repository::VARIANT_ATTRIBUTE . '_' . $attribute->get_key()->get_value(),
-                $field_name
-            );
-
-            if ($attribute->has_help_text()) {
-                $field->help_text($attribute->get_help_text()->get_value());
-            }
-
-            $field->set_required(true);
-            $field->set_width(100 / count($attributes));
-
-            $fields[] = $field;
-        }
-
-        return $fields;
-    }
 
     /**
      * Get the detail groups tabs

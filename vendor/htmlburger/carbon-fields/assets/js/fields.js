@@ -364,7 +364,6 @@ window.carbon = window.carbon || {};
 		},
 
 		compare: function(value1, value2, oparator) {
-			console.log(value1 ? value1.split(';').indexOf(value2) > -1 : false);
 			switch (oparator) {
 				case '='  : return value1 == value2;
 				case '!=' : return value1 != value2;

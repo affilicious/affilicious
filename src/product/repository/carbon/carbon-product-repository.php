@@ -69,19 +69,15 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
     const DETAIL = '_affilicious_product_detail_%s';
 
-    const ATTRIBUTE_GROUP_KEY = '_affilicious_product_attribute_group_key';
-    const ATTRIBUTE_GROUPS = '_affilicious_product_attribute_groups';
-    const ATTRIBUTE_GROUP_TEMPLATE_ID = 'template_id';
-    const ATTRIBUTE_GROUP_ATTRIBUTE = 'attribute';
-
     const VARIANTS = '_affilicious_product_variants';
+    const VARIANT_ENABLED_ATTRIBUTES = 'enabled_attributes';
     const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
     const VARIANT_TAGS = 'tags';
     const VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID = 'template_group_id';
-    const VARIANT_ATTRIBUTE = 'attribute';
     const VARIANT_THUMBNAIL = 'thumbnail';
+    const VARIANT_ATTRIBUTE = 'attribute_%s';
     const VARIANT_SHOPS = 'shops';
 
     const REVIEW_RATING = '_affilicious_product_review_rating';
