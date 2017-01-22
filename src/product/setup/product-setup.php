@@ -6,9 +6,11 @@ use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Common\Model\Key_Generator_Interface;
 use Affilicious\Common\Setup\Setup_Interface;
+use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Model\Product_Interface;
 use Affilicious\Product\Repository\Carbon\Carbon_Product_Repository;
+use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
@@ -133,13 +135,17 @@ class Product_Setup implements Setup_Interface
     {
         do_action('affilicious_product_before_render');
 
+        $shop_templates = $this->shop_template_repository->find_all();
+        $attribute_templates = $this->attribute_template_repository->find_all();
+        $detail_templates = $this->detail_template_repository->find_all();
+
         $container = Carbon_Container::make('post_meta', __('Affilicious Product', 'affilicious'))
             ->show_on_post_type(Product_Interface::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->get_general_fields())
-            ->add_tab(__('Variants', 'affilicious'), $this->get_variants_fields())
-            ->add_tab(__('Shops', 'affilicious'), $this->get_shops_fields())
-            ->add_tab(__('Details', 'affilicious'), $this->get_detail_fields())
+            ->add_tab(__('Variants', 'affilicious'), $this->get_variants_fields($attribute_templates, $shop_templates))
+            ->add_tab(__('Shops', 'affilicious'), $this->get_shops_fields($shop_templates))
+            ->add_tab(__('Details', 'affilicious'), $this->get_detail_fields($detail_templates))
             ->add_tab(__('Review', 'affilicious'), $this->get_review_fields())
             ->add_tab(__('Relations', 'affilicious'), $this->get_relations_fields());
 
@@ -183,20 +189,21 @@ class Product_Setup implements Setup_Interface
                 )),
         );
 
-        return apply_filters('affilicious_product_render_affilicious_product_container_general_fields', $fields, $this->post_id);
+        return apply_filters('affilicious_product_render_affilicious_product_container_general_fields', $fields);
     }
 
     /**
      * Get the variants fields
      *
      * @since 0.6
+     * @param Attribute_Template[] $attribute_templates
+     * @param Shop_Template[] $shop_templates
      * @return array
      */
-    private function get_variants_fields()
+    private function get_variants_fields($attribute_templates, $shop_templates)
     {
         $fields = array();
 
-        $attribute_templates = $this->attribute_template_repository->find_all();
         if(empty($attribute_templates)) {
             $fields[] = $this->get_variants_empty_attributes_notice_field();
 
@@ -226,7 +233,7 @@ class Product_Setup implements Setup_Interface
                     Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
                         ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
                     Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL, __('Thumbnail', 'affilicious')),
-                    $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious')),
+                    !empty($shop_templates) ? $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious'), $shop_templates) : $this->get_shops_empty_notice_field(),
                 )
             ))
             ->set_header_template('
@@ -306,7 +313,10 @@ class Product_Setup implements Setup_Interface
     public function get_variants_empty_attributes_notice_field()
     {
         $notice = View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
-            'message' => __('<b>No Attribute Templates available!</b> Please create an attribute template.', 'affilicious')
+            'message' => sprintf(
+                __('<b>No attribute templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
+                admin_url('edit-tags.php?taxonomy=aff_attribute_tmpl&post_type=aff_product')
+            )
         ));
 
         $field = Carbon_Field::make('html', 'affilicious_product_no_attributes')->set_html($notice);
@@ -318,143 +328,42 @@ class Product_Setup implements Setup_Interface
      * Get the shops fields
      *
      * @since 0.6
+     * @param Shop_Template[] $shop_templates
      * @return array
      */
-    private function get_shops_fields()
+    private function get_shops_fields($shop_templates)
     {
         $fields = array();
 
-        $tabs = $this->get_shop_tabs(Carbon_Product_Repository::SHOPS, __('Shops', 'affilicious'));
-        if(!empty($tabs)) {
-            $fields[] = $tabs;
-        } else {
-            $notice = $notice = View_Helper::stringify('src/common/presentation/view/notifications/warning-notice.php', array(
-                'message' => __('<b>No Shop Templates available!</b> Please create a shop template.', 'affilicious')
-            ));
-
-            $fields[] = Carbon_Field::make('html', 'affilicious_product_no_shops')
-                ->set_html($notice);
-        }
-
-        return apply_filters('affilicious_product_render_affilicious_product_container_shops_fields', $fields, $this->post_id);
-    }
-
-    /**
-     * Get the details fields
-     *
-     * @since 0.6
-     * @return array
-     */
-    private function get_detail_fields()
-    {
-        $fields = array();
-
-        $detail_templates = $this->detail_template_repository->find_all();
-        if(empty($detail_templates)) {
-            $fields[] = $this->get_details_empty_notice_field();
+        if(empty($shop_templates)) {
+            $fields[] = $this->get_shops_empty_notice_field();
 
             return $fields;
         }
 
-        $fields[] = Carbon_Field::make('tags', '_affilicious_product_enabled_details', __('Detail', 'affilicious'))
-            ->add_class('aff_details');
+        $fields[] = $this->get_shop_tabs(Carbon_Product_Repository::SHOPS, __('Shops', 'affilicious'), $shop_templates);
 
-        foreach ($detail_templates as $detail_template) {
-            $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));
-            $field_type = $detail_template->get_type()->get_value();
-            $detail_key = $this->key_generator->generate_from_slug($detail_template->get_slug())->get_value();
-            $field_key = sprintf(Carbon_Product_Repository::DETAIL, $detail_key);
-
-            $field = Carbon_Field::make($field_type, $field_key, $field_name)
-                    ->set_conditional_logic(array(
-                        'relation' => 'and',
-                        array(
-                            'field' => '_affilicious_product_enabled_details',
-                            'value' => $detail_template->get_name()->get_value(),
-                            'compare' => 'CONTAINS',
-                        )
-                    ));
-
-            $fields[] = $field;
-        }
-
-        return apply_filters('affilicious_product_render_affilicious_product_container_detail_fields', $fields, $this->post_id);
+        return apply_filters('affilicious_product_render_affilicious_product_container_shops_fields', $fields);
     }
 
     /**
-     * Get the empty notice field for thr details.
+     * Get the empty notice for the shops.
      *
      * @since 0.8
      * @return Carbon_Field
      */
-    private function get_details_empty_notice_field()
+    private function get_shops_empty_notice_field()
     {
-        $notice =  View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
-            'message' => __('<b>No detail templates available!</b> Please create a detail template.', 'affilicious')
+        $notice = $notice = View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+            'message' => sprintf(
+                __('<b>No shop templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
+                admin_url('edit-tags.php?taxonomy=aff_shop_tmpl&post_type=aff_product')
+            )
         ));
 
-        $field = Carbon_Field::make('html', 'affilicious_product_no_detail_templates')->set_html($notice);
+        $fields = Carbon_Field::make('html', 'affilicious_product_no_shops')->set_html($notice);
 
-        return $field;
-    }
-
-    /**
-     * Get the review fields
-     *
-     * @since 0.6
-     * @return array
-     */
-    private function get_review_fields()
-    {
-        $fields = array(
-            Carbon_Field::make('select', Carbon_Product_Repository::REVIEW_RATING, __('Rating', 'affilicious'))
-                ->add_options(array(
-                    'none' => sprintf(__('None', 'affilicious'), 0),
-                    '0' => sprintf(__('%s stars', 'affilicious'), 0),
-                    '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
-                    '1' => sprintf(__('%s star', 'affilicious'), 1),
-                    '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
-                    '2' => sprintf(__('%s stars', 'affilicious'), 2),
-                    '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
-                    '3' => sprintf(__('%s stars', 'affilicious'), 3),
-                    '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
-                    '4' => sprintf(__('%s stars', 'affilicious'), 4),
-                    '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
-                    '5' => sprintf(__('%s stars', 'affilicious'), 5),
-                )),
-            Carbon_Field::make('number', Carbon_Product_Repository::REVIEW_VOTES, __('Votes', 'affilicious'))
-                ->set_help_text(__('If you want to hide the votes, just leave it empty.', 'affilicious'))
-                ->set_conditional_logic(array(
-                    'relation' => 'and',
-                    array(
-                        'field' => Carbon_Product_Repository::REVIEW_RATING,
-                        'value' => 'none',
-                        'compare' => '!=',
-                    )
-                )),
-        );
-
-        return apply_filters('affilicious_product_render_affilicious_product_container_review_fields', $fields, $this->post_id);
-    }
-
-    /**
-     * Get the relation fields
-     *
-     * @since 0.6
-     * @return array
-     */
-    private function get_relations_fields()
-    {
-        $fields = array(
-            Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_PRODUCTS, __('Related Products', 'affilicious'))
-                ->allow_duplicates(false)
-                ->set_post_type(Product_Interface::POST_TYPE),
-            Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
-                ->allow_duplicates(false)
-                ->set_post_type(Product_Interface::POST_TYPE),
-        );
-
-        return apply_filters('affilicious_product_render_affilicious_product_container_relations_fields', $fields, $this->post_id);
+        return $fields;
     }
 
     /**
@@ -463,15 +372,11 @@ class Product_Setup implements Setup_Interface
      * @since 0.6
      * @param string $name
      * @param null|string $label
+     * @param Shop_Template[] $shop_templates
      * @return Carbon_Complex_Field
      */
-    private function get_shop_tabs($name, $label = null)
+    private function get_shop_tabs($name, $label = null, $shop_templates)
     {
-        $shop_templates = $this->shop_template_repository->find_all();
-        if(empty($shop_templates)) {
-            return null;
-        }
-
         /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
             ->set_layout('tabbed-horizontal')
@@ -517,76 +422,124 @@ class Product_Setup implements Setup_Interface
         return $tabs;
     }
 
-
-
-
-
-
-
-
     /**
-     * Get the detail groups tabs
+     * Get the details fields.
      *
      * @since 0.6
-     * @param string $name
-     * @param null|string $label
-     * @return Carbon_Complex_Field
+     * @param Detail_Template[] $detail_templates
+     * @return array
      */
-    private function get_detail_group_tabs($name, $label = null)
+    private function get_detail_fields($detail_templates)
     {
-        $detail_template_groups = $this->detail_template_repository->find_all();
-        if(empty($detail_template_groups)) {
-            return null;
+        $fields = array();
+
+        if(empty($detail_templates)) {
+            $fields[] = $this->get_details_empty_notice_field();
+
+            return $fields;
         }
 
-        /** @var Carbon_Complex_Field $tabs */
-        $tabs = Carbon_Field::make('complex', $name, $label)
-            ->set_layout('tabbed-horizontal')
-            ->setup_labels(array(
-                'plural_name' => __('Detail Groups', 'affilicious'),
-                'singular_name' => __('Detail Group', 'affilicious'),
-            ));
+        $fields[] = Carbon_Field::make('tags', '_affilicious_product_enabled_details', __('Detail', 'affilicious'))
+            ->add_class('aff_details');
 
-        foreach ($detail_template_groups as $detail_template_group) {
-            $title = $detail_template_group->get_title()->get_value();
-            $key = $detail_template_group->get_key()->get_value();
+        foreach ($detail_templates as $detail_template) {
+            $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));
+            $field_type = $detail_template->get_type()->get_value();
+            $detail_key = $this->key_generator->generate_from_slug($detail_template->get_slug())->get_value();
+            $field_key = sprintf(Carbon_Product_Repository::DETAIL, $detail_key);
 
-            if (empty($title) || empty($key)) {
-                continue;
-            }
+            $field = Carbon_Field::make($field_type, $field_key, $field_name)
+                    ->set_conditional_logic(array(
+                        'relation' => 'and',
+                        array(
+                            'field' => '_affilicious_product_enabled_details',
+                            'value' => $detail_template->get_name()->get_value(),
+                            'compare' => 'CONTAINS',
+                        )
+                    ));
 
-            $fields = array();
-            $details = $detail_template_group->get_detail_templates();
-            foreach ($details as $detail) {
-                $field_name = sprintf('%s %s', $detail->get_title(), $detail->get_unit());
-                $field_name = trim($field_name);
-
-                $field = Carbon_Field::make(
-                    $detail->get_type(),
-                    $detail->get_key(),
-                    $field_name
-                );
-
-                if ($detail->has_help_text()) {
-                    $field->help_text($detail->get_help_text()->get_value());
-                }
-
-                $fields[] = $field;
-            }
-
-            $carbon_detail_group_id = Carbon_Field::make(
-                'hidden',
-                Carbon_Product_Repository::DETAIL_TEMPLATE_GROUP_ID,
-                __('Detail Template ID', 'affilicious')
-            )->set_value($detail_template_group->get_id()->get_value());
-
-            $fields = array_merge(array(
-                Carbon_Product_Repository::DETAIL_TEMPLATE_GROUP_ID => $carbon_detail_group_id,
-            ), $fields);
-
-            $tabs->add_fields($key, $title, $fields);
+            $fields[] = $field;
         }
 
-        return $tabs;
+        return apply_filters('affilicious_product_render_affilicious_product_container_detail_fields', $fields);
+    }
+
+    /**
+     * Get the empty notice field for thr details.
+     *
+     * @since 0.8
+     * @return Carbon_Field
+     */
+    private function get_details_empty_notice_field()
+    {
+        $notice =  View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+            'message' => sprintf(
+                __('<b>No detail templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
+                admin_url('edit-tags.php?taxonomy=aff_detail_tmpl&post_type=aff_product')
+            )
+        ));
+
+        $field = Carbon_Field::make('html', 'affilicious_product_no_detail_templates')->set_html($notice);
+
+        return $field;
+    }
+
+    /**
+     * Get the review fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function get_review_fields()
+    {
+        $fields = array(
+            Carbon_Field::make('select', Carbon_Product_Repository::REVIEW_RATING, __('Rating', 'affilicious'))
+                ->add_options(array(
+                    'none' => sprintf(__('None', 'affilicious'), 0),
+                    '0' => sprintf(__('%s stars', 'affilicious'), 0),
+                    '0.5' => sprintf(__('%s stars', 'affilicious'), 0.5),
+                    '1' => sprintf(__('%s star', 'affilicious'), 1),
+                    '1.5' => sprintf(__('%s stars', 'affilicious'), 1.5),
+                    '2' => sprintf(__('%s stars', 'affilicious'), 2),
+                    '2.5' => sprintf(__('%s stars', 'affilicious'), 2.5),
+                    '3' => sprintf(__('%s stars', 'affilicious'), 3),
+                    '3.5' => sprintf(__('%s stars', 'affilicious'), 3.5),
+                    '4' => sprintf(__('%s stars', 'affilicious'), 4),
+                    '4.5' => sprintf(__('%s stars', 'affilicious'), 4.5),
+                    '5' => sprintf(__('%s stars', 'affilicious'), 5),
+                )),
+            Carbon_Field::make('number', Carbon_Product_Repository::REVIEW_VOTES, __('Votes', 'affilicious'))
+                ->set_help_text(__('If you want to hide the votes, just leave it empty.', 'affilicious'))
+                ->set_conditional_logic(array(
+                    'relation' => 'and',
+                    array(
+                        'field' => Carbon_Product_Repository::REVIEW_RATING,
+                        'value' => 'none',
+                        'compare' => '!=',
+                    )
+                )),
+        );
+
+        return apply_filters('affilicious_product_render_affilicious_product_container_review_fields', $fields);
+    }
+
+    /**
+     * Get the relation fields
+     *
+     * @since 0.6
+     * @return array
+     */
+    private function get_relations_fields()
+    {
+        $fields = array(
+            Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_PRODUCTS, __('Related Products', 'affilicious'))
+                ->allow_duplicates(false)
+                ->set_post_type(Product_Interface::POST_TYPE),
+            Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
+                ->allow_duplicates(false)
+                ->set_post_type(Product_Interface::POST_TYPE),
+        );
+
+        return apply_filters('affilicious_product_render_affilicious_product_container_relations_fields', $fields);
     }
 }
