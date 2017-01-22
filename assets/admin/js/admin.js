@@ -6,118 +6,143 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 jQuery(function ($) {
-    var Test = function () {
-        function Test() {
-            _classCallCheck(this, Test);
-        }
-
-        _createClass(Test, [{
-            key: 'hallo',
-            value: function hallo() {
-                return "Hallo";
-            }
-        }]);
-
-        return Test;
-    }();
-
-    var test = new Test();
-    test.hallo();
-
-    // ------------------------------------------------------------------------
     var carbon = window.carbon;
     if (typeof carbon.fields === 'undefined') {
         return false;
     }
 
-    function getAffiliciousView() {
-        var affiliciousView = null;
-        _.each(carbon.views, function (view) {
-            if (view.model && view.model.attributes && view.model.attributes.title == translations.container) {
-                affiliciousView = view;
-            }
-        });
+    var AffiliciousProduct = function () {
+        function AffiliciousProduct() {
+            _classCallCheck(this, AffiliciousProduct);
 
-        return affiliciousView;
-    }
+            this.view = this.getContainerView();
+            this.typeView = this.getTypeView();
+            this.variantsView = this.getVariantsView();
+            this.enabledAttributesView = this.getEnabledAttributesView();
 
-    function getVariantsView() {
-        var variantsView = null;
-        _.each(carbon.views, function (view) {
-            if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_variants') {
-                variantsView = view;
-            }
-        });
-
-        return variantsView;
-    }
-
-    function getEnabledAttributesView() {
-        var enabledViews = [];
-        _.each(carbon.views, function (view) {
-            if (view.templateVariables && view.templateVariables.base_name == 'enabled_attributes') {
-                enabledViews.push(view);
-            }
-        });
-
-        return enabledViews;
-    }
-
-    function getBaseEnabledAttributesView() {
-        var enabledView = null;
-        _.each(carbon.views, function (view) {
-            if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_enabled_attributes') {
-                enabledView = view;
-            }
-        });
-
-        return enabledView;
-    }
-
-    function toggleTabs() {
-        // Supports multiple languages
-        var affiliciousView = getAffiliciousView(),
-            select = $('select[name="_affilicious_product_type"]'),
-            value = select.val(),
-            variants = affiliciousView.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
-            shops = affiliciousView.$el.find('a[data-id="shops"]').parent();
-
-        if (value === 'complex') {
-            variants.show();
-            shops.hide();
-        } else {
-            variants.hide();
-            shops.show();
+            this.typeView.model.on('change:value', this.toggleTabs, this);
+            this.variantsView.model.on('change:value', this.toggleAttributes, this);
+            this.enabledAttributesView.model.on('change:value', this.toggleAttributes, this);
         }
-    }
 
-    var affiliciousView = getAffiliciousView();
+        _createClass(AffiliciousProduct, [{
+            key: 'toggleTabs',
+            value: function toggleTabs() {
+                // Supports multiple languages
+                var productType = this.typeView.model.get('value'),
+                    variants = this.view.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
+                    shops = this.view.$el.find('a[data-id="' + translations.shops.trim().toLowerCase() + '"]').parent();
 
-    affiliciousView.$el.find('select[name="_affilicious_product_type"]').ready(toggleTabs);
-    affiliciousView.$el.on('change select[name="_affilicious_product_type"]', toggleTabs);
+                if (productType === 'complex') {
+                    variants.show();
+                    shops.hide();
+                } else {
+                    variants.hide();
+                    shops.show();
+                }
+            }
+        }, {
+            key: 'toggleAttributes',
+            value: function toggleAttributes() {
+                var attributesViews = this.getVariantEnabledAttributesViews(),
+                    value = this.enabledAttributesView.model.get('value');
 
-    var variantsView = getVariantsView();
-    var baseAttributesView = getBaseEnabledAttributesView();
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
 
-    variantsView.model.on('change:value', function () {
-        var attributesViews = getEnabledAttributesView();
-        console.log(window.carbon);
-        var value = baseAttributesView.model.get('value');
+                try {
+                    for (var _iterator = attributesViews[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var attributesView = _step.value;
 
-        _.each(attributesViews, function (attributesView) {
-            attributesView.model.set('value', value);
-        });
-    });
+                        attributesView.model.set('value', value);
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }
+        }, {
+            key: 'getContainerView',
+            value: function getContainerView() {
+                var containerView = null;
 
-    baseAttributesView.model.on('change:value', function () {
-        var attributesViews = getEnabledAttributesView();
-        console.log(window.carbon);
-        var value = baseAttributesView.model.get('value');
+                _.each(carbon.views, function (view) {
+                    if (view.model && view.model.attributes && view.model.attributes.title == translations.container) {
+                        containerView = view;
+                    }
+                });
 
-        _.each(attributesViews, function (attributesView) {
-            attributesView.model.set('value', value);
-        });
-    });
+                return containerView;
+            }
+        }, {
+            key: 'getVariantsView',
+            value: function getVariantsView() {
+                var variantsView = null;
+
+                _.each(carbon.views, function (view) {
+                    if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_variants') {
+                        variantsView = view;
+                    }
+                });
+
+                return variantsView;
+            }
+        }, {
+            key: 'getTypeView',
+            value: function getTypeView() {
+                var typeView = null;
+
+                _.each(carbon.views, function (view) {
+                    if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_type') {
+                        typeView = view;
+                    }
+                });
+
+                return typeView;
+            }
+        }, {
+            key: 'getEnabledAttributesView',
+            value: function getEnabledAttributesView() {
+                var enabledAttributesView = null;
+
+                _.each(carbon.views, function (view) {
+                    if (view.templateVariables && view.templateVariables.base_name == '_affilicious_product_enabled_attributes') {
+                        enabledAttributesView = view;
+                    }
+                });
+
+                return enabledAttributesView;
+            }
+        }, {
+            key: 'getVariantEnabledAttributesViews',
+            value: function getVariantEnabledAttributesViews() {
+                var variantEnabledAttributesViews = [];
+
+                _.each(carbon.views, function (view) {
+                    if (view.templateVariables && view.templateVariables.base_name == 'enabled_attributes') {
+                        variantEnabledAttributesViews.push(view);
+                    }
+                });
+
+                return variantEnabledAttributesViews;
+            }
+        }]);
+
+        return AffiliciousProduct;
+    }();
+
+    window.affiliciousProduct = new AffiliciousProduct();
 });
 'use strict';
 

@@ -92,6 +92,7 @@ class Asset_Setup
         $translations = array(
             'container' => __('Affilicious Product', 'affilicious'),
             'variants' => __('Variants', 'affilicious'),
+            'shops' => __('Shops', 'affilicious'),
             'addTag' => __('Add', 'affilicious'),
         );
 
