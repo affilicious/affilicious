@@ -1,6 +1,9 @@
 <?php
+use Affilicious\Attribute\Helper\Attribute_Template_Helper;
+use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Common\Helper\Time_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
+use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Product\Helper\Product_Helper;
 use Affilicious\Product\Model\Complex\Complex_Product_Interface;
 use Affilicious\Product\Model\Detail_Group_Aware_Product_Interface;
@@ -1217,48 +1220,45 @@ function aff_the_product_attribute_choices($product_or_id = null)
 }
 
 /**
- * Get the shop template by the ID or Wordpress post.
- * If you pass in nothing as a shop template, the current post will be used.
+ * Get the shop template by the ID or Wordpress term.
  *
  * @since 0.6
- * @param int|array|\WP_Post|Shop_Template|null $shop_or_id
- * @return Shop_Template
+ * @param int|array|\WP_Term|Shop_Template $shop_or_id
+ * @return null|Shop_Template
  */
-function aff_get_shop_template($shop_or_id = null)
+function aff_get_shop_template($shop_or_id)
 {
-    $shop = Shop_Template_Helper::get_shop_template($shop_or_id);
+    $shop = Shop_Template_Helper::find_one($shop_or_id);
 
     return $shop;
 }
 
 /**
- * Get the detail template group by the ID or Wordpress post.
- * If you pass in nothing as a detail template group template, the current post will be used.
+ * Get the detail template by the ID or Wordpress term.
  *
- * @since 0.6
- * @param int|array|\WP_Post|Detail_Template|null $detail_template_group_or_id
- * @return Detail_Template
+ * @since 0.8
+ * @param int|array|\WP_Term|Detail_Template $detail_template_or_id
+ * @return null|Detail_Template
  */
-function aff_get_detail_template_group($detail_template_group_or_id = null)
+function aff_get_detail_template($detail_template_or_id)
 {
-    $detail_template_group = Detail_Template_Helper::get_detail_template_group($detail_template_group_or_id);
+    $detail_template = Detail_Template_Helper::fine_one($detail_template_or_id);
 
-    return $detail_template_group;
+    return $detail_template;
 }
 
 /**
- * Get the attribute template group by the ID or Wordpress post.
- * If you pass in nothing as a attribute template group template, the current post will be used.
+ * Get the attribute template by the ID or Wordpress term.
  *
- * @since 0.6
- * @param int|array|\WP_Post|Attribute_Template|null $attribute_template_group_or_id
- * @return Attribute_Template
+ * @since 0.8
+ * @param int|array|\WP_Term|Attribute_Template $attribute_template_or_id
+ * @return null|Attribute_Template
  */
-function aff_get_attribute_template_group($attribute_template_group_or_id = null)
+function aff_get_attribute_template($attribute_template_or_id)
 {
-    $attribute_template_group = Attribute_Template_Helper::get_attribute_template_group($attribute_template_group_or_id);
+    $attribute_template = Attribute_Template_Helper::find_one($attribute_template_or_id);
 
-    return $attribute_template_group;
+    return $attribute_template;
 }
 
 /**
@@ -1343,10 +1343,3 @@ function aff_should_shop_display_old_price($shop)
 
     return $old_price > $price;
 }
-
-
-
-
-
-
-

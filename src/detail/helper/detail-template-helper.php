@@ -10,17 +10,17 @@ if(!defined('ABSPATH')) {
 class Detail_Template_Helper
 {
     /**
-     * Get the detail template by the ID or Wordpress term.
+     * Find one detail template by the ID or Wordpress term.
      *
      * @since 0.8
-     * @param int|array|\WP_Term|Detail_Template|null $term_or_id
+     * @param int|\WP_Term|Detail_Template $term_or_id
      * @return null|Detail_Template
      */
-    public static function get_detail_template($term_or_id = null)
+    public static function fine_one($term_or_id)
     {
         $detail_template_repository = \Affilicious_Plugin::get('affilicious.detail.repository.detail_template');
 
-        if(is_numeric($term_or_id)) {
+        if(!is_int($term_or_id) && is_numeric($term_or_id)) {
             $term_or_id = intval($term_or_id);
         }
 
@@ -29,8 +29,6 @@ class Detail_Template_Helper
             $detail_template = $term_or_id;
         } elseif($term_or_id instanceof \WP_Term) {
             $detail_template = $detail_template_repository->find_by_id($term_or_id->term_id);
-        } elseif (is_array($term_or_id) && !empty($term_or_id['detail_template_id'])) {
-            $detail_template = $detail_template_repository->find_by_id($term_or_id['detail_template_id']);
         } elseif (is_int($term_or_id)) {
             $detail_template = $detail_template_repository->find_by_id($term_or_id);
         }
