@@ -22,7 +22,7 @@ class Attribute_Template_Id
 	 */
 	public function __construct($value)
 	{
-        if (is_numeric($value)) {
+        if (is_numeric($value) || is_string($value)) {
             $value = intval($value);
         }
 
