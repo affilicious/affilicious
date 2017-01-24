@@ -93,6 +93,20 @@ class Attribute_Template
     }
 
     /**
+     * Build a new attribute from the template.
+     *
+     * @since 0.8
+     * @param Value $value
+     * @return Attribute
+     */
+    public function build(Value $value)
+    {
+        $attribute = new Attribute($this->name, $value, $this->type, $this->unit);
+
+        return $attribute;
+    }
+
+    /**
      * Check if this attribute template is equal to the other one.
      *
      * @since 0.8

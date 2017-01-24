@@ -93,13 +93,15 @@ class Detail_Template
     }
 
     /**
+     * Build a new detail from the template.
+     *
      * @since 0.8
      * @param Value $value
      * @return Detail
      */
     public function build(Value $value)
     {
-        $detail = new Detail($this->name, $this->slug, $value, $this->type, $this->unit);
+        $detail = new Detail($this->name, $value, $this->type, $this->unit);
 
         return $detail;
     }

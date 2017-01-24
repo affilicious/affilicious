@@ -146,11 +146,26 @@ class Shop_Template
      *
      * @since 0.8
      * @param null|Provider_Id $provider_id
-     *
      */
     public function set_provider_id(Provider_Id $provider_id = null)
     {
         $this->provider_id = $provider_id;
+    }
+
+    /**
+     * Build a new shop from the template.
+     *
+     * @since 0.8
+     * @param Tracking $tracking
+     * @param Pricing $pricing
+     * @return Shop
+     */
+    public function build(Tracking $tracking, Pricing $pricing)
+    {
+        $shop = new Shop($this->name, $tracking, $pricing);
+        $shop->set_thumbnail_id($this->thumbnail_id);
+
+        return $shop;
     }
 
     /**

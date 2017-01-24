@@ -4,8 +4,6 @@ namespace Affilicious\Shop\Model;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Trait;
-use Affilicious\Common\Model\Slug;
-use Affilicious\Common\Model\Slug_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -13,9 +11,8 @@ if (!defined('ABSPATH')) {
 
 class Shop
 {
-    use Name_Trait, Slug_Trait {
+    use Name_Trait {
         Name_Trait::set_name as private;
-        Slug_Trait::set_slug as private;
     }
 
     /**
@@ -23,40 +20,45 @@ class Shop
      *
      * @var Tracking
      */
-    protected $tracking;
+    private $tracking;
 
     /**
      * The pricing contains all information to show prices and availability.
      *
      * @var Pricing
      */
-    protected $pricing;
+    private $pricing;
 
     /**
      * The optional thumbnail ID of the shop.
      *
      * @var null|Image_Id
      */
-    protected $thumbnail;
+    private $thumbnail_id;
+
+    /**
+     * The optional shop template ID.
+     *
+     * @var Shop_Template_Id
+     */
+    private $template_id;
 
     /**
      * The date and time of the last update.
      *
      * @var \DateTimeImmutable
      */
-    protected $updated_at;
+    private $updated_at;
 
     /**
      * @since 0.8
      * @param Name $name
-     * @param Slug $slug
      * @param Tracking $tracking
      * @param Pricing $pricing
      */
-    public function __construct(Name $name, Slug $slug, Tracking $tracking, Pricing $pricing)
+    public function __construct(Name $name, Tracking $tracking, Pricing $pricing)
     {
         $this->set_name($name);
-        $this->set_slug($slug);
         $this->tracking = $tracking;
         $this->pricing = $pricing;
         $this->updated_at = new \DateTimeImmutable('now');
@@ -89,9 +91,9 @@ class Shop
      *
      * @since 0.8
      */
-    public function has_thumbnail()
+    public function has_thumbnail_id()
     {
-        return $this->thumbnail !== null;
+        return $this->thumbnail_id !== null;
     }
 
     /**
@@ -100,20 +102,53 @@ class Shop
      * @since 0.8
      * @return null|Image_Id
      */
-    public function get_thumbnail()
+    public function get_thumbnail_id()
     {
-        return $this->thumbnail;
+        return $this->thumbnail_id;
     }
 
     /**
      * Set the optional shop thumbnail ID.
      *
      * @since 0.8
-     * @param null|Image_Id $thumbnail
+     * @param null|Image_Id $thumbnail_id
      */
-    public function set_thumbnail(Image_Id $thumbnail = null)
+    public function set_thumbnail_id(Image_Id $thumbnail_id = null)
     {
-        $this->thumbnail = $thumbnail;
+        $this->thumbnail_id = $thumbnail_id;
+    }
+
+    /**
+     * Check if the attribute has an optional template ID.
+     *
+     * @since 0.8
+     * @return bool
+     */
+    public function has_template_id()
+    {
+        return $this->template_id !== null;
+    }
+
+    /**
+     * Get the optional attribute template ID.
+     *
+     * @since 0.8
+     * @return null|Shop_Template_Id
+     */
+    public function get_template_id()
+    {
+        return $this->template_id;
+    }
+
+    /**
+     * Set the optional attribute template ID.
+     *
+     * @since 0.8
+     * @param null|Shop_Template_Id $template_id
+     */
+    public function set_template_id(Shop_Template_Id $template_id = null)
+    {
+        $this->template_id = $template_id;
     }
 
     /**
@@ -179,7 +214,8 @@ class Shop
             $this->get_name()->is_equal_to($other->get_name()) &&
             $this->get_tracking()->is_equal_to($other->get_tracking()) &&
             $this->get_pricing()->is_equal_to($other->get_pricing()) &&
-            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($other->get_thumbnail()) || !$other->has_thumbnail()) &&
+            ($this->has_thumbnail_id() && $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) || !$other->has_thumbnail_id()) &&
+            ($this->has_template_id() && $this->get_template_id()->is_equal_to($other->get_template_id()) || !$other->has_template_id()) &&
             $this->get_updated_at() == $other->get_updated_at();
     }
 }
