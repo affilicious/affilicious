@@ -306,7 +306,10 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.product.repository.product'] = function ($c) {
                 return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
-                    $c['affilicious.common.generator.key']
+                    $c['affilicious.common.generator.key'],
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.attribute.repository.attribute_template'],
+                    $c['affilicious.detail.repository.detail_template']
                 );
             };
 

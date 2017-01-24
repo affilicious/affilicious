@@ -91,6 +91,22 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * @inheritdoc
      * @since 0.8
      */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $term = get_term_by('slug', $slug->get_value(), Shop_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $shop_template = $this->build($term);
+
+        return $shop_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
     public function find_all_by_id($shop_template_ids)
     {
         Assert::allIsInstanceOf($shop_template_ids, Shop_Template_Id::class);
@@ -148,16 +164,18 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $thumbnail_id = null;
         $provider_id = null;
 
+        $shop_template = new Shop_Template($name, $slug);
+        $shop_template->set_id($id);
+
         if($raw_thumbnail_id = carbon_get_term_meta($id->get_value(), self::THUMBNAIL)) {
             $thumbnail_id = new Image_Id($raw_thumbnail_id);
+            $shop_template->set_thumbnail_id($thumbnail_id);
         }
 
         if($raw_provider_id = carbon_get_term_meta($id->get_value(), self::PROVIDER)) {
             $provider_id = new Provider_Id($raw_provider_id);
+            $shop_template->set_provider_id($provider_id);
         }
-
-        $shop_template = new Shop_Template($name, $slug, $thumbnail_id, $provider_id);
-        $shop_template->set_id($id);
 
         return $shop_template;
     }

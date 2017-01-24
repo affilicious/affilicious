@@ -40,7 +40,8 @@ class Carbon_Key_Generator implements Key_Generator_Interface
     public function generate_from_slug(Slug $slug)
     {
         // Keys cannot contain underscores followed by digits in Carbon Fields.
-        $value = preg_replace('/_([0-9])/', '$1', $slug->get_value());
+        $value = preg_replace('/-([0-9])/', '$1', $slug->get_value());
+        $value = str_replace('-', '_', $value);
 
         // Wrap it up
         $key = new Key($value);

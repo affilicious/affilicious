@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Model;
 
-use Affilicious\Provider\Model\Provider_Id;
 use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
@@ -55,7 +54,7 @@ trait Relation_Aware_Trait
      */
     public function set_related_products($related_products)
     {
-        Assert::allIsInstanceOf($related_products, Provider_Id::class);
+        Assert::allIsInstanceOf($related_products, Product_Id::class);
 
         $this->related_products = $related_products;
     }
@@ -82,7 +81,7 @@ trait Relation_Aware_Trait
      */
     public function set_related_accessories($related_accessories)
     {
-        Assert::allIsInstanceOf($related_accessories, Provider_Id::class);
+        Assert::allIsInstanceOf($related_accessories, Product_Id::class);
 
         $this->related_accessories = $related_accessories;
     }

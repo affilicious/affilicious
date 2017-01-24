@@ -562,7 +562,7 @@ function aff_get_product_cheapest_shop($product_or_id = null)
 }
 
 /**
- * Check if the product has any price.
+ * Check if the product has any discounted price.
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
@@ -571,15 +571,15 @@ function aff_get_product_cheapest_shop($product_or_id = null)
  * @param string|Affiliate_Link|null $affiliate_link
  * @return bool
  */
-function aff_has_product_price($product_or_id = null, $affiliate_link = null)
+function aff_has_product_discounted_price($product_or_id = null, $affiliate_link = null)
 {
-    $price = aff_get_product_price($product_or_id, $affiliate_link);
+    $price = aff_get_product_discounted_price($product_or_id, $affiliate_link);
 
     return !empty($price);
 }
 
 /**
- * Get the price with the currency of the product.
+ * Get the discounted price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
@@ -588,7 +588,7 @@ function aff_has_product_price($product_or_id = null, $affiliate_link = null)
  * @param string|Affiliate_Link|null $affiliate_link
  * @return null|string
  */
-function aff_get_product_price($product_or_id = null, $affiliate_link = null)
+function aff_get_product_discounted_price($product_or_id = null, $affiliate_link = null)
 {
     $product = aff_get_product($product_or_id);
     if($product === null || !($product instanceof Shop_Aware_Interface)) {
@@ -628,7 +628,7 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null)
  */
 function aff_the_product_price($product_or_id = null, $affiliate_link = null)
 {
-    $price = aff_get_product_price($product_or_id, $affiliate_link);
+    $price = aff_get_product_discounted_price($product_or_id, $affiliate_link);
     if(!empty($price)) {
         echo $price;
     };
@@ -1212,25 +1212,25 @@ function aff_the_shop_updated_at_indication($shop)
  */
 function aff_is_shop_available($shop)
 {
-    return isset($shop['availability']) && $shop['availability'] === Availability::AVAILABLE;
+    return isset($shop['pricing']['availability']) && $shop['pricing']['availability'] === Availability::AVAILABLE;
 }
 
 /**
- * Check if the shop should display the old price.
- * This is important if the price is greater than the old price.
+ * Check if the shop should display the stock price.
+ * This is important if the discounted price is greater than the stock price.
  *
- * @since 0.7
+ * @since 0.8
  * @param array $shop
  * @return bool
  */
-function aff_should_shop_display_old_price($shop)
+function aff_should_shop_display_stock_price($shop)
 {
-    if(!isset($shop['price']['value']) || !isset($shop['old_price']['value'])) {
+    if(!isset($shop['pricing']['discounted_price']['value']) || !isset($shop['pricing']['stock_price']['value'])) {
         return false;
     }
 
-    $price = floatval($shop['price']['value']);
-    $old_price = floatval($shop['old_price']['value']);
+    $price = floatval($shop['pricing']['discounted_price']['value']);
+    $old_price = floatval($shop['pricing']['stock_price']['value']);
 
     return $old_price > $price;
 }

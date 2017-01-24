@@ -1,19 +1,24 @@
 <?php
 namespace Affilicious\Product\Repository\Carbon;
 
+use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Exception\Invalid_Post_Type_Exception;
 use Affilicious\Common\Exception\Invalid_Type_Exception;
-use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Generator\Key_Generator_Interface;
+use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
+use Affilicious\Detail\Model\Detail_Template_Id;
+use Affilicious\Detail\Model\Value;
+use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Exception\Failed_To_Delete_Product_Exception;
 use Affilicious\Product\Exception\Missing_Parent_Product_Exception;
 use Affilicious\Product\Exception\Product_Not_Found_Exception;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Content;
 use Affilicious\Product\Model\Content_Aware_Interface;
+use Affilicious\Product\Model\Detail_Aware_Interface;
 use Affilicious\Product\Model\Excerpt;
 use Affilicious\Product\Model\Excerpt_Aware_Interface;
 use Affilicious\Product\Model\Product;
@@ -30,8 +35,16 @@ use Affilicious\Product\Model\Tag_Aware_Interface;
 use Affilicious\Product\Model\Type;
 use Affilicious\Product\Model\Votes;
 use Affilicious\Product\Repository\Product_Repository_Interface;
+use Affilicious\Shop\Model\Affiliate_Id;
+use Affilicious\Shop\Model\Affiliate_Link;
+use Affilicious\Shop\Model\Availability;
+use Affilicious\Shop\Model\Currency;
+use Affilicious\Shop\Model\Money;
+use Affilicious\Shop\Model\Pricing;
 use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template_Id;
+use Affilicious\Shop\Model\Tracking;
+use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -44,25 +57,26 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const IMAGE_GALLERY = '_affilicious_product_image_gallery';
 
     const SHOPS = '_affilicious_product_shops';
-    const SHOP_TEMPLATE_ID = 'shop_template_id';
-    const SHOP_PRICE = 'price';
-    const SHOP_OLD_PRICE = 'old_price';
+    const SHOP_TEMPLATE_ID = 'template_id';
+    const SHOP_DISCOUNTED_PRICE = 'discounted_price';
+    const SHOP_STOCK_PRICE = 'stock_price';
     const SHOP_CURRENCY = 'currency';
     const SHOP_AVAILABILITY = 'availability';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
     const SHOP_UPDATED_AT = 'updated_at';
 
-    const DETAIL = '_affilicious_product_detail_%s';
+    const ENABLED_DETAILS = '_affilicious_product_enabled_details';
+    const DETAIL_VALUE = '_affilicious_product_detail_%s_value';
 
     const VARIANTS = '_affilicious_product_variants';
-    const VARIANT_ENABLED_ATTRIBUTES = 'enabled_attributes';
+    const VARIANT_ENABLED_ATTRIBUTES = '_affilicious_product_variants_enabled_attributes';
     const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
     const VARIANT_TAGS = 'tags';
     const VARIANT_THUMBNAIL = 'thumbnail';
-    const VARIANT_ATTRIBUTE = 'attribute_%s';
+    const VARIANT_ATTRIBUTE_VALUE = 'attribute_%s_value';
     const VARIANT_SHOPS = 'shops';
 
     const REVIEW_RATING = '_affilicious_product_review_rating';
@@ -77,12 +91,38 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     private $key_generator;
 
     /**
+     * @var Shop_Template_Repository_Interface
+     */
+    private $shop_template_repository;
+
+    /**
+     * @var Attribute_Template_Repository_Interface
+     */
+    private $attribute_template_repository;
+
+    /**
+     * @var Detail_Template_Repository_Interface
+     */
+    private $detail_template_repository;
+
+    /**
      * @since 0.8
      * @param Key_Generator_Interface $key_generator
+     * @param Shop_Template_Repository_Interface $shop_template_repository
+     * @param Attribute_Template_Repository_Interface $attribute_template_repository
+     * @param Detail_Template_Repository_Interface $detail_template_repository
      */
-    public function __construct(Key_Generator_Interface $key_generator)
+    public function __construct(
+        Key_Generator_Interface $key_generator,
+        Shop_Template_Repository_Interface $shop_template_repository,
+        Attribute_Template_Repository_Interface $attribute_template_repository,
+        Detail_Template_Repository_Interface $detail_template_repository
+    )
     {
         $this->key_generator = $key_generator;
+        $this->shop_template_repository = $shop_template_repository;
+        $this->attribute_template_repository = $attribute_template_repository;
+        $this->detail_template_repository = $detail_template_repository;
     }
 
     /**
@@ -110,8 +150,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         // Store the product meta
         $this->store_type($product);
-
         $this->store_thumbnail($product);
+
+        if($product instanceof Detail_Aware_Interface) {
+            $this->store_details($product);
+        }
 
         if($product instanceof Shop_Aware_Interface) {
             $this->store_shops($product, self::SHOPS);
@@ -243,7 +286,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function build_product_from_post(\WP_Post $post)
+    private function build_product_from_post(\WP_Post $post)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
@@ -277,7 +320,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Simple_Product
      */
-    protected function build_simple_product_from_post(\WP_Post $post)
+    private function build_simple_product_from_post(\WP_Post $post)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
@@ -294,6 +337,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $simple_product = $this->add_thumbnail($simple_product, $post);
         $simple_product = $this->add_shops($simple_product);
         $simple_product = $this->add_tags($simple_product);
+        $simple_product = $this->add_details($simple_product);
         $simple_product = $this->add_review($simple_product, $post);
         $simple_product = $this->add_related_products($simple_product, $post);
         $simple_product = $this->add_related_accessories($simple_product, $post);
@@ -310,7 +354,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Complex_Product
      */
-    protected function build_complex_product_from_post(\WP_Post $post)
+    private function build_complex_product_from_post(\WP_Post $post)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
@@ -327,6 +371,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $complex_product = $this->add_thumbnail($complex_product, $post);
         $complex_product = $this->add_variants($complex_product);
         $complex_product = $this->add_review($complex_product, $post);
+        $complex_product = $this->add_details($complex_product);
         $complex_product = $this->add_related_products($complex_product, $post);
         $complex_product = $this->add_related_accessories($complex_product, $post);
         $complex_product = $this->add_image_gallery($complex_product, $post);
@@ -343,7 +388,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param Complex_Product $parent
      * @return Product_Variant
      */
-    protected function build_product_variant_from_post(\WP_Post $post, Complex_Product $parent = null)
+    private function build_product_variant_from_post(\WP_Post $post, Complex_Product $parent = null)
     {
         if($post->post_type !== Product::POST_TYPE) {
             throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
@@ -374,7 +419,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param Product_Id $product_variant_id
      * @return null|Complex_Product
      */
-    protected function get_parent_complex_product(Product_Id $product_variant_id)
+    private function get_parent_complex_product(Product_Id $product_variant_id)
     {
         $parent_post_id = wp_get_post_parent_id($product_variant_id->get_value());
         if(empty($parent_post_id)) {
@@ -399,7 +444,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_id(Product $product, \WP_Post $post)
+    private function add_id(Product $product, \WP_Post $post)
     {
         $product->set_id(new Product_Id($post->ID));
 
@@ -414,7 +459,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_thumbnail(Product $product, \WP_Post $post)
+    private function add_thumbnail(Product $product, \WP_Post $post)
     {
         $thumbnail_id = get_post_thumbnail_id($post->ID);
         if (!empty($thumbnail_id)) {
@@ -433,7 +478,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_excerpt(Product $product, \WP_Post $post)
+    private function add_excerpt(Product $product, \WP_Post $post)
     {
         if(!($product instanceof Excerpt_Aware_Interface)) {
             return $product;
@@ -455,7 +500,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_content(Product $product, \WP_Post $post)
+    private function add_content(Product $product, \WP_Post $post)
     {
         if(!($product instanceof Content_Aware_Interface)) {
             return $product;
@@ -477,7 +522,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param array $raw_shops
      * @return Product
      */
-    protected function add_shops(Product $product, $raw_shops = array())
+    private function add_shops(Product $product, $raw_shops = array())
     {
         if (!($product instanceof Shop_Aware_Interface)) {
             return $product;
@@ -507,7 +552,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param Complex_Product $complex_product
      * @return Complex_Product
      */
-    protected function add_variants(Complex_Product $complex_product)
+    private function add_variants(Complex_Product $complex_product)
     {
         $raw_variants = carbon_get_post_meta($complex_product->get_id()->get_value(), self::VARIANTS, 'complex');
 
@@ -545,7 +590,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             $thumbnail = $this->get_image_from_attachment_id($thumbnail_id);
             if(!empty($thumbnail)) {
-                $product_variant->set_thumbnail($thumbnail);
+                $product_variant->set_thumbnail_id($thumbnail);
             }
 
             if(!empty($default) && $default === 'yes') {
@@ -574,7 +619,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_review(Product $product, \WP_Post $post)
+    private function add_review(Product $product, \WP_Post $post)
     {
         if(!($product instanceof Review_Aware_Interface)) {
             return $product;
@@ -603,7 +648,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_related_products(Product $product, \WP_Post $post)
+    private function add_related_products(Product $product, \WP_Post $post)
     {
         if(!($product instanceof Relation_Aware_Interface)) {
             return $product;
@@ -629,7 +674,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_related_accessories(Product $product, \WP_Post $post)
+    private function add_related_accessories(Product $product, \WP_Post $post)
     {
         if(!($product instanceof Relation_Aware_Interface)) {
             return $product;
@@ -655,7 +700,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_image_gallery(Product $product, \WP_Post $post)
+    private function add_image_gallery(Product $product, \WP_Post $post)
     {
         $image_gallery = get_post_meta($post->ID, self::IMAGE_GALLERY);
         if (!empty($image_gallery)) {
@@ -680,7 +725,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param array $raw_tags
      * @return Product
      */
-    protected function add_tags(Product $product, $raw_tags = array())
+    private function add_tags(Product $product, $raw_tags = array())
     {
         if(!($product instanceof Tag_Aware_Interface)) {
             return $product;
@@ -703,6 +748,52 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     }
 
     /**
+     * Add the details to the product.
+     *
+     * @since 0.8
+     * @param Product $product
+     * @return Product
+     */
+    private function add_details(Product $product)
+    {
+        global $wpdb;
+
+        if(!($product instanceof Detail_Aware_Interface)) {
+            return $product;
+        }
+
+        $results = $wpdb->get_results($wpdb->prepare(
+            "
+                SELECT *
+                FROM {$wpdb->postmeta}
+                WHERE post_id = %s
+                AND meta_key LIKE '%s'
+                AND meta_value != ''
+            ",
+            $product->get_id()->get_value(),
+            str_replace('%s', '%', self::DETAIL_VALUE)
+        ), ARRAY_A);
+
+        foreach ($results as $result) {
+            $match = array();
+            $pattern = '/' . str_replace('%s', '(.*?)', self::DETAIL_VALUE) . '/';
+            if(!preg_match($pattern, $result['meta_key'], $match) || empty($match[1])) {
+                continue;
+            }
+
+            $detail_template = $this->detail_template_repository->find_by_id(new Detail_Template_Id($match[1]));
+            if($detail_template === null) {
+                continue;
+            }
+
+            $detail = $detail_template->build(new Value($result['meta_value']));
+            $product->add_detail($detail);
+        }
+
+        return $product;
+    }
+
+    /**
      * Add the date and time of the last update to the product.
      *
      * @since 0.7
@@ -710,7 +801,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Product
      */
-    protected function add_updated_at(Product $product, \WP_Post $post)
+    private function add_updated_at(Product $product, \WP_Post $post)
     {
         $updated_at = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $post->post_modified);
         $product->set_updated_at($updated_at);
@@ -725,18 +816,45 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param array $raw_shop
      * @return null|Shop
      */
-    protected function get_shop_from_array(array $raw_shop)
+    private function get_shop_from_array(array $raw_shop)
     {
         $shop_template_id = !empty($raw_shop[self::SHOP_TEMPLATE_ID]) ? intval($raw_shop[self::SHOP_TEMPLATE_ID]) : null;
         if (empty($shop_template_id)) {
             return null;
         }
 
-        /*
-        $shop = $this->shop_factory->create_from_template_id_and_data(
-            new Shop_Template_Id($shop_template_id),
-            $raw_shop
-        );*/ $shop = null;
+        $shop_template = $this->shop_template_repository->find_by_id(new Shop_Template_Id($shop_template_id));
+        if($shop_template === null) {
+            return null;
+        }
+
+        $affiliate_link = !empty($raw_shop[self::SHOP_AFFILIATE_LINK]) ? $raw_shop[self::SHOP_AFFILIATE_LINK] : null;
+        $affiliate_id = !empty($raw_shop[self::SHOP_AFFILIATE_ID]) ? $raw_shop[self::SHOP_AFFILIATE_ID] : null;
+        $availability = !empty($raw_shop[self::SHOP_AVAILABILITY]) ? $raw_shop[self::SHOP_AVAILABILITY] : null;
+        $discounted_price = !empty($raw_shop[self::SHOP_DISCOUNTED_PRICE]) ? $raw_shop[self::SHOP_DISCOUNTED_PRICE] : null;
+        $stock_price = !empty($raw_shop[self::SHOP_STOCK_PRICE]) ? $raw_shop[self::SHOP_STOCK_PRICE] : null;
+        $currency = !empty($raw_shop[self::SHOP_CURRENCY]) ? $raw_shop[self::SHOP_CURRENCY] : null;
+        $updated_at = !empty($raw_shop[self::SHOP_UPDATED_AT]) ? $raw_shop[self::SHOP_UPDATED_AT] : null;
+
+        if(empty($affiliate_link) || empty($availability)) {
+            return null;
+        }
+
+        $shop = $shop_template->build(
+            new Tracking(
+                new Affiliate_Link($affiliate_link),
+                $affiliate_id !== null ? new Affiliate_Id($affiliate_id) : null
+            ),
+            new Pricing(
+                new Availability($availability),
+                $discounted_price !== null ? new Money($discounted_price, new Currency($currency)) : null,
+                $stock_price !== null ? new Money($stock_price, new Currency($currency)) : null
+            )
+        );
+
+        if($updated_at !== null) {
+            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp($updated_at));
+        }
 
         return $shop;
     }
@@ -749,7 +867,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param \WP_Post $post
      * @return Type
      */
-    protected function get_type(\WP_Post $post)
+    private function get_type(\WP_Post $post)
     {
         $type = carbon_get_post_meta($post->ID, self::TYPE);
         $type = !empty($type) ? new Type($type) : Type::simple();
@@ -758,31 +876,12 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     }
 
     /**
-     * Get the thumbnail image from the post.
-     *
-     * @since 0.6
-     * @param int $post_id
-     * @return null|Image_Id
-     */
-    protected function get_thumbnail_image_from_post_id($post_id)
-    {
-        $thumbnail_id = get_post_thumbnail_id($post_id);
-        if (!empty($thumbnail_id)) {
-            $thumbnail = new Image_Id($thumbnail_id);
-
-            return $thumbnail;
-        }
-
-        return null;
-    }
-
-    /**
      * Store the type like simple or variants for the product.
      *
      * @since 0.7
      * @param Product $product
      */
-    protected function store_type(Product $product)
+    private function store_type(Product $product)
     {
         $this->store_post_meta($product->get_id(), self::TYPE, $product->get_type());
     }
@@ -794,7 +893,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param Product $product
      * @param string $meta_key
      */
-    protected function store_shops(Product $product, $meta_key)
+    private function store_shops(Product $product, $meta_key)
     {
         if(!($product instanceof Shop_Aware_Interface)) {
             return;
@@ -808,18 +907,19 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $carbon_shops = array();
         foreach ($shops as $index => $shop) {
-            if(!isset($carbon_shops[$shop->get_template()->get_key()->get_value()])) {
-                $carbon_shops[$shop->get_template()->get_key()->get_value()] = array();
+            $key = $this->key_generator->generate_from_slug($shop->get_slug());
+            if(!isset($carbon_shops[$key->get_value()])) {
+                $carbon_shops[$key->get_value()] = array();
             }
 
-            $carbon_shops[$shop->get_template()->get_key()->get_value()][$index] = array(
-                self::SHOP_TEMPLATE_ID => $shop->get_template()->get_id()->get_value(),
-                self::SHOP_AFFILIATE_ID => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
-                self::SHOP_AFFILIATE_LINK => $shop->get_affiliate_link()->get_value(),
-                self::SHOP_CURRENCY => $shop->get_currency()->get_value(),
-                self::SHOP_PRICE => $shop->has_price() ? $shop->get_price()->get_value() : null,
-                self::SHOP_OLD_PRICE => $shop->has_old_price() ? $shop->get_old_price()->get_value() : null,
-                self::SHOP_AVAILABILITY => $shop->get_availability()->get_value(),
+            $carbon_shops[$key->get_value()][$index] = array(
+                self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
+                self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
+                self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
+                self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
+                self::SHOP_DISCOUNTED_PRICE => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_value() : null,
+                self::SHOP_STOCK_PRICE => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : null,
+                self::SHOP_CURRENCY => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : Currency::EURO,
                 self::SHOP_UPDATED_AT => $shop->get_updated_at()->getTimestamp(),
             );
         }
@@ -840,7 +940,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.7
      * @param Product_Variant $product_variant
      */
-    protected function store_attribute_group(Product_Variant $product_variant)
+    private function store_attribute_group(Product_Variant $product_variant)
     {
         if(!$product_variant->has_id()) {
             return;
@@ -883,7 +983,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.7
      * @param Complex_Product $complex_product
      */
-    protected function store_variants(Complex_Product $complex_product)
+    private function store_variants(Complex_Product $complex_product)
     {
         if(!$complex_product->has_id()) {
             return;
@@ -977,7 +1077,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.7
      * @param Product $product
      */
-    protected function store_review(Product $product)
+    private function store_review(Product $product)
     {
         if(!($product instanceof Review_Aware_Interface)) {
             return;
@@ -998,7 +1098,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.6
      * @param Product $product
      */
-    protected function store_thumbnail(Product $product)
+    private function store_thumbnail(Product $product)
     {
         if(!$product->has_thumbnail()) {
             return;
@@ -1013,7 +1113,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.7.1
      * @param Product $product
      */
-    protected function store_tags(Product $product)
+    private function store_tags(Product $product)
     {
         if(!($product instanceof Tag_Aware_Interface)) {
             return;
@@ -1031,7 +1131,30 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $raw_tags = implode(';', $raw_tags);
         $this->store_post_meta($product->get_id(), self::TAGS, $raw_tags);
+    }
 
+    /**
+     * Store the details for the product.
+     *
+     * @since 0.8
+     * @param Product $product
+     */
+    private function store_details(Product $product)
+    {
+        if(!($product instanceof Detail_Aware_Interface)) {
+            return;
+        }
+
+        $details = $product->get_details();
+        $names = array();
+        foreach ($details as $detail) {
+            $key = sprintf(self::DETAIL_VALUE, $detail->get_template_id()->get_value());
+            $this->store_post_meta($product->get_id(), $key, $detail->get_value()->get_value());
+            $names[] = $detail->get_name()->get_value();
+        }
+
+        $enabled_details = implode(';', $names);
+        $this->store_post_meta($product->get_id(), self::ENABLED_DETAILS, $enabled_details);
     }
 
     /**
@@ -1093,7 +1216,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param Product $product
      * @return array
      */
-    protected function get_default_args(Product $product)
+    private function get_default_args(Product $product)
     {
         $default_args = array();
         if($product->has_id()) {
@@ -1111,7 +1234,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @param array $default_args
      * @return array
      */
-    protected function parse_args(Product $product, array $default_args = array())
+    private function parse_args(Product $product, array $default_args = array())
     {
         $args = wp_parse_args(array(
             'post_title' => $product->get_name()->get_value(),

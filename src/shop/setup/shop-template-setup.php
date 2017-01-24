@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Shop\Setup;
 
-use Affilicious\Common\Setup\Setup_Interface;
 use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Model\Shop_Template;
@@ -13,7 +12,7 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Shop_Template_Setup implements Setup_Interface
+class Shop_Template_Setup
 {
     /**
      * @var Provider_Repository_Interface

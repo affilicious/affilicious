@@ -5,7 +5,6 @@ use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Common\Generator\Key_Generator_Interface;
-use Affilicious\Common\Setup\Setup_Interface;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Model\Product;
@@ -20,7 +19,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product_Setup implements Setup_Interface
+class Product_Setup
 {
     const VARIANTS_LIMIT = 50;
     const SHOP_LIMIT = 10;
@@ -210,7 +209,7 @@ class Product_Setup implements Setup_Interface
             return $fields;
         }
 
-        $fields[] = Carbon_Field::make('tags', '_affilicious_product_enabled_attributes', __('Attribute', 'affilicious'));
+        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Attribute', 'affilicious'));
 
         $fields[] = Carbon_Field::make('complex', Carbon_Product_Repository::VARIANTS, __('Variants', 'affilicious'))
             ->set_max(self::VARIANTS_LIMIT)
@@ -244,7 +243,7 @@ class Product_Setup implements Setup_Interface
             ->set_conditional_logic(array(
                 'relation' => 'and',
                 array(
-                    'field' => '_affilicious_product_enabled_attributes',
+                    'field' => Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES,
                     'value' => '',
                     'compare' => '!=',
                 )
@@ -281,8 +280,8 @@ class Product_Setup implements Setup_Interface
     public function get_variants_attribute_field(Attribute_Template $attribute_template)
     {
         // Build the key
-        $attribute_key = $this->key_generator->generate_from_slug($attribute_template->get_slug())->get_value();
-        $field_key = sprintf(Carbon_Product_Repository::VARIANT_ATTRIBUTE, $attribute_key);
+        $attribute_id = $attribute_template->get_id()->get_value();
+        $field_key = sprintf(Carbon_Product_Repository::VARIANT_ATTRIBUTE_VALUE, $attribute_id);
 
         // Build the name
         $field_name = trim(sprintf('%s %s', $attribute_template->get_name(), $attribute_template->get_unit()));
@@ -295,7 +294,7 @@ class Product_Setup implements Setup_Interface
             ->set_conditional_logic(array(
                 'relation' => 'and',
                 array(
-                    'field' => 'enabled_attributes',
+                    'field' => Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES,
                     'value' => $attribute_template->get_name()->get_value(),
                     'compare' => 'CONTAINS',
                 )
@@ -401,9 +400,9 @@ class Product_Setup implements Setup_Interface
                         'available' => __('Available', 'affilicious'),
                         'out-of-stock' => __('Out Of Stock', 'affilicious'),
                     )),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_PRICE, __('Money', 'affilicious'))
+                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_DISCOUNTED_PRICE, __('Discounted Price', 'affilicious'))
                     ->set_width(50),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_OLD_PRICE, __('Old Money', 'affilicious'))
+                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_STOCK_PRICE, __('Stock Price', 'affilicious'))
                     ->set_width(50),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)
@@ -439,29 +438,46 @@ class Product_Setup implements Setup_Interface
             return $fields;
         }
 
-        $fields[] = Carbon_Field::make('tags', '_affilicious_product_enabled_details', __('Detail', 'affilicious'))
+        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_DETAILS, __('Detail', 'affilicious'))
             ->add_class('aff_details');
 
         foreach ($detail_templates as $detail_template) {
-            $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));
-            $field_type = $detail_template->get_type()->get_value();
-            $detail_key = $this->key_generator->generate_from_slug($detail_template->get_slug())->get_value();
-            $field_key = sprintf(Carbon_Product_Repository::DETAIL, $detail_key);
-
-            $field = Carbon_Field::make($field_type, $field_key, $field_name)
-                    ->set_conditional_logic(array(
-                        'relation' => 'and',
-                        array(
-                            'field' => '_affilicious_product_enabled_details',
-                            'value' => $detail_template->get_name()->get_value(),
-                            'compare' => 'CONTAINS',
-                        )
-                    ));
-
-            $fields[] = $field;
+            $fields[] = $this->get_detail_field($detail_template);
         }
 
         return apply_filters('affilicious_product_render_affilicious_product_container_detail_fields', $fields);
+    }
+
+    /**
+     * Get a single detail field.
+     *
+     * @since 0.8
+     * @param Detail_Template $detail_template
+     * @return Carbon_Field\
+     */
+    private function get_detail_field(Detail_Template $detail_template)
+    {
+        // Build the key
+        $detail_id = $detail_template->get_id()->get_value();
+        $field_key = sprintf(Carbon_Product_Repository::DETAIL_VALUE, $detail_id);
+
+        // Build the name
+        $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));
+
+        // Build the type
+        $field_type = $detail_template->get_type()->get_value();
+
+        $field = Carbon_Field::make($field_type, $field_key, $field_name)
+            ->set_conditional_logic(array(
+                'relation' => 'and',
+                array(
+                    'field' => Carbon_Product_Repository::ENABLED_DETAILS,
+                    'value' => $detail_template->get_name()->get_value(),
+                    'compare' => 'CONTAINS',
+                )
+            ));
+
+        return $field;
     }
 
     /**
