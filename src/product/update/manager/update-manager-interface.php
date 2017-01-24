@@ -1,11 +1,11 @@
 <?php
 namespace Affilicious\Product\Update\Manager;
 
+use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
-use Affilicious\Product\Model\Product_Repository_Interface;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

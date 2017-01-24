@@ -2,10 +2,10 @@
 namespace Affilicious\Shop\Factory\In_Memory;
 
 use Affilicious\Common\Model\Key;
-use Affilicious\Common\Model\Key_Generator_Interface;
+use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Name;
-use Affilicious\Common\Model\Slug_Generator_Interface;
+use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
 use Affilicious\Shop\Model\Shop_Template;
 

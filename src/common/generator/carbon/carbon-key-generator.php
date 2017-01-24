@@ -1,12 +1,12 @@
 <?php
 namespace Affilicious\Common\Generator\Carbon;
 
+use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Model\Key;
-use Affilicious\Common\Model\Key_Generator_Interface;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

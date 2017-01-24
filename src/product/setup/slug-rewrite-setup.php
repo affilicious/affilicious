@@ -3,7 +3,7 @@ namespace Affilicious\Product\Setup;
 
 use Pimple\Container;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

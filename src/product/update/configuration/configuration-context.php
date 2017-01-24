@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Update\Configuration;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

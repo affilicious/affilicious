@@ -19,7 +19,7 @@ use ApaiIO\Operations\Lookup;
 use ApaiIO\Request\GuzzleRequest;
 use GuzzleHttp\Client;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

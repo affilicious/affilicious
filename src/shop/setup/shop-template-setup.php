@@ -2,7 +2,7 @@
 namespace Affilicious\Shop\Setup;
 
 use Affilicious\Common\Setup\Setup_Interface;
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository;
@@ -60,7 +60,7 @@ class Shop_Template_Setup implements Setup_Interface
             'filter_items_list'     => sprintf(_x('Filter %s', 'Shop Template', 'affilicious'), $plural),
         );
 
-        register_taxonomy(Shop_Template::TAXONOMY,  Product_Interface::POST_TYPE, array(
+        register_taxonomy(Shop_Template::TAXONOMY,  Product::POST_TYPE, array(
             'hierarchical'      => false,
             'public'            => false,
             'labels'            => $labels,

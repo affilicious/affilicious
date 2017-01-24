@@ -7,7 +7,7 @@ use Affilicious\Product\Update\Task\Update_Task;
 use Affilicious\Product\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Model\Shop_Aware_Product_Interface;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

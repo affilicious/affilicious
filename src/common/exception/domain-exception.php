@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Exception;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

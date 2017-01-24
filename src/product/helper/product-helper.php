@@ -1,10 +1,10 @@
 <?php
 namespace Affilicious\Product\Helper;
 
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
@@ -15,13 +15,13 @@ class Product_Helper
      * If you pass in nothing as a parameter, the current post will be used.
      *
      * @since 0.7.1
-     * @param int|\WP_Post|Product_Interface|null $product_or_id
+     * @param int|\WP_Post|Product|null $product_or_id
      * @return bool
      */
     public static function is_product($product_or_id = null)
     {
         // The argument is already a product
-        if ($product_or_id instanceof Product_Interface) {
+        if ($product_or_id instanceof Product) {
             return true;
         }
 
@@ -29,21 +29,21 @@ class Product_Helper
         if(is_int($product_or_id)) {
             $post_type = get_post_type($product_or_id);
 
-            return $post_type === Product_Interface::POST_TYPE;
+            return $post_type === Product::POST_TYPE;
         }
 
         // The argument is a post.
         if($product_or_id instanceof \WP_Post) {
             $post_type = $product_or_id->post_type;
 
-            return $post_type === Product_Interface::POST_TYPE;
+            return $post_type === Product::POST_TYPE;
         }
 
         // The argument is empty.
         if($product_or_id === null) {
             $post_type =  get_post_type();
 
-            return $post_type === Product_Interface::POST_TYPE;
+            return $post_type === Product::POST_TYPE;
         }
 
         return false;
@@ -54,8 +54,8 @@ class Product_Helper
      * If you pass in nothing as a parameter, the current post will be used.
      *
      * @since 0.6
-     * @param int|\WP_Post|Product_Interface|null $product_or_id
-     * @return null|Product_Interface
+     * @param int|\WP_Post|Product|null $product_or_id
+     * @return null|Product
      */
     public static function get_product($product_or_id = null)
     {
@@ -64,7 +64,7 @@ class Product_Helper
         $product = null;
 
         // The argument is already a product.
-        if ($product_or_id instanceof Product_Interface) {
+        if ($product_or_id instanceof Product) {
             $product = $product_or_id;
         }
 

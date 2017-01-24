@@ -11,7 +11,7 @@ use Affilicious\Detail\Model\Unit;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Webmozart\Assert\Assert;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

@@ -3,7 +3,7 @@ namespace Affilicious\Common\Repository\Carbon;
 
 use Affilicious\Common\Repository\Wordpress\Abstract_Wordpress_Repository;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

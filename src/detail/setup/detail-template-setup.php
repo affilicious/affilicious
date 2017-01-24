@@ -4,7 +4,7 @@ namespace Affilicious\Detail\Setup;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Model\Type;
 use Affilicious\Detail\Repository\Carbon\Carbon_Detail_Template_Repository;
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -44,7 +44,7 @@ class Detail_Template_Setup
             'filter_items_list'     => sprintf(_x('Filter %s', 'Detail Template', 'affilicious'), $plural),
         );
 
-        register_taxonomy(Detail_Template::TAXONOMY,  Product_Interface::POST_TYPE, array(
+        register_taxonomy(Detail_Template::TAXONOMY,  Product::POST_TYPE, array(
             'hierarchical'      => false,
             'public'            => false,
             'labels'            => $labels,

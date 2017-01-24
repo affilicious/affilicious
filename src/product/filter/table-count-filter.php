@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Filter;
 
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -20,7 +20,7 @@ class Table_Count_Filter
     {
         global $current_screen, $wpdb;
 
-        if($current_screen->id !== 'edit-' . Product_Interface::POST_TYPE) {
+        if($current_screen->id !== 'edit-' . Product::POST_TYPE) {
             return $views;
         }
 
@@ -29,7 +29,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status IN ('publish', 'draft', 'pending') 
-            AND post_type = '" . Product_Interface::POST_TYPE . "'
+            AND post_type = '" . Product::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -41,7 +41,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'publish'
-            AND post_type = '" . Product_Interface::POST_TYPE . "'
+            AND post_type = '" . Product::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -53,7 +53,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'draft'
-            AND post_type = '" . Product_Interface::POST_TYPE . "'
+            AND post_type = '" . Product::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -65,7 +65,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'pending'
-            AND post_type = '" . Product_Interface::POST_TYPE . "'
+            AND post_type = '" . Product::POST_TYPE . "'
             AND post_parent = 0"
             );
 
@@ -77,7 +77,7 @@ class Table_Count_Filter
             SELECT COUNT(*)
             FROM $wpdb->posts
             WHERE post_status = 'trash'
-            AND post_type = '" . Product_Interface::POST_TYPE . "'
+            AND post_type = '" . Product::POST_TYPE . "'
             AND post_parent = 0"
             );
 

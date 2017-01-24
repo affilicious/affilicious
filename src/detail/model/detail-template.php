@@ -93,6 +93,18 @@ class Detail_Template
     }
 
     /**
+     * @since 0.8
+     * @param Value $value
+     * @return Detail
+     */
+    public function build(Value $value)
+    {
+        $detail = new Detail($this->name, $this->slug, $value, $this->type, $this->unit);
+
+        return $detail;
+    }
+
+    /**
      * Check if this detail template is equal to the other one.
      *
      * @since 0.8

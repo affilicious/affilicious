@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Model;
 
 use Affilicious\Common\Model\Simple_Value_Trait;
-use Affilicious\Product\Exception\Invalid_Value_Exception;
+use Webmozart\Assert\Assert;
 
 class Type
 {
@@ -41,22 +41,20 @@ class Type
 		return new self(self::VARIANT);
 	}
 
-	/**
-	 * @inheritdoc
+    /**
      * @since 0.6
-	 * @throws Invalid_Value_Exception
-	 */
+     * @param string $value
+     */
 	public function __construct($value)
 	{
-	    $types = array(
+	    $values = apply_filters('affilicious_product_type_values', array(
             self::SIMPLE,
             self::COMPLEX,
             self::VARIANT,
-        );
+        ));
 
-		if(!in_array($value, $types)) {
-			throw new Invalid_Value_Exception($value, $types, get_class($this));
-		}
+        Assert::stringNotEmpty($value, 'The type must be a non empty string. Got: %s');
+        Assert::oneOf($value, $values, 'Expected type of: %2$s. Got: %s');
 
 		$this->set_value($value);
 	}

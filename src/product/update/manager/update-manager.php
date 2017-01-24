@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Update\Manager;
 
+use Affilicious\Product\Model\Product;
+use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration_Context;
 use Affilicious\Product\Update\Configuration\Configuration_Resolver;
 use Affilicious\Product\Update\Queue\Update_Mediator_Interface;
@@ -10,14 +12,9 @@ use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
 use Affilicious\Product\Update\Task\Update_Task;
 use Affilicious\Product\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
-use Affilicious\Product\Model\Complex\Complex_Product_Interface;
-use Affilicious\Product\Model\Product_Interface;
-use Affilicious\Product\Model\Product_Repository_Interface;
-use Affilicious\Product\Model\Shop_Aware_Product_Interface;
-use Affilicious\Product\Model\Variant\Product_Variant_Interface;
-use Affilicious\Shop\Model\Shop_Interface;
+use Affilicious\Shop\Model\Shop;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
@@ -134,12 +131,12 @@ class Update_Manager implements Update_Manager_Interface
         $products = $this->product_repository->find_all();
 
         foreach ($products as $product) {
-            if($product instanceof Shop_Aware_Product_Interface && !($product instanceof Product_Variant_Interface)) {
+            if($product instanceof Shop_Aware_Product && !($product instanceof Product_Variant_Interface)) {
                 $shops = $product->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
                 }
-            } elseif ($product instanceof Complex_Product_Interface) {
+            } elseif ($product instanceof Complex_Product) {
                 $default_variant = $product->get_default_variant();
                 if($default_variant === null) {
                     continue;
@@ -167,10 +164,10 @@ class Update_Manager implements Update_Manager_Interface
      * Mediate the product by the shop.
      *
      * @since 0.7
-     * @param Product_Interface $product
-     * @param Shop_Interface $shop
+     * @param Product $product
+     * @param Shop $shop
      */
-    protected function mediate_product(Product_Interface $product, Shop_Interface $shop)
+    protected function mediate_product(Product $product, Shop $shop)
     {
         $template = $shop->get_template();
         $provider = $template->get_provider();

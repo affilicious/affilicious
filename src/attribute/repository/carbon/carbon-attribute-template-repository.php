@@ -11,7 +11,7 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Webmozart\Assert\Assert;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

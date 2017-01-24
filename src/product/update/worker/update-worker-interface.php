@@ -5,7 +5,7 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Update\Configuration\Configuration_Interface;
 use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Model;
 
-use Affilicious\Common\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Model\Simple_Value_Trait;
 use Webmozart\Assert\Assert;
 
@@ -16,9 +15,8 @@ class Product_Id
     }
 
     /**
-     * @inheritdoc
-     * @since 0.6
-     * @throws Invalid_Type_Exception
+     * @since 0.8
+     * @param int $value
      */
     public function __construct($value)
     {

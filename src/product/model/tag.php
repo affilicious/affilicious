@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\Product\Model;
 
-use Affilicious\Common\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Model\Simple_Value_Trait;
+use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -15,17 +15,16 @@ class Tag
     }
 
     /**
-     * @inheritdoc
      * @since 0.7.1
-     * @throws Invalid_Type_Exception
+     * @param string $value
      */
     public function __construct($value)
     {
-        $value = strval($value);
-
-        if (!is_string($value)) {
-            throw new Invalid_Type_Exception($value, 'int');
+        if(is_numeric($value)) {
+            $value = strval($value);
         }
+
+        Assert::stringNotEmpty($value, 'The tag must be a non empty string. Got: %s');
 
         $this->set_value($value);
     }

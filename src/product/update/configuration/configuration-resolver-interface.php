@@ -4,7 +4,7 @@ namespace Affilicious\Product\Update\Configuration;
 use Affilicious\Product\Update\Queue\Update_Queue_Interface;
 use Affilicious\Product\Update\Task\Update_Task_Interface;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

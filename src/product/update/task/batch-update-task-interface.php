@@ -5,7 +5,7 @@ use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Product_Interface;
 use Affilicious\Provider\Model\Provider;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

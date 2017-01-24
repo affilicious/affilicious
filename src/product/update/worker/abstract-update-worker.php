@@ -3,7 +3,7 @@ namespace Affilicious\Product\Update\Worker;
 
 use Affilicious\Common\Model\Slug;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

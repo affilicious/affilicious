@@ -3,7 +3,7 @@ namespace Affilicious\Attribute\Helper;
 
 use Affilicious\Attribute\Model\Attribute_Template;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

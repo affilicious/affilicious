@@ -5,7 +5,7 @@ use Affilicious\Common\Exception\Domain_Exception;
 use Affilicious\Detail\Model\Detail_Group;
 use Affilicious\Product\Model\Product;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

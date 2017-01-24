@@ -7,7 +7,7 @@ use Affilicious\Attribute\Model\Unit;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

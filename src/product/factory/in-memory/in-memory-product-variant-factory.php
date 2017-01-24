@@ -1,12 +1,11 @@
 <?php
 namespace Affilicious\Product\Factory\In_Memory;
 
-use Affilicious\Common\Model\Key;
-use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Name;
-use Affilicious\Product\Model\Complex\Complex_Product_Interface;
-use Affilicious\Product\Model\Variant\Product_Variant;
-use Affilicious\Product\Model\Variant\Product_Variant_Factory_Interface;
+use Affilicious\Common\Model\Slug;
+use Affilicious\Product\Factory\Product_Variant_Factory_Interface;
+use Affilicious\Product\Model\Complex_Product;
+use Affilicious\Product\Model\Product_Variant;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -16,11 +15,11 @@ class In_Memory_Product_Variant_Factory implements Product_Variant_Factory_Inter
 {
     /**
      * @inheritdoc
-     * @since 0.7
+     * @since 0.8
      */
-    public function create(Complex_Product_Interface $parent, Name $title, Slug $name, Key $key)
+    public function create(Complex_Product $parent, Name $name, Slug $slug)
     {
-        $product = new Product_Variant($parent, $title, $name, $key);
+        $product = new Product_Variant($parent, $name, $slug);
 
         return $product;
     }

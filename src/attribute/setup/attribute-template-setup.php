@@ -4,7 +4,7 @@ namespace Affilicious\Attribute\Setup;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Repository\Carbon\Carbon_Attribute_Template_Repository;
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -45,7 +45,7 @@ class Attribute_Template_Setup
             'filter_items_list'     => sprintf(_x('Filter %s', 'Attribute Template', 'affilicious'), $plural),
         );
 
-        register_taxonomy(Attribute_Template::TAXONOMY, Product_Interface::POST_TYPE, array(
+        register_taxonomy(Attribute_Template::TAXONOMY, Product::POST_TYPE, array(
             'hierarchical'      => false,
             'public'            => false,
             'labels'            => $labels,

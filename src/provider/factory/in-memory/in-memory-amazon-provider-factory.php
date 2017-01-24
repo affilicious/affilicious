@@ -3,7 +3,7 @@ namespace Affilicious\Provider\Factory\In_Memory;
 
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
-use Affilicious\Common\Model\Slug_Generator_Interface;
+use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Provider\Factory\Amazon_Provider_Factory_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Credentials;

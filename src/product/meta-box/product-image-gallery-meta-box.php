@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Meta_Box;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

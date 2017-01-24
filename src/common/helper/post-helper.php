@@ -4,7 +4,7 @@ namespace Affilicious\Common\Helper;
 
 use Affilicious\Common\Exception\Post_Not_Found_Exception;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

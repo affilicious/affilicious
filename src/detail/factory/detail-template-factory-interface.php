@@ -7,7 +7,7 @@ use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Model\Type;
 use Affilicious\Detail\Model\Unit;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

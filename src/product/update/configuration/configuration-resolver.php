@@ -3,7 +3,7 @@ namespace Affilicious\Product\Update\Configuration;
 
 use Affilicious\Product\Update\Queue\Update_Queue_Interface;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

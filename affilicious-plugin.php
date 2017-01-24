@@ -30,16 +30,13 @@
  */
 use Pimple\Container;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
 define('AFFILICIOUS_PLUGIN_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_PLUGIN_ROOT_PATH', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_PLUGIN_ROOT_URL', plugin_dir_url(__FILE__));
-
-/** @deprecated */
-define('AFFILICIOUS_PLUGIN_ROOT_DIR', AFFILICIOUS_PLUGIN_ROOT_PATH);
 
 if(!class_exists('Affilicious_Plugin')) {
 
@@ -307,8 +304,10 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Common\Setup\Feedback_Setup();
             };
 
-            $this->container['affilicious.product.repository.product'] = function () {
-                return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository();
+            $this->container['affilicious.product.repository.product'] = function ($c) {
+                return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
+                    $c['affilicious.common.generator.key']
+                );
             };
 
             $this->container['affilicious.product.factory.simple_product'] = function () {
@@ -544,7 +543,6 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function load_functions()
         {
-            require_once(__DIR__ . '/src/fallbacks.php');
             require_once(__DIR__ . '/src/functions.php');
         }
 

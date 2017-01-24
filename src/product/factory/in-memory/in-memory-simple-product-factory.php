@@ -1,11 +1,10 @@
 <?php
 namespace Affilicious\Product\Factory\In_Memory;
 
-use Affilicious\Common\Model\Key;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Name;
-use Affilicious\Product\Model\Simple\Simple_Product;
-use Affilicious\Product\Model\Simple\Simple_Product_Factory_Interface;
+use Affilicious\Product\Factory\Simple_Product_Factory_Interface;
+use Affilicious\Product\Model\Simple_Product;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -15,11 +14,11 @@ class In_Memory_Simple_Product_Factory implements Simple_Product_Factory_Interfa
 {
     /**
      * @inheritdoc
-     * @since 0.7
+     * @since 0.8
      */
-    public function create(Name $title, Slug $name, Key $key)
+    public function create(Name $name, Slug $slug)
     {
-        $product = new Simple_Product($title, $name, $key);
+        $product = new Simple_Product($name, $slug);
 
         return $product;
     }

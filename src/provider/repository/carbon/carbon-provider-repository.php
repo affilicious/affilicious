@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Provider\Repository\Carbon;
 
-use Affilicious\Common\Model\Key_Generator_Interface;
+use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;

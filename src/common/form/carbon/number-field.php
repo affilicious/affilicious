@@ -1,7 +1,7 @@
 <?php
 namespace Carbon_Fields\Field;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

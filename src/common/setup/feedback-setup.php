@@ -1,13 +1,11 @@
 <?php
 namespace Affilicious\Common\Setup;
 
-use Affilicious\Common\Setup\Setup_Interface;
-
 if(!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Feedback_Setup implements Setup_Interface
+class Feedback_Setup
 {
 	const MENU_SLUG = 'feedback';
 	const TO = 'feedback@affilicioustheme.de';

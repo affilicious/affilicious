@@ -3,7 +3,7 @@ namespace Affilicious\Product\Update;
 
 use Affilicious\Product\Update\Manager\Update_Manager_Interface;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

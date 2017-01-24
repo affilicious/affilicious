@@ -1,10 +1,10 @@
 <?php
 namespace Affilicious\Product\Listener;
 
-use Affilicious\Product\Model\Complex\Complex_Product_Interface;
+use Affilicious\Product\Model\Complex_Product;
+use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
-use Affilicious\Product\Model\Product_Interface;
-use Affilicious\Product\Model\Product_Repository_Interface;
+use Affilicious\Product\Repository\Product_Repository_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -34,12 +34,11 @@ class Save_Product_Listener
      */
     public function listen($post_id)
     {
-        /*
         if(!$this->is_real_save($post_id)) {
             return;
         }
 
-        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product_Interface::POST_TYPE) {
+        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
             return;
         }
 
@@ -48,7 +47,7 @@ class Save_Product_Listener
             return;
         }
 
-        if(!($product instanceof Complex_Product_Interface)) {
+        if(!($product instanceof Complex_Product)) {
             return;
         }
 
@@ -64,7 +63,7 @@ class Save_Product_Listener
         }
 
         $product = $this->product_repository->store($product);
-        $this->product_repository->delete_all_variants_from_parent_except($variants, $product->get_id());*/
+        $this->product_repository->delete_all_variants_from_parent_except($variants, $product->get_id());
     }
 
     /**

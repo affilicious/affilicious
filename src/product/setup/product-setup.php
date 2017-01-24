@@ -4,11 +4,11 @@ namespace Affilicious\Product\Setup;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Helper\View_Helper;
-use Affilicious\Common\Model\Key_Generator_Interface;
+use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Setup\Setup_Interface;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Product\Repository\Carbon\Carbon_Product_Repository;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
@@ -98,7 +98,7 @@ class Product_Setup implements Setup_Interface
 
 	    $slug = carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field');
 	    if(empty($slug)) {
-	    	$slug = Product_Interface::SLUG;
+	    	$slug = Product::SLUG;
 	    }
 
         $args = array(
@@ -122,7 +122,7 @@ class Product_Setup implements Setup_Interface
 	        'rewrite' => array('slug' => $slug)
         );
 
-        register_post_type(Product_Interface::POST_TYPE, $args);
+        register_post_type(Product::POST_TYPE, $args);
 
         do_action('affilicious_product_after_init');
     }
@@ -140,7 +140,7 @@ class Product_Setup implements Setup_Interface
         $detail_templates = $this->detail_template_repository->find_all();
 
         $container = Carbon_Container::make('post_meta', __('Affilicious Product', 'affilicious'))
-            ->show_on_post_type(Product_Interface::POST_TYPE)
+            ->show_on_post_type(Product::POST_TYPE)
             ->set_priority('core')
             ->add_tab(__('General', 'affilicious'), $this->get_general_fields())
             ->add_tab(__('Variants', 'affilicious'), $this->get_variants_fields($attribute_templates, $shop_templates))
@@ -534,10 +534,10 @@ class Product_Setup implements Setup_Interface
         $fields = array(
             Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_PRODUCTS, __('Related Products', 'affilicious'))
                 ->allow_duplicates(false)
-                ->set_post_type(Product_Interface::POST_TYPE),
+                ->set_post_type(Product::POST_TYPE),
             Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_ACCESSORIES, __('Related Accessories', 'affilicious'))
                 ->allow_duplicates(false)
-                ->set_post_type(Product_Interface::POST_TYPE),
+                ->set_post_type(Product::POST_TYPE),
         );
 
         return apply_filters('affilicious_product_render_affilicious_product_container_relations_fields', $fields);

@@ -3,7 +3,7 @@ namespace Affilicious\Shop\Helper;
 
 use Affilicious\Shop\Model\Shop_Template;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 

@@ -1,9 +1,11 @@
 <?php
 namespace Affilicious\Shop\Model;
 
-use Affilicious\Common\Model\Image\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
+use Affilicious\Common\Model\Name_Trait;
+use Affilicious\Common\Model\Slug;
+use Affilicious\Common\Model\Slug_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -11,19 +13,10 @@ if (!defined('ABSPATH')) {
 
 class Shop
 {
-    /**
-     * The name for display usage.
-     *
-     * @var Name
-     */
-    protected $name;
-
-    /**
-     * The optional thumbnail ID of the shop.
-     *
-     * @var null|Image_Id
-     */
-    protected $thumbnail_id;
+    use Name_Trait, Slug_Trait {
+        Name_Trait::set_name as private;
+        Slug_Trait::set_slug as private;
+    }
 
     /**
      * The tracking contains all information to have the sale paid for the affiliate.
@@ -40,6 +33,13 @@ class Shop
     protected $pricing;
 
     /**
+     * The optional thumbnail ID of the shop.
+     *
+     * @var null|Image_Id
+     */
+    protected $thumbnail;
+
+    /**
      * The date and time of the last update.
      *
      * @var \DateTimeImmutable
@@ -47,46 +47,19 @@ class Shop
     protected $updated_at;
 
     /**
-     * Create a new shop.
-     *
      * @since 0.8
      * @param Name $name
-     * @param Image|null $thumbnail
+     * @param Slug $slug
      * @param Tracking $tracking
      * @param Pricing $pricing
-     * @return Shop
      */
-    public function first_opening(Name $name, Image $thumbnail = null, Tracking $tracking, Pricing $pricing)
+    public function __construct(Name $name, Slug $slug, Tracking $tracking, Pricing $pricing)
     {
-        return new self($name, $thumbnail, $tracking, $pricing, new \DateTimeImmutable('now'));
-    }
-
-    /**
-     * @since 0.8
-     * @param Name $name
-     * @param null|Image $thumbnail
-     * @param Tracking $tracking
-     * @param Pricing $pricing
-     * @param \DateTimeImmutable $updated_at
-     */
-    public function __construct(Name $name, Image $thumbnail = null, Tracking $tracking, Pricing $pricing, \DateTimeImmutable $updated_at)
-    {
-        $this->name = $name;
-        $this->thumbnail_id = $thumbnail;
+        $this->set_name($name);
+        $this->set_slug($slug);
         $this->tracking = $tracking;
         $this->pricing = $pricing;
-        $this->updated_at = $updated_at;
-    }
-
-    /**
-     * Get the name for display usage.
-     *
-     * @since 0.8
-     * @return Name
-     */
-    public function get_name()
-    {
-        return $this->name;
+        $this->updated_at = new \DateTimeImmutable('now');
     }
 
     /**
@@ -112,24 +85,35 @@ class Shop
     }
 
     /**
-     * Check if the shop has an optional thumbnail.
+     * Check if the shop has an optional thumbnail ID.
      *
      * @since 0.8
      */
     public function has_thumbnail()
     {
-        return $this->thumbnail_id !== null;
+        return $this->thumbnail !== null;
     }
 
     /**
-     * Get the optional shop thumbnail.
+     * Get the optional shop thumbnail ID.
      *
      * @since 0.8
-     * @return null|Image
+     * @return null|Image_Id
      */
-    public function get_thumbnailId()
+    public function get_thumbnail()
     {
-        return $this->thumbnail_id;
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set the optional shop thumbnail ID.
+     *
+     * @since 0.8
+     * @param null|Image_Id $thumbnail
+     */
+    public function set_thumbnail(Image_Id $thumbnail = null)
+    {
+        $this->thumbnail = $thumbnail;
     }
 
     /**
@@ -140,7 +124,45 @@ class Shop
      */
     public function get_updated_at()
     {
-        return clone $this->updated_at;
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the date and time of the last update.
+     *
+     * @since 0.8
+     * @param \DateTimeImmutable $updated_at
+     */
+    public function set_updated_at(\DateTimeImmutable $updated_at)
+    {
+        $this->updated_at = $updated_at;
+    }
+
+    /**
+     * Check if the other shop is cheaper than the current one.
+     * If both shops haven't got a discounted price, this method will return true.
+     *
+     * @since 0.8
+     * @param Shop $other_shop
+     * @return bool
+     */
+    public function is_cheaper_than(Shop $other_shop)
+    {
+        $other_pricing = $other_shop->get_pricing();
+
+        if(!$this->pricing->has_discounted_price() && !$other_pricing->has_discounted_price()) {
+            return true;
+        }
+
+        if($this->pricing->has_discounted_price() && !$other_pricing->has_discounted_price()) {
+            return true;
+        }
+
+        if(!$this->pricing->has_discounted_price() && $other_pricing->has_discounted_price()) {
+            return false;
+        }
+
+        return $this->pricing->get_discounted_price()->is_smaller_than($other_pricing->get_discounted_price());
     }
 
     /**
@@ -157,7 +179,7 @@ class Shop
             $this->get_name()->is_equal_to($other->get_name()) &&
             $this->get_tracking()->is_equal_to($other->get_tracking()) &&
             $this->get_pricing()->is_equal_to($other->get_pricing()) &&
-            ($this->has_thumbnail() && $this->get_thumbnailId()->is_equal_to($other->get_thumbnailId()) || !$other->has_thumbnail()) &&
+            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($other->get_thumbnail()) || !$other->has_thumbnail()) &&
             $this->get_updated_at() == $other->get_updated_at();
     }
 }

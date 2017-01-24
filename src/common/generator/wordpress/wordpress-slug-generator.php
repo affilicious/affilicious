@@ -2,10 +2,10 @@
 namespace Affilicious\Common\Generator\Wordpress;
 
 use Affilicious\Common\Model\Slug;
-use Affilicious\Common\Model\Slug_Generator_Interface;
+use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Name;
 
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
