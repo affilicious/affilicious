@@ -3,6 +3,8 @@ namespace Affilicious\Detail\Model;
 
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Trait;
+use Affilicious\Common\Model\Slug;
+use Affilicious\Common\Model\Slug_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -10,8 +12,9 @@ if (!defined('ABSPATH')) {
 
 class Detail
 {
-    use Name_Trait, Type_Trait, Unit_Trait {
+    use Name_Trait, Slug_Trait, Type_Trait, Unit_Trait {
         Name_Trait::set_name as private;
+        Slug_Trait::set_slug as private;
         Type_Trait::set_type as private;
         Unit_Trait::set_unit as private;
     }
@@ -35,25 +38,27 @@ class Detail
      *
      * @since 0.8
      * @param Name $name
+     * @param Slug $slug
      * @param Value $value
      * @return Detail
      */
-    public static function text(Name $name, Value $value)
+    public static function text(Name $name, Slug $slug, Value $value)
     {
-        return new self($name, $value, Type::text());
+        return new self($name, $slug, $value, Type::text());
     }
 
     /**
      * Create a new number detail from the name, value and optional unit.
      *
      * @param Name $name
+     * @param Slug $slug
      * @param Value $value
      * @param Unit|null $unit
      * @return Detail
      */
-    public static function number(Name $name, Value $value, Unit $unit = null)
+    public static function number(Name $name, Slug $slug, Value $value, Unit $unit = null)
     {
-        $detail = new self($name, $value, Type::number(), $unit);
+        $detail = new self($name, $slug, $value, Type::number(), $unit);
 
         return $detail;
     }
@@ -63,12 +68,13 @@ class Detail
      *
      * @since 0.8
      * @param Name $name
+     * @param Slug $slug
      * @param Value $value
      * @return Detail
      */
-    public static function file(Name $name, Value $value)
+    public static function file(Name $name, Slug $slug, Value $value)
     {
-        return new self($name, $value, Type::file());
+        return new self($name, $slug, $value, Type::file());
     }
 
     /**
@@ -76,13 +82,15 @@ class Detail
      *
      * @since 0.8
      * @param Name $name
+     * @param Slug $slug
      * @param Value $value
      * @param Type $type
      * @param Unit $unit
      */
-	public function __construct(Name $name, Value $value, Type $type, Unit $unit = null)
+	public function __construct(Name $name, Slug $slug, Value $value, Type $type, Unit $unit = null)
 	{
         $this->set_name($name);
+        $this->set_slug($slug);
         $this->value = $value;
         $this->standardize($type, $unit);
     }
@@ -157,6 +165,7 @@ class Detail
 		return
 			$other instanceof self &&
 	        $this->get_name()->is_equal_to($other->get_name()) &&
+	        $this->get_slug()->is_equal_to($other->get_slug()) &&
             $this->get_value()->is_equal_to($other->get_value()) &&
 	        $this->get_type()->is_equal_to($other->get_type()) &&
             ($this->has_unit() && $this->get_unit()->is_equal_to($other->get_unit()) || !$other->has_unit()) &&

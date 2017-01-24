@@ -101,7 +101,7 @@ class Detail_Template
      */
     public function build(Value $value)
     {
-        $detail = new Detail($this->name, $value, $this->type, $this->unit);
+        $detail = new Detail($this->name, $this->slug, $value, $this->type, $this->unit);
 
         return $detail;
     }

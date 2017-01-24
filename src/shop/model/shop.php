@@ -4,6 +4,8 @@ namespace Affilicious\Shop\Model;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Trait;
+use Affilicious\Common\Model\Slug;
+use Affilicious\Common\Model\Slug_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -11,8 +13,9 @@ if (!defined('ABSPATH')) {
 
 class Shop
 {
-    use Name_Trait {
+    use Name_Trait, Slug_Trait {
         Name_Trait::set_name as private;
+        Slug_Trait::set_slug as private;
     }
 
     /**
@@ -53,12 +56,14 @@ class Shop
     /**
      * @since 0.8
      * @param Name $name
+     * @param Slug $slug
      * @param Tracking $tracking
      * @param Pricing $pricing
      */
-    public function __construct(Name $name, Tracking $tracking, Pricing $pricing)
+    public function __construct(Name $name, Slug $slug, Tracking $tracking, Pricing $pricing)
     {
         $this->set_name($name);
+        $this->set_slug($slug);
         $this->tracking = $tracking;
         $this->pricing = $pricing;
         $this->updated_at = new \DateTimeImmutable('now');
@@ -212,6 +217,7 @@ class Shop
         return
             $other instanceof self &&
             $this->get_name()->is_equal_to($other->get_name()) &&
+            $this->get_slug()->is_equal_to($other->get_slug()) &&
             $this->get_tracking()->is_equal_to($other->get_tracking()) &&
             $this->get_pricing()->is_equal_to($other->get_pricing()) &&
             ($this->has_thumbnail_id() && $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) || !$other->has_thumbnail_id()) &&

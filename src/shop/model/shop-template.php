@@ -14,12 +14,12 @@ if (!defined('ABSPATH')) {
 
 class Shop_Template
 {
+    use Name_Trait, Slug_Trait;
+
     /**
      * There is a limit of 20 characters for post types in Wordpress
      */
     const TAXONOMY = 'aff_shop_tmpl';
-
-    use Name_Trait, Slug_Trait;
 
     /**
      * The unique ID of the shop template.
@@ -162,7 +162,7 @@ class Shop_Template
      */
     public function build(Tracking $tracking, Pricing $pricing)
     {
-        $shop = new Shop($this->name, $tracking, $pricing);
+        $shop = new Shop($this->name, $this->slug, $tracking, $pricing);
         $shop->set_thumbnail_id($this->thumbnail_id);
 
         return $shop;

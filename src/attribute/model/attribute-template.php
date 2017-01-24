@@ -101,7 +101,7 @@ class Attribute_Template
      */
     public function build(Value $value)
     {
-        $attribute = new Attribute($this->name, $value, $this->type, $this->unit);
+        $attribute = new Attribute($this->name, $this->slug, $value, $this->type, $this->unit);
 
         return $attribute;
     }
