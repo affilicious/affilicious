@@ -1,18 +1,20 @@
 <?php
 use Affilicious\Attribute\Helper\Attribute_Template_Helper;
 use Affilicious\Attribute\Model\Attribute_Template;
-use Affilicious\Common\Helper\Time_Helper;
+use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Product\Helper\Product_Helper;
 use Affilicious\Product\Model\Complex_Product;
+use Affilicious\Product\Model\Detail_Aware_Interface;
 use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Product_Variant;
 use Affilicious\Product\Model\Relation_Aware_Interface;
 use Affilicious\Product\Model\Review_Aware_Interface;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Model\Tag_Aware_Interface;
 use Affilicious\Product\Model\Type;
-use Affilicious\Product\Model\Product_Variant;
+use Affilicious\Shop\Helper\Shop_Helper;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Availability;
@@ -132,28 +134,15 @@ function aff_get_product_details($product_or_id = null)
         $product = $product->get_parent();
     }
 
-    if($product === null || !($product instanceof Detail_Group_Aware_Product)) {
+    if($product === null || !($product instanceof Detail_Aware_Interface)) {
         return null;
     }
 
-    $detail_groups = $product->get_detail_groups();
-
+    $details = $product->get_details();
     $raw_details = array();
-    foreach ($detail_groups as $detail_group) {
-        $details = $detail_group->get_details();
-
-        foreach ($details as $detail) {
-            $raw_detail = array(
-                'title' => $detail->get_title()->get_value(),
-                'name' => $detail->get_name()->get_value(),
-                'key' => $detail->get_key()->get_value(),
-                'type' => $detail->get_type()->get_value(),
-                'unit' => $detail->has_unit() ? $detail->get_unit()->get_value() : null,
-                'value' => $detail->has_value() ? $detail->get_value()->get_value() : null,
-            );
-
-            $raw_details[] = $raw_detail;
-        }
+    foreach ($details as $detail) {
+        $raw_detail = Detail_Helper::to_array($detail);
+        $raw_details[] = $raw_detail;
     }
 
     return $raw_details;
@@ -174,21 +163,14 @@ function aff_get_product_image_gallery($product_or_id = null)
         return null;
     }
 
-    $images = $product->get_image_gallery();
+    $image_ids = $product->get_image_gallery();
 
-    $raw_images = array();
-    foreach ($images as $image) {
-        $raw_image = array(
-            'id' => $image->get_id()->get_value(),
-            'src' => $image->get_source()->get_value(),
-            'width' => $image->has_width() ? $image->get_width()->get_value() : null,
-            'height' => $image->has_height() ? $image->get_height()->get_value() : null,
-        );
-
-        $raw_images[] = $raw_image;
+    $raw_image_ids = array();
+    foreach ($image_ids as $image_id) {
+        $raw_image_ids[] = $image_id->get_value();
     }
 
-    return $raw_images;
+    return $raw_image_ids;
 }
 
 /**
@@ -242,32 +224,7 @@ function aff_get_product_shops($product_or_id = null)
 
     $raw_shops = array();
     foreach ($shops as $shop) {
-        $raw_shop = array(
-            'shop_template_id' => $shop->get_template()->get_id()->get_value(),
-            'title' => $shop->get_template()->get_title()->get_value(),
-            'affiliate_link' => $shop->get_affiliate_link()->get_value(),
-            'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
-            'availability' => $shop->get_availability()->get_value(),
-            'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
-            'thumbnail' => $shop->has_thumbnail() ? $shop->get_thumbnail()->get_value() : null,
-            'price' => !$shop->has_price() ? null : array(
-                'value' => $shop->get_price()->get_value(),
-                'currency' => array(
-                    'value' => $shop->get_price()->get_currency()->get_value(),
-                    'label' => $shop->get_price()->get_currency()->get_label(),
-                    'symbol' => $shop->get_price()->get_currency()->get_symbol(),
-                ),
-            ),
-            'old_price' => !$shop->has_old_price() ? null : array(
-                'value' => $shop->get_old_price()->get_value(),
-                'currency' => array(
-                    'value' => $shop->get_old_price()->get_currency()->get_value(),
-                    'label' => $shop->get_old_price()->get_currency()->get_label(),
-                    'symbol' => $shop->get_old_price()->get_currency()->get_symbol(),
-                ),
-            ),
-        );
-
+        $raw_shop = Shop_Helper::to_array($shop);
         $raw_shops[] = $raw_shop;
     }
 
@@ -482,36 +439,7 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
         return null;
     }
 
-    $raw_shop = array(
-        'shop_template_id' => $shop->get_template()->get_id()->get_value(),
-        'title' => $shop->get_template()->get_title()->get_value(),
-        'affiliate_link' => $shop->get_affiliate_link()->get_value(),
-        'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
-        'availability' => $shop->get_availability()->get_value(),
-        'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
-        'thumbnail' => !$shop->has_thumbnail() ? null : array(
-            'id' => $shop->get_thumbnail()->get_id()->get_value(),
-            'src' => $shop->get_thumbnail()->get_source()->get_value(),
-            'width' => $shop->get_thumbnail()->has_width() ? $shop->get_thumbnail()->get_width()->get_value() : null,
-            'height' => $shop->get_thumbnail()->has_height() ? $shop->get_thumbnail()->get_height()->get_value() : null,
-        ),
-        'price' => !$shop->has_price() ? null : array(
-            'value' => $shop->get_price()->get_value(),
-            'currency' => array(
-                'value' => $shop->get_price()->get_currency()->get_value(),
-                'label' => $shop->get_price()->get_currency()->get_label(),
-                'symbol' => $shop->get_price()->get_currency()->get_symbol(),
-            ),
-        ),
-        'old_price' => !$shop->has_old_price() ? null : array(
-            'value' => $shop->get_old_price()->get_value(),
-            'currency' => array(
-                'value' => $shop->get_old_price()->get_currency()->get_value(),
-                'label' => $shop->get_old_price()->get_currency()->get_label(),
-                'symbol' => $shop->get_old_price()->get_currency()->get_symbol(),
-            ),
-        ),
-    );
+    $raw_shop = Shop_Helper::to_array($shop);
 
     return $raw_shop;
 }
@@ -628,36 +556,7 @@ function aff_get_product_cheapest_shop($product_or_id = null)
         return null;
     }
 
-    $raw_shop = array(
-        'shop_template_id' => $shop->get_template()->get_id()->get_value(),
-        'title' => $shop->get_template()->get_title()->get_value(),
-        'affiliate_link' => $shop->get_affiliate_link()->get_value(),
-        'affiliate_id' => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
-        'availability' => $shop->get_availability()->get_value(),
-        'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
-        'thumbnail' => !$shop->has_thumbnail() ? null : array(
-            'id' => $shop->get_thumbnail()->get_id()->get_value(),
-            'src' => $shop->get_thumbnail()->get_source()->get_value(),
-            'width' => $shop->get_thumbnail()->has_width() ? $shop->get_thumbnail()->get_width()->get_value() : null,
-            'height' => $shop->get_thumbnail()->has_height() ? $shop->get_thumbnail()->get_height()->get_value() : null,
-        ),
-        'price' => !$shop->has_price() ? null : array(
-            'value' => $shop->get_price()->get_value(),
-            'currency' => array(
-                'value' => $shop->get_price()->get_currency()->get_value(),
-                'label' => $shop->get_price()->get_currency()->get_label(),
-                'symbol' => $shop->get_price()->get_currency()->get_symbol(),
-            ),
-        ),
-        'old_price' => !$shop->has_old_price() ? null : array(
-            'value' => $shop->get_old_price()->get_value(),
-            'currency' => array(
-                'value' => $shop->get_old_price()->get_currency()->get_value(),
-                'label' => $shop->get_old_price()->get_currency()->get_label(),
-                'symbol' => $shop->get_old_price()->get_currency()->get_symbol(),
-            ),
-        ),
-    );
+    $raw_shop = Shop_Helper::to_array($shop);
 
     return $raw_shop;
 }
@@ -1234,7 +1133,7 @@ function aff_get_shop_template($shop_or_id)
  */
 function aff_get_detail_template($detail_template_or_id)
 {
-    $detail_template = Detail_Template_Helper::fine_one($detail_template_or_id);
+    $detail_template = Detail_Template_Helper::find_one($detail_template_or_id);
 
     return $detail_template;
 }

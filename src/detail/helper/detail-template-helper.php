@@ -16,7 +16,7 @@ class Detail_Template_Helper
      * @param int|\WP_Term|Detail_Template $term_or_id
      * @return null|Detail_Template
      */
-    public static function fine_one($term_or_id)
+    public static function find_one($term_or_id)
     {
         $detail_template_repository = \Affilicious_Plugin::get('affilicious.detail.repository.detail_template');
 

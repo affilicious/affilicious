@@ -35,4 +35,5 @@ class Shop_Template_Helper
 
         return $shop_template;
     }
+
 }
