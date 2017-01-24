@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Setup;
 
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -23,7 +23,7 @@ class Admin_Bar_Setup
         }
 
         $post = get_post();
-        if(empty($post) || $post->post_type !== Product_Interface::POST_TYPE || $post->post_parent == 0) {
+        if(empty($post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
             return;
         }
 

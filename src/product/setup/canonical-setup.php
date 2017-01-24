@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Setup;
 
-
 use Affilicious\Product\Model\Product;
 
 if (!defined('ABSPATH')) {
