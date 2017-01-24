@@ -6,7 +6,6 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
-use Affilicious\Shop\Exception\Unique_Name_Exception;
 use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
@@ -56,13 +55,6 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      */
     public function store(Provider $provider)
     {
-        if(isset($this->providers[$provider->get_slug()->get_value()])) {
-            throw new Unique_Name_Exception(sprintf(
-                'The provider with the slug "%s" is already stored in the repository. Please use another slug.',
-                $provider->get_name()->get_value()
-            ));
-        }
-
         $this->prepare_provider_id($provider);
 
         $this->providers[$provider->get_slug()->get_value()] = $provider;
