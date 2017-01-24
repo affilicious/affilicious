@@ -70,7 +70,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const DETAIL_VALUE = '_affilicious_product_detail_%s_value';
 
     const VARIANTS = '_affilicious_product_variants';
-    const VARIANT_ENABLED_ATTRIBUTES = '_affilicious_product_variants_enabled_attributes';
+    const VARIANT_ENABLED_ATTRIBUTES = '_affilicious_product_enabled_attributes';
     const VARIANT_ID = 'variant_id';
     const VARIANT_TITLE = 'title';
     const VARIANT_DEFAULT = 'default';
@@ -703,7 +703,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     private function add_image_gallery(Product $product, \WP_Post $post)
     {
         $image_gallery = get_post_meta($post->ID, self::IMAGE_GALLERY);
-        if (!empty($image_gallery)) {
+        if (!empty($image_gallery) && strlen($image_gallery[0]) > 0) {
             $image_ids = explode(',', $image_gallery[0]);
 
             $images = array();
