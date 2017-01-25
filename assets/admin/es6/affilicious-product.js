@@ -4,43 +4,9 @@ jQuery(function($) {
         return false;
     }
 
-    class AffiliciousProduct {
-        constructor() {
-            this.view = this.getContainerView();
-            this.typeView = this.getTypeView();
-            this.variantsView = this.getVariantsView();
-            this.enabledAttributesView = this.getEnabledAttributesView();
-
-            this.typeView.model.on('change:value', this.toggleTabs, this);
-            this.variantsView.model.on('change:value', this.toggleAttributes, this);
-            this.enabledAttributesView.model.on('change:value', this.toggleAttributes, this);
-        }
-
-        toggleTabs() {
-            // Supports multiple languages
-            var productType = this.typeView.model.get('value'),
-                variants = this.view.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
-                shops = this.view.$el.find('a[data-id="' + translations.shops.trim().toLowerCase() + '"]').parent();
-
-            if(productType === 'complex') {
-                variants.show();
-                shops.hide();
-            } else {
-                variants.hide();
-                shops.show();
-            }
-        }
-
-        toggleAttributes() {
-            let attributesViews = this.getVariantEnabledAttributesViews(),
-                value = this.enabledAttributesView.model.get('value');
-
-            for (let attributesView of attributesViews) {
-                attributesView.model.set('value', value);
-            }
-        }
-
-        getContainerView() {
+    class CarbonView
+    {
+        static getContainerView() {
             var containerView = null;
 
             _.each(carbon.views, function(view) {
@@ -52,7 +18,7 @@ jQuery(function($) {
             return containerView;
         }
 
-        getVariantsView() {
+        static getVariantsView() {
             var variantsView = null;
 
             _.each(carbon.views, function(view) {
@@ -64,7 +30,7 @@ jQuery(function($) {
             return variantsView;
         }
 
-        getTypeView() {
+        static getTypeView() {
             var typeView = null;
 
             _.each(carbon.views, function(view) {
@@ -76,7 +42,7 @@ jQuery(function($) {
             return typeView;
         }
 
-        getEnabledAttributesView() {
+        static getEnabledAttributesView() {
             var enabledAttributesView = null;
 
             _.each(carbon.views, function(view) {
@@ -88,7 +54,7 @@ jQuery(function($) {
             return enabledAttributesView;
         }
 
-        getVariantEnabledAttributesViews() {
+        static getVariantEnabledAttributesViews() {
             var variantEnabledAttributesViews = [];
 
             _.each(carbon.views, function(view) {
@@ -99,6 +65,50 @@ jQuery(function($) {
 
             return variantEnabledAttributesViews;
         }
+    }
+
+    class AffiliciousProduct {
+        constructor() {
+            let typeView = CarbonView.getTypeView();
+            let variantsView = CarbonView.getVariantsView();
+            let enabledAttributesView = CarbonView.getEnabledAttributesView();
+
+            typeView.$el.ready(this.toggleTabs);
+            typeView.model.on('change:value', this.toggleTabs);
+            variantsView.$el.ready(this.toggleAttributes);
+            variantsView.model.on('change:value', this.toggleAttributes);
+            enabledAttributesView.$el.ready(this.toggleAttributes);
+            enabledAttributesView.model.on('change:value', this.toggleAttributes);
+        }
+
+        toggleTabs() {
+            // Supports multiple languages
+            var view = CarbonView.getContainerView(),
+                typeView = CarbonView.getTypeView(),
+                productType = typeView.model.get('value'),
+                variants = view.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
+                shops = view.$el.find('a[data-id="' + translations.shops.trim().toLowerCase() + '"]').parent();
+
+            if(productType === 'complex') {
+                variants.show();
+                shops.hide();
+            } else {
+                variants.hide();
+                shops.show();
+            }
+        }
+
+        toggleAttributes() {
+            let enabledAttributesView = CarbonView.getEnabledAttributesView(),
+                attributesViews = CarbonView.getVariantEnabledAttributesViews(),
+                value = enabledAttributesView.model.get('value');
+
+            for (let attributesView of attributesViews) {
+                attributesView.model.set('value', value);
+            }
+        }
+
+
     }
 
     window.affiliciousProduct = new AffiliciousProduct();

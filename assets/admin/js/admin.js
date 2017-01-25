@@ -11,68 +11,12 @@ jQuery(function ($) {
         return false;
     }
 
-    var AffiliciousProduct = function () {
-        function AffiliciousProduct() {
-            _classCallCheck(this, AffiliciousProduct);
-
-            this.view = this.getContainerView();
-            this.typeView = this.getTypeView();
-            this.variantsView = this.getVariantsView();
-            this.enabledAttributesView = this.getEnabledAttributesView();
-
-            this.typeView.model.on('change:value', this.toggleTabs, this);
-            this.variantsView.model.on('change:value', this.toggleAttributes, this);
-            this.enabledAttributesView.model.on('change:value', this.toggleAttributes, this);
+    var CarbonView = function () {
+        function CarbonView() {
+            _classCallCheck(this, CarbonView);
         }
 
-        _createClass(AffiliciousProduct, [{
-            key: 'toggleTabs',
-            value: function toggleTabs() {
-                // Supports multiple languages
-                var productType = this.typeView.model.get('value'),
-                    variants = this.view.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
-                    shops = this.view.$el.find('a[data-id="' + translations.shops.trim().toLowerCase() + '"]').parent();
-
-                if (productType === 'complex') {
-                    variants.show();
-                    shops.hide();
-                } else {
-                    variants.hide();
-                    shops.show();
-                }
-            }
-        }, {
-            key: 'toggleAttributes',
-            value: function toggleAttributes() {
-                var attributesViews = this.getVariantEnabledAttributesViews(),
-                    value = this.enabledAttributesView.model.get('value');
-
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = attributesViews[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var attributesView = _step.value;
-
-                        attributesView.model.set('value', value);
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-            }
-        }, {
+        _createClass(CarbonView, null, [{
             key: 'getContainerView',
             value: function getContainerView() {
                 var containerView = null;
@@ -136,6 +80,77 @@ jQuery(function ($) {
                 });
 
                 return variantEnabledAttributesViews;
+            }
+        }]);
+
+        return CarbonView;
+    }();
+
+    var AffiliciousProduct = function () {
+        function AffiliciousProduct() {
+            _classCallCheck(this, AffiliciousProduct);
+
+            var typeView = CarbonView.getTypeView();
+            var variantsView = CarbonView.getVariantsView();
+            var enabledAttributesView = CarbonView.getEnabledAttributesView();
+
+            typeView.$el.ready(this.toggleTabs);
+            typeView.model.on('change:value', this.toggleTabs);
+            variantsView.$el.ready(this.toggleAttributes);
+            variantsView.model.on('change:value', this.toggleAttributes);
+            enabledAttributesView.$el.ready(this.toggleAttributes);
+            enabledAttributesView.model.on('change:value', this.toggleAttributes);
+        }
+
+        _createClass(AffiliciousProduct, [{
+            key: 'toggleTabs',
+            value: function toggleTabs() {
+                // Supports multiple languages
+                var view = CarbonView.getContainerView(),
+                    typeView = CarbonView.getTypeView(),
+                    productType = typeView.model.get('value'),
+                    variants = view.$el.find('a[data-id="' + translations.variants.trim().toLowerCase() + '"]').parent(),
+                    shops = view.$el.find('a[data-id="' + translations.shops.trim().toLowerCase() + '"]').parent();
+
+                if (productType === 'complex') {
+                    variants.show();
+                    shops.hide();
+                } else {
+                    variants.hide();
+                    shops.show();
+                }
+            }
+        }, {
+            key: 'toggleAttributes',
+            value: function toggleAttributes() {
+                var enabledAttributesView = CarbonView.getEnabledAttributesView(),
+                    attributesViews = CarbonView.getVariantEnabledAttributesViews(),
+                    value = enabledAttributesView.model.get('value');
+
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = attributesViews[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var attributesView = _step.value;
+
+                        attributesView.model.set('value', value);
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
             }
         }]);
 
