@@ -62,7 +62,7 @@ class Save_Product_Listener
             }
         }
 
-        $product = $this->product_repository->store($product);
+        $this->product_repository->store($product);
         $this->product_repository->delete_all_variants_from_parent_except($variants, $product->get_id());
     }
 

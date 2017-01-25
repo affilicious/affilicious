@@ -46,7 +46,7 @@ class Product
      *
      * @var null|Image_Id
      */
-    private $thumbnail;
+    private $thumbnail_id;
 
     /**
      * The image IDs of the product gallery.
@@ -128,9 +128,9 @@ class Product
      * @since 0.8
      * @return bool
      */
-    public function has_thumbnail()
+    public function has_thumbnail_id()
     {
-        return $this->thumbnail !== null;
+        return $this->thumbnail_id !== null;
     }
 
     /**
@@ -139,20 +139,20 @@ class Product
      * @since 0.8
      * @return null|Image_Id
      */
-    public function get_thumbnail()
+    public function get_thumbnail_id()
     {
-        return $this->thumbnail;
+        return $this->thumbnail_id;
     }
 
     /**
      * Set the product thumbnail ID.
      *
      * @since 0.8
-     * @param null|Image_Id $thumbnail
+     * @param null|Image_Id $thumbnail_id
      */
-    public function set_thumbnail(Image_Id $thumbnail)
+    public function set_thumbnail_id(Image_Id $thumbnail_id)
     {
-        $this->thumbnail = $thumbnail;
+        $this->thumbnail_id = $thumbnail_id;
     }
 
     /**
@@ -245,7 +245,7 @@ class Product
             $this->get_name()->is_equal_to($other->get_name()) &&
             $this->get_slug()->is_equal_to($other->get_slug()) &&
             $this->get_type()->is_equal_to($other->get_type()) &&
-            $this->get_thumbnail()->is_equal_to($other->get_thumbnail()) &&
+            $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) &&
             $this->get_image_gallery() == $this->get_image_gallery() &&
             $this->get_updated_at() == $other->get_updated_at();
     }

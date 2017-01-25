@@ -176,16 +176,6 @@ class Product_Setup
                         'compare' => '!=',
                     )
                 )),
-            Carbon_Field::make('text', 'lala', __('Test', 'affilicious'))
-                ->set_help_text(__('Test'))
-                ->set_conditional_logic(array(
-                    'relation' => 'and',
-                    array(
-                        'field' => Carbon_Product_Repository::TAGS,
-                        'value' => 'test',
-                        'compare' => 'CONTAINS',
-                    )
-                )),
         );
 
         return apply_filters('affilicious_product_render_affilicious_product_container_general_fields', $fields);
@@ -219,7 +209,7 @@ class Product_Setup
             ))
             ->add_fields(array_merge(array(
                     Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious')),
-                    Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_TITLE, __('Name', 'affilicious'))
+                    Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_NAME, __('Name', 'affilicious'))
                         ->set_required(true)
                         ->set_width(70),
                     Carbon_Field::make('checkbox', Carbon_Product_Repository::VARIANT_DEFAULT, __('Default Variant', 'affilicious'))
@@ -231,13 +221,13 @@ class Product_Setup
                 array(
                     Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
                         ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
-                    Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL, __('Thumbnail', 'affilicious')),
+                    Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL_ID, __('Thumbnail', 'affilicious')),
                     !empty($shop_templates) ? $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious'), $shop_templates) : $this->get_shops_empty_notice_field(),
                 )
             ))
             ->set_header_template('
-                <# if (' . Carbon_Product_Repository::VARIANT_TITLE . ') { #>
-                    {{ ' . Carbon_Product_Repository::VARIANT_TITLE . ' }}
+                <# if (' . Carbon_Product_Repository::VARIANT_NAME . ') { #>
+                    {{ ' . Carbon_Product_Repository::VARIANT_NAME . ' }}
                 <# } #>
             ')
             ->set_conditional_logic(array(
@@ -280,8 +270,8 @@ class Product_Setup
     public function get_variants_attribute_field(Attribute_Template $attribute_template)
     {
         // Build the key
-        $attribute_id = $attribute_template->get_id()->get_value();
-        $field_key = sprintf(Carbon_Product_Repository::VARIANT_ATTRIBUTE_VALUE, $attribute_id);
+        $attribute_key = $this->key_generator->generate_from_slug($attribute_template->get_slug());
+        $field_key = sprintf(Carbon_Product_Repository::VARIANT_ATTRIBUTE_VALUE, $attribute_key->get_value());
 
         // Build the name
         $field_name = trim(sprintf('%s %s', $attribute_template->get_name(), $attribute_template->get_unit()));

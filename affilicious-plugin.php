@@ -306,6 +306,7 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.product.repository.product'] = function ($c) {
                 return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
+                    $c['affilicious.common.generator.slug'],
                     $c['affilicious.common.generator.key'],
                     $c['affilicious.shop.repository.shop_template'],
                     $c['affilicious.attribute.repository.attribute_template'],
@@ -354,10 +355,6 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Provider\Factory\In_Memory\In_Memory_Amazon_Provider_Factory(
                     $c['affilicious.common.generator.slug']
                 );
-            };
-
-            $this->container['affilicious.product.factory.review'] = function () {
-                return new \Affilicious\Product\Factory\In_Memory\In_Memory_Review_Factory();
             };
 
             $this->container['affilicious.shop.factory.shop_template'] = function ($c) {

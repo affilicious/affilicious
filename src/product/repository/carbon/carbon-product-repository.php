@@ -5,6 +5,7 @@ use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Exception\Invalid_Post_Type_Exception;
 use Affilicious\Common\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Generator\Key_Generator_Interface;
+use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
@@ -72,10 +73,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const VARIANTS = '_affilicious_product_variants';
     const VARIANT_ENABLED_ATTRIBUTES = '_affilicious_product_enabled_attributes';
     const VARIANT_ID = 'variant_id';
-    const VARIANT_TITLE = 'title';
+    const VARIANT_NAME = 'name';
     const VARIANT_DEFAULT = 'default';
     const VARIANT_TAGS = 'tags';
-    const VARIANT_THUMBNAIL = 'thumbnail';
+    const VARIANT_THUMBNAIL_ID = 'thumbnail_id';
     const VARIANT_ATTRIBUTE_VALUE = 'attribute_%s_value';
     const VARIANT_SHOPS = 'shops';
 
@@ -84,6 +85,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
     const RELATED_PRODUCTS = '_affilicious_product_related_products';
     const RELATED_ACCESSORIES = '_affilicious_product_related_accessories';
+
+    /**
+     * @var Slug_Generator_Interface
+     */
+    private $slug_generator;
 
     /**
      * @var Key_Generator_Interface
@@ -107,18 +113,21 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
     /**
      * @since 0.8
+     * @param Slug_Generator_Interface $slug_generator
      * @param Key_Generator_Interface $key_generator
      * @param Shop_Template_Repository_Interface $shop_template_repository
      * @param Attribute_Template_Repository_Interface $attribute_template_repository
      * @param Detail_Template_Repository_Interface $detail_template_repository
      */
     public function __construct(
+        Slug_Generator_Interface $slug_generator,
         Key_Generator_Interface $key_generator,
         Shop_Template_Repository_Interface $shop_template_repository,
         Attribute_Template_Repository_Interface $attribute_template_repository,
         Detail_Template_Repository_Interface $detail_template_repository
     )
     {
+        $this->slug_generator = $slug_generator;
         $this->key_generator = $key_generator;
         $this->shop_template_repository = $shop_template_repository;
         $this->attribute_template_repository = $attribute_template_repository;
@@ -464,7 +473,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $thumbnail_id = get_post_thumbnail_id($post->ID);
         if (!empty($thumbnail_id)) {
             $thumbnail = new Image_Id($thumbnail_id);
-            $product->set_thumbnail($thumbnail);
+            $product->set_thumbnail_id($thumbnail);
         }
 
         return $product;
@@ -556,41 +565,28 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     {
         $raw_variants = carbon_get_post_meta($complex_product->get_id()->get_value(), self::VARIANTS, 'complex');
 
-        /*
-        foreach ($raw_variants as $raw_variant)
-        {
+        foreach ($raw_variants as $raw_variant) {
             $id = !empty($raw_variant[self::VARIANT_ID]) ? $raw_variant[self::VARIANT_ID] : null;
-            $title = !empty($raw_variant[self::VARIANT_TITLE]) ? $raw_variant[self::VARIANT_TITLE] : null;
-            $thumbnail_id = !empty($raw_variant[self::VARIANT_THUMBNAIL]) ? $raw_variant[self::VARIANT_THUMBNAIL] : null;
+            $name = !empty($raw_variant[self::VARIANT_NAME]) ? $raw_variant[self::VARIANT_NAME] : null;
+            $thumbnail_id = !empty($raw_variant[self::VARIANT_THUMBNAIL_ID]) ? $raw_variant[self::VARIANT_THUMBNAIL_ID] : null;
             $shops = !empty($raw_variant[self::VARIANT_SHOPS]) ? $raw_variant[self::VARIANT_SHOPS] : null;
             $tags = !empty($raw_variant[self::VARIANT_TAGS]) ? $raw_variant[self::VARIANT_TAGS] : null;
             $default = !empty($raw_variant[self::VARIANT_DEFAULT]) ? $raw_variant[self::VARIANT_DEFAULT] : null;
-            $attribute_template_group_id = !empty($raw_variant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID]) ? $raw_variant[self::VARIANT_ATTRIBUTE_TEMPLATE_GROUP_ID] : null;
-            $attribute_group = $this->get_attribute_group_from_id_and_array($attribute_template_group_id, $raw_variant);
 
-            if(empty($title) || empty($attribute_group)) {
+            if(empty($name)) {
                 continue;
             }
 
-            $title = new Name($title);
-            $name = $title->to_name();
-            $key = $name->to_key();
-            $product_variant = new Product_Variant(
-                $complex_product,
-                $title,
-                $name,
-                $key
-            );
-
-            $product_variant->set_attribute_group($attribute_group);
+            $name = new Name($name);
+            $slug = $this->slug_generator->generate_from_name($name);
+            $product_variant = new Product_Variant($complex_product, $name, $slug);
 
             if(!empty($id)) {
                 $product_variant->set_id(new Product_Id($id));
             }
 
-            $thumbnail = $this->get_image_from_attachment_id($thumbnail_id);
-            if(!empty($thumbnail)) {
-                $product_variant->set_thumbnail_id($thumbnail);
+            if(!empty($thumbnail_id)) {
+                $product_variant->set_thumbnail_id(new Image_Id($thumbnail_id));
             }
 
             if(!empty($default) && $default === 'yes') {
@@ -607,7 +603,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             $complex_product->add_variant($product_variant);
         }
-*/
+
         return $complex_product;
     }
 
@@ -1055,7 +1051,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 'default' => $variant->is_default() ? 'yes' : null,
                 'variant_id' => $variant->has_id() ? $variant->get_id()->get_value() : null,
                 'title' => $variant->get_title()->get_value(),
-                'thumbnail' => $variant->has_thumbnail() ? $variant->get_thumbnail()->get_id()->get_value() : null,
+                'thumbnail' => $variant->has_thumbnail_id() ? $variant->get_thumbnail_id()->get_id()->get_value() : null,
                 'tags' => !empty($raw_tags) ? $raw_tags : null,
                 'shops' => !empty($carbon_shops) ? $carbon_shops : null,
             );
@@ -1100,11 +1096,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function store_thumbnail(Product $product)
     {
-        if(!$product->has_thumbnail()) {
+        if(!$product->has_thumbnail_id()) {
             return;
         }
 
-        $this->store_post_meta($product->get_id(), self::THUMBNAIL_ID, $product->get_thumbnail()->get_value());
+        $this->store_post_meta($product->get_id(), self::THUMBNAIL_ID, $product->get_thumbnail_id()->get_value());
     }
 
     /**
