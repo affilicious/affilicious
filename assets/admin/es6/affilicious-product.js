@@ -107,8 +107,6 @@ jQuery(function($) {
                 attributesView.model.set('value', value);
             }
         }
-
-
     }
 
     window.affiliciousProduct = new AffiliciousProduct();

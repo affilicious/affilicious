@@ -199,7 +199,17 @@ class Product_Setup
             return $fields;
         }
 
-        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Attribute', 'affilicious'));
+
+        $conditions = array('relation' => 'or');
+        foreach ($attribute_templates as $attribute_template) {
+            $conditions[] = array(
+                'field' => Carbon_Product_Repository::ENABLED_ATTRIBUTES,
+                'value' => $attribute_template->get_name()->get_value(),
+                'compare' => 'CONTAINS',
+            );
+        }
+
+        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_ATTRIBUTES, __('Attribute', 'affilicious'));
 
         $fields[] = Carbon_Field::make('complex', Carbon_Product_Repository::VARIANTS, __('Variants', 'affilicious'))
             ->set_max(self::VARIANTS_LIMIT)
@@ -230,14 +240,7 @@ class Product_Setup
                     {{ ' . Carbon_Product_Repository::VARIANT_NAME . ' }}
                 <# } #>
             ')
-            ->set_conditional_logic(array(
-                'relation' => 'and',
-                array(
-                    'field' => Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES,
-                    'value' => '',
-                    'compare' => '!=',
-                )
-            ));
+            ->set_conditional_logic($conditions);
 
         return apply_filters('affilicious_product_render_affilicious_product_container_variants_fields', $fields);
     }

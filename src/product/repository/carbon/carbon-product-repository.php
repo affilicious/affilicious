@@ -70,8 +70,9 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const ENABLED_DETAILS = '_affilicious_product_enabled_details';
     const DETAIL_VALUE = '_affilicious_product_detail_%s_value';
 
+    const ENABLED_ATTRIBUTES = '_affilicious_product_enabled_attributes';
     const VARIANTS = '_affilicious_product_variants';
-    const VARIANT_ENABLED_ATTRIBUTES = '_affilicious_product_enabled_attributes';
+    const VARIANT_ENABLED_ATTRIBUTES = 'enabled_attributes';
     const VARIANT_ID = 'variant_id';
     const VARIANT_NAME = 'name';
     const VARIANT_DEFAULT = 'default';
