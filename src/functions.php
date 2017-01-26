@@ -1031,8 +1031,8 @@ function aff_get_product_attribute_choices($product_or_id = null)
         foreach ($attributes as $index => $attribute) {
             if(!isset($choices[$attribute['name']])) {
                 $choices[$attribute['name']] = array(
-                    'title' => $attribute['name'],
-                    'name' => $attribute['slug'],
+                    'name' => $attribute['name'],
+                    'slug' => $attribute['slug'],
                     'attributes' => array(),
                 );
             }
@@ -1053,8 +1053,8 @@ function aff_get_product_attribute_choices($product_or_id = null)
             }
 
             if( !isset($choices[$attribute['name']]['attributes'][$attribute['value']]) ||
-                ($display == 'selected' && $choices[$attribute['name']]['attributes'][$attribute['value']]['display'] != 'selected') ||
-               ($display == 'reachable' && $choices[$attribute['name']]['attributes'][$attribute['value']]['display'] == 'unreachable')) {
+                ($display == 'selected' && $choices[$attribute['slug']]['attributes'][$attribute['value']]['display'] != 'selected') ||
+               ($display == 'reachable' && $choices[$attribute['slug']]['attributes'][$attribute['value']]['display'] == 'unreachable')) {
 
                 $choices[$attribute['name']]['attributes'][$attribute['value']] = array(
                     'value' => $attribute['value'],
@@ -1093,7 +1093,7 @@ function aff_the_product_attribute_choices($product_or_id = null)
 
     foreach ($attribute_choices as $name => $attribute_choice) {
         echo '<li class="aff-product-attributes-choices">';
-        echo '<span class="aff-product-attributes-choices-title">' . $attribute_choice['title'] . '</span>';
+        echo '<span class="aff-product-attributes-choices-name">' . $attribute_choice['name'] . '</span>';
         echo '<ul class="aff-product-attributes-choice-list">';
 
         foreach ($attribute_choice['attributes'] as $attribute) {

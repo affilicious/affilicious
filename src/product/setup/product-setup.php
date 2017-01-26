@@ -467,8 +467,8 @@ class Product_Setup
     private function get_detail_field(Detail_Template $detail_template)
     {
         // Build the key
-        $detail_id = $detail_template->get_id()->get_value();
-        $field_key = sprintf(Carbon_Product_Repository::DETAIL_VALUE, $detail_id);
+        $detail_key = $this->key_generator->generate_from_slug($detail_template->get_slug());
+        $field_key = sprintf(Carbon_Product_Repository::DETAIL_VALUE, $detail_key);
 
         // Build the name
         $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));

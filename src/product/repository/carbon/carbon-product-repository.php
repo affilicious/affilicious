@@ -2,7 +2,6 @@
 namespace Affilicious\Product\Repository\Carbon;
 
 use Affilicious\Attribute\Model\Value as Attribute_Value;
-use Affilicious\Detail\Model\Value as Detail_Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Exception\Invalid_Post_Type_Exception;
 use Affilicious\Common\Exception\Invalid_Type_Exception;
@@ -12,7 +11,7 @@ use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
-use Affilicious\Detail\Model\Detail_Template_Id;
+use Affilicious\Detail\Model\Value as Detail_Value;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Exception\Failed_To_Delete_Product_Exception;
 use Affilicious\Product\Exception\Missing_Parent_Product_Exception;
@@ -770,37 +769,21 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function add_details(Product $product)
     {
-        global $wpdb;
-
         if(!($product instanceof Detail_Aware_Interface)) {
             return $product;
         }
 
-        $results = $wpdb->get_results($wpdb->prepare(
-            "
-                SELECT *
-                FROM {$wpdb->postmeta}
-                WHERE post_id = %s
-                AND meta_key LIKE '%s'
-                AND meta_value != ''
-            ",
-            $product->get_id()->get_value(),
-            str_replace('%s', '%', self::DETAIL_VALUE)
-        ), ARRAY_A);
+        $detail_templates = $this->detail_template_repository->find_all();
+        foreach ($detail_templates as $detail_template) {
+            $detail_template_key = $this->key_generator->generate_from_slug($detail_template->get_slug());
+            $meta_key = sprintf(self::DETAIL_VALUE, $detail_template_key->get_value());
 
-        foreach ($results as $result) {
-            $match = array();
-            $pattern = '/' . str_replace('%s', '(.*?)', self::DETAIL_VALUE) . '/';
-            if(!preg_match($pattern, $result['meta_key'], $match) || empty($match[1])) {
+            $raw_detail = carbon_get_post_meta($product->get_id()->get_value(), $meta_key);
+            if(empty($raw_detail)) {
                 continue;
             }
 
-            $detail_template = $this->detail_template_repository->find_by_id(new Detail_Template_Id($match[1]));
-            if($detail_template === null) {
-                continue;
-            }
-
-            $detail = $detail_template->build(new Detail_Value($result['meta_value']));
+            $detail = $detail_template->build(new Detail_Value($raw_detail));
             $product->add_detail($detail);
         }
 
