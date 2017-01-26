@@ -254,6 +254,7 @@ class Product_Setup
                 Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
                     ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
                 Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL_ID, __('Thumbnail', 'affilicious')),
+                Carbon_Field::make('image_gallery', Carbon_Product_Repository::VARIANT_IMAGE_GALLERY, __('Image Gallery', 'affilicious')),
                 !empty($shop_templates) ? $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious'), $shop_templates) : $this->get_shops_empty_notice_field(),
             )
         );

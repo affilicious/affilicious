@@ -530,6 +530,7 @@ if(!class_exists('Affilicious_Plugin')) {
         {
             require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/hidden-field.php');
             require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/number-field.php');
+            require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/image-gallery-field.php');
 
             if (!class_exists('EDD_SL_Plugin_Updater')) {
                 include(dirname(__FILE__) . '/affilicious-plugin-updater.php');

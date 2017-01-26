@@ -4,6 +4,10 @@ jQuery(function($) {
         return false;
     }
 
+
+
+    console.log(window.carbon.fields);
+
     class CarbonView
     {
         static getContainerView() {

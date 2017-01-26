@@ -79,6 +79,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const VARIANT_TAGS = 'tags';
     const VARIANT_THUMBNAIL_ID = 'thumbnail_id';
     const VARIANT_ATTRIBUTE_VALUE = 'attribute_%s_value';
+    const VARIANT_IMAGE_GALLERY = 'image_gallery';
     const VARIANT_SHOPS = 'shops';
 
     const ATTRIBUTE_VALUE = '_affilicious_product_attribute_%s_value';
@@ -163,6 +164,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         // Store the product meta
         $this->store_type($product);
         $this->store_thumbnail($product);
+        $this->store_image_gallery($product);
 
         if($product instanceof Detail_Aware_Interface) {
             $this->store_details($product);
@@ -419,6 +421,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $product_variant = $this->add_thumbnail($product_variant, $post);
         $product_variant = $this->add_shops($product_variant);
         $product_variant = $this->add_tags($product_variant);
+        $product_variant = $this->add_image_gallery($product_variant, $post);
         $product_variant = $this->add_updated_at($product_variant, $post);
 
         return $product_variant;
@@ -575,6 +578,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $shops = !empty($raw_variant[self::VARIANT_SHOPS]) ? $raw_variant[self::VARIANT_SHOPS] : null;
             $tags = !empty($raw_variant[self::VARIANT_TAGS]) ? $raw_variant[self::VARIANT_TAGS] : null;
             $default = !empty($raw_variant[self::VARIANT_DEFAULT]) ? $raw_variant[self::VARIANT_DEFAULT] : null;
+            $image_gallery = !empty($raw_variant[self::VARIANT_IMAGE_GALLERY]) ? $raw_variant[self::VARIANT_IMAGE_GALLERY] : null;
 
             if(empty($name)) {
                 continue;
@@ -617,6 +621,17 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             if(!empty($tags)) {
                 $this->add_tags($product_variant, $tags);
+            }
+
+            if(!empty($image_gallery)) {
+                $image_ids = explode(',', $image_gallery);
+
+                $images = array();
+                foreach ($image_ids as $image_id) {
+                    $images[] = new Image_Id($image_id);
+                }
+
+                $product_variant->set_image_gallery($images);
             }
 
             $complex_product->add_variant($product_variant);
@@ -1094,6 +1109,29 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $this->store_post_meta($product->get_id()->get_value(), self::THUMBNAIL_ID, $product->get_thumbnail_id()->get_value());
+    }
+
+    /**
+     * Store the image gallery for the product.
+     *
+     * @since 0.8
+     * @param Product $product
+     */
+    private function store_image_gallery(Product $product)
+    {
+        if(!$product->has_image_gallery()) {
+            return;
+        }
+
+        $images = $product->get_image_gallery();
+        $raw_images = array();
+        foreach ($images as $image) {
+            $raw_images[] = $image->get_value();
+        }
+
+        $meta_value = implode(',', $raw_images);
+
+        $this->store_post_meta($product->get_id()->get_value(), self::IMAGE_GALLERY, $meta_value);
     }
 
     /**
