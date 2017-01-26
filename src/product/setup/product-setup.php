@@ -239,7 +239,8 @@ class Product_Setup
     public function get_variant_field($attribute_templates, $shop_templates)
     {
         $field = array_merge(array(
-            Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious')),
+            Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ID),
+            Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES),
             Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_NAME, __('Name', 'affilicious'))
                 ->set_required(true)
                 ->set_width(70),
@@ -408,9 +409,9 @@ class Product_Setup
                         'available' => __('Available', 'affilicious'),
                         'out-of-stock' => __('Out Of Stock', 'affilicious'),
                     )),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_DISCOUNTED_PRICE, __('Discounted Price', 'affilicious'))
+                Carbon_Field::make('text', Carbon_Product_Repository::SHOP_DISCOUNTED_PRICE, __('Discounted Price', 'affilicious'))
                     ->set_width(50),
-                Carbon_Field::make('number', Carbon_Product_Repository::SHOP_STOCK_PRICE, __('Stock Price', 'affilicious'))
+                Carbon_Field::make('text', Carbon_Product_Repository::SHOP_STOCK_PRICE, __('Stock Price', 'affilicious'))
                     ->set_width(50),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)

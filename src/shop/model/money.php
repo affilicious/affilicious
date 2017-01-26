@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Shop\Model;
 
-use Affilicious\Common\Exception\Invalid_Type_Exception;
+use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -46,9 +46,7 @@ class Money
             $value = number_format($value, 2, '.', '');
         }
 
-        if(!is_string($value)) {
-            throw new Invalid_Type_Exception($value, 'string');
-        }
+        Assert::stringNotEmpty($value, 'The money value must be a non empty string. Got: %s');
 
         $this->value = $value;
         $this->currency = $currency;

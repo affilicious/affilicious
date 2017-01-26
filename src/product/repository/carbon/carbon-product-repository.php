@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Repository\Carbon;
 
+use Affilicious\Attribute\Model\Value as Attribute_Value;
+use Affilicious\Detail\Model\Value as Detail_Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Exception\Invalid_Post_Type_Exception;
 use Affilicious\Common\Exception\Invalid_Type_Exception;
@@ -11,7 +13,6 @@ use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Detail\Model\Detail_Template_Id;
-use Affilicious\Detail\Model\Value;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Exception\Failed_To_Delete_Product_Exception;
 use Affilicious\Product\Exception\Missing_Parent_Product_Exception;
@@ -80,6 +81,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const VARIANT_THUMBNAIL_ID = 'thumbnail_id';
     const VARIANT_ATTRIBUTE_VALUE = 'attribute_%s_value';
     const VARIANT_SHOPS = 'shops';
+
+    const ATTRIBUTE_VALUE = '_affilicious_product_attribute_%s_value';
 
     const REVIEW_RATING = '_affilicious_product_review_rating';
     const REVIEW_VOTES = '_affilicious_product_review_votes';
@@ -175,7 +178,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         if($product instanceof Product_Variant) {
-            $this->store_attribute_group($product);
+            $this->store_attributes($product);
         }
 
         if($product instanceof Complex_Product) {
@@ -586,6 +589,20 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 $product_variant->set_id(new Product_Id($id));
             }
 
+            $attribute_templates = $this->attribute_template_repository->find_all();
+            foreach ($attribute_templates as $attribute_template) {
+                $attribute_template_key = $this->key_generator->generate_from_slug($attribute_template->get_slug());
+                $meta_key = sprintf(self::VARIANT_ATTRIBUTE_VALUE, $attribute_template_key->get_value());
+
+                $raw_attribute = !empty($raw_variant[$meta_key]) ? $raw_variant[$meta_key] : null;
+                if(empty($raw_attribute)) {
+                    continue;
+                }
+
+                $attribute = $attribute_template->build(new Attribute_Value($raw_attribute));
+                $product_variant->add_attribute($attribute);
+            }
+
             if(!empty($thumbnail_id)) {
                 $product_variant->set_thumbnail_id(new Image_Id($thumbnail_id));
             }
@@ -783,7 +800,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 continue;
             }
 
-            $detail = $detail_template->build(new Value($result['meta_value']));
+            $detail = $detail_template->build(new Detail_Value($result['meta_value']));
             $product->add_detail($detail);
         }
 
@@ -849,6 +866,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             )
         );
 
+        $shop->set_template_id(new Shop_Template_Id($shop_template_id));
+
         if($updated_at !== null) {
             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp($updated_at));
         }
@@ -880,7 +899,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function store_type(Product $product)
     {
-        $this->store_post_meta($product->get_id(), self::TYPE, $product->get_type());
+        $this->store_post_meta($product->get_id()->get_value(), self::TYPE, $product->get_type()->get_value());
     }
 
     /**
@@ -916,7 +935,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
                 self::SHOP_DISCOUNTED_PRICE => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_value() : null,
                 self::SHOP_STOCK_PRICE => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : null,
-                self::SHOP_CURRENCY => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : Currency::EURO,
+                self::SHOP_CURRENCY => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_currency()->get_value() : Currency::EURO,
                 self::SHOP_UPDATED_AT => $shop->get_updated_at()->getTimestamp(),
             );
         }
@@ -924,53 +943,36 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_shops, $meta_key);
         foreach ($carbon_meta_keys as $carbon_meta_key => $carbon_meta_value) {
             if($carbon_meta_value !== null) {
-                $this->store_post_meta($product->get_id(), $carbon_meta_key, $carbon_meta_value);
+                $this->store_post_meta($product->get_id()->get_value(), $carbon_meta_key, $carbon_meta_value);
             } elseif ($carbon_meta_value === null) {
-                $this->delete_post_meta($product->get_id(), $carbon_meta_key);
+                $this->delete_post_meta($product->get_id()->get_value(), $carbon_meta_key);
             }
         }
     }
 
     /**
-     * Store the attribute group of the product.
+     * Store the attributes of the product variant.
      *
      * @since 0.7
      * @param Product_Variant $product_variant
      */
-    private function store_attribute_group(Product_Variant $product_variant)
+    private function store_attributes(Product_Variant $product_variant)
     {
         if(!$product_variant->has_id()) {
             return;
         }
 
-        $attribute_group = $product_variant->get_attribute_group();
-        if($attribute_group === null) {
+        $attributes = $product_variant->get_attributes();
+        if(empty($attributes)) {
             return;
         }
 
-        $attributes = $attribute_group->get_attributes();
-
-        $carbon_attributes = array();
-        $carbon_attributes[0] = array(
-            self::ATTRIBUTE_GROUP_TEMPLATE_ID => $attribute_group->has_template_id() ? $attribute_group->get_template_id()->get_value() : null,
-        );
-
         foreach ($attributes as $attribute) {
-            $carbon_key = self::ATTRIBUTE_GROUP_ATTRIBUTE . '_' .  $attribute->get_key()->get_value();
-            $carbon_attributes[0][$carbon_key] = $attribute->get_value()->get_value();
-        }
+            $attribute_key = $this->key_generator->generate_from_slug($attribute->get_slug());
+            $meta_key = sprintf(self::ATTRIBUTE_VALUE, $attribute_key->get_value());
+            $meta_value = $attribute->get_value()->get_value();
 
-        $carbon_attribute_group = array(
-            $attribute_group->get_key()->get_value() => $carbon_attributes
-        );
-
-        $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_attribute_group, self::ATTRIBUTE_GROUPS);
-        foreach ($carbon_meta_keys as $carbon_meta_key => $carbon_meta_value) {
-            if($carbon_meta_value !== null) {
-                $this->store_post_meta($product_variant->get_id(), $carbon_meta_key, $carbon_meta_value);
-            } elseif ($carbon_meta_value === null) {
-                $this->delete_post_meta($product_variant->get_id(), $carbon_meta_key);
-            }
+            $this->store_post_meta($product_variant->get_id()->get_value(), $meta_key, $meta_value);
         }
     }
 
@@ -996,7 +998,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
          * $variants = array(
          *     '_' => array(
          *         0 => array(
-         *             'title' => 'test',
+         *             'name' => 'test',
          *             'thumbnail' => '',
          *             'shops' => array(
          *                 'amazon' => array(
@@ -1013,30 +1015,26 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
          *     )
          * );
          */
-        $carbon_variants = array('_' => array());
+        $carbon_variants = array('' => array());
         foreach ($variants as $index => $variant) {
-
-            if(!$variant->has_attribute_group()) {
-                continue;
-            }
-
             $shops = $variant->get_shops();
             $carbon_shops = array();
-            foreach ($shops as $shop) {
-                if(!isset($carbon_shops[$shop->get_template()->get_key()->get_value()])) {
-                    $carbon_shops[$shop->get_template()->get_key()->get_value()] = array();
+            foreach ($shops as $index2 => $shop) {
+                $key = $this->key_generator->generate_from_slug($shop->get_slug());
+
+                if(!isset($carbon_shops[$key->get_value()])) {
+                    $carbon_shops[$key->get_value()] = array();
                 }
 
-                $carbon_shops[$shop->get_template()->get_key()->get_value()][$index] = array(
-                    self::SHOP_TEMPLATE_ID => $shop->get_template()->get_id()->get_value(),
-                    self::SHOP_AFFILIATE_ID => $shop->has_affiliate_id() ? $shop->get_affiliate_id()->get_value() : null,
-                    self::SHOP_AFFILIATE_LINK => $shop->get_affiliate_link()->get_value(),
-                    self::SHOP_CURRENCY => $shop->get_currency()->get_value(),
-                    self::SHOP_PRICE => $shop->has_price() ? $shop->get_price()->get_value() : null,
-                    self::SHOP_OLD_PRICE => $shop->has_old_price() ? $shop->get_old_price()->get_value() : null,
+                $carbon_shops[$key->get_value()][$index2] = array(
+                    self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
+                    self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
+                    self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
+                    self::SHOP_DISCOUNTED_PRICE => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_value() : null,
+                    self::SHOP_STOCK_PRICE => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : null,
+                    self::SHOP_CURRENCY => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_currency()->get_value() : Currency::EURO,
                 );
             }
-
 
             if(!$variant->has_tags()) {
                 $tags = $variant->get_tags();
@@ -1048,22 +1046,32 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 $raw_tags = implode(';', $raw_tags);
             }
 
-            $carbon_variants[$variant->get_attribute_group()->get_key()->get_value()][] = array(
-                'default' => $variant->is_default() ? 'yes' : null,
-                'variant_id' => $variant->has_id() ? $variant->get_id()->get_value() : null,
-                'title' => $variant->get_title()->get_value(),
-                'thumbnail' => $variant->has_thumbnail_id() ? $variant->get_thumbnail_id()->get_id()->get_value() : null,
-                'tags' => !empty($raw_tags) ? $raw_tags : null,
-                'shops' => !empty($carbon_shops) ? $carbon_shops : null,
+            $carbon_variant = array(
+                self::VARIANT_ID => $variant->has_id() ? $variant->get_id()->get_value() : null,
+                self::VARIANT_NAME => $variant->get_name()->get_value(),
+                self::VARIANT_DEFAULT => $variant->is_default() ? 'yes' : null,
+                self::VARIANT_TAGS => !empty($raw_tags) ? $raw_tags : null,
+                self::VARIANT_THUMBNAIL_ID => $variant->has_thumbnail_id() ? $variant->get_thumbnail_id()->get_value() : null,
+                self::VARIANT_SHOPS => !empty($carbon_shops) ? $carbon_shops : null,
             );
+
+            $attributes = $variant->get_attributes();
+            foreach ($attributes as $attribute) {
+                $key = $this->key_generator->generate_from_slug($attribute->get_slug());
+                $carbon_key = sprintf(self::VARIANT_ATTRIBUTE_VALUE, $key->get_value());
+
+                $carbon_variant[$carbon_key] = $attribute->get_value()->get_value();
+            }
+
+            $carbon_variants[''][] = $carbon_variant;
         }
 
         $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_variants, self::VARIANTS);
         foreach ($carbon_meta_keys as $carbon_meta_key => $carbon_meta_value) {
             if($carbon_meta_value !== null) {
-                $this->store_post_meta($complex_product->get_id(), $carbon_meta_key, $carbon_meta_value);
+                $this->store_post_meta($complex_product->get_id()->get_value(), $carbon_meta_key, $carbon_meta_value);
             } elseif ($carbon_meta_value === null) {
-                $this->delete_post_meta($complex_product->get_id(), $carbon_meta_key);
+                $this->delete_post_meta($complex_product->get_id()->get_value(), $carbon_meta_key);
             }
         }
     }
@@ -1081,10 +1089,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         if($product->has_review()) {
-            $this->store_post_meta($product->get_id(), self::REVIEW_RATING, $product->get_review()->get_rating());
+            $this->store_post_meta($product->get_id()->get_value(), self::REVIEW_RATING, $product->get_review()->get_rating()->get_value());
 
             if($product->get_review()->has_votes()) {
-                $this->store_post_meta($product->get_id(), self::REVIEW_VOTES, $product->get_review()->get_votes());
+                $this->store_post_meta($product->get_id()->get_value(), self::REVIEW_VOTES, $product->get_review()->get_votes()->get_value());
             }
         }
     }
@@ -1101,7 +1109,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             return;
         }
 
-        $this->store_post_meta($product->get_id(), self::THUMBNAIL_ID, $product->get_thumbnail_id()->get_value());
+        $this->store_post_meta($product->get_id()->get_value(), self::THUMBNAIL_ID, $product->get_thumbnail_id()->get_value());
     }
 
     /**
@@ -1127,7 +1135,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $raw_tags = implode(';', $raw_tags);
-        $this->store_post_meta($product->get_id(), self::TAGS, $raw_tags);
+        $this->store_post_meta($product->get_id()->get_value(), self::TAGS, $raw_tags);
     }
 
     /**
@@ -1151,7 +1159,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $enabled_details = implode(';', $names);
-        $this->store_post_meta($product->get_id(), self::ENABLED_DETAILS, $enabled_details);
+        $this->store_post_meta($product->get_id()->get_value(), self::ENABLED_DETAILS, $enabled_details);
     }
 
     /**

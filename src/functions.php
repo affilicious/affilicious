@@ -1,4 +1,5 @@
 <?php
+use Affilicious\Attribute\Helper\Attribute_Helper;
 use Affilicious\Attribute\Helper\Attribute_Template_Helper;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Detail\Helper\Detail_Helper;
@@ -798,85 +799,115 @@ function aff_product_get_parent($product_or_id = null)
 }
 
 /**
- * Check if the given product contains the variants
- * If you pass in nothing as a product, the current post will be used.
+ * Check if the given parent complex product contains the variants
+ * If you pass in nothing as a complex product, the current post will be used.
+ * If you pass in nothing as a product variant, the default variant will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product|null $complex_or_id
  * @param int|\WP_Post|Product|null $variant_or_id
  * @return bool
  */
-function aff_product_has_variant($product_or_id = null, $variant_or_id = null)
+function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
 {
-    $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Complex_Product)) {
+    $complex_product = aff_get_product($complex_or_id);
+    if(!($complex_product instanceof Complex_Product)) {
         return false;
     }
 
-    $variant = aff_get_product($variant_or_id);
-    if($variant === null || !($variant instanceof Product_Variant)) {
-        return false;
+    $product_variant = aff_get_product($variant_or_id);
+    if(!($product_variant instanceof Product_Variant)) {
+        $result = $complex_product->has_variants();
+    } else {
+        $result = $complex_product->has_variant($product_variant->get_slug());
     }
-
-    $result = $product->has_variant($variant->get_slug());
 
     return $result;
 }
 
 /**
- * Check if the given product has any variants.
- * If you pass in nothing as a product, the current post will be used.
+ * Get the product variant by the complex parent product.
+ * If you pass in nothing as a complex product, the current post will be used.
+ * If you pass in nothing as a product variant, the default variant will be used.
  *
- * @since 0.7.1
- * @param int|\WP_Post|Product|null $product_or_id
- * @return bool
+ * @since 0.8
+ * @param int|\WP_Post|Complex_Product|null $complex_or_id
+ * @param int|\WP_Post|Complex_Product|null $variant_or_id
+ * @return null|Product_Variant
  */
-function aff_product_has_variants($product_or_id = null)
+function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
 {
-    $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Complex_Product)) {
+    $complex_product = aff_get_product($complex_or_id);
+    if(!($complex_product instanceof Complex_Product)) {
         return null;
     }
 
-    return $product->get_variants();
+    $product_variant = aff_get_product($variant_or_id);
+    if(!($product_variant instanceof Product_Variant)) {
+        return null;
+    }
+
+    $product_variant = $complex_product->get_variant($product_variant->get_slug());
+
+    return $product_variant;
+}
+
+/**
+ * Check if the given product has any variants.
+ * If you pass in nothing as a complex product, the current post will be used.
+ *
+ * @since 0.7.1
+ * @param int|\WP_Post|Product|null $complex_or_id
+ * @return bool
+ */
+function aff_product_has_variants($complex_or_id = null)
+{
+    $complex_product = aff_get_product($complex_or_id);
+    if(!($complex_product instanceof Complex_Product)) {
+        return null;
+    }
+
+    $result = $complex_product->has_variants();
+
+    return $result;
 }
 
 /**
  * Get the product variants of the given product.
- * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a complex product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
- * @return null|Product_variant[]
+ * @param int|\WP_Post|Product|null $complex_or_id
+ * @return Product_variant[]
  */
-function aff_product_get_variants($product_or_id = null)
+function aff_product_get_variants($complex_or_id = null)
 {
-    $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Complex_Product)) {
-        return null;
+    $complex_product = aff_get_product($complex_or_id);
+    if(!($complex_product instanceof Complex_Product)) {
+        return array();
     }
 
-    $variants = $product->get_variants();
+    $variants = $complex_product->get_variants();
 
     return $variants;
 }
 
 /**
  * Get the default variant of the given product.
- * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a complex product, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product|null $complex_or_id
  * @return null|Product_variant
  */
-function aff_product_get_default_variant($product_or_id = null)
+function aff_product_get_default_variant($complex_or_id = null)
 {
-    $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Complex_Product)) {
+    $complex_product = aff_get_product($complex_or_id);
+    if(!($complex_product instanceof Complex_Product)) {
         return null;
     }
 
-    $default_variant = $product->get_default_variant();
+    $default_variant = $complex_product->get_default_variant();
 
     return $default_variant;
 }
@@ -885,89 +916,65 @@ function aff_product_get_default_variant($product_or_id = null)
  * Check if the given variant is the default one
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Product|null $complex_or_id
  * @param int|\WP_Post|Product|null $variant_or_id
  * @return bool
  */
-function aff_product_is_default_variant($product_or_id = null, $variant_or_id = null) {
+function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = null) {
 
-    $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Complex_Product)) {
+    $complex_product = aff_get_product($complex_or_id);
+    if(!($complex_product instanceof Complex_Product)) {
         return false;
     }
 
-    $variant = aff_get_product($variant_or_id);
-    if($variant === null || !($product instanceof Product_Variant)) {
+    $product_variant = aff_get_product($variant_or_id);
+    if($product_variant === null || !($complex_product instanceof Product_Variant)) {
         return false;
     }
 
-    $default_variant = aff_product_get_default_variant($product);
+    $default_variant = aff_product_get_default_variant($complex_product);
 
-    return $variant->is_equal_to($default_variant);
+    return $product_variant->is_equal_to($default_variant);
 }
 
 /**
- * Get the attribute group of the product variant
+ * Get the attributes of the product variant
  * If you pass in nothing as a product, the current post will be used.
  * If you pass in nothing as a variant, the default variant will be used.
  *
- * @since 0.6
+ * @since 0.8
  * @param int|\WP_Post|Product|null $product_or_id
  * @param int|\WP_Post|Product|null $variant_or_id
  * @return null|array
  */
-function aff_product_get_variant_attribute_group($product_or_id = null, $variant_or_id = null)
+function aff_product_get_variant_attributes($product_or_id = null, $variant_or_id = null)
 {
-    $product = aff_get_product($product_or_id);
-    if($product instanceof Product_Variant) {
-        $product = $product->get_parent();
+    $complex_product = aff_get_product($product_or_id);
+    if($complex_product instanceof Product_Variant) {
+        $complex_product = $complex_product->get_parent();
     }
 
-    if($product === null || !($product instanceof Complex_Product)) {
+    if(!($complex_product instanceof Complex_Product)) {
         return null;
     }
 
-    $variant = null;
+    $product_variant = null;
     if($variant_or_id === null) {
-        $variant = $product->get_default_variant();
+        $product_variant = $complex_product->get_default_variant();
     } else {
-        if($variant_or_id instanceof Product_Variant) {
-            $variant = $variant_or_id;
-        } elseif(!aff_product_has_variant($product, $variant_or_id)) {
-            $variant = aff_get_product($variant_or_id);
-        }
+        $product_variant = aff_product_get_variant($complex_product, $variant_or_id);
     }
 
-    if($variant === null) {
+    if($product_variant === null) {
         return null;
     }
 
-    $attribute_group = $variant->get_attribute_group();
-    if($attribute_group === null) {
-        return null;
+    $raw_attributes = array();
+    foreach ($product_variant->get_attributes() as $attribute) {
+        $raw_attributes[] = Attribute_Helper::to_array($attribute);
     }
 
-    $attributes = $attribute_group->get_attributes();
-
-    $raw_attribute_group = array(
-        'title' => $attribute_group->get_title()->get_value(),
-        'name' => $attribute_group->get_name()->get_value(),
-        'key' => $attribute_group->get_key()->get_value(),
-        'attributes' => array(),
-    );
-
-    foreach ($attributes as $attribute) {
-        $raw_attribute_group['attributes'][] = array(
-            'title' => $attribute->get_title()->get_value(),
-            'name' => $attribute->get_name()->get_value(),
-            'key' => $attribute->get_key()->get_value(),
-            'value' => $attribute->get_value()->get_value(),
-            'type' => $attribute->get_type()->get_value(),
-            'unit' => $attribute->has_unit() ? $attribute->get_unit()->get_value() : null,
-        );
-    }
-
-    return $raw_attribute_group;
+    return $raw_attributes;
 }
 
 /**
@@ -999,13 +1006,13 @@ function aff_get_product_attribute_choices($product_or_id = null)
 
     // Current attribute group
     $current_attribute_group = null;
-    if(aff_product_is_variant($product)) {
-        $current_attribute_group = aff_product_get_variant_attribute_group($parent, $product);
-    } elseif(aff_product_is_complex($product)) {
-        $current_attribute_group = aff_product_get_variant_attribute_group($product);
+    if($product instanceof Product_Variant) {
+        $current_attributes = aff_product_get_variant_attributes($parent, $product);
+    } elseif($product instanceof Complex_Product) {
+        $current_attributes = aff_product_get_variant_attributes($product);
     }
 
-    if($current_attribute_group === null) {
+    if(empty($current_attributes)) {
         return null;
     }
 
@@ -1016,20 +1023,16 @@ function aff_get_product_attribute_choices($product_or_id = null)
             continue;
         }
 
-        $attribute_group = aff_product_get_variant_attribute_group($product, $variant);
-        if($attribute_group === null) {
+        $attributes = aff_product_get_variant_attributes($product, $variant);
+        if(empty($attributes)) {
             continue;
         }
-
-        $attributes = $attribute_group['attributes'];
-        $current_attributes = $current_attribute_group['attributes'];
 
         foreach ($attributes as $index => $attribute) {
             if(!isset($choices[$attribute['name']])) {
                 $choices[$attribute['name']] = array(
-                    'title' => $attribute['title'],
-                    'name' => $attribute['name'],
-                    'key' => $attribute['key'],
+                    'title' => $attribute['name'],
+                    'name' => $attribute['slug'],
                     'attributes' => array(),
                 );
             }

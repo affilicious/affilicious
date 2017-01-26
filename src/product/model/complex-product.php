@@ -40,12 +40,12 @@ class Complex_Product extends Product implements Excerpt_Aware_Interface, Conten
      * Check if the product has a specific variant by the name.
      *
      * @since 0.8
-     * @param Slug $name
+     * @param Slug $slug
      * @return bool
      */
-    public function has_variant(Slug $name)
+    public function has_variant(Slug $slug)
     {
-        return isset($this->variants[$name->get_value()]);
+        return isset($this->variants[$slug->get_value()]);
     }
 
     /**
@@ -56,7 +56,7 @@ class Complex_Product extends Product implements Excerpt_Aware_Interface, Conten
      */
     public function add_variant(Product_Variant $variant)
     {
-        $this->variants[$variant->get_name()->get_value()] = $variant;
+        $this->variants[$variant->get_slug()->get_value()] = $variant;
     }
 
     /**

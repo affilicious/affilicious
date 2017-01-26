@@ -61,8 +61,8 @@ class Pricing
     public function __construct(Availability $availability, Money $discounted_price = null, Money $stock_price = null)
     {
         $this->availability = $availability;
-        $this->discounted_price = $availability->is_out_of_stock() ?: $discounted_price;
-        $this->stock_price = $availability->is_out_of_stock() ?: $stock_price;
+        $this->discounted_price = !$availability->is_out_of_stock() ? $discounted_price : null;
+        $this->stock_price = !$availability->is_out_of_stock() ? $stock_price : null;
     }
 
     /**

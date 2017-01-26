@@ -75,6 +75,7 @@ class Attribute
 	{
         $this->set_name($name);
         $this->set_slug($slug);
+        $this->value = $value;
         $this->set_type($type);
         $this->set_unit($type->is_number() ? $unit : null);
     }
