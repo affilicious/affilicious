@@ -1019,7 +1019,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 );
             }
 
-            if(!$variant->has_tags()) {
+            if($variant->has_tags()) {
                 $tags = $variant->get_tags();
                 $raw_tags = array();
                 foreach ($tags as $tag) {
