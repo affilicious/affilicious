@@ -66,12 +66,25 @@ class Pricing
     }
 
     /**
+     * Get the availability of the pricing.
+     *
      * @since 0.8
      * @return Availability
      */
     public function get_availability()
     {
         return $this->availability;
+    }
+
+    /**
+     * Set the availability of the pricing.
+     *
+     * @since 0.8
+     * @param Availability $availability
+     */
+    public function set_availability(Availability $availability)
+    {
+        $this->availability = $availability;
     }
 
     /**
@@ -97,6 +110,17 @@ class Pricing
     }
 
     /**
+     * Set the discounted price of the pricing.
+     *
+     * @since 0.8
+     * @param Money|null $discounted_price
+     */
+    public function set_discounted_price(Money $discounted_price = null)
+    {
+        $this->discounted_price = $discounted_price;
+    }
+
+    /**
      * Check if the pricing has a stock price.
      *
      * @since 0.8
@@ -116,6 +140,17 @@ class Pricing
     public function get_stock_price()
     {
         return $this->stock_price;
+    }
+
+    /**
+     * Set the stock price of the pricing.
+     *
+     * @since 0.8
+     * @param Money $stock_price
+     */
+    public function set_stock_price(Money $stock_price = null)
+    {
+        $this->stock_price = $stock_price;
     }
 
     /**

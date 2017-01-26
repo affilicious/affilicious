@@ -3,7 +3,7 @@ namespace Affilicious\Product\Update\Task;
 
 use Affilicious\Product\Exception\Product_Limit_Exception;
 use Affilicious\Product\Model\Product_Id;
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Model\Provider;
 
 if (!defined('ABSPATH')) {
@@ -30,7 +30,7 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     /**
      * The products for the batch update which have the same provider.
      *
-     * @var Product_Interface[]
+     * @var Product[]
      */
     protected $products;
 
@@ -93,7 +93,7 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
      * @since 0.7
      * @throws Product_Limit_Exception
      */
-    public function add_product(Product_Interface $product)
+    public function add_product(Product $product)
     {
         if(!$product->has_id() || $this->has_product($product->get_id())) {
             return;

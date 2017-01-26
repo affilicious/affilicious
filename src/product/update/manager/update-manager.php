@@ -1,7 +1,10 @@
 <?php
 namespace Affilicious\Product\Update\Manager;
 
+use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Product_Variant;
+use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration_Context;
 use Affilicious\Product\Update\Configuration\Configuration_Resolver;
@@ -12,7 +15,9 @@ use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
 use Affilicious\Product\Update\Task\Update_Task;
 use Affilicious\Product\Update\Task\Update_Task_Interface;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
+use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Model\Shop;
+use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -23,12 +28,12 @@ class Update_Manager implements Update_Manager_Interface
     /**
      * @var Update_Mediator_Interface
      */
-    protected $mediator;
+    private $mediator;
 
     /**
      * @var Update_Worker_Interface[]
      */
-    protected $workers;
+    private $workers;
 
     /**
      * @var Product_Repository_Interface
@@ -36,13 +41,33 @@ class Update_Manager implements Update_Manager_Interface
     private $product_repository;
 
     /**
-     * @inheritdoc
-     * @since 0.7
+     * @var Shop_Template_Repository_Interface
      */
-    public function __construct(Update_Mediator_Interface $mediator, Product_Repository_Interface $product_repository)
+    private $shop_template_repository;
+
+    /**
+     * @var Provider_Repository_Interface
+     */
+    private $provider_repository;
+
+    /**
+     * @since 0.7
+     * @param Update_Mediator_Interface $mediator
+     * @param Product_Repository_Interface $product_repository
+     * @param Shop_Template_Repository_Interface $shop_template_repository
+     * @param Provider_Repository_Interface $provider_repository
+     */
+    public function __construct(
+        Update_Mediator_Interface $mediator,
+        Product_Repository_Interface $product_repository,
+        Shop_Template_Repository_Interface $shop_template_repository,
+        Provider_Repository_Interface $provider_repository
+    )
     {
         $this->mediator = $mediator;
         $this->product_repository = $product_repository;
+        $this->shop_template_repository = $shop_template_repository;
+        $this->provider_repository = $provider_repository;
     }
 
     /**
@@ -60,7 +85,7 @@ class Update_Manager implements Update_Manager_Interface
      */
     public function add_worker(Update_Worker_Interface $worker)
     {
-        $this->workers[$worker->get_name()->get_value()] = $worker;
+        $this->workers[$worker->get_name()] = $worker;
     }
 
     /**
@@ -131,7 +156,7 @@ class Update_Manager implements Update_Manager_Interface
         $products = $this->product_repository->find_all();
 
         foreach ($products as $product) {
-            if($product instanceof Shop_Aware_Product && !($product instanceof Product_Variant_Interface)) {
+            if($product instanceof Shop_Aware_Interface && !($product instanceof Product_Variant)) {
                 $shops = $product->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
@@ -142,7 +167,7 @@ class Update_Manager implements Update_Manager_Interface
                     continue;
                 }
 
-                // Mediate the complex product
+                // Mediate the complex product (take the shops from the default variant)
                 $shops = $default_variant->get_shops();
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
@@ -169,8 +194,20 @@ class Update_Manager implements Update_Manager_Interface
      */
     protected function mediate_product(Product $product, Shop $shop)
     {
-        $template = $shop->get_template();
-        $provider = $template->get_provider();
+        if(!$shop->has_template_id()) {
+            return;
+        }
+
+        $template = $this->shop_template_repository->find_by_id($shop->get_template_id());
+        if($template === null) {
+            return;
+        }
+
+        if(!$template->has_provider_id()) {
+            return;
+        }
+
+        $provider = $this->provider_repository->find_by_id($template->get_provider_id());
         if($provider === null) {
             return;
         }
@@ -191,7 +228,7 @@ class Update_Manager implements Update_Manager_Interface
         foreach ($this->workers as $worker) {
             $config = $worker->configure();
 
-            if($config->get('provider') === $queue->get_name()->get_value()) {
+            if($config->get('provider') === $queue->get_slug()->get_value()) {
                 return $worker;
             }
         }

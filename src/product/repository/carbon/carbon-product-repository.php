@@ -412,6 +412,14 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $parent = $this->get_parent_complex_product(new Product_Id($post->ID));
         }
 
+        if($parent === null) {
+            throw new \RuntimeException(sprintf(
+                'Failed to find the parent complex product for the product variant #%s (%s).',
+                $post->ID,
+                $post->post_title
+            ));
+        }
+
         $title = new Name($post->post_title);
         $slug = new Slug($post->post_name);
         $key = $this->key_generator->generate_from_slug($slug);

@@ -3,16 +3,18 @@ namespace Affilicious\Product\Update\Worker\Amazon;
 
 use Affilicious\Product\Update\Configuration\Configuration;
 use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
-use Affilicious\Product\Update\Worker\Abstract_Update_Worker;
-use Affilicious\Product\Model\Complex\Complex_Product_Interface;
-use Affilicious\Product\Model\Product_Interface;
-use Affilicious\Product\Model\Shop_Aware_Product_Interface;
-use Affilicious\Shop\Options\Amazon_Options;
+use Affilicious\Product\Model\Complex_Product;
+use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Update\Worker\Update_Worker_Interface;
+use Affilicious\Provider\Options\Amazon_Options;
+use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Model\Affiliate_Id;
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Money;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
+use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Lookup;
@@ -23,12 +25,45 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Amazon_Update_Worker extends Abstract_Update_Worker
+class Amazon_Update_Worker implements Update_Worker_Interface
 {
     const PROVIDER = 'amazon';
     const UPDATE_INTERVAL = 'hourly';
     const MIN_UPDATES = 1;
     const MAX_UPDATES = 10;
+
+    /**
+     * @var Shop_Template_Repository_Interface
+     */
+    private $shop_template_repository;
+
+    /**
+     * @var Provider_Repository_Interface
+     */
+    private $provider_repository;
+
+    /**
+     * @since 0.8
+     * @param Shop_Template_Repository_Interface $shop_template_repository
+     * @param Provider_Repository_Interface $provider_repository
+     */
+    public function __construct(
+        Shop_Template_Repository_Interface $shop_template_repository,
+        Provider_Repository_Interface $provider_repository
+    )
+    {
+        $this->shop_template_repository = $shop_template_repository;
+        $this->provider_repository = $provider_repository;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function get_name()
+    {
+        return 'amazon';
+    }
 
     /**
      * @inheritdoc
@@ -84,7 +119,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      * Extract the given number of affiliate IDs from the products.
      *
      * @since 0.7
-     * @param Product_Interface[] $products
+     * @param Product[] $products
      * @param int $limit
      * @return Affiliate_Id[]
      */
@@ -95,9 +130,9 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
         $affiliate_ids = array();
         foreach ($products as $product) {
 
-            if($product instanceof Complex_Product_Interface) {
+            if($product instanceof Complex_Product) {
                 $shops = $product->get_default_variant()->get_shops();
-            } elseif($product instanceof Shop_Aware_Product_Interface) {
+            } elseif($product instanceof Shop_Aware_Interface) {
                 $shops = $product->get_shops();
             } else {
                 continue;
@@ -108,17 +143,25 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
                     break;
                 }
 
-                $shop_template = $shop->get_template();
+                if(!$shop->has_template_id()) {
+                    continue;
+                }
+
+                $shop_template = $this->shop_template_repository->find_by_id($shop->get_template_id());
                 if($shop_template === null) {
                     continue;
                 }
 
-                $provider = $shop_template->get_provider();
+                if(!$shop_template->has_provider_id()) {
+                    continue;
+                }
+
+                $provider = $this->provider_repository->find_by_id($shop_template->get_provider_id());
                 if($provider === null) {
                     continue;
                 }
 
-                $affiliate_id = $shop->get_affiliate_id();
+                $affiliate_id = $shop->get_tracking()->get_affiliate_id();
                 if($affiliate_id === null) {
                     continue;
                 }
@@ -205,7 +248,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
      *
      * @since 0.7
      * @param array $results
-     * @param Product_Interface[] $products
+     * @param Product[] $products
      * @param string $update_interval
      */
     protected function apply_results_to_products($results, $products, $update_interval)
@@ -218,7 +261,7 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
             }
 
             foreach ($products as $product) {
-                if(!($product instanceof Shop_Aware_Product_Interface)) {
+                if(!($product instanceof Shop_Aware_Interface)) {
                     continue;
                 }
 
@@ -228,20 +271,19 @@ class Amazon_Update_Worker extends Abstract_Update_Worker
                 }
 
                 foreach ($shops as $shop) {
-                    if($affiliate_id->is_equal_to($shop->get_affiliate_id())) {
-
+                    if($affiliate_id->is_equal_to($shop->get_tracking()->get_affiliate_id())) {
                         if($result['availability'] !== null && $this->should_update_availability($update_interval)) {
-                            $shop->set_availability($result['availability']);
+                            $shop->get_pricing()->set_availability($result['availability']);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
                         if($result['price'] !== null && $this->should_update_price($update_interval)) {
-                            $shop->set_price($result['price']);
+                            $shop->get_pricing()->set_discounted_price($result['price']);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
-                        if($shop->get_availability()->is_out_of_stock() && $this->should_update_price($update_interval)) {
-                            $shop->set_price(null);
+                        if($shop->get_pricing()->get_availability()->is_out_of_stock() && $this->should_update_price($update_interval)) {
+                            $shop->get_pricing()->set_discounted_price(null);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
                     }

@@ -3,9 +3,9 @@ namespace Affilicious\Product\Update\Queue;
 
 use Affilicious\Common\Queue\Min_Priority_Queue;
 use Affilicious\Common\Model\Slug;
+use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Update\Task\Update_Task;
 use Affilicious\Product\Update\Task\Update_Task_Interface;
-use Affilicious\Product\Model\Shop_Aware_Product_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -16,20 +16,20 @@ class Update_Queue implements Update_Queue_Interface
     /**
      * @var Slug
      */
-    protected $name;
+    private $slug;
 
     /**
      * @var Min_Priority_Queue
      */
-    protected $min_priority_queue;
+    private $min_priority_queue;
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct(Slug $name)
+    public function __construct(Slug $slug)
     {
-        $this->name = $name;
+        $this->slug = $slug;
         $this->min_priority_queue = new Min_Priority_Queue();
     }
 
@@ -37,9 +37,9 @@ class Update_Queue implements Update_Queue_Interface
      * @inheritdoc
      * @since 0.7
      */
-    public function get_name()
+    public function get_slug()
     {
-        return $this->name;
+        return $this->slug;
     }
 
     /**
@@ -49,7 +49,7 @@ class Update_Queue implements Update_Queue_Interface
     public function put(Update_Task_Interface $update_task)
     {
         $product = $update_task->get_product();
-        $shops = $product instanceof Shop_Aware_Product_Interface ? $product->get_shops() : array();
+        $shops = $product instanceof Shop_Aware_Interface ? $product->get_shops() : array();
 
         $updated_at = $product->get_updated_at()->getTimestamp();
         foreach ($shops as $shop) {

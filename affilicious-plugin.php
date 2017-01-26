@@ -459,7 +459,9 @@ if(!class_exists('Affilicious_Plugin')) {
             $this->container['affilicious.product.update.manager'] = function ($c) {
                 return new \Affilicious\Product\Update\Manager\Update_Manager(
                     $c['affilicious.product.update.mediator'],
-                    $c['affilicious.product.repository.product']
+                    $c['affilicious.product.repository.product'],
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 
@@ -469,8 +471,11 @@ if(!class_exists('Affilicious_Plugin')) {
                 );
             };
 
-            $this->container['affilicious.product.setup.amazon_update_worker'] = function () {
-                return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup();
+            $this->container['affilicious.product.setup.amazon_update_worker'] = function ($c) {
+                return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup(
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.provider.repository.provider']
+                );
             };
 
             $this->container['affilicious.product.setup.update_mediator'] = function ($c) {

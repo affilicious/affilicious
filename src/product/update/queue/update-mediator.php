@@ -29,10 +29,10 @@ class Update_Mediator implements Update_Mediator_Interface
     public function mediate(Update_Task_Interface $update_task)
     {
         $provider = $update_task->get_provider();
-        $name = $provider->get_name()->get_value();
+        $slug = $provider->get_slug()->get_value();
 
-        foreach ($this->queues as $queue_name => $queue){
-            if($queue_name === $name) {
+        foreach ($this->queues as $queue_slug => $queue){
+            if($queue_slug === $slug) {
                 $queue->put($update_task);
                 break;
             }
@@ -54,7 +54,7 @@ class Update_Mediator implements Update_Mediator_Interface
      */
     public function add_queue(Update_Queue_Interface $queue)
     {
-        $this->queues[$queue->get_name()->get_value()] = $queue;
+        $this->queues[$queue->get_slug()->get_value()] = $queue;
     }
 
     /**

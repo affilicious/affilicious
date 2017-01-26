@@ -17,9 +17,9 @@ interface Update_Queue_Interface
      * Create a new queue with the given name
      *
      * @since 0.7
-     * @param Slug $name
+     * @param Slug $slug
      */
-    public function __construct(Slug $name);
+    public function __construct(Slug $slug);
 
     /**
      * Get the name of the queue.
@@ -27,7 +27,7 @@ interface Update_Queue_Interface
      * @since 0.7
      * @return Slug
      */
-    public function get_name();
+    public function get_slug();
 
     /**
      * Put a new update task into the queue.

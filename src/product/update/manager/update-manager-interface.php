@@ -1,8 +1,6 @@
 <?php
 namespace Affilicious\Product\Update\Manager;
 
-use Affilicious\Product\Repository\Product_Repository_Interface;
-use Affilicious\Product\Update\Queue\Update_Mediator_Interface;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 
 if (!defined('ABSPATH')) {
@@ -11,13 +9,6 @@ if (!defined('ABSPATH')) {
 
 interface Update_Manager_Interface
 {
-    /**
-     * @since 0.7
-     * @param Update_Mediator_Interface $mediator
-     * @param Product_Repository_Interface $product_repository
-     */
-    public function __construct(Update_Mediator_Interface $mediator, Product_Repository_Interface $product_repository);
-
     /**
      * Check by name if the worker exists in the manager.
      *

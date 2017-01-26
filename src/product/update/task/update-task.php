@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Update\Task;
 
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Model\Provider;
 
 if (!defined('ABSPATH')) {
@@ -16,7 +16,7 @@ class Update_Task implements Update_Task_Interface
     protected $provider;
 
     /**
-     * @var Product_Interface
+     * @var Product
      */
     protected $product;
 
@@ -24,7 +24,7 @@ class Update_Task implements Update_Task_Interface
      * @inheritdoc
      * @since 0.7
      */
-    public function __construct(Provider $provider, Product_Interface $product)
+    public function __construct(Provider $provider, Product $product)
     {
         $this->provider = $provider;
         $this->product = $product;

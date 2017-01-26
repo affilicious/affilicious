@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Update\Task;
 
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Model\Provider;
 
 if (!defined('ABSPATH')) {
@@ -13,9 +13,9 @@ interface Update_Task_Interface
     /**
      * @since 0.7
      * @param Provider $provider
-     * @param Product_Interface $product
+     * @param Product $product
      */
-    public function __construct(Provider $provider, Product_Interface $product);
+    public function __construct(Provider $provider, Product $product);
 
     /**
      * Get the provider for the next update.
@@ -29,7 +29,7 @@ interface Update_Task_Interface
      * Get the product for the next update.
      *
      * @since 0.7
-     * @return Product_Interface
+     * @return Product
      */
     public function get_product();
 }

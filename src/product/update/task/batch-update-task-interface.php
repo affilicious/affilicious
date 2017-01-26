@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Update\Task;
 
 use Affilicious\Product\Model\Product_Id;
-use Affilicious\Product\Model\Product_Interface;
+use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Model\Provider;
 
 if (!defined('ABSPATH')) {
@@ -56,9 +56,9 @@ interface Batch_Update_Task_Interface
      * Add the product to the batch update.
      *
      * @since 0.7
-     * @param Product_Interface $product
+     * @param Product $product
      */
-    public function add_product(Product_Interface $product);
+    public function add_product(Product $product);
 
     /**
      * Remove the product from the batch update by the ID.
@@ -72,7 +72,7 @@ interface Batch_Update_Task_Interface
      * Get the products for the next batch update.
      *
      * @since 0.7
-     * @return Product_Interface[]
+     * @return Product[]
      */
     public function get_products();
 }

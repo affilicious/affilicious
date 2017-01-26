@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Update\Worker;
 
-use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Update\Configuration\Configuration_Interface;
 use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
 
@@ -12,16 +11,10 @@ if (!defined('ABSPATH')) {
 interface Update_Worker_Interface
 {
     /**
-     * @since 0.7
-     * @param Slug $name
-     */
-    public function __construct(Slug $name);
-
-    /**
      * Get the unique name of the worker.
      *
      * @since 0.7
-     * @return Slug
+     * @return string
      */
     public function get_name();
 
