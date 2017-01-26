@@ -580,8 +580,13 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 continue;
             }
 
+            $post = get_post($id);
+            if(empty($post)) {
+                continue;
+            }
+
             $name = new Name($name);
-            $slug = $this->slug_generator->generate_from_name($name);
+            $slug = new Slug($post->post_name);
             $product_variant = new Product_Variant($complex_product, $name, $slug);
 
             if(!empty($id)) {
