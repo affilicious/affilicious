@@ -217,24 +217,7 @@ class Product_Setup
                 'plural_name' => __('Variants', 'affilicious'),
                 'singular_name' => __('Variant', 'affilicious'),
             ))
-            ->add_fields(array_merge(array(
-                    Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious')),
-                    Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_NAME, __('Name', 'affilicious'))
-                        ->set_required(true)
-                        ->set_width(70),
-                    Carbon_Field::make('checkbox', Carbon_Product_Repository::VARIANT_DEFAULT, __('Default Variant', 'affilicious'))
-                        ->set_option_value('yes')
-                        ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
-                        ->set_width(30),
-                ),
-                $this->get_variants_attribute_fields($attribute_templates),
-                array(
-                    Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
-                        ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
-                    Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL_ID, __('Thumbnail', 'affilicious')),
-                    !empty($shop_templates) ? $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious'), $shop_templates) : $this->get_shops_empty_notice_field(),
-                )
-            ))
+            ->add_fields($this->get_variant_field($attribute_templates, $shop_templates))
             ->set_header_template('
                 <# if (' . Carbon_Product_Repository::VARIANT_NAME . ') { #>
                     {{ ' . Carbon_Product_Repository::VARIANT_NAME . ' }}
@@ -243,6 +226,38 @@ class Product_Setup
             ->set_conditional_logic($conditions);
 
         return apply_filters('affilicious_product_render_affilicious_product_container_variants_fields', $fields);
+    }
+
+    /**
+     * Get a single variant field.
+     *
+     * @since 0.8
+     * @param Attribute_Template[] $attribute_templates
+     * @param Shop_Template[] $shop_templates
+     * @return \Carbon_Fields\Field[]
+     */
+    public function get_variant_field($attribute_templates, $shop_templates)
+    {
+        $field = array_merge(array(
+            Carbon_Field::make('hidden', Carbon_Product_Repository::VARIANT_ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious')),
+            Carbon_Field::make('text', Carbon_Product_Repository::VARIANT_NAME, __('Name', 'affilicious'))
+                ->set_required(true)
+                ->set_width(70),
+            Carbon_Field::make('checkbox', Carbon_Product_Repository::VARIANT_DEFAULT, __('Default Variant', 'affilicious'))
+                ->set_option_value('yes')
+                ->help_text(__('This variant will be shown as default for the parent product.', 'affilicious'))
+                ->set_width(30),
+            ),
+            $this->get_variants_attribute_fields($attribute_templates),
+            array(
+                Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
+                    ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
+                Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL_ID, __('Thumbnail', 'affilicious')),
+                !empty($shop_templates) ? $this->get_shop_tabs(Carbon_Product_Repository::VARIANT_SHOPS, __('Shops', 'affilicious'), $shop_templates) : $this->get_shops_empty_notice_field(),
+            )
+        );
+
+        return $field;
     }
 
     /**
