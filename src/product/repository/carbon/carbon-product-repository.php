@@ -1141,7 +1141,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $details = $product->get_details();
         $names = array();
         foreach ($details as $detail) {
-            $key = sprintf(self::DETAIL_VALUE, $detail->get_template_id()->get_value());
+            $detail_key = $this->key_generator->generate_from_slug($detail->get_slug());
+            $key = sprintf(self::DETAIL_VALUE, $detail_key->get_value());
             $this->store_post_meta($product->get_id(), $key, $detail->get_value()->get_value());
             $names[] = $detail->get_name()->get_value();
         }
