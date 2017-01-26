@@ -38,10 +38,6 @@ class Save_Product_Listener
             return;
         }
 
-        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
-            return;
-        }
-
         $product = $this->product_repository->find_by_id(new Product_Id($post_id));
         if($product === null) {
             return;
@@ -97,6 +93,10 @@ class Save_Product_Listener
 
         if(false !== wp_is_post_autosave($post_id)) {
             return false;
+        }
+
+        if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
+            false;
         }
 
         return true;
