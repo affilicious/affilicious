@@ -1004,7 +1004,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
         return null;
     }
 
-    // Current attributes
+    // Current attribute
     if($product instanceof Product_Variant) {
         $current_attributes = aff_product_get_variant_attributes($parent, $product);
     } elseif($product instanceof Complex_Product) {

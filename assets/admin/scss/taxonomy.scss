@@ -3,8 +3,11 @@
 .taxonomy-aff_shop_tmpl,
 .taxonomy-aff_attribute_tmpl,
 .taxonomy-aff_detail_tmpl {
+  .wp-editor-tools,
+  .wp-editor-container,
   .term-description-wrap {
-    display:none;
+    display: none;
+    visibility: hidden;
   }
 }
 
