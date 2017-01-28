@@ -157,11 +157,11 @@ class Amazon_Options
         ));
 
         try {
-            $this->amazon_credentials_validator->validate($credentials);
+            $result = $this->amazon_credentials_validator->validate($credentials);
+
+            return $result;
         } catch (\Exception $e) {
             return false;
         }
-
-        return true;
     }
 }

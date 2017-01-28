@@ -198,7 +198,6 @@ class Product_Setup
             return $fields;
         }
 
-
         $conditions = array('relation' => 'or');
         foreach ($attribute_templates as $attribute_template) {
             $conditions[] = array(
