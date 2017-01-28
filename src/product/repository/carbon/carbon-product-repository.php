@@ -255,7 +255,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @inheritdoc
      * @since 0.6
      */
-    public function find_by_id(Product_Id $product_id)
+    public function find_one_by_id(Product_Id $product_id)
     {
         $post = get_post($product_id->get_value());
         if (empty($post) || $post->post_status !== 'publish') {
@@ -844,7 +844,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             return null;
         }
 
-        $shop_template = $this->shop_template_repository->find_by_id(new Shop_Template_Id($shop_template_id));
+        $shop_template = $this->shop_template_repository->find_one_by_id(new Shop_Template_Id($shop_template_id));
         if($shop_template === null) {
             return null;
         }

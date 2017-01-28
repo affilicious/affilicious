@@ -91,7 +91,7 @@ class Shop_Template_Setup
                     ->set_required(true)
                     ->add_options($this->get_provider_options())
                     ->set_help_text(__('The provider is used for the automatic updates for products using this shop.', 'affilicious')),
-                Carbon_Field::make('image', Carbon_Shop_Template_Repository::THUMBNAIL, __('Logo', 'affilicious'))
+                Carbon_Field::make('image', Carbon_Shop_Template_Repository::THUMBNAIL_ID, __('Logo', 'affilicious'))
                     ->set_help_text(__('The logo is used to show an image near the shop prices in products.', 'affilicious')),
             ));
 

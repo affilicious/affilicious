@@ -16,7 +16,6 @@ interface Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider $provider
-     * @return Provider
      */
     public function store(Provider $provider);
 
@@ -25,7 +24,6 @@ interface Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider[] $providers
-     * @return Provider[]
      */
     public function store_all($providers);
 
@@ -35,7 +33,6 @@ interface Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider_Id $provider_id
-     * @return null|Provider
      */
     public function delete(Provider_Id $provider_id);
 
@@ -45,7 +42,6 @@ interface Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider_Id[] $provider_ids
-     * @return Provider_Id[]
      */
     public function delete_all($provider_ids);
 
@@ -56,7 +52,7 @@ interface Provider_Repository_Interface
      * @param Provider_Id $provider_id
      * @return null|Provider
      */
-    public function find_by_id(Provider_Id $provider_id);
+    public function find_one_by_id(Provider_Id $provider_id);
 
     /**
      * Find all providers by the IDs.
@@ -74,7 +70,7 @@ interface Provider_Repository_Interface
      * @param Slug $name
      * @return null|Provider
      */
-    public function find_by_slug(Slug $name);
+    public function find_one_by_slug(Slug $name);
 
     /**
      * Find all providers.

@@ -53,7 +53,7 @@ interface Detail_Template_Repository_Interface
      * @param Detail_Template_Id $detail_template_id
      * @return null|Detail_Template
      */
-    public function find_by_id(Detail_Template_Id $detail_template_id);
+    public function find_one_by_id(Detail_Template_Id $detail_template_id);
 
     /**
      * Find all detail templates by the IDs.

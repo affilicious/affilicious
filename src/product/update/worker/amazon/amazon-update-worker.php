@@ -147,7 +147,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                $shop_template = $this->shop_template_repository->find_by_id($shop->get_template_id());
+                $shop_template = $this->shop_template_repository->find_one_by_id($shop->get_template_id());
                 if($shop_template === null) {
                     continue;
                 }
@@ -156,7 +156,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                $provider = $this->provider_repository->find_by_id($shop_template->get_provider_id());
+                $provider = $this->provider_repository->find_one_by_id($shop_template->get_provider_id());
                 if($provider === null) {
                     continue;
                 }

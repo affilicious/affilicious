@@ -27,8 +27,6 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
     public function store(Detail_Template $detail_template)
     {
         $detail_template->has_id() ? $this->update($detail_template) : $this->insert($detail_template);
-
-        add_action('affilicious_detail_template_repository_store', $detail_template);
     }
 
     /**
@@ -54,8 +52,6 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
             $detail_template_id->get_value(),
             Detail_Template::TAXONOMY
         );
-
-        add_action('affilicious_detail_template_repository_delete', $detail_template_id);
     }
 
     /**
@@ -75,7 +71,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      * @inheritdoc
      * @since 0.8
      */
-    public function find_by_id(Detail_Template_Id $detail_template_id)
+    public function find_one_by_id(Detail_Template_Id $detail_template_id)
     {
         $term = get_term($detail_template_id->get_value(), Detail_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -98,7 +94,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
         $detail_templates = array();
 
         foreach ($detail_template_ids as $detail_template_id) {
-            $detail_template = $this->find_by_id($detail_template_id);
+            $detail_template = $this->find_one_by_id($detail_template_id);
             if($detail_template === null) {
                 $detail_templates[] = $detail_template;
             }
@@ -194,7 +190,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
             $detail_template->get_type()->get_value()
         );
 
-        if(!empty($detail_template->get_unit())) {
+        if($detail_template->has_unit()) {
             add_term_meta(
                 $detail_template->get_id()->get_value(),
                 self::UNIT,
@@ -238,7 +234,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
             $detail_template->get_type()->get_value()
         );
 
-        if(!empty($detail_template->get_unit())) {
+        if($detail_template->has_unit()) {
             update_term_meta(
                 $detail_template->get_id()->get_value(),
                 self::UNIT,

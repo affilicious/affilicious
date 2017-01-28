@@ -63,7 +63,7 @@ interface Product_Repository_Interface
      * @param Product_Id $product_id
      * @return null|Product
      */
-    public function find_by_id(Product_Id $product_id);
+    public function find_one_by_id(Product_Id $product_id);
 
     /**
      * Find all products.

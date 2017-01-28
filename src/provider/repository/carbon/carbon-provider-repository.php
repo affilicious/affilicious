@@ -58,8 +58,6 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
         $this->prepare_provider_id($provider);
 
         $this->providers[$provider->get_slug()->get_value()] = $provider;
-
-        return $provider;
     }
 
     /**
@@ -81,14 +79,13 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      */
     public function delete(Provider_Id $provider_id)
     {
-        $deletedProvider = $this->find_by_id($provider_id);
+        $deletedProvider = $this->find_one_by_id($provider_id);
         if($deletedProvider === null) {
             return null;
         }
 
         unset($this->providers[$deletedProvider->get_name()->get_value()]);
-
-        return $deletedProvider;
+        $deletedProvider->set_id(null);
     }
 
     /**
@@ -108,7 +105,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @inheritdoc
      * @since 0.8
      */
-    public function find_by_id(Provider_Id $provider_id)
+    public function find_one_by_id(Provider_Id $provider_id)
     {
         foreach ($this->providers as $provider) {
             if($provider->get_id()->is_equal_to($provider_id)) {
@@ -143,7 +140,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @inheritdoc
      * @since 0.8
      */
-    public function find_by_slug(Slug $name)
+    public function find_one_by_slug(Slug $name)
     {
         return isset($this->providers[$name->get_value()]) ? $this->prepare_provider_id($this->providers[$name->get_value()]) : null;
     }

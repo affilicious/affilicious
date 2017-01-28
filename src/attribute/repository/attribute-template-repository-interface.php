@@ -53,7 +53,7 @@ interface Attribute_Template_Repository_Interface
      * @param Attribute_Template_Id $attribute_template_id
      * @return null|Attribute_Template
      */
-    public function find_by_id(Attribute_Template_Id $attribute_template_id);
+    public function find_one_by_id(Attribute_Template_Id $attribute_template_id);
 
     /**
      * Find all attribute templates by the IDs.

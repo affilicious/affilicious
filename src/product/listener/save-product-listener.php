@@ -38,7 +38,7 @@ class Save_Product_Listener
             return;
         }
 
-        $product = $this->product_repository->find_by_id(new Product_Id($post_id));
+        $product = $this->product_repository->find_one_by_id(new Product_Id($post_id));
         if($product === null) {
             return;
         }

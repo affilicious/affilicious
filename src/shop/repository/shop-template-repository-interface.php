@@ -54,7 +54,7 @@ interface Shop_Template_Repository_Interface
      * @param Shop_Template_Id $shop_template_id
      * @return null|Shop_Template
      */
-    public function find_by_id(Shop_Template_Id $shop_template_id);
+    public function find_one_by_id(Shop_Template_Id $shop_template_id);
 
     /**
      * Find all shop templates by the IDs.

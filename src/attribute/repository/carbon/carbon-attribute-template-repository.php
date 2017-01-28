@@ -27,8 +27,6 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
     public function store(Attribute_Template $attribute_template)
     {
         $attribute_template->has_id() ? $this->update($attribute_template) : $this->insert($attribute_template);
-
-        add_action('affilicious_attribute_template_repository_store', $attribute_template);
     }
 
     /**
@@ -54,8 +52,6 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
             $attribute_template_id->get_value(),
             Attribute_Template::TAXONOMY
         );
-
-        add_action('affilicious_attribute_template_repository_delete', $attribute_template_id);
     }
 
     /**
@@ -75,7 +71,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      * @inheritdoc
      * @since 0.8
      */
-    public function find_by_id(Attribute_Template_Id $attribute_template_id)
+    public function find_one_by_id(Attribute_Template_Id $attribute_template_id)
     {
         $term = get_term($attribute_template_id->get_value(), Attribute_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -98,7 +94,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
         $attribute_templates = array();
 
         foreach ($attribute_template_ids as $attribute_template_id) {
-            $attribute_template = $this->find_by_id($attribute_template_id);
+            $attribute_template = $this->find_one_by_id($attribute_template_id);
             if($attribute_template === null) {
                 $attribute_templates[] = $attribute_template;
             }
@@ -196,7 +192,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
             $attribute_template->get_type()->get_value()
         );
 
-        if(!empty($attribute_template->get_unit())) {
+        if($attribute_template->has_unit()) {
             add_term_meta(
                 $attribute_template->get_id()->get_value(),
                 self::UNIT,
@@ -240,7 +236,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
             $attribute_template->get_type()->get_value()
         );
 
-        if(!empty($attribute_template->get_unit())) {
+        if($attribute_template->has_unit()) {
             update_term_meta(
                 $attribute_template->get_id()->get_value(),
                 self::UNIT,

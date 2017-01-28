@@ -198,7 +198,7 @@ class Update_Manager implements Update_Manager_Interface
             return;
         }
 
-        $template = $this->shop_template_repository->find_by_id($shop->get_template_id());
+        $template = $this->shop_template_repository->find_one_by_id($shop->get_template_id());
         if($template === null) {
             return;
         }
@@ -207,7 +207,7 @@ class Update_Manager implements Update_Manager_Interface
             return;
         }
 
-        $provider = $this->provider_repository->find_by_id($template->get_provider_id());
+        $provider = $this->provider_repository->find_one_by_id($template->get_provider_id());
         if($provider === null) {
             return;
         }

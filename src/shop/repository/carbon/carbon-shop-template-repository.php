@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository implements Shop_Template_Repository_Interface
 {
     const PROVIDER = '_affilicious_shop_template_provider';
-    const THUMBNAIL = '_affilicious_shop_template_thumbnail';
+    const THUMBNAIL_ID = '_affilicious_shop_template_thumbnail_id';
 
     /**
      * @inheritdoc
@@ -27,8 +27,6 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
     public function store(Shop_Template $shop_template)
     {
         $shop_template->has_id() ? $this->update($shop_template) : $this->insert($shop_template);
-
-        add_action('affilicious_shop_template_repository_store', $shop_template);
     }
 
     /**
@@ -75,7 +73,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * @inheritdoc
      * @since 0.8
      */
-    public function find_by_id(Shop_Template_Id $shop_template_id)
+    public function find_one_by_id(Shop_Template_Id $shop_template_id)
     {
         $term = get_term($shop_template_id->get_value(), Shop_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -114,7 +112,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $shop_templates = array();
 
         foreach ($shop_template_ids as $shop_template_id) {
-            $shop_template = $this->find_by_id($shop_template_id);
+            $shop_template = $this->find_one_by_id($shop_template_id);
             if($shop_template === null) {
                 $shop_templates[] = $shop_template;
             }
@@ -167,7 +165,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $shop_template = new Shop_Template($name, $slug);
         $shop_template->set_id($id);
 
-        if($raw_thumbnail_id = carbon_get_term_meta($id->get_value(), self::THUMBNAIL)) {
+        if($raw_thumbnail_id = carbon_get_term_meta($id->get_value(), self::THUMBNAIL_ID)) {
             $thumbnail_id = new Image_Id($raw_thumbnail_id);
             $shop_template->set_thumbnail_id($thumbnail_id);
         }
@@ -209,7 +207,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         if($shop_template->has_thumbnail_id()) {
             add_term_meta(
                 $shop_template->get_id()->get_value(),
-                self::THUMBNAIL,
+                self::THUMBNAIL_ID,
                 $shop_template->get_thumbnail_id()->get_value()
             );
         }
@@ -255,7 +253,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         if($shop_template->has_thumbnail_id()) {
             update_term_meta(
                 $shop_template->get_id()->get_value(),
-                self::THUMBNAIL,
+                self::THUMBNAIL_ID,
                 $shop_template->get_thumbnail_id()->get_value()
             );
         }
