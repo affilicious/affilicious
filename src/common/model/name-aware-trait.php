@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-trait Name_Trait
+trait Name_Aware_Trait
 {
     /**
      * The unique name for display usage.

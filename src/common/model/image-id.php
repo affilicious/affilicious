@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Common\Model;
 
-use Affilicious\Common\Exception\Invalid_Type_Exception;
 use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
@@ -17,7 +16,6 @@ class Image_Id
     /**
      * @inheritdoc
      * @since 0.8
-     * @throws Invalid_Type_Exception
      */
     public function __construct($value)
     {

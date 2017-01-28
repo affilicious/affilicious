@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-trait Update_Trait
+trait Update_Aware_Trait
 {
     /**
      * The date an time of the last update.

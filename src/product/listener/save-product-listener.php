@@ -50,11 +50,7 @@ class Save_Product_Listener
         $variants = $product->get_variants();
         if(!empty($variants)) {
             foreach ($variants as $variant) {
-                $stored_variant = $this->product_repository->store($variant);
-
-                if ($stored_variant->has_id() && !$stored_variant->get_id()->is_equal_to($variant->get_id())) {
-                    $variant->set_id($stored_variant->get_id());
-                }
+                $this->product_repository->store($variant);
             }
         }
 

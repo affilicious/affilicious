@@ -3,8 +3,6 @@ namespace Affilicious\Product\Repository\Carbon;
 
 use Affilicious\Attribute\Model\Value as Attribute_Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
-use Affilicious\Common\Exception\Invalid_Post_Type_Exception;
-use Affilicious\Common\Exception\Invalid_Type_Exception;
 use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Image_Id;
@@ -13,9 +11,7 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Detail\Model\Value as Detail_Value;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
-use Affilicious\Product\Exception\Failed_To_Delete_Product_Exception;
 use Affilicious\Product\Exception\Missing_Parent_Product_Exception;
-use Affilicious\Product\Exception\Product_Not_Found_Exception;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Content;
 use Affilicious\Product\Model\Content_Aware_Interface;
@@ -46,6 +42,7 @@ use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Model\Tracking;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
+use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -189,8 +186,6 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         if($product instanceof Tag_Aware_Interface) {
             $this->store_tags($product);
         }
-
-        return $product;
     }
 
     /**
@@ -199,13 +194,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     public function store_all($products)
     {
-        $stored_products = array();
-        foreach ($products as $product) {
-            $stored_product = $this->store($product);
-            $stored_products[] = $stored_product;
-        }
+        Assert::allIsInstanceOf($products, Product::class);
 
-        return $stored_products;
+        foreach ($products as $product) {
+            $this->store($product);
+        }
     }
 
     /**
@@ -215,40 +208,23 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     public function delete(Product_Id $product_id)
     {
         $post = get_post($product_id->get_value());
-        if (empty($post)) {
-            throw new Product_Not_Found_Exception($product_id);
-        }
+        Assert::notEmpty($post, 'Expected a non empty post. Got: %s');
+        Assert::same($post->post_type, Product::POST_TYPE, 'Expected the post type to be identical to %2$s. Got: %s');
 
-        if($post->post_type != Product::POST_TYPE) {
-            throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
-        }
-
-        $post = wp_delete_post($product_id->get_value(), false);
-        if(empty($post)) {
-            throw new Failed_To_Delete_Product_Exception($product_id);
-        }
-
-        $product = $this->build_product_from_post($post);
-        $product->set_id(null);
-
-        return $product;
+        wp_delete_post($product_id->get_value(), false);
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function delete_all($products)
+    public function delete_all($product_ids)
     {
-        $deleted_products = array();
-        foreach ($products as $product) {
-            if($product instanceof Product && $product->has_id()) {
-                $deleted_product = $this->delete($product->get_id());
-                $deleted_products[] = $deleted_product;
-            }
-        }
+        Assert::allIsInstanceOf($product_ids, Product_Id::class);
 
-        return $deleted_products;
+        foreach ($product_ids as $product_id) {
+            $this->delete($product_id);
+        }
     }
 
     /**
@@ -302,9 +278,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function build_product_from_post(\WP_Post $post)
     {
-        if($post->post_type !== Product::POST_TYPE) {
-            throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
-        }
+        Assert::same($post->post_type, Product::POST_TYPE, 'Expected the post type to be identical to %2$s. Got: %s');
 
         // Get the type like simple, complex or variant.
         $type = $this->get_type($post);
@@ -336,9 +310,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function build_simple_product_from_post(\WP_Post $post)
     {
-        if($post->post_type !== Product::POST_TYPE) {
-            throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
-        }
+        Assert::same($post->post_type, Product::POST_TYPE, 'Expected the post type to be identical to %2$s. Got: %s');
 
         $title = new Name($post->post_title);
         $slug = new Slug($post->post_name);
@@ -370,9 +342,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function build_complex_product_from_post(\WP_Post $post)
     {
-        if($post->post_type !== Product::POST_TYPE) {
-            throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
-        }
+        Assert::same($post->post_type, Product::POST_TYPE, 'Expected the post type to be identical to %2$s. Got: %s');
 
         $title = new Name($post->post_title);
         $slug = new Slug($post->post_name);
@@ -404,9 +374,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function build_product_variant_from_post(\WP_Post $post, Complex_Product $parent = null)
     {
-        if($post->post_type !== Product::POST_TYPE) {
-            throw new Invalid_Post_Type_Exception($post->post_type, Product::POST_TYPE);
-        }
+        Assert::same($post->post_type, Product::POST_TYPE, 'Expected the post type to be identical to %2$s. Got: %s');
 
         if($parent === null) {
             $parent = $this->get_parent_complex_product(new Product_Id($post->ID));
@@ -1199,12 +1167,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     public function delete_all_variants_from_parent_except($product_variants, Product_Id $parentProduct_Id)
     {
+        Assert::allIsInstanceOf($product_variants, Product_Variant::class);
+
         $not_to_delete = array();
         foreach ($product_variants as $product_variant) {
-            if(!($product_variant instanceof Product_Variant)) {
-                throw new Invalid_Type_Exception($product_variant, Product_Variant::class);
-            }
-
             if(!$product_variant->get_parent()->has_id() || !$product_variant->has_id()) {
                 continue;
             }
@@ -1218,15 +1184,12 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $to_delete = array();
         foreach ($product_variants as $product_variant) {
-            if($product_variant instanceof Product_Variant) {
-
-                $parent_id = $product_variant->get_parent()->get_id()->get_value();
-                if(!isset($to_delete[$parent_id])) {
-                    $to_delete[$parent_id] = array();
-                }
-
-                $to_delete[$parent_id][] = $product_variant->get_id()->get_value();
+            $parent_id = $product_variant->get_parent()->get_id()->get_value();
+            if(!isset($to_delete[$parent_id])) {
+                $to_delete[$parent_id] = array();
             }
+
+            $to_delete[$parent_id][] = $product_variant->get_id()->get_value();
         }
 
         $query = new \WP_Query(array(

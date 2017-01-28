@@ -2,9 +2,9 @@
 namespace Affilicious\Provider\Model;
 
 use Affilicious\Common\Model\Name;
-use Affilicious\Common\Model\Name_Trait;
+use Affilicious\Common\Model\Name_Aware_Trait;
 use Affilicious\Common\Model\Slug;
-use Affilicious\Common\Model\Slug_Trait;
+use Affilicious\Common\Model\Slug_Aware_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 
 class Provider
 {
-    use Name_Trait, Slug_Trait;
+    use Name_Aware_Trait, Slug_Aware_Trait;
 
     /**
      * The unique and optional ID of the provider.

@@ -3,9 +3,9 @@ namespace Affilicious\Shop\Model;
 
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
-use Affilicious\Common\Model\Name_Trait;
+use Affilicious\Common\Model\Name_Aware_Trait;
 use Affilicious\Common\Model\Slug;
-use Affilicious\Common\Model\Slug_Trait;
+use Affilicious\Common\Model\Slug_Aware_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -13,9 +13,9 @@ if (!defined('ABSPATH')) {
 
 class Shop
 {
-    use Name_Trait, Slug_Trait {
-        Name_Trait::set_name as private;
-        Slug_Trait::set_slug as private;
+    use Name_Aware_Trait, Slug_Aware_Trait {
+        Name_Aware_Trait::set_name as private;
+        Slug_Aware_Trait::set_slug as private;
     }
 
     /**

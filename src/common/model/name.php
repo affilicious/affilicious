@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Model;
 
-use Affilicious\Common\Exception\Invalid_Type_Exception;
+use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -16,13 +16,10 @@ class Name
     /**
      * @inheritdoc
      * @since 0.8
-     * @throws Invalid_Type_Exception
      */
     public function __construct($value)
     {
-        if (!is_string($value)) {
-            throw new Invalid_Type_Exception($value, 'string');
-        }
+        Assert::stringNotEmpty($value, 'The name must be a non empty string. Got: %s');
 
         $this->set_value($value);
     }

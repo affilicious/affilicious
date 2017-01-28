@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-trait Slug_Trait
+trait Slug_Aware_Trait
 {
     /**
      * The unique slug for url usage.

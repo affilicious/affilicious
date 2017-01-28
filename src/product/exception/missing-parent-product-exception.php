@@ -1,14 +1,13 @@
 <?php
 namespace Affilicious\Product\Exception;
 
-use Affilicious\Common\Exception\Domain_Exception;
 use Affilicious\Product\Model\Product_Id;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Missing_Parent_Product_Exception extends Domain_Exception
+class Missing_Parent_Product_Exception extends \RuntimeException
 {
     /**
      * @since 0.6

@@ -70,12 +70,12 @@ class Product_Helper
 
         // The argument is an integer.
         if(is_int($product_or_id)) {
-            $product = $product_repository->find_by_id(new Product_Id($product_or_id));
+            $product = $product_repository->find_one_by_id(new Product_Id($product_or_id));
         }
 
         // The argument is a post.
         if($product_or_id instanceof \WP_Post) {
-            $product = $product_repository->find_by_id(new Product_Id($product_or_id->ID));
+            $product = $product_repository->find_one_by_id(new Product_Id($product_or_id->ID));
         }
 
         // The argument is empty.
@@ -85,7 +85,7 @@ class Product_Helper
                 return null;
             }
 
-            $product = $product_repository->find_by_id(new Product_Id($post->ID));
+            $product = $product_repository->find_one_by_id(new Product_Id($post->ID));
         }
 
         return $product;

@@ -3,9 +3,9 @@ namespace Affilicious\Product\Model;
 
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
-use Affilicious\Common\Model\Name_Trait;
+use Affilicious\Common\Model\Name_Aware_Trait;
 use Affilicious\Common\Model\Slug;
-use Affilicious\Common\Model\Slug_Trait;
+use Affilicious\Common\Model\Slug_Aware_Trait;
 use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 
 class Product
 {
-    use Name_Trait, Slug_Trait;
+    use Name_Aware_Trait, Slug_Aware_Trait;
 
     /**
      * There is a limit of 20 characters for post types in Wordpress.
