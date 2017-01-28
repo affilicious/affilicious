@@ -16,7 +16,7 @@ class Feedback_Setup
 	public function init()
 	{
 		add_submenu_page(
-			'edit.php?post_type=product',
+			'edit.php?post_type=aff_product',
 			__('Feedback', 'affilicious'),
 			__('Feedback', 'affilicious'),
 			'manage_options',
@@ -56,11 +56,11 @@ class Feedback_Setup
 						</tr>
 						<tr>
 							<th>
-								<label for="name"><?php _e('Slug', 'affilicious'); ?></label>
+								<label for="name"><?php _e('Name', 'affilicious'); ?></label>
 							</th>
 							<td>
 								<input type="text" name="name" class="regular-text" value="<?php echo $name; ?>"
-								       size="100%" placeholder="<?php _e('Slug', 'affilicious'); ?>"/>
+								       size="100%" placeholder="<?php _e('Name', 'affilicious'); ?>"/>
 							</td>
 						</tr>
 						<tr>
