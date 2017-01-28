@@ -208,7 +208,11 @@ class Product_Setup
             );
         }
 
-        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_ATTRIBUTES, __('Attribute', 'affilicious'));
+        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious'))
+            ->set_help_text(sprintf(
+                __('Add the names of some <a href="%s" target="_blank">attribute templates</a> to attach them to the product variants.', 'affilicious'),
+                admin_url('edit-tags.php?taxonomy=aff_attribute_tmpl&post_type=aff_product')
+            ));
 
         $fields[] = Carbon_Field::make('complex', Carbon_Product_Repository::VARIANTS, __('Variants', 'affilicious'))
             ->set_max(self::VARIANTS_LIMIT)
@@ -447,8 +451,12 @@ class Product_Setup
             return $fields;
         }
 
-        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_DETAILS, __('Detail', 'affilicious'))
-            ->add_class('aff_details');
+        $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_DETAILS, __('Enabled Details', 'affilicious'))
+            ->add_class('aff_details')
+            ->set_help_text(sprintf(
+                __('Add the names of some <a href="%s" target="_blank">detail templates</a> to attach them to the product.', 'affilicious'),
+                admin_url('edit-tags.php?taxonomy=aff_detail_tmpl&post_type=aff_product')
+            ));
 
         foreach ($detail_templates as $detail_template) {
             $fields[] = $this->get_detail_field($detail_template);

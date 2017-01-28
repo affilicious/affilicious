@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-01-28 14:25+0100\n"
+"POT-Creation-Date: 2017-01-28 14:38+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -191,15 +191,15 @@ msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
 #: src/common/setup/asset-setup.php:94 src/product/setup/product-setup.php:144
-#: src/product/setup/product-setup.php:213
-#: src/product/setup/product-setup.php:216
+#: src/product/setup/product-setup.php:217
+#: src/product/setup/product-setup.php:220
 msgid "Variants"
 msgstr "Varianten"
 
 #: src/common/setup/asset-setup.php:95 src/product/setup/product-setup.php:145
-#: src/product/setup/product-setup.php:257
-#: src/product/setup/product-setup.php:352
-#: src/product/setup/product-setup.php:393
+#: src/product/setup/product-setup.php:261
+#: src/product/setup/product-setup.php:356
+#: src/product/setup/product-setup.php:397
 #: src/shop/setup/shop-template-setup.php:44
 #: src/shop/setup/shop-template-setup.php:48
 msgid "Shops"
@@ -375,7 +375,7 @@ msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
 
 #: src/product/meta-box/meta-box-manager.php:40
-#: src/product/setup/product-setup.php:256
+#: src/product/setup/product-setup.php:260
 msgid "Image Gallery"
 msgstr "Bildergallerie"
 
@@ -602,41 +602,50 @@ msgid "Complex"
 msgstr "Komplex"
 
 #: src/product/setup/product-setup.php:168
-#: src/product/setup/product-setup.php:253
+#: src/product/setup/product-setup.php:257
 msgid "Tags"
 msgstr "Schlagwörter"
 
 #: src/product/setup/product-setup.php:169
-#: src/product/setup/product-setup.php:254
+#: src/product/setup/product-setup.php:258
 msgid "Custom product tags like \"test winner\" or \"best price\"."
 msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
 
 #: src/product/setup/product-setup.php:211
-msgid "Attribute"
-msgstr "Attribut"
+msgid "Enabled Attributes"
+msgstr "Aktivierte Attribute"
 
-#: src/product/setup/product-setup.php:217
+#: src/product/setup/product-setup.php:213
+#, php-format
+msgid ""
+"Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
+"a> to attach them to the product variants."
+msgstr ""
+"Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Attribut-"
+"Vorlagen</a> hinzu um sie bei den Produktvarianten anzuzeigen."
+
+#: src/product/setup/product-setup.php:221
 msgid "Variant"
 msgstr "Variante"
 
-#: src/product/setup/product-setup.php:243
+#: src/product/setup/product-setup.php:247
 msgid "Name"
-msgstr "Titel"
+msgstr "Name"
 
-#: src/product/setup/product-setup.php:246
+#: src/product/setup/product-setup.php:250
 msgid "Default Variant"
 msgstr "Standartvariante"
 
-#: src/product/setup/product-setup.php:248
+#: src/product/setup/product-setup.php:252
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
 
-#: src/product/setup/product-setup.php:255
+#: src/product/setup/product-setup.php:259
 #: src/shop/setup/admin-table-setup.php:41
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/product/setup/product-setup.php:325
+#: src/product/setup/product-setup.php:329
 #, php-format
 msgid ""
 "<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
@@ -645,7 +654,7 @@ msgstr ""
 "<b>Keine Attribut-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a "
 "href=\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:367
+#: src/product/setup/product-setup.php:371
 #, php-format
 msgid ""
 "<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
@@ -654,23 +663,23 @@ msgstr ""
 "<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:394
+#: src/product/setup/product-setup.php:398
 msgid "Shop"
 msgstr "Shop"
 
-#: src/product/setup/product-setup.php:399
+#: src/product/setup/product-setup.php:403
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/product/setup/product-setup.php:402
+#: src/product/setup/product-setup.php:406
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/product/setup/product-setup.php:404
+#: src/product/setup/product-setup.php:408
 msgid "Affiliate ID"
 msgstr "Affiliate ID"
 
-#: src/product/setup/product-setup.php:405
+#: src/product/setup/product-setup.php:409
 msgid ""
 "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
 "automatic shop update."
@@ -678,47 +687,56 @@ msgstr ""
 "Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
 "automatische Shop Aktualisierung."
 
-#: src/product/setup/product-setup.php:406
+#: src/product/setup/product-setup.php:410
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
-#: src/product/setup/product-setup.php:409
+#: src/product/setup/product-setup.php:413
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/product/setup/product-setup.php:410
+#: src/product/setup/product-setup.php:414
 msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/setup/product-setup.php:412
+#: src/product/setup/product-setup.php:416
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/setup/product-setup.php:414
+#: src/product/setup/product-setup.php:418
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/setup/product-setup.php:416
+#: src/product/setup/product-setup.php:420
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/setup/product-setup.php:419 src/shop/model/currency.php:68
+#: src/product/setup/product-setup.php:423 src/shop/model/currency.php:68
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/setup/product-setup.php:420 src/shop/model/currency.php:69
+#: src/product/setup/product-setup.php:424 src/shop/model/currency.php:69
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/setup/product-setup.php:422
+#: src/product/setup/product-setup.php:426
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/setup/product-setup.php:450
-msgid "Detail"
-msgstr "Detail"
+#: src/product/setup/product-setup.php:454
+msgid "Enabled Details"
+msgstr "Aktivierte Details"
 
-#: src/product/setup/product-setup.php:502
+#: src/product/setup/product-setup.php:457
+#, php-format
+msgid ""
+"Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
+"to attach them to the product."
+msgstr ""
+"Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Detail-Vorlagen</"
+"a> hinzu um sie bei den Produkten anzuzeigen."
+
+#: src/product/setup/product-setup.php:510
 #, php-format
 msgid ""
 "<b>No detail templates available!</b> Please create one <a href=\"%s\" "
@@ -727,49 +745,49 @@ msgstr ""
 "<b>Keine DetailVorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:521
+#: src/product/setup/product-setup.php:529
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/product/setup/product-setup.php:523
+#: src/product/setup/product-setup.php:531
 #: src/shop/setup/shop-template-setup.php:112
 msgid "None"
 msgstr "Keine"
 
-#: src/product/setup/product-setup.php:524
-#: src/product/setup/product-setup.php:525
-#: src/product/setup/product-setup.php:527
-#: src/product/setup/product-setup.php:528
-#: src/product/setup/product-setup.php:529
-#: src/product/setup/product-setup.php:530
-#: src/product/setup/product-setup.php:531
 #: src/product/setup/product-setup.php:532
 #: src/product/setup/product-setup.php:533
-#: src/product/setup/product-setup.php:534
+#: src/product/setup/product-setup.php:535
+#: src/product/setup/product-setup.php:536
+#: src/product/setup/product-setup.php:537
+#: src/product/setup/product-setup.php:538
+#: src/product/setup/product-setup.php:539
+#: src/product/setup/product-setup.php:540
+#: src/product/setup/product-setup.php:541
+#: src/product/setup/product-setup.php:542
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/product/setup/product-setup.php:526
+#: src/product/setup/product-setup.php:534
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/product/setup/product-setup.php:536
+#: src/product/setup/product-setup.php:544
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/product/setup/product-setup.php:537
+#: src/product/setup/product-setup.php:545
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/product/setup/product-setup.php:560
+#: src/product/setup/product-setup.php:568
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/product/setup/product-setup.php:563
+#: src/product/setup/product-setup.php:571
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
@@ -982,6 +1000,12 @@ msgstr "Logo"
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#~ msgid "Attribute"
+#~ msgstr "Attribut"
+
+#~ msgid "Detail"
+#~ msgstr "Detail"
 
 #~ msgid "Attribute Template Group"
 #~ msgstr "Attribut-Vorlagengruppe"
