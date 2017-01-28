@@ -13,7 +13,7 @@ trait Update_Trait
      * @since 0.8
      * @var \DateTimeImmutable
      */
-    protected $updated_at;
+    private $updated_at;
 
     /**
      * Get the date and time of the last update.

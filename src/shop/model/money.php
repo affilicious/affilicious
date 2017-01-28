@@ -12,12 +12,12 @@ class Money
     /**
      * @var string
      */
-    protected $value;
+    private $value;
 
     /**
      * @var Currency
      */
-    protected $currency;
+    private $currency;
 
     /**
      * Create a new free of charge money with the currency.

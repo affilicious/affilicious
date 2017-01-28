@@ -21,7 +21,7 @@ class Complex_Product extends Product implements Excerpt_Aware_Interface, Conten
      *
      * @var Product_Variant[]
      */
-    protected $variants;
+    private $variants;
 
     /**
      * @since 0.8
