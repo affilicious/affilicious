@@ -166,7 +166,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                if($provider->get_name()->get_value() === self::PROVIDER) {
+                if($provider->get_slug()->get_value() === self::PROVIDER) {
                     $affiliate_ids[$affiliate_id->get_value()] = $affiliate_id;
                     $current++;
                 }
@@ -375,8 +375,8 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     {
         $price = null;
 
-        if(isset($item['Offers']['Offer']['OfferListing']['Money'])) {
-            $price = $item['Offers']['Offer']['OfferListing']['Money'];
+        if(isset($item['Offers']['Offer']['OfferListing']['Price'])) {
+            $price = $item['Offers']['Offer']['OfferListing']['Price'];
 
             if(isset($price['Amount']) && isset($price['CurrencyCode'])) {
                 $amount = floatval($price['Amount']) / 100;
