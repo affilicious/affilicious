@@ -81,7 +81,7 @@ class Product_Setup
             'name_admin_bar'        => $singular,
             'archives'              => sprintf(_x('%s Archives', 'Product', 'affilicious'), $singular),
             'parent_item_colon'     => sprintf(_x('Parent %s:', 'Product', 'affilicious'), $singular),
-            'all_items'             => __('Products', 'affilicious'),
+            'all_items'             => $plural,
             'add_new_item'          => sprintf(_x('Add New %s', 'Product', 'affilicious'), $singular),
             'new_item'              => sprintf(_x('New %s', 'Product', 'affilicious'), $singular),
             'edit_item'             => sprintf(_x('Edit %s', 'Product', 'affilicious'), $singular),
@@ -101,8 +101,7 @@ class Product_Setup
 	    }
 
         $args = array(
-            'label' => __('Product', 'affilicious'),
-            'description' => __('Product Type Description', 'affilicious'),
+            'label' => $singular,
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
             'supports' => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions'),
