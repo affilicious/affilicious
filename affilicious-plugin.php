@@ -292,6 +292,10 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Common\License\EDD_License_Manager();
             };
 
+            $this->container['affilicious.common.filter.admin_footer_text'] = function () {
+                return new \Affilicious\Common\Filter\Admin_Footer_Text_Filter();
+            };
+
             $this->container['affilicious.common.setup.asset'] = function () {
                 return new \Affilicious\Common\Setup\Asset_Setup();
             };
@@ -702,6 +706,9 @@ if(!class_exists('Affilicious_Plugin')) {
             $shop_template_table_setup = $this->container['affilicious.shop.setup.admin_table'];
             add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_table_setup, 'setup_columns'));
             add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_table_setup, 'setup_rows'), 15, 3);
+
+            $admin_footer_text_filter = $this->container['affilicious.common.filter.admin_footer_text'];
+            add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
         }
     }
 

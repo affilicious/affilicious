@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-01-28 14:38+0100\n"
+"POT-Creation-Date: 2017-01-28 19:38+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -102,77 +102,12 @@ msgstr "Attribut-Vorlagen"
 msgid "Attributes"
 msgstr "Attribute"
 
-#: src/attribute/setup/attribute-template-setup.php:32
+#: src/common/filter/admin-footer-text-filter.php:22
 #, php-format
-msgctxt "Attribute Template"
-msgid "%s Archives"
-msgstr "%s Archiv"
-
-#: src/attribute/setup/attribute-template-setup.php:33
-#, php-format
-msgctxt "Attribute Template"
-msgid "Parent %s:"
-msgstr "Eltern %s"
-
-#: src/attribute/setup/attribute-template-setup.php:35
-#, php-format
-msgctxt "Attribute Template"
-msgid "Add New %s"
-msgstr "%s erstellen"
-
-#: src/attribute/setup/attribute-template-setup.php:36
-#, php-format
-msgctxt "Attribute Template"
-msgid "New %s"
-msgstr "Neue %s"
-
-#: src/attribute/setup/attribute-template-setup.php:37
-#, php-format
-msgctxt "Attribute Template"
-msgid "Edit %s"
-msgstr "%s bearbeiten"
-
-#: src/attribute/setup/attribute-template-setup.php:38
-#, php-format
-msgctxt "Attribute Template"
-msgid "Update %s"
-msgstr "%s aktualieren"
-
-#: src/attribute/setup/attribute-template-setup.php:39
-#, php-format
-msgctxt "Attribute Template"
-msgid "View %s"
-msgstr "%s ansehen"
-
-#: src/attribute/setup/attribute-template-setup.php:40
-#, php-format
-msgctxt "Attribute Template"
-msgid "Search %s"
-msgstr "%s suchen"
-
-#: src/attribute/setup/attribute-template-setup.php:41
-#, php-format
-msgctxt "Attribute Template"
-msgid "Insert Into %s"
-msgstr "In die %s einfügen"
-
-#: src/attribute/setup/attribute-template-setup.php:42
-#, php-format
-msgctxt "Attribute Template"
-msgid "Uploaded to this %s"
-msgstr "Zur %s hochladen"
-
-#: src/attribute/setup/attribute-template-setup.php:44
-#, php-format
-msgctxt "Attribute Template"
-msgid "%s Navigation"
-msgstr "%s Navigation"
-
-#: src/attribute/setup/attribute-template-setup.php:45
-#, php-format
-msgctxt "Attribute Template"
-msgid "Filter %s"
-msgstr "%s filtern"
+msgid ""
+"Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
+msgstr ""
+"Danke für das Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 
 #: src/common/options/affilicious-options.php:19
 msgid "Custom CSS"
@@ -191,15 +126,15 @@ msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
 #: src/common/setup/asset-setup.php:94 src/product/setup/product-setup.php:144
-#: src/product/setup/product-setup.php:217
-#: src/product/setup/product-setup.php:220
+#: src/product/setup/product-setup.php:216
+#: src/product/setup/product-setup.php:219
 msgid "Variants"
 msgstr "Varianten"
 
 #: src/common/setup/asset-setup.php:95 src/product/setup/product-setup.php:145
-#: src/product/setup/product-setup.php:261
-#: src/product/setup/product-setup.php:356
-#: src/product/setup/product-setup.php:397
+#: src/product/setup/product-setup.php:260
+#: src/product/setup/product-setup.php:355
+#: src/product/setup/product-setup.php:396
 #: src/shop/setup/shop-template-setup.php:44
 #: src/shop/setup/shop-template-setup.php:48
 msgid "Shops"
@@ -233,11 +168,9 @@ msgstr "Email"
 
 #: src/common/setup/feedback-setup.php:59
 #: src/common/setup/feedback-setup.php:63
-#: src/common/setup/feedback-setup.php:121
-#: src/product/options/product-options.php:22
-#: src/product/options/product-options.php:35
-msgid "Slug"
-msgstr "Titelform"
+#: src/product/setup/product-setup.php:246
+msgid "Name"
+msgstr "Name"
 
 #: src/common/setup/feedback-setup.php:68
 #: src/common/setup/feedback-setup.php:72
@@ -253,6 +186,12 @@ msgstr "Nachricht"
 #: src/common/setup/feedback-setup.php:88
 msgid "Submit"
 msgstr "Senden"
+
+#: src/common/setup/feedback-setup.php:121
+#: src/product/options/product-options.php:22
+#: src/product/options/product-options.php:35
+msgid "Slug"
+msgstr "Titelform"
 
 #: src/common/setup/feedback-setup.php:125
 #: src/common/setup/feedback-setup.php:129
@@ -293,78 +232,6 @@ msgstr "Detail-Vorlagen"
 msgid "Details"
 msgstr "Details"
 
-#: src/detail/setup/detail-template-setup.php:31
-#, php-format
-msgctxt "Detail Template"
-msgid "%s Archives"
-msgstr "%s Archive"
-
-#: src/detail/setup/detail-template-setup.php:32
-#, php-format
-msgctxt "Detail Template"
-msgid "Parent %s:"
-msgstr "Eltern %s"
-
-#: src/detail/setup/detail-template-setup.php:34
-#, php-format
-msgctxt "Detail Template"
-msgid "Add New %s"
-msgstr "%s erstellen"
-
-#: src/detail/setup/detail-template-setup.php:35
-#, php-format
-msgctxt "Detail Template"
-msgid "New %s"
-msgstr "Neue %s"
-
-#: src/detail/setup/detail-template-setup.php:36
-#, php-format
-msgctxt "Detail Template"
-msgid "Edit %s"
-msgstr "%s bearbeiten"
-
-#: src/detail/setup/detail-template-setup.php:37
-#, php-format
-msgctxt "Detail Template"
-msgid "Update %s"
-msgstr "%s aktualisieren"
-
-#: src/detail/setup/detail-template-setup.php:38
-#, php-format
-msgctxt "Detail Template"
-msgid "View %s"
-msgstr "%s ansehen"
-
-#: src/detail/setup/detail-template-setup.php:39
-#, php-format
-msgctxt "Detail Template"
-msgid "Search %s"
-msgstr "%s suchen"
-
-#: src/detail/setup/detail-template-setup.php:40
-#, php-format
-msgctxt "Detail Template"
-msgid "Insert Into %s"
-msgstr "In die %s einfügen"
-
-#: src/detail/setup/detail-template-setup.php:41
-#, php-format
-msgctxt "Detail Template"
-msgid "Uploaded to this %s"
-msgstr "Zur %s hochladen"
-
-#: src/detail/setup/detail-template-setup.php:43
-#, php-format
-msgctxt "Detail Template"
-msgid "%s Navigation"
-msgstr "%s Navigation"
-
-#: src/detail/setup/detail-template-setup.php:44
-#, php-format
-msgctxt "Detail Template"
-msgid "Filter %s"
-msgstr "%s filtern"
-
 #: src/functions.php:1165
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
@@ -375,7 +242,7 @@ msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
 
 #: src/product/meta-box/meta-box-manager.php:40
-#: src/product/setup/product-setup.php:260
+#: src/product/setup/product-setup.php:259
 msgid "Image Gallery"
 msgstr "Bildergallerie"
 
@@ -513,78 +380,6 @@ msgstr "Neue %s"
 msgid "Products"
 msgstr "Produkte"
 
-#: src/product/setup/product-setup.php:82
-#, php-format
-msgctxt "Product"
-msgid "%s Archives"
-msgstr "%s Archiv"
-
-#: src/product/setup/product-setup.php:83
-#, php-format
-msgctxt "Product"
-msgid "Parent %s:"
-msgstr "Eltern %s:"
-
-#: src/product/setup/product-setup.php:85
-#, php-format
-msgctxt "Product"
-msgid "Add New %s"
-msgstr "%s erstellen"
-
-#: src/product/setup/product-setup.php:86
-#, php-format
-msgctxt "Product"
-msgid "New %s"
-msgstr "%s erstellen"
-
-#: src/product/setup/product-setup.php:87
-#, php-format
-msgctxt "Product"
-msgid "Edit %s"
-msgstr "%s bearbeiten"
-
-#: src/product/setup/product-setup.php:88
-#, php-format
-msgctxt "Product"
-msgid "Update %s"
-msgstr "%s aktualisieren"
-
-#: src/product/setup/product-setup.php:89
-#, php-format
-msgctxt "Product"
-msgid "View %s"
-msgstr "%s ansehen"
-
-#: src/product/setup/product-setup.php:90
-#, php-format
-msgctxt "Product"
-msgid "Search %s"
-msgstr "%s suchen"
-
-#: src/product/setup/product-setup.php:91
-#, php-format
-msgctxt "Product"
-msgid "Insert Into %s"
-msgstr "In das %s einfügen"
-
-#: src/product/setup/product-setup.php:92
-#, php-format
-msgctxt "Product"
-msgid "Uploaded to this %s"
-msgstr "Zum %s hochladen"
-
-#: src/product/setup/product-setup.php:94
-#, php-format
-msgctxt "Product"
-msgid "%s Navigation"
-msgstr "%s Navigation"
-
-#: src/product/setup/product-setup.php:95
-#, php-format
-msgctxt "Product"
-msgid "Filter %s"
-msgstr "%s filtern"
-
 #: src/product/setup/product-setup.php:147
 msgid "Review"
 msgstr "Rezension"
@@ -602,20 +397,20 @@ msgid "Complex"
 msgstr "Komplex"
 
 #: src/product/setup/product-setup.php:168
-#: src/product/setup/product-setup.php:257
+#: src/product/setup/product-setup.php:256
 msgid "Tags"
 msgstr "Schlagwörter"
 
 #: src/product/setup/product-setup.php:169
-#: src/product/setup/product-setup.php:258
+#: src/product/setup/product-setup.php:257
 msgid "Custom product tags like \"test winner\" or \"best price\"."
 msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
 
-#: src/product/setup/product-setup.php:211
+#: src/product/setup/product-setup.php:210
 msgid "Enabled Attributes"
 msgstr "Aktivierte Attribute"
 
-#: src/product/setup/product-setup.php:213
+#: src/product/setup/product-setup.php:212
 #, php-format
 msgid ""
 "Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
@@ -624,28 +419,24 @@ msgstr ""
 "Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Attribut-"
 "Vorlagen</a> hinzu um sie bei den Produktvarianten anzuzeigen."
 
-#: src/product/setup/product-setup.php:221
+#: src/product/setup/product-setup.php:220
 msgid "Variant"
 msgstr "Variante"
 
-#: src/product/setup/product-setup.php:247
-msgid "Name"
-msgstr "Name"
-
-#: src/product/setup/product-setup.php:250
+#: src/product/setup/product-setup.php:249
 msgid "Default Variant"
 msgstr "Standartvariante"
 
-#: src/product/setup/product-setup.php:252
+#: src/product/setup/product-setup.php:251
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
 
-#: src/product/setup/product-setup.php:259
+#: src/product/setup/product-setup.php:258
 #: src/shop/setup/admin-table-setup.php:41
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/product/setup/product-setup.php:329
+#: src/product/setup/product-setup.php:328
 #, php-format
 msgid ""
 "<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
@@ -654,7 +445,7 @@ msgstr ""
 "<b>Keine Attribut-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a "
 "href=\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:371
+#: src/product/setup/product-setup.php:370
 #, php-format
 msgid ""
 "<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
@@ -663,23 +454,23 @@ msgstr ""
 "<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:398
+#: src/product/setup/product-setup.php:397
 msgid "Shop"
 msgstr "Shop"
 
-#: src/product/setup/product-setup.php:403
+#: src/product/setup/product-setup.php:402
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/product/setup/product-setup.php:406
+#: src/product/setup/product-setup.php:405
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/product/setup/product-setup.php:408
+#: src/product/setup/product-setup.php:407
 msgid "Affiliate ID"
 msgstr "Affiliate ID"
 
-#: src/product/setup/product-setup.php:409
+#: src/product/setup/product-setup.php:408
 msgid ""
 "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
 "automatic shop update."
@@ -687,47 +478,47 @@ msgstr ""
 "Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
 "automatische Shop Aktualisierung."
 
-#: src/product/setup/product-setup.php:410
+#: src/product/setup/product-setup.php:409
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
-#: src/product/setup/product-setup.php:413
+#: src/product/setup/product-setup.php:412
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/product/setup/product-setup.php:414
+#: src/product/setup/product-setup.php:413
 msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/setup/product-setup.php:416
+#: src/product/setup/product-setup.php:415
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/setup/product-setup.php:418
+#: src/product/setup/product-setup.php:417
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/setup/product-setup.php:420
+#: src/product/setup/product-setup.php:419
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/setup/product-setup.php:423 src/shop/model/currency.php:68
+#: src/product/setup/product-setup.php:422 src/shop/model/currency.php:68
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/setup/product-setup.php:424 src/shop/model/currency.php:69
+#: src/product/setup/product-setup.php:423 src/shop/model/currency.php:69
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/setup/product-setup.php:426
+#: src/product/setup/product-setup.php:425
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/setup/product-setup.php:454
+#: src/product/setup/product-setup.php:453
 msgid "Enabled Details"
 msgstr "Aktivierte Details"
 
-#: src/product/setup/product-setup.php:457
+#: src/product/setup/product-setup.php:456
 #, php-format
 msgid ""
 "Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
@@ -736,7 +527,7 @@ msgstr ""
 "Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Detail-Vorlagen</"
 "a> hinzu um sie bei den Produkten anzuzeigen."
 
-#: src/product/setup/product-setup.php:510
+#: src/product/setup/product-setup.php:509
 #, php-format
 msgid ""
 "<b>No detail templates available!</b> Please create one <a href=\"%s\" "
@@ -745,17 +536,18 @@ msgstr ""
 "<b>Keine DetailVorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:529
+#: src/product/setup/product-setup.php:528
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/product/setup/product-setup.php:531
+#: src/product/setup/product-setup.php:530
 #: src/shop/setup/shop-template-setup.php:112
 msgid "None"
 msgstr "Keine"
 
+#: src/product/setup/product-setup.php:531
 #: src/product/setup/product-setup.php:532
-#: src/product/setup/product-setup.php:533
+#: src/product/setup/product-setup.php:534
 #: src/product/setup/product-setup.php:535
 #: src/product/setup/product-setup.php:536
 #: src/product/setup/product-setup.php:537
@@ -763,31 +555,30 @@ msgstr "Keine"
 #: src/product/setup/product-setup.php:539
 #: src/product/setup/product-setup.php:540
 #: src/product/setup/product-setup.php:541
-#: src/product/setup/product-setup.php:542
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/product/setup/product-setup.php:534
+#: src/product/setup/product-setup.php:533
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/product/setup/product-setup.php:544
+#: src/product/setup/product-setup.php:543
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/product/setup/product-setup.php:545
+#: src/product/setup/product-setup.php:544
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/product/setup/product-setup.php:568
+#: src/product/setup/product-setup.php:567
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/product/setup/product-setup.php:571
+#: src/product/setup/product-setup.php:570
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
@@ -913,78 +704,6 @@ msgstr "Shop-Vorlage"
 msgid "Shop Templates"
 msgstr "Shop-Vorlagen"
 
-#: src/shop/setup/shop-template-setup.php:46
-#, php-format
-msgctxt "Shop Template"
-msgid "%s Archives"
-msgstr "%s Archiv"
-
-#: src/shop/setup/shop-template-setup.php:47
-#, php-format
-msgctxt "Shop Template"
-msgid "Parent %s:"
-msgstr "Eltern %s"
-
-#: src/shop/setup/shop-template-setup.php:49
-#, php-format
-msgctxt "Shop Template"
-msgid "Add New %s"
-msgstr "%s erstellen"
-
-#: src/shop/setup/shop-template-setup.php:50
-#, php-format
-msgctxt "Shop Template"
-msgid "New %s"
-msgstr "%s erstellen"
-
-#: src/shop/setup/shop-template-setup.php:51
-#, php-format
-msgctxt "Shop Template"
-msgid "Edit %s"
-msgstr "%s bearbeiten"
-
-#: src/shop/setup/shop-template-setup.php:52
-#, php-format
-msgctxt "Shop Template"
-msgid "Update %s"
-msgstr "%s aktualisieren"
-
-#: src/shop/setup/shop-template-setup.php:53
-#, php-format
-msgctxt "Shop Template"
-msgid "View %s"
-msgstr "%s ansehen"
-
-#: src/shop/setup/shop-template-setup.php:54
-#, php-format
-msgctxt "Shop Template"
-msgid "Search %s"
-msgstr "%s suchen"
-
-#: src/shop/setup/shop-template-setup.php:55
-#, php-format
-msgctxt "Shop Template"
-msgid "Insert Into %s"
-msgstr "In die %s einfügen"
-
-#: src/shop/setup/shop-template-setup.php:56
-#, php-format
-msgctxt "Shop Template"
-msgid "Uploaded to this %s"
-msgstr "Zur %s hochladen"
-
-#: src/shop/setup/shop-template-setup.php:58
-#, php-format
-msgctxt "Shop Template"
-msgid "%s Navigation"
-msgstr "%s Navigation"
-
-#: src/shop/setup/shop-template-setup.php:59
-#, php-format
-msgctxt "Shop Template"
-msgid "Filter %s"
-msgstr "%s filtern"
-
 #: src/shop/setup/shop-template-setup.php:93
 msgid ""
 "The provider is used for the automatic updates for products using this shop."
@@ -1000,6 +719,201 @@ msgstr "Logo"
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#~ msgctxt "Attribute Template"
+#~ msgid "%s Archives"
+#~ msgstr "%s Archiv"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Parent %s:"
+#~ msgstr "Eltern %s"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Add New %s"
+#~ msgstr "%s erstellen"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "New %s"
+#~ msgstr "Neue %s"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Edit %s"
+#~ msgstr "%s bearbeiten"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Update %s"
+#~ msgstr "%s aktualieren"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "View %s"
+#~ msgstr "%s ansehen"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Search %s"
+#~ msgstr "%s suchen"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Insert Into %s"
+#~ msgstr "In die %s einfügen"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Uploaded to this %s"
+#~ msgstr "Zur %s hochladen"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "%s Navigation"
+#~ msgstr "%s Navigation"
+
+#~ msgctxt "Attribute Template"
+#~ msgid "Filter %s"
+#~ msgstr "%s filtern"
+
+#~ msgctxt "Detail Template"
+#~ msgid "%s Archives"
+#~ msgstr "%s Archive"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Parent %s:"
+#~ msgstr "Eltern %s"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Add New %s"
+#~ msgstr "%s erstellen"
+
+#~ msgctxt "Detail Template"
+#~ msgid "New %s"
+#~ msgstr "Neue %s"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Edit %s"
+#~ msgstr "%s bearbeiten"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Update %s"
+#~ msgstr "%s aktualisieren"
+
+#~ msgctxt "Detail Template"
+#~ msgid "View %s"
+#~ msgstr "%s ansehen"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Search %s"
+#~ msgstr "%s suchen"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Insert Into %s"
+#~ msgstr "In die %s einfügen"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Uploaded to this %s"
+#~ msgstr "Zur %s hochladen"
+
+#~ msgctxt "Detail Template"
+#~ msgid "%s Navigation"
+#~ msgstr "%s Navigation"
+
+#~ msgctxt "Detail Template"
+#~ msgid "Filter %s"
+#~ msgstr "%s filtern"
+
+#~ msgctxt "Product"
+#~ msgid "%s Archives"
+#~ msgstr "%s Archiv"
+
+#~ msgctxt "Product"
+#~ msgid "Parent %s:"
+#~ msgstr "Eltern %s:"
+
+#~ msgctxt "Product"
+#~ msgid "Add New %s"
+#~ msgstr "%s erstellen"
+
+#~ msgctxt "Product"
+#~ msgid "New %s"
+#~ msgstr "%s erstellen"
+
+#~ msgctxt "Product"
+#~ msgid "Edit %s"
+#~ msgstr "%s bearbeiten"
+
+#~ msgctxt "Product"
+#~ msgid "Update %s"
+#~ msgstr "%s aktualisieren"
+
+#~ msgctxt "Product"
+#~ msgid "View %s"
+#~ msgstr "%s ansehen"
+
+#~ msgctxt "Product"
+#~ msgid "Search %s"
+#~ msgstr "%s suchen"
+
+#~ msgctxt "Product"
+#~ msgid "Insert Into %s"
+#~ msgstr "In das %s einfügen"
+
+#~ msgctxt "Product"
+#~ msgid "Uploaded to this %s"
+#~ msgstr "Zum %s hochladen"
+
+#~ msgctxt "Product"
+#~ msgid "%s Navigation"
+#~ msgstr "%s Navigation"
+
+#~ msgctxt "Product"
+#~ msgid "Filter %s"
+#~ msgstr "%s filtern"
+
+#~ msgctxt "Shop Template"
+#~ msgid "%s Archives"
+#~ msgstr "%s Archiv"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Parent %s:"
+#~ msgstr "Eltern %s"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Add New %s"
+#~ msgstr "%s erstellen"
+
+#~ msgctxt "Shop Template"
+#~ msgid "New %s"
+#~ msgstr "%s erstellen"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Edit %s"
+#~ msgstr "%s bearbeiten"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Update %s"
+#~ msgstr "%s aktualisieren"
+
+#~ msgctxt "Shop Template"
+#~ msgid "View %s"
+#~ msgstr "%s ansehen"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Search %s"
+#~ msgstr "%s suchen"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Insert Into %s"
+#~ msgstr "In die %s einfügen"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Uploaded to this %s"
+#~ msgstr "Zur %s hochladen"
+
+#~ msgctxt "Shop Template"
+#~ msgid "%s Navigation"
+#~ msgstr "%s Navigation"
+
+#~ msgctxt "Shop Template"
+#~ msgid "Filter %s"
+#~ msgstr "%s filtern"
+
+#~ msgid "Thank you for creating with <a href=\"%s\">Affilicious</a>."
+#~ msgstr "Danke für das Vertrauen in <a href=\"%s\">Affilicious</a>."
 
 #~ msgid "Attribute"
 #~ msgstr "Attribut"
