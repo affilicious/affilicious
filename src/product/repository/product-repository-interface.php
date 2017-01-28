@@ -48,9 +48,9 @@ interface Product_Repository_Interface
      * This method will be replaced with the specification pattern in future versions.
      *
      * @param Product_Variant[] $product_variants
-     * @param Product_Id $parentProduct_Id
+     * @param Product_Id $parent_product_id
      */
-    public function delete_all_variants_from_parent_except($product_variants, Product_Id $parentProduct_Id);
+    public function delete_all_variants_from_parent_except($product_variants, Product_Id $parent_product_id);
 
     /**
      * Find a product by the given ID.

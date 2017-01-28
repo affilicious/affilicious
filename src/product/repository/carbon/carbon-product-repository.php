@@ -177,6 +177,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         if($product instanceof Product_Variant) {
             $this->store_attributes($product);
+
+            // Quick fix to update the variant in the parent product
+            $complex_product = $product->get_parent();
+            $complex_product->add_variant($product);
+            $this->store_variants($complex_product);
         }
 
         if($product instanceof Complex_Product) {
@@ -390,9 +395,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $title = new Name($post->post_title);
         $slug = new Slug($post->post_name);
-        $key = $this->key_generator->generate_from_slug($slug);
 
-        $product_variant = new Product_Variant($parent, $title, $slug, $key);
+        $product_variant = new Product_Variant($parent, $title, $slug);
         $product_variant = $this->add_id($product_variant, $post);
         $product_variant = $this->add_thumbnail($product_variant, $post);
         $product_variant = $this->add_shops($product_variant);
@@ -1005,6 +1009,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                     self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
                     self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
                     self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
+                    self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
                     self::SHOP_PRICE => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_value() : null,
                     self::SHOP_OLD_PRICE => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_value() : null,
                     self::SHOP_CURRENCY => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_currency()->get_value() : Currency::EURO,
@@ -1165,7 +1170,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @inheritdoc
      * @since 0.8
      */
-    public function delete_all_variants_from_parent_except($product_variants, Product_Id $parentProduct_Id)
+    public function delete_all_variants_from_parent_except($product_variants, Product_Id $parent_product_id)
     {
         Assert::allIsInstanceOf($product_variants, Product_Variant::class);
 
@@ -1175,7 +1180,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 continue;
             }
 
-            if(!$parentProduct_Id->is_equal_to($product_variant->get_parent()->get_id())) {
+            if(!$parent_product_id->is_equal_to($product_variant->get_parent()->get_id())) {
                 continue;
             }
 
@@ -1194,7 +1199,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         $query = new \WP_Query(array(
             'post_type' => Product::POST_TYPE,
-            'post_parent' => $parentProduct_Id->get_value(),
+            'post_parent' => $parent_product_id->get_value(),
             'post__not_in' => $not_to_delete,
         ));
 
