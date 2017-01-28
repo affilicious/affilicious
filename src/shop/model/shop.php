@@ -190,19 +190,19 @@ class Shop
     {
         $other_pricing = $other_shop->get_pricing();
 
-        if(!$this->pricing->has_discounted_price() && !$other_pricing->has_discounted_price()) {
+        if(!$this->pricing->has_price() && !$other_pricing->has_price()) {
             return true;
         }
 
-        if($this->pricing->has_discounted_price() && !$other_pricing->has_discounted_price()) {
+        if($this->pricing->has_price() && !$other_pricing->has_price()) {
             return true;
         }
 
-        if(!$this->pricing->has_discounted_price() && $other_pricing->has_discounted_price()) {
+        if(!$this->pricing->has_price() && $other_pricing->has_price()) {
             return false;
         }
 
-        return $this->pricing->get_discounted_price()->is_smaller_than($other_pricing->get_discounted_price());
+        return $this->pricing->get_price()->is_smaller_than($other_pricing->get_price());
     }
 
     /**

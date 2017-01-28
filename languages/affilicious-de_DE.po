@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-01-28 14:08+0100\n"
+"POT-Creation-Date: 2017-01-28 14:25+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -691,12 +691,12 @@ msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
 #: src/product/setup/product-setup.php:412
-msgid "Discounted Price"
-msgstr "Ermäßigter Preis"
+msgid "Price"
+msgstr "Preis"
 
 #: src/product/setup/product-setup.php:414
-msgid "Stock Price"
-msgstr "Bestandspreis"
+msgid "Old Price"
+msgstr "Alter Preis"
 
 #: src/product/setup/product-setup.php:416
 msgid "Currency"

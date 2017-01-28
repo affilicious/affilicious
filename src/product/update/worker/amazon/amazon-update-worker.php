@@ -278,12 +278,12 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                         }
 
                         if($result['price'] !== null && $this->should_update_price($update_interval)) {
-                            $shop->get_pricing()->set_discounted_price($result['price']);
+                            $shop->get_pricing()->set_price($result['price']);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
                         if($shop->get_pricing()->get_availability()->is_out_of_stock() && $this->should_update_price($update_interval)) {
-                            $shop->get_pricing()->set_discounted_price(null);
+                            $shop->get_pricing()->set_price(null);
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
                     }

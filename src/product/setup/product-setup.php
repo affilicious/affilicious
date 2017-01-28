@@ -409,9 +409,9 @@ class Product_Setup
                         'available' => __('Available', 'affilicious'),
                         'out-of-stock' => __('Out Of Stock', 'affilicious'),
                     )),
-                Carbon_Field::make('text', Carbon_Product_Repository::SHOP_DISCOUNTED_PRICE, __('Discounted Price', 'affilicious'))
+                Carbon_Field::make('text', Carbon_Product_Repository::SHOP_PRICE, __('Price', 'affilicious'))
                     ->set_width(50),
-                Carbon_Field::make('text', Carbon_Product_Repository::SHOP_STOCK_PRICE, __('Stock Price', 'affilicious'))
+                Carbon_Field::make('text', Carbon_Product_Repository::SHOP_OLD_PRICE, __('Old Price', 'affilicious'))
                     ->set_width(50),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)

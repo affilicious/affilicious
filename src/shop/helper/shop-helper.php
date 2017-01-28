@@ -31,20 +31,20 @@ class Shop_Helper
             ),
             'pricing' => array(
                 'availability' => $shop->get_pricing()->get_availability()->get_value(),
-                'discounted_price' => !$shop->get_pricing()->has_discounted_price() ? null : array(
-                    'value' => $shop->get_pricing()->get_discounted_price()->get_value(),
+                'price' => !$shop->get_pricing()->has_price() ? null : array(
+                    'value' => $shop->get_pricing()->get_price()->get_value(),
                     'currency' => array(
-                        'value' => $shop->get_pricing()->get_discounted_price()->get_currency()->get_value(),
-                        'label' => $shop->get_pricing()->get_discounted_price()->get_currency()->get_label(),
-                        'symbol' => $shop->get_pricing()->get_discounted_price()->get_currency()->get_symbol(),
+                        'value' => $shop->get_pricing()->get_price()->get_currency()->get_value(),
+                        'label' => $shop->get_pricing()->get_price()->get_currency()->get_label(),
+                        'symbol' => $shop->get_pricing()->get_price()->get_currency()->get_symbol(),
                     ),
                 ),
-                'stock_price' => !$shop->get_pricing()->has_stock_price() ? null : array(
-                    'value' => $shop->get_pricing()->get_stock_price()->get_value(),
+                'old_price' => !$shop->get_pricing()->has_old_price() ? null : array(
+                    'value' => $shop->get_pricing()->get_old_price()->get_value(),
                     'currency' => array(
-                        'value' => $shop->get_pricing()->get_stock_price()->get_currency()->get_value(),
-                        'label' => $shop->get_pricing()->get_stock_price()->get_currency()->get_label(),
-                        'symbol' => $shop->get_pricing()->get_stock_price()->get_currency()->get_symbol(),
+                        'value' => $shop->get_pricing()->get_old_price()->get_currency()->get_value(),
+                        'label' => $shop->get_pricing()->get_old_price()->get_currency()->get_label(),
+                        'symbol' => $shop->get_pricing()->get_old_price()->get_currency()->get_symbol(),
                     ),
                 ),
             )

@@ -59,8 +59,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
     const SHOPS = '_affilicious_product_shops';
     const SHOP_TEMPLATE_ID = 'template_id';
-    const SHOP_DISCOUNTED_PRICE = 'discounted_price';
-    const SHOP_STOCK_PRICE = 'stock_price';
+    const SHOP_PRICE = 'price';
+    const SHOP_OLD_PRICE = 'old_price';
     const SHOP_CURRENCY = 'currency';
     const SHOP_AVAILABILITY = 'availability';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
@@ -852,8 +852,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $affiliate_link = !empty($raw_shop[self::SHOP_AFFILIATE_LINK]) ? $raw_shop[self::SHOP_AFFILIATE_LINK] : null;
         $affiliate_id = !empty($raw_shop[self::SHOP_AFFILIATE_ID]) ? $raw_shop[self::SHOP_AFFILIATE_ID] : null;
         $availability = !empty($raw_shop[self::SHOP_AVAILABILITY]) ? $raw_shop[self::SHOP_AVAILABILITY] : null;
-        $discounted_price = !empty($raw_shop[self::SHOP_DISCOUNTED_PRICE]) ? $raw_shop[self::SHOP_DISCOUNTED_PRICE] : null;
-        $stock_price = !empty($raw_shop[self::SHOP_STOCK_PRICE]) ? $raw_shop[self::SHOP_STOCK_PRICE] : null;
+        $price = !empty($raw_shop[self::SHOP_PRICE]) ? $raw_shop[self::SHOP_PRICE] : null;
+        $old_price = !empty($raw_shop[self::SHOP_OLD_PRICE]) ? $raw_shop[self::SHOP_OLD_PRICE] : null;
         $currency = !empty($raw_shop[self::SHOP_CURRENCY]) ? $raw_shop[self::SHOP_CURRENCY] : null;
         $updated_at = !empty($raw_shop[self::SHOP_UPDATED_AT]) ? $raw_shop[self::SHOP_UPDATED_AT] : null;
 
@@ -868,8 +868,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             ),
             new Pricing(
                 new Availability($availability),
-                $discounted_price !== null ? new Money($discounted_price, new Currency($currency)) : null,
-                $stock_price !== null ? new Money($stock_price, new Currency($currency)) : null
+                $price !== null ? new Money($price, new Currency($currency)) : null,
+                $old_price !== null ? new Money($old_price, new Currency($currency)) : null
             )
         );
 
@@ -940,9 +940,9 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
                 self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
                 self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
-                self::SHOP_DISCOUNTED_PRICE => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_value() : null,
-                self::SHOP_STOCK_PRICE => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : null,
-                self::SHOP_CURRENCY => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_currency()->get_value() : Currency::EURO,
+                self::SHOP_PRICE => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_value() : null,
+                self::SHOP_OLD_PRICE => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_value() : null,
+                self::SHOP_CURRENCY => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_currency()->get_value() : Currency::EURO,
                 self::SHOP_UPDATED_AT => $shop->get_updated_at()->getTimestamp(),
             );
         }
@@ -1037,9 +1037,9 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                     self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
                     self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
                     self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
-                    self::SHOP_DISCOUNTED_PRICE => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_value() : null,
-                    self::SHOP_STOCK_PRICE => $shop->get_pricing()->has_stock_price() ? $shop->get_pricing()->get_stock_price()->get_value() : null,
-                    self::SHOP_CURRENCY => $shop->get_pricing()->has_discounted_price() ? $shop->get_pricing()->get_discounted_price()->get_currency()->get_value() : Currency::EURO,
+                    self::SHOP_PRICE => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_value() : null,
+                    self::SHOP_OLD_PRICE => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_value() : null,
+                    self::SHOP_CURRENCY => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_currency()->get_value() : Currency::EURO,
                 );
             }
 

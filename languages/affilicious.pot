@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2017-01-28 "
-"14:08+0100\n"
+"14:24+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -724,11 +724,11 @@ msgid "Out Of Stock"
 msgstr ""
 
 #: src/product/setup/product-setup.php:412
-msgid "Discounted Price"
+msgid "Price"
 msgstr ""
 
 #: src/product/setup/product-setup.php:414
-msgid "Stock Price"
+msgid "Old Price"
 msgstr ""
 
 #: src/product/setup/product-setup.php:416
