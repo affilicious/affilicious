@@ -682,7 +682,7 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
         return null;
     }
 
-    $affiliate_link = $shop['affiliate_link'];
+    $affiliate_link = isset($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
 
     return $affiliate_link;
 }
@@ -702,7 +702,8 @@ function aff_get_product_cheapest_affiliate_link($product_or_id = null)
         return null;
     }
 
-    $affiliate_link = $shop['affiliate_link'];
+
+    $affiliate_link = isset($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
 
     return $affiliate_link;
 }
