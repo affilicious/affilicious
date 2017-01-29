@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Slug: Affilicious
+ * Plugin Name: Affilicious
  * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
  * Version: 0.7.2
  * Author: Affilicious Team
@@ -8,7 +8,7 @@
  * Plugin URI: https://affilicioustheme.de/downloads/affilicious/
  * License: GPL-2.0 or later
  * Requires at least: 4.5
- * Tested up to: 4.6
+ * Tested up to: 4.7
  * Text Domain: affilicious
  * Domain Path: /languages/
  *
