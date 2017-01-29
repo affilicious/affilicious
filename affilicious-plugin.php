@@ -249,6 +249,7 @@ if(!class_exists('Affilicious_Plugin')) {
             $currency_code_migration = $this->container['affilicious.shop.migration.currency_code'];
             $currency_code_migration->migrate();
 
+
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->activate();
 
@@ -363,8 +364,7 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.shop.factory.shop_template'] = function ($c) {
                 return new \Affilicious\Shop\Factory\In_Memory\In_Memory_Shop_Template_Factory(
-                    $c['affilicious.common.generator.slug'],
-                    $c['affilicious.common.generator.key']
+                    $c['affilicious.common.generator.slug']
                 );
             };
 
@@ -498,6 +498,13 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.shop.migration.post_type'] = function () {
                 return new \Affilicious\Shop\Migration\Post_Type_Migration();
+            };
+
+            $this->container['affilicious.shop.migration.post_to_term'] = function ($c) {
+                return new \Affilicious\Shop\Migration\Post_To_Term_Migration(
+                    $c['affilicious.shop.factory.shop_template'],
+                    $c['affilicious.shop.repository.shop_template']
+                );
             };
 
             $this->container['affilicious.shop.migration.currency_code'] = function () {
@@ -650,6 +657,11 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+            add_action('init', function() {
+                $post_to_term_migration = $this->container['affilicious.shop.migration.post_to_term'];
+                $post_to_term_migration->migrate();
+            }, 9999);
         }
 
         /**

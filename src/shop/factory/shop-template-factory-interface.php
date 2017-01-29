@@ -18,10 +18,9 @@ interface Shop_Template_Factory_Interface
      * @since 0.8
      * @param Name|Slug $name
      * @param Slug $slug
-     * @param Key $key
      * @return Shop_Template
      */
-    public function create(Name $name, Slug $slug, Key $key);
+    public function create(Name $name, Slug $slug);
 
     /**
      * Create a new shop template.
