@@ -1,0 +1,83 @@
+<?php
+namespace Affilicious\Detail\Migration;
+
+use Affilicious\Common\Model\Name;
+use Affilicious\Detail\Factory\Detail_Template_Factory_Interface;
+use Affilicious\Detail\Model\Type;
+use Affilicious\Detail\Model\Unit;
+use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
+use Carbon_Fields\Container as Carbon_Container;
+use Carbon_Fields\Field as Carbon_Field;
+
+if (!defined('ABSPATH')) {
+    exit('Not allowed to access pages directly.');
+}
+
+class Post_To_Term_Migration
+{
+    /**
+     * @var Detail_Template_Factory_Interface
+     */
+    private $detail_template_factory;
+
+    /**
+     * @var Detail_Template_Repository_Interface
+     */
+    private $detail_template_repository;
+
+    /**
+     * @since 0.8
+     * @param Detail_Template_Factory_Interface $detail_template_factory
+     * @param Detail_Template_Repository_Interface $detail_template_repository
+     */
+    public function __construct(
+        Detail_Template_Factory_Interface $detail_template_factory,
+        Detail_Template_Repository_Interface $detail_template_repository
+    ) {
+        $this->detail_template_factory = $detail_template_factory;
+        $this->detail_template_repository = $detail_template_repository;
+    }
+
+    /**
+     * Migrate the detail templates posts to taxonomy terms.
+     *
+     * @since 0.8
+     */
+    public function migrate()
+    {
+        $posts = get_posts(array(
+            'post_type' => 'detail_group',
+            'status' => 'published'
+        ));
+
+
+        foreach ($posts as $post) {
+            $fields = carbon_get_post_meta($post->ID, '_affilicious_detail_group_fields', 'complex');
+            if(!empty($fields)) {
+                foreach ($fields as $field) {
+                    $name = isset($field['name']) ? $field['name'] : null;
+                    $type = isset($field['type']) ? $field['type'] : null;
+                    $unit = isset($field['unit']) ? $field['unit'] : null;
+
+                    if(empty($name) || empty($type)) {
+                        continue;
+                    }
+
+                    $detail_template = $this->detail_template_factory->create_from_name(
+                        new Name($name),
+                        new Type($type),
+                        !empty($unit) ? new Unit($unit) : null
+                    );
+
+                    try {
+                        $this->detail_template_repository->store($detail_template);
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                }
+            }
+
+            wp_delete_post($post->ID);
+        }
+    }
+}

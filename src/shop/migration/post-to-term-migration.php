@@ -71,7 +71,6 @@ class Post_To_Term_Migration
             try {
                 $this->shop_template_repository->store($shop_template);
             } catch (\Exception $e) {
-                continue;
             } finally {
                 wp_delete_post($post->ID);
             }
