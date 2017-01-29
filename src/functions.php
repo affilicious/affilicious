@@ -548,7 +548,15 @@ function aff_the_product_tags($product_or_id = null, $before = '', $after = '')
 function aff_get_product_cheapest_shop($product_or_id = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Shop_Aware_Interface)) {
+    if($product === null) {
+        return null;
+    }
+
+    if($product instanceof Complex_Product) {
+        $product = $product->get_default_variant();
+    }
+
+    if(!($product instanceof Shop_Aware_Interface)) {
         return null;
     }
 
@@ -592,7 +600,15 @@ function aff_has_product_price($product_or_id = null, $affiliate_link = null)
 function aff_get_product_price($product_or_id = null, $affiliate_link = null)
 {
     $product = aff_get_product($product_or_id);
-    if($product === null || !($product instanceof Shop_Aware_Interface)) {
+    if($product === null) {
+        return null;
+    }
+
+    if($product instanceof Complex_Product) {
+        $product = $product->get_default_variant();
+    }
+
+    if(!($product instanceof Shop_Aware_Interface)) {
         return null;
     }
 
