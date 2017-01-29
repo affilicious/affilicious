@@ -304,6 +304,11 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Common\License\EDD_License_Manager();
             };
 
+            // TODO: Remove the Alpha support for the BETA switch
+            $this->container['affilicious.common.application.license.manager'] = function () {
+                return new \Affilicious\Common\License\EDD_License_Manager();
+            };
+
             $this->container['affilicious.common.filter.admin_footer_text'] = function () {
                 return new \Affilicious\Common\Filter\Admin_Footer_Text_Filter();
             };
