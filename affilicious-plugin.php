@@ -249,6 +249,17 @@ if(!class_exists('Affilicious_Plugin')) {
             $currency_code_migration = $this->container['affilicious.shop.migration.currency_code'];
             $currency_code_migration->migrate();
 
+            $shop_post_to_term_migration = $this->container['affilicious.shop.migration.post_to_term'];
+            $shop_post_to_term_migration->migrate();
+
+            $detail_post_to_term_migration = $this->container['affilicious.detail.migration.post_to_term'];
+            $detail_post_to_term_migration->migrate();
+
+            $attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
+            $attribute_post_to_term_migration->migrate();
+
+            $product_details_migration = $this->container['affilicious.product.migration.details'];
+            $product_details_migration->migrate();
 
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->activate();
@@ -683,20 +694,6 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
-
-            add_action('init', function() {
-                $shop_post_to_term_migration = $this->container['affilicious.shop.migration.post_to_term'];
-                $shop_post_to_term_migration->migrate();
-
-                $detail_post_to_term_migration = $this->container['affilicious.detail.migration.post_to_term'];
-                $detail_post_to_term_migration->migrate();
-
-                $attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
-                $attribute_post_to_term_migration->migrate();
-
-                $product_details_migration = $this->container['affilicious.product.migration.details'];
-                $product_details_migration->migrate();
-            }, 9999);
         }
 
         /**
