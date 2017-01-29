@@ -3,6 +3,8 @@ namespace Affilicious\Attribute\Repository;
 
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Attribute_Template_Id;
+use Affilicious\Common\Model\Name;
+use Affilicious\Common\Model\Slug;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -54,6 +56,24 @@ interface Attribute_Template_Repository_Interface
      * @return null|Attribute_Template
      */
     public function find_one_by_id(Attribute_Template_Id $attribute_template_id);
+
+    /**
+     * Find one attribute template by the name.
+     *
+     * @since 0.8
+     * @param Name $name
+     * @return null|Attribute_Template
+     */
+    public function find_one_by_name(Name $name);
+
+    /**
+     * Find one attribute template by the ID.
+     *
+     * @since 0.8
+     * @param Slug $slug
+     * @return null|Attribute_Template
+     */
+    public function find_one_by_slug(Slug $slug);
 
     /**
      * Find all attribute templates by the IDs.

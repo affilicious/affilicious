@@ -89,22 +89,6 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * @inheritdoc
      * @since 0.8
      */
-    public function find_one_by_slug(Slug $slug)
-    {
-        $term = get_term_by('slug', $slug->get_value(), Shop_Template::TAXONOMY);
-        if (empty($term) || $term instanceof \WP_Error) {
-            return null;
-        }
-
-        $shop_template = $this->build($term);
-
-        return $shop_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
     public function find_all_by_id($shop_template_ids)
     {
         Assert::allIsInstanceOf($shop_template_ids, Shop_Template_Id::class);
@@ -119,6 +103,38 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         }
 
         return $shop_templates;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_name(Name $name)
+    {
+        $term = get_term_by('name', $name->get_value(), Shop_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $shop_template = $this->build($term);
+
+        return $shop_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $term = get_term_by('slug', $slug->get_value(), Shop_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $shop_template = $this->build($term);
+
+        return $shop_template;
     }
 
     /**

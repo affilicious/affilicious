@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Detail\Repository;
 
+use Affilicious\Common\Model\Name;
+use Affilicious\Common\Model\Slug;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Model\Detail_Template_Id;
 
@@ -54,6 +56,24 @@ interface Detail_Template_Repository_Interface
      * @return null|Detail_Template
      */
     public function find_one_by_id(Detail_Template_Id $detail_template_id);
+
+    /**
+     * Find one detail template by the name.
+     *
+     * @since 0.8
+     * @param Name $name
+     * @return null|Detail_Template
+     */
+    public function find_one_by_name(Name $name);
+
+    /**
+     * Find one detail template by the ID.
+     *
+     * @since 0.8
+     * @param Slug $slug
+     * @return null|Detail_Template
+     */
+    public function find_one_by_slug(Slug $slug);
 
     /**
      * Find all detail templates by the IDs.

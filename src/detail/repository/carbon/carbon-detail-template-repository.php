@@ -87,6 +87,38 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      * @inheritdoc
      * @since 0.8
      */
+    public function find_one_by_name(Name $name)
+    {
+        $term = get_term_by('name', $name->get_value(), Detail_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $detail_template = $this->build($term);
+
+        return $detail_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $term = get_term_by('slug', $slug->get_value(), Detail_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $detail_template = $this->build($term);
+
+        return $detail_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
     public function find_all_by_id($detail_template_ids)
     {
         Assert::allIsInstanceOf($detail_template_ids, Detail_Template_Id::class);

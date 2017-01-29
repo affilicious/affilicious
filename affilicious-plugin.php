@@ -526,6 +526,13 @@ if(!class_exists('Affilicious_Plugin')) {
                 );
             };
 
+            $this->container['affilicious.product.migration.details'] = function ($c) {
+                return new \Affilicious\Product\Migration\Details_Migration(
+                    $c['affilicious.product.repository.product'],
+                    $c['affilicious.detail.repository.detail_template']
+                );
+            };
+
             $this->container['affilicious.shop.migration.currency_code'] = function () {
                 return new \Affilicious\Shop\Migration\Currency_Code_Migration();
             };
@@ -686,6 +693,9 @@ if(!class_exists('Affilicious_Plugin')) {
 
                 $attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
                 $attribute_post_to_term_migration->migrate();
+
+                $product_details_migration = $this->container['affilicious.product.migration.details'];
+                $product_details_migration->migrate();
             }, 9999);
         }
 
