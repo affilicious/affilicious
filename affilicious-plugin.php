@@ -166,6 +166,7 @@ if(!class_exists('Affilicious_Plugin')) {
             $this->load_services();
             $this->register_public_hooks();
             $this->register_admin_hooks();
+            $this->migrate();
 
             // TODO: This old legacy class will be removed later
             new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
@@ -240,33 +241,6 @@ if(!class_exists('Affilicious_Plugin')) {
             $license_manager = $this->container['affilicious.common.license.manager'];
             $license_manager->activate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
 
-            $product_post_type_migration = $this->container['affilicious.product.migration.post_type'];
-            $product_post_type_migration->migrate();
-
-            $shop_post_type_migration = $this->container['affilicious.shop.migration.post_type'];
-            $shop_post_type_migration->migrate();
-
-            $currency_code_migration = $this->container['affilicious.shop.migration.currency_code'];
-            $currency_code_migration->migrate();
-
-            $shop_post_to_term_migration = $this->container['affilicious.shop.migration.post_to_term'];
-            $shop_post_to_term_migration->migrate();
-
-            $detail_post_to_term_migration = $this->container['affilicious.detail.migration.post_to_term'];
-            $detail_post_to_term_migration->migrate();
-
-            $attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
-            $attribute_post_to_term_migration->migrate();
-
-            $product_details_migration = $this->container['affilicious.product.migration.details'];
-            $product_details_migration->migrate();
-
-            $product_shops_migration = $this->container['affilicious.product.migration.shops'];
-            $product_shops_migration->migrate();
-
-            $product_variants_migration = $this->container['affilicious.product.migration.variants'];
-            $product_variants_migration->migrate();
-
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->activate();
 
@@ -289,6 +263,48 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $update_timer = $this->container['affilicious.product.update.timer'];
             $update_timer->deactivate();
+        }
+
+        /**
+         * Migrate the old code to the new version.
+         *
+         * @since 0.8
+         */
+        public function migrate()
+        {
+            add_action('admin_init', function() {
+                $migrated = get_option('_affilicious_migrated_to_beta');
+                if($migrated !== 'yes') {
+                    $product_post_type_migration = $this->container['affilicious.product.migration.post_type'];
+                    $product_post_type_migration->migrate();
+
+                    $shop_post_type_migration = $this->container['affilicious.shop.migration.post_type'];
+                    $shop_post_type_migration->migrate();
+
+                    $currency_code_migration = $this->container['affilicious.shop.migration.currency_code'];
+                    $currency_code_migration->migrate();
+
+                    $shop_post_to_term_migration = $this->container['affilicious.shop.migration.post_to_term'];
+                    $shop_post_to_term_migration->migrate();
+
+                    $detail_post_to_term_migration = $this->container['affilicious.detail.migration.post_to_term'];
+                    $detail_post_to_term_migration->migrate();
+
+                    $attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
+                    $attribute_post_to_term_migration->migrate();
+
+                    $product_details_migration = $this->container['affilicious.product.migration.details'];
+                    $product_details_migration->migrate();
+
+                    $product_shops_migration = $this->container['affilicious.product.migration.shops'];
+                    $product_shops_migration->migrate();
+
+                    $product_variants_migration = $this->container['affilicious.product.migration.variants'];
+                    $product_variants_migration->migrate();
+
+                    add_option('_affilicious_migrated_to_beta', 'yes');
+                }
+            }, 9999);
         }
 
         /**
