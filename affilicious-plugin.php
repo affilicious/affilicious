@@ -43,7 +43,7 @@ if(!class_exists('Affilicious_Plugin')) {
     final class Affilicious_Plugin
     {
         const PLUGIN_NAME = 'affilicious';
-        const PLUGIN_VERSION = '0.7.2';
+        const PLUGIN_VERSION = '0.8';
         const PLUGIN_MIN_PHP_VERSION = '5.6';
         const PLUGIN_NAMESPACE = 'Affilicious\\';
         const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
