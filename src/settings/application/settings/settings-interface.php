@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Common\Application\Setup;
+namespace Affilicious\Settings\Application\Setting;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -8,6 +8,6 @@ if (!defined('ABSPATH')) {
 /**
  * @deprecated
  */
-interface Setup_Interface
+interface Settings_Interface
 {
 }
