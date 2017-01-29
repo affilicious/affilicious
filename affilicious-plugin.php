@@ -374,8 +374,7 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.attribute.factory.attribute_template'] = function ($c) {
                 return new \Affilicious\Attribute\Factory\In_Memory\In_Memory_Attribute_Template_Factory(
-                    $c['affilicious.common.generator.slug'],
-                    $c['affilicious.common.generator.key']
+                    $c['affilicious.common.generator.slug']
                 );
             };
 
@@ -517,6 +516,13 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Detail\Migration\Post_To_Term_Migration(
                     $c['affilicious.detail.factory.detail_template'],
                     $c['affilicious.detail.repository.detail_template']
+                );
+            };
+
+            $this->container['affilicious.attribute.migration.post_to_term'] = function ($c) {
+                return new \Affilicious\Attribute\Migration\Post_To_Term_Migration(
+                    $c['affilicious.attribute.factory.attribute_template'],
+                    $c['affilicious.attribute.repository.attribute_template']
                 );
             };
 
@@ -677,6 +683,9 @@ if(!class_exists('Affilicious_Plugin')) {
 
                 $detail_post_to_term_migration = $this->container['affilicious.detail.migration.post_to_term'];
                 $detail_post_to_term_migration->migrate();
+
+                $attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
+                $attribute_post_to_term_migration->migrate();
             }, 9999);
         }
 
