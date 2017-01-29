@@ -751,7 +751,7 @@ class Field {
 			Incorrect_Syntax_Exception::raise( 'Conditional logic rules argument should be an array.' );
 		}
 
-		$allowed_operators = array( '=', '!=', '>', '>=', '<', '<=', 'IN', 'NOT IN' );
+		$allowed_operators = array( '=', '!=', '>', '>=', '<', '<=', 'IN', 'NOT IN', 'CONTAINS' );
 		$allowed_relations = array( 'AND', 'OR' );
 
 		$parsed_rules = array(

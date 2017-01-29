@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "06b85facbc5a7aef746b9f92d2bd844e",
-    "content-hash": "8fb4ec05e0cc78dafae4b333de53ac32",
+    "hash": "3ba30660b8d58d71752c934fcb7c67c3",
+    "content-hash": "abec3b9078d0cbb6130504097ae0d2f8",
     "packages": [
         {
             "name": "exeu/apai-io",
@@ -234,16 +234,16 @@
         },
         {
             "name": "htmlburger/carbon-fields",
-            "version": "v1.4.1",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/affilicious/carbon-fields.git",
-                "reference": "e755f8e534449e39fbb2457b538ff773206eccdb"
+                "reference": "f9904524cf3d358e40a04046e58b451289e3d5cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/affilicious/carbon-fields/zipball/e755f8e534449e39fbb2457b538ff773206eccdb",
-                "reference": "e755f8e534449e39fbb2457b538ff773206eccdb",
+                "url": "https://api.github.com/repos/affilicious/carbon-fields/zipball/f9904524cf3d358e40a04046e58b451289e3d5cf",
+                "reference": "f9904524cf3d358e40a04046e58b451289e3d5cf",
                 "shasum": ""
             },
             "type": "library",
@@ -339,7 +339,7 @@
                 "issues": "https://github.com/htmlburger/carbon-fields/issues",
                 "email": "wordpress@htmlburger.com"
             },
-            "time": "2017-01-28 15:28:21"
+            "time": "2017-01-29 13:44:33"
         },
         {
             "name": "pimple/pimple",
@@ -1240,16 +1240,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "1.2.2",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f"
+                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
-                "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
+                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
                 "shasum": ""
             },
             "require": {
@@ -1300,7 +1300,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2016-11-19 09:18:40"
+            "time": "2017-01-29 09:50:25"
         },
         {
             "name": "sebastian/diff",
