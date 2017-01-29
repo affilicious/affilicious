@@ -239,7 +239,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     public function find_one_by_id(Product_Id $product_id)
     {
         $post = get_post($product_id->get_value());
-        if (empty($post) || $post->post_status !== 'publish') {
+        if (empty($post)) {
             return null;
         }
 
@@ -256,7 +256,6 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     {
         $query = new \WP_Query(array(
             'post_type' => Product::POST_TYPE,
-            'post_status' => 'publish',
             'posts_per_page' => -1,
         ));
 
