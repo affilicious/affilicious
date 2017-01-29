@@ -163,6 +163,7 @@ class Shop_Template
     public function build(Tracking $tracking, Pricing $pricing)
     {
         $shop = new Shop($this->name, $this->slug, $tracking, $pricing);
+        $shop->set_template_id($this->id);
         $shop->set_thumbnail_id($this->thumbnail_id);
 
         return $shop;

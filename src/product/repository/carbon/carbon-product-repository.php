@@ -565,7 +565,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             $post = get_post($id);
             $name = new Name($name);
-            $slug = $id !== null ? new Slug($post->post_name) : $this->slug_generator->generate_from_name($name);
+            $slug = $id !== null && !empty($post->post_name) ? new Slug($post->post_name) : $this->slug_generator->generate_from_name($name);
             $product_variant = new Product_Variant($complex_product, $name, $slug);
 
             if(!empty($id)) {
@@ -971,6 +971,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             return;
         }
 
+        $names = array();
+
         /* Example for valid structure:
          *
          * $variants = array(
@@ -1038,12 +1040,15 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             foreach ($attributes as $attribute) {
                 $key = $this->key_generator->generate_from_slug($attribute->get_slug());
                 $carbon_key = sprintf(self::VARIANT_ATTRIBUTE_VALUE, $key->get_value());
-
                 $carbon_variant[$carbon_key] = $attribute->get_value()->get_value();
+                $names[] = $attribute->get_name()->get_value();
             }
 
             $carbon_variants[''][] = $carbon_variant;
         }
+
+        $enabled_attributes = implode(';', $names);
+        $this->store_post_meta($complex_product->get_id()->get_value(), self::ENABLED_ATTRIBUTES, $enabled_attributes);
 
         $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_variants, self::VARIANTS);
         foreach ($carbon_meta_keys as $carbon_meta_key => $carbon_meta_value) {

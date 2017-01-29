@@ -517,6 +517,15 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Product\Migration\Post_Type_Migration();
             };
 
+            $this->container['affilicious.product.migration.variants'] = function ($c) {
+                return new \Affilicious\Product\Migration\Variants_Migration(
+                    $c['affilicious.product.repository.product'],
+                    $c['affilicious.attribute.repository.attribute_template'],
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.product.factory.product_variant']
+                );
+            };
+
             $this->container['affilicious.shop.migration.post_type'] = function () {
                 return new \Affilicious\Shop\Migration\Post_Type_Migration();
             };
@@ -699,6 +708,11 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+            add_action('init', function() {
+                $product_variants_migration = $this->container['affilicious.product.migration.variants'];
+                $product_variants_migration->migrate();
+            }, 9999);
         }
 
         /**
