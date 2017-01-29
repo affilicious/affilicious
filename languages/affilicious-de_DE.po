@@ -533,7 +533,7 @@ msgid ""
 "<b>No detail templates available!</b> Please create one <a href=\"%s\" "
 "target=\"_blank\">here</a>."
 msgstr ""
-"<b>Keine DetailVorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
+"<b>Keine Detail Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
 #: src/product/setup/product-setup.php:528
