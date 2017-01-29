@@ -54,7 +54,7 @@ class Post_To_Term_Migration
             $fields = carbon_get_post_meta($post->ID, '_affilicious_attribute_group_attributes', 'complex');
             if(!empty($fields)) {
                 foreach ($fields as $field) {
-                    $name = isset($field['name']) ? $field['name'] : null;
+                    $name = isset($field['title']) ? $field['title'] : null;
                     $type = isset($field['type']) ? $field['type'] : null;
                     $unit = isset($field['unit']) ? $field['unit'] : null;
 
