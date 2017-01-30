@@ -47,7 +47,7 @@ class Post_To_Term_Migration
     {
         $posts = get_posts(array(
             'post_type' => 'aff_attr_template',
-            'status' => 'published'
+            'status' => 'publish'
         ));
 
         foreach ($posts as $post) {

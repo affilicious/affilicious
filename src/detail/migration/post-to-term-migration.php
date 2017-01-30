@@ -47,10 +47,9 @@ class Post_To_Term_Migration
     {
         $posts = get_posts(array(
             'post_type' => 'detail_group',
-            'status' => 'published'
+            'status' => 'publish'
         ));
-
-
+        
         foreach ($posts as $post) {
             $fields = carbon_get_post_meta($post->ID, '_affilicious_detail_group_fields', 'complex');
             if(!empty($fields)) {
