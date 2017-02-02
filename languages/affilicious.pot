@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2017-02-02 "
-"15:10+0100\n"
+"23:23+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -201,16 +201,31 @@ msgid ""
 msgstr ""
 
 #: src/common/options/affilicious-options.php:19
-msgid ""
-"Custom Header Scripts (like CSS)"
+msgid "Custom Header Scripts"
 msgstr ""
 
 #: src/common/options/affilicious-options.php:20
 msgid ""
-"Custom Footer Scripts (like JS)"
+"Add your custom header scripts "
+"like CSS or JS with the proper "
+"&lt;style&gt or &lt;script&gt "
+"tags."
 msgstr ""
 
-#: src/common/options/affilicious-options.php:25
+#: src/common/options/affilicious-options.php:21
+msgid "Custom Footer Scripts"
+msgstr ""
+
+#: src/common/options/affilicious-options.php:22
+msgid ""
+"Add your custom footer scripts "
+"like Google Analytics tracking "
+"code, CSS or JS with the proper "
+"&lt;style&gt or &lt;script&gt "
+"tags."
+msgstr ""
+
+#: src/common/options/affilicious-options.php:27
 msgid "Scripts"
 msgstr ""
 
