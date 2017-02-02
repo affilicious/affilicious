@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-01-28 "
-"19:38+0100\n"
+"POT-Creation-Date: 2017-02-02 "
+"15:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: affilicious-plugin.php:235
+#: affilicious-plugin.php:236
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -192,7 +192,7 @@ msgctxt "Attribute Template"
 msgid "Filter %s"
 msgstr ""
 
-#: src/common/filter/admin-footer-text-filter.php:22
+#: src/common/filter/admin-footer-text-filter.php:20
 #, php-format
 msgid ""
 "Thank you for creating with <a "
@@ -201,11 +201,13 @@ msgid ""
 msgstr ""
 
 #: src/common/options/affilicious-options.php:19
-msgid "Custom CSS"
+msgid ""
+"Custom Header Scripts (like CSS)"
 msgstr ""
 
 #: src/common/options/affilicious-options.php:20
-msgid "Custom JS"
+msgid ""
+"Custom Footer Scripts (like JS)"
 msgstr ""
 
 #: src/common/options/affilicious-options.php:25
@@ -404,13 +406,13 @@ msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr ""
 
-#: src/functions.php:1165
+#: src/functions.php:1182
 msgid ""
 "Incl. 19 % VAT and excl. "
 "shipping costs."
 msgstr ""
 
-#: src/functions.php:1189
+#: src/functions.php:1206
 #, php-format
 msgid "Last updated: %s."
 msgstr ""

@@ -16,8 +16,8 @@ class Affilicious_Options
 		do_action('affilicious_options_affilicious_before_render');
 
 		$scripts_tab = apply_filters('affilicious_options_affilicious_container_scripts_tab', array(
-			Carbon_Field::make('header_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_css_field', __('Custom CSS', 'affilicious')),
-			Carbon_Field::make('footer_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_js_field', __('Custom JS', 'affilicious')),
+			Carbon_Field::make('header_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_header_scripts', __('Custom Header Scripts (like CSS)', 'affilicious')),
+			Carbon_Field::make('footer_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_footer_scripts', __('Custom Footer Scripts (like JS)', 'affilicious')),
 		));
 
 		$container = Carbon_Container::make('theme_options', 'Affilicious')
