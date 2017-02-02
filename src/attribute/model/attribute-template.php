@@ -124,4 +124,23 @@ class Attribute_Template
 	        $this->get_type()->is_equal_to($other->get_type()) &&
             ($this->has_unit() && $this->get_unit()->is_equal_to($other->get_unit()) || !$other->has_unit());
 	}
+
+    /**
+     * Get the raw Wordpress term of the attribute template.
+     *
+     * @since 0.8.2
+     * @param string $output
+     * @param string $filter
+     * @return array|null|\WP_Error|\WP_Term
+     */
+    public function get_term($output = OBJECT, $filter = 'raw')
+    {
+        if(!$this->has_id()) {
+            return null;
+        }
+
+        $term = get_term($this->id->get_value(), self::TAXONOMY, $output, $filter);
+
+        return $term;
+    }
 }

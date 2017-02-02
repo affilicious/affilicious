@@ -216,21 +216,6 @@ class Product
     }
 
     /**
-     * Get the raw Wordpress post
-     *
-     * @since 0.8
-     * @return null|\WP_Post
-     */
-    public function get_raw_post()
-    {
-        if(!$this->has_id()) {
-            return null;
-        }
-
-        return get_post($this->id->get_value());
-    }
-
-    /**
      * Check if this product is equal to the other one.
      *
      * @since 0.8
@@ -248,5 +233,36 @@ class Product
             $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) &&
             $this->get_image_gallery() == $this->get_image_gallery() &&
             $this->get_updated_at() == $other->get_updated_at();
+    }
+
+    /**
+     * Get the raw Wordpress post of the product.
+     *
+     * @deprecated
+     * @since 0.8
+     * @return array|null|\WP_Error|\WP_Term
+     */
+    public function get_raw_post()
+    {
+        return $this->get_post();
+    }
+
+    /**
+     * Get the raw Wordpress post of the product.
+     *
+     * @since 0.8.2
+     * @param string $output
+     * @param string $filter
+     * @return array|null|\WP_Error|\WP_Term
+     */
+    public function get_post($output = OBJECT, $filter = 'raw')
+    {
+        if(!$this->has_id()) {
+            return null;
+        }
+
+        $term = get_post($this->id->get_value(), $output, $filter);
+
+        return $term;
     }
 }

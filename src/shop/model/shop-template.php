@@ -186,4 +186,23 @@ class Shop_Template
             ($this->has_thumbnail_id() && $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) || !$other->has_thumbnail_id()) &&
             ($this->has_provider_id() && $this->get_provider_id()->is_equal_to($other->get_provider_id()) || !$other->has_provider_id());
 	}
+
+    /**
+     * Get the raw Wordpress term of the shop template.
+     *
+     * @since 0.8.2
+     * @param string $output
+     * @param string $filter
+     * @return array|null|\WP_Error|\WP_Term
+     */
+	public function get_term($output = OBJECT, $filter = 'raw')
+    {
+        if(!$this->has_id()) {
+            return null;
+        }
+
+        $term = get_term($this->id->get_value(), self::TAXONOMY, $output, $filter);
+
+        return $term;
+    }
 }
