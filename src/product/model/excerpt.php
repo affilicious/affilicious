@@ -20,7 +20,7 @@ class Excerpt
      */
     public function __construct($value)
     {
-        Assert::stringNotEmpty($value, 'The excerpt must be a non empty string. Got: %s');
+        Assert::string($value, 'The excerpt must be a string. Got: %s');
 
         $this->set_value($value);
     }
