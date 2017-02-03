@@ -39,9 +39,10 @@ class Money
     public function __construct($value, Currency $currency)
     {
         if(is_string($value)) {
+            $value = str_replace(',', '.', $value);
             $value = floatval($value);
         }
-        
+
         if(is_numeric($value)) {
             $value = number_format($value, 2, '.', '');
         }

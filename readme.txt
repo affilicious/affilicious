@@ -9,6 +9,7 @@ Create and manage affiliate websites in Wordpress with price comparisons, shop, 
 
 == Changelog ==
 = 0.8.3 =
+* Added an option to set an update interval for old prices
 * Added the "affilicious_init" and "affilicious_admin_init" Wordpress hooks.
 
 = 0.8.2 =

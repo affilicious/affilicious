@@ -277,9 +277,23 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
-                        if($result['price'] !== null && $this->should_update_price($update_interval)) {
-                            $shop->get_pricing()->set_price($result['price']);
-                            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                        if($result['price'] !== null) {
+                            $price = $shop->get_pricing()->get_price();
+
+                            if($this->should_update_price($update_interval)) {
+                                $shop->get_pricing()->set_price($result['price']);
+                                $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                            }
+
+                            if($this->should_update_old_price($update_interval)) {
+                                if($price !== null && $price->is_greater_than($shop->get_pricing()->get_price())) {
+                                    $shop->get_pricing()->set_old_price($price);
+                                    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                                } else {
+                                    $shop->get_pricing()->set_old_price(null);
+                                    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                                }
+                            }
                         }
 
                         if($shop->get_pricing()->get_availability()->is_out_of_stock() && $this->should_update_price($update_interval)) {
@@ -422,6 +436,25 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         $should_update = $price_update_interval === $update_interval;
+
+        return $should_update;
+    }
+
+    /**
+     * Check if we have to update the old price.
+     *
+     * @since 0.7
+     * @param string $update_interval
+     * @return bool
+     */
+    protected function should_update_old_price($update_interval)
+    {
+        $old_price_update_interval = carbon_get_theme_option(Amazon_Options::OLD_PRICE_UPDATE_INTERVAL);
+        if(empty($old_price_update_interval) || $old_price_update_interval === 'none') {
+            return false;
+        }
+
+        $should_update = $old_price_update_interval === $update_interval;
 
         return $should_update;
     }

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-02-02 "
-"23:23+0100\n"
+"POT-Creation-Date: 2017-02-03 "
+"20:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -852,110 +852,124 @@ msgstr ""
 msgid "Related Accessories"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:48
+#: src/provider/options/amazon-options.php:49
 msgid "Access Key"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:50
+#: src/provider/options/amazon-options.php:51
 msgid ""
 "The access key is used to "
 "identify you as an API user."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:51
+#: src/provider/options/amazon-options.php:52
 msgid "Secret Key"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:53
+#: src/provider/options/amazon-options.php:54
 msgid ""
 "The secret key is used like a "
 "password to sign your API "
 "requests."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:54
+#: src/provider/options/amazon-options.php:55
 msgid "Country"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:56
+#: src/provider/options/amazon-options.php:57
 msgid "Germany"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:57
+#: src/provider/options/amazon-options.php:58
 msgid "America"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:71
+#: src/provider/options/amazon-options.php:72
 msgid ""
 "The country has to match the "
 "locale of your Amazon account. "
 msgstr ""
 
-#: src/provider/options/amazon-options.php:72
+#: src/provider/options/amazon-options.php:73
 msgid "Associate Tag"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:74
+#: src/provider/options/amazon-options.php:75
 msgid ""
 "Amazon uses this ID to credit an "
 "associate for a sale."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:78
-msgid "Money Update Interval"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:80
-#: src/provider/options/amazon-options.php:89
-msgid "Hourly"
+#: src/provider/options/amazon-options.php:79
+msgid "Price Update Interval"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:81
 #: src/provider/options/amazon-options.php:90
-msgid "Twice Daily"
+#: src/provider/options/amazon-options.php:99
+msgid "Hourly"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:82
 #: src/provider/options/amazon-options.php:91
-msgid "Daily"
+#: src/provider/options/amazon-options.php:100
+msgid "Twice Daily"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:83
 #: src/provider/options/amazon-options.php:92
+#: src/provider/options/amazon-options.php:101
+msgid "Daily"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:84
+#: src/provider/options/amazon-options.php:93
+#: src/provider/options/amazon-options.php:102
 msgid "No Updates"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:85
+#: src/provider/options/amazon-options.php:86
 msgid ""
 "The automatic update interval "
 "for the prices in the shops."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:87
+#: src/provider/options/amazon-options.php:88
+msgid "Old Price Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:95
+msgid ""
+"The automatic update interval "
+"for the old prices in the shops."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:97
 msgid ""
 "Availability Update Interval"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:94
+#: src/provider/options/amazon-options.php:104
 msgid ""
 "The automatic update interval "
 "for the availability in the "
 "shops."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:98
+#: src/provider/options/amazon-options.php:108
 msgid "Amazon"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:100
+#: src/provider/options/amazon-options.php:110
 msgid "Credentials"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:101
+#: src/provider/options/amazon-options.php:111
 msgid "Updates"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:119
+#: src/provider/options/amazon-options.php:129
 msgid ""
 "<b>The credentials are valid!</"
 "b> A connection to the Amazon "
@@ -963,7 +977,7 @@ msgid ""
 "successfully established."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:123
+#: src/provider/options/amazon-options.php:133
 msgid ""
 "<b>The credentials are invalid!</"
 "b> Failed to connect to the "
