@@ -21,7 +21,7 @@ You have to know that Affilicious is developed thinking about third party develo
 Here is why developing with the Affilicious Plugin is really fun:
 
 1. Build on top of the [Wordpress](https://wordpress.com) platform.
-2. The whole architecture is based on [Domain Driven Design (DDD)](https://de.wikipedia.org/wiki/Domain-driven_Design).
+2. Real [Object-Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) with classes, interfaces and namespaces.
 3. [Carbon Fields](https://carbonfields.net) and [Backbone](http://backbonejs.org) for building complex forms with ease.
 4. [Pimple](http://pimple.sensiolabs.org) as a small Dependency Injection Container.
 5. [NodeJS](https://nodejs.org) with [Gulp](http://gulpjs.com) for building assets.
@@ -29,7 +29,6 @@ Here is why developing with the Affilicious Plugin is really fun:
 7. Lots of build-in Wordpress [Hooks](https://codex.wordpress.org/Plugin_API/Hooks) and [Filters](https://codex.wordpress.org/Plugin_API/Filter_Reference).
 8. [Composer](https://getcomposer.org) for easy vendor usage. 
 9. Automated tests with [PHPUnit](https://phpunit.de).
-10. Real [Object-Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) with classes, interfaces and namespaces.
  
 ## Installation ##
 ### Via the Git version managment ###

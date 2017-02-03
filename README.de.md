@@ -16,7 +16,7 @@ Dafür gibt es unzählige Gründe! Als Entwickler kannst du beim Ausbau von Affi
 Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu entwickeln“? Und die Antwort ist: „Einfach im Vergleich zu anderen Lösungen!“. Bei der Entwicklung von Affilicious haben wir uns von Anfang an sehr stark um die Drittanbieterunterstützung gekümmert. Nun einige Gründe, warum die Entwickelung mit dem Affilicious Plugin dir viel Freude bereiten wird:
 
 1. [Wordpress](https://wordpress.com) als bekannte Platform.
-2. Die Softwarearchitektur basiert auf [Domain Driven Design (DDD)](https://de.wikipedia.org/wiki/Domain-driven_Design).
+2. Echte [Objekt-Orientierte Programmierung](https://en.wikipedia.org/wiki/Object-oriented_programming) mit Klassen, Interfaces and Namespaces.
 3. [Carbon Fields](https://carbonfields.net) und [Backbone](http://backbonejs.org) um komplexe Formulare mit Leichtigkeit zu erstellen.
 4. [Pimple](http://pimple.sensiolabs.org) als kleiner Dependency Injection Container.
 5. [NodeJS](https://nodejs.org) und [Gulp](http://gulpjs.com) für ein einfaches Verwalten der Designs und Skripte.
@@ -24,7 +24,6 @@ Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu 
 7. Viele eingebaute Wordpress [Hooks](https://codex.wordpress.org/Plugin_API/Hooks) und [Filter](https://codex.wordpress.org/Plugin_API/Filter_Reference).
 8. [Composer](https://getcomposer.org) für einfache Inklusion von anderen Hilfsprogrammen. 
 9. Automatisierte Tests mit [PHPUnit](https://phpunit.de).
-10. Echte [Objekt-Orientierte Programmierung](https://en.wikipedia.org/wiki/Object-oriented_programming) mit Klassen, Interfaces and Namespaces.
  
 ### Über die Git-Versionsverwaltung ###
 Für die letzte stabile Master Version:
