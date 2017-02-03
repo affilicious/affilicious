@@ -1,13 +1,18 @@
 === Affilicious ===
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
 
 Create and manage affiliate websites in Wordpress with price comparisons, shop, details and more.
 
 == Changelog ==
+= 0.8.2 =
+* Fixed a bug related to empty content
+* Optimized the custom scripts help text
+* Added a method in code to get the model terms and posts.
+
 = 0.8.1 =
 * Optimized the custom header and footer scripts
 
