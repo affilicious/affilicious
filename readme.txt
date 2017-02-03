@@ -8,6 +8,9 @@ License URI: https://opensource.org/licenses/GPL-2.0
 Create and manage affiliate websites in Wordpress with price comparisons, shop, details and more.
 
 == Changelog ==
+= 0.8.3 =
+* Added the "affilicious_init" and "affilicious_admin_init" Wordpress hooks.
+
 = 0.8.2 =
 * Fixed a bug related to empty content
 * Optimized the custom scripts help text

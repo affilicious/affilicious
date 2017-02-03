@@ -697,8 +697,8 @@ if(!class_exists('Affilicious_Plugin')) {
             // Hook the slug rewrite
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             add_action('init', array($slug_rewrite_setup, 'run'), 1);
-            add_action('added_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
-            add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 800, 1);
+            add_action('added_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
+            add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
 
             // Hook the settings
             $affilicious_settings = $this->container['affilicious.common.options.affilicious'];
@@ -714,7 +714,7 @@ if(!class_exists('Affilicious_Plugin')) {
 
             // Hook the admin bar setup
             $admin_bar_setup = $this->container['affilicious.product.setup.admin_bar'];
-            add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 999);
+            add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 99);
 
             // Filter the complex products from the search
             $complex_product_filter = $this->container['affilicious.product.filter.complex_product'];
@@ -737,6 +737,10 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+            add_action('init', function() {
+                do_action('affilicious_init');
+            }, 100);
         }
 
         /**
@@ -796,6 +800,10 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $admin_footer_text_filter = $this->container['affilicious.common.filter.admin_footer_text'];
             add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
+
+            add_action('admin_init', function() {
+                do_action('affilicious_admin_init');
+            }, 100);
         }
     }
 
