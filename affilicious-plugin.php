@@ -50,10 +50,6 @@ if(!class_exists('Affilicious_Plugin')) {
         const PLUGIN_SOURCE_DIR = 'src/';
         const PLUGIN_TESTS_DIR = 'tests/';
         const PLUGIN_LANGUAGE_DIR = 'languages/';
-        const PLUGIN_STORE_URL = 'http://affilicioustheme.de';
-        const PLUGIN_ITEM_NAME = 'Affilicious';
-        const PLUGIN_LICENSE_KEY = 'e90a6d1a115da24a292fe0300afc402a';
-        const PLUGIN_AUTHOR = 'Affilicious Team';
 
         /**
          * Stores the singleton instance
@@ -176,21 +172,6 @@ if(!class_exists('Affilicious_Plugin')) {
         }
 
         /**
-         * Update the plugin with the help of the Software Licensing for Easy Digital Downloads
-         *
-         * @since 0.3
-         */
-        public function update()
-        {
-            new \EDD_SL_Plugin_Updater(self::PLUGIN_STORE_URL, __FILE__, array(
-                'version' => self::PLUGIN_VERSION,
-                'license' => self::PLUGIN_LICENSE_KEY,
-                'item_name' => self::PLUGIN_ITEM_NAME,
-                'author' => self::PLUGIN_AUTHOR,
-            ));
-        }
-
-        /**
          * Make namespaces compatible with the source code of this plugin
          *
          * @since 0.3
@@ -238,9 +219,6 @@ if(!class_exists('Affilicious_Plugin')) {
                 ));
             }
 
-            $license_manager = $this->container['affilicious.common.license.manager'];
-            $license_manager->activate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
-
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->activate();
 
@@ -255,9 +233,6 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function deactivate()
         {
-            $license_manager = $this->container['affilicious.common.license.manager'];
-            $license_manager->deactivate(self::PLUGIN_ITEM_NAME, self::PLUGIN_LICENSE_KEY);
-
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
             $slug_rewrite_setup->deactivate();
 
@@ -320,15 +295,6 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.common.generator.key'] = function () {
                 return new \Affilicious\Common\Generator\Carbon\Carbon_Key_Generator();
-            };
-
-            $this->container['affilicious.common.license.manager'] = function () {
-                return new \Affilicious\Common\License\EDD_License_Manager();
-            };
-
-            // TODO: Remove the Alpha support for the BETA switch
-            $this->container['affilicious.common.application.license.manager'] = function () {
-                return new \Affilicious\Common\License\EDD_License_Manager();
             };
 
             $this->container['affilicious.common.filter.admin_footer_text'] = function () {
@@ -627,10 +593,6 @@ if(!class_exists('Affilicious_Plugin')) {
             require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/hidden-field.php');
             require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/number-field.php');
             require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/image-gallery-field.php');
-
-            if (!class_exists('EDD_SL_Plugin_Updater')) {
-                include(dirname(__FILE__) . '/affilicious-plugin-updater.php');
-            }
         }
 
         /**
@@ -724,6 +686,10 @@ if(!class_exists('Affilicious_Plugin')) {
             $update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
             add_action('init', array($update_worker_setup, 'init'), 15);
 
+            // Hook the provider options
+            $provider_options = $this->container['affilicious.provider.options.amazon'];
+            add_action('init', array($provider_options, 'render'), 12);
+
             // Hook the amazon update worker
             $amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
             add_filter('affilicious_product_update_worker_setup_init', array($amazon_update_worker_setup, 'init'));
@@ -750,12 +716,6 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function register_admin_hooks()
         {
-            // Hook the plugin updater
-            add_action('admin_init', array($this, 'update'), 0);
-
-            $shop_options = $this->container['affilicious.provider.options.amazon'];
-            add_action('init', array($shop_options, 'render'), 12);
-
             // Hook the attribute groups
             $attribute_template_group_setup = $this->container['affilicious.attribute.setup.attribute_template'];
             add_action('manage_aff_attribute_group_posts_columns', array($attribute_template_group_setup, 'columnsHead'), 9, 2);
