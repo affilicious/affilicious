@@ -19,7 +19,7 @@ class Key
 	 */
 	public function __construct($value)
 	{
-        Assert::stringNotEmpty($value, 'The key must be a non empty string. Got: %s');
+        Assert::string($value, 'The key must be a string. Got: %s');
 
 		$this->set_value($value);
 	}

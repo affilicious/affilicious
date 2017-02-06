@@ -19,7 +19,7 @@ class Slug
 	 */
 	public function __construct($value)
 	{
-        Assert::stringNotEmpty($value, 'The slug must be a non empty string. Got: %s');
+        Assert::string($value, 'The slug must be a string. Got: %s');
 
 		$this->set_value($value);
 	}

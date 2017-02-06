@@ -19,7 +19,7 @@ class Name
      */
     public function __construct($value)
     {
-        Assert::string($value, 'The name must be a non empty string. Got: %s');
+        Assert::string($value, 'The name must be a string. Got: %s');
 
         $this->set_value($value);
     }
