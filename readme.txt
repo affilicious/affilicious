@@ -1,7 +1,7 @@
 === Affilicious ===
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
 
@@ -11,6 +11,7 @@ Create and manage affiliate websites in Wordpress with price comparisons, shop, 
 = 0.8.3 =
 * Added an option to set an update interval for old prices
 * Added the "affilicious_init" and "affilicious_admin_init" Wordpress hooks.
+* Fixed some annoying validation
 
 = 0.8.2 =
 * Fixed a bug related to empty content

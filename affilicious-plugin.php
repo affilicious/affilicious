@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Affilicious
  * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
- * Version: 0.8.2
+ * Version: 0.8.3
  * Author: Affilicious Team
  * Author URI: https://affilicioustheme.de/
  * Plugin URI: https://affilicioustheme.de/downloads/affilicious/
@@ -43,7 +43,7 @@ if(!class_exists('Affilicious_Plugin')) {
     final class Affilicious_Plugin
     {
         const PLUGIN_NAME = 'affilicious';
-        const PLUGIN_VERSION = '0.8.2';
+        const PLUGIN_VERSION = '0.8.3';
         const PLUGIN_MIN_PHP_VERSION = '5.6';
         const PLUGIN_NAMESPACE = 'Affilicious\\';
         const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
