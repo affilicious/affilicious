@@ -572,6 +572,21 @@ class Product_Setup
                 ->set_post_type(Product::POST_TYPE),
         );
 
+        // Remove the current post from the final result
+        add_filter('carbon_relationship_options', function($options, $name) {
+            if($name == Carbon_Product_Repository::RELATED_PRODUCTS || $name = Carbon_Product_Repository::RELATED_ACCESSORIES) {
+                $current_post = get_post();
+
+                foreach ($options as $key => $option) {
+                    if($option['id'] == $current_post->ID) {
+                        unset($options[$key]);
+                    }
+                }
+            }
+
+            return $options;
+        }, 10, 2);
+
         return apply_filters('affilicious_product_render_affilicious_product_container_relations_fields', $fields);
     }
 }
