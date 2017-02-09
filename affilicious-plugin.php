@@ -312,6 +312,14 @@ if(!class_exists('Affilicious_Plugin')) {
 
                     add_option('_affilicious_migrated_to_beta_with_cleaned_variants', 'yes');
                 }
+
+                $inherit_status = get_option('_affilicious_migrated_to_beta_with_variant_status_inherit');
+                if($inherit_status !== 'yes') {
+                    $variant_inherit_status_migration = $this->container['affilicious.product.migration.variant_inherit_status'];
+                    $variant_inherit_status_migration->migrate();
+
+                    add_option('_affilicious_migrated_to_beta_with_variant_status_inherit', 'yes');
+                }
             }, 9999);
         }
 
@@ -607,6 +615,10 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.product.migration.clean_variants'] = function () {
                 return new \Affilicious\Product\Migration\Clean_Variants_Migration();
+            };
+
+            $this->container['affilicious.product.migration.variant_inherit_status'] = function () {
+                return new \Affilicious\Product\Migration\Variant_Inherit_Status_Migration();
             };
 
             $this->container['affilicious.attribute.setup.admin_table'] = function() {
