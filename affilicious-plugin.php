@@ -437,6 +437,12 @@ if(!class_exists('Affilicious_Plugin')) {
                 );
             };
 
+            $this->container['affilicious.product.listener.deleted_complex_product'] = function ($c) {
+                return new \Affilicious\Product\Listener\Deleted_Complex_Product_Listener(
+                    $c['affilicious.product.repository.product']
+                );
+            };
+
             $this->container['affilicious.shop.setup.shop_template'] = function ($c) {
                 return new \Affilicious\Shop\Setup\Shop_Template_Setup(
                     $c['affilicious.provider.repository.provider']
@@ -693,6 +699,9 @@ if(!class_exists('Affilicious_Plugin')) {
             // Hook the product listeners
             $save_product_listener = $this->container['affilicious.product.listener.save_product'];
             add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
+
+            $deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
+            add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
 
             // Hook the slug rewrite
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
