@@ -304,6 +304,14 @@ if(!class_exists('Affilicious_Plugin')) {
 
                     add_option('_affilicious_migrated_to_beta', 'yes');
                 }
+
+                $cleaned_variants = get_option('_affilicious_migrated_to_beta_with_cleaned_variants');
+                if($cleaned_variants !== 'yes') {
+                    $clean_variants_migration = $this->container['affilicious.product.migration.clean_variants'];
+                    $clean_variants_migration->migrate();
+
+                    add_option('_affilicious_migrated_to_beta_with_cleaned_variants', 'yes');
+                }
             }, 9999);
         }
 
@@ -595,6 +603,10 @@ if(!class_exists('Affilicious_Plugin')) {
 
             $this->container['affilicious.shop.migration.currency_code'] = function () {
                 return new \Affilicious\Shop\Migration\Currency_Code_Migration();
+            };
+
+            $this->container['affilicious.product.migration.clean_variants'] = function () {
+                return new \Affilicious\Product\Migration\Clean_Variants_Migration();
             };
 
             $this->container['affilicious.attribute.setup.admin_table'] = function() {

@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Migration;
 
-use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
@@ -10,7 +9,6 @@ use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Product\Factory\Product_Variant_Factory_Interface;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product_Id;
-use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Product\Model\Tag;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Shop\Model\Affiliate_Id;
