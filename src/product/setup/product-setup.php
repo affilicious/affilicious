@@ -578,7 +578,7 @@ class Product_Setup
                 $current_post = get_post();
 
                 foreach ($options as $key => $option) {
-                    if($option['id'] == $current_post->ID) {
+                    if($option['id'] == $current_post->ID || $option['post_status'] == 'publish' || $option['post_type'] != Product::POST_TYPE) {
                         unset($options[$key]);
                     }
                 }
