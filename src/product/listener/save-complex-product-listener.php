@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Save_Product_Listener
+class Save_Complex_Product_Listener
 {
     /**
      * @var Product_Repository_Interface

@@ -431,8 +431,8 @@ if(!class_exists('Affilicious_Plugin')) {
                 );
             };
 
-            $this->container['affilicious.product.listener.save_product'] = function ($c) {
-                return new \Affilicious\Product\Listener\Save_Product_Listener(
+            $this->container['affilicious.product.listener.save_complex_product'] = function ($c) {
+                return new \Affilicious\Product\Listener\Save_Complex_Product_Listener(
                     $c['affilicious.product.repository.product']
                 );
             };
@@ -697,7 +697,7 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('init', array($product_setup, 'render'), 90);
 
             // Hook the product listeners
-            $save_product_listener = $this->container['affilicious.product.listener.save_product'];
+            $save_product_listener = $this->container['affilicious.product.listener.save_complex_product'];
             add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
 
             $deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
