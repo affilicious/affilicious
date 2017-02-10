@@ -7,24 +7,29 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Update_Timer implements Update_Timer_Interface
+final class Update_Timer
 {
+    const HOURLY = 'hourly';
+    const TWICE_DAILY = 'twicedaily';
+    const DAILY = 'daily';
+
     /**
      * @var Update_Manager_Interface
      */
-    protected $manager;
+    private $update_manager;
 
     /**
      * @since 0.7
-     * @param Update_Manager_Interface $manager
+     * @param Update_Manager_Interface $update_manager
      */
-    public function __construct(Update_Manager_Interface $manager)
+    public function __construct(Update_Manager_Interface $update_manager)
     {
-        $this->manager = $manager;
+        $this->update_manager = $update_manager;
     }
 
     /**
-     * @inheritdoc
+     * Activate all scheduled events for the workers.
+     *
      * @since 0.7
      */
     public function activate()
@@ -35,7 +40,8 @@ class Update_Timer implements Update_Timer_Interface
     }
 
     /**
-     * @inheritdoc
+     * Deactivate all existing scheduled events from the workers.
+     *
      * @since 0.7
      */
     public function deactivate()
@@ -46,30 +52,36 @@ class Update_Timer implements Update_Timer_Interface
     }
 
     /**
-     * @inheritdoc
+     * Run the worker tasks hourly as cron jobs.
+     *
+     * @hook affilicious_product_update_run_tasks_hourly
      * @since 0.7
      */
     public function run_tasks_hourly()
     {
-        $this->manager->run_tasks(self::HOURLY);
+        $this->update_manager->run_tasks(self::HOURLY);
     }
 
     /**
-     * @inheritdoc
+     * Run then worker tasks twice a day as cron jobs.
+     *
+     * @hook affilicious_product_update_run_tasks_twice_daily
      * @since 0.7
      */
     public function run_tasks_twice_daily()
     {
-        $this->manager->run_tasks(self::TWICE_DAILY);
+        $this->update_manager->run_tasks(self::TWICE_DAILY);
     }
 
     /**
-     * @inheritdoc
+     * Run the worker tasks daily as a cron job.
+     *
+     * @hook affilicious_product_update_run_tasks_daily
      * @since 0.7
      */
     public function run_tasks_daily()
     {
-        $this->manager->run_tasks(self::DAILY);
+        $this->update_manager->run_tasks(self::DAILY);
     }
 
     /**
