@@ -61,34 +61,41 @@ Here is why developing with the Affilicious Plugin is really fun:
 
 == Changelog ==
 
+= 0.8.4 =
+* New: Added support for wordpress.org
+* Improvement: Removed the custom EDD Updater
+* Fix: Fixed the product relations
+* Fix: Fixed the product variants post status
+* Fix: Product variants are deleted like the complex parent products now.
+
 = 0.8.3 =
-* Added an option to set an update interval for old prices
-* Added the "affilicious_init" and "affilicious_admin_init" Wordpress hooks.
-* Fixed some annoying validation
+* New: Added an option to set an update interval for old prices
+* New: Added the "affilicious_init" and "affilicious_admin_init" Wordpress hooks.
+* Fix: Fixed some annoying validation
 
 = 0.8.2 =
-* Fixed a bug related to empty content
-* Optimized the custom scripts help text
-* Added a method in code to get the model terms and posts.
+* New: Added a method in code to get the model terms and posts.
+* Fix: Fixed a bug related to empty content
+* Fix: Optimized the custom scripts help text
 
 = 0.8.1 =
-* Optimized the custom header and footer scripts
+* Fix: Optimized the custom header and footer scripts
 
 = 0.8 =
-* Beta Release
-* Optimized the shop workflow
-* Optimized the detail workflow
-* Optimized the attribute workflow
-* Added an image gallery to the product variants
-* Bug fixes
+* New: Beta Release
+* New: Added an image gallery to the product variants
+* Improvement: Optimized the shop workflow
+* Improvement: Optimized the detail workflow
+* Improvement: Optimized the attribute workflow
+* Fix: Bug fixes
 
 = 0.7.2 =
-* Added some update bug fixes.
+* Fix: Added some update bug fixes.
 
 = 0.6 =
-* Added support for product variants and attributes
+* New: Added support for product variants and attributes
 
 = 0.5.2 =
-* Added support for change logs
-* Many optimizations and cleanups
-* Added Gulp for easier and faster development
+* New: Added support for change logs
+* New: Added Gulp for easier and faster development
+* Improvement: Many optimizations and cleanups
