@@ -30,11 +30,10 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
   -moz-osx-font-smoothing: grayscale;
   vertical-align: top; }
 
-.carbon-preview .carbon-file-remove,
 .carbon-preview .carbon-image-remove {
   font-size: 20px; }
 
-.carbon-File .icon-button, .carbon-ImageGallery .icon-button {
+.icon-button, .carbon-ImageGallery .icon-button {
   padding-right: 10px;
   font-size: 13px;
   line-height: 26px; }
@@ -42,12 +41,13 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
 .carbon-Image .c2_open_media {
   padding-top: 0 !important; }
 
-.c2_open_media:before {
-  display: none !important; }
+.carbon-Image .c2_open_media:before {
+  margin-left: 5px !important; }
 
 .carbon-ImageGallery .c2_open_media:before {
-  display: none !important;
-  padding-top: 5px !important; }
+  content: "\f128";
+  line-height: 18px !important;
+  margin-left: -5px !important; }
 
 .carbon-attachment-preview {
   width: 150px;
@@ -58,7 +58,6 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
   list-style: none;
   text-align: center; }
 
-.carbon-preview .carbon-file-remove,
 .carbon-preview .carbon-image-remove {
   visibility: hidden;
   display: inline;
@@ -68,27 +67,22 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
   cursor: pointer;
   box-sizing: border-box; }
 
-.carbon-preview:hover .carbon-file-remove,
 .carbon-preview:hover .carbon-image-remove {
   visibility: visible; }
 
-.carbon-preview .carbon-file-remove:before,
 .carbon-preview .carbon-image-remove:before {
   content: "\f153";
   background: #fff;
   border-radius: 50%;
   color: #C00; }
 
-.carbon-File .input-with-button,
 .carbon-ImageGallery .input-with-button {
   padding-right: 0;
   padding-top: 5px; }
 
-.carbon-File .input-with-button .carbon-file-field,
 .carbon-ImageGallery .input-with-button .carbon-file-field {
   margin-bottom: 5px; }
 
-.carbon-File .input-with-button .button,
 .carbon-ImageGallery .input-with-button .button {
   position: relative;
   margin: 0 0 6px;

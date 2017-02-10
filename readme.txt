@@ -62,6 +62,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 == Changelog ==
 = 0.8.5 =
 * Improvement: Removed the shop, attribute and detail template columns from the product admin table.
+* Fix: Fixed the broken image, file and image gallery carbon buttons styles
 
 = 0.8.4 =
 * New: Added support for wordpress.org
