@@ -12,6 +12,7 @@ class Table_Count_Filter
     /**
      * Update the product table counts since the product variants are hidden
      *
+     * @hook views_edit-aff_product
      * @since 0.6
      * @param $views
      * @return mixed

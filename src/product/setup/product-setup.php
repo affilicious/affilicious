@@ -65,7 +65,7 @@ class Product_Setup
     }
 
     /**
-     * @inheritdoc
+     * @hook init
      * @since 0.6
      */
     public function init()
@@ -126,7 +126,7 @@ class Product_Setup
     }
 
     /**
-     * @inheritdoc
+     * @hook init
      * @since 0.6
      */
     public function render()

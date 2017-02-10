@@ -40,6 +40,7 @@ class Amazon_Update_Worker_Setup
     /**
      * Init the amazon update worker for regularly updated products.
      *
+     * @hook affilicious_product_update_worker_setup_init
      * @since 0.7
      * @param Update_Worker_Interface[] $update_workers
      * @return Update_Worker_Interface[]

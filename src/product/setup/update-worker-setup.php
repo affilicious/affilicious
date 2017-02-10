@@ -17,8 +17,8 @@ class Update_Worker_Setup
     private $update_manager;
 
     /**
-     * @param Update_Manager_Interface $update_manager
      * @since 0.7
+     * @param Update_Manager_Interface $update_manager
      */
     public function __construct(Update_Manager_Interface $update_manager)
     {
@@ -28,6 +28,7 @@ class Update_Worker_Setup
     /**
      * Init the update workers for regularly updated products.
      *
+     * @hook init
      * @since 0.7
      */
     public function init()

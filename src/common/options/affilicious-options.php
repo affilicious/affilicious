@@ -9,6 +9,7 @@ class Affilicious_Options
 	/**
 	 * Render the settings into the admin area.
      *
+     * @hook init
 	 * @since 0.7
 	 */
 	public function render()
@@ -33,6 +34,7 @@ class Affilicious_Options
 	/**
 	 * Apply the saved settings.
      *
+     * @hook init
 	 * @since 0.7
 	 */
 	public function apply()

@@ -29,7 +29,7 @@ class Shop_Template_Setup
     }
 
     /**
-	 * @inheritdoc
+	 * @hook init
      * @since 0.6
 	 */
 	public function init()
@@ -77,7 +77,7 @@ class Shop_Template_Setup
 	}
 
 	/**
-	 * @inheritdoc
+	 * @hook init
      * @since 0.8
 	 */
 	public function render()

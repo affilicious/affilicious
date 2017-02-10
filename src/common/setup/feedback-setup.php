@@ -11,7 +11,8 @@ class Feedback_Setup
 	const TO = 'feedback@affilicioustheme.de';
 
 	/**
-	 * @inheritdoc
+	 * @hook admin_menu
+	 * @since 0.3.3
 	 */
 	public function init()
 	{
@@ -26,7 +27,7 @@ class Feedback_Setup
 	}
 
 	/**
-	 * @inheritdoc
+	 * @since 0.3.3
 	 */
 	public function render()
 	{

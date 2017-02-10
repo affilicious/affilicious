@@ -37,6 +37,7 @@ class Amazon_Options
     /**
      * Render the amazon options.
      *
+     * @hook init
      * @since 0.6
      */
     public function render()

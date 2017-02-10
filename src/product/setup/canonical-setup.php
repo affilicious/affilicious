@@ -12,6 +12,7 @@ class Canonical_Setup
     /**
      * Set up the canonical link for product variants to avoid duplicated content
      *
+     * @hook wp_head
      * @since 0.6
      */
     public function set_up()

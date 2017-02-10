@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 class Attribute_Template_Setup
 {
     /**
-     * @inheritdoc
+     * @hook init
      * @since 0.8
      */
     public function init()
@@ -63,7 +63,7 @@ class Attribute_Template_Setup
     }
 
     /**
-     * @inheritdoc
+     * @hook init
      * @since 0.8
      */
     public function render()

@@ -11,7 +11,7 @@ class Product_Options
 	const LINK_RESERVED_TERMS = 'https://codex.wordpress.org/Function_Reference/register_taxonomy#Reserved_Terms';
 
 	/**
-	 * @inheritdoc
+	 * @hook init
 	 * @since 0.6
 	 */
 	public function render()
@@ -52,7 +52,7 @@ class Product_Options
 	}
 
 	/**
-	 * @inheritdoc
+	 * @hook init
 	 * @since 0.6
 	 */
 	public function apply()

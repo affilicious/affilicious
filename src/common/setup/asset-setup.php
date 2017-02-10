@@ -54,6 +54,7 @@ class Asset_Setup
     /**
      * Add the public styles for the front end.
      *
+     * @hook wp_enqueue_scripts
      * @since 0.6
      */
     public function add_public_styles()
@@ -64,6 +65,7 @@ class Asset_Setup
     /**
      * Add the admin styles for the back end.
      *
+     * @hook admin_enqueue_scripts
      * @since 0.6
      */
     public function add_admin_styles()
@@ -74,6 +76,7 @@ class Asset_Setup
     /**
      * Add the public scripts for the front end.
      *
+     * @hook wp_enqueue_scripts
      * @since 0.6
      */
     public function add_public_scripts()
@@ -84,6 +87,7 @@ class Asset_Setup
     /**
      * Add the admin scripts for the back end.
      *
+     * @hook admin_enqueue_scripts
      * @since 0.6
      */
     public function add_admin_scripts()

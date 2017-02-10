@@ -10,6 +10,7 @@ class Admin_Footer_Text_Filter
     /**
      * Append the Affilicious thank you text.
      *
+     * @hook admin_footer_text
      * @since 0.8
      * @param string $text
      * @return string

@@ -30,6 +30,7 @@ class Update_Mediator_Setup
     /**
      * Init the update mediator by adding all update workers.
      *
+     * @hook affilicious_provider_setup_after_init
      * @since 0.7
      * @param Provider[] $providers
      */

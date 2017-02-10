@@ -28,6 +28,7 @@ class Admin_Table_Setup
     /**
      * Set up the table columns for the taxonomy.
      *
+     * @hook manage_edit-aff_shop_tmpl_columns
      * @since 0.8
      * @param array $columns
      * @return array
@@ -52,6 +53,7 @@ class Admin_Table_Setup
     /**
      * Set up the table rows for the taxonomy.
      *
+     * @hook manage_aff_shop_tmpl_custom_column
      * @since 0.8
      * @param string $row
      * @param string $column_name

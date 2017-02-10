@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
 class Detail_Template_Setup
 {
     /**
+     * @hook init
      * @since 0.8
      */
     public function init()
@@ -62,6 +63,7 @@ class Detail_Template_Setup
     }
 
     /**
+     * @hook init
      * @since 0.8
      */
     public function render()

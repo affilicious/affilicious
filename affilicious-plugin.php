@@ -417,8 +417,8 @@ if(!class_exists('Affilicious_Plugin')) {
                 );
             };
 
-            $this->container['affilicious.product.listener.save_complex_product'] = function ($c) {
-                return new \Affilicious\Product\Listener\Save_Complex_Product_Listener(
+            $this->container['affilicious.product.listener.saved_complex_product'] = function ($c) {
+                return new \Affilicious\Product\Listener\Saved_Complex_Product_Listener(
                     $c['affilicious.product.repository.product']
                 );
             };
@@ -687,8 +687,8 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('init', array($product_setup, 'render'), 90);
 
             // Hook the product listeners
-            $save_product_listener = $this->container['affilicious.product.listener.save_complex_product'];
-            add_action('carbon_after_save_post_meta', array($save_product_listener, 'listen'), 10, 3);
+            $saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
+            add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
 
             $deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
             add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
@@ -699,13 +699,15 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('added_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
             add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
 
-            // Hook the settings
-            $affilicious_settings = $this->container['affilicious.common.options.affilicious'];
-            $product_settings = $this->container['affilicious.product.options.product'];
-            add_action('init', array($affilicious_settings, 'render'), 10);
-            add_action('init', array($affilicious_settings, 'apply'), 11);
-            add_action('init', array($product_settings, 'render'), 12);
-            add_action('init', array($product_settings, 'apply'), 13);
+            // Hook the options
+            $affilicious_options = $this->container['affilicious.common.options.affilicious'];
+            $product_options = $this->container['affilicious.product.options.product'];
+            $provider_options = $this->container['affilicious.provider.options.amazon'];
+            add_action('init', array($affilicious_options, 'render'), 10);
+            add_action('init', array($affilicious_options, 'apply'), 11);
+            add_action('init', array($product_options, 'render'), 12);
+            add_action('init', array($product_options, 'apply'), 13);
+            add_action('init', array($provider_options, 'render'), 12);
 
             // Hook the canonical tags
             $canonical_setup = $this->container['affilicious.product.setup.canonical'];
@@ -722,10 +724,6 @@ if(!class_exists('Affilicious_Plugin')) {
             // Hook the update workers
             $update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
             add_action('init', array($update_worker_setup, 'init'), 15);
-
-            // Hook the provider options
-            $provider_options = $this->container['affilicious.provider.options.amazon'];
-            add_action('init', array($provider_options, 'render'), 12);
 
             // Hook the amazon update worker
             $amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
@@ -754,21 +752,6 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function register_admin_hooks()
         {
-            // Hook the attribute groups
-            $attribute_template_group_setup = $this->container['affilicious.attribute.setup.attribute_template'];
-            add_action('manage_aff_attribute_group_posts_columns', array($attribute_template_group_setup, 'columnsHead'), 9, 2);
-            add_action('manage_aff_attribute_group_posts_custom_column', array($attribute_template_group_setup, 'columnsContent'), 10, 2);
-
-            // Hook the attribute groups
-            $attribute_template_group_setup = $this->container['affilicious.attribute.setup.attribute_template'];
-            add_action('manage_aff_attr_template_posts_columns', array($attribute_template_group_setup, 'columns_head'), 9, 2);
-            add_action('manage_aff_attr_template_posts_custom_column', array($attribute_template_group_setup, 'columns_content'), 10, 2);
-
-            // Hook the detail groups
-            $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
-            add_action('manage_detail_group_posts_columns', array($detail_template_group_setup, 'columns_head'), 9, 2);
-            add_action('manage_detail_group_posts_custom_column', array($detail_template_group_setup, 'columns_content'), 10, 2);
-
             // Hook the admin assets
             $asset_setup = $this->container['affilicious.common.setup.asset'];
             add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_styles'), 10);
@@ -787,19 +770,19 @@ if(!class_exists('Affilicious_Plugin')) {
             add_action('manage_aff_product_posts_columns', array($table_columns_filter, 'filter'), 9, 2);
 
             // Hook the attribute template
-            $attribute_template_table_setup = $this->container['affilicious.attribute.setup.admin_table'];
-            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_table_setup, 'setup_columns'));
-            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_table_setup, 'setup_rows'), 15, 3);
+            $attribute_template_admin_table_setup = $this->container['affilicious.attribute.setup.admin_table'];
+            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_admin_table_setup, 'setup_columns'));
+            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_admin_table_setup, 'setup_rows'), 15, 3);
 
             // Hook the detail template
-            $detail_template_table_setup = $this->container['affilicious.detail.setup.admin_table'];
-            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_table_setup, 'setup_columns'));
-            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_table_setup, 'setup_rows'), 15, 3);
+            $detail_template_admin_table_setup = $this->container['affilicious.detail.setup.admin_table'];
+            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_admin_table_setup, 'setup_columns'));
+            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_admin_table_setup, 'setup_rows'), 15, 3);
 
             // Hook the shop template
-            $shop_template_table_setup = $this->container['affilicious.shop.setup.admin_table'];
-            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_table_setup, 'setup_columns'));
-            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_table_setup, 'setup_rows'), 15, 3);
+            $shop_template_table_admin_setup = $this->container['affilicious.shop.setup.admin_table'];
+            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_table_admin_setup, 'setup_columns'));
+            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_table_admin_setup, 'setup_rows'), 15, 3);
 
             // Hook the admin footer text
             $admin_footer_text_filter = $this->container['affilicious.common.filter.admin_footer_text'];

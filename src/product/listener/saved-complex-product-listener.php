@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Save_Complex_Product_Listener
+class Saved_Complex_Product_Listener
 {
     /**
      * @var Product_Repository_Interface
@@ -29,6 +29,7 @@ class Save_Complex_Product_Listener
     /**
      * Store the product variants as a custom post if a product is saved
      *
+     * @hook carbon_after_save_post_meta
      * @since 0.6
      * @param int $post_id
      */

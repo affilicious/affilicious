@@ -12,6 +12,7 @@ class Admin_Bar_Setup
     /**
      * Set up the correct product edit link for product variants
      *
+     * @hook admin_bar_menu
      * @since 0.6
      * @param \WP_Admin_Bar $wp_admin_bar
      */

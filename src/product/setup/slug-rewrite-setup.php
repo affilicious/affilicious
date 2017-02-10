@@ -56,6 +56,8 @@ class Slug_Rewrite_Setup
     /**
      * Prepare the change of the rewrite rules
      *
+     * @hook added_option
+     * @hook updated_option
      * @since 0.6
      * @param string $option
      */
@@ -69,6 +71,7 @@ class Slug_Rewrite_Setup
     /**
      * Apply the change of the rewrite rules
      *
+     * @hook init
      * @since 0.6
      */
     public function run()
