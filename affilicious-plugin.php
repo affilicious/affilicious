@@ -42,6 +42,13 @@ if(!class_exists('Affilicious_Plugin')) {
 
     final class Affilicious_Plugin
     {
+        const NAME = 'affilicious';
+        const VERSION = '0.8.4';
+        const MIN_PHP_VERSION = '5.6';
+
+        /**
+         * @deprecated 0.9
+         */
         const PLUGIN_NAME = 'affilicious';
         const PLUGIN_VERSION = '0.8.4';
         const PLUGIN_MIN_PHP_VERSION = '5.6';
@@ -179,20 +186,20 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function autoload($class)
         {
-            $prefix = self::PLUGIN_NAMESPACE;
+            $prefix = 'Affilicious\\';
             if (stripos($class, $prefix) === false) {
                 return;
             }
 
-            $file_path = str_ireplace(self::PLUGIN_NAMESPACE, '', $class) . '.php';
+            $file_path = str_ireplace('Affilicious\\', '', $class) . '.php';
             $file_path = strtolower($file_path);
             $file_path = str_replace('_', '-', $file_path);
 
-            $test_prefix = self::PLUGIN_TESTS_NAMESPACE;
+            $test_prefix = 'Affilicious\\Tests\\';
             if (stripos($class, $test_prefix) !== false) {
                 $file_path = __DIR__ . '/' . $file_path;
             } else {
-                $file_path = __DIR__ . '/' . self::PLUGIN_SOURCE_DIR . $file_path;
+                $file_path = __DIR__ . '/src/' . $file_path;
             }
 
             $file_path = str_replace('\\', DIRECTORY_SEPARATOR, $file_path);
@@ -613,7 +620,7 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function load_textdomain()
         {
-            $dir = basename(dirname(__FILE__)) . '/' . self::PLUGIN_LANGUAGE_DIR;
+            $dir = basename(dirname(__FILE__)) . '/languages/';
             load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
         }
 
@@ -624,9 +631,9 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function load_includes()
         {
-            require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/hidden-field.php');
-            require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/number-field.php');
-            require_once(self::PLUGIN_SOURCE_DIR . 'common/form/carbon/image-gallery-field.php');
+            require_once('src/common/form/carbon/hidden-field.php');
+            require_once('src/common/form/carbon/number-field.php');
+            require_once('src/common/form/carbon/image-gallery-field.php');
         }
 
         /**
