@@ -70,6 +70,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 * Fix: Fixed the product relations
 * Fix: Fixed the product variants post status
 * Fix: Product variants are deleted like the complex parent products now.
+* Fix: Fixed the complex product listener
 
 = 0.8.3 =
 * New: Added an option to set an update interval for old prices

@@ -93,7 +93,7 @@ class Saved_Complex_Product_Listener
         }
 
         if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
-            false;
+            return false;
         }
 
         return true;
