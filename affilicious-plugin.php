@@ -617,7 +617,7 @@ if(!class_exists('Affilicious_Plugin')) {
         public function load_textdomain()
         {
             $dir = basename(dirname(__FILE__)) . '/languages/';
-            load_plugin_textdomain(self::PLUGIN_NAME, false, $dir);
+            load_plugin_textdomain(self::NAME, false, $dir);
         }
 
         /**
