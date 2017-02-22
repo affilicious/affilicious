@@ -67,6 +67,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 = 0.8.4 =
 * New: Added support for wordpress.org
 * Improvement: Removed the custom EDD Updater
+* Improvement: Cleaned up some product repository code
 * Fix: Fixed the product relations
 * Fix: Fixed the product variants post status
 * Fix: Product variants are deleted like the complex parent products now.
