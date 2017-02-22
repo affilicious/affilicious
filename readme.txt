@@ -61,17 +61,18 @@ Here is why developing with the Affilicious Plugin is really fun:
 
 == Changelog ==
 = 0.8.5 =
-* Improvement: Removed the shop, attribute and detail template columns from the product admin table.
+* Improvement: Removed the shop, attribute and detail templates from the product admin table and menu builder.
+* Improvement: Removed the custom EDD Updater
 * Fix: Fixed the broken image, file and image gallery carbon buttons styles
+* Fix: Fixed the complex product listener
 
 = 0.8.4 =
 * New: Added support for wordpress.org
-* Improvement: Removed the custom EDD Updater
+
 * Improvement: Cleaned up some product repository code
 * Fix: Fixed the product relations
 * Fix: Fixed the product variants post status
 * Fix: Product variants are deleted like the complex parent products now.
-* Fix: Fixed the complex product listener
 
 = 0.8.3 =
 * New: Added an option to set an update interval for old prices

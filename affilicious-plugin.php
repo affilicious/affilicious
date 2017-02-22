@@ -350,10 +350,6 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Product\Factory\In_Memory\In_Memory_Simple_Product_Factory();
             };
 
-            $this->container['affilicious.product.filter.table_column'] = function () {
-                return new \Affilicious\Product\Filter\Table_Column_Filter();
-            };
-
             $this->container['affilicious.product.factory.complex_product'] = function () {
                 return new \Affilicious\Product\Factory\In_Memory\In_Memory_Complex_Product_Factory();
             };
@@ -771,10 +767,8 @@ if(!class_exists('Affilicious_Plugin')) {
             // Hook the product table
             $table_content_filter = $this->container['affilicious.product.filter.table_content'];
             $table_count_filter = $this->container['affilicious.product.filter.table_count'];
-            $table_columns_filter = $this->container['affilicious.product.filter.table_column'];
             add_action('pre_get_posts', array($table_content_filter, 'filter'));
             add_filter("views_edit-aff_product", array($table_count_filter, 'filter'), 10, 1);
-            add_action('manage_aff_product_posts_columns', array($table_columns_filter, 'filter'), 9, 2);
 
             // Hook the attribute template
             $attribute_template_admin_table_setup = $this->container['affilicious.attribute.setup.admin_table'];
