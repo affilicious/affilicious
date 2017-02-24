@@ -1215,7 +1215,6 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     {
         $args = wp_parse_args(array(
             'post_title' => $product->get_name()->get_value(),
-            'post_status' => $product instanceof Product_Variant ? 'inherit' : 'publish',
             'post_name' => $product->get_slug()->get_value(),
             'post_type' => Product::POST_TYPE,
             'post_modified' => date('Y-m-d H:i:s', $product->get_updated_at()->getTimestamp()),
@@ -1224,6 +1223,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
         if($product->has_id()) {
             $args['id'] = $product->get_id()->get_value();
+        }
+
+        if($product instanceof Product_Variant && $product->get_parent()->get_post() !== null) {
+            $args['post_status'] = $product->get_parent()->get_post()->post_status;
         }
 
         if($product instanceof Content_Aware_Interface && $product->has_content()) {

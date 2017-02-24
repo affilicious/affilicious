@@ -60,6 +60,9 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.6 =
+* Fix: Fixed the missing product variants.
+
 = 0.8.5 =
 * Improvement: Removed the shop, attribute and detail template columns from the product admin table.
 * Fix: Fixed the broken image, file and image gallery carbon buttons styles

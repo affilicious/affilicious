@@ -253,7 +253,7 @@ class Product
      * @since 0.8.2
      * @param string $output
      * @param string $filter
-     * @return array|null|\WP_Error|\WP_Term
+     * @return array|null|\WP_Post
      */
     public function get_post($output = OBJECT, $filter = 'raw')
     {
