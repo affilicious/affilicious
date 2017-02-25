@@ -13,7 +13,7 @@ Create and manage affiliate websites in Wordpress with products & variants, auto
 
 == Description ==
 
-Affilicious is an Affiliate platform build on top of Wordpress. It allows affiliate marketers to easily maintain websites with support for
+Affilicious is an affiliate platform build on top of Wordpress. It allows affiliate marketers to easily maintain websites with support for
 product & variants, automatic product updates, price comparisons, details, attributes and more. Everything for free.
 
 = Does this affect me as an affiliate marketer? =
