@@ -4,7 +4,7 @@ Author URI: https://affilicious.de
 Plugin URI: https://affilicious.de
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 0.8.4
+Stable tag: 0.8.6
 Tags: Affiliate Marketing, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
