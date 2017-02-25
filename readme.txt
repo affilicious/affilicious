@@ -1,7 +1,7 @@
 === Affilicious ===
-Contributors: affilicious
-Author URI: https://affilicious.de
-Plugin URI: https://affilicious.de
+Contributors: affilicioustheme
+Author URI: https://affilicioustheme.com
+Plugin URI: https://affilicioustheme.com
 Requires at least: 4.5
 Tested up to: 4.7
 Stable tag: 0.8.6
