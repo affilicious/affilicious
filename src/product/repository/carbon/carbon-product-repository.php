@@ -460,7 +460,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     private function add_thumbnail(Product $product, \WP_Post $post)
     {
         $thumbnail_id = get_post_thumbnail_id($post->ID);
-        if (!empty($thumbnail_id)) {
+        if (!empty($thumbnail_id) && intval($thumbnail_id) > 0) {
             $thumbnail = new Image_Id($thumbnail_id);
             $product->set_thumbnail_id($thumbnail);
         }
