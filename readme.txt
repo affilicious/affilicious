@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 0.8.6
+Stable tag: 0.8.7
 Tags: Affiliate Marketing, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -60,6 +60,11 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.7 =
+* Improvement: Optimized thumbnails for invalid values.
+* Improvement: Optimized readme's for new Github repository URI.
+* Fix: Fixed some spelling.
+
 = 0.8.6 =
 * Fix: Fixed the missing product variants.
 
