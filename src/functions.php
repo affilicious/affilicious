@@ -390,6 +390,7 @@ function aff_get_product_related_accessories_query($product_or_id = null, $args 
 
 /**
  * Get the product link.
+ * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
  * @param int|\WP_Post|Product|null $product_or_id
@@ -402,12 +403,25 @@ function aff_get_product_link($product_or_id = null)
         return null;
     }
 
-    $link = get_permalink($product->get_raw_post());
+    $link = get_permalink($product->get_post());
     if(empty($link)) {
         return null;
     }
 
-    return $link;
+    return esc_url($link);
+}
+
+/**
+ * Print the product link.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @since 0.8.8
+ * @param null $product_or_id
+ * @return null|string
+ */
+function aff_the_product_link($product_or_id = null)
+{
+    echo aff_get_product_link($product_or_id);
 }
 
 /**
@@ -700,7 +714,21 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
 
     $affiliate_link = isset($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
 
-    return $affiliate_link;
+    return esc_url($affiliate_link);
+}
+
+/**
+ * Print the affiliate link by the product and shop.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as a shop, the first shop will be used.
+ *
+ * @since 0.8.8
+ * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|\WP_Post|Shop_Template|null $shop_or_id
+ */
+function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null)
+{
+    echo aff_get_product_link($product_or_id);
 }
 
 /**
