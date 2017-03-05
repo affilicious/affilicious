@@ -60,6 +60,9 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.8 =
+* Fix: Fixed the broken product relations.
+
 = 0.8.7 =
 * Improvement: Optimized thumbnails for invalid values.
 * Improvement: Optimized readme's for new Github repository URI.
