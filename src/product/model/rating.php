@@ -46,10 +46,10 @@ class Rating
     public function __construct($value)
     {
         if (is_numeric($value) || is_string($value)) {
-            $value = intval($value);
+            $value = floatval($value);
         }
 
-        Assert::integer($value, 'Expected rating to be an integer. Got: %s');
+        Assert::float($value, 'Expected rating to be a float. Got: %s');
         Assert::range($value, self::MIN, self::MAX, 'Expected rating between %2$s and %3$s. Got: %s');
 
         $this->set_value($value);
