@@ -62,6 +62,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 == Changelog ==
 = 0.8.8 =
 * Fix: Fixed the broken product relations.
+* Fix: Added missing detail template ID.
 
 = 0.8.7 =
 * Improvement: Optimized thumbnails for invalid values.

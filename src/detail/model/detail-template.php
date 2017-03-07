@@ -102,6 +102,7 @@ class Detail_Template
     public function build(Value $value)
     {
         $detail = new Detail($this->name, $this->slug, $value, $this->type, $this->unit);
+        $detail->set_template_id($this->id);
 
         return $detail;
     }
