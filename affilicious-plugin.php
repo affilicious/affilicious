@@ -639,7 +639,7 @@ if(!class_exists('Affilicious_Plugin')) {
          */
         public function load_functions()
         {
-            require_once(__DIR__ . '/src/functions.php');
+            require_once(__DIR__ . '/functions.php');
         }
 
         /**
