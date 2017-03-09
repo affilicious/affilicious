@@ -67,6 +67,20 @@ function aff_get_product($product_or_id = null)
 }
 
 /**
+ * Check if the product has a review rating.
+ *
+ * @since 0.8.9
+ * @param null $product_or_id
+ * @return bool
+ */
+function aff_has_product_review_rating($product_or_id = null)
+{
+    $rating = aff_get_product_review_rating($product_or_id);
+
+    return !empty($rating) || $rating === 0;
+}
+
+/**
  * Get the product review rating from 0 to 5
  *
  * @since 0.6
@@ -89,6 +103,47 @@ function aff_get_product_review_rating($product_or_id = null)
     $raw_rating = $rating->get_value();
 
     return $raw_rating;
+}
+
+/**
+ * Print the product review rating from 0 to 5 as stars.
+ *
+ * @since 0.8.9
+ * @param string $full_star
+ * @param string $half_star
+ * @param string $no_star
+ * @param int|\WP_Post|Product|null $product_or_id
+ */
+function aff_the_product_review_rating($full_star, $half_star, $no_star, $product_or_id = null)
+{
+    $rating = aff_get_product_review_rating($product_or_id);
+    if(empty($rating) && $rating !== 0) {
+        return;
+    }
+
+    for($i = 0; $i < 5; $i++) {
+        if ($rating >= ($i + 1)) {
+            echo $full_star;
+        } elseif ($rating >= ($i + 0.5)) {
+            echo $half_star;
+        } else {
+            echo $no_star;
+        }
+    }
+}
+
+/**
+ * Check if the product has any review votes.
+ *
+ * @since 0.8.9
+ * @param int|\WP_Post|Product|null $product_or_id
+ * @return bool
+ */
+function aff_has_product_review_votes($product_or_id = null)
+{
+    $votes = aff_get_product_review_votes($product_or_id);
+
+    return !empty($votes) || $votes === 0;
 }
 
 /**
@@ -118,6 +173,26 @@ function aff_get_product_review_votes($product_or_id = null)
     $raw_votes = $votes->get_value();
 
     return $raw_votes;
+}
+
+/**
+ * Print the product review votes
+ *
+ * @since 0.8.9
+ * @param int|\WP_Post|Product|null $product_or_id
+ */
+function aff_the_product_review_votes($product_or_id = null)
+{
+    $votes = aff_get_product_review_votes($product_or_id);
+    if($votes === null) {
+        return;
+    }
+
+    echo sprintf(_n(
+        'based on %s review',
+        'based on %s reviews',
+        $votes, 'affilicious'),
+        $votes);
 }
 
 /**
@@ -417,7 +492,6 @@ function aff_get_product_link($product_or_id = null)
  *
  * @since 0.8.8
  * @param null $product_or_id
- * @return null|string
  */
 function aff_the_product_link($product_or_id = null)
 {
@@ -666,6 +740,87 @@ function aff_the_product_price($product_or_id = null, $affiliate_link = null)
 }
 
 /**
+ * Check if the product has any old price.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
+ *
+ * @since 0.8.9
+ * @param int|\WP_Post|Product|null $product_or_id
+ * @param string|Affiliate_Link|null $affiliate_link
+ * @return bool
+ */
+function aff_has_product_old_price($product_or_id = null, $affiliate_link = null)
+{
+    $price = aff_get_product_old_price($product_or_id, $affiliate_link);
+
+    return !empty($price);
+}
+
+/**
+ * Get the old price with the currency of the product.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
+ *
+ * @since 0.8.9
+ * @param int|\WP_Post|Product|null $product_or_id
+ * @param string|Affiliate_Link|null $affiliate_link
+ * @return null|string
+ */
+function aff_get_product_old_price($product_or_id = null, $affiliate_link = null)
+{
+    $product = aff_get_product($product_or_id);
+    if($product === null) {
+        return null;
+    }
+
+    if($product instanceof Complex_Product) {
+        $product = $product->get_default_variant();
+    }
+
+    if(!($product instanceof Shop_Aware_Interface)) {
+        return null;
+    }
+
+    $shop = null;
+    if($affiliate_link instanceof Affiliate_Link) {
+        $shop = $product->get_shop($affiliate_link);
+    } elseif ($affiliate_link === null) {
+        $shop = $product->get_cheapest_shop();
+    } elseif (is_string($affiliate_link)) {
+        $shop = $product->get_shop(new Affiliate_Link($affiliate_link));
+    }
+    if (empty($shop)) {
+        return null;
+    }
+
+    $old_price = $shop->get_pricing()->get_old_price();
+    if($old_price === null) {
+        return null;
+    }
+
+    $raw_old_price = $old_price->get_value() . ' ' . $old_price->get_currency()->get_symbol();
+
+    return $raw_old_price;
+}
+
+/**
+ * Print the old price with the currency of the product.
+ * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
+ *
+ * @since 0.8.9
+ * @param int|\WP_Post|Product|null $product_or_id
+ * @param string|Affiliate_Link|null $affiliate_link
+ */
+function aff_the_product_old_price($product_or_id = null, $affiliate_link = null)
+{
+    $price = aff_get_product_old_price($product_or_id, $affiliate_link);
+    if(!empty($price)) {
+        echo $price;
+    };
+}
+
+/**
  * Get the cheapest price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
  *
@@ -728,7 +883,7 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
  */
 function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null)
 {
-    echo aff_get_product_link($product_or_id);
+    echo aff_get_product_affiliate_link($product_or_id, $shop_or_id);
 }
 
 /**
@@ -1280,4 +1435,78 @@ function aff_should_shop_display_old_price($shop)
     $old_price = floatval($shop['pricing']['old_price']['value']);
 
     return $old_price > $price;
+}
+
+/**
+ * Get the formatted shop price.
+ *
+ * @since 0.8.9
+ * @param array $shop
+ * @return null|string
+ */
+function aff_get_shop_price($shop)
+{
+    if(!isset($shop['pricing']['price'])) {
+        return null;
+    }
+
+    $price = $shop['pricing']['price'];
+    if(empty($price)) {
+        return null;
+    }
+
+    return $price['value'] . ' ' . $price['currency'];
+}
+
+/**
+ * Print the formatted shop price.
+ *
+ * @since 0.8.9
+ * @param array $shop
+ */
+function aff_the_shop_price($shop)
+{
+    $price = aff_get_shop_price($shop);
+    if(empty($price)) {
+        return;
+    }
+
+    echo $price;
+}
+
+/**
+ * Get the formatted shop old price.
+ *
+ * @since 0.8.9
+ * @param array $shop
+ * @return null|string
+ */
+function aff_get_shop_old_price($shop)
+{
+    if(!isset($shop['pricing']['old_price'])) {
+        return null;
+    }
+
+    $old_price = $shop['pricing']['old_price'];
+    if(empty($old_price)) {
+        return null;
+    }
+
+    return $old_price['value'] . ' ' . $old_price['currency'];
+}
+
+/**
+ * Print the formatted shop old price.
+ *
+ * @since 0.8.9
+ * @param array $shop
+ */
+function aff_the_shop_old_price($shop)
+{
+    $old_price = aff_get_shop_old_price($shop);
+    if(empty($old_price)) {
+        return;
+    }
+
+    echo $old_price;
 }

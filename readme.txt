@@ -60,6 +60,9 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.9=
+* Improvement: Added some more functions for the front end.
+
 = 0.8.8 =
 * Fix: Fixed the broken product relations.
 * Fix: Added missing detail template ID.
