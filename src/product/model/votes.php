@@ -38,7 +38,6 @@ class Votes
         }
 
         Assert::integer($value, 'Expected votes to be an integer. Got: %s');
-        Assert::greaterThan($value, self::MIN, 'Expected votes greater than %2$s. Got: %s');
 
         $this->set_value($value);
     }

@@ -62,6 +62,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 == Changelog ==
 = 0.8.9=
 * Improvement: Added some more functions for the front end.
+* Improvement: Votes can contain 0 as value now.
 
 = 0.8.8 =
 * Fix: Fixed the broken product relations.
