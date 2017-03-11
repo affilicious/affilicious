@@ -230,7 +230,7 @@ class Product
             $this->get_name()->is_equal_to($other->get_name()) &&
             $this->get_slug()->is_equal_to($other->get_slug()) &&
             $this->get_type()->is_equal_to($other->get_type()) &&
-            $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) &&
+            ($this->has_thumbnail_id() && $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) || !$other->has_thumbnail_id()) &&
             $this->get_image_gallery() == $this->get_image_gallery() &&
             $this->get_updated_at() == $other->get_updated_at();
     }
