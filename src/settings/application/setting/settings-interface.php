@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @deprecated
+ * @deprecated 0.9
  */
 interface Settings_Interface
 {
