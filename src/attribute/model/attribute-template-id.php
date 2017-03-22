@@ -28,15 +28,4 @@ class Attribute_Template_Id
 
 		$this->set_value($value);
 	}
-
-    /**
-     * Get the value of the attribute template ID.
-     *
-     * @since 0.8
-     * @return string
-     */
-    public function get_value()
-    {
-        return apply_filters('affilicious_attribute_template_id_get_value', $this->value);
-    }
 }

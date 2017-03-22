@@ -12,14 +12,14 @@ class Detail_Helper
     /**
      * Convert the detail into an array.
      *
-     * @since 0.8
+     * @since 0.8.9
      * @param Detail $detail
      * @return array
      */
     public static function to_array(Detail $detail)
     {
         $raw_detail = array(
-            'template_id' => $detail->get_template_id(),
+            'template_id' => $detail->get_template_id()->get_value(),
             'name' => $detail->get_name()->get_value(),
             'slug' => $detail->get_slug()->get_value(),
             'type' => $detail->get_type()->get_value(),

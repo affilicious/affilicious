@@ -2,24 +2,31 @@
 use Affilicious\Attribute\Helper\Attribute_Helper;
 use Affilicious\Attribute\Helper\Attribute_Template_Helper;
 use Affilicious\Attribute\Model\Attribute_Template;
+use Affilicious\Attribute\Model\Attribute_Template_Id;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
 use Affilicious\Detail\Model\Detail_Template;
+use Affilicious\Detail\Model\Detail_Template_Id;
 use Affilicious\Product\Helper\Product_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Detail_Aware_Interface;
 use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Product_Variant;
 use Affilicious\Product\Model\Relation_Aware_Interface;
 use Affilicious\Product\Model\Review_Aware_Interface;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Model\Tag_Aware_Interface;
 use Affilicious\Product\Model\Type;
+use Affilicious\Provider\Helper\Provider_Helper;
+use Affilicious\Provider\Model\Provider;
+use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Shop\Helper\Shop_Helper;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Shop_Template;
+use Affilicious\Shop\Model\Shop_Template_Id;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -37,33 +44,166 @@ function aff_is_product_page()
 }
 
 /**
- * Check if post, the post with the ID or the current post is a product.
+ * Check if the product with the Wordpress ID or post is existing.
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|\WP_Post|Product|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
  * @return bool
  */
-function aff_is_product($product_or_id = null)
+function aff_is_product($post_or_id = null)
 {
-    $result = Product_Helper::is_product($product_or_id);
+    $result = Product_Helper::is_product($post_or_id);
 
     return $result;
 }
 
 /**
- * Get the product by the Wordpress ID or post.
+ * Get the product by the ID or post.
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|\WP_Post|Product|null $product_or_id
- * @return Product
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
+ * @return Product|array|null
  */
-function aff_get_product($product_or_id = null)
+function aff_get_product($post_or_id = null)
 {
-    $product = Product_Helper::get_product($product_or_id);
+    $product = Product_Helper::get_product($post_or_id);
+
 
     return $product;
+}
+
+/**
+ * Check if the shop template with the Wordpress ID or term is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $term_or_id
+ * @return bool
+ */
+function aff_is_shop_template($term_or_id)
+{
+    $result = Shop_Template_Helper::is_shop_template($term_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the shop template by the ID or term.
+ *
+ * @since 0.6
+ * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $shop_or_id
+ * @param string $output
+ * @return Shop_Template|array|null
+ */
+function aff_get_shop_template($shop_or_id, $output = 'object')
+{
+    $shop_template = Shop_Template_Helper::get_shop_template($shop_or_id);
+
+    if($output == 'array' && !empty($shop_template)) {
+        $shop_template = Shop_Template_Helper::to_array($shop_template);
+    }
+
+    return $shop_template;
+}
+
+/**
+ * Check if the detail template with the Wordpress ID or term is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
+ * @return bool
+ */
+function aff_is_detail_template($term_or_id)
+{
+    $result = Detail_Template_Helper::is_detail_template($term_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the detail template by the ID or term.
+ *
+ * @since 0.8
+ * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
+ * @param string $output
+ * @return Detail_Template|array|null
+ */
+function aff_get_detail_template($term_or_id, $output = 'object')
+{
+    $detail_template = Detail_Template_Helper::get_detail_template($term_or_id);
+
+    if($output == 'array' && !empty($detail_template)) {
+        $detail_template = Detail_Template_Helper::to_array($detail_template);
+    }
+
+    return $detail_template;
+}
+
+/**
+ * Check if the attribute template with the Wordpress ID or term is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
+ * @return bool
+ */
+function aff_is_attribute_template($term_or_id)
+{
+    $result = Attribute_Template_Helper::is_attribute_template($term_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the attribute template by the ID or term.
+ *
+ * @since 0.8
+ * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
+ * @param string $output
+ * @return Attribute_Template|array|null
+ */
+function aff_get_attribute_template($term_or_id, $output = 'object')
+{
+    $attribute_template = Attribute_Template_Helper::get_attribute_template($term_or_id);
+
+    if($output == 'array' && !empty($attribute_template)) {
+        $attribute_template = Attribute_Template_Helper::to_array($attribute_template);
+    }
+
+    return $attribute_template;
+}
+
+/**
+ * Check if the provider with the ID is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Provider|Provider_Id $id
+ * @return bool
+ */
+function aff_is_provider($id)
+{
+    $result = Provider_Helper::is_provider($id);
+
+    return $result;
+}
+
+/**
+ * Get the provider by the ID.
+ *
+ * @since 0.8
+ * @param int|string|array|\WP_Term|Provider|Provider_Id $id
+ * @param string $output
+ * @return Provider|array|null
+ */
+function aff_get_provider($id, $output = 'object')
+{
+    $provider = Provider_Helper::get_provider($id);
+
+    if($output == 'array' && !empty($provider)) {
+        $provider = Provider_Helper::to_array($provider);
+    }
+
+    return $provider;
 }
 
 /**
@@ -1310,48 +1450,6 @@ function aff_the_product_attribute_choices($product_or_id = null)
 
     echo "</ul>";
     echo "</div>";
-}
-
-/**
- * Get the shop template by the ID or Wordpress term.
- *
- * @since 0.6
- * @param int|array|\WP_Term|Shop_Template $shop_or_id
- * @return null|Shop_Template
- */
-function aff_get_shop_template($shop_or_id)
-{
-    $shop = Shop_Template_Helper::find_one($shop_or_id);
-
-    return $shop;
-}
-
-/**
- * Get the detail template by the ID or Wordpress term.
- *
- * @since 0.8
- * @param int|array|\WP_Term|Detail_Template $detail_template_or_id
- * @return null|Detail_Template
- */
-function aff_get_detail_template($detail_template_or_id)
-{
-    $detail_template = Detail_Template_Helper::find_one($detail_template_or_id);
-
-    return $detail_template;
-}
-
-/**
- * Get the attribute template by the ID or Wordpress term.
- *
- * @since 0.8
- * @param int|array|\WP_Term|Attribute_Template $attribute_template_or_id
- * @return null|Attribute_Template
- */
-function aff_get_attribute_template($attribute_template_or_id)
-{
-    $attribute_template = Attribute_Template_Helper::find_one($attribute_template_or_id);
-
-    return $attribute_template;
 }
 
 /**

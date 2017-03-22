@@ -60,10 +60,11 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
-= 0.8.9=
+= 0.8.9 =
 * New: Added basic rest support for products.
 * Improvement: Added some more functions for the front end.
 * Improvement: Votes can contain 0 as value now.
+* Improvement: Improved the model helpers.
 * Fix: Fixed the product equality.
 
 = 0.8.8 =

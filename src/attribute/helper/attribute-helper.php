@@ -12,14 +12,14 @@ class Attribute_Helper
     /**
      * Convert the attribute into an array.
      *
-     * @since 0.8
+     * @since 0.8.9
      * @param Attribute $attribute
      * @return array
      */
     public static function to_array(Attribute $attribute)
     {
         $raw_attribute = array(
-            'template_id' => $attribute->get_template_id(),
+            'template_id' => $attribute->get_template_id()->get_value(),
             'name' => $attribute->get_name()->get_value(),
             'slug' => $attribute->get_slug()->get_value(),
             'type' => $attribute->get_type()->get_value(),
