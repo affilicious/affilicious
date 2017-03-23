@@ -13,6 +13,7 @@ class Type
 {
 	const TEXT = 'text';
 	const NUMBER = 'number';
+	const BOOLEAN = 'boolean';
 	const FILE = 'file';
 
     use Simple_Value_Trait {
@@ -41,6 +42,17 @@ class Type
 		return new self(self::NUMBER);
 	}
 
+    /**
+     * Build a new boolean type.
+     *
+     * @since 0.8.9
+     * @return Type
+     */
+	public static function boolean()
+    {
+        return new self(self::BOOLEAN);
+    }
+
 	/**
      * Build a new file type.
      *
@@ -61,6 +73,7 @@ class Type
         $values = apply_filters('affilicious_detail_type_values', array(
             self::TEXT,
             self::NUMBER,
+            self::BOOLEAN,
             self::FILE
         ));
 
@@ -93,6 +106,17 @@ class Type
     }
 
     /**
+     * Check if the type is boolean.
+     *
+     * @since 0.8
+     * @return bool
+     */
+    public function is_boolean()
+    {
+        return $this->value === self::BOOLEAN;
+    }
+
+    /**
      * Check if the type is a file.
      *
      * @since 0.8
@@ -116,6 +140,8 @@ class Type
                 return __('Text', 'affilicious');
             case self::NUMBER:
                 return __('Number', 'affilicious');
+            case self::BOOLEAN:
+                return __('Boolean', 'affilicious');
             case self::FILE:
                 return __('File', 'affilicious');
             default:

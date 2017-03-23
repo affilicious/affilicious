@@ -50,6 +50,7 @@ class Detail
     /**
      * Create a new number detail from the name, value and optional unit.
      *
+     * @since 0.8
      * @param Name $name
      * @param Slug $slug
      * @param Value $value
@@ -59,6 +60,22 @@ class Detail
     public static function number(Name $name, Slug $slug, Value $value, Unit $unit = null)
     {
         $detail = new self($name, $slug, $value, Type::number(), $unit);
+
+        return $detail;
+    }
+
+    /**
+     * Create a new boolean detail from the name and value.
+     *
+     * @since 0.8.9
+     * @param Name $name
+     * @param Slug $slug
+     * @param Value $value
+     * @return Detail
+     */
+    public static function boolean(Name $name, Slug $slug, Value $value)
+    {
+        $detail = new self($name, $slug, $value, Type::boolean());
 
         return $detail;
     }

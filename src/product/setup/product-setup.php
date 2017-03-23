@@ -484,7 +484,8 @@ class Product_Setup
         $field_name = trim(sprintf('%s %s', $detail_template->get_name(), $detail_template->get_unit()));
 
         // Build the type
-        $field_type = $detail_template->get_type()->get_value();
+        $detail_type = $detail_template->get_type();
+        $field_type = !$detail_type->is_boolean() ? $detail_type->get_value() : 'select';
 
         $field = Carbon_Field::make($field_type, $field_key, $field_name)
             ->set_conditional_logic(array(
@@ -495,6 +496,13 @@ class Product_Setup
                     'compare' => 'CONTAINS',
                 )
             ));
+
+        if($detail_type->is_boolean()) {
+            $field->add_options(array(
+                'yes' => __('Yes', 'affilicious'),
+                'no' => __('No', 'affilicious'),
+            ));
+        }
 
         return $field;
     }

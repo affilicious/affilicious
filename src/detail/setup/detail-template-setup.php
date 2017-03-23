@@ -78,6 +78,7 @@ class Detail_Template_Setup
                     ->add_options(array(
                         Type::TEXT => __('Text', 'affilicious'),
                         Type::NUMBER => __('Number', 'affilicious'),
+                        Type::BOOLEAN => __('Boolean', 'affilicious'),
                         Type::FILE => __('File', 'affilicious'),
                     )),
                 Carbon_Field::make('text', Carbon_Detail_Template_Repository::UNIT, __('Unit', 'affilicious'))
