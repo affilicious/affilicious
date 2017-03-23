@@ -7,8 +7,6 @@ use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Credentials;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Options\Amazon_Options;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

@@ -6,6 +6,7 @@ use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Update\Update_Timer;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 use Affilicious\Provider\Options\Amazon_Options;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
@@ -237,6 +238,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                 'affiliate_id' => $this->find_affiliate_id($item),
                 'availability' => $this->find_availability($item),
                 'price' => $this->find_price($item),
+                'old_price' => $this->find_old_price($item),
             );
         }
 
@@ -277,28 +279,26 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                             $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
 
-                        if($result['price'] !== null) {
-                            $price = $shop->get_pricing()->get_price();
+                        if($result['price'] !== null && $this->should_update_price($update_interval)) {
+                            $shop->get_pricing()->set_price($result['price']);
+                            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                        }
 
+                        if($result['old_price'] !== null && $this->should_update_old_price($update_interval)) {
+                            $shop->get_pricing()->set_old_price($result['old_price']);
+                            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+                        }
+
+                        if($shop->get_pricing()->get_availability()->is_out_of_stock()) {
                             if($this->should_update_price($update_interval)) {
-                                $shop->get_pricing()->set_price($result['price']);
+                                $shop->get_pricing()->set_price(null);
                                 $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                             }
 
                             if($this->should_update_old_price($update_interval)) {
-                                if($price !== null && $price->is_greater_than($shop->get_pricing()->get_price())) {
-                                    $shop->get_pricing()->set_old_price($price);
-                                    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
-                                } else {
-                                    $shop->get_pricing()->set_old_price(null);
-                                    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
-                                }
+                                $shop->get_pricing()->set_old_price(null);
+                                $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                             }
-                        }
-
-                        if($shop->get_pricing()->get_availability()->is_out_of_stock() && $this->should_update_price($update_interval)) {
-                            $shop->get_pricing()->set_price(null);
-                            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
                         }
                     }
                 }
@@ -389,8 +389,9 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     {
         $price = null;
 
-        if(isset($item['Offers']['Offer']['OfferListing']['Price'])) {
-            $price = $item['Offers']['Offer']['OfferListing']['Price'];
+        if(isset($item['Offers']['Offer']['OfferListing'])) {
+            $offer_listing = $item['Offers']['Offer']['OfferListing'];
+            $price = isset($offer_listing['SalePrice']) ? $offer_listing['SalePrice'] : $offer_listing['Price'];
 
             if(isset($price['Amount']) && isset($price['CurrencyCode'])) {
                 $amount = floatval($price['Amount']) / 100;
@@ -403,6 +404,31 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     }
 
     /**
+     * Find the old price in the item response.
+     *
+     * @since 0.8.9
+     * @param array $item
+     * @return Money|null
+     */
+    protected function find_old_price($item)
+    {
+        $old_price = null;
+
+        if(isset($item['Offers']['Offer']['OfferListing'])) {
+            $offerListing = $item['Offers']['Offer']['OfferListing'];
+            $old_price = isset($offerListing['SalePrice']) && isset($offerListing['Price']) ? $offerListing['Price'] : null;
+
+            if(isset($old_price['Amount']) && isset($old_price['CurrencyCode'])) {
+                $amount = floatval($old_price['Amount']) / 100;
+                $currency = $old_price['CurrencyCode'];
+                $old_price = new Money($amount, new Currency($currency));
+            }
+        }
+
+        return $old_price;
+    }
+
+    /**
      * Check if we have to update the availability.
      *
      * @since 0.7
@@ -412,6 +438,10 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     protected function should_update_availability($update_interval)
     {
         $availability_update_interval = carbon_get_theme_option(Amazon_Options::AVAILABILITY_UPDATE_INTERVAL);
+        if($availability_update_interval === false) {
+            $availability_update_interval = Update_Timer::HOURLY;
+        }
+
         if(empty($availability_update_interval) || $availability_update_interval === 'none') {
             return false;
         }
@@ -431,6 +461,10 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     protected function should_update_price($update_interval)
     {
         $price_update_interval = carbon_get_theme_option(Amazon_Options::PRICE_UPDATE_INTERVAL);
+        if($price_update_interval === false) {
+            $price_update_interval = Update_Timer::HOURLY;
+        }
+
         if(empty($price_update_interval) || $price_update_interval === 'none') {
             return false;
         }
@@ -450,6 +484,10 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     protected function should_update_old_price($update_interval)
     {
         $old_price_update_interval = carbon_get_theme_option(Amazon_Options::OLD_PRICE_UPDATE_INTERVAL);
+        if($old_price_update_interval === false) {
+            $old_price_update_interval = Update_Timer::HOURLY;
+        }
+
         if(empty($old_price_update_interval) || $old_price_update_interval === 'none') {
             return false;
         }

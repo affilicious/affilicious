@@ -66,6 +66,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 * Improvement: Added some more functions for the front end.
 * Improvement: Votes can contain 0 as value now.
 * Improvement: Improved the model helpers.
+* Fix: Fixed the Amazon updates in some cases.
 * Fix: Fixed the product equality.
 
 = 0.8.8 =
