@@ -53,13 +53,15 @@ Here is why developing with the Affilicious Plugin is really fun:
 1. You're done!
 
 == Screenshots ==
-
 1. This is the general Affilicious meta box. You can choose between simple products and complex products with variants.
 2. Each product can have multiple shops with affiliate links, availabilities and prices. Each shop will be updated automatically.
 3. Products without details are worth nothing. Define as many details you want.
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.10 =
+* Fix: Fixed the broken complex products on missing attribute templates.
+
 = 0.8.9 =
 * New: Added boolean type for details.
 * New: Added basic rest support for products.

@@ -73,12 +73,20 @@ jQuery(function($) {
             let variantsView = CarbonView.getVariantsView();
             let enabledAttributesView = CarbonView.getEnabledAttributesView();
 
-            typeView.$el.ready(this.toggleTabs);
-            typeView.model.on('change:value', this.toggleTabs);
-            variantsView.$el.ready(this.toggleAttributes);
-            variantsView.model.on('change:value', this.toggleAttributes);
-            enabledAttributesView.$el.ready(this.toggleAttributes);
-            enabledAttributesView.model.on('change:value', this.toggleAttributes);
+            if(!!typeView) {
+                typeView.$el.ready(this.toggleTabs);
+                typeView.model.on('change:value', this.toggleTabs);
+            }
+
+            if(!!variantsView) {
+                variantsView.$el.ready(this.toggleAttributes);
+                variantsView.model.on('change:value', this.toggleAttributes);
+            }
+
+            if(!!enabledAttributesView) {
+                enabledAttributesView.$el.ready(this.toggleAttributes);
+                enabledAttributesView.model.on('change:value', this.toggleAttributes);
+            }
         }
 
         toggleTabs() {
