@@ -41,7 +41,6 @@ use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Model\Tracking;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -1193,48 +1192,35 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.8.11
      */
-    public function delete_all_variants_from_parent_except($product_variants, Product_Id $parent_product_id)
+    public function delete_all_variants_except(Product_Id $parent_product_id, $product_variants, $force_delete = false)
     {
-        Assert::allIsInstanceOf($product_variants, Product_Variant::class);
-
+        // Get the raw IDs of the product variants which should not be deleted.
         $not_to_delete = array();
         foreach ($product_variants as $product_variant) {
-            if(!$product_variant->get_parent()->has_id() || !$product_variant->has_id()) {
+            if(!($product_variant instanceof Product_Variant) || !$product_variant->has_id())  {
                 continue;
             }
 
-            if(!$parent_product_id->is_equal_to($product_variant->get_parent()->get_id())) {
+            $parent_id = $product_variant->get_parent()->get_id();
+            if(!$parent_product_id->is_equal_to($parent_id)) {
                 continue;
             }
 
             $not_to_delete[] = $product_variant->get_id()->get_value();
         }
 
-        $to_delete = array();
-        foreach ($product_variants as $product_variant) {
-            $parent_id = $product_variant->get_parent()->get_id()->get_value();
-            if(!isset($to_delete[$parent_id])) {
-                $to_delete[$parent_id] = array();
-            }
-
-            $to_delete[$parent_id][] = $product_variant->get_id()->get_value();
-        }
-
-        $query = new \WP_Query(array(
+        // Get the posts of the product variants except the given ones.
+        $posts = get_posts(array(
             'post_type' => Product::POST_TYPE,
             'post_parent' => $parent_product_id->get_value(),
             'post__not_in' => $not_to_delete,
         ));
 
-        if($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-                wp_delete_post($query->post->ID, true);
-            }
-
-            wp_reset_postdata();
+        // Delete one after the other one (force delete)
+        foreach ($posts as $post) {
+            wp_delete_post($post->ID, $force_delete);
         }
     }
 

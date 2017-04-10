@@ -31,15 +31,6 @@ interface Product_Repository_Interface
     public function delete(Product_Id $product_id, $force_delete = false);
 
     /**
-     * Delete all variants from the parent product except the given ones.
-     * This method will be replaced with the specification pattern in future versions.
-     *
-     * @param Product_Variant[] $product_variants
-     * @param Product_Id $parent_product_id
-     */
-    public function delete_all_variants_from_parent_except($product_variants, Product_Id $parent_product_id);
-
-    /**
      * Find a product by the given ID.
      *
      * @since 0.8
@@ -56,4 +47,15 @@ interface Product_Repository_Interface
      * @return Product[]
      */
     public function find_all($args = array());
+
+    /**
+     * Delete all variants from the parent complex product except the given ones.
+     *
+     * @since 0.8.11
+     * @param Product_Id $parent_product_id
+     * @param Product_Variant[] $product_variants
+     * @param bool $force_delete
+     * @return Product_Id[]|\WP_Error
+     */
+    public function delete_all_variants_except(Product_Id $parent_product_id, $product_variants, $force_delete = false);
 }

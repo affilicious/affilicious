@@ -62,7 +62,7 @@ class Deleted_Complex_Product_Listener
         }
 
         foreach ($product_ids as $product_id) {
-            $this->product_repository->delete($product_id);
+            $this->product_repository->delete($product_id, true);
         }
     }
 }

@@ -39,24 +39,22 @@ class Saved_Complex_Product_Listener
             return;
         }
 
-        $product = $this->product_repository->find_one_by_id(new Product_Id($post_id));
-        if($product === null) {
+        $complex_product = $this->product_repository->find_one_by_id(new Product_Id($post_id));
+        if(!($complex_product instanceof Complex_Product)) {
             return;
         }
 
-        if(!($product instanceof Complex_Product)) {
-            return;
+        $product_variants = $complex_product->get_variants();
+        foreach ($product_variants as $product_variant) {
+            $this->product_repository->store($product_variant);
         }
 
-        $variants = $product->get_variants();
-        if(!empty($variants)) {
-            foreach ($variants as $variant) {
-                $this->product_repository->store($variant);
-            }
-        }
-
-        $this->product_repository->store($product);
-        $this->product_repository->delete_all_variants_from_parent_except($variants, $product->get_id());
+        $this->product_repository->store($complex_product);
+        $this->product_repository->delete_all_variants_except(
+            $complex_product->get_id(),
+            $product_variants,
+            true
+        );
     }
 
     /**

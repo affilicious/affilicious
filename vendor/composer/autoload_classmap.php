@@ -68,7 +68,6 @@ return array(
     'Affilicious\\Detail\\Repository\\Detail_Template_Repository_Interface' => $baseDir . '/src/detail/repository/detail-template-repository-interface.php',
     'Affilicious\\Detail\\Setup\\Admin_Table_Setup' => $baseDir . '/src/detail/setup/admin-table-setup.php',
     'Affilicious\\Detail\\Setup\\Detail_Template_Setup' => $baseDir . '/src/detail/setup/detail-template-setup.php',
-    'Affilicious\\Product\\Exception\\Missing_Parent_Product_Exception' => $baseDir . '/src/product/exception/missing-parent-product-exception.php',
     'Affilicious\\Product\\Exception\\Product_Limit_Exception' => $baseDir . '/src/product/exception/product-limit-exception.php',
     'Affilicious\\Product\\Factory\\Complex_Product_Factory_Interface' => $baseDir . '/src/product/factory/complex-product-factory-interface.php',
     'Affilicious\\Product\\Factory\\In_Memory\\In_Memory_Complex_Product_Factory' => $baseDir . '/src/product/factory/in-memory/in-memory-complex-product-factory.php',

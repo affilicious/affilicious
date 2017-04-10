@@ -162,7 +162,6 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
         'Affilicious\\Detail\\Repository\\Detail_Template_Repository_Interface' => __DIR__ . '/../..' . '/src/detail/repository/detail-template-repository-interface.php',
         'Affilicious\\Detail\\Setup\\Admin_Table_Setup' => __DIR__ . '/../..' . '/src/detail/setup/admin-table-setup.php',
         'Affilicious\\Detail\\Setup\\Detail_Template_Setup' => __DIR__ . '/../..' . '/src/detail/setup/detail-template-setup.php',
-        'Affilicious\\Product\\Exception\\Missing_Parent_Product_Exception' => __DIR__ . '/../..' . '/src/product/exception/missing-parent-product-exception.php',
         'Affilicious\\Product\\Exception\\Product_Limit_Exception' => __DIR__ . '/../..' . '/src/product/exception/product-limit-exception.php',
         'Affilicious\\Product\\Factory\\Complex_Product_Factory_Interface' => __DIR__ . '/../..' . '/src/product/factory/complex-product-factory-interface.php',
         'Affilicious\\Product\\Factory\\In_Memory\\In_Memory_Complex_Product_Factory' => __DIR__ . '/../..' . '/src/product/factory/in-memory/in-memory-complex-product-factory.php',
