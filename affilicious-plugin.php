@@ -795,7 +795,17 @@ if(!class_exists('Affilicious_Plugin')) {
             }, 100);
         }
     }
-
-    $affilicious_plugin = Affilicious_Plugin::get_instance();
-    $affilicious_plugin->run();
 }
+
+/**
+ * Run the Affilicious plugin.
+ *
+ * @since 0.8.11
+ */
+function aff_run_plugin()
+{
+    $aff_plugin = Affilicious_Plugin::get_instance();
+    $aff_plugin->run();
+}
+
+aff_run_plugin();
