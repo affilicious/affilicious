@@ -331,7 +331,8 @@ function aff_the_product_review_votes($product_or_id = null)
         'based on %s review',
         'based on %s reviews',
         $votes, 'affilicious'),
-        $votes);
+        esc_html($votes)
+    );
 }
 
 /**
@@ -609,7 +610,7 @@ function aff_get_product_link($product_or_id = null)
         return null;
     }
 
-    return esc_url($link);
+    return $link;
 }
 
 /**
@@ -621,7 +622,7 @@ function aff_get_product_link($product_or_id = null)
  */
 function aff_the_product_link($product_or_id = null)
 {
-    echo aff_get_product_link($product_or_id);
+    echo esc_url(aff_get_product_link($product_or_id));
 }
 
 /**
@@ -747,7 +748,7 @@ function aff_the_product_tags($product_or_id = null, $before = '', $after = '')
     }
 
     foreach ($tags as $tag) {
-        echo $before . $tag . $after;
+        echo $before . esc_html($tag) . $after;
     }
 }
 
@@ -860,9 +861,11 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null)
 function aff_the_product_price($product_or_id = null, $affiliate_link = null)
 {
     $price = aff_get_product_price($product_or_id, $affiliate_link);
-    if(!empty($price)) {
-        echo $price;
+    if(empty($price)) {
+        return;
     };
+
+    echo esc_html($price);
 }
 
 /**
@@ -940,10 +943,12 @@ function aff_get_product_old_price($product_or_id = null, $affiliate_link = null
  */
 function aff_the_product_old_price($product_or_id = null, $affiliate_link = null)
 {
-    $price = aff_get_product_old_price($product_or_id, $affiliate_link);
-    if(!empty($price)) {
-        echo $price;
+    $old_price = aff_get_product_old_price($product_or_id, $affiliate_link);
+    if(empty($old_price)) {
+        return;
     };
+
+    echo esc_html($old_price);
 }
 
 /**
@@ -1009,7 +1014,7 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
  */
 function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null)
 {
-    echo aff_get_product_affiliate_link($product_or_id, $shop_or_id);
+    echo esc_url(aff_get_product_affiliate_link($product_or_id, $shop_or_id));
 }
 
 /**
@@ -1027,8 +1032,7 @@ function aff_get_product_cheapest_affiliate_link($product_or_id = null)
         return null;
     }
 
-
-    $affiliate_link = isset($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
+    $affiliate_link = !empty($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
 
     return $affiliate_link;
 }
@@ -1418,14 +1422,14 @@ function aff_the_product_attribute_choices($product_or_id = null)
 
     foreach ($attribute_choices as $name => $attribute_choice) {
         echo '<li class="aff-product-attributes-choices">';
-        echo '<span class="aff-product-attributes-choices-name">' . $attribute_choice['name'] . '</span>';
+        echo '<span class="aff-product-attributes-choices-name">' . esc_html($attribute_choice['name']) . '</span>';
         echo '<ul class="aff-product-attributes-choice-list">';
 
         foreach ($attribute_choice['attributes'] as $attribute) {
-            echo '<li class="aff-product-attributes-choice ' . $attribute['display'] . '">';
-            if(!empty($attribute['permalink'])): echo '<a href="' . $attribute['permalink'] .'">'; endif;
+            echo '<li class="aff-product-attributes-choice ' . esc_attr($attribute['display']) . '">';
+            if(!empty($attribute['permalink'])): echo '<a href="' . esc_url($attribute['permalink']) .'">'; endif;
             echo $attribute['value'];
-            if(!empty($attribute['unit'])): echo ' <span class="unit">' . $attribute['unit'] . '</span>'; endif;
+            if(!empty($attribute['unit'])): echo ' <span class="unit">' . esc_html($attribute['unit']) . '</span>'; endif;
             if(!empty($attribute['permalink'])): echo '</a>'; endif;
             echo '</li>';
         }
@@ -1456,7 +1460,7 @@ function aff_get_shop_price_indication()
  */
 function aff_the_shop_price_indication()
 {
-    echo aff_get_shop_price_indication();
+    echo esc_html(aff_get_shop_price_indication());
 }
 
 /**
@@ -1486,7 +1490,7 @@ function aff_get_shop_updated_at_indication($shop)
  */
 function aff_the_shop_updated_at_indication($shop)
 {
-    echo aff_get_shop_updated_at_indication($shop);
+    echo esc_html(aff_get_shop_updated_at_indication($shop));
 }
 
 /**
@@ -1555,7 +1559,7 @@ function aff_the_shop_price($shop)
         return;
     }
 
-    echo $price;
+    echo esc_html($price);
 }
 
 /**
@@ -1592,5 +1596,5 @@ function aff_the_shop_old_price($shop)
         return;
     }
 
-    echo $old_price;
+    echo esc_html($old_price);
 }
