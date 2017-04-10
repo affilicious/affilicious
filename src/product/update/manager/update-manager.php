@@ -276,6 +276,8 @@ class Update_Manager implements Update_Manager_Interface
     protected function store_batch_update_task(Batch_Update_Task_Interface $batch_update_task)
     {
         $products = $batch_update_task->get_products();
-        $this->product_repository->store_all($products);
+        foreach ($products as $product) {
+            $this->product_repository->store($product);
+        }
     }
 }

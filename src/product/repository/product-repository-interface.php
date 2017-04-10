@@ -16,32 +16,19 @@ interface Product_Repository_Interface
      *
      * @since 0.8
      * @param Product $product
+     * @return Product_Id|\WP_Error
      */
     public function store(Product $product);
-
-    /**
-     * Store all products.
-     *
-     * @since 0.8
-     * @param Product[] $products
-     */
-    public function store_all($products);
 
     /**
      * Delete the product by the ID.
      *
      * @since 0.8
      * @param Product_Id $product_id
+     * @param bool $force_delete
+     * @return Product|\WP_Error
      */
-    public function delete(Product_Id $product_id);
-
-    /**
-     * Delete all products by the IDs.
-     *
-     * @since 0.8
-     * @param Product_Id[] $product_ids
-     */
-    public function delete_all($product_ids);
+    public function delete(Product_Id $product_id, $force_delete = false);
 
     /**
      * Delete all variants from the parent product except the given ones.
@@ -57,7 +44,7 @@ interface Product_Repository_Interface
      *
      * @since 0.8
      * @param Product_Id $product_id
-     * @return null|Product
+     * @return Product|null
      */
     public function find_one_by_id(Product_Id $product_id);
 
@@ -65,7 +52,8 @@ interface Product_Repository_Interface
      * Find all products.
      *
      * @since 0.8
+     * @param array $args
      * @return Product[]
      */
-    public function find_all();
+    public function find_all($args = array());
 }

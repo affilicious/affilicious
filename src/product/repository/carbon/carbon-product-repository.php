@@ -11,7 +11,6 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Detail\Model\Value as Detail_Value;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
-use Affilicious\Product\Exception\Missing_Parent_Product_Exception;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Content;
 use Affilicious\Product\Model\Content_Aware_Interface;
@@ -126,8 +125,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         Shop_Template_Repository_Interface $shop_template_repository,
         Attribute_Template_Repository_Interface $attribute_template_repository,
         Detail_Template_Repository_Interface $detail_template_repository
-    )
-    {
+    ) {
         $this->slug_generator = $slug_generator;
         $this->key_generator = $key_generator;
         $this->shop_template_repository = $shop_template_repository;
@@ -141,17 +139,25 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     public function store(Product $product)
     {
-        // Product variants must have a parent product
+        // Product variants must have one parent product which is existing in the database.
         if($product instanceof Product_Variant && !$product->get_parent()->has_id()) {
-            throw new Missing_Parent_Product_Exception($product->get_id());
+            return new \WP_Error('aff_missing_parent_product', sprintf(
+                'The parent product for the variant #%s is missing in the database.',
+                $product->get_id()
+            ));
         }
 
-        // Store the product into the database.
+        // Transform the product into an array for Wordpress
         $default_args = $this->get_default_args($product);
         $args = $this->parse_args($product, $default_args);
-        $id = !empty($args['id']) ? wp_update_post($args) : wp_insert_post($args);
 
-        // The ID and the name might have changed in the database. Update both values.
+        // Store the product into the database.
+        $id = !empty($args['id']) ? wp_update_post($args, true) : wp_insert_post($args, true);
+        if($id instanceof \WP_Error) {
+            return $id;
+        }
+
+        // The ID and slug might have changed in the database. Update both values.
         if(empty($default_args)) {
             $post = get_post($id, OBJECT);
             $product->set_id(new Product_Id($post->ID));
@@ -191,59 +197,48 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         if($product instanceof Tag_Aware_Interface) {
             $this->store_tags($product);
         }
+
+        return $product->get_id();
     }
 
     /**
      * @inheritdoc
      * @since 0.6
      */
-    public function store_all($products)
+    public function delete(Product_Id $product_id, $force_delete = false)
     {
-        Assert::allIsInstanceOf($products, Product::class);
-
-        foreach ($products as $product) {
-            $this->store($product);
-        }
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.6
-     */
-    public function delete(Product_Id $product_id)
-    {
+        // Check if the product is existing.
         $post = get_post($product_id->get_value());
-        Assert::notEmpty($post, 'Expected a non empty post. Got: %s');
-        Assert::same($post->post_type, Product::POST_TYPE, 'Expected the post type to be identical to %2$s. Got: %s');
-
-        wp_delete_post($product_id->get_value(), false);
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.6
-     */
-    public function delete_all($product_ids)
-    {
-        Assert::allIsInstanceOf($product_ids, Product_Id::class);
-
-        foreach ($product_ids as $product_id) {
-            $this->delete($product_id);
-        }
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.6
-     */
-    public function find_one_by_id(Product_Id $product_id)
-    {
-        $post = get_post($product_id->get_value());
-        if (empty($post)) {
-            return null;
+        if(empty($post)) {
+            return new \WP_Error('aff_product_not_found', sprintf(
+                'Product #%s not found in the database.',
+                $product_id->get_value()
+            ));
         }
 
-        $product = self::build_product_from_post($post);
+        // Check if the product contains the correct post type.
+        if($post->post_type != Product::POST_TYPE)  {
+            return new \WP_Error('aff_invalid_product_type', sprintf(
+                'Expected product type to be %s. Got: %s',
+                Product::POST_TYPE,
+                $post->post_type
+            ));
+        }
+
+        // Delete the product (either force deletion or not).
+        $post = wp_delete_post($product_id->get_value(), $force_delete);
+        if($post === false || !($post instanceof \WP_Post)) {
+            return new \WP_Error('aff_failed_to_delete_product', sprintf(
+                'Failed to delete the product #%s.',
+                $product_id->get_value()
+            ));
+        }
+
+        // Build the deleted product
+        $product = $this->build_product($post);
+        if($product->has_id()) {
+            $product->set_id(null);
+        }
 
         return $product;
     }
@@ -252,22 +247,45 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @inheritdoc
      * @since 0.6
      */
-    public function find_all()
+    public function find_one_by_id(Product_Id $product_id)
     {
-        $query = new \WP_Query(array(
-            'post_type' => Product::POST_TYPE,
-            'posts_per_page' => -1,
+        // Find the post.
+        $post = get_post($product_id->get_value());
+        if (empty($post)) {
+            return null;
+        }
+
+        // Build the product from the post.
+        $product = self::build_product($post);
+        if(!($product instanceof Product)) {
+            return null;
+        }
+
+        return $product;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function find_all($args = array())
+    {
+        // Prepare the arguments for the search.
+        $args['post_type'] = Product::POST_TYPE;
+        $args = wp_parse_args($args, array(
+            'posts_per_page' => -1
         ));
 
+        // Search for all products by the arguments.
         $products = array();
-        if($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-                $product = self::build_product_from_post($query->post);
-                $products[] = $product;
+        $posts = get_posts($args);
+        foreach ($posts as $post) {
+            $product = self::build_product($post);
+            if(!($product instanceof Product)) {
+                continue;
             }
 
-            wp_reset_postdata();
+            $products[] = $product;
         }
 
         return $products;
@@ -276,14 +294,19 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     /**
      * Convert the Wordpress post into a product.
      *
-     * @since 0.6
+     * @since 0.8.11
      * @param \WP_Post $post
-     * @return Product
+     * @return Product|\WP_Error
      */
-    private function build_product_from_post(\WP_Post $post)
+    private function build_product(\WP_Post $post)
     {
+        // Check if the post contains the correct post type.
         if($post->post_type != Product::POST_TYPE) {
-            return null;
+            return new \WP_Error('aff_invalid_product_type', sprintf(
+                'Expected product type to be %s. Got: %s',
+                Product::POST_TYPE,
+                $post->post_type
+            ));
         }
 
         // Get the type like simple, complex or variant.
@@ -292,13 +315,13 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $product = null;
         switch($type->get_value()) {
             case Type::SIMPLE:
-                $product = $this->build_simple_product_from_post($post);
+                $product = $this->build_simple_product($post);
                 break;
             case Type::COMPLEX:
-                $product = $this->build_complex_product_from_post($post);
+                $product = $this->build_complex_product($post);
                 break;
             case Type::VARIANT:
-                $product = $this->build_product_variant_from_post($post);
+                $product = $this->build_product_variant($post);
                 break;
             default:
                 break;
@@ -310,21 +333,27 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     /**
      * Convert the Wordpress post into a simple product.
      *
-     * @since 0.7
+     * @since 0.8.11
      * @param \WP_Post $post
-     * @return Simple_Product
+     * @return Simple_Product|\WP_Error
      */
-    private function build_simple_product_from_post(\WP_Post $post)
+    private function build_simple_product(\WP_Post $post)
     {
+        // Check if the post contains the correct post type.
         if($post->post_type != Product::POST_TYPE) {
-            return null;
+            return new \WP_Error('aff_invalid_product_type', sprintf(
+                'Expected product type to be %s. Got: %s',
+                Product::POST_TYPE,
+                $post->post_type
+            ));
         }
 
-        $title = new Name($post->post_title);
+        // Build the simple product
+        $name = new Name($post->post_title);
         $slug = new Slug($post->post_name);
         $key = $this->key_generator->generate_from_slug($slug);
 
-        $simple_product = new Simple_Product($title, $slug, $key);
+        $simple_product = new Simple_Product($name, $slug, $key);
         $this->add_id($simple_product, $post);
         $this->add_content($simple_product, $post);
         $this->add_excerpt($simple_product, $post);
@@ -344,16 +373,22 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     /**
      * Convert the Wordpress post into a complex product.
      *
-     * @since 0.7
+     * @since 0.8.11
      * @param \WP_Post $post
-     * @return Complex_Product
+     * @return Complex_Product|\WP_Error
      */
-    private function build_complex_product_from_post(\WP_Post $post)
+    private function build_complex_product(\WP_Post $post)
     {
+        // Check if the post contains the correct post type.
         if($post->post_type != Product::POST_TYPE) {
-            return null;
+            return new \WP_Error('aff_invalid_product_type', sprintf(
+                'Expected product type to be %s. Got: %s',
+                Product::POST_TYPE,
+                $post->post_type
+            ));
         }
 
+        // Build the complex product
         $title = new Name($post->post_title);
         $slug = new Slug($post->post_name);
         $key = $this->key_generator->generate_from_slug($slug);
@@ -380,26 +415,37 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      * @since 0.7
      * @param \WP_Post $post
      * @param Complex_Product $parent
-     * @return Product_Variant
+     * @return Product_Variant|\WP_Error
      */
-    private function build_product_variant_from_post(\WP_Post $post, Complex_Product $parent = null)
+    private function build_product_variant(\WP_Post $post, Complex_Product $parent = null)
     {
+        // Check if the post contains the correct post type.
         if($post->post_type != Product::POST_TYPE) {
-            return null;
+            return new \WP_Error('aff_invalid_product_type', sprintf(
+                'Expected product type to be %s. Got: %s',
+                Product::POST_TYPE,
+                $post->post_type
+            ));
         }
 
+        // Find the parent complex product.
         if($parent === null) {
-            $parent = $this->get_parent_complex_product(new Product_Id($post->ID));
+            $parent = $this->find_parent_product(new Product_Id($post->ID));
+            if($parent instanceof \WP_Error) {
+                return $parent;
+            }
         }
 
+        // Check if the parent complex product is valid.
         if($parent === null) {
-            throw new \RuntimeException(sprintf(
+            return new \WP_Error('aff_missing_parent_product', sprintf(
                 'Failed to find the parent complex product for the product variant #%s (%s).',
                 $post->ID,
                 $post->post_title
             ));
         }
 
+        // Build the product variant.
         $title = new Name($post->post_title);
         $slug = new Slug($post->post_name);
 
@@ -415,25 +461,31 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     }
 
     /**
-     * Find the parent complex product of the product variant by the given ID.
+     * Find the parent complex product by the given product variant ID.
      *
-     * @since 0.6
+     * @since 0.8.11
      * @param Product_Id $product_variant_id
      * @return null|Complex_Product
      */
-    private function get_parent_complex_product(Product_Id $product_variant_id)
+    private function find_parent_product(Product_Id $product_variant_id)
     {
+        // Find the parent post ID of the product variant.
         $parent_post_id = wp_get_post_parent_id($product_variant_id->get_value());
         if(empty($parent_post_id)) {
             return null;
         }
 
+        // Find the parent post by the ID.
         $parent_post = get_post($parent_post_id);
         if(empty($parent_post)) {
             return null;
         }
 
-        $complex_product = $this->build_complex_product_from_post($parent_post);
+        // Build the parent complex product from the parent post.
+        $complex_product = $this->build_complex_product($parent_post);
+        if(!($complex_product instanceof Complex_Product)) {
+            return null;
+        }
 
         return $complex_product;
     }

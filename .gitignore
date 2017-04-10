@@ -8,3 +8,4 @@ assets/.cache
 assets/css/*.css.map
 assets/js/*.js.map
 node_modules/
+/.idea

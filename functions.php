@@ -70,7 +70,6 @@ function aff_get_product($post_or_id = null)
 {
     $product = Product_Helper::get_product($post_or_id);
 
-
     return $product;
 }
 
@@ -221,7 +220,7 @@ function aff_has_product_review_rating($product_or_id = null)
 }
 
 /**
- * Get the product review rating from 0 to 5
+ * Get the product review rating from 0 to 5.
  *
  * @since 0.6
  * @param int|\WP_Post|Product|null $product_or_id
@@ -390,19 +389,6 @@ function aff_get_product_image_gallery($product_or_id = null)
 }
 
 /**
- * Count the shops of the product.
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.7.1
- * @param int|\WP_Post|Product|null $product_or_id
- * @return int
- */
-function aff_count_product_shops($product_or_id = null)
-{
-    return count(aff_get_product_shops($product_or_id));
-}
-
-/**
  * Check if the product has any shops.
  * If you pass in nothing as a parameter, the current post will be used.
  *
@@ -412,7 +398,7 @@ function aff_count_product_shops($product_or_id = null)
  */
 function aff_has_product_shops($product_or_id = null)
 {
-    return aff_count_product_shops($product_or_id) > 0;
+    return count(aff_get_product_shops($product_or_id)) > 0;
 }
 
 /**

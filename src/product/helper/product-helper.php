@@ -93,7 +93,7 @@ class Product_Helper
         // The argument is null. Use the current post.
         if($post_or_id === null) {
             $post = get_post($post_or_id);
-            return $post !== null ?$product_repository->find_one_by_id(new Product_Id($post->ID)) : null;
+            return $post !== null ? $product_repository->find_one_by_id(new Product_Id($post->ID)) : null;
         }
 
         return null;
