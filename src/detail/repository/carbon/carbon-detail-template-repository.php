@@ -26,20 +26,11 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      */
     public function store(Detail_Template $detail_template)
     {
-        $detail_template->has_id() ? $this->update($detail_template) : $this->insert($detail_template);
-    }
+        $detail_template_id = $detail_template->has_id() ?
+            $this->update($detail_template) :
+            $this->insert($detail_template);
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function store_all($detail_templates)
-    {
-        Assert::allIsInstanceOf($detail_templates, Detail_Template::class);
-
-        foreach ($detail_templates as $detail_template) {
-            $this->store($detail_template);
-        }
+        return $detail_template_id;
     }
 
     /**
@@ -48,23 +39,33 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      */
     public function delete(Detail_Template_Id $detail_template_id)
     {
-        wp_delete_term(
+        $detail_template = $this->find_one_by_id($detail_template_id);
+        if($detail_template === null) {
+            return new \WP_Error('aff_detail_template_not_found', sprintf(
+                'Detail template #%s not found in the database.',
+                $detail_template_id->get_value()
+            ));
+        }
+
+        $result = wp_delete_term(
             $detail_template_id->get_value(),
             Detail_Template::TAXONOMY
         );
-    }
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function delete_all($detail_template_ids)
-    {
-        Assert::allIsInstanceOf($detail_template_ids, Detail_Template_Id::class);
-
-        foreach ($detail_template_ids as $detail_template_id) {
-            $this->delete($detail_template_id);
+        if($result === 0) {
+            return new \WP_Error('aff_invalid_deletion_of_default_category', sprintf(
+                "It's not allowed to delete a default Wordpress category",
+                $detail_template_id->get_value()
+            ));
         }
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
+
+        $detail_template->set_id(null);
+
+        return $detail_template;
     }
 
     /**
@@ -139,12 +140,14 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      * @inheritdoc
      * @since 0.8
      */
-    public function find_all()
+    public function find_all($args = array())
     {
-        $terms = get_terms(array(
-            'taxonomy' => Detail_Template::TAXONOMY,
+        $args['taxonomy'] = Detail_Template::TAXONOMY;
+        $args = wp_parse_args($args, array(
             'hide_empty' => false
         ));
+
+        $terms = get_terms($args);
 
         if(empty($terms) || $terms instanceof \WP_Error) {
             return array();
@@ -195,6 +198,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      *
      * @since 0.8
      * @param Detail_Template $detail_template
+     * @return Detail_Template_Id|\WP_Error
      */
     protected function insert(Detail_Template $detail_template)
     {
@@ -206,21 +210,29 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
             )
         );
 
-        if(empty($term) || $term instanceof \WP_Error) {
-            throw new \RuntimeException(sprintf(
-                'Failed to insert the detail template %s (%s).',
-                $detail_template->get_name()->get_value(),
-                $detail_template->get_slug()->get_value()
+        if(empty($term)) {
+            return new \WP_Error('aff_detail_template_not_stored', sprintf(
+                'Failed to store the detail template #%s (%s) into the database.',
+                $detail_template->get_id()->get_value(),
+                $detail_template->get_name()->get_value()
             ));
+        }
+
+        if($term instanceof \WP_Error) {
+            return $term;
         }
 
         $detail_template->set_id(new Detail_Template_Id($term['term_id']));
 
-        add_term_meta(
+        $result = add_term_meta(
             $detail_template->get_id()->get_value(),
             self::TYPE,
             $detail_template->get_type()->get_value()
         );
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
 
         if($detail_template->has_unit()) {
             add_term_meta(
@@ -229,6 +241,8 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
                 $detail_template->get_unit()->get_value()
             );
         }
+
+        return $detail_template->get_id();
     }
 
     /**
@@ -236,6 +250,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      *
      * @since 0.8
      * @param Detail_Template $detail_template
+     * @return Detail_Template_Id|\WP_Error
      */
     protected function update(Detail_Template $detail_template)
     {
@@ -248,23 +263,31 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
             )
         );
 
-        if(empty($term) || $term instanceof \WP_Error) {
-            throw new \RuntimeException(sprintf(
-                'Failed to update the detail template %s (%s).',
-                $detail_template->get_name()->get_value(),
-                $detail_template->get_slug()->get_value()
+        if(empty($term)) {
+            return new \WP_Error('aff_detail_template_not_stored', sprintf(
+                'Failed to store the detail template #%s (%s) into the database.',
+                $detail_template->get_id()->get_value(),
+                $detail_template->get_name()->get_value()
             ));
+        }
+
+        if($term instanceof \WP_Error) {
+            return $term;
         }
 
         if(!empty($term['slug'])) {
             $detail_template->set_slug(new Slug($term['slug']));
         }
 
-        update_term_meta(
+        $result = update_term_meta(
             $detail_template->get_id()->get_value(),
             self::TYPE,
             $detail_template->get_type()->get_value()
         );
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
 
         if($detail_template->has_unit()) {
             update_term_meta(
@@ -273,5 +296,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
                 $detail_template->get_unit()->get_value()
             );
         }
+
+        return $detail_template->get_id();
     }
 }

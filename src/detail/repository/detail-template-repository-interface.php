@@ -18,17 +18,9 @@ interface Detail_Template_Repository_Interface
      *
      * @since 0.8
      * @param Detail_Template $detail_template
+     * @return Detail_Template_Id|\WP_Error
      */
     public function store(Detail_Template $detail_template);
-
-    /**
-     * Store all detail templates.
-     * The ID and the slug of the detail templates might be different afterwards.
-     *
-     * @since 0.8
-     * @param Detail_Template[] $detail_templates
-     */
-    public function store_all($detail_templates);
 
     /**
      * Delete the detail template by the given ID.
@@ -36,17 +28,9 @@ interface Detail_Template_Repository_Interface
      *
      * @since 0.8
      * @param Detail_Template_Id $detail_template_id
+     * @return Detail_Template|\WP_Error
      */
     public function delete(Detail_Template_Id $detail_template_id);
-
-    /**
-     * Delete the detail templates by the given IDs.
-     * The ID of the detail templates are going to be null afterwards.
-     *
-     * @since 0.8
-     * @param Detail_Template_Id[] $detail_template_ids
-     */
-    public function delete_all($detail_template_ids);
 
     /**
      * Find an detail template by the ID.
@@ -88,7 +72,8 @@ interface Detail_Template_Repository_Interface
      * Find all detail templates.
      *
      * @since 0.8
+     * @param array $args
      * @return Detail_Template[]
      */
-    public function find_all();
+    public function find_all($args = array());
 }

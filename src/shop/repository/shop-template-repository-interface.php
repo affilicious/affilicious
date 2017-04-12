@@ -18,17 +18,9 @@ interface Shop_Template_Repository_Interface
      *
      * @since 0.8
      * @param Shop_Template $shop_template
+     * @return Shop_Template_Id|\WP_Error
      */
     public function store(Shop_Template $shop_template);
-
-    /**
-     * Store all shop templates.
-     * The ID and the slug of the shop templates might be different afterwards.
-     *
-     * @since 0.8
-     * @param Shop_Template[] $shop_templates
-     */
-    public function store_all($shop_templates);
 
     /**
      * Delete the shop template by the given ID.
@@ -36,17 +28,9 @@ interface Shop_Template_Repository_Interface
      *
      * @since 0.8
      * @param Shop_Template_Id $shop_template_id
+     * @return Shop_Template|\WP_Error
      */
     public function delete(Shop_Template_Id $shop_template_id);
-
-    /**
-     * Delete the shop templates by the given IDs.
-     * The ID of the shop templates are going to be null afterwards.
-     *
-     * @since 0.8
-     * @param Shop_Template_Id[] $shop_template_ids
-     */
-    public function delete_all($shop_template_ids);
 
     /**
      * Find an shop template by the ID.
@@ -88,7 +72,8 @@ interface Shop_Template_Repository_Interface
      * Find all shop templates.
      *
      * @since 0.8
+     * @param array $args
      * @return Shop_Template[]
      */
-    public function find_all();
+    public function find_all($args = array());
 }

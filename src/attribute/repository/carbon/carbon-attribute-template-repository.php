@@ -26,20 +26,11 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      */
     public function store(Attribute_Template $attribute_template)
     {
-        $attribute_template->has_id() ? $this->update($attribute_template) : $this->insert($attribute_template);
-    }
+        $attribute_template_id = $attribute_template->has_id() ?
+            $this->update($attribute_template) :
+            $this->insert($attribute_template);
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function store_all($attribute_templates)
-    {
-        Assert::allIsInstanceOf($attribute_templates, Attribute_Template::class);
-
-        foreach ($attribute_templates as $attribute_template) {
-            $this->store($attribute_template);
-        }
+        return $attribute_template_id;
     }
 
     /**
@@ -48,23 +39,33 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      */
     public function delete(Attribute_Template_Id $attribute_template_id)
     {
-        wp_delete_term(
+        $attribute_template = $this->find_one_by_id($attribute_template_id);
+        if($attribute_template === null) {
+            return new \WP_Error('aff_attribute_template_not_found', sprintf(
+                'Attribute template #%s not found in the database.',
+                $attribute_template_id->get_value()
+            ));
+        }
+
+        $result = wp_delete_term(
             $attribute_template_id->get_value(),
             Attribute_Template::TAXONOMY
         );
-    }
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function delete_all($attribute_template_ids)
-    {
-        Assert::allIsInstanceOf($attribute_template_ids, Attribute_Template_Id::class);
-
-        foreach ($attribute_template_ids as $attribute_template_id) {
-            $this->delete($attribute_template_id);
+        if($result === 0) {
+            return new \WP_Error('aff_invalid_deletion_of_default_category', sprintf(
+                "It's not allowed to delete a default Wordpress category",
+                $attribute_template_id->get_value()
+            ));
         }
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
+
+        $attribute_template->set_id(null);
+
+        return $attribute_template;
     }
 
     /**
@@ -139,13 +140,14 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      * @inheritdoc
      * @since 0.8
      */
-    public function find_all()
+    public function find_all($args = array())
     {
-        $terms = get_terms(array(
-            'taxonomy' => Attribute_Template::TAXONOMY,
+        $args['taxonomy'] = Attribute_Template::TAXONOMY;
+        $args = wp_parse_args($args, array(
             'hide_empty' => false
         ));
 
+        $terms = get_terms($args);
         if(empty($terms) || $terms instanceof \WP_Error) {
             return array();
         }
@@ -197,6 +199,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      *
      * @since 0.8
      * @param Attribute_Template $attribute_template
+     * @return Attribute_Template_Id|\WP_Error
      */
     protected function insert(Attribute_Template $attribute_template)
     {
@@ -208,21 +211,29 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
             )
         );
 
-        if(empty($term) || $term instanceof \WP_Error) {
-            throw new \RuntimeException(sprintf(
-                'Failed to insert the attribute template %s (%s).',
-                $attribute_template->get_name()->get_value(),
-                $attribute_template->get_slug()->get_value()
+        if(empty($term)) {
+            return new \WP_Error('aff_attribute_template_not_stored', sprintf(
+                'Failed to store the attribute template #%s (%s) into the database.',
+                $attribute_template->get_id()->get_value(),
+                $attribute_template->get_name()->get_value()
             ));
+        }
+
+        if($term instanceof \WP_Error) {
+            return $term;
         }
 
         $attribute_template->set_id(new Attribute_Template_Id($term['term_id']));
 
-        add_term_meta(
+        $result = add_term_meta(
             $attribute_template->get_id()->get_value(),
             self::TYPE,
             $attribute_template->get_type()->get_value()
         );
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
 
         if($attribute_template->has_unit()) {
             add_term_meta(
@@ -231,6 +242,8 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
                 $attribute_template->get_unit()->get_value()
             );
         }
+
+        return $attribute_template->get_id();
     }
 
     /**
@@ -238,6 +251,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      *
      * @since 0.8
      * @param Attribute_Template $attribute_template
+     * @return Attribute_Template_Id|\WP_Error
      */
     protected function update(Attribute_Template $attribute_template)
     {
@@ -250,23 +264,31 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
             )
         );
 
-        if(empty($term) || $term instanceof \WP_Error) {
-            throw new \RuntimeException(sprintf(
-                'Failed to update the attribute template %s (%s).',
-                $attribute_template->get_name()->get_value(),
-                $attribute_template->get_slug()->get_value()
+        if(empty($term)) {
+            return new \WP_Error('aff_attribute_template_not_stored', sprintf(
+                'Failed to store the attribute template #%s (%s) into the database.',
+                $attribute_template->get_id()->get_value(),
+                $attribute_template->get_name()->get_value()
             ));
+        }
+
+        if($term instanceof \WP_Error) {
+            return $term;
         }
 
         if(!empty($term['slug'])) {
             $attribute_template->set_slug(new Slug($term['slug']));
         }
 
-        update_term_meta(
+        $result = update_term_meta(
             $attribute_template->get_id()->get_value(),
             self::TYPE,
             $attribute_template->get_type()->get_value()
         );
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
 
         if($attribute_template->has_unit()) {
             update_term_meta(
@@ -275,5 +297,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
                 $attribute_template->get_unit()->get_value()
             );
         }
+
+        return $attribute_template->get_id();
     }
 }

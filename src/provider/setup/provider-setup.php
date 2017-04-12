@@ -32,7 +32,10 @@ class Provider_Setup
         do_action('affilicious_provider_setup_before_init');
 
         $providers = apply_filters('affilicious_provider_setup_init', array());
-        $this->provider_repository->store_all($providers);
+
+        foreach ($providers as $provider) {
+            $this->provider_repository->store($provider);
+        }
 
         do_action('affilicious_provider_setup_after_init', $providers);
     }

@@ -18,17 +18,9 @@ interface Attribute_Template_Repository_Interface
      *
      * @since 0.8
      * @param Attribute_Template $attribute_template
+     * @return Attribute_Template_Id|\WP_Error
      */
     public function store(Attribute_Template $attribute_template);
-
-    /**
-     * Store all attribute templates.
-     * The ID and the slug of the attribute templates might be different afterwards.
-     *
-     * @since 0.8
-     * @param Attribute_Template[] $attribute_templates
-     */
-    public function store_all($attribute_templates);
 
     /**
      * Delete the attribute template by the given ID.
@@ -36,17 +28,9 @@ interface Attribute_Template_Repository_Interface
      *
      * @since 0.8
      * @param Attribute_Template_Id $attribute_template_id
+     * @return Attribute_Template|\WP_Error
      */
     public function delete(Attribute_Template_Id $attribute_template_id);
-
-    /**
-     * Delete the attribute templates by the given IDs.
-     * The ID of the attribute templates are going to be null afterwards.
-     *
-     * @since 0.8
-     * @param Attribute_Template_Id[] $attribute_template_ids
-     */
-    public function delete_all($attribute_template_ids);
 
     /**
      * Find an attribute template by the ID.
@@ -88,7 +72,8 @@ interface Attribute_Template_Repository_Interface
      * Find all attribute templates.
      *
      * @since 0.8
+     * @param array $args
      * @return Attribute_Template[]
      */
-    public function find_all();
+    public function find_all($args = array());
 }

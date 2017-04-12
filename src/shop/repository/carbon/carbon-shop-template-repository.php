@@ -26,20 +26,11 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     public function store(Shop_Template $shop_template)
     {
-        $shop_template->has_id() ? $this->update($shop_template) : $this->insert($shop_template);
-    }
+        $shop_template_id = $shop_template->has_id() ?
+            $this->update($shop_template) :
+            $this->insert($shop_template);
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function store_all($shop_templates)
-    {
-        Assert::allIsInstanceOf($shop_templates, Shop_Template::class);
-
-        foreach ($shop_templates as $shop_template) {
-            $this->store($shop_template);
-        }
+        return $shop_template_id;
     }
 
     /**
@@ -48,25 +39,33 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     public function delete(Shop_Template_Id $shop_template_id)
     {
-        wp_delete_term(
+        $shop_template = $this->find_one_by_id($shop_template_id);
+        if($shop_template === null) {
+            return new \WP_Error('aff_shop_template_not_found', sprintf(
+               'Shop template #%s not found in the database.',
+                $shop_template_id->get_value()
+            ));
+        }
+
+        $result = wp_delete_term(
             $shop_template_id->get_value(),
             Shop_Template::TAXONOMY
         );
 
-        add_action('affilicious_shop_template_repository_delete', $shop_template_id);
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function delete_all($shop_template_ids)
-    {
-        Assert::allIsInstanceOf($shop_template_ids, Shop_Template_Id::class);
-
-        foreach ($shop_template_ids as $shop_template_id) {
-            $this->delete($shop_template_id);
+        if($result === 0) {
+            return new \WP_Error('aff_invalid_deletion_of_default_category', sprintf(
+                "It's not allowed to delete a default Wordpress category",
+                $shop_template_id->get_value()
+            ));
         }
+
+        if($result instanceof \WP_Error) {
+            return $result;
+        }
+
+        $shop_template->set_id(null);
+
+        return $shop_template;
     }
 
     /**
@@ -141,13 +140,14 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * @inheritdoc
      * @since 0.8
      */
-    public function find_all()
+    public function find_all($args = array())
     {
-        $terms = get_terms(array(
-            'taxonomy' => Shop_Template::TAXONOMY,
+        $args['taxonomy'] = Shop_Template::TAXONOMY;
+        $args = wp_parse_args($args, array(
             'hide_empty' => false
         ));
 
+        $terms = get_terms($args);
         if(empty($terms) || $terms instanceof \WP_Error) {
             return array();
         }
@@ -199,6 +199,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      *
      * @since 0.8
      * @param Shop_Template $shop_template
+     * @return Shop_Template_Id|\WP_Error
      */
     protected function insert(Shop_Template $shop_template)
     {
@@ -210,12 +211,16 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             )
         );
 
-        if(empty($term) || $term instanceof \WP_Error) {
-            throw new \RuntimeException(sprintf(
-                'Failed to insert the shop template %s (%s).',
-                $shop_template->get_name()->get_value(),
-                $shop_template->get_slug()->get_value()
+        if(empty($term)) {
+            return new \WP_Error('aff_shop_template_not_stored', sprintf(
+                'Failed to store the shop template #%s (%s) into the database.',
+                $shop_template->get_id()->get_value(),
+                $shop_template->get_name()->get_value()
             ));
+        }
+
+        if($term instanceof \WP_Error) {
+            return $term;
         }
 
         $shop_template->set_id(new Shop_Template_Id($term['term_id']));
@@ -235,6 +240,8 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
                 $shop_template->get_provider_id()->get_value()
             );
         }
+
+        return $shop_template->get_id();
     }
 
     /**
@@ -242,6 +249,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      *
      * @since 0.8
      * @param Shop_Template $shop_template
+     * @return Shop_Template_Id|\WP_Error
      */
     protected function update(Shop_Template $shop_template)
     {
@@ -254,12 +262,16 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             )
         );
 
-        if(empty($term) || $term instanceof \WP_Error) {
-            throw new \RuntimeException(sprintf(
-                'Failed to update the shop template %s (%s).',
-                $shop_template->get_name()->get_value(),
-                $shop_template->get_slug()->get_value()
+        if(empty($term)) {
+            return new \WP_Error('aff_shop_template_not_stored', sprintf(
+                'Failed to store the shop template #%s (%s) into the database.',
+                $shop_template->get_id()->get_value(),
+                $shop_template->get_name()->get_value()
             ));
+        }
+
+        if($term instanceof \WP_Error) {
+            return $term;
         }
 
         if(!empty($term['slug'])) {
@@ -281,5 +293,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
                 $shop_template->get_provider_id()->get_value()
             );
         }
+
+        return $shop_template->get_id();
     }
 }

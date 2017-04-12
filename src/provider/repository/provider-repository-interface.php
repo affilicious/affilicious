@@ -2,6 +2,7 @@
 namespace Affilicious\Provider\Repository;
 
 use Affilicious\Common\Model\Slug;
+use Affilicious\Product\Model\Product_Id;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;
 
@@ -16,16 +17,9 @@ interface Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider $provider
+     * @return Product_Id|\WP_Error
      */
     public function store(Provider $provider);
-
-    /**
-     * Store all given providers.
-     *
-     * @since 0.8
-     * @param Provider[] $providers
-     */
-    public function store_all($providers);
 
     /**
      * Delete the provider by the ID.
@@ -33,17 +27,9 @@ interface Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider_Id $provider_id
+     * @return Provider|\WP_Error
      */
     public function delete(Provider_Id $provider_id);
-
-    /**
-     * Delete all providers by the IDs.
-     * The IDs of the providers are going to be null afterwards.
-     *
-     * @since 0.8
-     * @param Provider_Id[] $provider_ids
-     */
-    public function delete_all($provider_ids);
 
     /**
      * Find a provider by the ID.

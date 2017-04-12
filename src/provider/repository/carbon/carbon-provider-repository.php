@@ -55,22 +55,11 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      */
     public function store(Provider $provider)
     {
-        $this->prepare_provider_id($provider);
+        $provider_id = $this->prepare_provider_id($provider);
 
         $this->providers[$provider->get_slug()->get_value()] = $provider;
-    }
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function store_all($providers)
-    {
-        Assert::allIsInstanceOf($providers, Provider::class);
-
-        foreach ($providers as $provider) {
-            $this->store($provider);
-        }
+        return $provider_id;
     }
 
     /**
@@ -79,26 +68,18 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      */
     public function delete(Provider_Id $provider_id)
     {
-        $deletedProvider = $this->find_one_by_id($provider_id);
-        if($deletedProvider === null) {
-            return null;
+        $provider = $this->find_one_by_id($provider_id);
+        if($provider === null) {
+            return new \WP_Error('aff_provider_not_found', sprintf(
+                'Provider #%s not found in the database.',
+                $provider_id->get_value()
+            ));
         }
 
-        unset($this->providers[$deletedProvider->get_name()->get_value()]);
-        $deletedProvider->set_id(null);
-    }
+        unset($this->providers[$provider->get_name()->get_value()]);
+        $provider->set_id(null);
 
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function delete_all($provider_ids)
-    {
-        Assert::allIsInstanceOf($provider_ids, Provider_Id::class);
-
-        foreach ($provider_ids as $provider_id) {
-            $this->delete($provider_id);
-        }
+        return $provider;
     }
 
     /**
@@ -153,7 +134,8 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
     {
         $providers = array();
         foreach ($this->providers as $provider) {
-            $providers[] = $this->prepare_provider_id($provider);
+            $this->prepare_provider_id($provider);
+            $providers[] = $provider;
         }
 
         return $providers;
@@ -208,7 +190,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      *
      * @since 0.8
      * @param Provider $provider
-     * @return Provider
+     * @return Provider_Id
      */
     private function prepare_provider_id(Provider $provider)
     {
@@ -220,6 +202,6 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
 
         $provider->set_id($id);
 
-        return $provider;
+        return $id;
     }
 }
