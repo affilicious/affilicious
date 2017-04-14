@@ -77,7 +77,7 @@ class Product_Setup
         $labels = array(
             'name'                  => $plural,
             'singular_name'         => $singular,
-            'menu_name'             => $singular,
+            'menu_name'             => $plural,
             'name_admin_bar'        => $singular,
             'archives'              => sprintf(_x('%s Archives', 'Product', 'affilicious'), $singular),
             'parent_item_colon'     => sprintf(_x('Parent %s:', 'Product', 'affilicious'), $singular),
