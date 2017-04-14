@@ -998,7 +998,7 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
         return null;
     }
 
-    $affiliate_link = isset($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
+    $affiliate_link = isset($shop['tracking']['affiliate_link']) ? $shop['tracking']['affiliate_link'] : null;
 
     return esc_url($affiliate_link);
 }
