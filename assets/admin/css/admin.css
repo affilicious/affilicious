@@ -132,6 +132,62 @@ div.tagsinput{border:1px solid #CCC;background:#FFF;padding:5px;width:300px;heig
 .feedback-error p {
   color: #a94442; }
 
+.aff-license-container {
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  padding: 0; }
+
+.aff-license-item {
+  box-sizing: border-box;
+  width: calc(50% - 5px);
+  float: left;
+  margin-bottom: 10px;
+  display: block;
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04); }
+  .aff-license-item-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6; }
+    .aff-license-item-success h3 {
+      border-bottom: 1px solid #d6e9c6; }
+    .aff-license-item-success input[type="text"] {
+      border: 1px solid #d6e9c6; }
+  .aff-license-item-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1; }
+    .aff-license-item-error h3 {
+      border-bottom: 1px solid #ebccd1; }
+    .aff-license-item-error input[type="text"] {
+      border: 1px solid #ebccd1; }
+  .aff-license-item h3 {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    background-color: white;
+    border-bottom: 1px solid #ddd; }
+  .aff-license-item-content {
+    padding: 10px;
+    clear: both;
+    height: 100%; }
+    .aff-license-item-content button[type="submit"] {
+      margin: 20px auto 0 auto;
+      min-width: 100px;
+      display: block; }
+    .aff-license-item-content p {
+      margin-top: 5px !important; }
+  .aff-license-item:nth-child(odd) {
+    margin-right: 10px; }
+  @media screen and (max-width: 500px) {
+    .aff-license-item {
+      width: 100%;
+      margin-right: 0; } }
+
 #menu-posts-aff_product li:last-child a {
   color: #f18500; }
 

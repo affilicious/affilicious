@@ -3,6 +3,7 @@ use Affilicious\Attribute\Helper\Attribute_Helper;
 use Affilicious\Attribute\Helper\Attribute_Template_Helper;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Attribute_Template_Id;
+use Affilicious\Common\License\License_Status;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
 use Affilicious\Detail\Model\Detail_Template;
@@ -1597,4 +1598,126 @@ function aff_the_shop_old_price($shop)
     }
 
     echo esc_html($old_price);
+}
+
+/**
+ * Get the license key for the item.
+ *
+ * @since 0.8.12
+ * @param string $item_key The item key of the software.
+ * @return null|string
+ */
+function aff_get_license_key($item_key)
+{
+    /** @var \Affilicious\Common\License\License_Manager $license_manager */
+    $license_manager = Affilicious_Plugin::get('affilicious.common.license.manager');
+    $license_key = $license_manager->get_item_license_key($item_key);
+
+    return $license_key;
+}
+
+/**
+ * Print the license key item.
+ *
+ * @since 0.8.12
+ * @param string $item_key The item key of the software.
+ */
+function aff_the_license_key($item_key)
+{
+    echo esc_html(aff_get_license_key($item_key));
+}
+
+/**
+ * Check if the license status is valid.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ * @return bool
+ */
+function aff_is_license_status_active(License_Status $status)
+{
+    return $status->is_valid();
+}
+
+/**
+ * Check if the license status is valid.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ * @return bool
+ */
+function aff_is_license_status_inactive(License_Status $status)
+{
+    return $status->is_invalid();
+}
+
+/**
+ * Check if the license status is missing.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ * @return bool
+ */
+function aff_is_license_status_missing(License_Status $status)
+{
+    return $status->is_missing();
+}
+
+/**
+ * Check if the license status is success.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ * @return bool
+ */
+function aff_is_license_status_success(License_Status $status)
+{
+    return $status->is_success();
+}
+
+/**
+ * Check if the license status is error.
+ *
+ * @since 0.8.12
+ * @param License_Status$status The status of the license processor.
+ * @return bool
+ */
+function aff_is_license_status_error(License_Status $status)
+{
+    return $status->is_error();
+}
+
+/**
+ * Check if the license status has a message.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ * @return bool
+ */
+function aff_has_license_status_message(License_Status $status)
+{
+    return $status->has_message();
+}
+
+/**
+ * Get the license status message.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ * @return null|string
+ */
+function aff_get_license_status_message(License_Status $status)
+{
+    return $status->get_message();
+}
+
+/**
+ * Print the license status message.
+ *
+ * @since 0.8.12
+ * @param License_Status $status The status of the license processor.
+ */
+function aff_the_license_status_message(License_Status $status)
+{
+    echo esc_html(aff_get_license_status_message($status));
 }

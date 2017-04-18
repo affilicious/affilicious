@@ -336,6 +336,22 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Common\Setup\Feedback_Setup();
             };
 
+            $this->container['affilicious.common.license.processor'] = function ($c) {
+                return new \Affilicious\Common\License\License_Processor(
+                    $c['affilicious.common.license.manager']
+                );
+            };
+
+            $this->container['affilicious.common.license.manager'] = function () {
+                return new \Affilicious\Common\License\License_Manager();
+            };
+
+            $this->container['affilicious.common.setup.license_handler'] = function ($c) {
+                return new \Affilicious\Common\Setup\License_Handler_Setup(
+                    $c['affilicious.common.license.manager']
+                );
+            };
+
             $this->container['affilicious.product.repository.product'] = function ($c) {
                 return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
                     $c['affilicious.common.generator.slug'],
@@ -450,8 +466,11 @@ if(!class_exists('Affilicious_Plugin')) {
                 return new \Affilicious\Attribute\Setup\Attribute_Template_Setup();
             };
 
-            $this->container['affilicious.common.options.affilicious'] = function () {
-                return new \Affilicious\Common\Options\Affilicious_Options();
+            $this->container['affilicious.common.options.affilicious'] = function ($c) {
+                return new \Affilicious\Common\Options\Affilicious_Options(
+                    $c['affilicious.common.license.manager'],
+                    $c['affilicious.common.license.processor']
+                );
             };
 
             $this->container['affilicious.product.options.product'] = function () {
@@ -654,40 +673,47 @@ if(!class_exists('Affilicious_Plugin')) {
 
             // Hook the public assets
             $asset_setup = $this->container['affilicious.common.setup.asset'];
-            add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_styles'), 10);
-            add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_scripts'), 20);
+            add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_styles'));
+            add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_scripts'));
 
             // Hook the Carbon Fields
             $carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
             add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
 
+
+
+            // Hook the license handler setup
+            $license_handler_setup = $this->container['affilicious.common.setup.license_handler'];
+            add_action('init', array($license_handler_setup, 'init'), 15);
+
             // Hook the providers
             $provider_setup = $this->container['affilicious.provider.setup.provider'];
-            add_action('init', array($provider_setup, 'init'), 10);
+            add_action('init', array($provider_setup, 'init'), 5);
 
-            // Hook the amazon provider
+            // Hook the Amazon provider
             $amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
-            add_filter('affilicious_provider_setup_init', array($amazon_provider_setup, 'init'));
+            add_filter('affilicious_provider_setup_init', array($amazon_provider_setup, 'init'), 5);
 
             // Hook the shop templates.
             $shop_template_setup = $this->container['affilicious.shop.setup.shop_template'];
-            add_action('init', array($shop_template_setup, 'init'), 20);
-            add_action('init', array($shop_template_setup, 'render'), 30);
+            add_action('init', array($shop_template_setup, 'init'), 5);
+            add_action('init', array($shop_template_setup, 'render'), 6);
 
             // Hook the attribute templates
             $attribute_template_setup = $this->container['affilicious.attribute.setup.attribute_template'];
-            add_action('init', array($attribute_template_setup, 'init'), 40);
-            add_action('init', array($attribute_template_setup, 'render'), 50);
+            add_action('init', array($attribute_template_setup, 'init'), 5);
+            add_action('init', array($attribute_template_setup, 'render'), 6);
 
-            // Hook the detail groups
+            // Hook the detail templates
             $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
-            add_action('init', array($detail_template_group_setup, 'init'), 60);
-            add_action('init', array($detail_template_group_setup, 'render'), 70);
+            add_action('init', array($detail_template_group_setup, 'init'), 5);
+            add_action('init', array($detail_template_group_setup, 'render'), 6);
+
 
             // Hook the products
             $product_setup = $this->container['affilicious.product.setup.product'];
-            add_action('init', array($product_setup, 'init'), 80);
-            add_action('init', array($product_setup, 'render'), 90);
+            add_action('init', array($product_setup, 'init'), 5);
+            add_action('init', array($product_setup, 'render'), 6);
 
             // Hook the product listeners
             $saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
@@ -706,11 +732,11 @@ if(!class_exists('Affilicious_Plugin')) {
             $affilicious_options = $this->container['affilicious.common.options.affilicious'];
             $product_options = $this->container['affilicious.product.options.product'];
             $provider_options = $this->container['affilicious.provider.options.amazon'];
-            add_action('init', array($affilicious_options, 'render'), 10);
-            add_action('init', array($affilicious_options, 'apply'), 11);
-            add_action('init', array($product_options, 'render'), 12);
-            add_action('init', array($product_options, 'apply'), 13);
-            add_action('init', array($provider_options, 'render'), 12);
+            add_action('init', array($affilicious_options, 'render'), 15);
+            add_action('init', array($affilicious_options, 'apply'), 16);
+            add_action('init', array($product_options, 'render'), 15);
+            add_action('init', array($product_options, 'apply'), 16);
+            add_action('init', array($provider_options, 'render'), 15);
 
             // Hook the canonical tags
             $canonical_setup = $this->container['affilicious.product.setup.canonical'];
@@ -744,8 +770,11 @@ if(!class_exists('Affilicious_Plugin')) {
 
             // Add a custom affilicious init hook
             add_action('init', function() {
+                do_action('aff_init');
+
+                /** @deprecated 1.0 */
                 do_action('affilicious_init');
-            }, 100);
+            }, 10);
         }
 
         /**
@@ -791,8 +820,11 @@ if(!class_exists('Affilicious_Plugin')) {
 
             // Add a custom affilicious admin init hook
             add_action('admin_init', function() {
+                do_action('aff_admin_init');
+
+                /** @deprecated 1.0 */
                 do_action('affilicious_admin_init');
-            }, 100);
+            }, 10);
         }
     }
 }

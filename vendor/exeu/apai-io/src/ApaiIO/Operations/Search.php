@@ -84,6 +84,30 @@ class Search extends AbstractOperation
     }
 
     /**
+     * Returns the sort
+     *
+     * @return string
+     */
+    public function getSort()
+    {
+        return $this->getSingleOperationParameter('Sort');
+    }
+
+    /**
+     * Sets the sort
+     *
+     * @param string $sort
+     *
+     * @return \ApaiIO\Operations\Search
+     */
+    public function setSort($sort)
+    {
+        $this->parameters['Sort'] = $sort;
+
+        return $this;
+    }
+
+    /**
      * Return the resultpage
      *
      * @return integer
@@ -126,7 +150,7 @@ class Search extends AbstractOperation
     /**
      * Sets the minimum price to a specified value for the search
      * Currency will be given by the site you are querying: EUR for IT, USD for COM
-     * Money should be given as integer. 8.99$ USD becomes 899
+     * Price should be given as integer. 8.99$ USD becomes 899
      *
      * @param integer $price
      *
@@ -152,7 +176,7 @@ class Search extends AbstractOperation
     /**
      * Sets the maximum price to a specified value for the search
      * Currency will be given by the site you are querying: EUR for IT, USD for COM
-     * Money should be given as integer. 8.99$ USD becomes 899
+     * Price should be given as integer. 8.99$ USD becomes 899
      *
      * @param integer $price
      *
@@ -249,7 +273,7 @@ class Search extends AbstractOperation
      */
     protected function validatePrice($price)
     {
-        if (false === is_numeric($price) || $price < 1) {
+        if (false === is_numeric($price) || $price < 0) {
             throw new \InvalidArgumentException(sprintf('%s is an invalid price value. It has to be numeric and >= than 1',
                     $price));
         }

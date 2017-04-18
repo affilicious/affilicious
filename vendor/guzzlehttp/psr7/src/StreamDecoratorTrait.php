@@ -21,7 +21,7 @@ trait StreamDecoratorTrait
      * Magic method used to create a new stream if streams are not added in
      * the constructor of a decorator (e.g., LazyOpenStream).
      *
-     * @param string $name Slug of the property (allows "stream" only).
+     * @param string $name Name of the property (allows "stream" only).
      *
      * @return StreamInterface
      */
