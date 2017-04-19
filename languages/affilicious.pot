@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-03-23 "
-"19:35+0100\n"
+"POT-Creation-Date: 2017-04-19 "
+"09:21+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -50,13 +50,13 @@ msgid ""
 "your hosting provider."
 msgstr ""
 
-#: functions.php:1463
+#: functions.php:1454
 msgid ""
 "Incl. 19 % VAT and excl. "
 "shipping costs."
 msgstr ""
 
-#: functions.php:1487
+#: functions.php:1478
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
@@ -184,11 +184,70 @@ msgid ""
 "\">Affilicious</a>."
 msgstr ""
 
-#: src/common/options/affilicious-options.php:20
+#: src/common/license/license-manager.php:37
+msgid ""
+"Failed to store the license."
+msgstr ""
+
+#: src/common/license/license-manager.php:59
+#: src/common/license/license-manager.php:89
+msgid "Failed to find the license."
+msgstr ""
+
+#: src/common/license/license-manager.php:66
+msgid ""
+"Failed to delete the license."
+msgstr ""
+
+#: src/common/license/license-status.php:38
+msgid "The action was successful."
+msgstr ""
+
+#: src/common/license/license-status.php:54
+msgid ""
+"An error has occurred. Please "
+"try again."
+msgstr ""
+
+#: src/common/license/license-status.php:68
+msgid "The license is missing."
+msgstr ""
+
+#: src/common/license/license-status.php:79
+msgid "The license is valid"
+msgstr ""
+
+#: src/common/license/license-status.php:90
+msgid "The license is invalid"
+msgstr ""
+
+#: src/common/license/license-status.php:101
+msgid ""
+"Succeeded to activate the "
+"license."
+msgstr ""
+
+#: src/common/license/license-status.php:112
+msgid ""
+"Failed to activate the license."
+msgstr ""
+
+#: src/common/license/license-status.php:123
+msgid ""
+"Succeeded to deactivate the "
+"license."
+msgstr ""
+
+#: src/common/license/license-status.php:134
+msgid ""
+"Failed to deactivate the license."
+msgstr ""
+
+#: src/common/options/affilicious-options.php:44
 msgid "Custom Header Scripts"
 msgstr ""
 
-#: src/common/options/affilicious-options.php:21
+#: src/common/options/affilicious-options.php:45
 msgid ""
 "Add your custom header scripts "
 "like CSS or JS with the proper "
@@ -196,11 +255,11 @@ msgid ""
 "tags."
 msgstr ""
 
-#: src/common/options/affilicious-options.php:22
+#: src/common/options/affilicious-options.php:46
 msgid "Custom Footer Scripts"
 msgstr ""
 
-#: src/common/options/affilicious-options.php:23
+#: src/common/options/affilicious-options.php:47
 msgid ""
 "Add your custom footer scripts "
 "like Google Analytics tracking "
@@ -209,8 +268,31 @@ msgid ""
 "tags."
 msgstr ""
 
-#: src/common/options/affilicious-options.php:28
+#: src/common/options/affilicious-options.php:52
 msgid "Scripts"
+msgstr ""
+
+#: src/common/options/affilicious-options.php:53
+msgid "License"
+msgstr ""
+
+#: src/common/options/affilicious-options.php:66
+#, php-format
+msgid ""
+"More add-ons and themes can be "
+"found on the official website of "
+"<a href=\"%s\">Affilicious "
+"Theme</a>."
+msgstr ""
+
+#: src/common/options/affilicious-options.php:67
+#, php-format
+msgid ""
+"It looks like you haven't got "
+"any add-on or theme yet. Visit "
+"our official website of <a href="
+"\"%s\">Affilicious Theme</a> to "
+"see what you can start with."
 msgstr ""
 
 #: src/common/setup/asset-setup.php:97
@@ -311,6 +393,14 @@ msgstr ""
 msgid ""
 "Empty fields aren't allowed. "
 "Please fill out all fields."
+msgstr ""
+
+#: src/common/view/license/licenses.php:14
+msgid "Enter license code here..."
+msgstr ""
+
+#: src/common/view/license/licenses.php:23
+msgid "Save"
 msgstr ""
 
 #: src/detail/model/type.php:144

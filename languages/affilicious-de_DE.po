@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-03-23 19:35+0100\n"
+"POT-Creation-Date: 2017-04-19 09:21+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -36,11 +36,11 @@ msgstr ""
 "Potenzial entfalten zu können. Bitte ändere die PHP Version in deinem "
 "Hosting Provider."
 
-#: functions.php:1463
+#: functions.php:1454
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: functions.php:1487
+#: functions.php:1478
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
@@ -165,11 +165,60 @@ msgid ""
 msgstr ""
 "Danke für das Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 
-#: src/common/options/affilicious-options.php:20
+#: src/common/license/license-manager.php:37
+msgid "Failed to store the license."
+msgstr "Die Speicherung der Lizenz ist fehlgeschlagen."
+
+#: src/common/license/license-manager.php:59
+#: src/common/license/license-manager.php:89
+msgid "Failed to find the license."
+msgstr "Die Lizenz konnte nicht gefunden werden."
+
+#: src/common/license/license-manager.php:66
+msgid "Failed to delete the license."
+msgstr "Die Löschung der Lizenz ist fehlgeschlagen."
+
+#: src/common/license/license-status.php:38
+msgid "The action was successful."
+msgstr "Die Handlung war erfolgreich."
+
+#: src/common/license/license-status.php:54
+msgid "An error has occurred. Please try again."
+msgstr "Ein Fehler ist aufgetreten. Bitte versuche es nochmal."
+
+#: src/common/license/license-status.php:68
+msgid "The license is missing."
+msgstr "Die Lizenz ist nicht vorhanden."
+
+#: src/common/license/license-status.php:79
+msgid "The license is valid"
+msgstr "Die Lizenz ist gültig."
+
+#: src/common/license/license-status.php:90
+msgid "The license is invalid"
+msgstr "Die Lizenz ist ungültig."
+
+#: src/common/license/license-status.php:101
+msgid "Succeeded to activate the license."
+msgstr "Die Aktivierung der Lizenz war erfolgreich."
+
+#: src/common/license/license-status.php:112
+msgid "Failed to activate the license."
+msgstr "Die Aktivierung der Lizenz ist fehlgeschlagen."
+
+#: src/common/license/license-status.php:123
+msgid "Succeeded to deactivate the license."
+msgstr "Die Deaktivierung der Lizenz war erfolgreich."
+
+#: src/common/license/license-status.php:134
+msgid "Failed to deactivate the license."
+msgstr "Die Deaktivierung der Lizenz ist fehlgeschlagen."
+
+#: src/common/options/affilicious-options.php:44
 msgid "Custom Header Scripts"
 msgstr "Eigene Header Skripte"
 
-#: src/common/options/affilicious-options.php:21
+#: src/common/options/affilicious-options.php:45
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
 "or &lt;script&gt tags."
@@ -177,11 +226,11 @@ msgstr ""
 "Füge deine eigenen Header Skripte wie CSS or JS mit den entprechenden &lt;"
 "style&gt oder &lt;script&gt Tags hinzu."
 
-#: src/common/options/affilicious-options.php:22
+#: src/common/options/affilicious-options.php:46
 msgid "Custom Footer Scripts"
 msgstr "Eigene Footer Skripte"
 
-#: src/common/options/affilicious-options.php:23
+#: src/common/options/affilicious-options.php:47
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or "
 "JS with the proper &lt;style&gt or &lt;script&gt tags."
@@ -189,9 +238,33 @@ msgstr ""
 "Füge deine eigenen Footer Skripte wie den Google Analytics Tracking Code, "
 "CSS or JS mit den entprechenden &lt;style&gt oder &lt;script&gt Tags hinzu."
 
-#: src/common/options/affilicious-options.php:28
+#: src/common/options/affilicious-options.php:52
 msgid "Scripts"
 msgstr "Skripte"
+
+#: src/common/options/affilicious-options.php:53
+msgid "License"
+msgstr "Lizenz"
+
+#: src/common/options/affilicious-options.php:66
+#, php-format
+msgid ""
+"More add-ons and themes can be found on the official website of <a href=\"%s"
+"\">Affilicious Theme</a>."
+msgstr ""
+"Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a "
+"href=„%s“>Affilicious Theme</a>"
+
+#: src/common/options/affilicious-options.php:67
+#, php-format
+msgid ""
+"It looks like you haven't got any add-on or theme yet. Visit our official "
+"website of <a href=\"%s\">Affilicious Theme</a> to see what you can start "
+"with."
+msgstr ""
+"Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben "
+"hast. Schaue auf der offiziellen Webseite von <a href=„%s“>Affilicious "
+"Theme</a> nach, was du alles erwerben kannst."
 
 #: src/common/setup/asset-setup.php:97 src/product/setup/product-setup.php:143
 msgid "Affilicious Product"
@@ -284,6 +357,14 @@ msgstr "Die Email wurde nicht gesendet. Bitte probiere es nochmal."
 #: src/common/setup/feedback-setup.php:150
 msgid "Empty fields aren't allowed. Please fill out all fields."
 msgstr "Leere Felder sind nicht erlaubt. Bitte fülle alle Felder aus."
+
+#: src/common/view/license/licenses.php:14
+msgid "Enter license code here..."
+msgstr "Gebe hier deinen Lizenzcode ein..."
+
+#: src/common/view/license/licenses.php:23
+msgid "Save"
+msgstr "Speichern"
 
 #: src/detail/model/type.php:144 src/detail/setup/detail-template-setup.php:81
 msgid "Boolean"

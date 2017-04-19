@@ -56,7 +56,6 @@ class Affilicious_Options
         do_action('affilicious_options_affilicious_after_render');
 	}
 
-
     /**
      * @since 0.8.12
      * @return array
@@ -64,9 +63,8 @@ class Affilicious_Options
 	public function get_license_tab()
     {
         $help_text = count($this->license_manager->get_license_handlers()) > 0
-            ? 'Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a href="https://affilicioustheme.de">Affilicious Theme</a>'
-            : 'Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben hast. Schaue auf der offiziellen Webseite von <a href="https://affilicioustheme.de">Affilicious Theme</a> nach, was du alles erwerben kannst.';
-
+            ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de')
+            : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicioustheme.de');
 
         $fields = array(
             Carbon_Field::make('html', 'crb_information_text')
