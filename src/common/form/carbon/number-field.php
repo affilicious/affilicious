@@ -12,7 +12,7 @@ class Number_Field extends Field
      */
     public function template() {
         ?>
-        <input id="{{{ id }}}" type="number" name="{{{ name }}}" value="{{ value }}" class="regular-text"/>
+        <input id="{{{ id }}}" type="number" name="{{{ name }}}" value="{{ value }}" class="regular-text" step="any"/>
         <?php
     }
 }
