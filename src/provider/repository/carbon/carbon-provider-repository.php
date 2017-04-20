@@ -90,7 +90,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
     {
         foreach ($this->providers as $provider) {
             if($provider->get_id()->is_equal_to($provider_id)) {
-                return $this->prepare_provider_id($provider);
+                return $provider;
             }
         }
 
@@ -109,7 +109,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
         foreach ($this->providers as $provider) {
             foreach ($provider_ids as $provider_id) {
                 if($provider->get_id()->is_equal_to($provider_id)) {
-                    $providers[] = $this->prepare_provider_id($provider);
+                    $providers[] = $provider;
                 }
             }
         }
@@ -121,9 +121,9 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @inheritdoc
      * @since 0.8
      */
-    public function find_one_by_slug(Slug $name)
+    public function find_one_by_slug(Slug $slug)
     {
-        return isset($this->providers[$name->get_value()]) ? $this->prepare_provider_id($this->providers[$name->get_value()]) : null;
+        return isset($this->providers[$slug->get_value()]) ? $this->providers[$slug->get_value()] : null;
     }
 
     /**

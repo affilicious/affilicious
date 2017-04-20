@@ -53,10 +53,10 @@ interface Provider_Repository_Interface
      * Find a provider by the slug.
      *
      * @since 0.8
-     * @param Slug $name
+     * @param Slug $slug
      * @return null|Provider
      */
-    public function find_one_by_slug(Slug $name);
+    public function find_one_by_slug(Slug $slug);
 
     /**
      * Find all providers.

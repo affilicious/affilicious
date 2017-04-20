@@ -1238,6 +1238,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $default_args = get_post($product->get_id()->get_value(), ARRAY_A);
         }
 
+        if(empty($default_args)) {
+            $default_args = array();
+        }
+
         return $default_args;
     }
 
