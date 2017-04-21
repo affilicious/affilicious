@@ -66,6 +66,19 @@ install_wp() {
 	tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
 
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
+
+	cd $WP_CORE_DIR
+
+	if [ ! -f wp-config.php ]; then
+	    cp wp-config-sample.php wp-config.php
+
+		download https://develop.svn.wordpress.org/${WP_TESTS_TAG}/wp-tests-config-sample.php "$WP_CORE_DIR"/wp-config.php
+		sed $ioption "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR':" "$WP_CORE_DIR"/wp-config.php
+		sed $ioption "s/youremptytestdbnamehere/$DB_NAME/" "$WP_CORE_DIR"/wp-config.php
+		sed $ioption "s/yourusernamehere/$DB_USER/" "$WP_CORE_DIR"/wp-config.php
+		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_CORE_DIR"/wp-config.php
+		sed $ioption "s|localhost|${DB_HOST}|" "$WP_CORE_DIR"/wp-config.php
+	fi
 }
 
 install_test_suite() {
@@ -97,7 +110,6 @@ install_test_suite() {
 		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
-
 }
 
 # Install dependencies & autoloader (using Composer)
@@ -108,3 +120,6 @@ install_autoloader() {
 install_autoloader
 install_wp
 install_test_suite
+
+# Place the Affilicious plugin into the newly created Wordpress installation with an symbolic link.
+ln -s "$BASEDIR/../../affilicious" "$WP_CORE_DIR/wp-content/plugins/affilicious"

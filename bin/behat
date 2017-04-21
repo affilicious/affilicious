@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+function _error($message) {
+    die("\033[31m$message\033[0m\n");
+}
+
+$tests_bootstrap_path = __DIR__ . "/../tests/bootstrap.php";
+if(!file_exists($tests_bootstrap_path)) {
+    _error("Bootstrap for tests not found in path: $tests_bootstrap_path");
+}
+
+$behat_path = __DIR__ . "/../vendor/bin/behat";
+if(!file_exists($behat_path)) {
+    _error("Behat not found in path: $behat_path. Did you forget to run composer install?");
+}
+
+require_once $tests_bootstrap_path;
+require_once $behat_path;

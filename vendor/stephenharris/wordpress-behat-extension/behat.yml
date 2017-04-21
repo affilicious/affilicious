@@ -1,0 +1,39 @@
+# behat.yml
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext:
+            screenshot_dir: '%paths.base%/failed-scenarios/'
+        - \StephenHarris\WordPressBehatExtension\Context\WordPressContext
+        - \StephenHarris\WordPressBehatExtension\Context\WordPressLoginContext
+        - \StephenHarris\WordPressBehatExtension\Context\PostTypes\WordPressPostContext
+        - \StephenHarris\WordPressBehatExtension\Context\Terms\WordPressTermContext
+        - \StephenHarris\WordPressBehatExtension\Context\Users\WordPressUserContext
+        - \StephenHarris\WordPressBehatExtension\Context\Options\WordPressOptionContext
+        - \StephenHarris\WordPressBehatExtension\Context\Plugins\WordPressPluginContext
+        - \StephenHarris\WordPressBehatExtension\Context\WordPressAdminContext
+        - \StephenHarris\WordPressBehatExtension\Context\WordPressEditPostContext
+        - \StephenHarris\WordPressBehatExtension\Context\WordPressPostListContext
+        - \StephenHarris\WordPressBehatExtension\Context\WordPressMailContext
+
+  extensions:
+        StephenHarris\WordPressBehatExtension:
+          path: '/tmp/wordpress'
+          connection:
+            db: 'wordpress'
+            username: 'root'
+            password: ''
+          mail:
+            directory: '/tmp/mail'
+        Behat\MinkExtension:
+            base_url: 'http://localhost:8000'
+            files_path: '%paths.base%/features/files/'
+            goutte:
+              guzzle_parameters:
+                             curl.options:
+                                CURLOPT_SSL_VERIFYPEER: false
+                                CURLOPT_CERTINFO: false
+                                CURLOPT_TIMEOUT: 120
+                             ssl.certificate_authority: false
+            selenium2: ~

@@ -41,3 +41,12 @@ tests:
 
 tests-uninstall:
 	@composer install --no-dev
+
+selenium:
+	@selenium-server -port 4444
+
+behat:
+	@bin/behat
+
+server:
+	@php -S localhost:8000 -t tmp/wordpress -d disable_functions=mail

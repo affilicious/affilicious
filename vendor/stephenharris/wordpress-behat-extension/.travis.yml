@@ -1,0 +1,44 @@
+language: php
+
+sudo: false
+
+php:
+- 5.5
+
+env:
+- WP_VERSION=nightly
+- WP_VERSION=latest
+- WP_VERSION=4.4.4
+
+matrix:
+  allow_failures:
+    - env: WP_VERSION=nightly
+
+before_install:
+  # These variables have to be set here, so they can be used by
+  # prepare.sh as well as the commands in the script block below
+  - export WORDPRESS_SITE_DIR="/tmp/wordpress/"
+  - composer self-update
+
+install:
+  # Install dependencies
+  - composer update --no-interaction --prefer-dist;
+
+  # install wordpress
+  - bash ./ci/prepare.sh wordpress root '' localhost $WP_VERSION
+
+  # start selenium
+  - bash ./ci/pre-behat.sh
+
+
+before_script:
+
+script:
+  # Run unit tests.
+  - vendor/bin/phpunit
+
+  # Run behat tests.
+  - vendor/bin/behat --tags=~@travis-flaky
+
+  # Check coding standards.
+  - vendor/bin/phpcs
