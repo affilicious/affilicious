@@ -16,8 +16,6 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator;
 
 use ProxyManager\Generator\MethodGenerator;
@@ -40,33 +38,32 @@ class InterceptedMethod extends MethodGenerator
      * @param \Zend\Code\Generator\PropertyGenerator $suffixInterceptors
      *
      * @return self
-     *
-     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public static function generateMethod(
         MethodReflection $originalMethod,
         PropertyGenerator $valueHolderProperty,
         PropertyGenerator $prefixInterceptors,
         PropertyGenerator $suffixInterceptors
-    ) : self {
+    ) {
         /* @var $method self */
         $method          = static::fromReflection($originalMethod);
-        $forwardedParams = [];
+        $forwardedParams = array();
 
         foreach ($originalMethod->getParameters() as $parameter) {
-            $forwardedParams[] = ($parameter->isVariadic() ? '...' : '') . '$' . $parameter->getName();
+            $forwardedParams[]   = '$' . $parameter->getName();
         }
 
-        $method->setDocBlock('{@inheritDoc}');
-        $method->setBody(InterceptorGenerator::createInterceptedMethodBody(
-            '$returnValue = $this->' . $valueHolderProperty->getName() . '->'
-            . $originalMethod->getName() . '(' . implode(', ', $forwardedParams) . ');',
-            $method,
-            $valueHolderProperty,
-            $prefixInterceptors,
-            $suffixInterceptors,
-            $originalMethod
-        ));
+        $method->setDocblock('{@inheritDoc}');
+        $method->setBody(
+            InterceptorGenerator::createInterceptedMethodBody(
+                '$returnValue = $this->' . $valueHolderProperty->getName() . '->'
+                . $originalMethod->getName() . '(' . implode(', ', $forwardedParams) . ');',
+                $method,
+                $valueHolderProperty,
+                $prefixInterceptors,
+                $suffixInterceptors
+            )
+        );
 
         return $method;
     }

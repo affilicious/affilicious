@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd534514354a46cb04c22425db8971e5c
+class ComposerStaticInitf3566b468469bd769f4f9d6fe75a5367
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -39,7 +39,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Translation\\' => 30,
-            'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DomCrawler\\' => 29,
@@ -50,7 +49,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\ClassLoader\\' => 30,
             'Symfony\\Component\\BrowserKit\\' => 29,
-            'StephenHarris\\WordPressBehatExtension\\' => 38,
         ),
         'P' => 
         array (
@@ -58,11 +56,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'PaulGibbs\\WordpressBehatExtension\\' => 34,
-            'PackageVersions\\' => 16,
-        ),
-        'M' => 
-        array (
-            'MyCLabs\\Enum\\' => 13,
         ),
         'I' => 
         array (
@@ -130,10 +123,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Symfony\\Component\\Finder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/finder',
-        ),
         'Symfony\\Component\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
@@ -174,10 +163,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
         array (
             0 => __DIR__ . '/..' . '/symfony/browser-kit',
         ),
-        'StephenHarris\\WordPressBehatExtension\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/stephenharris/wordpress-behat-extension/src',
-        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -193,14 +178,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
         'PaulGibbs\\WordpressBehatExtension\\' => 
         array (
             0 => __DIR__ . '/..' . '/paulgibbs/behat-wordpress-extension/src',
-        ),
-        'PackageVersions\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions',
-        ),
-        'MyCLabs\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Interop\\Container\\' => 
         array (
@@ -234,7 +211,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
         array (
             0 => __DIR__ . '/..' . '/behat/mink-browserkit-driver/src',
             1 => __DIR__ . '/..' . '/behat/mink-goutte-driver/src',
-            2 => __DIR__ . '/..' . '/behat/mink-selenium2-driver/src',
         ),
         'Behat\\Mink\\' => 
         array (
@@ -251,13 +227,6 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
     );
 
     public static $prefixesPsr0 = array (
-        'W' => 
-        array (
-            'WebDriver' => 
-            array (
-                0 => __DIR__ . '/..' . '/instaclick/php-webdriver/lib',
-            ),
-        ),
         'S' => 
         array (
             'SensioLabs\\Behat\\PageObjectExtension\\' => 
@@ -753,10 +722,10 @@ class ComposerStaticInitd534514354a46cb04c22425db8971e5c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd534514354a46cb04c22425db8971e5c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd534514354a46cb04c22425db8971e5c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd534514354a46cb04c22425db8971e5c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd534514354a46cb04c22425db8971e5c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf3566b468469bd769f4f9d6fe75a5367::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf3566b468469bd769f4f9d6fe75a5367::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf3566b468469bd769f4f9d6fe75a5367::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf3566b468469bd769f4f9d6fe75a5367::$classMap;
 
         }, null, ClassLoader::class);
     }

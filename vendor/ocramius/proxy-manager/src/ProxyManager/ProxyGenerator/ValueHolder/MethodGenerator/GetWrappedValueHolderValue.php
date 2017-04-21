@@ -16,8 +16,6 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator;
 
 use ProxyManager\Generator\MethodGenerator;
@@ -34,15 +32,11 @@ class GetWrappedValueHolderValue extends MethodGenerator
 {
     /**
      * Constructor
-     *
-     * @param PropertyGenerator $valueHolderProperty
-     *
-     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public function __construct(PropertyGenerator $valueHolderProperty)
     {
         parent::__construct('getWrappedValueHolderValue');
-        $this->setDocBlock('{@inheritDoc}');
+        $this->setDocblock('{@inheritDoc}');
         $this->setBody('return $this->' . $valueHolderProperty->getName() . ';');
     }
 }

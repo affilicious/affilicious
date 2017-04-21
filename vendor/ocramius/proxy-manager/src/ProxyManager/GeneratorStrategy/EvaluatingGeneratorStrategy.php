@@ -16,8 +16,6 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\GeneratorStrategy;
 
 use Zend\Code\Generator\ClassGenerator;
@@ -40,9 +38,7 @@ class EvaluatingGeneratorStrategy implements GeneratorStrategyInterface
      */
     public function __construct()
     {
-        // @codeCoverageIgnoreStart
         $this->canEval = ! ini_get('suhosin.executor.disable_eval');
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -50,22 +46,21 @@ class EvaluatingGeneratorStrategy implements GeneratorStrategyInterface
      *
      * {@inheritDoc}
      */
-    public function generate(ClassGenerator $classGenerator) : string
+    public function generate(ClassGenerator $classGenerator)
     {
         $code = $classGenerator->generate();
 
-        // @codeCoverageIgnoreStart
         if (! $this->canEval) {
-            $fileName = tempnam(sys_get_temp_dir(), 'EvaluatingGeneratorStrategy.php.tmp.');
+            // @codeCoverageIgnoreStart
+            $fileName = sys_get_temp_dir() . '/EvaluatingGeneratorStrategy.php.tmp.' . uniqid('', true);
 
             file_put_contents($fileName, "<?php\n" . $code);
-            /* @noinspection PhpIncludeInspection */
             require $fileName;
             unlink($fileName);
 
             return $code;
+            // @codeCoverageIgnoreEnd
         }
-        // @codeCoverageIgnoreEnd
 
         eval($code);
 

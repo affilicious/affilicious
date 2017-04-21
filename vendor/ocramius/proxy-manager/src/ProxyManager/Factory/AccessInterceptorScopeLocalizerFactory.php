@@ -16,15 +16,9 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\Factory;
 
-use ProxyManager\Proxy\AccessInterceptorInterface;
 use ProxyManager\ProxyGenerator\AccessInterceptorScopeLocalizerGenerator;
-use ProxyManager\ProxyGenerator\ProxyGeneratorInterface;
-use ProxyManager\Signature\Exception\InvalidSignatureException;
-use ProxyManager\Signature\Exception\MissingSignatureException;
 
 /**
  * Factory responsible of producing proxy objects
@@ -46,26 +40,19 @@ class AccessInterceptorScopeLocalizerFactory extends AbstractBaseFactory
      * @param \Closure[] $suffixInterceptors an array (indexed by method name) of interceptor closures to be called
      *                                       after method logic is executed
      *
-     * @return AccessInterceptorInterface
-     *
-     * @throws InvalidSignatureException
-     * @throws MissingSignatureException
-     * @throws \OutOfBoundsException
+     * @return \ProxyManager\Proxy\AccessInterceptorInterface
      */
-    public function createProxy(
-        $instance,
-        array $prefixInterceptors = [],
-        array $suffixInterceptors = []
-    ) : AccessInterceptorInterface {
+    public function createProxy($instance, array $prefixInterceptors = array(), array $suffixInterceptors = array())
+    {
         $proxyClassName = $this->generateProxy(get_class($instance));
 
-        return $proxyClassName::staticProxyConstructor($instance, $prefixInterceptors, $suffixInterceptors);
+        return new $proxyClassName($instance, $prefixInterceptors, $suffixInterceptors);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getGenerator() : ProxyGeneratorInterface
+    protected function getGenerator()
     {
         return $this->generator ?: $this->generator = new AccessInterceptorScopeLocalizerGenerator();
     }

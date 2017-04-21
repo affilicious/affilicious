@@ -16,13 +16,10 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator;
 
 use ProxyManager\Generator\MagicMethodGenerator;
-use ProxyManager\ProxyGenerator\Util\GetMethodIfExists;
-use Zend\Code\Generator\ParameterGenerator;
+use ProxyManager\Generator\ParameterGenerator;
 use ProxyManager\ProxyGenerator\AccessInterceptorValueHolder\MethodGenerator\Util\InterceptorGenerator;
 use ProxyManager\ProxyGenerator\PropertyGenerator\PublicPropertiesMap;
 use ProxyManager\ProxyGenerator\Util\PublicScopeSimulator;
@@ -39,14 +36,6 @@ class MagicUnset extends MagicMethodGenerator
 {
     /**
      * Constructor
-     * @param ReflectionClass     $originalClass
-     * @param PropertyGenerator   $valueHolder
-     * @param PropertyGenerator   $prefixInterceptors
-     * @param PropertyGenerator   $suffixInterceptors
-     * @param PublicPropertiesMap $publicProperties
-     *
-     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
-     * @throws \InvalidArgumentException
      */
     public function __construct(
         ReflectionClass $originalClass,
@@ -55,12 +44,12 @@ class MagicUnset extends MagicMethodGenerator
         PropertyGenerator $suffixInterceptors,
         PublicPropertiesMap $publicProperties
     ) {
-        parent::__construct($originalClass, '__unset', [new ParameterGenerator('name')]);
+        parent::__construct($originalClass, '__unset', array(new ParameterGenerator('name')));
 
-        $parent          = GetMethodIfExists::get($originalClass, '__unset');
+        $override        = $originalClass->hasMethod('__unset');
         $valueHolderName = $valueHolder->getName();
 
-        $this->setDocBlock(($parent ? "{@inheritDoc}\n" : '') . '@param string $name');
+        $this->setDocblock(($override ? "{@inheritDoc}\n" : '') . '@param string $name');
 
         $callParent = PublicScopeSimulator::getPublicAccessSimulationCode(
             PublicScopeSimulator::OPERATION_UNSET,
@@ -78,13 +67,14 @@ class MagicUnset extends MagicMethodGenerator
 
         $callParent .= '$returnValue = false;';
 
-        $this->setBody(InterceptorGenerator::createInterceptedMethodBody(
-            $callParent,
-            $this,
-            $valueHolder,
-            $prefixInterceptors,
-            $suffixInterceptors,
-            $parent
-        ));
+        $this->setBody(
+            InterceptorGenerator::createInterceptedMethodBody(
+                $callParent,
+                $this,
+                $valueHolder,
+                $prefixInterceptors,
+                $suffixInterceptors
+            )
+        );
     }
 }

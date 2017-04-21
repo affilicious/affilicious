@@ -16,8 +16,6 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator\LazyLoadingGhost\PropertyGenerator;
 
 use ProxyManager\Generator\Util\UniqueIdentifierGenerator;
@@ -33,15 +31,13 @@ class InitializationTracker extends PropertyGenerator
 {
     /**
      * Constructor
-     *
-     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public function __construct()
     {
         parent::__construct(UniqueIdentifierGenerator::getIdentifier('initializationTracker'));
 
         $this->setVisibility(self::VISIBILITY_PRIVATE);
-        $this->setDocBlock('@var bool tracks initialization status - true while the object is initializing');
+        $this->setDocblock('@var bool tracks initialization status - true while the object is initializing');
         $this->setDefaultValue(false);
     }
 }

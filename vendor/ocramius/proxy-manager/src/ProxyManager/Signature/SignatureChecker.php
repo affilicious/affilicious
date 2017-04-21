@@ -16,8 +16,6 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\Signature;
 
 use ProxyManager\Signature\Exception\InvalidSignatureException;
@@ -54,7 +52,7 @@ final class SignatureChecker implements SignatureCheckerInterface
         $signature         = $this->signatureGenerator->generateSignature($parameters);
         $defaultProperties = $class->getDefaultProperties();
 
-        if (! \array_key_exists($propertyName, $defaultProperties)) {
+        if (! isset($defaultProperties[$propertyName])) {
             throw MissingSignatureException::fromMissingSignature($class, $parameters, $signature);
         }
 

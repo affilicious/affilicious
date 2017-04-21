@@ -16,12 +16,11 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator\PropertyGenerator;
 
 use ProxyManager\Generator\Util\UniqueIdentifierGenerator;
-use ProxyManager\ProxyGenerator\Util\Properties;
+use ReflectionClass;
+use ReflectionProperty;
 use Zend\Code\Generator\PropertyGenerator;
 
 /**
@@ -35,32 +34,30 @@ class PublicPropertiesMap extends PropertyGenerator
     /**
      * @var bool[]
      */
-    private $publicProperties = [];
+    private $publicProperties = array();
 
     /**
-     * @param Properties $properties
-     *
-     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
+     * @param \ReflectionClass $originalClass
      */
-    public function __construct(Properties $properties)
+    public function __construct(ReflectionClass $originalClass)
     {
         parent::__construct(UniqueIdentifierGenerator::getIdentifier('publicProperties'));
 
-        foreach ($properties->getPublicProperties() as $publicProperty) {
+        foreach ($originalClass->getProperties(ReflectionProperty::IS_PUBLIC) as $publicProperty) {
             $this->publicProperties[$publicProperty->getName()] = true;
         }
 
         $this->setDefaultValue($this->publicProperties);
         $this->setVisibility(self::VISIBILITY_PRIVATE);
         $this->setStatic(true);
-        $this->setDocBlock('@var bool[] map of public properties of the parent class');
+        $this->setDocblock('@var bool[] map of public properties of the parent class');
     }
 
     /**
      * @return bool whether there are no public properties
      */
-    public function isEmpty() : bool
+    public function isEmpty()
     {
-        return ! $this->publicProperties;
+        return empty($this->publicProperties);
     }
 }

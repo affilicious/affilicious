@@ -16,16 +16,12 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator;
 
-use ProxyManager\Exception\InvalidProxiedClassException;
 use ProxyManager\Generator\Util\ClassGeneratorUtils;
-use ProxyManager\Proxy\VirtualProxyInterface;
 use ProxyManager\ProxyGenerator\AccessInterceptor\MethodGenerator\MagicWakeup;
 use ProxyManager\ProxyGenerator\Assertion\CanProxyAssertion;
-use ProxyManager\ProxyGenerator\LazyLoading\MethodGenerator\StaticProxyConstructor;
+use ProxyManager\ProxyGenerator\LazyLoading\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\MethodGenerator\GetProxyInitializer;
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\MethodGenerator\InitializeProxy;
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\MethodGenerator\IsProxyInitialized;
@@ -40,9 +36,7 @@ use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\MethodGenerator\SetProxyI
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\PropertyGenerator\InitializerProperty;
 use ProxyManager\ProxyGenerator\LazyLoadingValueHolder\PropertyGenerator\ValueHolderProperty;
 use ProxyManager\ProxyGenerator\PropertyGenerator\PublicPropertiesMap;
-use ProxyManager\ProxyGenerator\Util\Properties;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
-use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\GetWrappedValueHolderValue;
 use ReflectionClass;
 use ReflectionMethod;
@@ -62,17 +56,13 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
 {
     /**
      * {@inheritDoc}
-     *
-     * @throws InvalidProxiedClassException
-     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
-     * @throws \InvalidArgumentException
      */
     public function generate(ReflectionClass $originalClass, ClassGenerator $classGenerator)
     {
         CanProxyAssertion::assertClassCanBeProxied($originalClass);
 
-        $interfaces          = [VirtualProxyInterface::class];
-        $publicProperties    = new PublicPropertiesMap(Properties::fromReflectionClass($originalClass));
+        $interfaces          = array('ProxyManager\\Proxy\\VirtualProxyInterface');
+        $publicProperties    = new PublicPropertiesMap($originalClass);
 
         if ($originalClass->isInterface()) {
             $interfaces[] = $originalClass->getName();
@@ -91,12 +81,17 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
             },
             array_merge(
                 array_map(
-                    $this->buildLazyLoadingMethodInterceptor($initializer, $valueHolder),
+                    function (ReflectionMethod $method) use ($initializer, $valueHolder) {
+                        return LazyLoadingMethodInterceptor::generateMethod(
+                            new MethodReflection($method->getDeclaringClass()->getName(), $method->getName()),
+                            $initializer,
+                            $valueHolder
+                        );
+                    },
                     ProxiedMethodsFilter::getProxiedMethods($originalClass)
                 ),
-                [
-                    new StaticProxyConstructor($initializer, Properties::fromReflectionClass($originalClass)),
-                    Constructor::generateMethod($originalClass, $valueHolder),
+                array(
+                    new Constructor($originalClass, $initializer),
                     new MagicGet($originalClass, $initializer, $valueHolder, $publicProperties),
                     new MagicSet($originalClass, $initializer, $valueHolder, $publicProperties),
                     new MagicIsset($originalClass, $initializer, $valueHolder, $publicProperties),
@@ -109,21 +104,8 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
                     new InitializeProxy($initializer, $valueHolder),
                     new IsProxyInitialized($valueHolder),
                     new GetWrappedValueHolderValue($valueHolder),
-                ]
+                )
             )
         );
-    }
-
-    private function buildLazyLoadingMethodInterceptor(
-        InitializerProperty $initializer,
-        ValueHolderProperty $valueHolder
-    ) : callable {
-        return function (ReflectionMethod $method) use ($initializer, $valueHolder) : LazyLoadingMethodInterceptor {
-            return LazyLoadingMethodInterceptor::generateMethod(
-                new MethodReflection($method->getDeclaringClass()->getName(), $method->getName()),
-                $initializer,
-                $valueHolder
-            );
-        };
     }
 }

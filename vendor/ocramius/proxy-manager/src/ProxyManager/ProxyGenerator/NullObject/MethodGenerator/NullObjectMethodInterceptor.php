@@ -16,8 +16,6 @@
  * and is licensed under the MIT license.
  */
 
-declare(strict_types=1);
-
 namespace ProxyManager\ProxyGenerator\NullObject\MethodGenerator;
 
 use ProxyManager\Generator\MethodGenerator;
@@ -35,28 +33,20 @@ class NullObjectMethodInterceptor extends MethodGenerator
     /**
      * @param \Zend\Code\Reflection\MethodReflection $originalMethod
      *
-     * @return self|static
+     * @return NullObjectMethodInterceptor|static
      */
-    public static function generateMethod(MethodReflection $originalMethod) : self
+    public static function generateMethod(MethodReflection $originalMethod)
     {
         /* @var $method self */
         $method = static::fromReflection($originalMethod);
-
-        if ('void' === (string) $originalMethod->getReturnType()) {
-            $method->setBody('');
-
-            return $method;
-        }
 
         if ($originalMethod->returnsReference()) {
             $reference = UniqueIdentifierGenerator::getIdentifier('ref');
 
             $method->setBody("\$$reference = null;\nreturn \$$reference;");
-
-            return $method;
+        } else {
+            $method->setBody('');
         }
-
-        $method->setBody('');
 
         return $method;
     }
