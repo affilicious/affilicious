@@ -14,7 +14,6 @@ cache:
   apt: true
   directories:
     - $HOME/.composer/cache
-    - vendor
 
 php:
   - 5.6
