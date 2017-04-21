@@ -63,7 +63,7 @@ class Shop_Template_Helper
     public static function get_shop_template($term_or_id)
     {
         /** @var Shop_Template_Repository_Interface $shop_template_repository */
-        $shop_template_repository = \Affilicious_Plugin::get('affilicious.shop.repository.shop_template');
+        $shop_template_repository = \Affilicious::get('affilicious.shop.repository.shop_template');
 
         // The argument is already an shop template
         if ($term_or_id instanceof Shop_Template) {

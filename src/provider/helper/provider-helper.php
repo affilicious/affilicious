@@ -21,7 +21,7 @@ class Provider_Helper
     public static function is_provider($id)
     {
         /** @var Provider_Repository_Interface $provider_repository */
-        $provider_repository = \Affilicious_Plugin::get('affilicious.provider.repository.provider');
+        $provider_repository = \Affilicious::get('affilicious.provider.repository.provider');
 
         // The argument is already a provider template
         if ($id instanceof Provider) {
@@ -56,7 +56,7 @@ class Provider_Helper
     public static function get_provider($id)
     {
         /** @var Provider_Repository_Interface $provider_repository */
-        $provider_repository = \Affilicious_Plugin::get('affilicious.provider.repository.provider');
+        $provider_repository = \Affilicious::get('affilicious.provider.repository.provider');
 
         // The argument is already an provider template
         if ($id instanceof Provider) {

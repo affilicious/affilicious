@@ -1,8 +1,6 @@
 <?php
 namespace Affilicious\Product\Setup;
 
-use Pimple\Container;
-
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
@@ -11,11 +9,6 @@ class Slug_Rewrite_Setup
 {
     const OPTION_SETTINGS_PRODUCT_GENERAL_SLUG = 'affilicious_options_product_container_general_tab_slug_field';
     const PRODUCT_SLUG_HAS_CHANGED = 'affilicious_product_slug_has_changed';
-
-    /**
-     * @var Container
-     */
-    protected $container;
 
     /**
      * @var Product_Setup
@@ -27,9 +20,7 @@ class Slug_Rewrite_Setup
      */
     public function __construct()
     {
-        $affiliciousPlugin = \Affilicious_Plugin::get_instance();
-        $this->container = $affiliciousPlugin->get_container();
-        $this->productSetup = $this->container['affilicious.product.setup.product'];
+        $this->productSetup = \Affilicious::get('affilicious.product.setup.product');
     }
 
     /**

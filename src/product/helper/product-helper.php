@@ -63,7 +63,7 @@ class Product_Helper
      */
     public static function get_product($post_or_id = null)
     {
-        $product_repository = \Affilicious_Plugin::get('affilicious.product.repository.product');
+        $product_repository = \Affilicious::get('affilicious.product.repository.product');
 
         // The argument is already a product.
         if ($post_or_id instanceof Product) {

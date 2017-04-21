@@ -1610,7 +1610,7 @@ function aff_the_shop_old_price($shop)
 function aff_get_license_key($item_key)
 {
     /** @var \Affilicious\Common\License\License_Manager $license_manager */
-    $license_manager = Affilicious_Plugin::get('affilicious.common.license.manager');
+    $license_manager = Affilicious::get('affilicious.common.license.manager');
     $license_key = $license_manager->get_item_license_key($item_key);
 
     return $license_key;

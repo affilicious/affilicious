@@ -16,7 +16,7 @@ class View_Helper
      */
     public static function render($path, $params = array())
     {
-        $path = \Affilicious_Plugin::get_root_path() . $path;
+        $path = \Affilicious::get_root_path() . $path;
 
         // The params are extracted into simple variables
         extract($params);
@@ -35,7 +35,7 @@ class View_Helper
      */
     public static function stringify($path, $params = array())
     {
-        $path = \Affilicious_Plugin::get_root_path() . $path;
+        $path = \Affilicious::get_root_path() . $path;
 
         // Every output is converted to a simple string
         ob_start();

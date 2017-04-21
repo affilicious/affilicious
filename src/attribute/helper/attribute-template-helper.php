@@ -58,7 +58,7 @@ class Attribute_Template_Helper
     public static function get_attribute_template($term_or_id)
     {
         /** @var Attribute_Template_Repository_Interface $attribute_template_repository */
-        $attribute_template_repository = \Affilicious_Plugin::get('affilicious.attribute.repository.attribute_template');
+        $attribute_template_repository = \Affilicious::get('affilicious.attribute.repository.attribute_template');
 
         // The argument is already an attribute template
         if ($term_or_id instanceof Attribute_Template) {

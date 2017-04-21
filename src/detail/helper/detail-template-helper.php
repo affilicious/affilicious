@@ -63,7 +63,7 @@ class Detail_Template_Helper
     public static function get_detail_template($term_or_id)
     {
         /** @var Detail_Template_Repository_Interface $detail_template_repository */
-        $detail_template_repository = \Affilicious_Plugin::get('affilicious.detail.repository.detail_template');
+        $detail_template_repository = \Affilicious::get('affilicious.detail.repository.detail_template');
 
         // The argument is already a detail template
         if ($term_or_id instanceof Detail_Template) {

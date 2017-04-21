@@ -15,7 +15,7 @@ class Asset_Setup
      */
     public static function get_public_styles_dir()
     {
-        return \Affilicious_Plugin::get_root_url() . '/assets/public/css/';
+        return \Affilicious::get_root_url() . '/assets/public/css/';
     }
 
     /**
@@ -26,7 +26,7 @@ class Asset_Setup
      */
     public static function get_public_script_dir()
     {
-        return \Affilicious_Plugin::get_root_url() . '/assets/public/js/';
+        return \Affilicious::get_root_url() . '/assets/public/js/';
     }
 
     /**
@@ -37,7 +37,7 @@ class Asset_Setup
      */
     public static function get_admin_styles_dir()
     {
-        return \Affilicious_Plugin::get_root_url() . '/assets/admin/css/';
+        return \Affilicious::get_root_url() . '/assets/admin/css/';
     }
 
     /**
@@ -48,7 +48,7 @@ class Asset_Setup
      */
     public static function get_admin_script_dir()
     {
-        return \Affilicious_Plugin::get_root_url() . '/assets/admin/js/';
+        return \Affilicious::get_root_url() . '/assets/admin/js/';
     }
 
     /**
@@ -59,7 +59,7 @@ class Asset_Setup
      */
     public function add_public_styles()
     {
-        wp_enqueue_style('affilicious-public', self::get_public_styles_dir() . 'style.min.css', array(), \Affilicious_Plugin::PLUGIN_VERSION);
+        wp_enqueue_style('affilicious-public', self::get_public_styles_dir() . 'style.min.css', array(), \Affilicious::PLUGIN_VERSION);
     }
 
     /**
@@ -70,7 +70,7 @@ class Asset_Setup
      */
     public function add_admin_styles()
     {
-        wp_enqueue_style('affilicious-admin', self::get_admin_styles_dir() . 'admin.min.css', array(), \Affilicious_Plugin::PLUGIN_VERSION);
+        wp_enqueue_style('affilicious-admin', self::get_admin_styles_dir() . 'admin.min.css', array(), \Affilicious::PLUGIN_VERSION);
     }
 
     /**
@@ -81,7 +81,7 @@ class Asset_Setup
      */
     public function add_public_scripts()
     {
-        wp_enqueue_script('affilicious-public', self::get_public_script_dir() . 'script.min.js', array('jquery'), \Affilicious_Plugin::PLUGIN_VERSION, true);
+        wp_enqueue_script('affilicious-public', self::get_public_script_dir() . 'script.min.js', array('jquery'), \Affilicious::PLUGIN_VERSION, true);
     }
 
     /**
@@ -100,7 +100,7 @@ class Asset_Setup
             'addTag' => __('Add', 'affilicious'),
         );
 
-        wp_register_script('affilicious-admin', self::get_admin_script_dir() . 'admin.min.js', array('jquery', 'carbon-fields'), \Affilicious_Plugin::PLUGIN_VERSION, true);
+        wp_register_script('affilicious-admin', self::get_admin_script_dir() . 'admin.min.js', array('jquery', 'carbon-fields'), \Affilicious::PLUGIN_VERSION, true);
         wp_localize_script('affilicious-admin', 'translations', $translations);
         wp_enqueue_script('affilicious-admin');
     }
