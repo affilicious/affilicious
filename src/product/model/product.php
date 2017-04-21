@@ -24,7 +24,7 @@ class Product
     /**
      * The default slug is in English but can be translated into any language in the options.
      */
-    const SLUG = 'product';
+    const SLUG = 'products';
 
     /**
      * The unique ID of the product.
