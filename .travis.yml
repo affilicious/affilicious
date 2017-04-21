@@ -19,11 +19,12 @@ cache:
 php:
   - 5.6
   - 7.0
+  - 7.1
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=4.5 WP_MULTISITE=0
   - WP_VERSION=4.6 WP_MULTISITE=0
+  - WP_VERSION=4.5 WP_MULTISITE=0
 
 matrix:
   include:
