@@ -34,9 +34,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-define('Affilicious_BASE_NAME', plugin_basename(__FILE__));
-define('Affilicious_ROOT_PATH', plugin_dir_path(__FILE__));
-define('Affilicious_ROOT_URL', plugin_dir_url(__FILE__));
+define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
+define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
+define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
 
 if(!class_exists('Affilicious')) {
 
@@ -112,7 +112,7 @@ if(!class_exists('Affilicious')) {
          */
         public static function get_root_url()
         {
-            return Affilicious_ROOT_URL;
+            return AFFILICIOUS_ROOT_URL;
         }
 
         /**
@@ -123,7 +123,7 @@ if(!class_exists('Affilicious')) {
          */
         public static function get_root_path()
         {
-            return Affilicious_ROOT_PATH;
+            return AFFILICIOUS_ROOT_PATH;
         }
 
         /**
@@ -217,7 +217,7 @@ if(!class_exists('Affilicious')) {
         {
             // Check the PHP version requirement
             if (!version_compare(phpversion(), self::PLUGIN_MIN_PHP_VERSION, '>=')) {
-                deactivate_plugins(Affilicious_BASE_NAME);
+                deactivate_plugins(AFFILICIOUS_BASE_NAME);
 
                 $this->load_textdomain();
                 wp_die(sprintf(
