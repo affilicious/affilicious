@@ -1,0 +1,40 @@
+{
+  "name": "johnbillion/wordpress-behat-extension",
+  "type": "library",
+  "description": "WordPress extension for Behat 3",
+  "authors": [
+    {
+      "name": "wdalmut",
+      "homepage": "https://github.com/wdalmut"
+    },
+    {
+      "name": "tmf",
+      "homepage": "https://github.com/tmf"
+    },
+    {
+      "name": "johnbillion",
+      "homepage": "https://github.com/johnbillion"
+    }
+  ],
+  "keywords": [
+    "behat",
+    "wordpress",
+    "story",
+    "bdd"
+  ],
+  "license": "MIT",
+  "require": {
+    "behat/behat": "~3.0,>=3.0.4",
+    "behat/mink-extension": "~2.0@dev",
+    "symfony/filesystem": "~2.3",
+    "symfony/finder": "~2.3",
+    "phpunit/phpunit": "~4.0"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Johnbillion\\WordPressExtension\\": "src"
+    },
+    "files": [ "../../phpunit/phpunit/src/Framework/Assert/Functions.php" ]
+  }
+}

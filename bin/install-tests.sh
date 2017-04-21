@@ -12,8 +12,9 @@ DB_HOST=${4-localhost}
 WP_VERSION=${5-latest}
 FORCE=${6-false}
 
-WP_TESTS_DIR=${WP_TESTS_DIR-/tmp/wordpress-tests-lib}
-WP_CORE_DIR=${WP_CORE_DIR-/tmp/wordpress/}
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+WP_TESTS_DIR="$BASEDIR/../tmp/wordpress-tests-lib"
+WP_CORE_DIR="$BASEDIR/../tmp/wordpress/"
 
 download() {
     if [ `which curl` ]; then

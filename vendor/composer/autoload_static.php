@@ -4,15 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
+class ComposerStaticInite59beec5beb8cba85c404162148300e2
 {
     public static $files = array (
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '154e0d165f5fe76e8e9695179d0a7345' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '74704c95e6224e3a13dba163dbbb87fa' => __DIR__ . '/..' . '/htmlburger/carbon-fields/carbon-fields.php',
         '1c3af1f7c867149c2eb8dfa733be2e98' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/functions.php',
+        '01c48681b591f69925781a0eb687e699' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -28,11 +29,30 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
-            'Symfony\\Component\\DomCrawler\\' => 29,
+            'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\DependencyInjection\\' => 38,
+            'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\CssSelector\\' => 30,
+            'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Component\\Config\\' => 25,
+            'Symfony\\Component\\ClassLoader\\' => 30,
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Container\\' => 14,
+        ),
+        'J' => 
+        array (
+            'Johnbillion\\WordPressExtension\\' => 31,
+        ),
+        'I' => 
+        array (
+            'Interop\\Container\\' => 18,
         ),
         'G' => 
         array (
@@ -47,6 +67,10 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
         'C' => 
         array (
             'Carbon_Fields\\' => 14,
+        ),
+        'B' => 
+        array (
+            'Behat\\Mink\\' => 11,
         ),
         'A' => 
         array (
@@ -74,13 +98,65 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
-        'Symfony\\Component\\DomCrawler\\' => 
+        'Symfony\\Component\\Translation\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Symfony\\Component\\DependencyInjection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dependency-injection',
+        ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
+        'Symfony\\Component\\CssSelector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/css-selector',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Symfony\\Component\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Symfony\\Component\\ClassLoader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/class-loader',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Johnbillion\\WordPressExtension\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/johnbillion/wordpress-behat-extension/src',
+        ),
+        'Interop\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -102,6 +178,10 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
         array (
             0 => __DIR__ . '/..' . '/htmlburger/carbon-fields/core',
         ),
+        'Behat\\Mink\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/mink/src',
+        ),
         'ApaiIO\\' => 
         array (
             0 => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO',
@@ -122,6 +202,29 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+        ),
+        'B' => 
+        array (
+            'Behat\\Transliterator' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/transliterator/src',
+            ),
+            'Behat\\Testwork' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/behat/src',
+            ),
+            'Behat\\MinkExtension' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/mink-extension/src',
+            ),
+            'Behat\\Gherkin' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/gherkin/src',
+            ),
+            'Behat\\Behat' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/behat/src',
             ),
         ),
     );
@@ -574,10 +677,10 @@ class ComposerStaticInit44247ac788218399e677a0e2cbc4764b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit44247ac788218399e677a0e2cbc4764b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit44247ac788218399e677a0e2cbc4764b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit44247ac788218399e677a0e2cbc4764b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit44247ac788218399e677a0e2cbc4764b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite59beec5beb8cba85c404162148300e2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite59beec5beb8cba85c404162148300e2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite59beec5beb8cba85c404162148300e2::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite59beec5beb8cba85c404162148300e2::$classMap;
 
         }, null, ClassLoader::class);
     }

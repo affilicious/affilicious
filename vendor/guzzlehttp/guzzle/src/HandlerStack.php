@@ -38,9 +38,9 @@ class HandlerStack
     public static function create(callable $handler = null)
     {
         $stack = new self($handler ?: choose_handler());
-        $stack->push(Middleware::cookies(), 'cookies');
-        $stack->push(Middleware::redirect(), 'allow_redirects');
         $stack->push(Middleware::httpErrors(), 'http_errors');
+        $stack->push(Middleware::redirect(), 'allow_redirects');
+        $stack->push(Middleware::cookies(), 'cookies');
         $stack->push(Middleware::prepareBody(), 'prepare_body');
 
         return $stack;
@@ -62,11 +62,8 @@ class HandlerStack
      */
     public function __invoke(RequestInterface $request, array $options)
     {
-        if (!$this->cached) {
-            $this->cached = $this->resolve();
-        }
+        $handler = $this->resolve();
 
-        $handler = $this->cached;
         return $handler($request, $options);
     }
 
@@ -86,7 +83,7 @@ class HandlerStack
         $result = '';
         foreach (array_reverse($this->stack) as $tuple) {
             $depth++;
-            $str = "{$depth}) Slug: '{$tuple[1]}', ";
+            $str = "{$depth}) Name: '{$tuple[1]}', ";
             $str .= "Function: " . $this->debugCallable($tuple[0]);
             $result = "> {$str}\n{$result}";
             $stack[] = $str;
@@ -125,7 +122,7 @@ class HandlerStack
      * Unshift a middleware to the bottom of the stack.
      *
      * @param callable $middleware Middleware function
-     * @param string   $name       Slug to register for this middleware.
+     * @param string   $name       Name to register for this middleware.
      */
     public function unshift(callable $middleware, $name = null)
     {
@@ -137,7 +134,7 @@ class HandlerStack
      * Push a middleware to the top of the stack.
      *
      * @param callable $middleware Middleware function
-     * @param string   $name       Slug to register for this middleware.
+     * @param string   $name       Name to register for this middleware.
      */
     public function push(callable $middleware, $name = '')
     {
@@ -150,7 +147,7 @@ class HandlerStack
      *
      * @param string   $findName   Middleware to find
      * @param callable $middleware Middleware function
-     * @param string   $withName   Slug to register for this middleware.
+     * @param string   $withName   Name to register for this middleware.
      */
     public function before($findName, callable $middleware, $withName = '')
     {
@@ -162,7 +159,7 @@ class HandlerStack
      *
      * @param string   $findName   Middleware to find
      * @param callable $middleware Middleware function
-     * @param string   $withName   Slug to register for this middleware.
+     * @param string   $withName   Name to register for this middleware.
      */
     public function after($findName, callable $middleware, $withName = '')
     {
@@ -193,15 +190,19 @@ class HandlerStack
      */
     public function resolve()
     {
-        if (!($prev = $this->handler)) {
-            throw new \LogicException('No handler has been specified');
+        if (!$this->cached) {
+            if (!($prev = $this->handler)) {
+                throw new \LogicException('No handler has been specified');
+            }
+
+            foreach (array_reverse($this->stack) as $fn) {
+                $prev = $fn[0]($prev);
+            }
+
+            $this->cached = $prev;
         }
 
-        foreach (array_reverse($this->stack) as $fn) {
-            $prev = $fn[0]($prev);
-        }
-
-        return $prev;
+        return $this->cached;
     }
 
     /**

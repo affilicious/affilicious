@@ -1,0 +1,16 @@
+default:
+  autoload:
+    - %paths.base%/Features/Context
+  suites:
+    default:
+      contexts:
+        - Johnbillion\WordPressExtension\Context\WordPressContext
+  extensions:
+    Johnbillion\WordPressExtension:
+      path: '%paths.base/vendor/wordpress'
+
+    Behat\MinkExtension:
+      base_url:    'http://localhost:8000'
+      sessions:
+        default:
+          goutte: ~

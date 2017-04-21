@@ -7,21 +7,20 @@ use GuzzleHttp\Psr7;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use \InvalidArgumentException as Iae;
 
 /**
- * @method ResponseInterface get($uri, array $options = [])
- * @method ResponseInterface head($uri, array $options = [])
- * @method ResponseInterface put($uri, array $options = [])
- * @method ResponseInterface post($uri, array $options = [])
- * @method ResponseInterface patch($uri, array $options = [])
- * @method ResponseInterface delete($uri, array $options = [])
- * @method Promise\PromiseInterface getAsync($uri, array $options = [])
- * @method Promise\PromiseInterface headAsync($uri, array $options = [])
- * @method Promise\PromiseInterface putAsync($uri, array $options = [])
- * @method Promise\PromiseInterface postAsync($uri, array $options = [])
- * @method Promise\PromiseInterface patchAsync($uri, array $options = [])
- * @method Promise\PromiseInterface deleteAsync($uri, array $options = [])
+ * @method ResponseInterface get(string|UriInterface $uri, array $options = [])
+ * @method ResponseInterface head(string|UriInterface $uri, array $options = [])
+ * @method ResponseInterface put(string|UriInterface $uri, array $options = [])
+ * @method ResponseInterface post(string|UriInterface $uri, array $options = [])
+ * @method ResponseInterface patch(string|UriInterface $uri, array $options = [])
+ * @method ResponseInterface delete(string|UriInterface $uri, array $options = [])
+ * @method Promise\PromiseInterface getAsync(string|UriInterface $uri, array $options = [])
+ * @method Promise\PromiseInterface headAsync(string|UriInterface $uri, array $options = [])
+ * @method Promise\PromiseInterface putAsync(string|UriInterface $uri, array $options = [])
+ * @method Promise\PromiseInterface postAsync(string|UriInterface $uri, array $options = [])
+ * @method Promise\PromiseInterface patchAsync(string|UriInterface $uri, array $options = [])
+ * @method Promise\PromiseInterface deleteAsync(string|UriInterface $uri, array $options = [])
  */
 class Client implements ClientInterface
 {
@@ -94,7 +93,7 @@ class Client implements ClientInterface
         $options = $this->prepareDefaults($options);
 
         return $this->transfer(
-            $request->withUri($this->buildUri($request->getUri(), $options)),
+            $request->withUri($this->buildUri($request->getUri(), $options), $request->hasHeader('Host')),
             $options
         );
     }
@@ -105,7 +104,7 @@ class Client implements ClientInterface
         return $this->sendAsync($request, $options)->wait();
     }
 
-    public function requestAsync($method, $uri = null, array $options = [])
+    public function requestAsync($method, $uri = '', array $options = [])
     {
         $options = $this->prepareDefaults($options);
         // Remove request modifying parameter because it can be done up-front.
@@ -114,6 +113,9 @@ class Client implements ClientInterface
         $version = isset($options['version']) ? $options['version'] : '1.1';
         // Merge the URI into the base URI.
         $uri = $this->buildUri($uri, $options);
+        if (is_array($body)) {
+            $this->invalidBody();
+        }
         $request = new Psr7\Request($method, $uri, $headers, $body, $version);
         // Remove the option so that they are not doubly-applied.
         unset($options['headers'], $options['body'], $options['version']);
@@ -121,7 +123,7 @@ class Client implements ClientInterface
         return $this->transfer($request, $options);
     }
 
-    public function request($method, $uri = null, array $options = [])
+    public function request($method, $uri = '', array $options = [])
     {
         $options[RequestOptions::SYNCHRONOUS] = true;
         return $this->requestAsync($method, $uri, $options)->wait();
@@ -136,19 +138,20 @@ class Client implements ClientInterface
 
     private function buildUri($uri, array $config)
     {
-        if (!isset($config['base_uri'])) {
-            return $uri instanceof UriInterface ? $uri : new Psr7\Uri($uri);
+        // for BC we accept null which would otherwise fail in uri_for
+        $uri = Psr7\uri_for($uri === null ? '' : $uri);
+
+        if (isset($config['base_uri'])) {
+            $uri = Psr7\UriResolver::resolve(Psr7\uri_for($config['base_uri']), $uri);
         }
 
-        return Psr7\Uri::resolve(Psr7\uri_for($config['base_uri']), $uri);
+        return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
     }
 
     /**
      * Configures the default options for a client.
      *
      * @param array $config
-     *
-     * @return array
      */
     private function configureDefaults(array $config)
     {
@@ -160,13 +163,22 @@ class Client implements ClientInterface
             'cookies'         => false
         ];
 
-        // Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set
-        if ($proxy = getenv('HTTP_PROXY')) {
-            $defaults['proxy']['http'] = $proxy;
+        // Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set.
+
+        // We can only trust the HTTP_PROXY environment variable in a CLI
+        // process due to the fact that PHP has no reliable mechanism to
+        // get environment variables that start with "HTTP_".
+        if (php_sapi_name() == 'cli' && getenv('HTTP_PROXY')) {
+            $defaults['proxy']['http'] = getenv('HTTP_PROXY');
         }
 
         if ($proxy = getenv('HTTPS_PROXY')) {
             $defaults['proxy']['https'] = $proxy;
+        }
+
+        if ($noProxy = getenv('NO_PROXY')) {
+            $cleanedNoProxy = str_replace(' ', '', $noProxy);
+            $defaults['proxy']['no'] = explode(',', $cleanedNoProxy);
         }
 
         $this->config = $config + $defaults;
@@ -250,7 +262,7 @@ class Client implements ClientInterface
             unset($options['save_to']);
         }
 
-        // exceptions -> http_error
+        // exceptions -> http_errors
         if (isset($options['exceptions'])) {
             $options['http_errors'] = $options['exceptions'];
             unset($options['exceptions']);
@@ -279,18 +291,27 @@ class Client implements ClientInterface
         $modify = [];
 
         if (isset($options['form_params'])) {
-            $options['body'] = http_build_query($options['form_params']);
+            if (isset($options['multipart'])) {
+                throw new \InvalidArgumentException('You cannot use '
+                    . 'form_params and multipart at the same time. Use the '
+                    . 'form_params option if you want to send application/'
+                    . 'x-www-form-urlencoded requests, and the multipart '
+                    . 'option to send multipart/form-data requests.');
+            }
+            $options['body'] = http_build_query($options['form_params'], '', '&');
             unset($options['form_params']);
             $options['_conditional']['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
         if (isset($options['multipart'])) {
-            $elements = $options['multipart'];
+            $options['body'] = new Psr7\MultipartStream($options['multipart']);
             unset($options['multipart']);
-            $options['body'] = new Psr7\MultipartStream($elements);
-            // Use a multipart/form-data POST if a Content-Type is not set.
-            $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
-                . $options['body']->getBoundary();
+        }
+
+        if (isset($options['json'])) {
+            $options['body'] = \GuzzleHttp\json_encode($options['json']);
+            unset($options['json']);
+            $options['_conditional']['Content-Type'] = 'application/json';
         }
 
         if (!empty($options['decode_content'])
@@ -309,17 +330,17 @@ class Client implements ClientInterface
         }
 
         if (isset($options['body'])) {
+            if (is_array($options['body'])) {
+                $this->invalidBody();
+            }
             $modify['body'] = Psr7\stream_for($options['body']);
             unset($options['body']);
         }
 
-        if (!empty($options['auth'])) {
+        if (!empty($options['auth']) && is_array($options['auth'])) {
             $value = $options['auth'];
-            $type = is_array($value)
-                ? (isset($value[2]) ? strtolower($value[2]) : 'basic')
-                : $value;
-            $config['auth'] = $value;
-            switch (strtolower($type)) {
+            $type = isset($value[2]) ? strtolower($value[2]) : 'basic';
+            switch ($type) {
                 case 'basic':
                     $modify['set_headers']['Authorization'] = 'Basic '
                         . base64_encode("$value[0]:$value[1]");
@@ -335,22 +356,29 @@ class Client implements ClientInterface
         if (isset($options['query'])) {
             $value = $options['query'];
             if (is_array($value)) {
-                $value = http_build_query($value, null, null, PHP_QUERY_RFC3986);
+                $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
             }
             if (!is_string($value)) {
-                throw new Iae('query must be a string or array');
+                throw new \InvalidArgumentException('query must be a string or array');
             }
             $modify['query'] = $value;
             unset($options['query']);
         }
 
-        if (isset($options['json'])) {
-            $modify['body'] = Psr7\stream_for(json_encode($options['json']));
-            $options['_conditional']['Content-Type'] = 'application/json';
-            unset($options['json']);
+        // Ensure that sink is not an invalid value.
+        if (isset($options['sink'])) {
+            // TODO: Add more sink validation?
+            if (is_bool($options['sink'])) {
+                throw new \InvalidArgumentException('sink must not be a boolean');
+            }
         }
 
         $request = Psr7\modify_request($request, $modify);
+        if ($request->getBody() instanceof Psr7\MultipartStream) {
+            // Use a multipart/form-data POST if a Content-Type is not set.
+            $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
+                . $request->getBody()->getBoundary();
+        }
 
         // Merge in conditional headers if they are not present.
         if (isset($options['_conditional'])) {
@@ -367,5 +395,14 @@ class Client implements ClientInterface
         }
 
         return $request;
+    }
+
+    private function invalidBody()
+    {
+        throw new \InvalidArgumentException('Passing in the "body" request '
+            . 'option as an array to send a POST request has been deprecated. '
+            . 'Please use the "form_params" request option to send a '
+            . 'application/x-www-form-urlencoded request, or a the "multipart" '
+            . 'request option to send a multipart/form-data request.');
     }
 }
