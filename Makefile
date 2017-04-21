@@ -28,6 +28,7 @@ clean:
 	@rm -rf assets/.cache
 	@rm -rf assets/.sass-cache
 	@rm -rf assets/*/*.map
+	@rm -rf tmp
 
 tests-database:
 	@bin/install-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST)
