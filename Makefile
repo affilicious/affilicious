@@ -4,13 +4,15 @@ DB_USER := root
 DB_PASSWORD := root
 WP_VERSION := latest
 
-prod: clean
+prod:
 	@composer install --no-dev --optimize-autoloader
 
 ready: dev
 dev: tests-install
 	@composer install
 	@npm install
+
+wordpress: prod clean
 
 asset:
 	@gulp default
