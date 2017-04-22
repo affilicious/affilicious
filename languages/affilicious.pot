@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-04-19 "
-"09:21+0200\n"
+"POT-Creation-Date: 2017-04-22 "
+"09:13+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -39,8 +39,10 @@ msgstr ""
 "assets\n"
 "X-Poedit-SearchPathExcluded-3: "
 "node_modules\n"
+"X-Poedit-SearchPathExcluded-4: "
+"tmp\n"
 
-#: affilicious-plugin.php:224
+#: affilicious.php:224
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -527,11 +529,17 @@ msgid "Add Images To Image Gallery"
 msgstr ""
 
 #: src/product/options/product-options.php:23
-#: src/product/options/product-options.php:36
 msgid ""
-"Used as pretty permalink text (i."
-"e. \"http://test.com/your-slug/"
-"product-name\")."
+"Used as the slug for a nicer "
+"product URL (eg \"http://example."
+"com/products/xyz\"), where "
+"\"products\" in the middle part "
+"of the product URL is the "
+"default. If you want to "
+"translate the slug into your "
+"language instead of \"products"
+"\", you have to write the new "
+"slug into this input field."
 msgstr ""
 
 #: src/product/options/product-options.php:28
@@ -569,6 +577,13 @@ msgid ""
 "of those is described in the <a "
 "href=\"%s\">Reserved Terms</a> "
 "section."
+msgstr ""
+
+#: src/product/options/product-options.php:36
+msgid ""
+"Used as pretty permalink text (i."
+"e. \"http://test.com/your-slug/"
+"product-name\")."
 msgstr ""
 
 #: src/product/options/product-options.php:38

@@ -20,7 +20,7 @@ class Product_Options
 
 		$general_tab = apply_filters('affilicious_options_product_container_general_tab', array(
 			Carbon_Field::make('text', 'affilicious_options_product_container_general_tab_slug_field', __('Slug', 'affilicious'))
-				->help_text(sprintf(__('Used as pretty permalink text (i.e. "http://test.com/your-slug/product-name").', 'affilicious'), 'product')),
+				->help_text(sprintf(__('Used as the slug for a nicer product URL (eg "http://example.com/products/xyz"), where "products" in the middle part of the product URL is the default. If you want to translate the slug into your language instead of "products", you have to write the new slug into this input field.', 'affilicious'), 'product')),
 		));
 
 		$taxonomies_tab = apply_filters('affilicious_options_product_container_taxonomies_tab', array(

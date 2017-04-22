@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-04-19 09:21+0200\n"
+"POT-Creation-Date: 2017-04-22 09:13+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: node_modules\n"
 
-#: affilicious-plugin.php:224
+#: affilicious.php:224
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
@@ -488,13 +488,17 @@ msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
 
 #: src/product/options/product-options.php:23
-#: src/product/options/product-options.php:36
 msgid ""
-"Used as pretty permalink text (i.e. \"http://test.com/your-slug/product-name"
-"\")."
+"Used as the slug for a nicer product URL (eg \"http://example.com/products/"
+"xyz\"), where \"products\" in the middle part of the product URL is the "
+"default. If you want to translate the slug into your language instead of "
+"\"products\", you have to write the new slug into this input field."
 msgstr ""
-"Wird als Text für einen hübscheren Permalink verwendet (z.B. \"http://test."
-"de/dein-slug/produkt-name“)."
+"Wird als Titelform für eine hübschere Produkt-URL verwendet (z.B. \"http://"
+"beispiel.de/products/xyz“), wobei standardmäßig \"products\" im mittleren "
+"Teil der Produkt-URL verwendet wird. Wenn du statt „products“ die Titelform "
+"in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
+"Eingabefeld schreiben."
 
 #: src/product/options/product-options.php:28
 #, php-format
@@ -530,6 +534,17 @@ msgstr ""
 "anderen Taxonomien, Beitragstypen und Wordpress öffentlichen und privaten "
 "Anfragenvariablen in Konflikt stehen darf. Hier findest du eine komplette "
 "Liste der <a href=\"%s\"> reservierten Wörter</a>."
+
+#: src/product/options/product-options.php:36
+msgid ""
+"Used as pretty permalink text (i.e. \"http://test.com/your-slug/product-name"
+"\")."
+msgstr ""
+"Wird als Titelform für eine hübschere Produkt-URL verwendet (z.B. \"http://"
+"beispiel.de/products/xyz“), wobei standardmäßig \"products\" im mittleren "
+"Teil der Produkt-URL verwendet wird. Wenn du statt „products“ die Titelform "
+"in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
+"Eingabefeld schreiben."
 
 #: src/product/options/product-options.php:38
 msgid "Singular Slug"
