@@ -14,6 +14,8 @@ cache:
   apt: true
   directories:
     - $HOME/.composer/cache
+    - tmp/wordpress
+    - tmp/wordpress-tests-lib
 
 php:
   - 5.6
