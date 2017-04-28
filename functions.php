@@ -639,6 +639,10 @@ function aff_the_product_link($product_or_id = null)
 function aff_get_product_shop($product_or_id = null, $affiliate_link = null)
 {
     $product = aff_get_product($product_or_id);
+    if($product instanceof Complex_Product) {
+        $product = $product->get_default_variant();
+    }
+
     if($product === null || !($product instanceof Shop_Aware_Interface)) {
         return null;
     }
