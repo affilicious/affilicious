@@ -994,7 +994,15 @@ function aff_get_product_cheapest_price($product_or_id = null)
  */
 function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = null)
 {
-    $shop = aff_get_product_shop($product_or_id, $shop_or_id);
+    $product = aff_get_product($product_or_id);
+    if($product instanceof Complex_Product) {
+        $product = $product->get_default_variant();
+        if($product === null) {
+            return null;
+        }
+    }
+
+    $shop = aff_get_product_shop($product, $shop_or_id);
     if(empty($shop)) {
         return null;
     }
