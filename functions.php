@@ -1465,17 +1465,30 @@ function aff_the_shop_price_indication()
 }
 
 /**
+ * Check if the shop has an updated at price indication.
+ *
+ * @since 0.8.12
+ * @param array $shop
+ * @return bool
+ */
+function aff_has_shop_updated_at_indication($shop)
+{
+    return !empty(aff_get_shop_updated_at_indication($shop));
+}
+
+/**
  * Get the last update indication for the shop.
  *
  * @since 0.7
  * @param array $shop
+ * @param null|string $custom_text
  * @return string
  */
-function aff_get_shop_updated_at_indication($shop)
+function aff_get_shop_updated_at_indication($shop, $custom_text = null)
 {
     if(!empty($shop['updated_at'])) {
         return sprintf(
-            __('Last updated: %s.', 'affilicious'),
+            !empty($custom_text) ? $custom_text : __('Last updated: %s.', 'affilicious'),
             $shop['updated_at']
         );
     }
@@ -1488,10 +1501,11 @@ function aff_get_shop_updated_at_indication($shop)
  *
  * @since 0.7
  * @param array $shop
+ * @param null|string $custom_text
  */
-function aff_the_shop_updated_at_indication($shop)
+function aff_the_shop_updated_at_indication($shop, $custom_text = null)
 {
-    echo esc_html(aff_get_shop_updated_at_indication($shop));
+    echo esc_html(aff_get_shop_updated_at_indication($shop, $custom_text));
 }
 
 /**
