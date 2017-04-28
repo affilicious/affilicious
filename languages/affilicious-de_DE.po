@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-04-22 09:13+0200\n"
+"POT-Creation-Date: 2017-04-28 16:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -36,11 +36,18 @@ msgstr ""
 "Potenzial entfalten zu können. Bitte ändere die PHP Version in deinem "
 "Hosting Provider."
 
+#: functions.php:332
+#, php-format
+msgid "based on %s review"
+msgid_plural "based on %s reviews"
+msgstr[0] "anhand von %s Bewertung"
+msgstr[1] "anhand von %s Bewertungen"
+
 #: functions.php:1454
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: functions.php:1478
+#: functions.php:1491
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."

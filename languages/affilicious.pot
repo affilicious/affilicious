@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-04-22 "
-"09:13+0200\n"
+"POT-Creation-Date: 2017-04-28 "
+"16:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -26,7 +26,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;"
 "esc_html_e;esc_html__;esc_attr_e;"
 "esc_attr_x:1,2c;esc_attr_;"
-"_x:1,2c\n"
+"_x:1,2c;_n:1,2;_n_noop:1,2;"
+"_nx:1,2;_nx_noop:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "Language: en_US\n"
 "X-Generator: Poedit 1.8.8\n"
@@ -52,13 +53,20 @@ msgid ""
 "your hosting provider."
 msgstr ""
 
+#: functions.php:332
+#, php-format
+msgid "based on %s review"
+msgid_plural "based on %s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
 #: functions.php:1454
 msgid ""
 "Incl. 19 % VAT and excl. "
 "shipping costs."
 msgstr ""
 
-#: functions.php:1478
+#: functions.php:1491
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
