@@ -3,9 +3,9 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com
 Requires at least: 4.5
-Tested up to: 4.7.3
-Stable tag: 0.8.11
-Tags: Affiliate Marketing, SEO, Products
+Tested up to: 4.7.4
+Stable tag: 0.8.12
+Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
 
@@ -59,6 +59,13 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.12 =
+* New: Added license page for extensions and themes.
+* New: Added Behat for automated functional testing.
+* Improvement: Allowed decimal numbers in details.
+* Improvement: Optimized the software code.
+* Fix: Fixed Amazon product update.
+
 = 0.8.11 =
 * Improvement: Made Affilicious more error tolerant.
 * Improvement: Changed the product menu name to the plural form.
