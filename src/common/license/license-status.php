@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 
 class License_Status
 {
+    const UNKNOWN = 'unknown';
     const MISSING = 'missing';
     const VALID = 'valid';
     const INVALID = 'invalid';
@@ -55,6 +56,17 @@ class License_Status
         }
 
         return new self(self::ERROR, $message);
+    }
+
+    /**
+     * Get a license status indicating an unknown license.
+     *
+     * @since 0.8.13
+     * @return License_Status
+     */
+    public static function unknown()
+    {
+        return new self(self::UNKNOWN);
     }
 
     /**

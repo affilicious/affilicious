@@ -37,10 +37,16 @@ final class License_Processor
      */
     public function process(License_Handler_Interface $license_handler)
     {
+        // Prevent other pages from calling the code below.
+        if(!isset($_GET['page']) || $_GET['page'] != 'crbn-affilicious.php') {
+            return License_Status::unknown();
+        }
+
         // Get the key for identifying the item.
         $item_key = $license_handler->get_item_key();
-
         $status = $this->get_previous_status($item_key);
+
+        // Don't process already processed licenses.
         if($status !== null && isset($_GET['settings-updated'])) {
             $this->delete_previous_status($item_key);
             return $status;
