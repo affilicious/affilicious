@@ -323,6 +323,10 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Generator\Carbon\Carbon_Key_Generator();
             };
 
+            $this->container['affilicious.common.filter.link_target'] = function () {
+                return new \Affilicious\Common\Filter\Link_Target_Filter();
+            };
+
             $this->container['affilicious.common.filter.admin_footer_text'] = function () {
                 return new \Affilicious\Common\Filter\Admin_Footer_Text_Filter();
             };
@@ -687,8 +691,6 @@ if(!class_exists('Affilicious')) {
             $carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
             add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
 
-
-
             // Hook the license handler setup
             $license_handler_setup = $this->container['affilicious.common.setup.license_handler'];
             add_action('init', array($license_handler_setup, 'init'), 15);
@@ -715,7 +717,6 @@ if(!class_exists('Affilicious')) {
             $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
             add_action('init', array($detail_template_group_setup, 'init'), 5);
             add_action('init', array($detail_template_group_setup, 'render'), 6);
-
 
             // Hook the products
             $product_setup = $this->container['affilicious.product.setup.product'];
@@ -774,6 +775,10 @@ if(!class_exists('Affilicious')) {
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+            // Hook the link target setup
+            $linkTargetFilter = $this->container['affilicious.common.filter.link_target'];
+            add_filter('tiny_mce_before_init', array($linkTargetFilter, 'filter'));
 
             // Add a custom affilicious init hook
             add_action('init', function() {
