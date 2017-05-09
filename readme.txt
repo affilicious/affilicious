@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com
 Requires at least: 4.5
 Tested up to: 4.7.4
-Stable tag: 0.8.14
+Stable tag: 0.8.15
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
