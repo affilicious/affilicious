@@ -59,6 +59,9 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.15 =
+* Fix: Fixed the value of boolean details.
+
 = 0.8.14 =
 * Fix: Removed the "noopener noreferrer" attribute from links
 * Fix: Removed the disappearing licences.

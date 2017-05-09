@@ -803,6 +803,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 continue;
             }
 
+            if($detail_template->get_type()->is_boolean()) {
+                $raw_detail = $raw_detail == 'yes' ? true : false;
+            }
+
             $detail = $detail_template->build(new Detail_Value($raw_detail));
             $product->add_detail($detail);
         }
