@@ -22,6 +22,8 @@ final class License_Manager
      */
     public function activate_item($item_key, $license)
     {
+        $license = trim($license);
+
         $license_handler = $this->get_license_handler($item_key);
         if($license_handler === null) {
             return License_Status::activation_error();

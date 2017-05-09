@@ -60,6 +60,7 @@ Here is why developing with the Affilicious Plugin is really fun:
 
 == Changelog ==
 = 0.8.15 =
+* Improvement: Whitespaces are removed from licenses.
 * Fix: Fixed the value of boolean details.
 
 = 0.8.14 =
