@@ -1186,7 +1186,13 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         foreach ($details as $detail) {
             $detail_key = $this->key_generator->generate_from_slug($detail->get_slug());
             $key = sprintf(self::DETAIL_VALUE, $detail_key->get_value());
-            $this->store_post_meta($product->get_id()->get_value(), $key, $detail->get_value()->get_value());
+
+            $value = $detail->get_value()->get_value();
+            if($detail->get_type()->is_boolean()) {
+                $value = $value ? 'yes' : 'no';
+            }
+
+            $this->store_post_meta($product->get_id()->get_value(), $key, $value);
             $names[] = $detail->get_name()->get_value();
         }
 
