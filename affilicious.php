@@ -637,6 +637,10 @@ if(!class_exists('Affilicious')) {
                     $c['affilicious.provider.repository.provider']
                 );
             };
+
+            $this->container['affilicious.common.admin.setup.assets'] = function() {
+                return new \Affilicious\Common\Admin\Setup\Assets_Setup();
+            };
         }
 
         /**
@@ -797,9 +801,9 @@ if(!class_exists('Affilicious')) {
         public function register_admin_hooks()
         {
             // Hook the admin assets
-            $asset_setup = $this->container['affilicious.common.setup.asset'];
-            add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_styles'), 10);
-            add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_scripts'), 20);
+            $assets_setup = $this->container['affilicious.common.admin.setup.assets'];
+            add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'), 10);
+            add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'), 20);
 
             // Hook the feedback form
             $feedback_setup = $this->container['affilicious.common.setup.feedback'];
