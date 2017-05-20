@@ -7,19 +7,37 @@ export default carbon.fields.View.extend({
 
     initField: function() {
         let self = this;
+        let tags = this.model.get('tags');
 
-        this.$el.find('.aff-tags').tagsInput({
-            'width':'100%',
-            'height': 'auto',
-            'defaultText': affCarbonFieldsTranslations.addTag,
-            'interactive': true,
-            'delimiter': ';',
-            'minChars' : 1,
-            'maxChars' : 100,
-            'placeholderColor' : '#666666',
-            'onChange' : function() {
-                self.model.set('value', self.$el.find('input[name="' + self.templateVariables.name +'"]').val());
-            },
-        });
+        if(tags) {
+            let options = Object.keys(tags).map((key) => {
+                return {id: key, text: tags[key]}
+            });
+
+            this.$el.find('.aff-tags.aff-tags-predefined').selectize({
+                plugins: ['drag_drop', 'remove_button'],
+                delimiter: ',',
+                persist: true,
+                create: true,
+                valueField: 'id',
+                labelField: 'text',
+                maxOptions: 10,
+                searchField: ['text'],
+                options: options,
+                onChange() {
+                    self.model.set('value', self.$el.find('input[name="' + self.templateVariables.name +'"]').val());
+                },
+            });
+        } else {
+            this.$el.find('.aff-tags.aff-tags-custom').selectize({
+                plugins: ['drag_drop', 'remove_button'],
+                delimiter: ',',
+                persist: true,
+                create: true,
+                onChange() {
+                    self.model.set('value', self.$el.find('input[name="' + self.templateVariables.name +'"]').val());
+                },
+            });
+        }
     },
 });

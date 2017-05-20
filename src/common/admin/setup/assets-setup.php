@@ -18,8 +18,8 @@ class Assets_Setup
         $base_vendor_url = \Affilicious::get_root_url() . '/assets/vendor/';
         $base_admin_url = \Affilicious::get_root_url() . '/assets/admin/dist/css/';
 
-        // Register jQuery tags input styles
-        wp_register_style('jquery-tags-input', $base_vendor_url . 'jquery-tags-input/css/jquery.tagsInput.min.css', [], '1.3.3');
+        // Register Selectize styles
+        wp_register_style('selectize', $base_vendor_url . 'selectize/css/selectize.css', [], '0.12.4');
 
         // Register common styles
         wp_register_style('aff-admin-common', $base_admin_url  . 'common.min.css', [], \Affilicious::VERSION);
@@ -28,10 +28,10 @@ class Assets_Setup
         wp_register_style('aff-admin-products', $base_admin_url  . 'products.min.css', [], \Affilicious::VERSION);
 
         // Register Carbon Fields styles
-        wp_register_style('aff-admin-carbon-fields', $base_admin_url . 'carbon-fields.min.css', ['jquery-tags-input'], \Affilicious::VERSION);
+        wp_register_style('aff-admin-carbon-fields', $base_admin_url . 'carbon-fields.min.css', ['selectize'], \Affilicious::VERSION);
 
         // Enqueue the styles
-        wp_enqueue_style('jquery-tags-input');
+        wp_enqueue_style('selectize');
         wp_enqueue_style('aff-admin-common');
         wp_enqueue_style('aff-admin-products');
         wp_enqueue_style('aff-admin-carbon-fields');
@@ -48,8 +48,8 @@ class Assets_Setup
         $base_vendor_url = \Affilicious::get_root_url() . '/assets/vendor/';
         $base_admin_url = \Affilicious::get_root_url() . '/assets/admin/dist/js/';
 
-        // Register jQuery tags input scripts
-        wp_register_script('jquery-tags-input', $base_vendor_url . 'jquery-tags-input/js/jquery.tagsInput.min.js', [], '1.3.3');
+        // Register Selectize scripts
+        wp_register_script('selectize', $base_vendor_url . 'selectize/js/selectize.min.js', [], '0.12.4');
 
         // Register products scripts
         wp_register_script('aff-admin-products', $base_admin_url  . 'products.min.js', ['jquery', 'carbon-fields'], \Affilicious::PLUGIN_VERSION, true);
@@ -60,7 +60,7 @@ class Assets_Setup
         ));
 
         // Register Carbon Fields scripts
-        wp_register_script('aff-admin-carbon-fields', $base_admin_url . 'carbon-fields.min.js', ['jquery', 'jquery-tags-input', 'carbon-fields'], \Affilicious::PLUGIN_VERSION, true);
+        wp_register_script('aff-admin-carbon-fields', $base_admin_url . 'carbon-fields.min.js', ['jquery', 'selectize', 'carbon-fields'], \Affilicious::PLUGIN_VERSION, true);
         wp_localize_script('aff-admin-carbon-fields', 'affCarbonFieldsTranslations', [
             'addTag' => __('Add', 'affilicious'),
         ]);
@@ -69,7 +69,7 @@ class Assets_Setup
         wp_register_script('aff-admin-amazon-import', $base_admin_url  . 'amazon-import.min.js', ['jquery', 'backbone'], \Affilicious::PLUGIN_VERSION, true);
 
         // Enqueue the scripts
-        wp_enqueue_script('jquery-tags-input');
+        wp_enqueue_script('selectize');
         wp_enqueue_script('aff-admin-products');
         wp_enqueue_script('aff-admin-carbon-fields');
         wp_enqueue_script('aff-admin-amazon-import');

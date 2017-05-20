@@ -373,7 +373,7 @@ window.carbon = window.carbon || {};
 				case '<=' : return value1 <= value2;
 				case 'IN' : return _.some(value2, function(value) { return value == value1; });
 				case 'NOT IN' : return _.every(value2, function(value) { return value != value1; });
-				case 'CONTAINS': return value1 ? value1.split(';').indexOf(value2) > -1 : false;
+				case 'CONTAINS': return value1 ? value1.split(',').indexOf(value2.toString()) > -1 : false;
 			}
 		}
 	});
