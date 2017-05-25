@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Update\Task;
 
-use Affilicious\Product\Exception\Product_Limit_Exception;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Product;
 use Affilicious\Provider\Model\Provider;
@@ -91,7 +90,7 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     /**
      * @inheritdoc
      * @since 0.7
-     * @throws Product_Limit_Exception
+     * @throws \RuntimeException
      */
     public function add_product(Product $product)
     {
@@ -100,7 +99,10 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
         }
 
         if($this->has_reached_limit()) {
-            throw new Product_Limit_Exception($this->limit);
+            throw new \RuntimeException(sprintf(
+                'Reached the max product limit of %d.',
+                $this->limit
+            ));
         }
 
         $this->products[$product->get_id()->get_value()] = $product;
