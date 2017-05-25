@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Shop\Setup;
+namespace Affilicious\Shop\Admin\Filter;
 
 use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Admin_Table_Setup
+class Table_Rows_Filter
 {
     /**
      * @var Provider_Repository_Interface
@@ -17,7 +17,7 @@ class Admin_Table_Setup
     private $provider_repository;
 
     /**
-     * @since 0.8
+     * @since 0.9
      * @param Provider_Repository_Interface $provider_repository
      */
     public function __construct(Provider_Repository_Interface $provider_repository)
@@ -26,41 +26,16 @@ class Admin_Table_Setup
     }
 
     /**
-     * Set up the table columns for the taxonomy.
-     *
-     * @hook manage_edit-aff_shop_tmpl_columns
-     * @since 0.8
-     * @param array $columns
-     * @return array
-     */
-    public function setup_columns($columns)
-    {
-        // Add the new columns
-        $temp_columns = $columns;
-        array_splice($temp_columns, 5);
-
-        $temp_columns['thumbnail'] = __('Thumbnail', 'affilicious');
-        $temp_columns['provider'] = __('Provider', 'affilicious');
-
-        $columns = array_merge( $temp_columns, $columns);
-
-        // Remove some existing columns
-        unset($columns['description'], $columns['posts']);
-
-        return $columns;
-    }
-
-    /**
-     * Set up the table rows for the taxonomy.
+     * Filter the admin table rows of the shop templates.
      *
      * @hook manage_aff_shop_tmpl_custom_column
-     * @since 0.8
+     * @since 0.9
      * @param string $row
      * @param string $column_name
      * @param int $term_id
      * @return string
      */
-    public function setup_rows($row, $column_name, $term_id)
+    public function filter($row, $column_name, $term_id)
     {
         $value = '';
 

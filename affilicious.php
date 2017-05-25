@@ -486,14 +486,6 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Setup\Admin_Bar_Setup();
             };
 
-            $this->container['affilicious.product.filter.table_content'] = function () {
-                return new \Affilicious\Product\Filter\Table_Content_Filter();
-            };
-
-            $this->container['affilicious.product.filter.table_count'] = function () {
-                return new \Affilicious\Product\Filter\Table_Count_Filter();
-            };
-
             $this->container['affilicious.product.filter.complex_product'] = function () {
                 return new \Affilicious\Product\Filter\Complex_Product_Filter();
             };
@@ -612,16 +604,36 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Migration\Product_Slug_Migration();
             };
 
-            $this->container['affilicious.attribute.setup.admin_table'] = function() {
-                return new \Affilicious\Attribute\Setup\Admin_Table_Setup();
+            $this->container['affilicious.product.admin.filter.table_content'] = function () {
+                return new \Affilicious\Product\Admin\Filter\Table_Content_Filter();
             };
 
-            $this->container['affilicious.detail.setup.admin_table'] = function() {
-                return new \Affilicious\Detail\Setup\Admin_Table_Setup();
+            $this->container['affilicious.product.admin.filter.table_count'] = function () {
+                return new \Affilicious\Product\Admin\Filter\Table_Count_Filter();
             };
 
-            $this->container['affilicious.shop.setup.admin_table'] = function($c) {
-                return new \Affilicious\Shop\Setup\Admin_Table_Setup(
+            $this->container['affilicious.attribute.admin.filter.table_columns'] = function() {
+                return new \Affilicious\Attribute\Admin\Filter\Table_Columns_Filter();
+            };
+
+            $this->container['affilicious.attribute.admin.filter.table_rows'] = function() {
+                return new \Affilicious\Attribute\Admin\Filter\Table_Rows_Filter();
+            };
+
+            $this->container['affilicious.detail.admin.filter.table_columns'] = function() {
+                return new \Affilicious\Detail\Admin\Filter\Table_Columns_Filter();
+            };
+
+            $this->container['affilicious.detail.admin.filter.table_rows'] = function() {
+                return new \Affilicious\Detail\Admin\Filter\Table_Rows_Filter();
+            };
+
+            $this->container['affilicious.shop.admin.filter.table_columns'] = function() {
+                return new \Affilicious\Shop\Admin\Filter\Table_Columns_Filter();
+            };
+
+            $this->container['affilicious.shop.admin.filter.table_rows'] = function($c) {
+                return new \Affilicious\Shop\Admin\Filter\Table_Rows_Filter(
                     $c['affilicious.provider.repository.provider']
                 );
             };
@@ -788,41 +800,44 @@ if(!class_exists('Affilicious')) {
          */
         public function register_admin_hooks()
         {
-            // Hook the admin assets
+            // Hook the admin assets.
             $assets_setup = $this->container['affilicious.common.admin.setup.assets'];
             add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'), 10);
             add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'), 20);
 
-            // Hook the feedback form
+            // Hook the product admin table filters.
+            $product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];
+            $product_admin_table_count_filter = $this->container['affilicious.product.admin.filter.table_count'];
+            add_action('pre_get_posts', array($product_admin_table_content_filter, 'filter'));
+            add_filter("views_edit-aff_product", array($product_admin_table_count_filter, 'filter'), 10, 1);
+
+            // Hook the attribute template admin table filters.
+            $attribute_template_admin_table_columns_filter = $this->container['affilicious.attribute.admin.filter.table_columns'];
+            $attribute_template_admin_table_rows_filter = $this->container['affilicious.attribute.admin.filter.table_rows'];
+            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_admin_table_columns_filter, 'filter'));
+            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_admin_table_rows_filter, 'filter'), 15, 3);
+
+            // Hook the detail template admin table filters.
+            $detail_template_admin_table_columns_filter = $this->container['affilicious.detail.admin.filter.table_columns'];
+            $detail_template_admin_table_rows_filter = $this->container['affilicious.detail.admin.filter.table_rows'];
+            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_admin_table_columns_filter, 'filter'));
+            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_admin_table_rows_filter, 'filter'), 15, 3);
+
+            // Hook the shop template admin table filters.
+            $shop_template_admin_table_columns_filter = $this->container['affilicious.shop.admin.filter.table_columns'];
+            $shop_template_admin_table_rows_filter = $this->container['affilicious.shop.admin.filter.table_rows'];
+            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_admin_table_columns_filter, 'filter'));
+            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_admin_table_rows_filter, 'filter'), 15, 3);
+
+            // Hook the add-ons page.
             $addons_page = $this->container['affilicious.common.admin.page.addons'];
             add_action('admin_menu', array($addons_page, 'init'), 100);
 
-            // Hook the product table
-            $table_content_filter = $this->container['affilicious.product.filter.table_content'];
-            $table_count_filter = $this->container['affilicious.product.filter.table_count'];
-            add_action('pre_get_posts', array($table_content_filter, 'filter'));
-            add_filter("views_edit-aff_product", array($table_count_filter, 'filter'), 10, 1);
-
-            // Hook the attribute template
-            $attribute_template_admin_table_setup = $this->container['affilicious.attribute.setup.admin_table'];
-            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_admin_table_setup, 'setup_columns'));
-            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_admin_table_setup, 'setup_rows'), 15, 3);
-
-            // Hook the detail template
-            $detail_template_admin_table_setup = $this->container['affilicious.detail.setup.admin_table'];
-            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_admin_table_setup, 'setup_columns'));
-            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_admin_table_setup, 'setup_rows'), 15, 3);
-
-            // Hook the shop template
-            $shop_template_table_admin_setup = $this->container['affilicious.shop.setup.admin_table'];
-            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_table_admin_setup, 'setup_columns'));
-            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_table_admin_setup, 'setup_rows'), 15, 3);
-
-            // Hook the admin footer text
+            // Hook the admin footer text.
             $admin_footer_text_filter = $this->container['affilicious.common.filter.admin_footer_text'];
             add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
 
-            // Add a custom affilicious admin init hook
+            // Add a custom affilicious admin init hook.
             add_action('admin_init', function() {
                 do_action('aff_admin_init');
 

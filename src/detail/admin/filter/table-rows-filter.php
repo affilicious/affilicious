@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Detail\Setup;
+namespace Affilicious\Detail\Admin\Filter;
 
 use Affilicious\Detail\Model\Type;
 use Affilicious\Detail\Model\Unit;
@@ -9,44 +9,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Admin_Table_Setup
+class Table_Rows_Filter
 {
     /**
-     * Set up the table columns for the taxonomy.
-     *
-     * @hook manage_edit-aff_detail_tmpl_columns
-     * @since 0.8
-     * @param array $columns
-     * @return array
-     */
-    public function setup_columns($columns)
-    {
-        // Add the new columns
-        $temp_columns = $columns;
-        array_splice($temp_columns, 5);
-
-        $temp_columns['type'] = __('Type', 'affilicious');
-        $temp_columns['unit'] = __('Unit', 'affilicious');
-
-        $columns = array_merge( $temp_columns, $columns);
-
-        // Remove some existing columns
-        unset($columns['description'], $columns['posts']);
-
-        return $columns;
-    }
-
-    /**
-     * Set up the table rows for the taxonomy.
+     * Filter the admin table rows of the detail templates.
      *
      * @hook manage_aff_detail_tmpl_custom_column
-     * @since 0.8
+     * @since 0.9
      * @param string $row
      * @param string $column_name
      * @param int $term_id
      * @return string
      */
-    public function setup_rows($row, $column_name, $term_id)
+    public function filter($row, $column_name, $term_id)
     {
         $value = '';
 

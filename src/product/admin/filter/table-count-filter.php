@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Filter;
+namespace Affilicious\Product\Admin\Filter;
 
 use Affilicious\Product\Model\Product;
 
@@ -13,9 +13,9 @@ class Table_Count_Filter
      * Update the product table counts since the product variants are hidden
      *
      * @hook views_edit-aff_product
-     * @since 0.6
-     * @param $views
-     * @return mixed
+     * @since 0.9
+     * @param array $views
+     * @return array
      */
     public function filter($views)
     {

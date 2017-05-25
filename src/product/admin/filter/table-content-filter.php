@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Filter;
+namespace Affilicious\Product\Admin\Filter;
 
 use Affilicious\Product\Model\Product;
 
@@ -13,7 +13,7 @@ class Table_Content_Filter
      * Hide the product variants from the product table list
      *
      * @hook pre_get_posts
-     * @since 0.6
+     * @since 0.9
      * @param \WP_Query $query
      */
     public function filter(\WP_Query $query)
