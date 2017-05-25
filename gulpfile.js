@@ -98,7 +98,7 @@ gulp.task('admin-js', function () {
     });
 });
 
-gulp.task('admin-images', function() {
+gulp.task('admin-img', function() {
     Object.keys(paths.admin).map(function(key) {
         let entries = paths.admin[key].img;
         if(entries === undefined) {
@@ -132,5 +132,5 @@ gulp.task('admin-watch', function() {
     });
 });
 
-gulp.task('default', ['admin-css', 'admin-js', 'admin-images']);
+gulp.task('default', ['admin-css', 'admin-js', 'admin-img']);
 gulp.task('watch', ['default', 'admin-watch']);

@@ -68,7 +68,7 @@ class Affilicious_Options
 
         $fields = array(
             Carbon_Field::make('html', 'crb_information_text')
-                ->set_html(View_Helper::stringify('src/common/view/license/licenses.php', array(
+                ->set_html(View_Helper::stringify(\Affilicious::get_root_path() . 'src/common/view/license/licenses.php', array(
                     'license_manager' => $this->license_manager,
                     'license_processor' => $this->license_processor,
                 )))

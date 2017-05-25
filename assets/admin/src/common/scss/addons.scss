@@ -1,0 +1,106 @@
+@import "variables";
+
+.aff-addons {
+  &-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-item {
+    min-height: 300px;
+    box-sizing: border-box;
+    width: calc(50% - 10px);
+    float: left;
+    margin-bottom: 20px;
+    display: block;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+
+    &:nth-child(odd) {
+      margin-right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+
+      &:nth-child(odd) {
+        margin-right: 0;
+      }
+    }
+
+    &-image {
+      max-width: 100%;
+      height: auto;
+    }
+
+    &-content {
+      padding: 20px;
+    }
+
+    &-title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    &-text {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+
+    &-link {
+      font-size: 16px;
+      width: 100%;
+      max-width: 150px;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      color: #fff !important;
+      border: 1px solid darken(#00a0d2, 2.5%);
+      background-color: #00a0d2;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+      -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+      border-radius: 5px;
+      padding: 10px;
+      text-decoration: none;
+
+      &:hover {
+        background-color: darken(#00a0d2, 2.5%);
+      }
+    }
+
+    &-soon-more {
+      background: transparent;
+      border: 5px dotted #e5e5e5;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        display: block;
+
+        path {
+          fill: #e5e5e5;
+        }
+      }
+
+      &-text {
+        color: darken(#e5e5e5, 25%);
+      }
+    }
+  }
+}

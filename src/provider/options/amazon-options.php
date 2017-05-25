@@ -126,11 +126,11 @@ class Amazon_Options
         $valid = $this->check_validation_status();
 
         if($valid) {
-            $notice = View_Helper::stringify('src/common/view/notifications/success-notice.php', array(
+            $notice = View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/success-notice.php', array(
                 'message' => __('<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API was successfully established.', 'affilicious')
             ));
         } else {
-            $notice = View_Helper::stringify('src/common/view/notifications/error-notice.php', array(
+            $notice = View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/error-notice.php', array(
                 'message' => __('<b>The credentials are invalid!</b> Failed to connect to the Amazon Product Advertising API.', 'affilicious')
             ));
         }

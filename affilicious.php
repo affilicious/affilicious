@@ -339,8 +339,8 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Setup\Carbon_Setup();
             };
 
-            $this->container['affilicious.common.setup.feedback'] = function () {
-                return new \Affilicious\Common\Setup\Feedback_Setup();
+            $this->container['affilicious.common.admin.page.addons'] = function () {
+                return new \Affilicious\Common\Admin\Page\Addons_Page();
             };
 
             $this->container['affilicious.common.license.processor'] = function ($c) {
@@ -781,8 +781,8 @@ if(!class_exists('Affilicious')) {
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
 
             // Hook the link target setup
-            $linkTargetFilter = $this->container['affilicious.common.filter.link_target'];
-            add_filter('tiny_mce_before_init', array($linkTargetFilter, 'filter'));
+            $link_target_filter = $this->container['affilicious.common.filter.link_target'];
+            add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
 
             // Add a custom affilicious init hook
             add_action('init', function() {
@@ -806,8 +806,8 @@ if(!class_exists('Affilicious')) {
             add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'), 20);
 
             // Hook the feedback form
-            $feedback_setup = $this->container['affilicious.common.setup.feedback'];
-            add_action('admin_menu', array($feedback_setup, 'init'), 30);
+            $addons_page = $this->container['affilicious.common.admin.page.addons'];
+            add_action('admin_menu', array($addons_page, 'init'), 100);
 
             // Hook the product table
             $table_content_filter = $this->container['affilicious.product.filter.table_content'];

@@ -9,12 +9,12 @@
   &-item {
     box-sizing: border-box;
     width: calc(50% - 5px);
-    float: left;
     margin-bottom: 10px;
     display: block;
     background: #f5f5f5;
     border: 1px solid #e5e5e5;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 
     &-success {
