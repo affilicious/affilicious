@@ -1,7 +1,7 @@
 <?php
-namespace Affilicious\Common\Setup;
+namespace Affilicious\Common\Admin\Setup;
 
-use Affilicious\Common\License\License_Manager;
+use Affilicious\Common\Admin\License\License_Manager;
 use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {

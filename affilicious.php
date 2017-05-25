@@ -331,19 +331,19 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Admin\Page\Addons_Page();
             };
 
-            $this->container['affilicious.common.license.processor'] = function ($c) {
-                return new \Affilicious\Common\License\License_Processor(
-                    $c['affilicious.common.license.manager']
+            $this->container['affilicious.common.admin.license.processor'] = function ($c) {
+                return new \Affilicious\Common\Admin\License\License_Processor(
+                    $c['affilicious.common.admin.license.manager']
                 );
             };
 
-            $this->container['affilicious.common.license.manager'] = function () {
-                return new \Affilicious\Common\License\License_Manager();
+            $this->container['affilicious.common.admin.license.manager'] = function () {
+                return new \Affilicious\Common\Admin\License\License_Manager();
             };
 
-            $this->container['affilicious.common.setup.license_handler'] = function ($c) {
-                return new \Affilicious\Common\Setup\License_Handler_Setup(
-                    $c['affilicious.common.license.manager']
+            $this->container['affilicious.common.admin.setup.license_handler'] = function ($c) {
+                return new \Affilicious\Common\Admin\Setup\License_Handler_Setup(
+                    $c['affilicious.common.admin.license.manager']
                 );
             };
 
@@ -463,8 +463,8 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.common.options.affilicious'] = function ($c) {
                 return new \Affilicious\Common\Options\Affilicious_Options(
-                    $c['affilicious.common.license.manager'],
-                    $c['affilicious.common.license.processor']
+                    $c['affilicious.common.admin.license.manager'],
+                    $c['affilicious.common.admin.license.processor']
                 );
             };
 
@@ -696,7 +696,7 @@ if(!class_exists('Affilicious')) {
             add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
 
             // Hook the license handler setup
-            $license_handler_setup = $this->container['affilicious.common.setup.license_handler'];
+            $license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
             add_action('init', array($license_handler_setup, 'init'), 15);
 
             // Hook the providers
