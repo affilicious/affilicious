@@ -247,7 +247,7 @@ msgstr "Support"
 msgid ""
 "Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 msgstr ""
-"Danke für das Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
+"Danke für dein Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 
 #: src/common/license/license-manager.php:39
 msgid "Failed to store the license."

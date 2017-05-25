@@ -17,9 +17,13 @@ class Admin_Footer_Text_Filter
      */
     public function filter($text)
     {
-        return $text . ' | ' . sprintf(
+        $thank_you = sprintf(
             __('Thank you for creating with <a href="%s" target="_blank">Affilicious</a>.', 'affilicious'),
             'https://affilicioustheme.com'
         );
+
+        $text .= sprintf(' | <span id="aff-footer-thank-you">%s</span>', $thank_you);
+
+        return $text;
     }
 }

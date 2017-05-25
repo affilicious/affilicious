@@ -78,6 +78,9 @@
     .aff-addons-item-soon-more-text {
       color: #a5a5a5; }
 
+#aff-footer-thank-you {
+  font-style: italic; }
+
 .aff-license-container {
   width: 100%;
   display: inline-block;
