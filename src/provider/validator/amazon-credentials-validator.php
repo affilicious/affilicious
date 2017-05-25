@@ -7,12 +7,10 @@ use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Search;
 use ApaiIO\Request\GuzzleRequest;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 use GuzzleHttp\Client;
 use Webmozart\Assert\Assert;
 
-class Amazon_Credentials_Validator implements Amazon_Credentials_Validator_Interface
+class Amazon_Credentials_Validator implements Credentials_Validator_Interface
 {
     /**
      * @inheritdoc

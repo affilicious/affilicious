@@ -3,7 +3,7 @@ namespace Affilicious\Provider\Options;
 
 use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Provider\Model\Credentials;
-use Affilicious\Provider\Validator\Amazon_Credentials_Validator_Interface;
+use Affilicious\Provider\Validator\Credentials_Validator_Interface;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -21,15 +21,15 @@ class Amazon_Options
     const AVAILABILITY_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_availability_update_interval_field';
 
     /**
-     * @var Amazon_Credentials_Validator_Interface
+     * @var Credentials_Validator_Interface
      */
     private $amazon_credentials_validator;
 
     /**
      * @since 0.8
-     * @param Amazon_Credentials_Validator_Interface $amazon_credentials_validator
+     * @param Credentials_Validator_Interface $amazon_credentials_validator
      */
-    public function __construct(Amazon_Credentials_Validator_Interface $amazon_credentials_validator)
+    public function __construct(Credentials_Validator_Interface $amazon_credentials_validator)
     {
         $this->amazon_credentials_validator = $amazon_credentials_validator;
     }
