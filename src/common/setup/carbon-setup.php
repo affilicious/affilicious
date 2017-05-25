@@ -10,9 +10,9 @@ class Carbon_Setup
     /**
      * Init the carbon fields
      *
-     * @since 0.3
+     * @since 0.9
      */
-    public function crb_init_carbon_field_hidden()
+    public function init()
     {
         if (class_exists("Carbon_Fields\\Field")) {
             require_once(dirname(__FILE__) . '/../form/carbon/hidden-field.php');

@@ -693,7 +693,7 @@ if(!class_exists('Affilicious')) {
 
             // Hook the Carbon Fields
             $carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
-            add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
+            add_action('after_setup_theme', array($carbon_fields_setup, 'init'), 15);
 
             // Hook the license handler setup
             $license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
