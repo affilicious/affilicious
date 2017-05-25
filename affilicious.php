@@ -315,8 +315,8 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Filter\Link_Target_Filter();
             };
 
-            $this->container['affilicious.common.filter.admin_footer_text'] = function () {
-                return new \Affilicious\Common\Filter\Admin_Footer_Text_Filter();
+            $this->container['affilicious.common.admin.filter.footer_text'] = function () {
+                return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
             };
 
             $this->container['affilicious.common.setup.asset'] = function () {
@@ -834,7 +834,7 @@ if(!class_exists('Affilicious')) {
             add_action('admin_menu', array($addons_page, 'init'), 100);
 
             // Hook the admin footer text.
-            $admin_footer_text_filter = $this->container['affilicious.common.filter.admin_footer_text'];
+            $admin_footer_text_filter = $this->container['affilicious.common.admin.filter.footer_text'];
             add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
 
             // Add a custom affilicious admin init hook.

@@ -1,17 +1,17 @@
 <?php
-namespace Affilicious\Common\Filter;
+namespace Affilicious\Common\Admin\Filter;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Admin_Footer_Text_Filter
+class Footer_Text_Filter
 {
     /**
-     * Append the Affilicious thank you text.
+     * Append the Affilicious thank-you-text to the footer.
      *
      * @hook admin_footer_text
-     * @since 0.8
+     * @since 0.9
      * @param string $text
      * @return string
      */
