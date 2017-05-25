@@ -1402,7 +1402,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
                     'value' => $attribute['value'],
                     'unit' => $attribute['unit'],
                     'display' => $display,
-                    'permalink' => $display == 'selected' ? null : get_permalink($variant->get_raw_post()),
+                    'permalink' => $display == 'selected' ? null : get_permalink($variant->get_post()),
                 );
             }
         }

@@ -238,18 +238,6 @@ class Product
     /**
      * Get the raw Wordpress post of the product.
      *
-     * @deprecated
-     * @since 0.8
-     * @return array|null|\WP_Error|\WP_Term
-     */
-    public function get_raw_post()
-    {
-        return $this->get_post();
-    }
-
-    /**
-     * Get the raw Wordpress post of the product.
-     *
      * @since 0.8.2
      * @param string $output
      * @param string $filter

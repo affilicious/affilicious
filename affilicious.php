@@ -10,7 +10,7 @@
  * Requires at least: 4.5
  * Tested up to: 4.7.4
  * Text Domain: affilicious
- * Domain Path: /languages/
+ * Domain Path: languages/
  *
  * Affilicious Plugin
  * Copyright (C) 2016-2017, Affilicious - support@affilicioustheme.de
@@ -45,18 +45,6 @@ if(!class_exists('Affilicious')) {
         const NAME = 'affilicious';
         const VERSION = '0.8.16';
         const MIN_PHP_VERSION = '5.6';
-
-        /**
-         * @deprecated 0.9
-         */
-        const PLUGIN_NAME = 'affilicious';
-        const PLUGIN_VERSION = '0.8.16';
-        const PLUGIN_MIN_PHP_VERSION = '5.6';
-        const PLUGIN_NAMESPACE = 'Affilicious\\';
-        const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
-        const PLUGIN_SOURCE_DIR = 'src/';
-        const PLUGIN_TESTS_DIR = 'tests/';
-        const PLUGIN_LANGUAGE_DIR = 'languages/';
 
         /**
          * Stores the singleton instance
@@ -216,13 +204,13 @@ if(!class_exists('Affilicious')) {
         public function activate()
         {
             // Check the PHP version requirement
-            if (!version_compare(phpversion(), self::PLUGIN_MIN_PHP_VERSION, '>=')) {
+            if (!version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
                 deactivate_plugins(AFFILICIOUS_BASE_NAME);
 
                 $this->load_textdomain();
                 wp_die(sprintf(
                     __('The Affilicious Plugin requires at least the PHP Version %s to reveal the full potential. Please switch the PHP version in your hosting provider.', 'affilicious'),
-                    self::PLUGIN_MIN_PHP_VERSION
+                    self::MIN_PHP_VERSION
                 ));
             }
 
