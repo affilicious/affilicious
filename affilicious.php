@@ -331,6 +331,10 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Admin\Page\Addons_Page();
             };
 
+            $this->container['affilicious.product.admin.page.import'] = function () {
+                return new \Affilicious\Product\Admin\Page\Import_Page();
+            };
+
             $this->container['affilicious.common.admin.license.processor'] = function ($c) {
                 return new \Affilicious\Common\Admin\License\License_Processor(
                     $c['affilicious.common.admin.license.manager']
@@ -641,6 +645,10 @@ if(!class_exists('Affilicious')) {
             $this->container['affilicious.common.admin.setup.assets'] = function() {
                 return new \Affilicious\Common\Admin\Setup\Assets_Setup();
             };
+
+            $this->container['affilicious.product.admin.filter.menu_order'] = function() {
+                return new \Affilicious\Product\Admin\Filter\Menu_Order_Filter();
+            };
         }
 
         /**
@@ -829,9 +837,17 @@ if(!class_exists('Affilicious')) {
             add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_admin_table_columns_filter, 'filter'));
             add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_admin_table_rows_filter, 'filter'), 15, 3);
 
+            // Hook the import page
+            $import_page = $this->container['affilicious.product.admin.page.import'];
+            add_action('admin_menu', array($import_page, 'init'), 10);
+
             // Hook the add-ons page.
             $addons_page = $this->container['affilicious.common.admin.page.addons'];
             add_action('admin_menu', array($addons_page, 'init'), 100);
+
+            // Hook the menu order filter
+            $product_admin_menu_order_filter = $this->container['affilicious.product.admin.filter.menu_order'];
+            add_filter('custom_menu_order', array($product_admin_menu_order_filter, 'filter'));
 
             // Hook the admin footer text.
             $admin_footer_text_filter = $this->container['affilicious.common.admin.filter.footer_text'];

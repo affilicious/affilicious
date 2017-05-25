@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2017-05-25 "
-"09:58+0200\n"
+"20:52+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -43,7 +43,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: "
 "tmp\n"
 
-#: affilicious.php:224
+#: affilicious.php:212
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -71,6 +71,21 @@ msgstr ""
 msgid "Last updated: %s."
 msgstr ""
 
+#: src/attribute/admin/filter/table-columns-filter.php:24
+#: src/attribute/setup/attribute-template-setup.php:76
+#: src/detail/admin/filter/table-columns-filter.php:24
+#: src/detail/setup/detail-template-setup.php:76
+#: src/product/setup/product-setup.php:166
+msgid "Type"
+msgstr ""
+
+#: src/attribute/admin/filter/table-columns-filter.php:25
+#: src/attribute/setup/attribute-template-setup.php:82
+#: src/detail/admin/filter/table-columns-filter.php:25
+#: src/detail/setup/detail-template-setup.php:84
+msgid "Unit"
+msgstr ""
+
 #: src/attribute/model/type.php:91
 #: src/attribute/setup/attribute-template-setup.php:79
 #: src/detail/model/type.php:140
@@ -83,21 +98,6 @@ msgstr ""
 #: src/detail/model/type.php:142
 #: src/detail/setup/detail-template-setup.php:80
 msgid "Number"
-msgstr ""
-
-#: src/attribute/setup/admin-table-setup.php:28
-#: src/attribute/setup/attribute-template-setup.php:76
-#: src/detail/setup/admin-table-setup.php:28
-#: src/detail/setup/detail-template-setup.php:76
-#: src/product/setup/product-setup.php:166
-msgid "Type"
-msgstr ""
-
-#: src/attribute/setup/admin-table-setup.php:29
-#: src/attribute/setup/attribute-template-setup.php:82
-#: src/detail/setup/admin-table-setup.php:29
-#: src/detail/setup/detail-template-setup.php:84
-msgid "Unit"
 msgstr ""
 
 #: src/attribute/setup/attribute-template-setup.php:25
@@ -186,6 +186,73 @@ msgctxt "Attribute Template"
 msgid "Filter %s"
 msgstr ""
 
+#: src/common/admin/filter/footer-text-filter.php:21
+#, php-format
+msgid ""
+"Thank you for creating with <a "
+"href=\"%s\" target=\"_blank"
+"\">Affilicious</a>."
+msgstr ""
+
+#: src/common/admin/license/license-manager.php:39
+msgid ""
+"Failed to store the license."
+msgstr ""
+
+#: src/common/admin/license/license-manager.php:61
+#: src/common/admin/license/license-manager.php:91
+msgid "Failed to find the license."
+msgstr ""
+
+#: src/common/admin/license/license-manager.php:68
+msgid ""
+"Failed to delete the license."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:39
+msgid "The action was successful."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:55
+msgid ""
+"An error has occurred. Please "
+"try again."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:80
+msgid "The license is missing."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:91
+msgid "The license is valid"
+msgstr ""
+
+#: src/common/admin/license/license-status.php:102
+msgid "The license is invalid"
+msgstr ""
+
+#: src/common/admin/license/license-status.php:113
+msgid ""
+"Succeeded to activate the "
+"license."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:124
+msgid ""
+"Failed to activate the license."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:135
+msgid ""
+"Succeeded to deactivate the "
+"license."
+msgstr ""
+
+#: src/common/admin/license/license-status.php:146
+msgid ""
+"Failed to deactivate the license."
+msgstr ""
+
 #: src/common/admin/page/addons-page.php:25
 #: src/common/admin/page/addons-page.php:26
 #: src/common/admin/view/page/addons.php:4
@@ -227,6 +294,14 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+#: src/common/admin/view/license/licenses.php:14
+msgid "Enter license code here..."
+msgstr ""
+
+#: src/common/admin/view/license/licenses.php:23
+msgid "Save"
+msgstr ""
+
 #: src/common/admin/view/page/addons.php:21
 msgid "Discover now"
 msgstr ""
@@ -265,73 +340,6 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: src/common/filter/admin-footer-text-filter.php:21
-#, php-format
-msgid ""
-"Thank you for creating with <a "
-"href=\"%s\" target=\"_blank"
-"\">Affilicious</a>."
-msgstr ""
-
-#: src/common/license/license-manager.php:39
-msgid ""
-"Failed to store the license."
-msgstr ""
-
-#: src/common/license/license-manager.php:61
-#: src/common/license/license-manager.php:91
-msgid "Failed to find the license."
-msgstr ""
-
-#: src/common/license/license-manager.php:68
-msgid ""
-"Failed to delete the license."
-msgstr ""
-
-#: src/common/license/license-status.php:39
-msgid "The action was successful."
-msgstr ""
-
-#: src/common/license/license-status.php:55
-msgid ""
-"An error has occurred. Please "
-"try again."
-msgstr ""
-
-#: src/common/license/license-status.php:80
-msgid "The license is missing."
-msgstr ""
-
-#: src/common/license/license-status.php:91
-msgid "The license is valid"
-msgstr ""
-
-#: src/common/license/license-status.php:102
-msgid "The license is invalid"
-msgstr ""
-
-#: src/common/license/license-status.php:113
-msgid ""
-"Succeeded to activate the "
-"license."
-msgstr ""
-
-#: src/common/license/license-status.php:124
-msgid ""
-"Failed to activate the license."
-msgstr ""
-
-#: src/common/license/license-status.php:135
-msgid ""
-"Succeeded to deactivate the "
-"license."
-msgstr ""
-
-#: src/common/license/license-status.php:146
-msgid ""
-"Failed to deactivate the license."
-msgstr ""
-
 #: src/common/options/affilicious-options.php:44
 msgid "Custom Header Scripts"
 msgstr ""
@@ -358,11 +366,11 @@ msgid ""
 msgstr ""
 
 #: src/common/options/affilicious-options.php:52
-msgid "Scripts"
+msgid "License"
 msgstr ""
 
 #: src/common/options/affilicious-options.php:53
-msgid "License"
+msgid "Scripts"
 msgstr ""
 
 #: src/common/options/affilicious-options.php:66
@@ -382,14 +390,6 @@ msgid ""
 "our official website of <a href="
 "\"%s\">Affilicious Theme</a> to "
 "see what you can start with."
-msgstr ""
-
-#: src/common/view/license/licenses.php:14
-msgid "Enter license code here..."
-msgstr ""
-
-#: src/common/view/license/licenses.php:23
-msgid "Save"
 msgstr ""
 
 #: src/detail/model/type.php:144
@@ -487,6 +487,13 @@ msgstr ""
 #, php-format
 msgctxt "Detail Template"
 msgid "Filter %s"
+msgstr ""
+
+#: src/product/admin/page/import-page.php:20
+#: src/product/admin/page/import-page.php:21
+#: src/product/admin/view/page/import.php:2
+#: src/provider/options/amazon-options.php:119
+msgid "Import"
 msgstr ""
 
 #: src/product/meta-box/meta-box-manager.php:40
@@ -780,7 +787,7 @@ msgid ""
 msgstr ""
 
 #: src/product/setup/product-setup.php:269
-#: src/shop/setup/admin-table-setup.php:42
+#: src/shop/admin/filter/table-columns-filter.php:24
 msgid "Thumbnail"
 msgstr ""
 
@@ -939,124 +946,8 @@ msgstr ""
 msgid "Related Accessories"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:50
-msgid "Access Key"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:52
-msgid ""
-"The access key is used to "
-"identify you as an API user."
-msgstr ""
-
-#: src/provider/options/amazon-options.php:53
-msgid "Secret Key"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:55
-msgid ""
-"The secret key is used like a "
-"password to sign your API "
-"requests."
-msgstr ""
-
-#: src/provider/options/amazon-options.php:56
-msgid "Country"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:58
-msgid "Germany"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:59
-msgid "America"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:73
-msgid ""
-"The country has to match the "
-"locale of your Amazon account. "
-msgstr ""
-
-#: src/provider/options/amazon-options.php:74
-msgid "Associate Tag"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:76
-msgid ""
-"Amazon uses this ID to credit an "
-"associate for a sale."
-msgstr ""
-
-#: src/provider/options/amazon-options.php:80
-msgid "Price Update Interval"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:82
-#: src/provider/options/amazon-options.php:91
-#: src/provider/options/amazon-options.php:100
-msgid "Hourly"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:83
-#: src/provider/options/amazon-options.php:92
-#: src/provider/options/amazon-options.php:101
-msgid "Twice Daily"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:84
-#: src/provider/options/amazon-options.php:93
-#: src/provider/options/amazon-options.php:102
-msgid "Daily"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:85
-#: src/provider/options/amazon-options.php:94
-#: src/provider/options/amazon-options.php:103
-msgid "No Updates"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:87
-msgid ""
-"The automatic update interval "
-"for the prices in the shops."
-msgstr ""
-
-#: src/provider/options/amazon-options.php:89
-msgid "Old Price Update Interval"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:96
-msgid ""
-"The automatic update interval "
-"for the old prices in the shops."
-msgstr ""
-
-#: src/provider/options/amazon-options.php:98
-msgid ""
-"Availability Update Interval"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:105
-msgid ""
-"The automatic update interval "
-"for the availability in the "
-"shops."
-msgstr ""
-
-#: src/provider/options/amazon-options.php:109
-msgid "Amazon"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:111
-msgid "Credentials"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:112
-msgid "Updates"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:130
+#: src/provider/options/amazon-options.php:51
+#: src/provider/options/amazon-options.php:139
 msgid ""
 "<b>The credentials are valid!</"
 "b> A connection to the Amazon "
@@ -1064,14 +955,131 @@ msgid ""
 "successfully established."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:134
+#: src/provider/options/amazon-options.php:58
+msgid "Access Key"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:60
+msgid ""
+"The access key is used to "
+"identify you as an API user."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:61
+msgid "Secret Key"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:63
+msgid ""
+"The secret key is used like a "
+"password to sign your API "
+"requests."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:64
+msgid "Country"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:66
+msgid "Germany"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:67
+msgid "America"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:81
+msgid ""
+"The country has to match the "
+"locale of your Amazon account. "
+msgstr ""
+
+#: src/provider/options/amazon-options.php:82
+msgid "Associate Tag"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:84
+msgid ""
+"Amazon uses this ID to credit an "
+"associate for a sale."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:88
+msgid "Price Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:90
+#: src/provider/options/amazon-options.php:99
+#: src/provider/options/amazon-options.php:108
+msgid "Hourly"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:91
+#: src/provider/options/amazon-options.php:100
+#: src/provider/options/amazon-options.php:109
+msgid "Twice Daily"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:92
+#: src/provider/options/amazon-options.php:101
+#: src/provider/options/amazon-options.php:110
+msgid "Daily"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:93
+#: src/provider/options/amazon-options.php:102
+#: src/provider/options/amazon-options.php:111
+msgid "No Updates"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:95
+msgid ""
+"The automatic update interval "
+"for the prices in the shops."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:97
+msgid "Old Price Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:104
+msgid ""
+"The automatic update interval "
+"for the old prices in the shops."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:106
+msgid ""
+"Availability Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:113
+msgid ""
+"The automatic update interval "
+"for the availability in the "
+"shops."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:117
+msgid "Amazon"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:120
+msgid "Credentials"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:121
+msgid "Updates"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:143
 msgid ""
 "<b>The credentials are invalid!</"
 "b> Failed to connect to the "
 "Amazon Product Advertising API."
 msgstr ""
 
-#: src/shop/setup/admin-table-setup.php:43
+#: src/shop/admin/filter/table-columns-filter.php:25
 #: src/shop/setup/shop-template-setup.php:90
 msgid "Provider"
 msgstr ""
