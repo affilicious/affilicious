@@ -5,7 +5,7 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
- * Version: 0.8.16
+ * Version: 0.8.17
  * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.7.4
@@ -43,9 +43,9 @@ if(!class_exists('Affilicious')) {
     class Affilicious
     {
         const NAME = 'affilicious';
-        const VERSION = '0.8.16';
+        const VERSION = '0.8.17';
         const MIN_PHP_VERSION = '5.6';
-
+        
         /**
          * Stores the singleton instance
          *
@@ -703,13 +703,10 @@ if(!class_exists('Affilicious')) {
             $carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
             add_action('after_setup_theme', array($carbon_fields_setup, 'init'), 15);
 
-            // Hook the license handler setup
-            $license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
-            add_action('init', array($license_handler_setup, 'init'), 15);
-
-            // Hook the providers
-            $provider_setup = $this->container['affilicious.provider.setup.provider'];
-            add_action('init', array($provider_setup, 'init'), 5);
+            // Hook the products
+            $product_setup = $this->container['affilicious.product.setup.product'];
+            add_action('init', array($product_setup, 'init'), 0);
+            add_action('aff_init', array($product_setup, 'render'));
 
             // Hook the Amazon provider
             $amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
@@ -717,23 +714,22 @@ if(!class_exists('Affilicious')) {
 
             // Hook the shop templates.
             $shop_template_setup = $this->container['affilicious.shop.setup.shop_template'];
-            add_action('init', array($shop_template_setup, 'init'), 5);
-            add_action('init', array($shop_template_setup, 'render'), 6);
+            add_action('init', array($shop_template_setup, 'init'), 0);
+            add_action('aff_init', array($shop_template_setup, 'render'));
 
             // Hook the attribute templates
             $attribute_template_setup = $this->container['affilicious.attribute.setup.attribute_template'];
-            add_action('init', array($attribute_template_setup, 'init'), 5);
-            add_action('init', array($attribute_template_setup, 'render'), 6);
+            add_action('init', array($attribute_template_setup, 'init'), 0);
+            add_action('aff_init', array($attribute_template_setup, 'render'));
 
             // Hook the detail templates
             $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
-            add_action('init', array($detail_template_group_setup, 'init'), 5);
-            add_action('init', array($detail_template_group_setup, 'render'), 6);
+            add_action('init', array($detail_template_group_setup, 'init'), 0);
+            add_action('aff_init', array($detail_template_group_setup, 'render'));
 
-            // Hook the products
-            $product_setup = $this->container['affilicious.product.setup.product'];
-            add_action('init', array($product_setup, 'init'), 5);
-            add_action('init', array($product_setup, 'render'), 6);
+            // Hook the providers
+            $provider_setup = $this->container['affilicious.provider.setup.provider'];
+            add_action('init', array($provider_setup, 'init'), 0);
 
             // Hook the product listeners
             $saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
@@ -753,9 +749,9 @@ if(!class_exists('Affilicious')) {
             $product_options = $this->container['affilicious.product.options.product'];
             $provider_options = $this->container['affilicious.provider.options.amazon'];
             add_action('init', array($affilicious_options, 'render'), 15);
-            add_action('init', array($affilicious_options, 'apply'), 16);
+            add_action('init', array($affilicious_options, 'apply'), 0);
             add_action('init', array($product_options, 'render'), 15);
-            add_action('init', array($product_options, 'apply'), 16);
+            add_action('init', array($product_options, 'apply'), 0);
             add_action('init', array($provider_options, 'render'), 15);
 
             // Hook the canonical tags
@@ -772,7 +768,7 @@ if(!class_exists('Affilicious')) {
 
             // Hook the update workers
             $update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
-            add_action('init', array($update_worker_setup, 'init'), 15);
+            add_action('aff_init', array($update_worker_setup, 'init'));
 
             // Hook the amazon update worker
             $amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
@@ -787,6 +783,10 @@ if(!class_exists('Affilicious')) {
             add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
             add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+            // Hook the license handler setup
+            $license_handler_setup = $this->container['affilicious.common.setup.license_handler'];
+            add_action('aff_init', array($license_handler_setup, 'init'), 15);
 
             // Hook the link target setup
             $link_target_filter = $this->container['affilicious.common.filter.link_target'];
