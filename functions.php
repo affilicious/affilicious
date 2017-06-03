@@ -45,6 +45,35 @@ function aff_is_product_page()
 }
 
 /**
+ * Get a list of all available product taxonomies.
+ *
+ * @since 0.8.17
+ * @param string $output Optional. The type of output to return in the array. Accepts either taxonomy 'names' or 'objects'. Default 'names'.
+ * @param bool $only_custom Whether the taxonomies should contains only custom ones or including the taxonomies like 'aff_shop_tmpl', 'aff_detail_tmpl' and 'aff_attribute_tmpl'. Default 'true'-
+ * @return array
+ */
+function aff_get_product_taxonomies($output = 'names', $only_custom = true)
+{
+    $taxonomies = get_object_taxonomies(Product::POST_TYPE, $output);
+
+    // Filter the default product taxonomies if only custom ones are allowed.
+    if($only_custom) {
+        foreach ($taxonomies as $index => $taxonomy) {
+            $name = $taxonomy instanceof WP_Taxonomy ? $taxonomy->name : $taxonomy;
+
+            if(in_array($name, [Shop_Template::TAXONOMY, Detail_Template::TAXONOMY, Attribute_Template::TAXONOMY])) {
+                unset($taxonomies[$index]);
+            }
+        }
+
+        // Reset the indices.
+        $taxonomies = array_values($taxonomies);
+    }
+
+    return $taxonomies;
+}
+
+/**
  * Check if the product with the Wordpress ID or post is existing.
  * If you pass in nothing as a parameter, the current post will be used.
  *
