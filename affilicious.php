@@ -43,14 +43,14 @@ if(!class_exists('Affilicious')) {
     class Affilicious
     {
         const NAME = 'affilicious';
-        const VERSION = '0.8.17';
+        const VERSION = '0.8.18';
         const MIN_PHP_VERSION = '5.6';
 
         /**
          * @deprecated 0.9
          */
         const PLUGIN_NAME = 'affilicious';
-        const PLUGIN_VERSION = '0.8.17';
+        const PLUGIN_VERSION = '0.8.18';
         const PLUGIN_MIN_PHP_VERSION = '5.6';
         const PLUGIN_NAMESPACE = 'Affilicious\\';
         const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
@@ -305,6 +305,9 @@ if(!class_exists('Affilicious')) {
 
                 $product_slug_migration = $this->container['affilicious.product.migration.product_slug'];
                 $product_slug_migration->migrate();
+
+                $product_slugs_to_0818_migration = $this->container['affilicious.product.migration.product_slugs_to_0818'];
+                $product_slugs_to_0818_migration->migrate();
             }, 9999);
         }
 
@@ -558,6 +561,10 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.migration.post_type'] = function () {
                 return new \Affilicious\Product\Migration\Post_Type_Migration();
+            };
+
+            $this->container['affilicious.product.migration.product_slugs_to_0818'] = function () {
+                return new \Affilicious\Product\Migration\Product_Slugs_To_0818_Migration();
             };
 
             $this->container['affilicious.product.migration.variants'] = function ($c) {
