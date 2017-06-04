@@ -5,10 +5,10 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
- * Version: 0.8.17
+ * Version: 0.8.18
  * License: GPL-2.0 or later
  * Requires at least: 4.5
- * Tested up to: 4.7.4
+ * Tested up to: 4.7.5
  * Text Domain: affilicious
  * Domain Path: languages/
  *
@@ -43,9 +43,9 @@ if(!class_exists('Affilicious')) {
     class Affilicious
     {
         const NAME = 'affilicious';
-        const VERSION = '0.8.17';
+        const VERSION = '0.8.18';
         const MIN_PHP_VERSION = '5.6';
-        
+
         /**
          * Stores the singleton instance
          *
@@ -293,6 +293,9 @@ if(!class_exists('Affilicious')) {
 
                 $product_slug_migration = $this->container['affilicious.product.migration.product_slug'];
                 $product_slug_migration->migrate();
+
+                $product_slugs_to_0818_migration = $this->container['affilicious.product.migration.product_slugs_to_0818'];
+                $product_slugs_to_0818_migration->migrate();
             }, 9999);
         }
 
@@ -542,6 +545,10 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.migration.post_type'] = function () {
                 return new \Affilicious\Product\Migration\Post_Type_Migration();
+            };
+
+            $this->container['affilicious.product.migration.product_slugs_to_0818'] = function () {
+                return new \Affilicious\Product\Migration\Product_Slugs_To_0818_Migration();
             };
 
             $this->container['affilicious.product.migration.variants'] = function ($c) {
