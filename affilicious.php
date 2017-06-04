@@ -792,7 +792,7 @@ if(!class_exists('Affilicious')) {
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
 
             // Hook the license handler setup
-            $license_handler_setup = $this->container['affilicious.common.setup.license_handler'];
+            $license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
             add_action('aff_init', array($license_handler_setup, 'init'), 15);
 
             // Hook the link target setup
