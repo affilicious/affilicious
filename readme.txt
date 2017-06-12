@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.8
-Stable tag: 0.8.18
+Stable tag: 0.8.19
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,9 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.8.19 =
+* Improvement: Moved the new banners, icons and screenshots to the SVN assets directory.
+
 = 0.8.18 =
 * Fix: Added a migration to fix the broken product slugs.
 
