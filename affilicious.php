@@ -449,6 +449,12 @@ if(!class_exists('Affilicious')) {
                 );
             };
 
+            $this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
+                return new \Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
+                    $c['affilicious.product.repository.product']
+                );
+            };
+
             $this->container['affilicious.product.listener.saved_complex_product'] = function ($c) {
                 return new \Affilicious\Product\Listener\Saved_Complex_Product_Listener(
                     $c['affilicious.product.repository.product']
@@ -737,10 +743,11 @@ if(!class_exists('Affilicious')) {
 
             // Hook the product listeners
             $saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
-            add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
-
             $deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
+            $changed_status_complex_product_listener = $this->container['affilicious.product.listener.changed_status_complex_product'];
+            add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
             add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
+            add_action('transition_post_status', array($changed_status_complex_product_listener, 'listen'), 10, 3);
 
             // Hook the slug rewrite
             $slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
