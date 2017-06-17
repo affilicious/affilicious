@@ -1008,8 +1008,12 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 $terms = get_terms($taxonomy);
             }
 
+            if(empty($terms)) {
+                continue;
+            }
+
             $variant_terms = array();
-            foreach($terms AS $term) {
+            foreach($terms as $term) {
                 $variant_terms[] = $term->slug;
             }
 
@@ -1019,6 +1023,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         // Apply the new terms.
         foreach ($taxonomies as $taxonomy) {
             $complex_terms = wp_get_object_terms($complex_id, $taxonomy);
+            if(empty($complex_terms)) {
+                continue;
+            }
+
             $variant_terms = array();
             foreach($complex_terms AS $complex_term) {
                 $variant_terms[] = $complex_term->slug;

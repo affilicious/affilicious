@@ -37,7 +37,10 @@ class Changed_Status_Complex_Product_Listener
      */
     public function listen($new_status, $old_status, \WP_Post $post)
     {
-        if(!aff_is_product($post)) {
+        return;
+        static $changed_posts = [];
+
+        if(!aff_is_product($post) || in_array($post->ID, $changed_posts)) {
             return;
         }
 
@@ -46,6 +49,9 @@ class Changed_Status_Complex_Product_Listener
             return;
         }
 
+        // Add the post to prevent recursion.
+        $changed_posts[$post->ID] = $post->ID;
+
         $variants = $complex_product->get_variants();
         foreach ($variants as $variant) {
             wp_update_post(array(
@@ -53,5 +59,7 @@ class Changed_Status_Complex_Product_Listener
                 'post_status' => $new_status
             ));
         }
+
+        unset($changed_posts[$post->ID]);
     }
 }
