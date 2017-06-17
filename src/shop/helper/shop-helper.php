@@ -22,11 +22,11 @@ class Shop_Helper
         $raw_shop = array(
             'template_id' => $shop->get_template_id(),
             'name' => $shop->get_name()->get_value(),
-            'slug' => $shop->get_slug(),
+            'slug' => $shop->get_slug()->get_value(),
             'updated_at' => Time_Helper::get_datetime_i18n($shop->get_updated_at()->getTimestamp()),
             'thumbnail_id' => $shop->has_thumbnail_id() ? $shop->get_thumbnail_id()->get_value() : null,
             'tracking' => array(
-                'affiliate_link' => $shop->get_tracking()->get_affiliate_link(),
+                'affiliate_link' => $shop->get_tracking()->get_affiliate_link()->get_value(),
                 'affiliate_id' => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
             ),
             'pricing' => array(
