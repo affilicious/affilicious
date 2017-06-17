@@ -308,6 +308,9 @@ if(!class_exists('Affilicious')) {
 
                 $product_slugs_to_0818_migration = $this->container['affilicious.product.migration.product_slugs_to_0818'];
                 $product_slugs_to_0818_migration->migrate();
+
+                $product_variant_terms_to_0820_migration = $this->container['affilicious.product.migration.product_variant_terms_to_0820'];
+                $product_variant_terms_to_0820_migration->migrate();
             }, 9999);
         }
 
@@ -565,6 +568,12 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.migration.product_slugs_to_0818'] = function () {
                 return new \Affilicious\Product\Migration\Product_Slugs_To_0818_Migration();
+            };
+
+            $this->container['affilicious.product.migration.product_variant_terms_to_0820'] = function ($c) {
+                return new \Affilicious\Product\Migration\Product_Variant_Terms_To_0820_Migration(
+                    $c['affilicious.product.repository.product']
+                );
             };
 
             $this->container['affilicious.product.migration.variants'] = function ($c) {

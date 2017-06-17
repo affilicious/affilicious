@@ -181,6 +181,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         if($product instanceof Product_Variant) {
+            $this->store_terms($product);
             $this->store_attributes($product);
 
             // Quick fix to update the variant in the parent product
@@ -975,6 +976,55 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $meta_value = $attribute->get_value()->get_value();
 
             $this->store_post_meta($product_variant->get_id()->get_value(), $meta_key, $meta_value);
+        }
+    }
+
+    /**
+     * Store the product variants terms which are taken from the parent complex product.
+     *
+     * @since 0.8.20
+     * @param Product_Variant $product_variant
+     */
+    private function store_terms(Product_Variant $product_variant)
+    {
+        global $wp_version;
+
+        $variant_id = $product_variant->get_id()->get_value();
+        $complex_id = $product_variant->get_parent()->get_id()->get_value();
+
+        // Get all custom available product taxonomies without the details, attributes and shops.
+        $taxonomies = aff_get_product_taxonomies();
+        if(empty($taxonomies)) {
+            return;
+        }
+
+        // Remove the old taxonomies.
+        foreach ($taxonomies as $taxonomy) {
+            if($wp_version >= '4.5') {
+                $terms = get_terms(array(
+                    'taxonomy' => $taxonomy
+                ));
+            } else {
+                $terms = get_terms($taxonomy);
+            }
+
+            $variant_terms = array();
+            foreach($terms AS $term) {
+                $variant_terms[] = $term->slug;
+            }
+
+            wp_remove_object_terms($variant_id, $variant_terms, $taxonomy);
+        }
+
+        // Apply the new terms.
+        foreach ($taxonomies as $taxonomy) {
+            $complex_terms = wp_get_object_terms($complex_id, $taxonomy);
+            $variant_terms = array();
+            foreach($complex_terms AS $complex_term) {
+                $variant_terms[] = $complex_term->slug;
+            }
+
+            wp_set_object_terms($variant_id, $variant_terms, $taxonomy);
         }
     }
 

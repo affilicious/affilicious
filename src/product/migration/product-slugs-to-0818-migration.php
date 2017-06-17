@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product_Slugs_To_0818_Migration
+final class Product_Slugs_To_0818_Migration
 {
     const OPTION = 'aff_migrated_product_slugs_to_0.8.18';
 
