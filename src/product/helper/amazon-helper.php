@@ -6,6 +6,8 @@ use Affilicious\Attribute\Model\Attribute;
 use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Model\Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
+use Affilicious\Common\Helper\Image_Helper;
+use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
@@ -26,6 +28,69 @@ if (!defined('ABSPATH')) {
 
 class Amazon_Helper
 {
+    /**
+     * Find and attach the thumbnail located in the Amazon API item response to the product.
+     *
+     * @since 0.9
+     * @param array $item The Amazon API response converted from XML to an array.
+     * @return null|Image_Id
+     */
+    public static function find_thumbnail_id(array $item)
+    {
+        if(isset($item['LargeImage'])) {
+            $url = $item['LargeImage']['URL'];
+        } elseif(isset($item['MediumImage'])) {
+            $url = $item['MediumImage']['URL'];
+        } else if(isset($item['SmallImage'])) {
+            $url = $item['SmallImage']['URL'];
+        } else {
+            return null;
+        }
+
+        $thumbnail_id = Image_Helper::download($url);
+        $thumbnail_id = apply_filters('aff_amazon_helper_find_thumbnail', $thumbnail_id, $item);
+
+        return $thumbnail_id;
+    }
+
+    /**
+     * Find and attach the image gallery located in the Amazon API item response to the product.
+     *
+     * @since 0.9
+     * @param array $item
+     * @return Image_Id[]
+     */
+    public static function find_image_gallery_ids(array $item)
+    {
+        $image_gallery_ids = [];
+
+        if(isset($item['ImageSets']['ImageSet'])) {
+            $images = $item['ImageSets']['ImageSet'];
+            foreach ($images as $image) {
+                if(isset($item['LargeImage'])) {
+                    $url = $image['LargeImage']['URL'];
+                } elseif(isset($image['MediumImage'])) {
+                    $url = $image['MediumImage']['URL'];
+                } else if(isset($image['SmallImage'])) {
+                    $url = $image['SmallImage']['URL'];
+                } else {
+                    continue;
+                }
+
+                $image_id = Image_Helper::download($url);
+                if($image_id === null) {
+                    continue;
+                }
+
+                $image_gallery_ids[] = $image_id;
+            }
+        }
+
+        $image_gallery_ids = apply_filters('aff_amazon_helper_find_image_gallery_ids', $image_gallery_ids, $item);
+
+        return $image_gallery_ids;
+    }
+
     /**
      * Find the tracking containing the affiliate link and product ID in the Amazon API item response.
      *

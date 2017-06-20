@@ -1,15 +1,9 @@
 <?php
 namespace Affilicious\Product\Importer;
 
-use Affilicious\Attribute\Factory\Attribute_Template_Factory_Interface;
-use Affilicious\Attribute\Model\Attribute;
-use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
-use Affilicious\Detail\Factory\Detail_Template_Factory_Interface;
-use Affilicious\Detail\Model\Detail;
-use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
@@ -18,11 +12,7 @@ use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
-use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
-use Affilicious\Shop\Model\Shop;
-use Affilicious\Shop\Model\Shop_Template_Id;
-use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Lookup;
@@ -42,36 +32,6 @@ class Amazon_Importer implements Importer_Interface
     private $provider_repository;
 
     /**
-     * @var Shop_Template_Repository_Interface
-     */
-    private $shop_template_repository;
-
-    /**
-     * @var Shop_Template_Factory_Interface
-     */
-    private $shop_template_factory;
-
-    /**
-     * @var Attribute_Template_Repository_Interface
-     */
-    private $attribute_template_repository;
-
-    /**
-     * @var Attribute_Template_Factory_Interface
-     */
-    private $attribute_template_factory;
-
-    /**
-     * @var Detail_Template_Repository_Interface
-     */
-    private $detail_template_repository;
-
-    /**
-     * @var Detail_Template_Factory_Interface
-     */
-    private $detail_template_factory;
-
-    /**
      * @var Slug_Generator_Interface
      */
     private $slug_generator;
@@ -79,31 +39,11 @@ class Amazon_Importer implements Importer_Interface
     /**
      * @since 0.9
      * @param Provider_Repository_Interface $provider_repository
-     * @param Shop_Template_Repository_Interface $shop_template_repository
-     * @param Shop_Template_Factory_Interface $shop_template_factory
-     * @param Attribute_Template_Repository_Interface $attribute_template_repository
-     * @param Attribute_Template_Factory_Interface $attribute_template_factory
-     * @param Detail_Template_Repository_Interface $detail_template_repository
-     * @param Detail_Template_Factory_Interface $detail_template_Factory
      * @param Slug_Generator_Interface $slug_generator
      */
-    public function __construct(
-        Provider_Repository_Interface $provider_repository,
-        Shop_Template_Repository_Interface $shop_template_repository,
-        Shop_Template_Factory_Interface $shop_template_factory,
-        Attribute_Template_Repository_Interface $attribute_template_repository,
-        Attribute_Template_Factory_Interface $attribute_template_factory,
-        Detail_Template_Repository_Interface $detail_template_repository,
-        Detail_Template_Factory_Interface $detail_template_Factory,
-        Slug_Generator_Interface $slug_generator
-    ) {
+    public function __construct(Provider_Repository_Interface $provider_repository, Slug_Generator_Interface $slug_generator)
+    {
         $this->provider_repository = $provider_repository;
-        $this->shop_template_repository = $shop_template_repository;
-        $this->shop_template_factory = $shop_template_factory;
-        $this->attribute_template_repository = $attribute_template_repository;
-        $this->attribute_template_factory = $attribute_template_factory;
-        $this->detail_template_repository = $detail_template_repository;
-        $this->detail_template_factory = $detail_template_Factory;
         $this->slug_generator = $slug_generator;
     }
 
@@ -241,6 +181,12 @@ class Amazon_Importer implements Importer_Interface
                 $product_variant = $this->create_product($variant_item, $config, $product);
                 $product->add_variant($product_variant);
             }
+
+            $default_variant = $product->get_default_variant();
+            if($default_variant !== null) {
+                $variant_thumbnail_id = $default_variant->get_thumbnail_id();
+                $product->set_thumbnail_id($variant_thumbnail_id);
+            }
         }
 
         if($product instanceof Product_Variant) {
@@ -255,6 +201,16 @@ class Amazon_Importer implements Importer_Interface
             if ($shop !== null) {
                 $product->add_shop($shop);
             }
+        }
+
+        $thumbnail_id = Amazon_Helper::find_thumbnail_id($item);
+        if($thumbnail_id !== null) {
+            $product->set_thumbnail_id($thumbnail_id);
+        }
+
+        $image_gallery_ids = Amazon_Helper::find_image_gallery_ids($item);
+        if(!empty($image_gallery_ids)) {
+            $product->set_image_gallery($image_gallery_ids);
         }
 
         $product = apply_filters('aff_amazon_import_create_product', $product, $item, $config);
