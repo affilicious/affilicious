@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Update\Worker\Amazon;
 
+use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Update\Configuration\Configuration;
 use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
 use Affilicious\Product\Model\Complex_Product;
@@ -11,9 +12,6 @@ use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 use Affilicious\Provider\Options\Amazon_Options;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Model\Affiliate_Id;
-use Affilicious\Shop\Model\Availability;
-use Affilicious\Shop\Model\Currency;
-use Affilicious\Shop\Model\Money;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 use ApaiIO\ApaiIO;
@@ -235,10 +233,10 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         $items = $this->find_items($response);
         foreach ($items as $item) {
             $result[] = array(
-                'affiliate_id' => $this->find_affiliate_id($item),
-                'availability' => $this->find_availability($item),
-                'price' => $this->find_price($item),
-                'old_price' => $this->find_old_price($item),
+                'affiliate_id' => Amazon_Helper::find_affiliate_product_id($item),
+                'availability' => Amazon_Helper::find_availability($item),
+                'price' => Amazon_Helper::find_price($item),
+                'old_price' => Amazon_Helper::find_old_price($item)
             );
         }
 
@@ -333,99 +331,6 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         return $items;
-    }
-
-    /**
-     * Find the affiliate ID in the item response.
-     *
-     * @since 0.7
-     * @param array $item
-     * @return null|Affiliate_Id
-     */
-    protected function find_affiliate_id($item)
-    {
-        $affiliate_id = null;
-
-        if(isset($item['ASIN'])) {
-            $asin = $item['ASIN'];
-            $affiliate_id = new Affiliate_Id($asin);
-        }
-
-        return $affiliate_id;
-    }
-
-    /**
-     * Find the availability in the item response.
-     *
-     * @since 0.7
-     * @param array $item
-     * @return null|Availability
-     */
-    protected function find_availability($item)
-    {
-        $availability = null;
-
-        if(isset($item['Offers']['TotalOffers'])) {
-            $total_offers = intval($item['Offers']['TotalOffers']);
-
-            if($total_offers > 0) {
-                $availability = Availability::available();
-            } else {
-                $availability = Availability::out_of_stock();
-            }
-        }
-
-        return $availability;
-    }
-
-    /**
-     * Find the price in the item response.
-     *
-     * @since 0.7
-     * @param array $item
-     * @return null|Money
-     */
-    protected function find_price($item)
-    {
-        $price = null;
-
-        if(isset($item['Offers']['Offer']['OfferListing'])) {
-            $offer_listing = $item['Offers']['Offer']['OfferListing'];
-            $price = isset($offer_listing['SalePrice']) ? $offer_listing['SalePrice'] : $offer_listing['Price'];
-
-            if(isset($price['Amount']) && isset($price['CurrencyCode'])) {
-                $amount = floatval($price['Amount']) / 100;
-                $currency = $price['CurrencyCode'];
-                $price = new Money($amount, new Currency($currency));
-            }
-        }
-
-        return $price;
-    }
-
-    /**
-     * Find the old price in the item response.
-     *
-     * @since 0.8.9
-     * @param array $item
-     * @return Money|null
-     */
-    protected function find_old_price($item)
-    {
-        $old_price = null;
-
-        if(isset($item['Offers']['Offer']['OfferListing'])) {
-            $offerListing = $item['Offers']['Offer']['OfferListing'];
-            $old_price = isset($offerListing['SalePrice']) && isset($offerListing['Price']) ? $offerListing['Price'] : null;
-
-            if(isset($old_price['Amount']) && isset($old_price['CurrencyCode'])) {
-                $amount = floatval($old_price['Amount']) / 100;
-                $currency = $old_price['CurrencyCode'];
-                $old_price = new Money($amount, new Currency($currency));
-            }
-        }
-
-        return $old_price;
     }
 
     /**
