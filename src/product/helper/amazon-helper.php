@@ -71,8 +71,8 @@ class Amazon_Helper
     {
         $affiliate_link = null;
 
-        if(isset($item['DetailPageUrl'])) {
-            $affiliate_link = new Affiliate_Link($item['DetailPageUrl']);
+        if(isset($item['DetailPageURL'])) {
+            $affiliate_link = new Affiliate_Link($item['DetailPageURL']);
         }
 
         $affiliate_link = apply_filters('aff_amazon_helper_find_affiliate_link', $affiliate_link, $item);
