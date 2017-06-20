@@ -1400,8 +1400,8 @@ function aff_get_product_attribute_choices($product_or_id = null)
         }
 
         foreach ($attributes as $index => $attribute) {
-            if(!isset($choices[$attribute['name']])) {
-                $choices[$attribute['name']] = array(
+            if(!isset($choices[$attribute['slug']])) {
+                $choices[$attribute['slug']] = array(
                     'name' => $attribute['name'],
                     'slug' => $attribute['slug'],
                     'attributes' => array(),
@@ -1423,11 +1423,11 @@ function aff_get_product_attribute_choices($product_or_id = null)
                 $display = 'reachable';
             }
 
-            if( !isset($choices[$attribute['name']]['attributes'][$attribute['value']]) ||
+            if( !isset($choices[$attribute['slug']]['attributes'][$attribute['value']]) ||
                 ($display == 'selected' && $choices[$attribute['slug']]['attributes'][$attribute['value']]['display'] != 'selected') ||
                ($display == 'reachable' && $choices[$attribute['slug']]['attributes'][$attribute['value']]['display'] == 'unreachable')) {
 
-                $choices[$attribute['name']]['attributes'][$attribute['value']] = array(
+                $choices[$attribute['slug']]['attributes'][$attribute['value']] = array(
                     'value' => $attribute['value'],
                     'unit' => $attribute['unit'],
                     'display' => $display,
@@ -1462,7 +1462,7 @@ function aff_the_product_attribute_choices($product_or_id = null)
     echo '<div class="aff-product-attributes-container">';
     echo '<ul class="aff-product-attributes-choices-list">';
 
-    foreach ($attribute_choices as $name => $attribute_choice) {
+    foreach ($attribute_choices as $attribute_choice) {
         echo '<li class="aff-product-attributes-choices">';
         echo '<span class="aff-product-attributes-choices-name">' . esc_html($attribute_choice['name']) . '</span>';
         echo '<ul class="aff-product-attributes-choice-list">';
@@ -1471,7 +1471,7 @@ function aff_the_product_attribute_choices($product_or_id = null)
             echo '<li class="aff-product-attributes-choice ' . esc_attr($attribute['display']) . '">';
             if(!empty($attribute['permalink'])): echo '<a href="' . esc_url($attribute['permalink']) .'">'; endif;
             echo $attribute['value'];
-            if(!empty($attribute['unit'])): echo ' <span class="unit">' . esc_html($attribute['unit']) . '</span>'; endif;
+            if(!empty($attribute['unit'])): echo ' <span class="aff-unit unit">' . esc_html($attribute['unit']) . '</span>'; endif;
             if(!empty($attribute['permalink'])): echo '</a>'; endif;
             echo '</li>';
         }
