@@ -1,180 +1,136 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     uglifycss = require('gulp-uglifycss'),
     rename = require('gulp-rename'),
-    es6 = require('gulp-babel'),
     imageMin = require('gulp-imagemin'),
     order = require('gulp-order'),
     sass = require('gulp-sass'),
     merge = require('merge-stream'),
-    watch = require('gulp-watch');
-
-var assetsPath = 'assets/',
-    publicPath = assetsPath + 'public/',
-    adminPath = assetsPath + 'admin/'
+    es = require('event-stream'),
+    watch = require('gulp-watch'),
+    babelify = require('babelify'),
+    browserify = require("browserify"),
+    buffer = require('vinyl-buffer'),
+    source = require("vinyl-source-stream"),
+    plumber = require('gulp-plumber'),
+    autoprefixer = require('gulp-autoprefixer')
 ;
 
-var assetPaths = {
-    public: {
-        css: [],
-        sass: [
-            'assets/public/scss/**'
-        ],
-        js: [],
-        es6: [
-            'assets/public/es6/*.js'
-        ],
-        fonts: [],
-        images: []
-    },
-
+let paths = {
     admin: {
-        css: [
-            'assets/vendor/jquery-tags-input/css/jquery.tagsinput.min.css'
-        ],
-        sass: [
-            'assets/admin/scss/**'
-        ],
-        js: [
-            'assets/vendor/jquery-tags-input/js/jquery.tagsinput.min.js'
-        ],
-        es6: [
-            'assets/admin/es6/**'
-        ],
-        fonts: [],
-        images: [
-            'assets/admin/images/**'
-        ]
+        'common': {
+            css: [
+                'assets/admin/src/common/scss/**',
+            ],
+            img: [
+                'assets/admin/src/common/img/**',
+            ]
+        },
+        'products': {
+            css: [
+                'assets/admin/src/products/scss/**',
+            ],
+            js: [
+                'assets/admin/src/products/js/products.js',
+            ],
+        },
+        'carbon-fields': {
+            css: [
+                'assets/admin/src/carbon-fields/scss/**',
+            ],
+            js: [
+                'assets/admin/src/carbon-fields/js/carbon-fields.js',
+            ]
+        },
+        'amazon-import': {
+            js: [
+                'assets/admin/src/amazon-import/js/amazon-import.js',
+            ]
+        }
     }
 };
 
-gulp.task('public-css', function() {
-    var cssStream = gulp.src(assetPaths.public.css)
-        .pipe(concat('css-files.css'))
-    ;
-
-    var sassStream = gulp.src(assetPaths.public.sass)
-        .pipe(sass())
-        .pipe(concat('sass-files.scss'))
-    ;
-
-    return merge(cssStream, sassStream)
-        .pipe(order(['css-files.css', 'sass-files.scss']))
-        .pipe(concat('style.css'))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(publicPath + 'css/'))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(uglifycss())
-        .pipe(gulp.dest(publicPath + 'css/'))
-    ;
-});
-
 gulp.task('admin-css', function() {
-    var cssStream = gulp.src(assetPaths.admin.css)
-        .pipe(concat('css-files.css'))
-    ;
+    Object.keys(paths.admin).map(function(key) {
+        let entries = paths.admin[key].css;
+        if(entries === undefined) {
+            return;
+        }
 
-    var sassStream = gulp.src(assetPaths.admin.sass)
-        .pipe(sass())
-        .pipe(concat('sass-files.scss'))
-    ;
-
-    return merge(cssStream, sassStream)
-        .pipe(order(['css-files.css', 'sass-files.scss']))
-        .pipe(concat('admin.css'))
-        .pipe(gulp.dest(adminPath + 'css/'))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(uglifycss())
-        .pipe(gulp.dest(adminPath + 'css/'))
-    ;
-});
-
-gulp.task('public-js', function () {
-    var jsStream = gulp.src(assetPaths.public.js)
-        .pipe(concat('js-files.js'))
-    ;
-
-    var es6Stream = gulp.src(assetPaths.public.es6)
-        .pipe(es6({presets: ['es2015']}))
-        .pipe(concat('es6-files.js'))
-
-    ;
-
-    return merge(jsStream, es6Stream)
-        .pipe(order(['js-files.js', 'es6-files.js']))
-        .pipe(concat('script.js'))
-        .pipe(gulp.dest(publicPath + 'js/'))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(uglify())
-        .pipe(gulp.dest(publicPath + 'js/'))
-    ;
+        gulp.src(entries)
+            .pipe(plumber())
+            .pipe(sass())
+            .pipe(concat(`${key}.css`))
+            .pipe(autoprefixer())
+            .pipe(gulp.dest('assets/admin/dist/css/'))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(uglifycss())
+            .pipe(gulp.dest('assets/admin/dist/css/'))
+        ;
+    });
 });
 
 gulp.task('admin-js', function () {
-    var jsStream = gulp.src(assetPaths.admin.js)
-        .pipe(concat('js-files.js'))
-    ;
+    Object.keys(paths.admin).map(function(key) {
+        let entries = paths.admin[key].js;
+        if(entries === undefined) {
+            return;
+        }
 
-    var es6Stream = gulp.src(assetPaths.admin.es6)
-        .pipe(es6({presets: ['es2015']}))
-        .pipe(concat('es6-files.js'))
-    ;
+        let streams = entries.map(function(entry) {
+            return browserify({entries: [entry], debug: true})
+                .transform('babelify', {presets: ['es2015']})
+                .bundle()
+            ;
+        });
 
-    return merge(jsStream, es6Stream)
-        .pipe(order(['js-files.js', 'es6-files.js']))
-        .pipe(concat('admin.js'))
-        .pipe(gulp.dest(adminPath + 'js/'))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(uglify())
-        .pipe(gulp.dest(adminPath + 'js/'))
-    ;
+        es.merge.apply(null, streams)
+            .pipe(plumber())
+            .pipe(source(`${key}.js`))
+            .pipe(buffer())
+            .pipe(gulp.dest('assets/admin/dist/js/'))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(uglify())
+            .pipe(gulp.dest('assets/admin/dist/js/'))
+        ;
+    });
 });
 
-gulp.task('public-images', function() {
-    return gulp.src(assetPaths.public.images)
-        .pipe(imageMin())
-        .pipe(gulp.dest(publicPath + 'images/'))
-    ;
-});
+gulp.task('admin-img', function() {
+    Object.keys(paths.admin).map(function(key) {
+        let entries = paths.admin[key].img;
+        if(entries === undefined) {
+            return;
+        }
 
-gulp.task('admin-images', function() {
-    return gulp.src(assetPaths.admin.images)
-        .pipe(imageMin())
-        .pipe(gulp.dest(adminPath + 'images/'))
-    ;
-});
-
-gulp.task('public-fonts', function() {
-    return gulp.src(assetPaths.public.fonts)
-        .pipe(gulp.dest(publicPath + 'fonts/'))
-    ;
-});
-
-gulp.task('admin-fonts', function() {
-    return gulp.src(assetPaths.admin.fonts)
-        .pipe(gulp.dest(adminPath + 'fonts/'))
-    ;
-});
-
-gulp.task('public-watch', function() {
-    gulp.watch(assetPaths.public.css, ['public-css']);
-    gulp.watch(assetPaths.public.sass, ['public-css']);
-    gulp.watch(assetPaths.public.js, ['public-js']);
-    gulp.watch(assetPaths.public.es6, ['public-js']);
-    gulp.watch(assetPaths.public.images, ['public-images']);
-    gulp.watch(assetPaths.public.fonts, ['public-fonts']);
+        gulp.src(entries)
+            .pipe(plumber())
+            .pipe(imageMin())
+            .pipe(gulp.dest('assets/admin/dist/img/'))
+        ;
+    });
 });
 
 gulp.task('admin-watch', function() {
-    gulp.watch(assetPaths.admin.css, ['admin-css']);
-    gulp.watch(assetPaths.admin.sass, ['admin-css']);
-    gulp.watch(assetPaths.admin.js, ['admin-js']);
-    gulp.watch(assetPaths.admin.es6, ['admin-js']);
-    gulp.watch(assetPaths.admin.images, ['admin-images']);
-    gulp.watch(assetPaths.admin.fonts, ['admin-fonts']);
+    Object.keys(paths.admin).map(function(key) {
+        let css = paths.admin[key].css;
+        if(css !== undefined) {
+            gulp.watch(css, ['admin-css']);
+        }
+
+        let js = paths.admin[key].js;
+        if(js !== undefined) {
+            gulp.watch(js, ['admin-js']);
+        }
+
+        let img = paths.admin[key].img;
+        if(img !== undefined) {
+            gulp.watch(img, ['admin-img']);
+        }
+    });
 });
 
-gulp.task('default', ['public-css', 'public-js', 'public-images', 'public-fonts', 'admin-css', 'admin-js', 'admin-images', 'admin-fonts']);
-gulp.task('watch', ['default', 'public-watch', 'admin-watch']);
+gulp.task('default', ['admin-css', 'admin-js', 'admin-img']);
+gulp.task('watch', ['default', 'admin-watch']);

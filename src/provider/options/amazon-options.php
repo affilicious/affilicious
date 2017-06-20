@@ -3,12 +3,13 @@ namespace Affilicious\Provider\Options;
 
 use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Provider\Model\Credentials;
-use Affilicious\Provider\Validator\Amazon_Credentials_Validator_Interface;
+use Affilicious\Provider\Validator\Credentials_Validator_Interface;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
 class Amazon_Options
 {
+    const IMPORT = 'affilicious_options_amazon_container_credentials_tab_import_field';
     const VALIDATION_STATUS = 'affilicious_options_amazon_container_credentials_tab_validation_status_field';
     const ACCESS_KEY = 'affilicious_options_amazon_container_credentials_tab_access_key_field';
     const SECRET_KEY = 'affilicious_options_amazon_container_credentials_tab_secret_key_field';
@@ -21,15 +22,15 @@ class Amazon_Options
     const AVAILABILITY_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_availability_update_interval_field';
 
     /**
-     * @var Amazon_Credentials_Validator_Interface
+     * @var Credentials_Validator_Interface
      */
     private $amazon_credentials_validator;
 
     /**
      * @since 0.8
-     * @param Amazon_Credentials_Validator_Interface $amazon_credentials_validator
+     * @param Credentials_Validator_Interface $amazon_credentials_validator
      */
-    public function __construct(Amazon_Credentials_Validator_Interface $amazon_credentials_validator)
+    public function __construct(Credentials_Validator_Interface $amazon_credentials_validator)
     {
         $this->amazon_credentials_validator = $amazon_credentials_validator;
     }
@@ -43,6 +44,13 @@ class Amazon_Options
     public function render()
     {
         do_action('affilicious_options_amazon_before_render');
+
+        $import_tab = array(
+            Carbon_Field::make('html', self::IMPORT)
+                ->set_html(View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/success-notice.php', array(
+                    'message' => __('<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API was successfully established.', 'affilicious')
+                ))),
+        );
 
         $credentials_tab = apply_filters('affilicious_options_amazon_container_credentials_tab', array(
             Carbon_Field::make('html', self::VALIDATION_STATUS)
@@ -108,6 +116,7 @@ class Amazon_Options
 
         $container = Carbon_Container::make('theme_options', __('Amazon', 'affilicious'))
             ->set_page_parent('affilicious')
+            ->add_tab(__('Import', 'affilicious'), $import_tab)
             ->add_tab(__('Credentials', 'affilicious'), $credentials_tab)
             ->add_tab(__('Updates', 'affilicious'), $updates_tab);
 
@@ -126,11 +135,11 @@ class Amazon_Options
         $valid = $this->check_validation_status();
 
         if($valid) {
-            $notice = View_Helper::stringify('src/common/view/notifications/success-notice.php', array(
+            $notice = View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/success-notice.php', array(
                 'message' => __('<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API was successfully established.', 'affilicious')
             ));
         } else {
-            $notice = View_Helper::stringify('src/common/view/notifications/error-notice.php', array(
+            $notice = View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/error-notice.php', array(
                 'message' => __('<b>The credentials are invalid!</b> Failed to connect to the Amazon Product Advertising API.', 'affilicious')
             ));
         }

@@ -9,6 +9,7 @@ use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
+use Affilicious\Detail\Model\Detail_Template_Id;
 use Affilicious\Detail\Model\Value as Detail_Value;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Model\Complex_Product;
@@ -41,6 +42,7 @@ use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Model\Tracking;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
+use Affilicious\Attribute\Model\Attribute_Template_Id;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -616,14 +618,28 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 $product_variant->set_id(new Product_Id($id));
             }
 
-            $attribute_templates = $this->attribute_template_repository->find_all();
-            foreach ($attribute_templates as $attribute_template) {
+            $enabled_attributes = carbon_get_post_meta($complex_product->get_id()->get_value(), self::ENABLED_ATTRIBUTES);
+            if(empty($enabled_attributes)) {
+                continue;
+            }
+
+            $enabled_attributes = explode(',', $enabled_attributes);
+            if(empty($enabled_attributes)) {
+                continue;
+            }
+
+            foreach ($enabled_attributes as $enabled_attribute) {
+                $attribute_template = $this->attribute_template_repository->find_one_by_id(new Attribute_Template_Id($enabled_attribute));
+                if($attribute_template === null) {
+                    continue;
+                }
+
                 $attribute_template_key = $this->key_generator->generate_from_slug($attribute_template->get_slug());
                 $meta_key = sprintf(self::VARIANT_ATTRIBUTE_VALUE, $attribute_template_key->get_value());
 
                 $raw_attribute = !empty($raw_variant[$meta_key]) ? $raw_variant[$meta_key] : null;
                 if(empty($raw_attribute)) {
-                    continue;
+                    $raw_attribute = null;
                 }
 
                 $attribute = $attribute_template->build(new Attribute_Value($raw_attribute));
@@ -773,7 +789,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         if(!empty($raw_tags)) {
-            $raw_tags = explode(';', $raw_tags);
+            $raw_tags = explode(',', $raw_tags);
             $tags = array_map(function($raw_tag) {
                 return new Tag($raw_tag);
             }, $raw_tags);
@@ -794,17 +810,31 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             return;
         }
 
-        $detail_templates = $this->detail_template_repository->find_all();
-        foreach ($detail_templates as $detail_template) {
+        $enabled_details = carbon_get_post_meta($product->get_id()->get_value(), self::ENABLED_DETAILS);
+        if(empty($enabled_details)) {
+            return;
+        }
+
+        $enabled_details = explode(',', $enabled_details);
+        if(empty($enabled_details)) {
+            return;
+        }
+
+        foreach ($enabled_details as $enabled_detail) {
+            $detail_template = $this->detail_template_repository->find_one_by_id(new Detail_Template_Id($enabled_detail));
+            if($detail_template === null) {
+                continue;
+            }
+
             $detail_template_key = $this->key_generator->generate_from_slug($detail_template->get_slug());
             $meta_key = sprintf(self::DETAIL_VALUE, $detail_template_key->get_value());
 
             $raw_detail = carbon_get_post_meta($product->get_id()->get_value(), $meta_key);
             if(empty($raw_detail)) {
-                continue;
+                $raw_detail = null;
             }
 
-            if($detail_template->get_type()->is_boolean()) {
+            if($raw_detail === null && !$detail_template->get_type()->is_boolean()) {
                 $raw_detail = $raw_detail == 'yes' ? true : false;
             }
 
@@ -1053,7 +1083,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             return;
         }
 
-        $names = array();
+        $ids = array();
 
         /* Example for valid structure:
          *
@@ -1106,7 +1136,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                     $raw_tags[] = $tag->get_value();
                 }
 
-                $raw_tags = implode(';', $raw_tags);
+                $raw_tags = implode(',', $raw_tags);
             }
 
             $carbon_variant = array(
@@ -1123,13 +1153,13 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 $key = $this->key_generator->generate_from_slug($attribute->get_slug());
                 $carbon_key = sprintf(self::VARIANT_ATTRIBUTE_VALUE, $key->get_value());
                 $carbon_variant[$carbon_key] = $attribute->get_value()->get_value();
-                $names[] = $attribute->get_name()->get_value();
+                $ids[] = $attribute->get_template_id()->get_value();
             }
 
             $carbon_variants[''][] = $carbon_variant;
         }
 
-        $enabled_attributes = implode(';', $names);
+        $enabled_attributes = implode(',', $ids);
         $this->store_post_meta($complex_product->get_id()->get_value(), self::ENABLED_ATTRIBUTES, $enabled_attributes);
 
         $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_variants, self::VARIANTS);
@@ -1223,7 +1253,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $raw_tags[] = $tag->get_value();
         }
 
-        $raw_tags = implode(';', $raw_tags);
+        $raw_tags = implode(',', $raw_tags);
         $this->store_post_meta($product->get_id()->get_value(), self::TAGS, $raw_tags);
     }
 
@@ -1240,7 +1270,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $details = $product->get_details();
-        $names = array();
+        $ids = array();
         foreach ($details as $detail) {
             $detail_key = $this->key_generator->generate_from_slug($detail->get_slug());
             $key = sprintf(self::DETAIL_VALUE, $detail_key->get_value());
@@ -1251,10 +1281,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             }
 
             $this->store_post_meta($product->get_id()->get_value(), $key, $value);
-            $names[] = $detail->get_name()->get_value();
+            $ids[] = $detail->get_template_id()->get_value();
         }
 
-        $enabled_details = implode(';', $names);
+        $enabled_details = implode(',', $ids);
         $this->store_post_meta($product->get_id()->get_value(), self::ENABLED_DETAILS, $enabled_details);
     }
 

@@ -10,7 +10,7 @@
  * Requires at least: 4.5
  * Tested up to: 4.8
  * Text Domain: affilicious
- * Domain Path: /languages/
+ * Domain Path: languages/
  *
  * Affilicious Plugin
  * Copyright (C) 2016-2017, Affilicious - support@affilicioustheme.de
@@ -45,18 +45,6 @@ if(!class_exists('Affilicious')) {
         const NAME = 'affilicious';
         const VERSION = '0.8.20';
         const MIN_PHP_VERSION = '5.6';
-
-        /**
-         * @deprecated 0.9
-         */
-        const PLUGIN_NAME = 'affilicious';
-        const PLUGIN_VERSION = '0.8.20';
-        const PLUGIN_MIN_PHP_VERSION = '5.6';
-        const PLUGIN_NAMESPACE = 'Affilicious\\';
-        const PLUGIN_TESTS_NAMESPACE = 'Affilicious\\Tests\\';
-        const PLUGIN_SOURCE_DIR = 'src/';
-        const PLUGIN_TESTS_DIR = 'tests/';
-        const PLUGIN_LANGUAGE_DIR = 'languages/';
 
         /**
          * Stores the singleton instance
@@ -216,13 +204,13 @@ if(!class_exists('Affilicious')) {
         public function activate()
         {
             // Check the PHP version requirement
-            if (!version_compare(phpversion(), self::PLUGIN_MIN_PHP_VERSION, '>=')) {
+            if (!version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
                 deactivate_plugins(AFFILICIOUS_BASE_NAME);
 
                 $this->load_textdomain();
                 wp_die(sprintf(
                     __('The Affilicious Plugin requires at least the PHP Version %s to reveal the full potential. Please switch the PHP version in your hosting provider.', 'affilicious'),
-                    self::PLUGIN_MIN_PHP_VERSION
+                    self::MIN_PHP_VERSION
                 ));
             }
 
@@ -333,8 +321,8 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Filter\Link_Target_Filter();
             };
 
-            $this->container['affilicious.common.filter.admin_footer_text'] = function () {
-                return new \Affilicious\Common\Filter\Admin_Footer_Text_Filter();
+            $this->container['affilicious.common.admin.filter.footer_text'] = function () {
+                return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
             };
 
             $this->container['affilicious.common.setup.asset'] = function () {
@@ -345,23 +333,27 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Setup\Carbon_Setup();
             };
 
-            $this->container['affilicious.common.setup.feedback'] = function () {
-                return new \Affilicious\Common\Setup\Feedback_Setup();
+            $this->container['affilicious.common.admin.page.addons'] = function () {
+                return new \Affilicious\Common\Admin\Page\Addons_Page();
             };
 
-            $this->container['affilicious.common.license.processor'] = function ($c) {
-                return new \Affilicious\Common\License\License_Processor(
-                    $c['affilicious.common.license.manager']
+            $this->container['affilicious.product.admin.page.import'] = function () {
+                return new \Affilicious\Product\Admin\Page\Import_Page();
+            };
+
+            $this->container['affilicious.common.admin.license.processor'] = function ($c) {
+                return new \Affilicious\Common\Admin\License\License_Processor(
+                    $c['affilicious.common.admin.license.manager']
                 );
             };
 
-            $this->container['affilicious.common.license.manager'] = function () {
-                return new \Affilicious\Common\License\License_Manager();
+            $this->container['affilicious.common.admin.license.manager'] = function () {
+                return new \Affilicious\Common\Admin\License\License_Manager();
             };
 
-            $this->container['affilicious.common.setup.license_handler'] = function ($c) {
-                return new \Affilicious\Common\Setup\License_Handler_Setup(
-                    $c['affilicious.common.license.manager']
+            $this->container['affilicious.common.admin.setup.license_handler'] = function ($c) {
+                return new \Affilicious\Common\Admin\Setup\License_Handler_Setup(
+                    $c['affilicious.common.admin.license.manager']
                 );
             };
 
@@ -487,8 +479,8 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.common.options.affilicious'] = function ($c) {
                 return new \Affilicious\Common\Options\Affilicious_Options(
-                    $c['affilicious.common.license.manager'],
-                    $c['affilicious.common.license.processor']
+                    $c['affilicious.common.admin.license.manager'],
+                    $c['affilicious.common.admin.license.processor']
                 );
             };
 
@@ -508,14 +500,6 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.setup.admin_bar'] = function () {
                 return new \Affilicious\Product\Setup\Admin_Bar_Setup();
-            };
-
-            $this->container['affilicious.product.filter.table_content'] = function () {
-                return new \Affilicious\Product\Filter\Table_Content_Filter();
-            };
-
-            $this->container['affilicious.product.filter.table_count'] = function () {
-                return new \Affilicious\Product\Filter\Table_Count_Filter();
             };
 
             $this->container['affilicious.product.filter.complex_product'] = function () {
@@ -646,18 +630,46 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Migration\Product_Slug_Migration();
             };
 
-            $this->container['affilicious.attribute.setup.admin_table'] = function() {
-                return new \Affilicious\Attribute\Setup\Admin_Table_Setup();
+            $this->container['affilicious.product.admin.filter.table_content'] = function () {
+                return new \Affilicious\Product\Admin\Filter\Table_Content_Filter();
             };
 
-            $this->container['affilicious.detail.setup.admin_table'] = function() {
-                return new \Affilicious\Detail\Setup\Admin_Table_Setup();
+            $this->container['affilicious.product.admin.filter.table_count'] = function () {
+                return new \Affilicious\Product\Admin\Filter\Table_Count_Filter();
             };
 
-            $this->container['affilicious.shop.setup.admin_table'] = function($c) {
-                return new \Affilicious\Shop\Setup\Admin_Table_Setup(
+            $this->container['affilicious.attribute.admin.filter.table_columns'] = function() {
+                return new \Affilicious\Attribute\Admin\Filter\Table_Columns_Filter();
+            };
+
+            $this->container['affilicious.attribute.admin.filter.table_rows'] = function() {
+                return new \Affilicious\Attribute\Admin\Filter\Table_Rows_Filter();
+            };
+
+            $this->container['affilicious.detail.admin.filter.table_columns'] = function() {
+                return new \Affilicious\Detail\Admin\Filter\Table_Columns_Filter();
+            };
+
+            $this->container['affilicious.detail.admin.filter.table_rows'] = function() {
+                return new \Affilicious\Detail\Admin\Filter\Table_Rows_Filter();
+            };
+
+            $this->container['affilicious.shop.admin.filter.table_columns'] = function() {
+                return new \Affilicious\Shop\Admin\Filter\Table_Columns_Filter();
+            };
+
+            $this->container['affilicious.shop.admin.filter.table_rows'] = function($c) {
+                return new \Affilicious\Shop\Admin\Filter\Table_Rows_Filter(
                     $c['affilicious.provider.repository.provider']
                 );
+            };
+
+            $this->container['affilicious.common.admin.setup.assets'] = function() {
+                return new \Affilicious\Common\Admin\Setup\Assets_Setup();
+            };
+
+            $this->container['affilicious.product.admin.filter.menu_order'] = function() {
+                return new \Affilicious\Product\Admin\Filter\Menu_Order_Filter();
             };
         }
 
@@ -711,7 +723,7 @@ if(!class_exists('Affilicious')) {
 
             // Hook the Carbon Fields
             $carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
-            add_action('after_setup_theme', array($carbon_fields_setup, 'crb_init_carbon_field_hidden'), 15);
+            add_action('after_setup_theme', array($carbon_fields_setup, 'init'), 15);
 
             // Hook the products
             $product_setup = $this->container['affilicious.product.setup.product'];
@@ -796,12 +808,12 @@ if(!class_exists('Affilicious')) {
             add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
 
             // Hook the license handler setup
-            $license_handler_setup = $this->container['affilicious.common.setup.license_handler'];
+            $license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
             add_action('aff_init', array($license_handler_setup, 'init'), 15);
 
             // Hook the link target setup
-            $linkTargetFilter = $this->container['affilicious.common.filter.link_target'];
-            add_filter('tiny_mce_before_init', array($linkTargetFilter, 'filter'));
+            $link_target_filter = $this->container['affilicious.common.filter.link_target'];
+            add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
 
             // Add a custom affilicious init hook
             add_action('init', function() {
@@ -819,41 +831,52 @@ if(!class_exists('Affilicious')) {
          */
         public function register_admin_hooks()
         {
-            // Hook the admin assets
-            $asset_setup = $this->container['affilicious.common.setup.asset'];
-            add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_styles'), 10);
-            add_action('admin_enqueue_scripts', array($asset_setup, 'add_admin_scripts'), 20);
+            // Hook the admin assets.
+            $assets_setup = $this->container['affilicious.common.admin.setup.assets'];
+            add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'), 10);
+            add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'), 20);
 
-            // Hook the feedback form
-            $feedback_setup = $this->container['affilicious.common.setup.feedback'];
-            add_action('admin_menu', array($feedback_setup, 'init'), 30);
+            // Hook the product admin table filters.
+            $product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];
+            $product_admin_table_count_filter = $this->container['affilicious.product.admin.filter.table_count'];
+            add_action('pre_get_posts', array($product_admin_table_content_filter, 'filter'));
+            add_filter("views_edit-aff_product", array($product_admin_table_count_filter, 'filter'), 10, 1);
 
-            // Hook the product table
-            $table_content_filter = $this->container['affilicious.product.filter.table_content'];
-            $table_count_filter = $this->container['affilicious.product.filter.table_count'];
-            add_action('pre_get_posts', array($table_content_filter, 'filter'));
-            add_filter("views_edit-aff_product", array($table_count_filter, 'filter'), 10, 1);
+            // Hook the attribute template admin table filters.
+            $attribute_template_admin_table_columns_filter = $this->container['affilicious.attribute.admin.filter.table_columns'];
+            $attribute_template_admin_table_rows_filter = $this->container['affilicious.attribute.admin.filter.table_rows'];
+            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_admin_table_columns_filter, 'filter'));
+            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_admin_table_rows_filter, 'filter'), 15, 3);
 
-            // Hook the attribute template
-            $attribute_template_admin_table_setup = $this->container['affilicious.attribute.setup.admin_table'];
-            add_filter('manage_edit-aff_attribute_tmpl_columns',  array($attribute_template_admin_table_setup, 'setup_columns'));
-            add_filter('manage_aff_attribute_tmpl_custom_column', array($attribute_template_admin_table_setup, 'setup_rows'), 15, 3);
+            // Hook the detail template admin table filters.
+            $detail_template_admin_table_columns_filter = $this->container['affilicious.detail.admin.filter.table_columns'];
+            $detail_template_admin_table_rows_filter = $this->container['affilicious.detail.admin.filter.table_rows'];
+            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_admin_table_columns_filter, 'filter'));
+            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_admin_table_rows_filter, 'filter'), 15, 3);
 
-            // Hook the detail template
-            $detail_template_admin_table_setup = $this->container['affilicious.detail.setup.admin_table'];
-            add_filter('manage_edit-aff_detail_tmpl_columns',  array($detail_template_admin_table_setup, 'setup_columns'));
-            add_filter('manage_aff_detail_tmpl_custom_column', array($detail_template_admin_table_setup, 'setup_rows'), 15, 3);
+            // Hook the shop template admin table filters.
+            $shop_template_admin_table_columns_filter = $this->container['affilicious.shop.admin.filter.table_columns'];
+            $shop_template_admin_table_rows_filter = $this->container['affilicious.shop.admin.filter.table_rows'];
+            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_admin_table_columns_filter, 'filter'));
+            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_admin_table_rows_filter, 'filter'), 15, 3);
 
-            // Hook the shop template
-            $shop_template_table_admin_setup = $this->container['affilicious.shop.setup.admin_table'];
-            add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_table_admin_setup, 'setup_columns'));
-            add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_table_admin_setup, 'setup_rows'), 15, 3);
+            // Hook the import page
+            $import_page = $this->container['affilicious.product.admin.page.import'];
+            add_action('admin_menu', array($import_page, 'init'), 10);
 
-            // Hook the admin footer text
-            $admin_footer_text_filter = $this->container['affilicious.common.filter.admin_footer_text'];
+            // Hook the add-ons page.
+            $addons_page = $this->container['affilicious.common.admin.page.addons'];
+            add_action('admin_menu', array($addons_page, 'init'), 100);
+
+            // Hook the menu order filter
+            $product_admin_menu_order_filter = $this->container['affilicious.product.admin.filter.menu_order'];
+            add_filter('custom_menu_order', array($product_admin_menu_order_filter, 'filter'));
+
+            // Hook the admin footer text.
+            $admin_footer_text_filter = $this->container['affilicious.common.admin.filter.footer_text'];
             add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
 
-            // Add a custom affilicious admin init hook
+            // Add a custom affilicious admin init hook.
             add_action('admin_init', function() {
                 do_action('aff_admin_init');
 

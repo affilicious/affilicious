@@ -3,7 +3,7 @@ use Affilicious\Attribute\Helper\Attribute_Helper;
 use Affilicious\Attribute\Helper\Attribute_Template_Helper;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Attribute_Template_Id;
-use Affilicious\Common\License\License_Status;
+use Affilicious\Common\Admin\License\License_Status;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
 use Affilicious\Detail\Model\Detail_Template;
@@ -1431,7 +1431,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
                     'value' => $attribute['value'],
                     'unit' => $attribute['unit'],
                     'display' => $display,
-                    'permalink' => $display == 'selected' ? null : get_permalink($variant->get_raw_post()),
+                    'permalink' => $display == 'selected' ? null : get_permalink($variant->get_post()),
                 );
             }
         }
@@ -1665,7 +1665,7 @@ function aff_the_shop_old_price($shop)
 function aff_get_license_key($item_key)
 {
     /** @var \Affilicious\Common\License\License_Manager $license_manager */
-    $license_manager = Affilicious::get('affilicious.common.license.manager');
+    $license_manager = Affilicious::get('affilicious.common.admin.license.manager');
     $license_key = $license_manager->get_item_license_key($item_key);
 
     return $license_key;

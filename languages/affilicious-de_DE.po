@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-04-28 16:00+0200\n"
+"POT-Creation-Date: 2017-05-25 20:52+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: node_modules\n"
 
-#: affilicious.php:224
+#: affilicious.php:212
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
@@ -43,14 +43,29 @@ msgid_plural "based on %s reviews"
 msgstr[0] "anhand von %s Bewertung"
 msgstr[1] "anhand von %s Bewertungen"
 
-#: functions.php:1454
+#: functions.php:1466
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: functions.php:1491
+#: functions.php:1503
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
+
+#: src/attribute/admin/filter/table-columns-filter.php:24
+#: src/attribute/setup/attribute-template-setup.php:76
+#: src/detail/admin/filter/table-columns-filter.php:24
+#: src/detail/setup/detail-template-setup.php:76
+#: src/product/setup/product-setup.php:166
+msgid "Type"
+msgstr "Typ"
+
+#: src/attribute/admin/filter/table-columns-filter.php:25
+#: src/attribute/setup/attribute-template-setup.php:82
+#: src/detail/admin/filter/table-columns-filter.php:25
+#: src/detail/setup/detail-template-setup.php:84
+msgid "Unit"
+msgstr "Einheit"
 
 #: src/attribute/model/type.php:91
 #: src/attribute/setup/attribute-template-setup.php:79
@@ -63,21 +78,6 @@ msgstr "Text"
 #: src/detail/model/type.php:142 src/detail/setup/detail-template-setup.php:80
 msgid "Number"
 msgstr "Numerisch"
-
-#: src/attribute/setup/admin-table-setup.php:28
-#: src/attribute/setup/attribute-template-setup.php:76
-#: src/detail/setup/admin-table-setup.php:28
-#: src/detail/setup/detail-template-setup.php:76
-#: src/product/setup/product-setup.php:166
-msgid "Type"
-msgstr "Typ"
-
-#: src/attribute/setup/admin-table-setup.php:29
-#: src/attribute/setup/attribute-template-setup.php:82
-#: src/detail/setup/admin-table-setup.php:29
-#: src/detail/setup/detail-template-setup.php:84
-msgid "Unit"
-msgstr "Einheit"
 
 #: src/attribute/setup/attribute-template-setup.php:25
 #: src/attribute/setup/attribute-template-setup.php:73
@@ -165,61 +165,146 @@ msgctxt "Attribute Template"
 msgid "Filter %s"
 msgstr "%s filtern"
 
-#: src/common/filter/admin-footer-text-filter.php:21
+#: src/common/admin/filter/footer-text-filter.php:21
 #, php-format
 msgid ""
 "Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 msgstr ""
-"Danke für das Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
+"Danke für dein Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 
-#: src/common/license/license-manager.php:37
+#: src/common/admin/license/license-manager.php:39
 msgid "Failed to store the license."
 msgstr "Die Speicherung der Lizenz ist fehlgeschlagen."
 
-#: src/common/license/license-manager.php:59
-#: src/common/license/license-manager.php:89
+#: src/common/admin/license/license-manager.php:61
+#: src/common/admin/license/license-manager.php:91
 msgid "Failed to find the license."
 msgstr "Die Lizenz konnte nicht gefunden werden."
 
-#: src/common/license/license-manager.php:66
+#: src/common/admin/license/license-manager.php:68
 msgid "Failed to delete the license."
 msgstr "Die Löschung der Lizenz ist fehlgeschlagen."
 
-#: src/common/license/license-status.php:38
+#: src/common/admin/license/license-status.php:39
 msgid "The action was successful."
 msgstr "Die Handlung war erfolgreich."
 
-#: src/common/license/license-status.php:54
+#: src/common/admin/license/license-status.php:55
 msgid "An error has occurred. Please try again."
 msgstr "Ein Fehler ist aufgetreten. Bitte versuche es nochmal."
 
-#: src/common/license/license-status.php:68
+#: src/common/admin/license/license-status.php:80
 msgid "The license is missing."
 msgstr "Die Lizenz ist nicht vorhanden."
 
-#: src/common/license/license-status.php:79
+#: src/common/admin/license/license-status.php:91
 msgid "The license is valid"
 msgstr "Die Lizenz ist gültig."
 
-#: src/common/license/license-status.php:90
+#: src/common/admin/license/license-status.php:102
 msgid "The license is invalid"
 msgstr "Die Lizenz ist ungültig."
 
-#: src/common/license/license-status.php:101
+#: src/common/admin/license/license-status.php:113
 msgid "Succeeded to activate the license."
 msgstr "Die Aktivierung der Lizenz war erfolgreich."
 
-#: src/common/license/license-status.php:112
+#: src/common/admin/license/license-status.php:124
 msgid "Failed to activate the license."
 msgstr "Die Aktivierung der Lizenz ist fehlgeschlagen."
 
-#: src/common/license/license-status.php:123
+#: src/common/admin/license/license-status.php:135
 msgid "Succeeded to deactivate the license."
 msgstr "Die Deaktivierung der Lizenz war erfolgreich."
 
-#: src/common/license/license-status.php:134
+#: src/common/admin/license/license-status.php:146
 msgid "Failed to deactivate the license."
 msgstr "Die Deaktivierung der Lizenz ist fehlgeschlagen."
+
+#: src/common/admin/page/addons-page.php:25
+#: src/common/admin/page/addons-page.php:26
+#: src/common/admin/view/page/addons.php:4
+#: src/common/admin/view/page/addons.php:52
+msgid "Add-ons"
+msgstr "Erweiterungen"
+
+#: src/common/admin/page/addons-page.php:77
+msgid "Extensions"
+msgstr "Erweiterungen"
+
+#: src/common/admin/setup/assets-setup.php:57
+#: src/common/setup/asset-setup.php:97 src/product/setup/product-setup.php:143
+msgid "Affilicious Product"
+msgstr "Affilicious Produkt"
+
+#: src/common/admin/setup/assets-setup.php:58
+#: src/common/setup/asset-setup.php:98 src/product/setup/product-setup.php:147
+#: src/product/setup/product-setup.php:227
+#: src/product/setup/product-setup.php:230
+msgid "Variants"
+msgstr "Varianten"
+
+#: src/common/admin/setup/assets-setup.php:59
+#: src/common/setup/asset-setup.php:99 src/product/setup/product-setup.php:148
+#: src/product/setup/product-setup.php:271
+#: src/product/setup/product-setup.php:366
+#: src/product/setup/product-setup.php:407
+#: src/shop/setup/shop-template-setup.php:44
+#: src/shop/setup/shop-template-setup.php:48
+msgid "Shops"
+msgstr "Shops"
+
+#: src/common/admin/setup/assets-setup.php:65
+#: src/common/setup/asset-setup.php:100
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: src/common/admin/view/license/licenses.php:14
+msgid "Enter license code here..."
+msgstr "Gebe hier deinen Lizenzcode ein..."
+
+#: src/common/admin/view/license/licenses.php:23
+msgid "Save"
+msgstr "Speichern"
+
+#: src/common/admin/view/page/addons.php:21
+msgid "Discover now"
+msgstr "Jetzt entdecken"
+
+#: src/common/admin/view/page/addons.php:30
+msgid "More to come soon"
+msgstr "Bald gibt es mehr"
+
+#: src/common/admin/view/page/addons.php:39
+msgid "About Affilicious Theme"
+msgstr "Über Affilicious Theme"
+
+#: src/common/admin/view/page/addons.php:42
+#, php-format
+msgid ""
+"We offer a collection of amazing affiliate plugins and themes for Wordpress. "
+"Visit our <a href=\"%s\" target=\"_blank\">official website</a> for more "
+"information."
+msgstr ""
+"Wir bieten eine Sammlung von überragenden Affiliate-Plugins und Themes für "
+"Wordpress an. Besuche unsere <a href=\"%s\" target=\"_blank\">offizielle "
+"Webseite</a> für mehr Informationen."
+
+#: src/common/admin/view/page/addons.php:47
+msgid "Resources &amp; Reference"
+msgstr "Resourcen & Referenzen"
+
+#: src/common/admin/view/page/addons.php:55
+msgid "Themes"
+msgstr "Themes"
+
+#: src/common/admin/view/page/addons.php:58
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: src/common/admin/view/page/addons.php:61
+msgid "Support"
+msgstr "Support"
 
 #: src/common/options/affilicious-options.php:44
 msgid "Custom Header Scripts"
@@ -246,12 +331,12 @@ msgstr ""
 "CSS or JS mit den entprechenden &lt;style&gt oder &lt;script&gt Tags hinzu."
 
 #: src/common/options/affilicious-options.php:52
-msgid "Scripts"
-msgstr "Skripte"
-
-#: src/common/options/affilicious-options.php:53
 msgid "License"
 msgstr "Lizenz"
+
+#: src/common/options/affilicious-options.php:53
+msgid "Scripts"
+msgstr "Skripte"
 
 #: src/common/options/affilicious-options.php:66
 #, php-format
@@ -272,106 +357,6 @@ msgstr ""
 "Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben "
 "hast. Schaue auf der offiziellen Webseite von <a href=„%s“>Affilicious "
 "Theme</a> nach, was du alles erwerben kannst."
-
-#: src/common/setup/asset-setup.php:97 src/product/setup/product-setup.php:143
-msgid "Affilicious Product"
-msgstr "Affilicious Produkt"
-
-#: src/common/setup/asset-setup.php:98 src/product/setup/product-setup.php:147
-#: src/product/setup/product-setup.php:219
-#: src/product/setup/product-setup.php:222
-msgid "Variants"
-msgstr "Varianten"
-
-#: src/common/setup/asset-setup.php:99 src/product/setup/product-setup.php:148
-#: src/product/setup/product-setup.php:263
-#: src/product/setup/product-setup.php:358
-#: src/product/setup/product-setup.php:399
-#: src/shop/setup/shop-template-setup.php:44
-#: src/shop/setup/shop-template-setup.php:48
-msgid "Shops"
-msgstr "Shops"
-
-#: src/common/setup/asset-setup.php:100
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: src/common/setup/feedback-setup.php:21
-#: src/common/setup/feedback-setup.php:22
-#: src/common/setup/feedback-setup.php:42
-msgid "Feedback"
-msgstr "Feedback"
-
-#: src/common/setup/feedback-setup.php:43
-msgid ""
-"Please fill out the fields below and click on submit. As an alternative, you "
-"can write your feedback to our german <a href=\"https://www.facebook.com/"
-"groups/1139863846078608/\">facebook community</a>"
-msgstr ""
-"Bitte fülle die Felder unten aus und klicke auf „Senden“. Als Alternative "
-"kannst du das Feedback in die deutsche <a href=\"https://www.facebook.com/"
-"groups/1139863846078608/\">Facebook Community</a> schreiben."
-
-#: src/common/setup/feedback-setup.php:51
-#: src/common/setup/feedback-setup.php:55
-#: src/common/setup/feedback-setup.php:121
-msgid "Email"
-msgstr "Email"
-
-#: src/common/setup/feedback-setup.php:60
-#: src/common/setup/feedback-setup.php:64
-#: src/product/setup/product-setup.php:249
-msgid "Name"
-msgstr "Name"
-
-#: src/common/setup/feedback-setup.php:69
-#: src/common/setup/feedback-setup.php:73
-#: src/common/setup/feedback-setup.php:123
-msgid "Subject"
-msgstr "Betreff"
-
-#: src/common/setup/feedback-setup.php:78
-#: src/common/setup/feedback-setup.php:82
-msgid "Message"
-msgstr "Nachricht"
-
-#: src/common/setup/feedback-setup.php:89
-msgid "Submit"
-msgstr "Senden"
-
-#: src/common/setup/feedback-setup.php:122
-#: src/product/options/product-options.php:22
-#: src/product/options/product-options.php:35
-msgid "Slug"
-msgstr "Titelform"
-
-#: src/common/setup/feedback-setup.php:126
-#: src/common/setup/feedback-setup.php:130
-msgid "Feedback:"
-msgstr "Feedback:"
-
-#: src/common/setup/feedback-setup.php:132
-msgid ""
-"Thanks, your feedback has been sent! We will read every single feedback."
-msgstr ""
-"Danke, dein Feedback wurde gesendet. Wir werden jedes einzelne Feedback "
-"persönlich lesen."
-
-#: src/common/setup/feedback-setup.php:137
-msgid "Failed to send the email. Please try it again"
-msgstr "Die Email wurde nicht gesendet. Bitte probiere es nochmal."
-
-#: src/common/setup/feedback-setup.php:150
-msgid "Empty fields aren't allowed. Please fill out all fields."
-msgstr "Leere Felder sind nicht erlaubt. Bitte fülle alle Felder aus."
-
-#: src/common/view/license/licenses.php:14
-msgid "Enter license code here..."
-msgstr "Gebe hier deinen Lizenzcode ein..."
-
-#: src/common/view/license/licenses.php:23
-msgid "Save"
-msgstr "Speichern"
 
 #: src/detail/model/type.php:144 src/detail/setup/detail-template-setup.php:81
 msgid "Boolean"
@@ -468,8 +453,15 @@ msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr "%s filtern"
 
+#: src/product/admin/page/import-page.php:20
+#: src/product/admin/page/import-page.php:21
+#: src/product/admin/view/page/import.php:2
+#: src/provider/options/amazon-options.php:119
+msgid "Import"
+msgstr "Importieren"
+
 #: src/product/meta-box/meta-box-manager.php:40
-#: src/product/setup/product-setup.php:262
+#: src/product/setup/product-setup.php:270
 msgid "Image Gallery"
 msgstr "Bildergallerie"
 
@@ -493,6 +485,11 @@ msgstr "Bild löschen"
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
+
+#: src/product/options/product-options.php:22
+#: src/product/options/product-options.php:35
+msgid "Slug"
+msgstr "Titelform"
 
 #: src/product/options/product-options.php:23
 msgid ""
@@ -711,20 +708,20 @@ msgid "Complex"
 msgstr "Komplex"
 
 #: src/product/setup/product-setup.php:171
-#: src/product/setup/product-setup.php:259
+#: src/product/setup/product-setup.php:267
 msgid "Tags"
 msgstr "Schlagwörter"
 
 #: src/product/setup/product-setup.php:172
-#: src/product/setup/product-setup.php:260
+#: src/product/setup/product-setup.php:268
 msgid "Custom product tags like \"test winner\" or \"best price\"."
 msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
 
-#: src/product/setup/product-setup.php:213
+#: src/product/setup/product-setup.php:220
 msgid "Enabled Attributes"
 msgstr "Aktivierte Attribute"
 
-#: src/product/setup/product-setup.php:215
+#: src/product/setup/product-setup.php:223
 #, php-format
 msgid ""
 "Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
@@ -733,24 +730,28 @@ msgstr ""
 "Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Attribut-"
 "Vorlagen</a> hinzu um sie bei den Produktvarianten anzuzeigen."
 
-#: src/product/setup/product-setup.php:223
+#: src/product/setup/product-setup.php:231
 msgid "Variant"
 msgstr "Variante"
 
-#: src/product/setup/product-setup.php:252
+#: src/product/setup/product-setup.php:257
+msgid "Name"
+msgstr "Name"
+
+#: src/product/setup/product-setup.php:260
 msgid "Default Variant"
 msgstr "Standartvariante"
 
-#: src/product/setup/product-setup.php:254
+#: src/product/setup/product-setup.php:262
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
 
-#: src/product/setup/product-setup.php:261
-#: src/shop/setup/admin-table-setup.php:42
+#: src/product/setup/product-setup.php:269
+#: src/shop/admin/filter/table-columns-filter.php:24
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/product/setup/product-setup.php:331
+#: src/product/setup/product-setup.php:339
 #, php-format
 msgid ""
 "<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
@@ -759,7 +760,7 @@ msgstr ""
 "<b>Keine Attribut-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a "
 "href=\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:373
+#: src/product/setup/product-setup.php:381
 #, php-format
 msgid ""
 "<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
@@ -768,23 +769,23 @@ msgstr ""
 "<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:400
+#: src/product/setup/product-setup.php:408
 msgid "Shop"
 msgstr "Shop"
 
-#: src/product/setup/product-setup.php:405
+#: src/product/setup/product-setup.php:413
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/product/setup/product-setup.php:408
+#: src/product/setup/product-setup.php:416
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/product/setup/product-setup.php:410
+#: src/product/setup/product-setup.php:418
 msgid "Affiliate ID"
 msgstr "Affiliate ID"
 
-#: src/product/setup/product-setup.php:411
+#: src/product/setup/product-setup.php:419
 msgid ""
 "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
 "automatic shop update."
@@ -792,47 +793,47 @@ msgstr ""
 "Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
 "automatische Shop Aktualisierung."
 
-#: src/product/setup/product-setup.php:412
+#: src/product/setup/product-setup.php:420
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
-#: src/product/setup/product-setup.php:415
+#: src/product/setup/product-setup.php:423
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/product/setup/product-setup.php:416
+#: src/product/setup/product-setup.php:424
 msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/setup/product-setup.php:418
+#: src/product/setup/product-setup.php:426
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/setup/product-setup.php:420
+#: src/product/setup/product-setup.php:428
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/setup/product-setup.php:422
+#: src/product/setup/product-setup.php:430
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/setup/product-setup.php:425 src/shop/model/currency.php:68
+#: src/product/setup/product-setup.php:433 src/shop/model/currency.php:68
 msgid "Euro"
 msgstr "Euro"
 
-#: src/product/setup/product-setup.php:426 src/shop/model/currency.php:69
+#: src/product/setup/product-setup.php:434 src/shop/model/currency.php:69
 msgid "US-Dollar"
 msgstr "US-Dollar"
 
-#: src/product/setup/product-setup.php:428
+#: src/product/setup/product-setup.php:436
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/setup/product-setup.php:456
+#: src/product/setup/product-setup.php:471
 msgid "Enabled Details"
 msgstr "Aktivierte Details"
 
-#: src/product/setup/product-setup.php:459
+#: src/product/setup/product-setup.php:475
 #, php-format
 msgid ""
 "Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
@@ -841,15 +842,15 @@ msgstr ""
 "Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Detail-Vorlagen</"
 "a> hinzu um sie bei den Produkten anzuzeigen."
 
-#: src/product/setup/product-setup.php:502
+#: src/product/setup/product-setup.php:518
 msgid "Yes"
 msgstr "Ja"
 
-#: src/product/setup/product-setup.php:503
+#: src/product/setup/product-setup.php:519
 msgid "No"
 msgstr "Nein"
 
-#: src/product/setup/product-setup.php:520
+#: src/product/setup/product-setup.php:536
 #, php-format
 msgid ""
 "<b>No detail templates available!</b> Please create one <a href=\"%s\" "
@@ -858,158 +859,54 @@ msgstr ""
 "<b>Keine Detail Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/setup/product-setup.php:539
+#: src/product/setup/product-setup.php:555
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/product/setup/product-setup.php:541
+#: src/product/setup/product-setup.php:557
 #: src/shop/setup/shop-template-setup.php:112
 msgid "None"
 msgstr "Keine"
 
-#: src/product/setup/product-setup.php:542
-#: src/product/setup/product-setup.php:543
-#: src/product/setup/product-setup.php:545
-#: src/product/setup/product-setup.php:546
-#: src/product/setup/product-setup.php:547
-#: src/product/setup/product-setup.php:548
-#: src/product/setup/product-setup.php:549
-#: src/product/setup/product-setup.php:550
-#: src/product/setup/product-setup.php:551
-#: src/product/setup/product-setup.php:552
+#: src/product/setup/product-setup.php:558
+#: src/product/setup/product-setup.php:559
+#: src/product/setup/product-setup.php:561
+#: src/product/setup/product-setup.php:562
+#: src/product/setup/product-setup.php:563
+#: src/product/setup/product-setup.php:564
+#: src/product/setup/product-setup.php:565
+#: src/product/setup/product-setup.php:566
+#: src/product/setup/product-setup.php:567
+#: src/product/setup/product-setup.php:568
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/product/setup/product-setup.php:544
+#: src/product/setup/product-setup.php:560
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/product/setup/product-setup.php:554
+#: src/product/setup/product-setup.php:570
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/product/setup/product-setup.php:555
+#: src/product/setup/product-setup.php:571
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/product/setup/product-setup.php:578
+#: src/product/setup/product-setup.php:594
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/product/setup/product-setup.php:581
+#: src/product/setup/product-setup.php:597
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/provider/options/amazon-options.php:50
-msgid "Access Key"
-msgstr "Access Key"
-
-#: src/provider/options/amazon-options.php:52
-msgid "The access key is used to identify you as an API user."
-msgstr "Der Access Key identifiziert dich als einen API Benutzer."
-
-#: src/provider/options/amazon-options.php:53
-msgid "Secret Key"
-msgstr "Secret Key"
-
-#: src/provider/options/amazon-options.php:55
-msgid "The secret key is used like a password to sign your API requests."
-msgstr ""
-"Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
-"authentifizieren."
-
-#: src/provider/options/amazon-options.php:56
-msgid "Country"
-msgstr "Land"
-
-#: src/provider/options/amazon-options.php:58
-msgid "Germany"
-msgstr "Deutschland"
-
-#: src/provider/options/amazon-options.php:59
-msgid "America"
-msgstr "Amerika"
-
-#: src/provider/options/amazon-options.php:73
-msgid "The country has to match the locale of your Amazon account. "
-msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen."
-
-#: src/provider/options/amazon-options.php:74
-msgid "Associate Tag"
-msgstr "Associate Tag"
-
-#: src/provider/options/amazon-options.php:76
-msgid "Amazon uses this ID to credit an associate for a sale."
-msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
-
-#: src/provider/options/amazon-options.php:80
-msgid "Price Update Interval"
-msgstr "Preis Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:82
-#: src/provider/options/amazon-options.php:91
-#: src/provider/options/amazon-options.php:100
-msgid "Hourly"
-msgstr "Stündlich"
-
-#: src/provider/options/amazon-options.php:83
-#: src/provider/options/amazon-options.php:92
-#: src/provider/options/amazon-options.php:101
-msgid "Twice Daily"
-msgstr "2x Täglich"
-
-#: src/provider/options/amazon-options.php:84
-#: src/provider/options/amazon-options.php:93
-#: src/provider/options/amazon-options.php:102
-msgid "Daily"
-msgstr "Täglich"
-
-#: src/provider/options/amazon-options.php:85
-#: src/provider/options/amazon-options.php:94
-#: src/provider/options/amazon-options.php:103
-msgid "No Updates"
-msgstr "Keine Aktualisierungen"
-
-#: src/provider/options/amazon-options.php:87
-msgid "The automatic update interval for the prices in the shops."
-msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
-
-#: src/provider/options/amazon-options.php:89
-msgid "Old Price Update Interval"
-msgstr "Alter Preis Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:96
-msgid "The automatic update interval for the old prices in the shops."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
-
-#: src/provider/options/amazon-options.php:98
-msgid "Availability Update Interval"
-msgstr "Verfügbarkeits Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:105
-msgid "The automatic update interval for the availability in the shops."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
-"Produkten."
-
-#: src/provider/options/amazon-options.php:109
-msgid "Amazon"
-msgstr "Amazon"
-
-#: src/provider/options/amazon-options.php:111
-msgid "Credentials"
-msgstr "Zugangsdaten"
-
-#: src/provider/options/amazon-options.php:112
-msgid "Updates"
-msgstr "Aktualisierungen"
-
-#: src/provider/options/amazon-options.php:130
+#: src/provider/options/amazon-options.php:51
+#: src/provider/options/amazon-options.php:139
 msgid ""
 "<b>The credentials are valid!</b> A connection to the Amazon Product "
 "Advertising API was successfully established."
@@ -1017,7 +914,112 @@ msgstr ""
 "<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
 "Advertising API wurde erfolgreich aufgebaut."
 
-#: src/provider/options/amazon-options.php:134
+#: src/provider/options/amazon-options.php:58
+msgid "Access Key"
+msgstr "Access Key"
+
+#: src/provider/options/amazon-options.php:60
+msgid "The access key is used to identify you as an API user."
+msgstr "Der Access Key identifiziert dich als einen API Benutzer."
+
+#: src/provider/options/amazon-options.php:61
+msgid "Secret Key"
+msgstr "Secret Key"
+
+#: src/provider/options/amazon-options.php:63
+msgid "The secret key is used like a password to sign your API requests."
+msgstr ""
+"Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
+"authentifizieren."
+
+#: src/provider/options/amazon-options.php:64
+msgid "Country"
+msgstr "Land"
+
+#: src/provider/options/amazon-options.php:66
+msgid "Germany"
+msgstr "Deutschland"
+
+#: src/provider/options/amazon-options.php:67
+msgid "America"
+msgstr "Amerika"
+
+#: src/provider/options/amazon-options.php:81
+msgid "The country has to match the locale of your Amazon account. "
+msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen."
+
+#: src/provider/options/amazon-options.php:82
+msgid "Associate Tag"
+msgstr "Associate Tag"
+
+#: src/provider/options/amazon-options.php:84
+msgid "Amazon uses this ID to credit an associate for a sale."
+msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
+
+#: src/provider/options/amazon-options.php:88
+msgid "Price Update Interval"
+msgstr "Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:90
+#: src/provider/options/amazon-options.php:99
+#: src/provider/options/amazon-options.php:108
+msgid "Hourly"
+msgstr "Stündlich"
+
+#: src/provider/options/amazon-options.php:91
+#: src/provider/options/amazon-options.php:100
+#: src/provider/options/amazon-options.php:109
+msgid "Twice Daily"
+msgstr "2x Täglich"
+
+#: src/provider/options/amazon-options.php:92
+#: src/provider/options/amazon-options.php:101
+#: src/provider/options/amazon-options.php:110
+msgid "Daily"
+msgstr "Täglich"
+
+#: src/provider/options/amazon-options.php:93
+#: src/provider/options/amazon-options.php:102
+#: src/provider/options/amazon-options.php:111
+msgid "No Updates"
+msgstr "Keine Aktualisierungen"
+
+#: src/provider/options/amazon-options.php:95
+msgid "The automatic update interval for the prices in the shops."
+msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
+
+#: src/provider/options/amazon-options.php:97
+msgid "Old Price Update Interval"
+msgstr "Alter Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:104
+msgid "The automatic update interval for the old prices in the shops."
+msgstr ""
+"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
+
+#: src/provider/options/amazon-options.php:106
+msgid "Availability Update Interval"
+msgstr "Verfügbarkeits Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:113
+msgid "The automatic update interval for the availability in the shops."
+msgstr ""
+"Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
+"Produkten."
+
+#: src/provider/options/amazon-options.php:117
+msgid "Amazon"
+msgstr "Amazon"
+
+#: src/provider/options/amazon-options.php:120
+msgid "Credentials"
+msgstr "Zugangsdaten"
+
+#: src/provider/options/amazon-options.php:121
+msgid "Updates"
+msgstr "Aktualisierungen"
+
+#: src/provider/options/amazon-options.php:143
 msgid ""
 "<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
 "Advertising API."
@@ -1025,7 +1027,7 @@ msgstr ""
 "<b>Die Zugangsdaten sind ungültig!</b> Leider konnte keine Verbindung zur "
 "Amazon Product Advertising API aufgebaut werden."
 
-#: src/shop/setup/admin-table-setup.php:43
+#: src/shop/admin/filter/table-columns-filter.php:25
 #: src/shop/setup/shop-template-setup.php:90
 msgid "Provider"
 msgstr "Provider"
@@ -1126,6 +1128,45 @@ msgstr "Logo"
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#~ msgid "Feedback"
+#~ msgstr "Feedback"
+
+#~ msgid ""
+#~ "Please fill out the fields below and click on submit. As an alternative, "
+#~ "you can write your feedback to our german <a href=\"https://www.facebook."
+#~ "com/groups/1139863846078608/\">facebook community</a>"
+#~ msgstr ""
+#~ "Bitte fülle die Felder unten aus und klicke auf „Senden“. Als Alternative "
+#~ "kannst du das Feedback in die deutsche <a href=\"https://www.facebook.com/"
+#~ "groups/1139863846078608/\">Facebook Community</a> schreiben."
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Subject"
+#~ msgstr "Betreff"
+
+#~ msgid "Message"
+#~ msgstr "Nachricht"
+
+#~ msgid "Submit"
+#~ msgstr "Senden"
+
+#~ msgid "Feedback:"
+#~ msgstr "Feedback:"
+
+#~ msgid ""
+#~ "Thanks, your feedback has been sent! We will read every single feedback."
+#~ msgstr ""
+#~ "Danke, dein Feedback wurde gesendet. Wir werden jedes einzelne Feedback "
+#~ "persönlich lesen."
+
+#~ msgid "Failed to send the email. Please try it again"
+#~ msgstr "Die Email wurde nicht gesendet. Bitte probiere es nochmal."
+
+#~ msgid "Empty fields aren't allowed. Please fill out all fields."
+#~ msgstr "Leere Felder sind nicht erlaubt. Bitte fülle alle Felder aus."
 
 #~ msgid ""
 #~ "There is a new version of %1$s available. %2$sView version %3$s details"

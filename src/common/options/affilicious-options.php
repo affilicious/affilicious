@@ -2,8 +2,8 @@
 namespace Affilicious\Common\Options;
 
 use Affilicious\Common\Helper\View_Helper;
-use Affilicious\Common\License\License_Manager;
-use Affilicious\Common\License\License_Processor;
+use Affilicious\Common\Admin\License\License_Manager;
+use Affilicious\Common\Admin\License\License_Processor;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -48,9 +48,9 @@ class Affilicious_Options
 		));
 
 		$container = Carbon_Container::make('theme_options', 'Affilicious')
-	       ->set_icon('dashicons-admin-generic')
-	       ->add_tab(__('Scripts', 'affilicious'), $scripts_tab)
-	       ->add_tab(__('License', 'affilicious'), $this->get_license_tab());
+	        ->set_icon('dashicons-admin-generic')
+            ->add_tab(__('License', 'affilicious'), $this->get_license_tab())
+	        ->add_tab(__('Scripts', 'affilicious'), $scripts_tab);
 
 		apply_filters('affilicious_options_affilicious_container', $container);
         do_action('affilicious_options_affilicious_after_render');
@@ -67,8 +67,8 @@ class Affilicious_Options
             : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicioustheme.de');
 
         $fields = array(
-            Carbon_Field::make('html', 'crb_information_text')
-                ->set_html(View_Helper::stringify('src/common/view/license/licenses.php', array(
+            Carbon_Field::make('html', 'affilicious_options_affilicious_container_license_tab_licences_field')
+                ->set_html(View_Helper::stringify(\Affilicious::get_root_path() . 'src/common/admin/view/license/licenses.php', array(
                     'license_manager' => $this->license_manager,
                     'license_processor' => $this->license_processor,
                 )))

@@ -59,7 +59,7 @@ class Shop_Template_Setup
             'filter_items_list'     => sprintf(_x('Filter %s', 'Shop Template', 'affilicious'), $plural),
         );
 
-        register_taxonomy(Shop_Template::TAXONOMY,  Product::POST_TYPE, array(
+        register_taxonomy(Shop_Template::TAXONOMY, Product::POST_TYPE, array(
             'hierarchical'      => false,
             'public'            => false,
             'labels'            => $labels,
