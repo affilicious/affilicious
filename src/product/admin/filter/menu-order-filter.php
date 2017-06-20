@@ -13,7 +13,8 @@ class Menu_Order_Filter
      * @param $menu_order
      * @return mixed
      */
-    function filter($menu_order) {
+    function filter($menu_order)
+    {
         global $submenu;
 
         if(!isset($submenu['edit.php?post_type=aff_product'])) {
@@ -27,7 +28,7 @@ class Menu_Order_Filter
                 unset($pages[$index]);
 
                 // Insert page after the second one
-                $pages = array_slice($pages, 0, 2, true) + [$page] + array_slice($pages, 3, count($pages) - 3, true);
+                $pages = array_slice($pages, 0, 2, true) + [$page] + array_slice($pages, 2, count($pages) - 2, true);
 
                 $submenu['edit.php?post_type=aff_product'] = $pages;
 
