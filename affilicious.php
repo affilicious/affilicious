@@ -676,6 +676,11 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Importer\Amazon_Importer(
                     $c['affilicious.provider.repository.provider'],
                     $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.shop.factory.shop_template'],
+                    $c['affilicious.attribute.repository.attribute_template'],
+                    $c['affilicious.attribute.factory.attribute_template'],
+                    $c['affilicious.detail.repository.detail_template'],
+                    $c['affilicious.detail.factory.detail_template'],
                     $c['affilicious.common.generator.slug']
                 );
             };
@@ -891,14 +896,6 @@ if(!class_exists('Affilicious')) {
                 /** @deprecated 1.0 */
                 do_action('affilicious_admin_init');
             }, 10);
-
-
-            add_action('admin_init', function() {
-                $amazon_importer = $this->container['affilicious.product.importer.amazon'];
-                $result = $amazon_importer->import(new \Affilicious\Shop\Model\Affiliate_Product_Id('178355181X'));
-                $id = 3;
-            }, 10);
-
         }
     }
 }

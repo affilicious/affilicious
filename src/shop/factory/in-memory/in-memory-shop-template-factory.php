@@ -5,6 +5,7 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
+use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 
 if (!defined('ABSPATH')) {
@@ -46,6 +47,17 @@ class In_Memory_Shop_Template_Factory implements Shop_Template_Factory_Interface
     {
         $slug = $this->slug_generator->generate_from_name($name);
         $shop_template = $this->create($name, $slug);
+
+        return $shop_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9
+     */
+    public function create_from_shop(Shop $shop)
+    {
+        $shop_template = $this->create($shop->get_name(), $shop->get_slug());
 
         return $shop_template;
     }

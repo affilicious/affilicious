@@ -2,6 +2,7 @@
 namespace Affilicious\Attribute\Factory\In_Memory;
 
 use Affilicious\Attribute\Factory\Attribute_Template_Factory_Interface;
+use Affilicious\Attribute\Model\Attribute;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Model\Unit;
@@ -57,6 +58,22 @@ class In_Memory_Attribute_Template_Factory implements Attribute_Template_Factory
             $this->slug_generator->generate_from_name($name),
             $type,
             $unit
+        );
+
+        return $attribute_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9
+     */
+    public function create_from_attribute(Attribute $attribute)
+    {
+        $attribute_template = $this->create(
+            $attribute->get_name(),
+            $attribute->get_slug(),
+            $attribute->get_type(),
+            $attribute->get_unit()
         );
 
         return $attribute_template;

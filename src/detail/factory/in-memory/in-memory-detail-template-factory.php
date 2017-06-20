@@ -2,6 +2,7 @@
 namespace Affilicious\Detail\Factory\In_Memory;
 
 use Affilicious\Detail\Factory\Detail_Template_Factory_Interface;
+use Affilicious\Detail\Model\Detail;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Model\Type;
 use Affilicious\Detail\Model\Unit;
@@ -57,6 +58,22 @@ class In_Memory_Detail_Template_Factory implements Detail_Template_Factory_Inter
             $this->slug_generator->generate_from_name($name),
             $type,
             $unit
+        );
+
+        return $detail_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9
+     */
+    public function create_from_detail(Detail $detail)
+    {
+        $detail_template = $this->create(
+            $detail->get_name(),
+            $detail->get_slug(),
+            $detail->get_type(),
+            $detail->get_unit()
         );
 
         return $detail_template;

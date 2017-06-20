@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Attribute\Factory;
 
+use Affilicious\Attribute\Model\Attribute;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Model\Unit;
@@ -36,4 +37,13 @@ interface Attribute_Template_Factory_Interface
      * @return Attribute_Template
      */
     public function create_from_name(Name $name, Type $type, Unit $unit = null);
+
+    /**
+     * Create a new attribute template by the attribute.
+     *
+     * @since 0.9
+     * @param Attribute $attribute
+     * @return Attribute_Template
+     */
+    public function create_from_attribute(Attribute $attribute);
 }
