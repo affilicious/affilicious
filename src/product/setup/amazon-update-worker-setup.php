@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Setup;
 
-use Affilicious\Product\Update\Worker\Amazon\Amazon_Update_Worker;
+use Affilicious\Product\Update\Worker\Amazon_Update_Worker;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;

@@ -42,4 +42,19 @@ class Image_Helper
 
         return null;
     }
+
+    /**
+     * Delete the image by the ID.
+     *
+     * @since 0.9
+     * @param Image_Id $id The ID of the image you would like to delete.
+     * @param bool $force_delete Whether to bypass trash and force deletion. Default: false
+     * @return bool Returns true if deletion has succeeded.
+     */
+    public static function delete(Image_Id $id, $force_delete = false)
+    {
+        $result = wp_delete_attachment($id->get_value(), $force_delete);
+
+        return !(false === $result);
+    }
 }

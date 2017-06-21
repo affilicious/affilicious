@@ -37,6 +37,10 @@ class Deleted_Complex_Product_Listener
     {
         global $post;
 
+        if(empty($post)) {
+            return;
+        }
+
         $revision = get_post($post_id);
         if(empty($revision) || $revision->post_type != 'revision' || $revision->post_parent != $post->ID) {
             return;

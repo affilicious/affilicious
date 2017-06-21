@@ -53,6 +53,14 @@ interface Shop_Aware_Interface
     public function get_cheapest_shop();
 
     /**
+     * Check if the product has any shops.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_shops();
+
+    /**
      * Get all product shops.
      *
      * @since 0.8

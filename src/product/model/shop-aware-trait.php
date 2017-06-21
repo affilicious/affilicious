@@ -95,6 +95,17 @@ trait Shop_Aware_Trait
     }
 
     /**
+     * Check if the product has any shops.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_shops()
+    {
+        return !empty($this->shops);
+    }
+
+    /**
      * Get all product shops.
      *
      * @since 0.8
