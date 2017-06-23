@@ -7,8 +7,9 @@ use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration;
-use Affilicious\Product\Update\Task\Batch_Update_Task_Interface;
+use Affilicious\Product\Update\Task\Batch_Update_Task;
 use Affilicious\Product\Update\Update_Timer;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Options\Amazon_Options;
@@ -33,30 +34,35 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 {
     const NAME = 'amazon';
     const PROVIDER = 'amazon';
-    const UPDATE_INTERVAL = 'hourly';
-    const MIN_UPDATES = 1;
     const MAX_UPDATES = 10;
+
+    /**
+     * @var Product_Repository_Interface
+     */
+    protected $product_repository;
 
     /**
      * @var Shop_Template_Repository_Interface
      */
-    private $shop_template_repository;
+    protected $shop_template_repository;
 
     /**
      * @var Provider_Repository_Interface
      */
-    private $provider_repository;
+    protected $provider_repository;
 
     /**
      * @since 0.8
+     * @param Product_Repository_Interface $product_repository
      * @param Shop_Template_Repository_Interface $shop_template_repository
      * @param Provider_Repository_Interface $provider_repository
      */
     public function __construct(
+        Product_Repository_Interface $product_repository,
         Shop_Template_Repository_Interface $shop_template_repository,
         Provider_Repository_Interface $provider_repository
-    )
-    {
+    ) {
+        $this->product_repository = $product_repository;
         $this->shop_template_repository = $shop_template_repository;
         $this->provider_repository = $provider_repository;
     }
@@ -74,50 +80,57 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * @inheritdoc
      * @since 0.7
      */
-    public function configure()
+    public function configure(Configuration $configuration)
     {
-        $config = new Configuration(array(
+        $configuration->set_all([
             'provider' => self::PROVIDER,
-            'update_interval' => self::UPDATE_INTERVAL,
-            'min_tasks' => self::MIN_UPDATES,
-            'max_tasks' => self::MAX_UPDATES,
-        ));
-
-        return $config;
+            'max_updates' => self::MAX_UPDATES,
+        ]);
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function execute(Batch_Update_Task_Interface $batch_update_task, $update_interval)
+    public function execute(Batch_Update_Task $batch_update_task, $update_interval)
     {
+        // Get the provider containing the credentials.
         $provider = $batch_update_task->get_provider();
         if(!($provider instanceof Amazon_Provider)) {
             return;
         }
 
+        // Get all products for the update.
         $products = $batch_update_task->get_products();
         if(empty($products)) {
             return;
         }
 
+        // Get the concrete affiliate IDs of the products for the Amazon item lookup
         $affiliate_ids = $this->extract_affiliate_product_ids($products, self::MAX_UPDATES);
         if(empty($affiliate_ids)) {
             return;
         }
 
+        // Make an Amazon API lookup request based on the affiliate IDs.
         $response = $this->item_lookups($provider, $affiliate_ids);
         if(empty($response)) {
             return;
         }
 
+        // Map the Amazon API response to objects used internally by Affilicious.
         $results = $this->map_response_to_results($response);
         if(empty($results)) {
             return;
         }
 
+        // Apply the updated information's to the products.
         $this->apply_results_to_products($update_interval, $results, $products);
+
+        // Store all updated products.
+        foreach ($products as $product) {
+            $this->product_repository->store($product);
+        }
     }
 
     /**

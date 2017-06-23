@@ -1,8 +1,6 @@
 <?php
 namespace Affilicious\Product\Update;
 
-use Affilicious\Product\Update\Manager\Update_Manager_Interface;
-
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
@@ -14,47 +12,47 @@ final class Update_Timer
     const DAILY = 'daily';
 
     /**
-     * @var Update_Manager_Interface
+     * @var Update_Manager
      */
     private $update_manager;
 
     /**
      * @since 0.7
-     * @param Update_Manager_Interface $update_manager
+     * @param Update_Manager $update_manager The update manager creates and runs all tasks.
      */
-    public function __construct(Update_Manager_Interface $update_manager)
+    public function __construct(Update_Manager $update_manager)
     {
         $this->update_manager = $update_manager;
     }
 
     /**
-     * Activate all scheduled events for the workers.
+     * Activate all scheduled events for the update workers.
      *
      * @since 0.7
      */
     public function activate()
     {
-        $this->add_scheduled_action('affilicious_product_update_run_tasks_hourly', 'hourly');
-        $this->add_scheduled_action('affilicious_product_update_run_tasks_twice_daily', 'twicedaily');
-        $this->add_scheduled_action('affilicious_product_update_run_tasks_daily', 'daily');
+        $this->add_scheduled_action('aff_product_update_run_tasks_hourly', 'hourly');
+        $this->add_scheduled_action('aff_product_update_run_tasks_twice_daily', 'twicedaily');
+        $this->add_scheduled_action('aff_product_update_run_tasks_daily', 'daily');
     }
 
     /**
-     * Deactivate all existing scheduled events from the workers.
+     * Deactivate all existing scheduled events from the update workers.
      *
      * @since 0.7
      */
     public function deactivate()
     {
-        $this->remove_scheduled_action('affilicious_product_update_run_tasks_hourly');
-        $this->remove_scheduled_action('affilicious_product_update_run_tasks_twice_daily');
-        $this->remove_scheduled_action('affilicious_product_update_run_tasks_daily');
+        $this->remove_scheduled_action('aff_product_update_run_tasks_hourly');
+        $this->remove_scheduled_action('aff_product_update_run_tasks_twice_daily');
+        $this->remove_scheduled_action('aff_product_update_run_tasks_daily');
     }
 
     /**
-     * Run the worker tasks hourly as cron jobs.
+     * Run the update worker tasks hourly as cron jobs.
      *
-     * @hook affilicious_product_update_run_tasks_hourly
+     * @hook aff_product_update_run_tasks_hourly
      * @since 0.7
      */
     public function run_tasks_hourly()
@@ -65,7 +63,7 @@ final class Update_Timer
     /**
      * Run then worker tasks twice a day as cron jobs.
      *
-     * @hook affilicious_product_update_run_tasks_twice_daily
+     * @hook aff_product_update_run_tasks_twice_daily
      * @since 0.7
      */
     public function run_tasks_twice_daily()
@@ -74,9 +72,9 @@ final class Update_Timer
     }
 
     /**
-     * Run the worker tasks daily as a cron job.
+     * Run the update worker tasks daily as a cron job.
      *
-     * @hook affilicious_product_update_run_tasks_daily
+     * @hook aff_product_update_run_tasks_daily
      * @since 0.7
      */
     public function run_tasks_daily()
@@ -85,30 +83,16 @@ final class Update_Timer
     }
 
     /**
-     * Add a new scheduled action.
+     * Add a new scheduled cron job action.
      *
      * @since 0.7
-     * @param string $hook
-     * @param string $recurrence
+     * @param string $hook The name of the hook for the cron job.
+     * @param string $recurrence How often the cron job should reoccur like "hourly", "twicedaily" or "daily".
      */
-    protected function add_scheduled_action($hook, $recurrence)
+    private function add_scheduled_action($hook, $recurrence)
     {
-        $recurrences = array(
-            self::HOURLY,
-            self::TWICE_DAILY,
-            self::DAILY
-        );
-
         if($recurrence == 'twice_daily') {
             $recurrence = self::TWICE_DAILY;
-        }
-
-        if(!in_array($recurrence, $recurrences)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid recurrence "%s" for the update timer. Please choose from "%s"',
-                $recurrence,
-                implode(', ', $recurrences)
-            ));
         }
 
         if (!wp_next_scheduled($hook)) {
@@ -117,12 +101,12 @@ final class Update_Timer
     }
 
     /**
-     * Remove an existing scheduled action.
+     * Remove an existing scheduled cron job action.
      *
      * @since 0.7
      * @param string $hook
      */
-    protected function remove_scheduled_action($hook)
+    private function remove_scheduled_action($hook)
     {
         wp_clear_scheduled_hook($hook);
     }

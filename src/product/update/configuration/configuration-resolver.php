@@ -2,58 +2,60 @@
 namespace Affilicious\Product\Update\Configuration;
 
 use Affilicious\Product\Update\Queue\Update_Queue_Interface;
+use Affilicious\Product\Update\Task\Batch_Update_Task;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Configuration_Resolver implements Configuration_Resolver_Interface
+final class Configuration_Resolver
 {
     /**
-     * @var Configuration_Context_Interface
+     * Resolve the configuration for the current context.
+     *
+     * @since 0.9
+     * @param Configuration $configuration
+     * @param Configuration_Context $configuration_context
+     * @return null|Batch_Update_Task|\WP_Error
      */
-    protected $context;
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function __construct(Configuration_Context_Interface $context)
+    public function resolve(Configuration $configuration, Configuration_Context $configuration_context)
     {
-        $this->context = $context;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.7
-     */
-    public function resolve(Configuration_Interface $configuration, Update_Queue_Interface $queue)
-    {
-        $this->validate_configuration($configuration);
-
-        $resolved =
-            $this->resolve_update_interval($configuration, $queue) &&
-            $this->resolve_min_tasks($configuration, $queue);
-
-        if(!$resolved) {
-            return array();
+        $is_valid = $configuration->validate();
+        if($is_valid instanceof \WP_Error) {
+            return $is_valid;
         }
 
-        $max_tasks = $configuration->get(Configuration_Interface::MAX_TASKS);
-        $update_tasks = $queue->get($max_tasks);
+        $is_valid = $configuration_context->validate();
+        if($is_valid instanceof \WP_Error) {
+            return $is_valid;
+        }
 
-        return $update_tasks;
+        $resolved =
+            $this->resolve_update_interval($configuration, $configuration_context) &&
+            $this->resolve_min_tasks($configuration, $configuration_context);
+
+        if(!$resolved) {
+            return null;
+        }
+
+        /** @var Update_Queue_Interface $queue */
+        $queue = $configuration_context->get(Configuration_Context::QUEUE);
+        $max_tasks = $configuration->get(Configuration::MAX_TASKS);
+        $batch_update_tasks = $queue->get_batched($max_tasks);
+
+        return $batch_update_tasks;
     }
 
     /**
      * @since 0.7
-     * @param Configuration_Interface $configuration
-     * @param Update_Queue_Interface $queue
+     * @param Configuration $configuration
+     * @param Configuration_Context $configuration_context
      * @return bool
      */
-    protected function resolve_update_interval(Configuration_Interface $configuration, Update_Queue_Interface $queue)
+    private function resolve_update_interval(Configuration $configuration, Configuration_Context $configuration_context)
     {
-        $context_update_interval = $this->context->get('update_interval');
+
+        $context_update_interval = $configuration_context->get('update_interval');
         $update_interval = $configuration->get('update_interval');
 
         $resolved = false;
@@ -76,46 +78,18 @@ class Configuration_Resolver implements Configuration_Resolver_Interface
 
     /**
      * @since 0.7
-     * @param Configuration_Interface $configuration
-     * @param Update_Queue_Interface $queue
+     * @param Configuration $configuration
+     * @param Configuration_Context $configuration_context
      * @return bool
      */
-    protected function resolve_min_tasks(Configuration_Interface $configuration, Update_Queue_Interface $queue)
+    private function resolve_min_tasks(Configuration $configuration, Configuration_Context $configuration_context)
     {
-        $min_tasks = $configuration->get(Configuration_Interface::MIN_TASKS);
+        /** @var Update_Queue_Interface $queue */
+        $queue = $configuration_context->get('queue');
+
+        $min_tasks = $configuration->get(Configuration::MIN_TASKS);
         $resolved = $queue->get_size() >= $min_tasks;
 
         return $resolved;
-    }
-
-    /**
-     * Validate the configuration.
-     *
-     * @since 0.7
-     * @param Configuration_Interface $configuration
-     * @throw \InvalidArgumentException
-     */
-    protected function validate_configuration(Configuration_Interface $configuration)
-    {
-        if(!$configuration->has(Configuration_Interface::UPDATE_INTERVAL)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid configuration. The key %s is missing.',
-                Configuration_Interface::UPDATE_INTERVAL
-            ));
-        }
-
-        if(!$configuration->has(Configuration_Interface::MIN_TASKS)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid configuration. The key %s is missing.',
-                Configuration_Interface::MIN_TASKS
-            ));
-        }
-
-        if(!$configuration->has(Configuration_Interface::MAX_TASKS)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid configuration. The key %s is missing.',
-                Configuration_Interface::MAX_TASKS
-            ));
-        }
     }
 }

@@ -29,14 +29,13 @@ class Provider_Setup
      */
     public function init()
     {
-        do_action('affilicious_provider_setup_before_init');
+        do_action('aff_provider_before_init');
 
-        $providers = apply_filters('affilicious_provider_setup_init', array());
-
+        $providers = apply_filters('aff_provider_init', []);
         foreach ($providers as $provider) {
             $this->provider_repository->store($provider);
         }
 
-        do_action('affilicious_provider_setup_after_init', $providers);
+        do_action('aff_provider_after_init', $providers);
     }
 }

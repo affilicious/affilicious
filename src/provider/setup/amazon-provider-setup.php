@@ -31,7 +31,7 @@ class Amazon_Provider_Setup
     /**
      * Init the Amazon provider.
      *
-     * @hook affilicious_provider_setup_init
+     * @filter aff_provider_init
      * @since 0.8
      * @param Provider[] $providers
      * @return Provider[]

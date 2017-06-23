@@ -5,20 +5,30 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Configuration implements Configuration_Interface
+final class Configuration
 {
+    const PROVIDER = 'provider';
+    const UPDATE_INTERVAL = 'update_interval';
+    const MIN_TASKS = 'min_tasks';
+    const MAX_TASKS = 'max_tasks';
+    const DEFAULT_UPDATE_INTERVAL = 'hourly';
+    const DEFAULT_MIN_TASKS = 1;
+    const DEFAULT_MAX_TASKS = 10;
+
     /**
      * @var array
      */
-    protected $config;
+    private $values;
 
     /**
-     * @inheritdoc
+     * Create a new configuration with default values.
+     *
      * @since 0.7
+     * @param array $defaults The default configuration values with all keys. Default: empty.
      */
     public function __construct(array $defaults = array())
     {
-        $this->config = wp_parse_args($defaults, array(
+        $this->values = wp_parse_args($defaults, array(
             self::UPDATE_INTERVAL => self::DEFAULT_UPDATE_INTERVAL,
             self::MIN_TASKS => self::DEFAULT_MIN_TASKS,
             self::MAX_TASKS => self::DEFAULT_MAX_TASKS,
@@ -26,55 +36,121 @@ class Configuration implements Configuration_Interface
     }
 
     /**
-     * @inheritdoc
+     * Check by the key if the configuration value does exist.
+     *
      * @since 0.7
+     * @param string $key The configuration key used for the related value.
+     * @return bool Whether a configuration value for the key is existing or not.
      */
     public function has($key)
     {
-        return isset($this->config[$key]);
+        return isset($this->values[$key]);
     }
 
     /**
-     * @inheritdoc
+     * Set a new configuration value for the key.
+     *
      * @since 0.7
+     * @param string $key The configuration key used for the related value.
+     * @param mixed $value The configuration value for the key.
+     * @return Configuration Returns the configuration which can be used for fluent interfaces.
      */
     public function set($key, $value)
     {
-        $this->config[$key] = $value;
+        $this->values[$key] = $value;
 
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * Set all configuration values for the keys.
+     *
+     * @since 0.9
+     * @param array $values The configuration values with all keys.
+     * @return Configuration Returns the configuration which can be used for fluent interfaces.
+     */
+    public function set_all($values)
+    {
+        foreach ($values as $key => $value) {
+            $this->set($key, $value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete an existing configuration value by the key.
+     *
      * @since 0.7
+     * @param string $key The configuration key used for the related value.
+     * @return Configuration Returns the configuration which can be used for fluent interfaces.
      */
     public function delete($key)
     {
-        unset($this->config[$key]);
+        unset($this->values[$key]);
 
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * Get the configuration value by the key.
+     *
      * @since 0.7
+     * @param string $key The configuration key used for the related value.
+     * @return null|mixed The configuration value of the key.
      */
     public function get($key)
     {
-        if(!$this->has($key)) {
-            return null;
-        }
-
-        return $this->config[$key];
+        return $this->has($key) ? $this->values[$key] : null;
     }
 
     /**
-     * @inheritdoc
+     * Get all configuration values.
+     *
      * @since 0.7
+     * @return array The configuration values with all keys.
      */
     public function get_all()
     {
-        return $this->config;
+        return $this->values;
+    }
+
+    /**
+     * Validate the configuration.
+     *
+     * @since 0.9
+     * @return true|\WP_Error True if the configuration is valid. Otherwise WP_Error if it's invalid.
+     */
+    public function validate()
+    {
+        if(!$this->has(self::PROVIDER)) {
+            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
+                'Invalid configuration. The value for the key "%s" is missing.',
+                self::PROVIDER
+            ));
+        }
+
+        if(!$this->has(self::UPDATE_INTERVAL)) {
+            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
+                'Invalid configuration. The value for the key "%s" is missing.',
+                self::UPDATE_INTERVAL
+            ));
+        }
+
+        if(!$this->has(self::MIN_TASKS)) {
+            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
+                'Invalid configuration. The value for the key "%s" is missing.',
+                self::MIN_TASKS
+            ));
+        }
+
+        if(!$this->has(self::MAX_TASKS)) {
+            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
+                'Invalid configuration. The value for the key "%s" is missing.',
+                self::MAX_TASKS
+            ));
+        }
+
+        return true;
     }
 }

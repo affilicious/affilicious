@@ -4,8 +4,8 @@ namespace Affilicious\Product\Update\Queue;
 use Affilicious\Common\Queue\Min_Priority_Queue;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Update\Task\Batch_Update_Task;
 use Affilicious\Product\Update\Task\Update_Task;
-use Affilicious\Product\Update\Task\Update_Task_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -16,7 +16,7 @@ class Update_Queue implements Update_Queue_Interface
     /**
      * @var Slug
      */
-    private $slug;
+    private $name;
 
     /**
      * @var Min_Priority_Queue
@@ -25,28 +25,28 @@ class Update_Queue implements Update_Queue_Interface
 
     /**
      * @inheritdoc
-     * @since 0.7
+     * @since 0.9
      */
-    public function __construct(Slug $slug)
+    public function __construct($name)
     {
-        $this->slug = $slug;
+        $this->name = $name;
         $this->min_priority_queue = new Min_Priority_Queue();
     }
 
     /**
      * @inheritdoc
-     * @since 0.7
+     * @since 0.9
      */
-    public function get_slug()
+    public function get_name()
     {
-        return $this->slug;
+        return $this->name;
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function put(Update_Task_Interface $update_task)
+    public function put(Update_Task $update_task)
     {
         $product = $update_task->get_product();
         $shops = $product instanceof Shop_Aware_Interface ? $product->get_shops() : array();
@@ -63,13 +63,26 @@ class Update_Queue implements Update_Queue_Interface
 
     /**
      * @inheritdoc
+     * @since 0.9
+     */
+    public function put_batched(Batch_Update_Task $batch_update_task)
+    {
+        $provider = $batch_update_task->get_provider();
+        $products = $batch_update_task->get_products();
+        foreach ($products as $product) {
+            $update_task = new Update_Task($provider, $product);
+            $this->put($update_task);
+        }
+    }
+
+    /**
+     * @inheritdoc
      * @since 0.7
-     * @throws \OutOfRangeException
      */
     public function get($number = 1)
     {
         if($number < 1 || $number > 100) {
-            throw new \OutOfRangeException(sprintf(
+            return new \WP_Error('aff_product_update_queue_number_out_of_range', sprintf(
                 'The given number of update requests %d is out of range. It has to be between %d and %d',
                 $number,
                 self::MIN,
@@ -104,13 +117,37 @@ class Update_Queue implements Update_Queue_Interface
 
     /**
      * @inheritdoc
+     * @since 0.9
+     */
+    public function get_batched($number = 10)
+    {
+        $update_tasks = $this->get($number);
+        if($update_tasks instanceof \WP_Error) {
+            return $update_tasks;
+        }
+
+        if(empty($update_tasks)) {
+            return null;
+        }
+
+        $provider = $update_tasks[0]->get_provider();
+
+        $batch_update_task = new Batch_Update_Task($provider);
+        foreach ($update_tasks as $update_task) {
+            $product = $update_task->get_product();
+            $batch_update_task->add_product($product);
+        }
+
+        return $batch_update_task;
+    }
+
+    /**
+     * @inheritdoc
      * @since 0.7
      */
     public function get_size()
     {
-        $count = $this->min_priority_queue->count();
-
-        return $count;
+        return $this->min_priority_queue->count();
     }
 
     /**
@@ -119,8 +156,6 @@ class Update_Queue implements Update_Queue_Interface
      */
     public function is_empty()
     {
-        $empty = $this->get_size() == 0;
-
-        return $empty;
+        return $this->get_size() == 0;
     }
 }

@@ -9,14 +9,14 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Batch_Update_Task implements Batch_Update_Task_Interface
+final class Batch_Update_Task
 {
     /**
      * The provider with the correct credentials.
      *
      * @var Provider
      */
-    protected $provider;
+    private $provider;
 
     /**
      * The product limit for the batch update.
@@ -24,19 +24,19 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
      *
      * @var null|int
      */
-    protected $limit;
+    private $limit;
 
     /**
      * The products for the batch update which have the same provider.
      *
      * @var Product[]
      */
-    protected $products;
+    private $products;
 
     /**
      * @since 0.7
-     * @param Provider $provider
-     * @param null|int $limit
+     * @param Provider $provider The provider with the correct credentials.
+     * @param null|int $limit The product limit for the batch update.
      */
     public function __construct(Provider $provider, $limit = null)
     {
@@ -46,8 +46,10 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Get the provider for the next batch update.
+     *
      * @since 0.7
+     * @return Provider
      */
     public function get_provider()
     {
@@ -55,8 +57,11 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Get the product limit of the batch update.
+     * Null stands for "no limit".
+     *
      * @since 0.7
+     * @return null|int
      */
     public function get_limit()
     {
@@ -64,8 +69,10 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Check of the batch update has reached the max product limit.
+     *
      * @since 0.7
+     * @return bool
      */
     public function has_reached_limit()
     {
@@ -79,8 +86,11 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Check if the product exists in the batch update.
+     *
      * @since 0.7
+     * @param Product_Id $product_id
+     * @return bool
      */
     public function has_product(Product_Id $product_id)
     {
@@ -88,9 +98,10 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Add the product to the batch update.
+     *
      * @since 0.7
-     * @throws \RuntimeException
+     * @param Product $product
      */
     public function add_product(Product $product)
     {
@@ -109,8 +120,10 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Remove the product from the batch update by the ID.
+     *
      * @since 0.7
+     * @param Product_Id $product_id
      */
     public function remove_product(Product_Id $product_id)
     {
@@ -122,8 +135,10 @@ class Batch_Update_Task implements Batch_Update_Task_Interface
     }
 
     /**
-     * @inheritdoc
+     * Get the products for the next batch update.
+     *
      * @since 0.7
+     * @return Product[]
      */
     public function get_products()
     {

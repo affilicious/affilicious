@@ -516,13 +516,8 @@ if(!class_exists('Affilicious')) {
                 );
             };
 
-            $this->container['affilicious.product.update.mediator'] = function () {
-                return new \Affilicious\Product\Update\Queue\Update_Mediator();
-            };
-
             $this->container['affilicious.product.update.manager'] = function ($c) {
-                return new \Affilicious\Product\Update\Manager\Update_Manager(
-                    $c['affilicious.product.update.mediator'],
+                return new \Affilicious\Product\Update\Update_Manager(
                     $c['affilicious.product.repository.product'],
                     $c['affilicious.shop.repository.shop_template'],
                     $c['affilicious.provider.repository.provider']
@@ -537,14 +532,15 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.setup.amazon_update_worker'] = function ($c) {
                 return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup(
+                    $c['affilicious.product.repository.product'],
                     $c['affilicious.shop.repository.shop_template'],
                     $c['affilicious.provider.repository.provider']
                 );
             };
 
-            $this->container['affilicious.product.setup.update_mediator'] = function ($c) {
-                return new \Affilicious\Product\Setup\Update_Mediator_Setup(
-                    $c['affilicious.product.update.mediator']
+            $this->container['affilicious.product.setup.update_queue'] = function ($c) {
+                return new \Affilicious\Product\Setup\Update_Queue_Setup(
+                    $c['affilicious.product.update.manager']
                 );
             };
 
@@ -737,10 +733,6 @@ if(!class_exists('Affilicious')) {
             add_action('init', array($product_setup, 'init'), 0);
             add_action('aff_init', array($product_setup, 'render'));
 
-            // Hook the Amazon provider
-            $amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
-            add_filter('affilicious_provider_setup_init', array($amazon_provider_setup, 'init'), 5);
-
             // Hook the shop templates.
             $shop_template_setup = $this->container['affilicious.shop.setup.shop_template'];
             add_action('init', array($shop_template_setup, 'init'), 0);
@@ -758,7 +750,9 @@ if(!class_exists('Affilicious')) {
 
             // Hook the providers
             $provider_setup = $this->container['affilicious.provider.setup.provider'];
+            $amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
             add_action('init', array($provider_setup, 'init'), 0);
+            add_filter('aff_provider_init', array($amazon_provider_setup, 'init'), 5);
 
             // Hook the product listeners
             $saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
@@ -798,21 +792,19 @@ if(!class_exists('Affilicious')) {
 
             // Hook the update workers
             $update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
-            add_action('aff_init', array($update_worker_setup, 'init'));
-
-            // Hook the amazon update worker
             $amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
-            add_filter('affilicious_product_update_worker_setup_init', array($amazon_update_worker_setup, 'init'));
+            add_action('aff_init', array($update_worker_setup, 'init'));
+            add_filter('aff_product_update_worker_init', array($amazon_update_worker_setup, 'init'));
 
-            // Hook the update mediator setup
-            $update_mediator_setup = $this->container['affilicious.product.setup.update_mediator'];
-            add_filter('affilicious_provider_setup_after_init', array($update_mediator_setup, 'init'));
+            // Hook the update queues
+            $update_queue_setup = $this->container['affilicious.product.setup.update_queue'];
+            add_filter('aff_provider_after_init', array($update_queue_setup, 'init'));
 
             // Hook the update timer to update the products regularly
             $update_timer = $this->container['affilicious.product.update.timer'];
-            add_action('affilicious_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
-            add_action('affilicious_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
-            add_action('affilicious_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+            add_action('aff_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
+            add_action('aff_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
+            add_action('aff_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
 
             // Hook the license handler setup
             $license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
