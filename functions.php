@@ -32,7 +32,6 @@ use Affilicious\Shop\Model\Shop_Template_Id;
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
-
 /**
  * Check if the current page is a product.
  *
@@ -94,11 +93,16 @@ function aff_is_product($post_or_id = null)
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return Product|array|null
  */
-function aff_get_product($post_or_id = null)
+function aff_get_product($post_or_id = null, $output = 'array')
 {
     $product = Product_Helper::get_product($post_or_id);
+
+    if($output == 'array') {
+        $product = Product_Helper::to_array($product);
+    }
 
     return $product;
 }

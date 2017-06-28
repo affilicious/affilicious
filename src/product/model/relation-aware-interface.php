@@ -8,6 +8,14 @@ if (!defined('ABSPATH')) {
 interface Relation_Aware_Interface
 {
     /**
+     * Check if the product has any related products.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_related_products();
+
+    /**
      * Get the IDs of all related products.
      *
      * @since 0.8
@@ -23,6 +31,14 @@ interface Relation_Aware_Interface
      * @param Product_Id[] $related_products
      */
     public function set_related_products($related_products);
+
+    /**
+     * Check if the product has any related accessories.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_related_accessories();
 
     /**
      * Get the IDs of all related accessories.

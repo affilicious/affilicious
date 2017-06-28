@@ -1,8 +1,25 @@
 <?php
 namespace Affilicious\Product\Helper;
 
+use Affilicious\Attribute\Helper\Attribute_Helper;
+use Affilicious\Attribute\Model\Attribute;
+use Affilicious\Common\Model\Image_Id;
+use Affilicious\Detail\Helper\Detail_Helper;
+use Affilicious\Detail\Model\Detail;
+use Affilicious\Product\Model\Complex_Product;
+use Affilicious\Product\Model\Content_Aware_Interface;
+use Affilicious\Product\Model\Detail_Aware_Interface;
+use Affilicious\Product\Model\Excerpt_Aware_Interface;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
+use Affilicious\Product\Model\Product_Variant;
+use Affilicious\Product\Model\Relation_Aware_Interface;
+use Affilicious\Product\Model\Review_Aware_Interface;
+use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Model\Tag;
+use Affilicious\Product\Model\Tag_Aware_Interface;
+use Affilicious\Shop\Helper\Shop_Helper;
+use Affilicious\Shop\Model\Shop;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -97,5 +114,83 @@ class Product_Helper
         }
 
         return null;
+    }
+
+    /**
+     * Convert the product into an array.
+     *
+     * @since 0.9
+     * @param Product $product
+     * @return array
+     */
+    public static function to_array(Product $product)
+    {
+        $result = [
+            'id' => $product->has_id() ? $product->get_id()->get_value() : null,
+            'name' => $product->get_name()->get_value(),
+            'slug' => $product->get_slug()->get_value(),
+            'thumbnail' => $product->has_thumbnail_id() ? $product->get_thumbnail_id()->get_value() : null,
+        ];
+
+        if($product instanceof Excerpt_Aware_Interface) {
+            $result['excerpt'] = $product->has_excerpt() ? $product->get_excerpt()->get_value() : null;
+        }
+
+        if($product instanceof Content_Aware_Interface) {
+            $result['content'] = $product->has_content() ? $product->get_content()->get_value() : null;
+        }
+
+        $result['image_gallery'] = !$product->has_image_gallery() ? null : array_map(function(Image_Id $image_id) {
+            return $image_id->get_value();
+        }, $product->get_image_gallery());
+
+        if($product instanceof Detail_Aware_Interface) {
+            $result['details'] = !$product->has_details() ? null : array_map(function(Detail $detail) {
+                return Detail_Helper::to_array($detail);
+            }, $product->get_details());
+        }
+
+        if($product instanceof Shop_Aware_Interface) {
+            $result['shops'] = !$product->has_shops() ? null : array_map(function(Shop $shop) {
+                return Shop_Helper::to_array($shop);
+            }, $product->get_shops());
+        }
+
+        if($product instanceof Review_Aware_Interface) {
+            $result['review'] = $product->has_review() ? Review_Helper::to_array($product->get_review()) : null;
+        }
+
+        if($product instanceof Tag_Aware_Interface) {
+            $result['tags'] = !$product->has_tags() ? null :  array_map(function(Tag $tag) {
+                return $tag->get_value();
+            }, $product->get_tags());
+        }
+
+        if($product instanceof Relation_Aware_Interface) {
+            $result['related_products'] = !$product->has_related_products() ? null : array_map(function(Product_Id $product_id) {
+                return $product_id->get_value();
+            }, $product->get_related_products());
+
+            $result['related_accessories'] = !$product->has_related_accessories() ? null : array_map(function(Product_Id $product_id) {
+                return $product_id->get_value();
+            }, $product->get_related_accessories());
+        }
+
+        if($product instanceof Complex_Product) {
+            $result['variants'] = !$product->has_variants() ? null : array_map(function(Product_Variant $variant) {
+                return self::to_array($variant);
+            }, $product->get_variants());
+        }
+
+        if($product instanceof Product_Variant) {
+            $result['parent'] = $product->get_parent()->has_id() ? $product->get_parent()->get_id()->get_value() : null;
+            $result['attributes'] = !$product->has_attributes() ? null : array_map(function(Attribute $attribute) {
+                return Attribute_Helper::to_array($attribute);
+            }, $product->get_attributes());
+        }
+
+        $result = apply_filters('aff_product_to_array', $result, $product);
+
+        return $result;
     }
 }

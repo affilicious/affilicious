@@ -33,6 +33,17 @@ trait Relation_Aware_Trait
     }
 
     /**
+     * Check if the product has any related products.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_related_products()
+    {
+        return !empty($this->related_products);
+    }
+
+    /**
      * Get the IDs of all related products.
      *
      * @since 0.8
@@ -57,6 +68,17 @@ trait Relation_Aware_Trait
         Assert::allIsInstanceOf($related_products, Product_Id::class);
 
         $this->related_products = $related_products;
+    }
+
+    /**
+     * Check if the product has any related accessories.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_related_accessories()
+    {
+        return !empty($this->related_products);
     }
 
     /**
