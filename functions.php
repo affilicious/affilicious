@@ -45,6 +45,188 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Check if the product with the Wordpress ID or post is existing.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
+ * @return bool
+ */
+function aff_is_product($post_or_id = null)
+{
+    $result = Product_Helper::is_product($post_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the product by the Wordpress ID or post.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.3
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Product
+ */
+function aff_get_product($post_or_id = null, $output = 'array')
+{
+    $product = Product_Helper::get_product($post_or_id);
+    if($product === null) {
+        return null;
+    }
+
+    if($output == 'array') {
+        $product = Product_Helper::to_array($product);
+    }
+
+    return $product;
+}
+
+/**
+ * Check if the shop template with the Wordpress ID or term is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $term_or_id
+ * @return bool
+ */
+function aff_is_shop_template($term_or_id)
+{
+    $result = Shop_Template_Helper::is_shop_template($term_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the shop template by the Wordpress ID or term.
+ *
+ * @since 0.6
+ * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $term_or_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Shop_Template
+ */
+function aff_get_shop_template($term_or_id, $output = 'array')
+{
+    $shop_template = Shop_Template_Helper::get_shop_template($term_or_id);
+    if($shop_template === null) {
+        return null;
+    }
+
+    if($output == 'array') {
+        $shop_template = Shop_Template_Helper::to_array($shop_template);
+    }
+
+    return $shop_template;
+}
+
+/**
+ * Check if the detail template with the Wordpress ID or term is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
+ * @return bool
+ */
+function aff_is_detail_template($term_or_id)
+{
+    $result = Detail_Template_Helper::is_detail_template($term_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the detail template by the Wordpress ID or term.
+ *
+ * @since 0.8
+ * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Detail_Template
+ */
+function aff_get_detail_template($term_or_id, $output = 'array')
+{
+    $detail_template = Detail_Template_Helper::get_detail_template($term_or_id);
+    if($detail_template === null) {
+        return null;
+    }
+
+    if($output == 'array') {
+        $detail_template = Detail_Template_Helper::to_array($detail_template);
+    }
+
+    return $detail_template;
+}
+
+/**
+ * Check if the attribute template with the Wordpress ID or term is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
+ * @return bool
+ */
+function aff_is_attribute_template($term_or_id)
+{
+    $result = Attribute_Template_Helper::is_attribute_template($term_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the attribute template by the Wordpress ID or term.
+ *
+ * @since 0.8
+ * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Attribute_Template
+ */
+function aff_get_attribute_template($term_or_id, $output = 'array')
+{
+    $attribute_template = Attribute_Template_Helper::get_attribute_template($term_or_id);
+    if($attribute_template === null) {
+        return null;
+    }
+
+    if($output == 'array') {
+        $attribute_template = Attribute_Template_Helper::to_array($attribute_template);
+    }
+
+    return $attribute_template;
+}
+
+/**
+ * Check if the provider with the provider ID is existing.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Term|Provider|Provider_Id $provider_id
+ * @return bool
+ */
+function aff_is_provider($provider_id)
+{
+    $result = Provider_Helper::is_provider($provider_id);
+
+    return $result;
+}
+
+/**
+ * Get the provider by the provider ID.
+ *
+ * @since 0.8
+ * @param int|string|array|\WP_Term|Provider|Provider_Id $provider_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Provider
+ */
+function aff_get_provider($provider_id, $output = 'array')
+{
+    $provider = Provider_Helper::get_provider($provider_id);
+    if($provider === null) {
+        return null;
+    }
+
+    if($output == 'array') {
+        $provider = Provider_Helper::to_array($provider);
+    }
+
+    return $provider;
+}
+
+/**
  * Check if the current page is a product.
  *
  * @since 0.6
@@ -85,173 +267,6 @@ function aff_get_product_taxonomies($output = 'names', $only_custom = true)
 }
 
 /**
- * Check if the product with the Wordpress ID or post is existing.
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
- * @return bool
- */
-function aff_is_product($post_or_id = null)
-{
-    $result = Product_Helper::is_product($post_or_id);
-
-    return $result;
-}
-
-/**
- * Get the product by the ID or post.
- * If you pass in nothing as a parameter, the current post will be used.
- *
- * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
- * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return Product|array|null
- */
-function aff_get_product($post_or_id = null, $output = 'array')
-{
-    $product = Product_Helper::get_product($post_or_id);
-
-    if($output == 'array' && !empty($product)) {
-        $product = Product_Helper::to_array($product);
-    }
-
-    return $product;
-}
-
-/**
- * Check if the shop template with the Wordpress ID or term is existing.
- *
- * @since 0.8.9
- * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $term_or_id
- * @return bool
- */
-function aff_is_shop_template($term_or_id)
-{
-    $result = Shop_Template_Helper::is_shop_template($term_or_id);
-
-    return $result;
-}
-
-/**
- * Get the shop template by the ID or term.
- *
- * @since 0.6
- * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $shop_or_id
- * @param string $output
- * @return Shop_Template|array|null
- */
-function aff_get_shop_template($shop_or_id, $output = 'array')
-{
-    $shop_template = Shop_Template_Helper::get_shop_template($shop_or_id);
-
-    if($output == 'array' && !empty($shop_template)) {
-        $shop_template = Shop_Template_Helper::to_array($shop_template);
-    }
-
-    return $shop_template;
-}
-
-/**
- * Check if the detail template with the Wordpress ID or term is existing.
- *
- * @since 0.8.9
- * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
- * @return bool
- */
-function aff_is_detail_template($term_or_id)
-{
-    $result = Detail_Template_Helper::is_detail_template($term_or_id);
-
-    return $result;
-}
-
-/**
- * Get the detail template by the ID or term.
- *
- * @since 0.8
- * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
- * @param string $output
- * @return Detail_Template|array|null
- */
-function aff_get_detail_template($term_or_id, $output = 'array')
-{
-    $detail_template = Detail_Template_Helper::get_detail_template($term_or_id);
-
-    if($output == 'array' && !empty($detail_template)) {
-        $detail_template = Detail_Template_Helper::to_array($detail_template);
-    }
-
-    return $detail_template;
-}
-
-/**
- * Check if the attribute template with the Wordpress ID or term is existing.
- *
- * @since 0.8.9
- * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
- * @return bool
- */
-function aff_is_attribute_template($term_or_id)
-{
-    $result = Attribute_Template_Helper::is_attribute_template($term_or_id);
-
-    return $result;
-}
-
-/**
- * Get the attribute template by the ID or term.
- *
- * @since 0.8
- * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
- * @param string $output
- * @return Attribute_Template|array|null
- */
-function aff_get_attribute_template($term_or_id, $output = 'array')
-{
-    $attribute_template = Attribute_Template_Helper::get_attribute_template($term_or_id);
-
-    if($output == 'array' && !empty($attribute_template)) {
-        $attribute_template = Attribute_Template_Helper::to_array($attribute_template);
-    }
-
-    return $attribute_template;
-}
-
-/**
- * Check if the provider with the ID is existing.
- *
- * @since 0.8.9
- * @param int|string|array|\WP_Term|Provider|Provider_Id $id
- * @return bool
- */
-function aff_is_provider($id)
-{
-    $result = Provider_Helper::is_provider($id);
-
-    return $result;
-}
-
-/**
- * Get the provider by the ID.
- *
- * @since 0.8
- * @param int|string|array|\WP_Term|Provider|Provider_Id $id
- * @param string $output
- * @return Provider|array|null
- */
-function aff_get_provider($id, $output = 'array')
-{
-    $provider = Provider_Helper::get_provider($id);
-
-    if($output == 'array' && !empty($provider)) {
-        $provider = Provider_Helper::to_array($provider);
-    }
-
-    return $provider;
-}
-
-/**
  * Check if the product has a review.
  *
  * @since 0.9
@@ -271,7 +286,7 @@ function aff_has_product_review($product_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Review
  */
 function aff_get_product_review($product_or_id = null, $output = 'array')
@@ -316,7 +331,7 @@ function aff_has_product_review_rating($product_or_id = null)
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|float|Rating
  */
 function aff_get_product_review_rating($product_or_id = null, $output = 'scalar')
@@ -381,7 +396,7 @@ function aff_has_product_review_votes($product_or_id = null)
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int|Votes
  */
 function aff_get_product_review_votes($product_or_id = null, $output = 'scalar')
@@ -430,7 +445,7 @@ function aff_the_product_review_votes($product_or_id = null)
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Detail[]
  */
 function aff_get_product_details($product_or_id = null, $output = 'array')
@@ -467,7 +482,7 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int[]|Image_Id[]
  */
 function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar')
@@ -516,7 +531,7 @@ function aff_has_product_shops($product_or_id = null)
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return array|null
  */
 function aff_get_product_shops($product_or_id = null, $output = 'array')
@@ -573,7 +588,7 @@ function aff_has_product_related_products($product_or_id = null)
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int[]|Product_Id[]
  */
 function aff_get_product_related_products($product_or_id = null, $output = 'scalar')
@@ -674,7 +689,7 @@ function aff_has_product_related_accessories($product_or_id = null)
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int[]|Product_Id[]
  */
 function aff_get_product_related_accessories($product_or_id = null, $output = 'scalar')
@@ -776,7 +791,7 @@ function aff_the_product_link($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Shop
  */
 function aff_get_product_shop($product_or_id = null, $affiliate_link = null, $output = 'array')
@@ -832,7 +847,7 @@ function aff_has_product_tags($product_or_id = null)
  *
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|string[]|Tag[]
  */
 function aff_get_product_tags($product_or_id = null, $output = 'scalar')
@@ -894,7 +909,7 @@ function aff_the_product_tags($product_or_id = null, $before = '', $after = '')
  *
  * @since 0.5.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Shop
  */
 function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
@@ -950,7 +965,7 @@ function aff_has_product_price($product_or_id = null, $affiliate_link = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
- * @param string $output
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money
  */
 function aff_get_product_price($product_or_id = null, $affiliate_link = null, $output = 'scalar')
@@ -1032,7 +1047,7 @@ function aff_has_product_old_price($product_or_id = null, $affiliate_link = null
  * @since 0.8.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
- * @param string $output
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money
  */
 function aff_get_product_old_price($product_or_id = null, $affiliate_link = null, $output = 'scalar')
@@ -1094,7 +1109,7 @@ function aff_the_product_old_price($product_or_id = null, $affiliate_link = null
  *
  * @since 0.5.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param $output
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money
  */
 function aff_get_product_cheapest_price($product_or_id = null, $output = 'scalar')
@@ -1110,7 +1125,7 @@ function aff_get_product_cheapest_price($product_or_id = null, $output = 'scalar
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param $output
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money
  */
 function aff_get_product_cheapest_old_price($product_or_id = null, $output = 'scalar')
@@ -1128,7 +1143,7 @@ function aff_get_product_cheapest_old_price($product_or_id = null, $output = 'sc
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|string|Affiliate_Link
  */
 function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = null, $output = 'scalar')
@@ -1177,7 +1192,7 @@ function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = nul
  *
  * @since 0.5.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|string|Affiliate_Link
  */
 function aff_get_product_cheapest_affiliate_link($product_or_id = null, $output = 'scalar')
@@ -1353,7 +1368,7 @@ function aff_product_get_parent($product_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product
  */
 function aff_get_product_variant_parent($product_or_id = null, $output = 'array')
@@ -1436,7 +1451,7 @@ function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product_Variant
  */
 function aff_get_product_variant($complex_or_id = null, $variant_or_id = null, $output = 'array')
@@ -1513,7 +1528,7 @@ function aff_product_get_variants($complex_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product_Variant[]
  */
 function aff_get_product_variants($complex_or_id = null, $output = 'array')
@@ -1560,7 +1575,7 @@ function aff_product_get_default_variant($complex_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product_Variant
  */
 function aff_get_product_default_variant($complex_or_id = null, $output = 'array')
@@ -1648,7 +1663,7 @@ function aff_product_get_variant_attributes($product_or_id = null, $variant_or_i
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @param string $output
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Attribute[]
  */
 function aff_get_product_variant_attributes($product_or_id = null, $variant_or_id = null, $output = 'array')
