@@ -480,6 +480,19 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
  * Get the product image gallery by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
+ * @since 0.9.5
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @return bool
+ */
+function aff_has_product_image_gallery($product_or_id = null)
+{
+    return !empty(aff_get_product_image_gallery($product_or_id));
+}
+
+/**
+ * Get the product image gallery by the product.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
@@ -983,7 +996,7 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null, $o
         return null;
     }
 
-    $shop = aff_get_product_shop($product, $affiliate_link);
+    $shop = aff_get_product_shop($product, $affiliate_link, 'object');
     if($shop === null) {
         return $shop;
     }
@@ -1065,7 +1078,7 @@ function aff_get_product_old_price($product_or_id = null, $affiliate_link = null
         return null;
     }
 
-    $shop = aff_get_product_shop($product, $affiliate_link);
+    $shop = aff_get_product_shop($product, $affiliate_link, 'object');
     if($shop === null) {
         return $shop;
     }
