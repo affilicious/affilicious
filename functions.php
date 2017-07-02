@@ -1498,7 +1498,7 @@ function aff_get_product_variant($complex_or_id = null, $variant_or_id = null, $
  * @deprecated 1.1 Use 'aff_has_product_variants' instead
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @return bool
+ * @return bool Whether the complex parent product has some variants or not.
  */
 function aff_product_has_variants($complex_or_id = null)
 {
@@ -1511,7 +1511,7 @@ function aff_product_has_variants($complex_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @return bool
+ * @return bool Whether the complex parent product has some variants or not.
  */
 function aff_has_product_variants($complex_or_id = null)
 {
@@ -1528,7 +1528,7 @@ function aff_has_product_variants($complex_or_id = null)
  * @deprecated 1.1 Use 'aff_get_product_variants' instead.
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @return Product_Variant[]
+ * @return Product_Variant[] All product variants of the given complex parent product.
  */
 function aff_product_get_variants($complex_or_id = null)
 {
@@ -1542,7 +1542,7 @@ function aff_product_get_variants($complex_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Product_Variant[]
+ * @return null|array|Product_Variant[] All product variants of the given complex parent product in the given output format.
  */
 function aff_get_product_variants($complex_or_id = null, $output = 'array')
 {
@@ -1575,7 +1575,7 @@ function aff_get_product_variants($complex_or_id = null, $output = 'array')
  * @deprecated 1.1 Use 'aff_get_product_default_variant' instead
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @return null|Product_Variant
+ * @return null|Product_Variant The product variant or null,
  */
 function aff_product_get_default_variant($complex_or_id = null)
 {
@@ -1589,7 +1589,7 @@ function aff_product_get_default_variant($complex_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Product_Variant
+ * @return null|array|Product_Variant The product variant in the given output format.
  */
 function aff_get_product_default_variant($complex_or_id = null, $output = 'array')
 {
@@ -1617,7 +1617,7 @@ function aff_get_product_default_variant($complex_or_id = null, $output = 'array
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @return bool
+ * @return bool Whether the product variant is the default variant of the complex parent product or not.
  */
 function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = null)
 {
@@ -1627,12 +1627,12 @@ function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = 
 }
 
 /**
- * Check if the given variant is the default one
+ * Check if the given variant is the default one of the complex parent product.
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @return bool
+ * @return bool Whether the product variant is the default variant of the complex parent product or not.
  */
 function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = null)
 {
@@ -1661,7 +1661,7 @@ function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = 
  * @since 0.8
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @return null|array
+ * @return null|array The attributes or null.
  */
 function aff_product_get_variant_attributes($product_or_id = null, $variant_or_id = null)
 {
@@ -1677,7 +1677,7 @@ function aff_product_get_variant_attributes($product_or_id = null, $variant_or_i
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Attribute[]
+ * @return null|array|Attribute[] The attribute in the given output format.
  */
 function aff_get_product_variant_attributes($product_or_id = null, $variant_or_id = null, $output = 'array')
 {
@@ -1716,11 +1716,11 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
 }
 
 /**
- * Get the product attributes choices
+ * Get the product attributes choices for the variant switching.
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return null|array
+ * @return null|array The attribute choices for the variant switching.
  */
 function aff_get_product_attribute_choices($product_or_id = null)
 {
@@ -1813,7 +1813,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
 }
 
 /**
- * Prints the product attributes choices to the screen
+ * Prints the product attributes choices for the variant switching.
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -2000,7 +2000,7 @@ function aff_is_out_of_stock($shop)
 /**
  * Check if the shop should display the stock price.
  *
- * @deprecated 1.0 Don't use it anymore.
+ * @deprecated 1.1 Don't use it anymore.
  * @since 0.8
  * @param array|Shop $shop
  * @return bool
