@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Shop\Helper;
 
+use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Money;
 
 if (!defined('ABSPATH')) {
@@ -18,12 +19,18 @@ class Money_Helper
      */
     public static function to_array(Money $money)
     {
-        $result = array(
+        $array = array(
             'value' => $money->get_value(),
-            'currency' => $money->get_currency()->get_value(),
+            'currency' => array(
+                'value' => $money->get_currency()->get_value(),
+                'label' => $money->get_currency()->get_label(),
+                'symbol' => $money->get_currency()->get_symbol(),
+            )
         );
 
-        return $result;
+        $array = apply_filters('aff_money_to_array', $array, $money);
+
+        return $array;
     }
 
     /**
@@ -35,12 +42,33 @@ class Money_Helper
      */
     public static function to_string(Money $money)
     {
-        $result = sprintf(
+        $string = sprintf(
             '%s %s',
             $money->get_value(),
             $money->get_currency()->get_symbol()
         );
 
-        return $result;
+        $string = apply_filters('aff_money_to_string', $string, $money);
+
+        return $string;
+    }
+
+    /**
+     * Convert the array into money.
+     *
+     * @since 0.9
+     * @param array $array
+     * @return Money
+     */
+    public static function from_array(array $array)
+    {
+        $money = new Money(
+            $array['value'],
+            new Currency($array['currency']['value'])
+        );
+
+        $money = apply_filters('aff_array_to_money', $money, $array);
+
+        return $money;
     }
 }

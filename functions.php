@@ -1,44 +1,44 @@
 <?php
 use Affilicious\Attribute\Helper\Attribute_Helper;
 use Affilicious\Attribute\Helper\Attribute_Template_Helper;
+use Affilicious\Attribute\Model\Attribute;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Attribute_Template_Id;
 use Affilicious\Common\Admin\License\License_Status;
+use Affilicious\Common\Helper\Time_Helper;
+use Affilicious\Common\Model\Image_Id;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
+use Affilicious\Detail\Model\Detail;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Model\Detail_Template_Id;
 use Affilicious\Product\Helper\Product_Helper;
+use Affilicious\Product\Helper\Review_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Detail_Aware_Interface;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Product_Variant;
+use Affilicious\Product\Model\Rating;
 use Affilicious\Product\Model\Relation_Aware_Interface;
+use Affilicious\Product\Model\Review;
 use Affilicious\Product\Model\Review_Aware_Interface;
 use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Model\Tag;
 use Affilicious\Product\Model\Tag_Aware_Interface;
 use Affilicious\Product\Model\Type;
+use Affilicious\Product\Model\Votes;
 use Affilicious\Provider\Helper\Provider_Helper;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;
+use Affilicious\Shop\Helper\Money_Helper;
 use Affilicious\Shop\Helper\Shop_Helper;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Affiliate_Link;
-use Affilicious\Shop\Model\Availability;
+use Affilicious\Shop\Model\Money;
+use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
-use Affilicious\Product\Helper\Review_Helper;
-use Affilicious\Product\Model\Review;
-use Affilicious\Product\Model\Rating;
-use Affilicious\Product\Model\Votes;
-use Affilicious\Detail\Model\Detail;
-use Affilicious\Common\Model\Image_Id;
-use Affilicious\Shop\Model\Shop;
-use Affilicious\Product\Model\Tag;
-use Affilicious\Shop\Model\Money;
-use Affilicious\Shop\Helper\Money_Helper;
-use Affilicious\Attribute\Model\Attribute;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -1851,32 +1851,54 @@ function aff_the_product_attribute_choices($product_or_id = null)
 }
 
 /**
- * Get the price indication like VAT and shipping costs.
+ * Get the price indication like VAT and shipping costs of the shop.
  *
  * @since 0.7
- * @return string
+ * @param null|array|Shop $shop The shop from which the price indication is taken.
+ * @param null|string $custom_text Custom text to show instead the default indication.
+ * @return string The shop price indication containing the VAT and shipping costs.
  */
-function aff_get_shop_price_indication()
+function aff_get_shop_price_indication($shop = null, $custom_text = null)
 {
-    return __('Incl. 19 % VAT and excl. shipping costs.', 'affilicious');
+    // Normalize the shop.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $text = !empty($custom_text) ? $custom_text : __('Incl. 19 % VAT and excl. shipping costs.', 'affilicious');
+    $text = apply_filters('aff_shop_price_indication', $text, $shop);
+
+    return $text;
 }
 
 /**
- * Print the price indication like VAT and shipping costs.
+ * Print the price indication like VAT and shipping costs of the shop.
  *
  * @since 0.7
+ * @param array|Shop $shop The shop from which the price indication is taken.
+ * @param null|string $custom_text Custom text to show instead the default indication.
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_shop_price_indication()
+function aff_the_shop_price_indication($shop = null, $custom_text = null, $escape = true)
 {
-    echo esc_html(aff_get_shop_price_indication());
+    $indication = aff_get_shop_price_indication($shop, $custom_text);
+    if($indication === null) {
+        return;
+    }
+
+    if($escape) {
+        $indication = esc_html($indication);
+    }
+
+    echo $indication;
 }
 
 /**
  * Check if the shop has an updated at price indication.
  *
  * @since 0.8.12
- * @param array $shop
- * @return bool
+ * @param array|Shop $shop The shop from which the price indication is taken.
+ * @return bool Whether the shop has a updated at indication or not.
  */
 function aff_has_shop_updated_at_indication($shop)
 {
@@ -1884,59 +1906,112 @@ function aff_has_shop_updated_at_indication($shop)
 }
 
 /**
- * Get the last update indication for the shop.
+ * Get the last updated indication of the shop.
  *
  * @since 0.7
- * @param array $shop
- * @param null|string $custom_text
- * @return string
+ * @param array|Shop $shop The shop from which the updated at indication is taken.
+ * @param null|string $custom_text Custom text to show instead the default indication.
+ * @return null|string The shop updated at indication containing the date and time of the last update.
  */
 function aff_get_shop_updated_at_indication($shop, $custom_text = null)
 {
-    if(!empty($shop['updated_at'])) {
-        return sprintf(
+    // Normalize the shop.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $text = null;
+    if($shop !== null) {
+        $updated_at = Time_Helper::to_datetime_i18n($shop->get_updated_at());
+
+        $text = sprintf(
             !empty($custom_text) ? $custom_text : __('Last updated: %s.', 'affilicious'),
-            $shop['updated_at']
+            $updated_at
         );
     }
 
-    return '';
+    $text = apply_filters('aff_shop_updated_at_indication', $text, $shop);
+
+    return $text;
 }
 
 /**
- * Print the last update indication for the shop.
+ * Print the last updated indication for the shop.
  *
  * @since 0.7
- * @param array $shop
- * @param null|string $custom_text
+ * @param array|Shop $shop The shop from which the updated at indication is taken.
+ * @param null|string $custom_text Custom text to show instead the default indication. Use "%s" as placeholder for the formatted date and time.
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_shop_updated_at_indication($shop, $custom_text = null)
+function aff_the_shop_updated_at_indication($shop, $custom_text = null, $escape = true)
 {
-    echo esc_html(aff_get_shop_updated_at_indication($shop, $custom_text));
+    $indication = aff_get_shop_updated_at_indication($shop, $custom_text);
+    if($indication === null) {
+        return;
+    }
+
+    if($escape) {
+        $indication = esc_html($indication);
+    }
+
+    echo $indication;
 }
 
 /**
- * Check if the shop is available or out of stock.
+ * Check if the shop is available.
  *
  * @since 0.7
- * @param array $shop
- * @return bool
+ * @param array|Shop $shop The shop from which the availability is taken.
+ * @return bool Whether the shop is available or not.
  */
 function aff_is_shop_available($shop)
 {
-    return isset($shop['pricing']['availability']) && $shop['pricing']['availability'] === Availability::AVAILABLE;
+    // Normalize the shop.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $available = $shop->get_pricing()->get_availability()->is_available();
+    $available = apply_filters('aff_is_shop_available', $available, $shop);
+
+    return $available;
+}
+
+/**
+ * Check if the shop is out of stock.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the availability is taken.
+ * @return bool Whether the shop is out of stock or not.
+ */
+function aff_is_out_of_stock($shop)
+{
+    // Normalize the shop.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $out_of_stock = $shop->get_pricing()->get_availability()->is_out_of_stock();
+    $out_of_stock = apply_filters('aff_is_shop_out_of_stock', $out_of_stock, $shop);
+
+    return $out_of_stock;
 }
 
 /**
  * Check if the shop should display the stock price.
- * This is important if the discounted price is greater than the stock price.
  *
+ * @deprecated 1.0 Don't use it anymore.
  * @since 0.8
- * @param array $shop
+ * @param array|Shop $shop
  * @return bool
  */
 function aff_should_shop_display_old_price($shop)
 {
+    // Normalize the shop.
+    if($shop instanceof Shop) {
+        $shop = Shop_Helper::to_array($shop);
+    }
+
     if(!isset($shop['pricing']['price']['value']) || !isset($shop['pricing']['old_price']['value'])) {
         return false;
     }
@@ -1948,77 +2023,133 @@ function aff_should_shop_display_old_price($shop)
 }
 
 /**
- * Get the formatted shop price.
+ * Check if the shop contains a price.
  *
- * @since 0.8.9
- * @param array $shop
- * @return null|string
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the price is taken.
+ * @return bool Whether the shop contains a price or not.
  */
-function aff_get_shop_price($shop)
+function aff_has_shop_price($shop)
 {
-    if(!isset($shop['pricing']['price'])) {
-        return null;
-    }
-
-    $price = $shop['pricing']['price'];
-    if(empty($price)) {
-        return null;
-    }
-
-    return $price['value'] . ' ' . $price['currency'];
+    return !empty(aff_get_shop_price($shop));
 }
 
 /**
- * Print the formatted shop price.
+ * Get the shop's price.
  *
  * @since 0.8.9
- * @param array $shop
+ * @param array|Shop $shop The shop from which the price is taken.
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
+ * @return null|string|array|Shop The shop in the given output format.
  */
-function aff_the_shop_price($shop)
+function aff_get_shop_price($shop, $output = 'scalar')
 {
-    $price = aff_get_shop_price($shop);
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $price = $shop->get_pricing()->get_price();
+    if($price === null) {
+        return null;
+    }
+
+    $price = apply_filters('aff_shop_price', $price, $shop);
+
+    if($output == 'scalar') {
+        $price = Money_Helper::to_string($price);
+    }
+
+    if($output == 'array') {
+        $price = Money_Helper::to_array($price);
+    }
+
+    return $price;
+}
+
+/**
+ * Print the formatted shop's price.
+ *
+ * @since 0.8.9
+ * @param array|Shop $shop The shop from which the price is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_price($shop, $escape = true)
+{
+    $price = aff_get_shop_price($shop, 'scalar');
     if(empty($price)) {
         return;
     }
 
-    echo esc_html($price);
+    if($escape) {
+        $price = esc_html($price);
+    }
+
+    echo $price;
 }
 
 /**
- * Get the formatted shop old price.
+ * Check if the shop contains an old price.
  *
- * @since 0.8.9
- * @param array $shop
- * @return null|string
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the old price is taken.
+ * @return bool Whether the shop contains a old price or not.
  */
-function aff_get_shop_old_price($shop)
+function aff_has_shop_old_price($shop)
 {
-    if(!isset($shop['pricing']['old_price'])) {
-        return null;
-    }
-
-    $old_price = $shop['pricing']['old_price'];
-    if(empty($old_price)) {
-        return null;
-    }
-
-    return $old_price['value'] . ' ' . $old_price['currency'];
+    return !empty(aff_get_shop_old_price($shop));
 }
 
 /**
- * Print the formatted shop old price.
+ * Get the shop's old price.
  *
  * @since 0.8.9
- * @param array $shop
+ * @param array|Shop $shop The shop from which the old price is taken.
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
+ * @return null|string|array|Shop The old price in the given output format.
  */
-function aff_the_shop_old_price($shop)
+function aff_get_shop_old_price($shop, $output = 'scalar')
 {
-    $old_price = aff_get_shop_old_price($shop);
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $old_price = $shop->get_pricing()->get_old_price();
+    if($old_price === null) {
+        return null;
+    }
+
+    $old_price = apply_filters('aff_shop_old_price', $old_price, $shop);
+
+    if($output == 'scalar') {
+        $old_price = Money_Helper::to_string($old_price);
+    }
+
+    if($output == 'array') {
+        $old_price = Money_Helper::to_array($old_price);
+    }
+
+    return $old_price;
+}
+
+/**
+ * Print the formatted shop's old price.
+ *
+ * @since 0.8.9
+ * @param array|Shop $shop The shop from which old price is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_old_price($shop, $escape = true)
+{
+    $old_price = aff_get_shop_old_price($shop, 'scalar');
     if(empty($old_price)) {
         return;
     }
 
-    echo esc_html($old_price);
+    if($escape) {
+        $old_price = esc_html($old_price);
+    }
+
+    echo $old_price;
 }
 
 /**
