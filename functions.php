@@ -66,7 +66,7 @@ function aff_is_product($post_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Product
+ * @return null|array|Product The product in the given output format.
  */
 function aff_get_product($post_or_id = null, $output = 'array')
 {
@@ -75,9 +75,13 @@ function aff_get_product($post_or_id = null, $output = 'array')
         return null;
     }
 
+    $product = apply_filters('aff_product', $product, $post_or_id);
+
     if($output == 'array') {
         $product = Product_Helper::to_array($product);
     }
+
+    $product = apply_filters('aff_formatted_product', $product, $post_or_id, $output);
 
     return $product;
 }
@@ -102,7 +106,7 @@ function aff_is_shop_template($term_or_id)
  * @since 0.6
  * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id $term_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Shop_Template
+ * @return null|array|Shop_Template The shop template in the given output format.
  */
 function aff_get_shop_template($term_or_id, $output = 'array')
 {
@@ -111,9 +115,13 @@ function aff_get_shop_template($term_or_id, $output = 'array')
         return null;
     }
 
+    $shop_template = apply_filters('aff_shop_template', $shop_template, $term_or_id);
+
     if($output == 'array') {
         $shop_template = Shop_Template_Helper::to_array($shop_template);
     }
+
+    $shop_template = apply_filters('aff_formatted_shop_template', $shop_template, $term_or_id, $output);
 
     return $shop_template;
 }
@@ -138,7 +146,7 @@ function aff_is_detail_template($term_or_id)
  * @since 0.8
  * @param int|string|array|\WP_Term|Detail_Template|Detail_Template_Id $term_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Detail_Template
+ * @return null|array|Detail_Template The detail template in the given output format.
  */
 function aff_get_detail_template($term_or_id, $output = 'array')
 {
@@ -147,9 +155,13 @@ function aff_get_detail_template($term_or_id, $output = 'array')
         return null;
     }
 
+    $detail_template = apply_filters('aff_detail_template', $detail_template, $term_or_id);
+
     if($output == 'array') {
         $detail_template = Detail_Template_Helper::to_array($detail_template);
     }
+
+    $detail_template = apply_filters('aff_formatted_detail_template', $detail_template, $term_or_id, $output);
 
     return $detail_template;
 }
@@ -174,7 +186,7 @@ function aff_is_attribute_template($term_or_id)
  * @since 0.8
  * @param int|string|array|\WP_Term|Attribute_Template|Attribute_Template_Id $term_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Attribute_Template
+ * @return null|array|Attribute_Template The attribute in the given output format.
  */
 function aff_get_attribute_template($term_or_id, $output = 'array')
 {
@@ -183,9 +195,13 @@ function aff_get_attribute_template($term_or_id, $output = 'array')
         return null;
     }
 
+    $attribute_template = apply_filters('aff_attribute_template', $attribute_template, $term_or_id);
+
     if($output == 'array') {
         $attribute_template = Attribute_Template_Helper::to_array($attribute_template);
     }
+
+    $attribute_template = apply_filters('aff_formatted_attribute_template', $attribute_template, $term_or_id, $output);
 
     return $attribute_template;
 }
@@ -210,7 +226,7 @@ function aff_is_provider($provider_id)
  * @since 0.8
  * @param int|string|array|\WP_Term|Provider|Provider_Id $provider_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Provider
+ * @return null|array|Provider The provider in the given output format.
  */
 function aff_get_provider($provider_id, $output = 'array')
 {
@@ -219,9 +235,13 @@ function aff_get_provider($provider_id, $output = 'array')
         return null;
     }
 
+    $provider = apply_filters('aff_provider', $provider, $provider_id);
+
     if($output == 'array') {
         $provider = Provider_Helper::to_array($provider);
     }
+
+    $provider = apply_filters('aff_formatted_provider', $provider, $provider_id, $output);
 
     return $provider;
 }
@@ -263,6 +283,8 @@ function aff_get_product_taxonomies($output = 'names', $only_custom = true)
         $taxonomies = array_values($taxonomies);
     }
 
+    $taxonomies = apply_filters('aff_product_taxonomies', $taxonomies, $output, $only_custom);
+
     return $taxonomies;
 }
 
@@ -287,7 +309,7 @@ function aff_has_product_review($product_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Review
+ * @return null|array|Review The review in the given output format.
  */
 function aff_get_product_review($product_or_id = null, $output = 'array')
 {
@@ -305,9 +327,13 @@ function aff_get_product_review($product_or_id = null, $output = 'array')
         return null;
     }
 
+    $review = apply_filters('aff_product_review', $review, $product);
+
     if($output == 'array') {
         $review = Review_Helper::to_array($review);
     }
+
+    $review = apply_filters('aff_product_formatted_review', $review, $product, $output);
 
     return $review;
 }
@@ -322,8 +348,9 @@ function aff_get_product_review($product_or_id = null, $output = 'array')
 function aff_has_product_review_rating($product_or_id = null)
 {
     $rating = aff_get_product_review_rating($product_or_id);
+    $result = !empty($rating) || $rating === 0;
 
-    return !empty($rating) || $rating === 0;
+    return $result;
 }
 
 /**
@@ -332,19 +359,28 @@ function aff_has_product_review_rating($product_or_id = null)
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|float|Rating
+ * @return null|float|Rating The review rating in the given output format.
  */
 function aff_get_product_review_rating($product_or_id = null, $output = 'scalar')
 {
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return null;
+    }
+
     $review = aff_get_product_review($product_or_id, 'object');
     if($review === null) {
         return null;
     }
 
     $rating = $review->get_rating();
+    $rating = apply_filters('aff_product_review_rating', $rating, $review, $product);
+
     if($output == 'scalar') {
         $rating = $rating->get_value();
     }
+
+    $rating = apply_filters('aff_product_review_formatted_rating', $rating, $review, $product, $output);
 
     return $rating;
 }
@@ -397,11 +433,16 @@ function aff_has_product_review_votes($product_or_id = null)
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int|Votes
+ * @return null|int|Votes The product votes in the given output format.
  */
 function aff_get_product_review_votes($product_or_id = null, $output = 'scalar')
 {
-    $review = aff_get_product_review($product_or_id, 'object');
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return null;
+    }
+
+    $review = aff_get_product_review($product, 'object');
     if($review === null) {
         return null;
     }
@@ -411,9 +452,13 @@ function aff_get_product_review_votes($product_or_id = null, $output = 'scalar')
         return null;
     }
 
+    $votes = apply_filters('aff_product_review_votes', $votes, $review, $product);
+
     if($output == 'scalar') {
         $votes = $votes->get_value();
     }
+
+    $votes = apply_filters('aff_product_review_formatted_votes', $votes, $review, $product, $output);
 
     return $votes;
 }
@@ -423,8 +468,9 @@ function aff_get_product_review_votes($product_or_id = null, $output = 'scalar')
  *
  * @since 0.8.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_review_votes($product_or_id = null)
+function aff_the_product_review_votes($product_or_id = null, $escape = true)
 {
     $votes = aff_get_product_review_votes($product_or_id, 'scalar');
     if($votes === null) {
@@ -435,7 +481,7 @@ function aff_the_product_review_votes($product_or_id = null)
         'based on %s review',
         'based on %s reviews',
         $votes, 'affilicious'),
-        esc_html($votes)
+        $escape ? esc_html($votes) : $votes
     );
 }
 
@@ -446,7 +492,7 @@ function aff_the_product_review_votes($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Detail[]
+ * @return null|array|Detail[] The details in the given output format.
  */
 function aff_get_product_details($product_or_id = null, $output = 'array')
 {
@@ -464,16 +510,17 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
         return null;
     }
 
-    $result = [];
-    foreach ($details as $detail) {
-        if($output == 'array') {
-            $detail = Detail_Helper::to_array($detail);
-        }
+    $details = apply_filters('aff_product_details', $details, $product);
 
-        $result[] = $detail;
+    if($output == 'array') {
+        $details = array_map(function(Detail $detail) {
+            return Detail_Helper::to_array($detail);
+        }, $details);
     }
 
-    return $result;
+    $details = apply_filters('aff_product_formatted_details', $details, $product, $output);
+
+    return $details;
 }
 
 /**
@@ -486,7 +533,10 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
  */
 function aff_has_product_image_gallery($product_or_id = null)
 {
-    return !empty(aff_get_product_image_gallery($product_or_id));
+    $image_gallery = aff_get_product_image_gallery($product_or_id);
+    $result = !empty($image_gallery);
+
+    return $result;
 }
 
 /**
@@ -496,7 +546,7 @@ function aff_has_product_image_gallery($product_or_id = null)
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int[]|Image_Id[]
+ * @return null|int[]|Image_Id[] The image IDs of the image gallery in the given output format.
  */
 function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar')
 {
@@ -510,16 +560,17 @@ function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar'
         return null;
     }
 
-    $result = array();
-    foreach ($image_ids as $image_id) {
-        if($output == 'scalar') {
-            $image_id = $image_id->get_value();
-        }
+    $image_ids = apply_filters('aff_product_image_gallery', $image_ids, $product);
 
-        $result[] = $image_id;
+    if($output == 'scalar') {
+        $image_ids = array_map(function(Image_Id $image_id) {
+            return $image_id->get_value();
+        }, $image_ids);
     }
 
-    return $result;
+    $image_ids = apply_filters('aff_product_formatted_image_gallery', $image_ids, $product, $output);
+
+    return $image_ids;
 }
 
 /**
@@ -545,7 +596,7 @@ function aff_has_product_shops($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return array|null
+ * @return null|array|Shop[] The shop in the given output format.
  */
 function aff_get_product_shops($product_or_id = null, $output = 'array')
 {
@@ -567,16 +618,17 @@ function aff_get_product_shops($product_or_id = null, $output = 'array')
         return null;
     }
 
-    $result = array();
-    foreach ($shops as $shop) {
-        if($output == 'array') {
-            $shop = Shop_Helper::to_array($shop);
-        }
+    $shops = apply_filters('aff_product_shops', $shops, $product);
 
-        $result[] = $shop;
+    if($output == 'array') {
+        $shops = array_map(function(Shop $shop) {
+            return Shop_Helper::to_array($shop);
+        }, $shops);
     }
 
-    return $result;
+    $shops = apply_filters('aff_product_formatted_shops', $shops, $product, $output);
+
+    return $shops;
 }
 
 /**
@@ -602,7 +654,7 @@ function aff_has_product_related_products($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int[]|Product_Id[]
+ * @return null|int[]|Product_Id[] The IDs of the related products in the given output format.
  */
 function aff_get_product_related_products($product_or_id = null, $output = 'scalar')
 {
@@ -616,16 +668,17 @@ function aff_get_product_related_products($product_or_id = null, $output = 'scal
         return null;
     }
 
-    $result = [];
-    foreach ($related_products as $related_product) {
-        if($output == 'scalar') {
-            $related_product = $related_product->get_value();
-        }
+    $related_products = apply_filters('aff_product_related_products', $related_products, $product);
 
-        $result[] = $related_product;
+    if($output == 'scalar') {
+        $related_products = array_map(function(Product_Id $related_product) {
+            return $related_product->get_value();
+        }, $related_products);
     }
 
-    return $result;
+    $related_products = apply_filters('aff_product_formatted_related_products', $related_products, $product, $output);
+
+    return $related_products;
 }
 
 /**
@@ -703,7 +756,7 @@ function aff_has_product_related_accessories($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int[]|Product_Id[]
+ * @return null|int[]|Product_Id[] The IDs of the related accessories in the given output format.
  */
 function aff_get_product_related_accessories($product_or_id = null, $output = 'scalar')
 {
@@ -717,16 +770,17 @@ function aff_get_product_related_accessories($product_or_id = null, $output = 's
         return null;
     }
 
-    $result = array();
-    foreach ($related_accessories as $related_accessory) {
-        if($output == 'scalar') {
-            $related_accessory = $related_accessory->get_value();
-        }
+    $related_accessories = apply_filters('aff_product_related_accessories', $related_accessories, $product);
 
-        $result[] = $related_accessory;
+    if($output == 'scalar') {
+        $related_accessories = array_map(function(Product_Id $related_accessory) {
+            return $related_accessory->get_value();
+        }, $related_accessories);
     }
 
-    return $result;
+    $related_accessories = apply_filters('aff_product_formatted_related_accessories', $related_accessories, $product, $output);
+
+    return $related_accessories;
 }
 
 /**
@@ -740,7 +794,12 @@ function aff_get_product_related_accessories($product_or_id = null, $output = 's
  */
 function aff_get_product_related_accessories_query($product_or_id = null, $args = array())
 {
-    $related_accessories_ids = aff_get_product_related_accessories($product_or_id, 'scalar');
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return null;
+    }
+
+    $related_accessories_ids = aff_get_product_related_accessories($product, 'scalar');
     if (empty($related_accessories_ids)) {
         return null;
     }
@@ -765,7 +824,7 @@ function aff_get_product_related_accessories_query($product_or_id = null, $args 
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return null|string
+ * @return null|string The product link.
  */
 function aff_get_product_link($product_or_id = null)
 {
@@ -779,6 +838,8 @@ function aff_get_product_link($product_or_id = null)
         return null;
     }
 
+    $link = apply_filters('aff_product_link', $link, $product);
+
     return $link;
 }
 
@@ -788,54 +849,17 @@ function aff_get_product_link($product_or_id = null)
  *
  * @since 0.8.8
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_link($product_or_id = null)
+function aff_the_product_link($product_or_id = null, $escape = true)
 {
     $link = aff_get_product_link($product_or_id);
 
-    echo esc_url($link);
-}
-
-/**
- * Get the shop of the given product.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
- *
- * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
- * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Shop
- */
-function aff_get_product_shop($product_or_id = null, $affiliate_link = null, $output = 'array')
-{
-    $product = aff_get_product($product_or_id, 'object');
-    if($product instanceof Complex_Product) {
-        $product = $product->get_default_variant();
+    if($escape) {
+        $link = esc_url($link);
     }
 
-    if(!($product instanceof Shop_Aware_Interface)) {
-        return null;
-    }
-
-    $shop = null;
-    if($affiliate_link instanceof Affiliate_Link) {
-        $shop = $product->get_shop($affiliate_link);
-    } elseif ($affiliate_link === null) {
-        $shop = $product->get_cheapest_shop();
-    } elseif (is_string($affiliate_link)) {
-        $shop = $product->get_shop(new Affiliate_Link($affiliate_link));
-    }
-
-    if($shop === null) {
-        return null;
-    }
-
-    if($output == 'array') {
-        $shop = Shop_Helper::to_array($shop);
-    }
-
-    return $shop;
+    echo $link;
 }
 
 /**
@@ -861,7 +885,7 @@ function aff_has_product_tags($product_or_id = null)
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|string[]|Tag[]
+ * @return null|string[]|Tag[] The tags in the given output format.
  */
 function aff_get_product_tags($product_or_id = null, $output = 'scalar')
 {
@@ -883,16 +907,17 @@ function aff_get_product_tags($product_or_id = null, $output = 'scalar')
         return null;
     }
 
-    $results = array();
-    foreach ($tags as $tag) {
-        if($output == 'scalar') {
-            $tag = $tag->get_value();
-        }
+    $tags = apply_filters('aff_product_tags', $tags, $product);
 
-        $results[] = $tag;
+    if($output == 'scalar') {
+        $tags = array_map(function(Tag $tag) {
+            return $tag->get_value();
+        }, $tags);
     }
 
-    return $results;
+    $tags = apply_filters('aff_product_formatted_tags', $tags, $product, $output);
+
+    return $tags;
 }
 
 /**
@@ -901,10 +926,11 @@ function aff_get_product_tags($product_or_id = null, $output = 'scalar')
  *
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $before
- * @param string $after
+ * @param string $before The html or string which is printed before every tag.
+ * @param string $after The html or string which is printed after every tag.
+ * @param bool $escape Whether to escape the output.
  */
-function aff_the_product_tags($product_or_id = null, $before = '', $after = '')
+function aff_the_product_tags($product_or_id = null, $before = '', $after = '', $escape = true)
 {
     $tags = aff_get_product_tags($product_or_id, 'scalar');
     if(empty($tags)) {
@@ -912,26 +938,28 @@ function aff_the_product_tags($product_or_id = null, $before = '', $after = '')
     }
 
     foreach ($tags as $tag) {
-        echo $before . esc_html($tag) . $after;
+        if($escape) {
+            $tag = esc_html($tag);
+        }
+
+        echo $before . $tag . $after;
     }
 }
 
 /**
- * Get the cheapest shop of the given product.
+ * Get the shop of the given product.
  * If you pass in nothing as a product, the current post will be used.
+ * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
- * @since 0.5.1
+ * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param string|Affiliate_Link|null $affiliate_link
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Shop
+ * @return null|array|Shop The shop in the given output format.
  */
-function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
+function aff_get_product_shop($product_or_id = null, $affiliate_link = null, $output = 'array')
 {
     $product = aff_get_product($product_or_id, 'object');
-    if($product === null) {
-        return null;
-    }
-
     if($product instanceof Complex_Product) {
         $product = $product->get_default_variant();
     }
@@ -940,16 +968,44 @@ function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
         return null;
     }
 
-    $shop = $product->get_cheapest_shop();
+    $shop = null;
+    if($affiliate_link instanceof Affiliate_Link) {
+        $shop = $product->get_shop($affiliate_link);
+    } elseif ($affiliate_link === null) {
+        $shop = $product->get_cheapest_shop();
+    } elseif (is_string($affiliate_link)) {
+        $shop = $product->get_shop(new Affiliate_Link($affiliate_link));
+    }
+
     if($shop === null) {
         return null;
     }
+
+    $cheapest = $affiliate_link === null;
+    $shop = apply_filters('aff_product_shop', $shop, $product, $cheapest);
 
     if($output == 'array') {
         $shop = Shop_Helper::to_array($shop);
     }
 
+    $shop = apply_filters('aff_product_formatted_shop', $shop, $product, $cheapest, $output);
+
     return $shop;
+}
+
+/**
+ * Get the cheapest shop of the given product.
+ * If you pass in nothing as a product, the current post will be used.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_shop' instead.
+ * @since 0.5.1
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Shop The shop in the given output format.
+ */
+function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
+{
+    return aff_get_product_shop($product_or_id, null, $output);
 }
 
 /**
@@ -960,7 +1016,7 @@ function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
- * @return bool
+ * @return bool Whether the product has a price or not.
  */
 function aff_has_product_price($product_or_id = null, $affiliate_link = null)
 {
@@ -979,7 +1035,7 @@ function aff_has_product_price($product_or_id = null, $affiliate_link = null)
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money
+ * @return null|string|Money The price in the given output format.
  */
 function aff_get_product_price($product_or_id = null, $affiliate_link = null, $output = 'scalar')
 {
@@ -1006,11 +1062,15 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null, $o
         return null;
     }
 
+    $price = apply_filters('aff_product_price', $price, $product, $shop);
+
     if($output == 'scalar') {
         $price = Money_Helper::to_string($price);
     } elseif ($output == 'array') {
         $price = Money_Helper::to_array($price);
     }
+
+    $price = apply_filters('aff_product_formatted_price', $price, $product, $shop, $output);
 
     return $price;
 }
@@ -1023,15 +1083,20 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null, $o
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_price($product_or_id = null, $affiliate_link = null)
+function aff_the_product_price($product_or_id = null, $affiliate_link = null, $escape = true)
 {
     $price = aff_get_product_price($product_or_id, $affiliate_link, 'scalar');
     if(empty($price)) {
         return;
     };
 
-    echo esc_html($price);
+    if($escape) {
+        $price = esc_html($price);
+    }
+
+    echo $price;
 }
 
 /**
@@ -1042,7 +1107,7 @@ function aff_the_product_price($product_or_id = null, $affiliate_link = null)
  * @since 0.8.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
- * @return bool
+ * @return bool Whether the product has an old price or not.
  */
 function aff_has_product_old_price($product_or_id = null, $affiliate_link = null)
 {
@@ -1061,7 +1126,7 @@ function aff_has_product_old_price($product_or_id = null, $affiliate_link = null
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money
+ * @return null|string|Money The old price in the given output format.
  */
 function aff_get_product_old_price($product_or_id = null, $affiliate_link = null, $output = 'scalar')
 {
@@ -1088,11 +1153,15 @@ function aff_get_product_old_price($product_or_id = null, $affiliate_link = null
         return null;
     }
 
+    $old_price = apply_filters('aff_product_old_price', $old_price, $product, $shop);
+
     if($output == 'scalar') {
         $old_price = Money_Helper::to_string($old_price);
     } elseif ($output == 'array') {
         $old_price = Money_Helper::to_array($old_price);
     }
+
+    $old_price = apply_filters('aff_product_formatted_old_price', $old_price, $product, $shop, $output);
 
     return $old_price;
 }
@@ -1105,59 +1174,62 @@ function aff_get_product_old_price($product_or_id = null, $affiliate_link = null
  * @since 0.8.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string|Affiliate_Link|null $affiliate_link
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_old_price($product_or_id = null, $affiliate_link = null)
+function aff_the_product_old_price($product_or_id = null, $affiliate_link = null, $escape = true)
 {
     $old_price = aff_get_product_old_price($product_or_id, $affiliate_link, 'scalar');
-    if(empty($old_price)) {
+    if($old_price === null) {
         return;
     };
 
-    echo esc_html($old_price);
+    if($escape) {
+        $old_price = esc_html($old_price);
+    }
+
+    echo $old_price;
 }
 
 /**
  * Get the cheapest price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
  *
+ * @deprecated 1.1 Use 'aff_get_product_price' instead.
  * @since 0.5.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money
+ * @return null|string|Money The cheapest price in the given output format.
  */
 function aff_get_product_cheapest_price($product_or_id = null, $output = 'scalar')
 {
-    $price = aff_get_product_price($product_or_id, null, $output);
-
-    return $price;
+    return aff_get_product_price($product_or_id, null, $output);
 }
 
 /**
  * Get the cheapest old price with the currency of the product.
  * If you pass in nothing as a product, the current post will be used.
  *
+ * @deprecated 1.1 Use 'aff_get_product_old_price' instead.
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money
+ * @return null|string|Money The cheapest old price in the given output format.
  */
 function aff_get_product_cheapest_old_price($product_or_id = null, $output = 'scalar')
 {
-    $price = aff_get_product_old_price($product_or_id, null, $output);
-
-    return $price;
+    return aff_get_product_old_price($product_or_id, null, $output);
 }
 
 /**
  * Get the affiliate link by the product and shop
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the first shop will be used.
+ * If you pass in nothing as a shop, the cheapest shop will be used.
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|string|Affiliate_Link
+ * @return null|string|Affiliate_Link The product affiliate link in the given output format.
  */
 function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = null, $output = 'scalar')
 {
@@ -1176,9 +1248,13 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
     }
 
     $affiliate_link = $shop->get_tracking()->get_affiliate_link();
+    $affiliate_link = apply_filters('aff_product_affiliate_link', $affiliate_link, $product, $shop);
+
     if($output == 'scalar') {
         $affiliate_link = $affiliate_link->get_value();
     }
+
+    $affiliate_link = apply_filters('aff_product_formatted_affiliate_link', $affiliate_link, $product, $shop, $output);
 
     return $affiliate_link;
 }
@@ -1186,27 +1262,36 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
 /**
  * Print the affiliate link by the product and shop.
  * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the first shop will be used.
+ * If you pass in nothing as a shop, the cheapest shop will be used.
  *
  * @since 0.8.8
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null)
+function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null, $escape = true)
 {
-    $affiliate_link = aff_get_product_affiliate_link($product_or_id, $shop_or_id);
+    $affiliate_link = aff_get_product_affiliate_link($product_or_id, $shop_or_id, 'scalar');
+    if($affiliate_link === null) {
+        return;
+    }
 
-    echo esc_url($affiliate_link);
+    if($escape) {
+        $affiliate_link = esc_url($affiliate_link);
+    }
+
+    echo $affiliate_link;
 }
 
 /**
  * Get the affiliate link by the product and shop.
  * If you pass in nothing as a product, the current post will be used.
  *
+ * @deprecated 1.1 Use 'aff_the_product_affiliate_link' instead.
  * @since 0.5.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|string|Affiliate_Link
+ * @return null|string|Affiliate_Link The cheapest affiliate link in the given output format.
  */
 function aff_get_product_cheapest_affiliate_link($product_or_id = null, $output = 'scalar')
 {
@@ -1240,7 +1325,7 @@ function aff_get_product_cheapest_affiliate_link($product_or_id = null, $output 
  * @since 0.6
  * @param string|Type $type
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of the type or not.
  */
 function aff_product_is_type($type, $product_or_id = null)
 {
@@ -1254,7 +1339,7 @@ function aff_product_is_type($type, $product_or_id = null)
  * @since 0.9
  * @param string|Type $type
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of the type or not.
  */
 function aff_is_product_type($type, $product_or_id = null)
 {
@@ -1263,11 +1348,12 @@ function aff_is_product_type($type, $product_or_id = null)
         return false;
     }
 
-    if($type instanceof Type) {
-        $type = $type->get_value();
+    if(!($type instanceof Type)) {
+        $type = new Type($type);
     }
 
-    $result = $product->get_type()->get_value() == $type;
+    $result = $product->get_type()->is_equal_to($type);
+    $result = apply_filters('aff_is_product_type', $result, $product, $type);
 
     return $result;
 }
@@ -1279,7 +1365,7 @@ function aff_is_product_type($type, $product_or_id = null)
  * @deprecated 1.1 Use 'aff_is_product_simple' instead.
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of simple type or not.
  */
 function aff_product_is_simple($product_or_id = null)
 {
@@ -1292,7 +1378,7 @@ function aff_product_is_simple($product_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of simple type or not.
  */
 function aff_is_product_simple($product_or_id = null)
 {
@@ -1308,7 +1394,7 @@ function aff_is_product_simple($product_or_id = null)
  * @deprecated 1.1 Use 'aff_is_product_complex' instead.
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of complex type or not.
  */
 function aff_product_is_complex($product_or_id = null)
 {
@@ -1321,7 +1407,7 @@ function aff_product_is_complex($product_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of complex type or not.
  */
 function aff_is_product_complex($product_or_id = null)
 {
@@ -1337,7 +1423,7 @@ function aff_is_product_complex($product_or_id = null)
  * @deprecated 1.1 Use 'aff_is_product_variant' instead
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of variant type or not.
  */
 function aff_product_is_variant($product_or_id = null)
 {
@@ -1350,7 +1436,7 @@ function aff_product_is_variant($product_or_id = null)
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return bool
+ * @return bool Whether the product is of variant type or not.
  */
 function aff_is_product_variant($product_or_id = null)
 {
@@ -1367,7 +1453,7 @@ function aff_is_product_variant($product_or_id = null)
  * @deprecated 1.1 Use 'aff_get_product_variant_parent' instead
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @return null|Product
+ * @return null|Product The complex parent product of the given product variant.
  */
 function aff_product_get_parent($product_or_id = null)
 {
@@ -1382,7 +1468,7 @@ function aff_product_get_parent($product_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Product
+ * @return null|array|Product The complex parent product of the given product variant.
  */
 function aff_get_product_variant_parent($product_or_id = null, $output = 'array')
 {
@@ -1415,7 +1501,7 @@ function aff_get_product_variant_parent($product_or_id = null, $output = 'array'
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @return bool
+ * @return bool Whether the complex parent product has the variant or not.
  */
 function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
 {
@@ -1430,7 +1516,7 @@ function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @return bool
+ * @return bool Whether the complex parent product has the variant or not.
  */
 function aff_has_product_variant($complex_or_id = null, $variant_or_id = null)
 {
@@ -1449,7 +1535,7 @@ function aff_has_product_variant($complex_or_id = null, $variant_or_id = null)
  * @since 0.8
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
- * @return Product_Variant|null
+ * @return null|Product_Variant The product variant as an object.
  */
 function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
 {
@@ -1465,7 +1551,7 @@ function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Product_Variant
+ * @return null|array|Product_Variant The product variant in the given output format.
  */
 function aff_get_product_variant($complex_or_id = null, $variant_or_id = null, $output = 'array')
 {
@@ -1484,9 +1570,13 @@ function aff_get_product_variant($complex_or_id = null, $variant_or_id = null, $
         return null;
     }
 
+    $product_variant = apply_filters('aff_product_variant', $product_variant, $complex_product);
+
     if($output == 'array') {
         $product_variant = Product_Helper::to_array($product_variant);
     }
+
+    $product_variant = apply_filters('aff_product_formatted_variant', $product_variant, $complex_product, $output);
 
     return $product_variant;
 }
@@ -1556,14 +1646,15 @@ function aff_get_product_variants($complex_or_id = null, $output = 'array')
         return null;
     }
 
-    $result = [];
-    foreach ($product_variants as $product_variant) {
-        if($output == 'array') {
-            $product_variant = Product_Helper::to_array($product_variant);
-        }
+    $product_variants = apply_filters('aff_product_variants', $product_variants, $complex_product);
 
-        $result[] = $product_variant;
+    if($output == 'array') {
+        $product_variants = array_map(function(Product_Variant $product_variant) {
+            return Product_Helper::to_array($product_variant);
+        }, $product_variants);
     }
+
+    $product_variants = apply_filters('aff_product_formatted_variants', $product_variants, $complex_product, $output);
 
     return $product_variants;
 }
@@ -1603,9 +1694,13 @@ function aff_get_product_default_variant($complex_or_id = null, $output = 'array
         return null;
     }
 
+    $product_variant = apply_filters('aff_product_default_variant', $product_variant, $complex_product);
+
     if($output == 'array') {
         $product_variant = Product_Helper::to_array($product_variant);
     }
+
+    $product_variant = apply_filters('aff_product_formatted_default_variant', $product_variant, $complex_product, $output);
 
     return $product_variant;
 }
@@ -1647,7 +1742,9 @@ function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = 
     }
 
     $default_variant = aff_get_product_default_variant($complex_product, 'object');
+
     $result = $product_variant->is_equal_to($default_variant);
+    $result = apply_filters('aff_is_product_default_variant', $result, $complex_product, $product_variant);
 
     return $result;
 }
@@ -1702,17 +1799,17 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
     }
 
     $attributes = $product_variant->get_attributes();
+    $attributes = apply_filters('aff_product_variant_attributes', $attributes, $complex_product, $product_variant);
 
-    $result = [];
-    foreach ($attributes as $attribute) {
-        if($output == 'array') {
-            $attribute = Attribute_Helper::to_array($attribute);
-        }
-
-        $result[] = $attribute;
+    if($output == 'array') {
+        $attributes = array_map(function(Attribute $attribute) {
+            return Attribute_Helper::to_array($attribute);
+        }, $attributes);
     }
 
-    return $result;
+    $attributes = apply_filters('aff_product_variant_formatted_attributes', $attributes, $complex_product, $product_variant, $output);
+
+    return $attributes;
 }
 
 /**
@@ -1809,6 +1906,8 @@ function aff_get_product_attribute_choices($product_or_id = null)
         $choices[$index]['attributes'] = array_values($choices[$index]['attributes']);
     }
 
+    $choices = apply_filters('aff_product_attribute_choices', $choices, $parent);
+
     return $choices;
 }
 
@@ -1817,8 +1916,9 @@ function aff_get_product_attribute_choices($product_or_id = null)
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_attribute_choices($product_or_id = null)
+function aff_the_product_attribute_choices($product_or_id = null, $escape = true)
 {
     $attribute_choices = aff_get_product_attribute_choices($product_or_id);
     if(empty($attribute_choices)) {
@@ -1830,14 +1930,14 @@ function aff_the_product_attribute_choices($product_or_id = null)
 
     foreach ($attribute_choices as $attribute_choice) {
         echo '<li class="aff-product-attributes-choices">';
-        echo '<span class="aff-product-attributes-choices-name">' . esc_html($attribute_choice['name']) . '</span>';
+        echo '<span class="aff-product-attributes-choices-name">' . $escape ? esc_html($attribute_choice['name']) : $attribute_choice['name'] . '</span>';
         echo '<ul class="aff-product-attributes-choice-list">';
 
         foreach ($attribute_choice['attributes'] as $attribute) {
-            echo '<li class="aff-product-attributes-choice ' . esc_attr($attribute['display']) . '">';
-            if(!empty($attribute['permalink'])): echo '<a href="' . esc_url($attribute['permalink']) .'">'; endif;
+            echo '<li class="aff-product-attributes-choice ' . $escape ? esc_attr($attribute['display']) : $attribute_choice['display'] . '">';
+            if(!empty($attribute['permalink'])): echo '<a href="' . $escape ? esc_url($attribute['permalink']) : $attribute_choice['permalink'] .'">'; endif;
             echo $attribute['value'];
-            if(!empty($attribute['unit'])): echo ' <span class="aff-unit unit">' . esc_html($attribute['unit']) . '</span>'; endif;
+            if(!empty($attribute['unit'])): echo ' <span class="aff-unit unit">' . $escape ? esc_html($attribute['unit']) : $attribute_choice['unit'] . '</span>'; endif;
             if(!empty($attribute['permalink'])): echo '</a>'; endif;
             echo '</li>';
         }
@@ -2063,6 +2163,8 @@ function aff_get_shop_price($shop, $output = 'scalar')
         $price = Money_Helper::to_array($price);
     }
 
+    $price = apply_filters('aff_shop_formatted_price', $price, $shop, $output);
+
     return $price;
 }
 
@@ -2128,6 +2230,8 @@ function aff_get_shop_old_price($shop, $output = 'scalar')
         $old_price = Money_Helper::to_array($old_price);
     }
 
+    $old_price = apply_filters('aff_shop_formatted_old_price', $old_price, $shop, $output);
+
     return $old_price;
 }
 
@@ -2163,7 +2267,13 @@ function aff_get_license_key($item_key)
 {
     /** @var \Affilicious\Common\License\License_Manager $license_manager */
     $license_manager = Affilicious::get('affilicious.common.admin.license.manager');
+
     $license_key = $license_manager->get_item_license_key($item_key);
+    if($license_key === null) {
+        return null;
+    }
+
+    $license_key = apply_filters('aff_license_key', $license_key, $item_key);
 
     return $license_key;
 }
@@ -2173,10 +2283,17 @@ function aff_get_license_key($item_key)
  *
  * @since 0.8.12
  * @param string $item_key The item key of the software.
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_license_key($item_key)
+function aff_the_license_key($item_key, $escape = true)
 {
-    echo esc_html(aff_get_license_key($item_key));
+    $license_key = aff_get_license_key($item_key);
+
+    if($escape) {
+        $license_key = esc_html($license_key);
+    }
+
+    echo $license_key;
 }
 
 /**
@@ -2256,11 +2373,18 @@ function aff_has_license_status_message(License_Status $status)
  *
  * @since 0.8.12
  * @param License_Status $status The status of the license processor.
- * @return null|string
+ * @return null|string The license status message.
  */
 function aff_get_license_status_message(License_Status $status)
 {
-    return $status->get_message();
+    $message = $status->get_message();
+    if($message === null) {
+        return null;
+    }
+
+    $message = apply_filters('aff_license_status_message', $message, $status);
+
+    return $message;
 }
 
 /**
@@ -2268,8 +2392,18 @@ function aff_get_license_status_message(License_Status $status)
  *
  * @since 0.8.12
  * @param License_Status $status The status of the license processor.
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_license_status_message(License_Status $status)
+function aff_the_license_status_message(License_Status $status, $escape = true)
 {
-    echo esc_html(aff_get_license_status_message($status));
+    $message = aff_get_license_status_message($status);
+    if($message === null) {
+        return;
+    }
+
+    if($escape) {
+        $message = esc_html($message);
+    }
+
+    echo $message;
 }

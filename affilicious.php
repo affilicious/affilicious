@@ -28,7 +28,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Affilicious. If not, see <http://www.gnu.org/licenses/>.
  */
-use Pimple\Container;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -58,7 +57,7 @@ if(!class_exists('Affilicious')) {
          * Register all services and parameters for the pimple dependency injection
          *
          * @see http://pimple.sensiolabs.org
-         * @var Container
+         * @var \Pimple\Container
          */
         private $container;
 
@@ -127,7 +126,7 @@ if(!class_exists('Affilicious')) {
 
             spl_autoload_register(array($this, 'autoload'));
 
-            $this->container = new Container();
+            $this->container = new \Pimple\Container();
         }
 
         /**
@@ -135,7 +134,7 @@ if(!class_exists('Affilicious')) {
          *
          * @see http://pimple.sensiolabs.org
          * @since 0.3
-         * @return Container
+         * @return \Pimple\Container
          */
         public function get_container()
         {
@@ -881,16 +880,6 @@ if(!class_exists('Affilicious')) {
 
                 /** @deprecated 1.0 */
                 do_action('affilicious_admin_init');
-            }, 10);
-
-            add_action('admin_init', function() {
-                return;
-                $product_repository = $this->container['affilicious.product.repository.product'];
-                $amazon_importer = $this->container['affilicious.product.importer.amazon'];
-                $result = $amazon_importer->import(new \Affilicious\Shop\Model\Affiliate_Product_Id('B071R3J878'/*'178355181X'*/), [
-                    'variants' => true,
-                ]);
-                $product_repository->store($result);
             }, 10);
         }
     }
