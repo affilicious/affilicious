@@ -45,6 +45,9 @@ let paths = {
             ]
         },
         'amazon-import': {
+            css: [
+                'assets/admin/src/carbon-fields/scss/**',
+            ],
             js: [
                 'assets/admin/src/amazon-import/js/amazon-import.js',
             ]
