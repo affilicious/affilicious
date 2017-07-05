@@ -13,6 +13,7 @@ let gulp = require('gulp'),
     source = require("vinyl-source-stream"),
     plumber = require('gulp-plumber'),
     autoprefixer = require('gulp-autoprefixer'),
+    livereload = require('gulp-livereload'),
     fs = require('fs')
 ;
 
@@ -33,9 +34,10 @@ gulp.task('admin-css', function() {
             .pipe(concat(`${module}.css`))
             .pipe(autoprefixer())
             .pipe(gulp.dest('assets/admin/dist/css/'))
-            .pipe(rename({suffix: '.min'}))
             .pipe(uglifycss())
+            .pipe(rename({suffix: '.min'}))
             .pipe(gulp.dest('assets/admin/dist/css/'))
+            .pipe(livereload())
         ;
     });
 });
@@ -50,9 +52,10 @@ gulp.task('admin-js', function () {
                 .pipe(source(`${module}.js`))
                 .pipe(buffer())
                 .pipe(gulp.dest('assets/admin/dist/js/'))
-                .pipe(rename({suffix: '.min'}))
                 .pipe(uglify())
+                .pipe(rename({suffix: '.min'}))
                 .pipe(gulp.dest('assets/admin/dist/js/'))
+                .pipe(livereload())
             ;
         }
     });
@@ -69,6 +72,8 @@ gulp.task('admin-img', function() {
 });
 
 gulp.task('admin-watch', function() {
+    livereload.listen();
+
     modules.admin.map(function(module) {
         gulp.watch(`assets/admin/src/${module}/scss/**`, ['admin-css']);
         gulp.watch(`assets/admin/src/${module}/js/**`, ['admin-js']);

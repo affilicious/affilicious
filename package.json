@@ -20,6 +20,7 @@
     "gulp-uglifycss": "^1.0.6",
     "gulp-watch": "^4.3.9",
     "gulp-concat": "^2.6.1 ",
-    "gulp-plumber": "^1.1.0"
+    "gulp-plumber": "^1.1.0",
+    "gulp-livereload": "^3.8.1"
   }
 }
