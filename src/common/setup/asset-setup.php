@@ -98,10 +98,11 @@ class Asset_Setup
             'variants' => __('Variants', 'affilicious'),
             'shops' => __('Shops', 'affilicious'),
             'addTag' => __('Add', 'affilicious'),
+            'ajaxUrl' => admin_url('admin-ajax.php')
         );
 
-        wp_register_script('affilicious-admin', self::get_admin_script_dir() . 'admin.min.js', array('jquery', 'carbon-fields'), \Affilicious::VERSION, true);
-        wp_localize_script('affilicious-admin', 'translations', $translations);
-        wp_enqueue_script('affilicious-admin');
+        wp_register_script('aff-admin-amazon-import', \Affilicious::get_root_url() . '/assets/admin/dist/js/amazon-import.min.js', array('jquery', 'carbon-fields'), \Affilicious::VERSION, true);
+        wp_localize_script('aff-admin-amazon-import', 'translations', $translations);
+        wp_enqueue_script('aff-admin-amazon-import');
     }
 }

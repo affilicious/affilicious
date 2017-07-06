@@ -132,6 +132,11 @@ class Product_Helper
             'thumbnail' => $product->has_thumbnail_id() ? $product->get_thumbnail_id()->get_value() : null,
         ];
 
+        $result['thumbnail'] = !$product->has_thumbnail_id() ? null : [
+            'id' => $product->get_thumbnail_id()->get_id(),
+            'src' => $product->get_thumbnail_id()->get_src(),
+        ];
+
         if($product instanceof Excerpt_Aware_Interface) {
             $result['excerpt'] = $product->has_excerpt() ? $product->get_excerpt()->get_value() : null;
         }

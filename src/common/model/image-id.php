@@ -7,6 +7,10 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @deprecated 1.1
+ * @package Affilicious\Common\Model
+ */
 class Image_Id
 {
     use Simple_Value_Trait {
@@ -26,5 +30,29 @@ class Image_Id
         Assert::integer($value, 'Expected the image ID to be an integer. Got: %s');
 
         $this->set_value($value);
+    }
+
+    /**
+     * Just here to make the migration to "Image" easier.
+     *
+     * @deprecated 1.1
+     * @since 0.9
+     * @return int
+     */
+    public function get_id()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Just here to make the migration to "Image" easier.
+     *
+     * @deprecated 1.1
+     * @since 0.9
+     * @return null|string
+     */
+    public function get_src()
+    {
+        return !empty($this->value) ? get_the_post_thumbnail_url($this->value, 'full') : null;
     }
 }

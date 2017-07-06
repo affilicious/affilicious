@@ -621,6 +621,13 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Migration\Variant_Inherit_Status_Migration();
             };
 
+            $this->container['affilicious.product.admin.ajax_handler.amazon_search'] = function ($c) {
+                return new \Affilicious\Product\Admin\Ajax_Handler\Amazon_Search_Ajax_Handler(
+                    $c['affilicious.provider.repository.provider'],
+                    $c['affilicious.common.generator.slug']
+                );
+            };
+
             $this->container['affilicious.product.migration.product_slug'] = function () {
                 return new \Affilicious\Product\Migration\Product_Slug_Migration();
             };
@@ -873,6 +880,10 @@ if(!class_exists('Affilicious')) {
             // Hook the admin footer text.
             $admin_footer_text_filter = $this->container['affilicious.common.admin.filter.footer_text'];
             add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
+
+            // Hook the ajax handlers
+            $amazon_search_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_search'];
+            add_action('wp_ajax_aff_product_admin_amazon_search', array($amazon_search_ajax_handler, 'search'));
 
             // Add a custom affilicious admin init hook.
             add_action('admin_init', function() {

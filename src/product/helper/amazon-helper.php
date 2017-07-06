@@ -7,6 +7,7 @@ use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Model\Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Helper\Image_Helper;
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
@@ -33,9 +34,10 @@ class Amazon_Helper
      *
      * @since 0.9
      * @param array $item The Amazon API response converted from XML to an array.
-     * @return null|Image_Id
+     * @param bool $create_missing
+     * @return Image_Id|null
      */
-    public static function find_thumbnail_id(array $item)
+    public static function find_thumbnail_id(array $item, $create_missing = true)
     {
         if(isset($item['LargeImage'])) {
             $url = $item['LargeImage']['URL'];
@@ -47,7 +49,12 @@ class Amazon_Helper
             return null;
         }
 
-        $thumbnail_id = Image_Helper::download($url);
+        if($create_missing) {
+            $thumbnail_id = Image_Helper::download($url);
+        } else {
+            $thumbnail_id = new Image(null, $url);
+        }
+
         $thumbnail_id = apply_filters('aff_amazon_helper_find_thumbnail', $thumbnail_id, $item);
 
         return $thumbnail_id;
@@ -58,9 +65,10 @@ class Amazon_Helper
      *
      * @since 0.9
      * @param array $item
+     * @param bool $create_missing
      * @return Image_Id[]
      */
-    public static function find_image_gallery_ids(array $item)
+    public static function find_image_gallery_ids(array $item, $create_missing = true)
     {
         $image_gallery_ids = [];
 
@@ -77,7 +85,12 @@ class Amazon_Helper
                     continue;
                 }
 
-                $image_id = Image_Helper::download($url);
+                if($create_missing) {
+                    $image_id = Image_Helper::download($url);
+                } else {
+                    $image_id = new Image(null, $url);
+                }
+
                 if($image_id === null) {
                     continue;
                 }
@@ -261,9 +274,10 @@ class Amazon_Helper
      *
      * @since 0.9
      * @param array $item The Amazon API response converted from XML to an array.
+     * @param bool $create_missing
      * @return Attribute[]
      */
-    public static function find_attributes(array $item)
+    public static function find_attributes(array $item, $create_missing = true)
     {
         /** @var Attribute_Template_Repository_Interface $attribute_template_repository */
         $attribute_template_repository = \Affilicious::get('affilicious.attribute.repository.attribute_template');
@@ -280,7 +294,10 @@ class Amazon_Helper
                 $attribute_template = $attribute_template_repository->find_one_by_name(new Name($variation_attribute['Name']));
                 if($attribute_template === null) {
                     $attribute_template = $attribute_template_factory->create_from_name(new Name($variation_attribute['Name']), Type::text());
-                    $attribute_template_repository->store($attribute_template);
+
+                    if($create_missing) {
+                        $attribute_template_repository->store($attribute_template);
+                    }
                 }
 
                 // Build the attribute from the template.
@@ -299,9 +316,10 @@ class Amazon_Helper
      *
      * @param array $item
      * @param Shop_Template_Id|null $shop_template_id
+     * @param bool $create_missing
      * @return Shop|null
      */
-    public static function find_shop(array $item, Shop_Template_Id $shop_template_id = null)
+    public static function find_shop(array $item, Shop_Template_Id $shop_template_id = null, $create_missing = true)
     {
         /** @var Shop_Template_Repository_Interface $shop_template_repository */
         $shop_template_repository = \Affilicious::get('affilicious.shop.repository.shop_template');
@@ -338,7 +356,9 @@ class Amazon_Helper
                     $shop_template->set_provider_id($amazon_provider->get_id());
                 }
 
-                $shop_template_repository->store($shop_template);
+                if($create_missing) {
+                    $shop_template_repository->store($shop_template);
+                }
             }
         }
 
