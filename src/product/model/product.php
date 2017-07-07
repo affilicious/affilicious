@@ -150,7 +150,7 @@ class Product
      * @since 0.8
      * @param null|Image_Id $thumbnail_id
      */
-    public function set_thumbnail_id(Image_Id $thumbnail_id)
+    public function set_thumbnail_id(Image_Id $thumbnail_id = null)
     {
         $this->thumbnail_id = $thumbnail_id;
     }

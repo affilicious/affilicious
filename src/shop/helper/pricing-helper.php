@@ -22,7 +22,7 @@ class Pricing_Helper
         $array = array(
             'availability' => $pricing->get_availability()->get_value(),
             'price' => $pricing->has_price() ? Money_Helper::to_array($pricing->get_price()) : null,
-            'old_price' => $pricing->has_price() ? Money_Helper::to_array($pricing->get_price()) : null,
+            'old_price' => $pricing->has_old_price() ? Money_Helper::to_array($pricing->get_old_price()) : null,
         );
 
         $array = apply_filters('aff_pricing_to_array', $array, $pricing);
