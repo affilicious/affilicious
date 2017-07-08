@@ -2236,6 +2236,54 @@ function aff_get_shop_old_price($shop, $output = 'scalar')
 }
 
 /**
+ * Get the shop's affiliate link.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the affiliate link is taken.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return string|Affiliate_Link
+ */
+function aff_get_shop_affiliate_link($shop, $output = 'scalar')
+{
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $affiliate_link = $shop->get_tracking()->get_affiliate_link();
+
+    $affiliate_link = apply_filters('aff_shop_affiliate_link', $affiliate_link, $shop);
+
+    if($output == 'scalar') {
+        $affiliate_link = $affiliate_link->get_value();
+    }
+
+    $affiliate_link = apply_filters('aff_shop_formatted_affiliate_link', $affiliate_link, $shop, $output);
+
+    return $affiliate_link;
+}
+
+/**
+ * Print the shop's affiliate link.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the affiliate link is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_affiliate_link($shop, $escape = true)
+{
+    $affiliate_link = aff_get_shop_affiliate_link($shop, 'scalar');
+    if(empty($affiliate_link)) {
+        return;
+    }
+
+    if($escape) {
+        $affiliate_link = esc_html($affiliate_link);
+    }
+
+    echo $affiliate_link;
+}
+
+/**
  * Print the formatted shop's old price.
  *
  * @since 0.8.9
