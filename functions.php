@@ -39,6 +39,7 @@ use Affilicious\Shop\Model\Money;
 use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
+use Affilicious\Shop\Model\Availability;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -2058,6 +2059,33 @@ function aff_the_shop_updated_at_indication($shop, $custom_text = null, $escape 
 }
 
 /**
+ * Get the shop's availability.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the availability is taken.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return string|Availability
+ */
+function aff_get_shop_availability($shop, $output = 'scalar')
+{
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $availability = $shop->get_pricing()->get_availability();
+
+    $availability = apply_filters('aff_shop_availability', $availability, $shop);
+
+    if($output == 'scalar') {
+        $availability = $availability->get_value();
+    }
+
+    $availability = apply_filters('aff_shop_formatted_availability', $availability, $shop, $output);
+
+    return $availability;
+}
+
+/**
  * Check if the shop is available.
  *
  * @since 0.7
@@ -2084,7 +2112,7 @@ function aff_is_shop_available($shop)
  * @param array|Shop $shop The shop from which the availability is taken.
  * @return bool Whether the shop is out of stock or not.
  */
-function aff_is_out_of_stock($shop)
+function aff_is_shop_out_of_stock($shop)
 {
     // Normalize the shop.
     if(is_array($shop)) {
@@ -2098,7 +2126,7 @@ function aff_is_out_of_stock($shop)
 }
 
 /**
- * Check if the shop should display the stock price.
+ * Check if the shop should display the old price.
  *
  * @deprecated 1.1 Don't use it anymore.
  * @since 0.8
