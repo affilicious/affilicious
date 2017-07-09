@@ -1,4 +1,6 @@
 .aff-amazon-import-results-item {
+  border-radius: 5px;
+  border: 1px solid #eee;
   background-color: white;
   margin: 20px 0;
   max-width: 750px;
@@ -40,7 +42,6 @@
   .aff-amazon-import-results-item-content {
     width: calc(100% - 220px); }
   .aff-amazon-import-results-item-title {
-    display: block;
     font-size: 1.8rem;
     line-height: 2rem;
     margin-top: 0;
@@ -63,6 +64,69 @@
       font-size: 1rem;
       text-decoration: line-through;
       color: #ff2320; }
+  .aff-amazon-import-results-item-variants-title {
+    margin: 30px 0 10px 0; }
+  .aff-amazon-import-results-item-variants-show-all {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    text-decoration: none; }
+    .aff-amazon-import-results-item-variants-show-all:active, .aff-amazon-import-results-item-variants-show-all:hover, .aff-amazon-import-results-item-variants-show-all:focus {
+      -webkit-box-shadow: none;
+              box-shadow: none; }
+  .aff-amazon-import-results-item-variants-item {
+    border-radius: 5px;
+    background-color: #fcfcfc;
+    padding: 10px;
+    padding-bottom: 0;
+    margin-bottom: 10px;
+    border: 1px solid #eee; }
+    .aff-amazon-import-results-item-variants-item-hidden {
+      display: none; }
+    .aff-amazon-import-results-item-variants-item-title {
+      font-size: 1rem;
+      line-height: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 10px; }
+    .aff-amazon-import-results-item-variants-item-price {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: start;
+          -ms-flex-align: start;
+              align-items: flex-start;
+      margin-bottom: 10px; }
+      .aff-amazon-import-results-item-variants-item-price-current {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        color: #2fa32f; }
+      .aff-amazon-import-results-item-variants-item-price-old {
+        margin-left: 10px;
+        font-size: 0.8rem;
+        text-decoration: line-through;
+        color: #ff2320; }
+    .aff-amazon-import-results-item-variants-item-attributes {
+      display: block;
+      margin: 0; }
+      .aff-amazon-import-results-item-variants-item-attributes-item {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        border-radius: 5px;
+        margin: 0 10px 10px 0;
+        display: inline-block;
+        border: 1px solid #eee;
+        overflow: hidden; }
+        .aff-amazon-import-results-item-variants-item-attributes-item-name, .aff-amazon-import-results-item-variants-item-attributes-item-value {
+          display: inline-block;
+          padding: 5px 8px; }
+        .aff-amazon-import-results-item-variants-item-attributes-item-name {
+          border-right: 1px solid #eee;
+          background-color: #eee;
+          font-weight: bold; }
+        .aff-amazon-import-results-item-variants-item-attributes-item-value {
+          background-color: white; }
   .aff-amazon-import-results-item-actions {
     margin-top: 30px; }
     .aff-amazon-import-results-item-actions-import {

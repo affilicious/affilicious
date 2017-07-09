@@ -41,35 +41,39 @@
 
                     <% if(typeof variants !== 'undefined' && variants !== null) { %>
                         <div class="aff-amazon-import-results-item-variants">
-                            <% _.each(variants, function(variant) { %>
-                                <div class="aff-amazon-import-results-item-variants-item" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= variant.shops[0].tracking.affiliate_product_id %>"<% } %>>
-                                    <div class="aff-amazon-import-results-item-variant-item-content">
-                                        <h2 class="aff-amazon-import-results-item-variants-item-title"><%= variant.name %></h2>
+                            <h3 class="aff-amazon-import-results-item-variants-title"><?php _e('Variants', 'affilicious'); ?></h3>
+                            <% _.each(variants, function(variant, i) { %>
+                                <% if(i == 3) { %>
+                                    <a class="aff-amazon-import-results-item-variants-show-all" href="#"><?php _e('Show all', 'affilicious'); ?></a>
+                                <% } %>
 
-                                        <% if(typeof variant.shops !== 'undefined' && variant.shops !== null && variant.shops[0].pricing.price !== null) { %>
-                                            <div class="aff-amazon-import-results-item-variants-item-price">
-                                                <span class="aff-amazon-import-results-item-variants-item-price-current">
-                                                    <%= variant.shops[0].pricing.price.value %> <%= variant.shops[0].pricing.price.currency.symbol %>
+                                <div class="aff-amazon-import-results-item-variants-item <% if(i > 2) { %>aff-amazon-import-results-item-variants-item-hidden<% } %>" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= variant.shops[0].tracking.affiliate_product_id %>"<% } %>>
+                                    <h2 class="aff-amazon-import-results-item-variants-item-title"><%= variant.name %></h2>
+
+                                    <% if(typeof variant.shops !== 'undefined' && variant.shops !== null && variant.shops[0].pricing.price !== null) { %>
+                                        <div class="aff-amazon-import-results-item-variants-item-price">
+                                            <span class="aff-amazon-import-results-item-variants-item-price-current">
+                                                <%= variant.shops[0].pricing.price.value %> <%= variant.shops[0].pricing.price.currency.symbol %>
+                                            </span>
+
+                                            <% if(variant.shops[0].pricing.old_price !== null) { %>
+                                                <span class="aff-amazon-import-results-item-variants-item-price-old">
+                                                    <%= variant.shops[0].pricing.old_price.value %> <%= variant.shops[0].pricing.old_price.currency.symbol %>
                                                 </span>
+                                            <% } %>
+                                        </div>
+                                    <% } %>
 
-                                                <% if(variant.shops[0].pricing.old_price !== null) { %>
-                                                    <span class="aff-amazon-import-results-item-variants-item-price-old">
-                                                        <%= variant.shops[0].pricing.old_price.value %> <%= variant.shops[0].pricing.old_price.currency.symbol %>
-                                                    </span>
-                                                <% } %>
-                                            </div>
-                                        <% } %>
-
-                                        <% if(typeof variant.attributes !== 'undefined' && variant.attributes !== null) { %>
-                                            <ul class="aff-amazon-import-results-item-variants-item-attributes">
-                                                <% _.each(variant.attributes, function(attribute) { %>
-                                                    <li class="aff-amazon-import-results-item-variants-item-attributes-item">
-                                                        <span><%= attribute.name %></span> <%= attribute.value %>
-                                                    </li>
-                                                <% }); %>
-                                            </ul>
-                                        <% } %>
-                                    </div>
+                                    <% if(typeof variant.attributes !== 'undefined' && variant.attributes !== null) { %>
+                                        <ul class="aff-amazon-import-results-item-variants-item-attributes">
+                                            <% _.each(variant.attributes, function(attribute) { %>
+                                                <li class="aff-amazon-import-results-item-variants-item-attributes-item">
+                                                    <span class="aff-amazon-import-results-item-variants-item-attributes-item-name"><%= attribute.name %></span>
+                                                    <span class="aff-amazon-import-results-item-variants-item-attributes-item-value"><%= attribute.value %></span>
+                                                </li>
+                                            <% }); %>
+                                        </ul>
+                                    <% } %>
                                 </div>
                             <% }); %>
                         </div>

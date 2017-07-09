@@ -1,5 +1,6 @@
-
 .aff-amazon-import-results-item {
+  border-radius: 5px;
+  border: 1px solid #eee;
   background-color: white;
   margin: 20px 0;
   max-width: 750px;
@@ -35,7 +36,6 @@
   }
 
   &-title {
-    display: block;
     font-size: 1.8rem;
     line-height: 2rem;
     margin-top: 0;
@@ -59,6 +59,96 @@
       font-size: 1rem;
       text-decoration: line-through;
       color: #ff2320;
+    }
+  }
+
+  &-variants {
+    &-title {
+      margin: 30px 0 10px 0;
+    }
+
+    &-show-all {
+      display: block;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      text-decoration: none;
+
+      &:active,
+      &:hover,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    &-item {
+      border-radius: 5px;
+      background-color: #fcfcfc;
+      padding: 10px;
+      padding-bottom: 0;
+      margin-bottom: 10px;
+      border: 1px solid #eee;
+
+      &-hidden {
+        display: none;
+      }
+
+      &-title {
+        font-size: 1rem;
+        line-height: 1.4rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      &-price {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+
+        &-current {
+          font-size: 1rem;
+          font-weight: 500;
+          line-height: 1.5rem;
+          color: #2fa32f;
+        }
+
+        &-old {
+          margin-left: 10px;
+          font-size: 0.8rem;
+          text-decoration: line-through;
+          color: #ff2320;
+        }
+      }
+
+      &-attributes {
+        display: block;
+        margin: 0;
+
+        &-item {
+          box-sizing: border-box;
+          border-radius: 5px;
+          margin: 0 10px 10px 0;
+          display: inline-block;
+          border: 1px solid #eee;
+          overflow: hidden;
+
+          &-name,
+          &-value {
+            display: inline-block;
+            padding: 5px 8px;
+          }
+
+          &-name {
+            border-right: 1px solid #eee;
+            background-color: #eee;
+            font-weight: bold;
+          }
+
+          &-value {
+            background-color: white;
+          }
+        }
+      }
     }
   }
 
