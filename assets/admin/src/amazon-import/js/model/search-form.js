@@ -1,4 +1,4 @@
-let searchForm = Backbone.Model.extend({
+let SearchForm = Backbone.Model.extend({
     defaults: {
         'term': '',
         'type': 'keywords',
@@ -6,4 +6,4 @@ let searchForm = Backbone.Model.extend({
     }
 });
 
-export default searchForm;
+export default SearchForm;

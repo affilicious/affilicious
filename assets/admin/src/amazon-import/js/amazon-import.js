@@ -1,8 +1,5 @@
-import ResultSearch from './model/resultSearch';
-import ResultSearchView from './view/resultSearch';
-
-import ResultSearchForm from './model/searchForm';
-import ResultSearchFormView from './view/searchForm';
+import Search from './model/search';
+import SearchView from './view/search';
 
 /*
 jQuery(function($) {
@@ -19,18 +16,9 @@ jQuery(function($) {
 });
 */
 
-let resultSearchForm = new ResultSearchForm();
-let resultSearchFormView = new ResultSearchFormView({
-    model: resultSearchForm
+let search = new Search();
+let searchView = new SearchView({
+   model: search,
 });
 
-resultSearchFormView.render();
-
-let productSearch = new ResultSearch({page: 1});
-let productSearchView = new ResultSearchView({
-    collection: productSearch,
-    el: '.aff-amazon-import'
-});
-
-productSearch.fetch();
-productSearchView.render();
+searchView.render();

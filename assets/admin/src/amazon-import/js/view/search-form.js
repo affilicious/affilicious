@@ -1,13 +1,12 @@
-let searchForm =  Backbone.View.extend({
-    el: '.aff-amazon-import-search',
+let SearchForm =  Backbone.View.extend({
+    el: '.aff-amazon-import-search-form',
 
     events: {
         'change': 'changed',
-        'submit': 'submitted'
     },
 
     render() {
-        let html = jQuery('.aff-amazon-import-search-template').html(),
+        let html = jQuery('#aff-amazon-import-search-form-template').html(),
             template = _.template(html);
 
         this.$el.html(template(this.model.attributes));
@@ -26,12 +25,6 @@ let searchForm =  Backbone.View.extend({
 
         this.render();
     },
-
-    submitted(e) {
-        e.preventDefault();
-
-        this.trigger('search', e);
-    }
 });
 
-export default searchForm;
+export default SearchForm;

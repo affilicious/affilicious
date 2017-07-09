@@ -1,13 +1,9 @@
-.aff-amazon-import-content {
+.aff-amazon-import-search {
   max-width: 750px;
+  display: block;
 }
 
-.aff-amazon-import-search {
-  &-content {
-    display: block;
-    margin-bottom: 10px;
-  }
-
+.aff-amazon-import-search-form {
   &-label {
     display: inline-block;
   }
@@ -48,7 +44,7 @@
   }
 }
 
-.aff-amazon-import-results-item {
+.aff-amazon-import-search-results-item {
   border-radius: 5px;
   border: 1px solid #eee;
   background-color: white;
@@ -85,8 +81,8 @@
   }
 
   &-title {
-    font-size: 1.8rem;
-    line-height: 2rem;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
     margin-top: 0;
     margin-bottom: 10px;
   }
