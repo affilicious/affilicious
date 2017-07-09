@@ -1,6 +1,9 @@
 import ResultSearch from './model/resultSearch';
 import ResultSearchView from './view/resultSearch';
 
+import ResultSearchForm from './model/searchForm';
+import ResultSearchFormView from './view/searchForm';
+
 /*
 jQuery(function($) {
     $.ajax({
@@ -15,6 +18,13 @@ jQuery(function($) {
     });
 });
 */
+
+let resultSearchForm = new ResultSearchForm();
+let resultSearchFormView = new ResultSearchFormView({
+    model: resultSearchForm
+});
+
+resultSearchFormView.render();
 
 let productSearch = new ResultSearch({page: 1});
 let productSearchView = new ResultSearchView({

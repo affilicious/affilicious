@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-05-25 20:52+0200\n"
+"POT-Creation-Date: 2017-07-09 19:13+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -19,14 +19,14 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;"
 "esc_attr_x:1,2c;esc_attr_\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: tests\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: node_modules\n"
 
-#: affilicious.php:212
+#: affilicious.php:211
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
@@ -36,18 +36,18 @@ msgstr ""
 "Potenzial entfalten zu können. Bitte ändere die PHP Version in deinem "
 "Hosting Provider."
 
-#: functions.php:332
+#: functions.php:482
 #, php-format
 msgid "based on %s review"
 msgid_plural "based on %s reviews"
 msgstr[0] "anhand von %s Bewertung"
 msgstr[1] "anhand von %s Bewertungen"
 
-#: functions.php:1466
+#: functions.php:1969
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: functions.php:1503
+#: functions.php:2029
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
@@ -232,19 +232,21 @@ msgstr "Erweiterungen"
 msgid "Extensions"
 msgstr "Erweiterungen"
 
-#: src/common/admin/setup/assets-setup.php:57
+#: src/common/admin/setup/assets-setup.php:61
 #: src/common/setup/asset-setup.php:97 src/product/setup/product-setup.php:143
 msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
-#: src/common/admin/setup/assets-setup.php:58
-#: src/common/setup/asset-setup.php:98 src/product/setup/product-setup.php:147
+#: src/common/admin/setup/assets-setup.php:62
+#: src/common/setup/asset-setup.php:98
+#: src/product/admin/view/page/import/amazon.php:75
+#: src/product/setup/product-setup.php:147
 #: src/product/setup/product-setup.php:227
 #: src/product/setup/product-setup.php:230
 msgid "Variants"
 msgstr "Varianten"
 
-#: src/common/admin/setup/assets-setup.php:59
+#: src/common/admin/setup/assets-setup.php:63
 #: src/common/setup/asset-setup.php:99 src/product/setup/product-setup.php:148
 #: src/product/setup/product-setup.php:271
 #: src/product/setup/product-setup.php:366
@@ -254,7 +256,7 @@ msgstr "Varianten"
 msgid "Shops"
 msgstr "Shops"
 
-#: src/common/admin/setup/assets-setup.php:65
+#: src/common/admin/setup/assets-setup.php:69
 #: src/common/setup/asset-setup.php:100
 msgid "Add"
 msgstr "Hinzufügen"
@@ -453,12 +455,81 @@ msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr "%s filtern"
 
-#: src/product/admin/page/import-page.php:20
-#: src/product/admin/page/import-page.php:21
+#: src/product/admin/page/import-page.php:22
+#: src/product/admin/page/import-page.php:23
 #: src/product/admin/view/page/import.php:2
-#: src/provider/options/amazon-options.php:119
+#: src/product/admin/view/page/import/amazon.php:115
+#: src/provider/options/amazon-options.php:139
 msgid "Import"
 msgstr "Importieren"
+
+#: src/product/admin/view/page/import/amazon.php:8
+msgid "Enter your search term..."
+msgstr "Suchbegriff eingeben…"
+
+#: src/product/admin/view/page/import/amazon.php:13
+msgid "Keywords"
+msgstr "Schlüsselwörter"
+
+#: src/product/admin/view/page/import/amazon.php:14
+msgid "ASIN"
+msgstr "ASIN"
+
+#: src/product/admin/view/page/import/amazon.php:20
+msgid "All"
+msgstr "Alle"
+
+#: src/product/admin/view/page/import/amazon.php:21
+msgid "Books"
+msgstr "Bücher"
+
+#: src/product/admin/view/page/import/amazon.php:22
+msgid "DVD"
+msgstr "DVD"
+
+#: src/product/admin/view/page/import/amazon.php:23
+msgid "Music"
+msgstr "Musik"
+
+#: src/product/admin/view/page/import/amazon.php:24
+msgid "Apparel"
+msgstr "Bekleidung"
+
+#: src/product/admin/view/page/import/amazon.php:25
+msgid "Video"
+msgstr "Video"
+
+#: src/product/admin/view/page/import/amazon.php:26
+msgid "Jewelry"
+msgstr "Schmuck"
+
+#: src/product/admin/view/page/import/amazon.php:27
+msgid "Automotive"
+msgstr "Automobil"
+
+#: src/product/admin/view/page/import/amazon.php:28
+msgid "Watch"
+msgstr "Uhr"
+
+#: src/product/admin/view/page/import/amazon.php:29
+msgid "Electronics"
+msgstr "Elektronik"
+
+#: src/product/admin/view/page/import/amazon.php:33
+msgid "Search"
+msgstr "Suchen"
+
+#: src/product/admin/view/page/import/amazon.php:38
+msgid ""
+"Search with product variants doesn't work if the category \"All\" is "
+"selected."
+msgstr ""
+"Suche mit Produktvarianten funktioniert nicht, wenn die Kategorie \"Alle\" "
+"ausgewählt ist."
+
+#: src/product/admin/view/page/import/amazon.php:78
+msgid "Show all"
+msgstr "Alle anzeigen"
 
 #: src/product/meta-box/meta-box-manager.php:40
 #: src/product/setup/product-setup.php:270
@@ -905,8 +976,8 @@ msgstr "Ähnliche Produkte"
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/provider/options/amazon-options.php:51
-#: src/provider/options/amazon-options.php:139
+#: src/provider/options/amazon-options.php:53
+#: src/provider/options/amazon-options.php:159
 msgid ""
 "<b>The credentials are valid!</b> A connection to the Amazon Product "
 "Advertising API was successfully established."
@@ -914,112 +985,197 @@ msgstr ""
 "<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
 "Advertising API wurde erfolgreich aufgebaut."
 
-#: src/provider/options/amazon-options.php:58
+#: src/provider/options/amazon-options.php:60
 msgid "Access Key"
 msgstr "Access Key"
 
-#: src/provider/options/amazon-options.php:60
+#: src/provider/options/amazon-options.php:62
 msgid "The access key is used to identify you as an API user."
 msgstr "Der Access Key identifiziert dich als einen API Benutzer."
 
-#: src/provider/options/amazon-options.php:61
+#: src/provider/options/amazon-options.php:63
 msgid "Secret Key"
 msgstr "Secret Key"
 
-#: src/provider/options/amazon-options.php:63
+#: src/provider/options/amazon-options.php:65
 msgid "The secret key is used like a password to sign your API requests."
 msgstr ""
 "Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
 "authentifizieren."
 
-#: src/provider/options/amazon-options.php:64
+#: src/provider/options/amazon-options.php:66
 msgid "Country"
 msgstr "Land"
 
-#: src/provider/options/amazon-options.php:66
+#: src/provider/options/amazon-options.php:68
 msgid "Germany"
 msgstr "Deutschland"
 
-#: src/provider/options/amazon-options.php:67
+#: src/provider/options/amazon-options.php:69
 msgid "America"
 msgstr "Amerika"
 
-#: src/provider/options/amazon-options.php:81
+#: src/provider/options/amazon-options.php:70
+msgid "England"
+msgstr "England"
+
+#: src/provider/options/amazon-options.php:71
+msgid "Canada"
+msgstr "Kanada"
+
+#: src/provider/options/amazon-options.php:72
+msgid "France"
+msgstr "Frankreich"
+
+#: src/provider/options/amazon-options.php:73
+msgid "Japan"
+msgstr "Japan"
+
+#: src/provider/options/amazon-options.php:74
+msgid "Italy"
+msgstr "Italien"
+
+#: src/provider/options/amazon-options.php:75
+msgid "China"
+msgstr "China"
+
+#: src/provider/options/amazon-options.php:76
+msgid "Spain"
+msgstr "Spanien"
+
+#: src/provider/options/amazon-options.php:77
+msgid "India"
+msgstr "Indien"
+
+#: src/provider/options/amazon-options.php:78
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: src/provider/options/amazon-options.php:79
+msgid "Mexico"
+msgstr "Mexiko"
+
+#: src/provider/options/amazon-options.php:80
+msgid "Australia"
+msgstr "Australien"
+
+#: src/provider/options/amazon-options.php:83
 msgid "The country has to match the locale of your Amazon account. "
 msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen."
 
-#: src/provider/options/amazon-options.php:82
+#: src/provider/options/amazon-options.php:84
 msgid "Associate Tag"
 msgstr "Associate Tag"
 
-#: src/provider/options/amazon-options.php:84
+#: src/provider/options/amazon-options.php:86
 msgid "Amazon uses this ID to credit an associate for a sale."
 msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
 
-#: src/provider/options/amazon-options.php:88
-msgid "Price Update Interval"
-msgstr "Preis Aktualisierungsintervall"
-
 #: src/provider/options/amazon-options.php:90
-#: src/provider/options/amazon-options.php:99
-#: src/provider/options/amazon-options.php:108
-msgid "Hourly"
-msgstr "Stündlich"
-
-#: src/provider/options/amazon-options.php:91
-#: src/provider/options/amazon-options.php:100
-#: src/provider/options/amazon-options.php:109
-msgid "Twice Daily"
-msgstr "2x Täglich"
+#, fuzzy
+#| msgid "Rating Update Interval"
+msgid "Thumbnail Update Interval"
+msgstr "Rating Aktualisierungsintervall"
 
 #: src/provider/options/amazon-options.php:92
 #: src/provider/options/amazon-options.php:101
 #: src/provider/options/amazon-options.php:110
-msgid "Daily"
-msgstr "Täglich"
+#: src/provider/options/amazon-options.php:119
+#: src/provider/options/amazon-options.php:128
+msgid "Hourly"
+msgstr "Stündlich"
 
 #: src/provider/options/amazon-options.php:93
 #: src/provider/options/amazon-options.php:102
 #: src/provider/options/amazon-options.php:111
+#: src/provider/options/amazon-options.php:120
+#: src/provider/options/amazon-options.php:129
+msgid "Twice Daily"
+msgstr "2x Täglich"
+
+#: src/provider/options/amazon-options.php:94
+#: src/provider/options/amazon-options.php:103
+#: src/provider/options/amazon-options.php:112
+#: src/provider/options/amazon-options.php:121
+#: src/provider/options/amazon-options.php:130
+msgid "Daily"
+msgstr "Täglich"
+
+#: src/provider/options/amazon-options.php:95
+#: src/provider/options/amazon-options.php:104
+#: src/provider/options/amazon-options.php:113
+#: src/provider/options/amazon-options.php:122
+#: src/provider/options/amazon-options.php:131
 msgid "No Updates"
 msgstr "Keine Aktualisierungen"
 
-#: src/provider/options/amazon-options.php:95
-msgid "The automatic update interval for the prices in the shops."
+#: src/provider/options/amazon-options.php:97
+#, fuzzy
+#| msgid "The automatic update interval for the prices in the shops."
+msgid "The automatic update interval for the product thumbnails."
 msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
 
-#: src/provider/options/amazon-options.php:97
-msgid "Old Price Update Interval"
-msgstr "Alter Preis Aktualisierungsintervall"
+#: src/provider/options/amazon-options.php:99
+#, fuzzy
+#| msgid "Money Update Interval"
+msgid "Image Gallery Update Interval"
+msgstr "Preis Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:104
-msgid "The automatic update interval for the old prices in the shops."
+#: src/provider/options/amazon-options.php:106
+#, fuzzy
+#| msgid "The automatic update interval for the votes in the reviews."
+msgid "The automatic update interval for the product image galleries."
+msgstr ""
+"Das automatische Aktualisierungsintervall für das Stimmen in den Bewertungen."
+
+#: src/provider/options/amazon-options.php:108
+msgid "Price Update Interval"
+msgstr "Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:115
+#, fuzzy
+#| msgid "The automatic update interval for the old prices in the shops."
+msgid "The automatic update interval for the shop prices in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
 
-#: src/provider/options/amazon-options.php:106
+#: src/provider/options/amazon-options.php:117
+msgid "Old Price Update Interval"
+msgstr "Alter Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:124
+#, fuzzy
+#| msgid "The automatic update interval for the old prices in the shops."
+msgid "The automatic update interval for the old shop prices in the products."
+msgstr ""
+"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
+
+#: src/provider/options/amazon-options.php:126
 msgid "Availability Update Interval"
 msgstr "Verfügbarkeits Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:113
-msgid "The automatic update interval for the availability in the shops."
+#: src/provider/options/amazon-options.php:133
+#, fuzzy
+#| msgid "The automatic update interval for the availability in the shops."
+msgid ""
+"The automatic update interval for the shop availabilities in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
 "Produkten."
 
-#: src/provider/options/amazon-options.php:117
+#: src/provider/options/amazon-options.php:137
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/provider/options/amazon-options.php:120
+#: src/provider/options/amazon-options.php:140
 msgid "Credentials"
 msgstr "Zugangsdaten"
 
-#: src/provider/options/amazon-options.php:121
+#: src/provider/options/amazon-options.php:141
 msgid "Updates"
 msgstr "Aktualisierungen"
 
-#: src/provider/options/amazon-options.php:143
+#: src/provider/options/amazon-options.php:163
 msgid ""
 "<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
 "Advertising API."
@@ -1188,9 +1344,6 @@ msgstr ""
 #~ msgid "Error"
 #~ msgstr "Fehler"
 
-#~ msgid "Money Update Interval"
-#~ msgstr "Preis Aktualisierungsintervall"
-
 #~ msgid ""
 #~ "Place your custom header scripts like CSS or JS with the proper &lt;"
 #~ "style&gt or &lt;script&gt tags."
@@ -1298,9 +1451,6 @@ msgstr ""
 #~ msgid "Updated at %s."
 #~ msgstr "Aktualisiert am %s Uhr."
 
-#~ msgid "Rating Update Interval"
-#~ msgstr "Rating Aktualisierungsintervall"
-
 #~ msgid "The automatic update interval for the ratings in the reviews."
 #~ msgstr ""
 #~ "Das automatische Aktualisierungsintervall für das Rating in den "
@@ -1308,11 +1458,6 @@ msgstr ""
 
 #~ msgid "Votes Update Interval"
 #~ msgstr "Stimmen Aktualisierungsintervall"
-
-#~ msgid "The automatic update interval for the votes in the reviews."
-#~ msgstr ""
-#~ "Das automatische Aktualisierungsintervall für das Stimmen in den "
-#~ "Bewertungen."
 
 #~ msgid ""
 #~ "Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, "
@@ -1326,39 +1471,6 @@ msgstr ""
 
 #~ msgid "Delivery Rates"
 #~ msgstr "Versandkosten"
-
-#~ msgid "England"
-#~ msgstr "England"
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#~ msgid "France"
-#~ msgstr "Frankreich"
-
-#~ msgid "Japan"
-#~ msgstr "Japan"
-
-#~ msgid "Italy"
-#~ msgstr "Italien"
-
-#~ msgid "China"
-#~ msgstr "China"
-
-#~ msgid "Spain"
-#~ msgstr "Spanien"
-
-#~ msgid "India"
-#~ msgstr "Indien"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasilien"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexiko"
-
-#~ msgid "Australia"
-#~ msgstr "Australien"
 
 #~ msgid "Default"
 #~ msgstr "Standard"

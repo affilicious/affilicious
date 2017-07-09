@@ -1,7 +1,10 @@
 import Product from './result';
+import Search from './searchForm';
 
 export default Backbone.Collection.extend({
     model: Product,
+
+    search: new Search(),
 
     initialize(options) {
         if(options && options.search) {
@@ -15,6 +18,12 @@ export default Backbone.Collection.extend({
         this.on('change:selected', () => {
             this.trigger('change');
         });
+
+        this.search.on('change')
+
+
+
+
     },
 
     url() {

@@ -10,6 +10,7 @@ export default Backbone.View.extend({
     },
 
     initialize: function() {
+        this.model.on('change', this.render);
         this.render();
     },
 
@@ -21,6 +22,6 @@ export default Backbone.View.extend({
     showAll(e) {
         e.preventDefault();
         this.$el.find('.aff-amazon-import-results-item-variants-show-all').hide();
-        this.$el.find('.aff-amazon-import-results-item-variants-item').removeClass('aff-amazon-import-results-item-variants-item-hidden');
+        this.$el.find('.').removeClass('aff-amazon-import-results-item-variants-item-hidden');
     },
 });

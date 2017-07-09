@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-05-25 "
-"20:52+0200\n"
+"POT-Creation-Date: 2017-07-09 "
+"19:13+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -30,7 +30,7 @@ msgstr ""
 "_nx:1,2;_nx_noop:1,2\n"
 "X-Poedit-Basepath: ..\n"
 "Language: en_US\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: "
 "tests\n"
@@ -43,7 +43,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: "
 "tmp\n"
 
-#: affilicious.php:212
+#: affilicious.php:211
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -53,20 +53,20 @@ msgid ""
 "your hosting provider."
 msgstr ""
 
-#: functions.php:332
+#: functions.php:482
 #, php-format
 msgid "based on %s review"
 msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:1466
+#: functions.php:1969
 msgid ""
 "Incl. 19 % VAT and excl. "
 "shipping costs."
 msgstr ""
 
-#: functions.php:1503
+#: functions.php:2029
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
@@ -264,21 +264,22 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:57
+#: src/common/admin/setup/assets-setup.php:61
 #: src/common/setup/asset-setup.php:97
 #: src/product/setup/product-setup.php:143
 msgid "Affilicious Product"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:58
+#: src/common/admin/setup/assets-setup.php:62
 #: src/common/setup/asset-setup.php:98
+#: src/product/admin/view/page/import/amazon.php:75
 #: src/product/setup/product-setup.php:147
 #: src/product/setup/product-setup.php:227
 #: src/product/setup/product-setup.php:230
 msgid "Variants"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:59
+#: src/common/admin/setup/assets-setup.php:63
 #: src/common/setup/asset-setup.php:99
 #: src/product/setup/product-setup.php:148
 #: src/product/setup/product-setup.php:271
@@ -289,7 +290,7 @@ msgstr ""
 msgid "Shops"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:65
+#: src/common/admin/setup/assets-setup.php:69
 #: src/common/setup/asset-setup.php:100
 msgid "Add"
 msgstr ""
@@ -489,11 +490,79 @@ msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr ""
 
-#: src/product/admin/page/import-page.php:20
-#: src/product/admin/page/import-page.php:21
+#: src/product/admin/page/import-page.php:22
+#: src/product/admin/page/import-page.php:23
 #: src/product/admin/view/page/import.php:2
-#: src/provider/options/amazon-options.php:119
+#: src/product/admin/view/page/import/amazon.php:115
+#: src/provider/options/amazon-options.php:139
 msgid "Import"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:8
+msgid "Enter your search term..."
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:13
+msgid "Keywords"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:14
+msgid "ASIN"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:20
+msgid "All"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:21
+msgid "Books"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:22
+msgid "DVD"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:23
+msgid "Music"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:24
+msgid "Apparel"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:25
+msgid "Video"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:26
+msgid "Jewelry"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:27
+msgid "Automotive"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:28
+msgid "Watch"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:29
+msgid "Electronics"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:33
+msgid "Search"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:38
+msgid ""
+"Search with product variants "
+"doesn't work if the category "
+"\"All\" is selected."
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon.php:78
+msgid "Show all"
 msgstr ""
 
 #: src/product/meta-box/meta-box-manager.php:40
@@ -946,8 +1015,8 @@ msgstr ""
 msgid "Related Accessories"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:51
-#: src/provider/options/amazon-options.php:139
+#: src/provider/options/amazon-options.php:53
+#: src/provider/options/amazon-options.php:159
 msgid ""
 "<b>The credentials are valid!</"
 "b> A connection to the Amazon "
@@ -955,124 +1024,199 @@ msgid ""
 "successfully established."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:58
+#: src/provider/options/amazon-options.php:60
 msgid "Access Key"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:60
+#: src/provider/options/amazon-options.php:62
 msgid ""
 "The access key is used to "
 "identify you as an API user."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:61
+#: src/provider/options/amazon-options.php:63
 msgid "Secret Key"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:63
+#: src/provider/options/amazon-options.php:65
 msgid ""
 "The secret key is used like a "
 "password to sign your API "
 "requests."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:64
+#: src/provider/options/amazon-options.php:66
 msgid "Country"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:66
+#: src/provider/options/amazon-options.php:68
 msgid "Germany"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:67
+#: src/provider/options/amazon-options.php:69
 msgid "America"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:81
+#: src/provider/options/amazon-options.php:70
+msgid "England"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:71
+msgid "Canada"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:72
+msgid "France"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:73
+msgid "Japan"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:74
+msgid "Italy"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:75
+msgid "China"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:76
+msgid "Spain"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:77
+msgid "India"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:78
+msgid "Brazil"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:79
+msgid "Mexico"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:80
+msgid "Australia"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:83
 msgid ""
 "The country has to match the "
 "locale of your Amazon account. "
 msgstr ""
 
-#: src/provider/options/amazon-options.php:82
+#: src/provider/options/amazon-options.php:84
 msgid "Associate Tag"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:84
+#: src/provider/options/amazon-options.php:86
 msgid ""
 "Amazon uses this ID to credit an "
 "associate for a sale."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:88
-msgid "Price Update Interval"
-msgstr ""
-
 #: src/provider/options/amazon-options.php:90
-#: src/provider/options/amazon-options.php:99
-#: src/provider/options/amazon-options.php:108
-msgid "Hourly"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:91
-#: src/provider/options/amazon-options.php:100
-#: src/provider/options/amazon-options.php:109
-msgid "Twice Daily"
+msgid "Thumbnail Update Interval"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:92
 #: src/provider/options/amazon-options.php:101
 #: src/provider/options/amazon-options.php:110
-msgid "Daily"
+#: src/provider/options/amazon-options.php:119
+#: src/provider/options/amazon-options.php:128
+msgid "Hourly"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:93
 #: src/provider/options/amazon-options.php:102
 #: src/provider/options/amazon-options.php:111
-msgid "No Updates"
+#: src/provider/options/amazon-options.php:120
+#: src/provider/options/amazon-options.php:129
+msgid "Twice Daily"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:94
+#: src/provider/options/amazon-options.php:103
+#: src/provider/options/amazon-options.php:112
+#: src/provider/options/amazon-options.php:121
+#: src/provider/options/amazon-options.php:130
+msgid "Daily"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:95
-msgid ""
-"The automatic update interval "
-"for the prices in the shops."
+#: src/provider/options/amazon-options.php:104
+#: src/provider/options/amazon-options.php:113
+#: src/provider/options/amazon-options.php:122
+#: src/provider/options/amazon-options.php:131
+msgid "No Updates"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:97
-msgid "Old Price Update Interval"
-msgstr ""
-
-#: src/provider/options/amazon-options.php:104
 msgid ""
 "The automatic update interval "
-"for the old prices in the shops."
+"for the product thumbnails."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:99
+msgid ""
+"Image Gallery Update Interval"
 msgstr ""
 
 #: src/provider/options/amazon-options.php:106
 msgid ""
-"Availability Update Interval"
+"The automatic update interval "
+"for the product image galleries."
 msgstr ""
 
-#: src/provider/options/amazon-options.php:113
+#: src/provider/options/amazon-options.php:108
+msgid "Price Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:115
 msgid ""
 "The automatic update interval "
-"for the availability in the "
-"shops."
+"for the shop prices in the "
+"products."
 msgstr ""
 
 #: src/provider/options/amazon-options.php:117
+msgid "Old Price Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:124
+msgid ""
+"The automatic update interval "
+"for the old shop prices in the "
+"products."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:126
+msgid ""
+"Availability Update Interval"
+msgstr ""
+
+#: src/provider/options/amazon-options.php:133
+msgid ""
+"The automatic update interval "
+"for the shop availabilities in "
+"the products."
+msgstr ""
+
+#: src/provider/options/amazon-options.php:137
 msgid "Amazon"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:120
+#: src/provider/options/amazon-options.php:140
 msgid "Credentials"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:121
+#: src/provider/options/amazon-options.php:141
 msgid "Updates"
 msgstr ""
 
-#: src/provider/options/amazon-options.php:143
+#: src/provider/options/amazon-options.php:163
 msgid ""
 "<b>The credentials are invalid!</"
 "b> Failed to connect to the "

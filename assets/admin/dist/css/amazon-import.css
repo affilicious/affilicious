@@ -1,9 +1,48 @@
+.aff-amazon-import-content {
+  max-width: 750px; }
+
+.aff-amazon-import-search-content {
+  display: block;
+  margin-bottom: 10px; }
+
+.aff-amazon-import-search-label {
+  display: inline-block; }
+
+.aff-amazon-import-search-term {
+  margin: 0;
+  padding: 3px 5px;
+  width: 280px;
+  max-width: 100%;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5; }
+
+.aff-amazon-import-search-type, .aff-amazon-import-search-category {
+  margin: 0 0 0 5px;
+  height: 32px !important;
+  line-height: 32px !important;
+  padding: 2px;
+  font-size: 14px;
+  min-width: 100px;
+  vertical-align: middle; }
+
+.aff-amazon-import-search-submit {
+  height: 32px !important;
+  line-height: 30px !important;
+  float: right; }
+
+.aff-amazon-import-search-notice {
+  display: block;
+  font-size: 13px;
+  font-style: italic;
+  margin: 0;
+  margin-bottom: 10px; }
+
 .aff-amazon-import-results-item {
   border-radius: 5px;
   border: 1px solid #eee;
   background-color: white;
   margin: 20px 0;
-  max-width: 750px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
