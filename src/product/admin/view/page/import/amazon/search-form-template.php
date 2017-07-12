@@ -27,11 +27,19 @@
         </label>
 
         <button class="aff-amazon-import-search-form-submit button-primary" type="submit"><?php _e('Search', 'affilicious'); ?></button>
+
+
     </div>
 
     <% if(category == 'all') { %>
         <div class="aff-amazon-import-search-form-notice">
             <p><?php _e('Search with product variants doesn\'t work if the category "All" is selected.' , 'affilicious'); ?></p>
+        </div>
+    <% } %>
+
+    <% if(loading) { %>
+        <div class="aff-amazon-import-search-form-loading">
+            <span class="aff-amazon-import-search-form-loading-spinner spinner is-active"></span>
         </div>
     <% } %>
 </script>

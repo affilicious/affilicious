@@ -2,6 +2,25 @@
   max-width: 750px;
   display: block; }
 
+.aff-amazon-import-load-more {
+  text-align: center; }
+  .aff-amazon-import-load-more-button {
+    height: 32px !important;
+    line-height: 30px !important;
+    margin-bottom: 10px !important; }
+  .aff-amazon-import-load-more-loading {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px; }
+    .aff-amazon-import-load-more-loading-spinner {
+      float: none; }
+  .aff-amazon-import-load-more-no-results {
+    display: block;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+    margin-bottom: 10px; }
+
 .aff-amazon-import-search-form-label {
   display: inline-block; }
 
@@ -28,12 +47,22 @@
   line-height: 30px !important;
   float: right; }
 
+.aff-amazon-import-search-form-content {
+  margin-bottom: 10px; }
+
 .aff-amazon-import-search-form-notice {
   display: block;
   font-size: 13px;
   font-style: italic;
   margin: 0;
   margin-bottom: 10px; }
+
+.aff-amazon-import-search-form-loading {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px; }
+  .aff-amazon-import-search-form-loading-spinner {
+    float: none; }
 
 .aff-amazon-import-search-results-item {
   border-radius: 5px;

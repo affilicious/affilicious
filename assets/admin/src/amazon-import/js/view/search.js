@@ -1,9 +1,15 @@
 import SearchForm from './search-form';
+import SearchLoadMore from './search-load-more';
 import SearchResults from './search-results';
 
 let Search = Backbone.View.extend({
     el: '.aff-amazon-import-search',
 
+    /**
+     * Initialize the search.
+     *
+     * @public
+     */
     initialize() {
         this.form = new SearchForm({
             model: this.model.form,
@@ -13,24 +19,28 @@ let Search = Backbone.View.extend({
             collection: this.model.results,
         });
 
-        _.bindAll(this, 'process');
+        this.loadMore = new SearchLoadMore({
+            model: this.model.loadMore,
+        });
 
-        this.form.$el.on('submit', this.process)
+        this.model.on('change', this.render, this);
     },
 
+    /**
+     * Render the search.
+     *
+     * @public
+     */
     render() {
         this.form.render();
         this.results.render();
 
+        if(this.model.get('started')) {
+            this.loadMore.render();
+        }
+
         return this;
     },
-
-    process(e) {
-        e.preventDefault();
-
-        this.model.process();
-        this.render();
-    }
 });
 
 export default Search;

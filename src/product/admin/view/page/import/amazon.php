@@ -3,6 +3,8 @@
         <form class="aff-amazon-import-search-form"></form>
 
         <div class="aff-amazon-import-search-results"></div>
+
+        <div class="aff-amazon-import-load-more"></div>
     </div>
 </div>
 
@@ -10,4 +12,4 @@
 
 <?php include (__DIR__ . '/amazon/search-results-item-template.php'); ?>
 
-<!--<span class="spinner is-active"></span>-->
+<?php include (__DIR__ . '/amazon/search-load-more-template.php'); ?>

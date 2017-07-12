@@ -3,6 +3,34 @@
   display: block;
 }
 
+.aff-amazon-import-load-more {
+  text-align: center;
+
+  &-button {
+    height: 32px !important;
+    line-height: 30px !important;
+    margin-bottom: 10px !important;
+  }
+
+  &-loading {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+
+    &-spinner {
+      float: none;
+    }
+  }
+
+  &-no-results {
+    display: block;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}
+
 .aff-amazon-import-search-form {
   &-label {
     display: inline-block;
@@ -35,12 +63,26 @@
     float: right;
   }
 
+  &-content {
+    margin-bottom: 10px;
+  }
+
   &-notice {
     display: block;
     font-size: 13px;
     font-style: italic;
     margin: 0;
     margin-bottom: 10px;
+  }
+
+  &-loading {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+
+    &-spinner {
+      float: none;
+    }
   }
 }
 
