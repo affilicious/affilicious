@@ -13,16 +13,16 @@
 
         <label class="aff-amazon-import-search-form-category-label aff-amazon-import-search-form-label" for="category">
             <select class="aff-amazon-import-search-form-category" name="category">
-                <option value="all" <% if(category == 'all') { %>selected="selected"<% } %>><?php _e('All', 'affilicious'); ?></option>
-                <option value="books" <% if(category == 'books') { %>selected="selected"<% } %>><?php _e('Books', 'affilicious'); ?></option>
-                <option value="dvd" <% if(category == 'dvd') { %>selected="selected"<% } %>><?php _e('DVD', 'affilicious'); ?></option>
-                <option value="music" <% if(category == 'music') { %>selected="selected"<% } %>><?php _e('Music', 'affilicious'); ?></option>
-                <option value="apparel" <% if(category == 'apparel') { %>selected="selected"<% } %>><?php _e('Apparel', 'affilicious'); ?></option>
-                <option value="video" <% if(category == 'video') { %>selected="selected"<% } %>><?php _e('Video', 'affilicious'); ?></option>
-                <option value="jewelry" <% if(category == 'jewelry') { %>selected="selected"<% } %>><?php _e('Jewelry', 'affilicious'); ?></option>
-                <option value="automotive" <% if(category == 'automotive') { %>selected="selected"<% } %>><?php _e('Automotive', 'affilicious'); ?></option>
-                <option value="watch" <% if(category == 'watch') { %>selected="selected"<% } %>><?php _e('Watch', 'affilicious'); ?></option>
-                <option value="electronics" <% if(category == 'electronics') { %>selected="selected"<% } %>><?php _e('Electronics', 'affilicious'); ?></option>
+                <option value="All" <% if(category == 'all') { %>selected="selected"<% } %>><?php _e('All', 'affilicious'); ?></option>
+                <option value="Books" <% if(category == 'books') { %>selected="selected"<% } %>><?php _e('Books', 'affilicious'); ?></option>
+                <option value="DVD" <% if(category == 'dvd') { %>selected="selected"<% } %>><?php _e('DVD', 'affilicious'); ?></option>
+                <option value="Music" <% if(category == 'music') { %>selected="selected"<% } %>><?php _e('Music', 'affilicious'); ?></option>
+                <option value="Apparel" <% if(category == 'apparel') { %>selected="selected"<% } %>><?php _e('Apparel', 'affilicious'); ?></option>
+                <option value="Video" <% if(category == 'video') { %>selected="selected"<% } %>><?php _e('Video', 'affilicious'); ?></option>
+                <option value="Jewelry" <% if(category == 'jewelry') { %>selected="selected"<% } %>><?php _e('Jewelry', 'affilicious'); ?></option>
+                <option value="Automotive" <% if(category == 'automotive') { %>selected="selected"<% } %>><?php _e('Automotive', 'affilicious'); ?></option>
+                <option value="Watch" <% if(category == 'watch') { %>selected="selected"<% } %>><?php _e('Watch', 'affilicious'); ?></option>
+                <option value="Electronics" <% if(category == 'electronics') { %>selected="selected"<% } %>><?php _e('Electronics', 'affilicious'); ?></option>
             </select>
         </label>
 

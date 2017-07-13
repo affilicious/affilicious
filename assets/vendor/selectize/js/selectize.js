@@ -359,7 +359,7 @@
 		// generate result scoring function
 		fn_score = options.score || self.getScoreFunction(search);
 
-		// perform search and sort
+		// request search and sort
 		if (query.length) {
 			self.iterator(self.items, function(item, id) {
 				score = fn_score(item);
@@ -2141,7 +2141,7 @@
 				}
 			}
 	
-			// perform search
+			// request search
 			if (query !== self.lastQuery) {
 				self.lastQuery = query;
 				result = self.sifter.search(query, $.extend(options, {score: calculateScore}));
@@ -2982,7 +2982,7 @@
 				return false;
 			}
 	
-			// perform removal
+			// request removal
 			if (typeof caret !== 'undefined') {
 				self.setCaret(caret);
 			}

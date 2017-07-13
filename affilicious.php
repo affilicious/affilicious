@@ -623,8 +623,7 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.admin.ajax_handler.amazon_search'] = function ($c) {
                 return new \Affilicious\Product\Admin\Ajax_Handler\Amazon_Search_Ajax_Handler(
-                    $c['affilicious.provider.repository.provider'],
-                    $c['affilicious.common.generator.slug']
+                    $c['affilicious.product.search.amazon']
                 );
             };
 
@@ -676,6 +675,13 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.importer.amazon'] = function($c) {
                 return new \Affilicious\Product\Importer\Amazon_Importer(
+                    $c['affilicious.provider.repository.provider'],
+                    $c['affilicious.common.generator.slug']
+                );
+            };
+
+            $this->container['affilicious.product.search.amazon'] = function($c) {
+                return new \Affilicious\Product\Search\Amazon_Search(
                     $c['affilicious.provider.repository.provider'],
                     $c['affilicious.common.generator.slug']
                 );
