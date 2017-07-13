@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Importer;
+namespace Affilicious\Product\Import;
 
 use Affilicious\Product\Model\Product;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-interface Importer_Interface
+interface Import_Interface
 {
     /**
      * Import the product from the provider by the ID and optional configuration.

@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Importer;
+namespace Affilicious\Product\Import;
 
 use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Name;
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Amazon_Importer implements Importer_Interface
+class Amazon_Import implements Import_Interface
 {
     /**
      * @var Provider_Repository_Interface

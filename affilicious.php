@@ -674,7 +674,7 @@ if(!class_exists('Affilicious')) {
             };
 
             $this->container['affilicious.product.importer.amazon'] = function($c) {
-                return new \Affilicious\Product\Importer\Amazon_Importer(
+                return new \Affilicious\Product\Import\Amazon_Import(
                     $c['affilicious.provider.repository.provider'],
                     $c['affilicious.common.generator.slug']
                 );
