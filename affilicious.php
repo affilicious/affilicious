@@ -336,8 +336,10 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Common\Admin\Page\Addons_Page();
             };
 
-            $this->container['affilicious.product.admin.page.import'] = function () {
-                return new \Affilicious\Product\Admin\Page\Import_Page();
+            $this->container['affilicious.product.admin.page.import'] = function ($c) {
+                return new \Affilicious\Product\Admin\Page\Import_Page(
+                    $c['affilicious.shop.repository.shop_template']
+                );
             };
 
             $this->container['affilicious.common.admin.license.processor'] = function ($c) {
@@ -674,14 +676,14 @@ if(!class_exists('Affilicious')) {
             };
 
             $this->container['affilicious.product.importer.amazon'] = function($c) {
-                return new \Affilicious\Product\Import\Amazon_Import(
+                return new \Affilicious\Product\Import\Amazon\Amazon_Import(
                     $c['affilicious.provider.repository.provider'],
                     $c['affilicious.common.generator.slug']
                 );
             };
 
             $this->container['affilicious.product.search.amazon'] = function($c) {
-                return new \Affilicious\Product\Search\Amazon_Search(
+                return new \Affilicious\Product\Search\Amazon\Amazon_Search(
                     $c['affilicious.provider.repository.provider'],
                     $c['affilicious.common.generator.slug']
                 );

@@ -2,6 +2,9 @@
 namespace Affilicious\Product\Admin\Page;
 
 use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Shop\Helper\Shop_Template_Helper;
+use Affilicious\Shop\Model\Shop_Template;
+use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 
 if(!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -9,7 +12,21 @@ if(!defined('ABSPATH')) {
 
 class Import_Page
 {
-	/**
+    /**
+     * @var Shop_Template_Repository_Interface
+     */
+    protected $shop_template_repository;
+
+    /**
+     * @since 0.9
+     * @param Shop_Template_Repository_Interface $shop_template_repository
+     */
+    public function __construct(Shop_Template_Repository_Interface $shop_template_repository)
+    {
+        $this->shop_template_repository = $shop_template_repository;
+    }
+
+    /**
      * Init the admin import page.
      *
 	 * @hook admin_menu
@@ -34,6 +51,16 @@ class Import_Page
 	 */
 	public function render()
 	{
-	    View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import.php');
+        $shop_templates = $this->shop_template_repository->find_all();
+
+        if(!empty($shop_templates)) {
+            $shop_templates = array_map(function (Shop_Template $shop_template) {
+                return Shop_Template_Helper::to_array($shop_template);
+            }, $shop_templates);
+        }
+
+	    View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import.php', [
+	        'shop_templates' => $shop_templates
+        ]);
 	}
 }

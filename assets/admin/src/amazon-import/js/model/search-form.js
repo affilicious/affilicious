@@ -9,6 +9,7 @@ let SearchForm = Backbone.Model.extend({
     /**
      * Submit the form the form and trigger the loading animation.
      *
+     * @since 0.9
      * @public
      */
     submit() {
@@ -19,6 +20,7 @@ let SearchForm = Backbone.Model.extend({
     /**
      * Finish the submit and stop the loading animation.
      *
+     * @since 0.9
      * @public
      */
     done() {

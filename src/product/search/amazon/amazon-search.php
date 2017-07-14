@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Search;
+namespace Affilicious\Product\Search\Amazon;
 
 use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Name;
@@ -10,6 +10,7 @@ use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Variant;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Model\Simple_Product;
+use Affilicious\Product\Search\Search_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use ApaiIO\ApaiIO;

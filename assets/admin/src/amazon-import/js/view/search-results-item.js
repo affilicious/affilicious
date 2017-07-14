@@ -10,6 +10,7 @@ let SearchResultsItem = Backbone.View.extend({
     /**
      * Initialize the search results item.
      *
+     * @since 0.9
      * @public
      */
     initialize() {
@@ -19,6 +20,7 @@ let SearchResultsItem = Backbone.View.extend({
     /**
      * Render the search results item.
      *
+     * @since 0.9
      * @return {SearchResultsItem}
      * @public
      */
@@ -34,6 +36,7 @@ let SearchResultsItem = Backbone.View.extend({
     /**
      * Show all hidden variants.
      *
+     * @since 0.9
      * @param e
      * @public
      */

@@ -9,6 +9,7 @@ let SearchForm =  Backbone.View.extend({
     /**
      * Initialize the search form.
      *
+     * @since 0.9
      * @public
      */
     initialize() {
@@ -18,6 +19,7 @@ let SearchForm =  Backbone.View.extend({
     /**
      * Render the search form.
      *
+     * @since 0.9
      * @returns {SearchForm}
      * @public
      */
@@ -33,6 +35,7 @@ let SearchForm =  Backbone.View.extend({
     /**
      * Submit the search form.
      *
+     * @since 0.9
      * @param e
      * @public
      */
@@ -46,6 +49,7 @@ let SearchForm =  Backbone.View.extend({
     /**
      * Load the new search parameters into the model on form change.
      *
+     * @since 0.9
      * @public
      */
     change() {

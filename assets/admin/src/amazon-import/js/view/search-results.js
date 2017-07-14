@@ -6,6 +6,7 @@ let SearchResults = Backbone.View.extend({
     /**
      * Initialize the search results.
      *
+     * @since 0.9
      * @param {array} options
      * @public
      */
@@ -22,6 +23,7 @@ let SearchResults = Backbone.View.extend({
     /**
      * Render the search results.
      *
+     * @since 0.9
      * @public
      */
     render() {
@@ -31,6 +33,7 @@ let SearchResults = Backbone.View.extend({
     /**
      * Add all search results items to the view.
      *
+     * @since 0.9
      * @private
      */
     _addAll() {
@@ -41,6 +44,7 @@ let SearchResults = Backbone.View.extend({
     /**
      * Add one search results item to the view.
      *
+     * @since 0.9
      * @private
      */
     _addOne(product) {

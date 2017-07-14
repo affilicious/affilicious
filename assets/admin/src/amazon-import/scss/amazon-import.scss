@@ -1,8 +1,3 @@
-.aff-amazon-import-search {
-  max-width: 750px;
-  display: block;
-}
-
 .aff-amazon-import-load-more {
   text-align: center;
 
@@ -43,7 +38,7 @@
     max-width: 100%;
     font-size: 16px;
     font-weight: 300;
-    line-height: 1.5
+    line-height: 1.4;
   }
 
   &-type,
@@ -261,6 +256,60 @@
         background-color: #ed7709;
         color: #fff !important;
         text-decoration: none;
+      }
+    }
+  }
+}
+
+.aff-amazon-import-search {
+  max-width: 750px;
+  min-width: 750px;
+  display: block;
+  float: left;
+}
+
+.aff-amazon-import-config {
+  margin-top: 50px;
+  float: right;
+  max-width: 335px;
+  width: 100%;
+  display: block;
+
+  &-legend {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  &-group {
+    margin-bottom: 10px;
+  }
+
+  &-label {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+
+  &-option-new-shop-name {
+    margin: 0;
+    padding: 5px 8px;
+    width: 280px;
+    max-width: 100%;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  &-option-merge-product-id {
+    width: 280px;
+
+    .selectize-input {
+      padding: 6px 8px;
+
+      .item {
+        font-size: 14px;
+        line-height: 1.4;
       }
     }
   }

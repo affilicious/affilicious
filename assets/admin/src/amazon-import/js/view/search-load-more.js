@@ -8,6 +8,7 @@ let SearchLoadMore =  Backbone.View.extend({
     /**
      * Initialize the search load more.
      *
+     * @since 0.9
      * @public
      */
     initialize() {
@@ -17,6 +18,7 @@ let SearchLoadMore =  Backbone.View.extend({
     /**
      * Render the search load more.
      *
+     * @since 0.9
      * @return {SearchLoadMore}
      * @public
      */
@@ -32,6 +34,7 @@ let SearchLoadMore =  Backbone.View.extend({
     /**
      * Enable the loading animation.
      *
+     * @since 0.9
      * @public
      */
     load() {

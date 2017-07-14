@@ -7,6 +7,7 @@ let SearchLoadMore = Backbone.Model.extend({
     /**
      * Activate the loading spinner animation.
      *
+     * @since 0.9
      * @public
      */
     load() {
@@ -17,6 +18,7 @@ let SearchLoadMore = Backbone.Model.extend({
     /**
      * Show the load more button and deactivate the spinner animation.
      *
+     * @since 0.9
      * @public
      */
     done() {
@@ -27,6 +29,7 @@ let SearchLoadMore = Backbone.Model.extend({
     /**
      * Show the no results message and deactivate the spinner animation.
      *
+     * @since 0.9
      * @public
      */
     noResults() {

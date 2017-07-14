@@ -8,6 +8,7 @@ let Search = Backbone.View.extend({
     /**
      * Initialize the search.
      *
+     * @since 0.9
      * @public
      */
     initialize() {
@@ -29,6 +30,7 @@ let Search = Backbone.View.extend({
     /**
      * Render the search.
      *
+     * @since 0.9
      * @public
      */
     render() {

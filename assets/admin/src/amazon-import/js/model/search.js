@@ -12,6 +12,7 @@ let Search = Backbone.Model.extend({
     /**
      * Initialize the search with the given options.
      *
+     * @since 0.9
      * @param {array} options
      */
     initialize(options) {
@@ -27,6 +28,7 @@ let Search = Backbone.Model.extend({
     /**
      * Start the search with the first page.
      *
+     * @since 0.9
      * @public
      */
     start() {
@@ -46,6 +48,7 @@ let Search = Backbone.Model.extend({
     /**
      * Load more search results by increasing the page.
      *
+     * @since 0.9
      * @public
      */
     load() {
@@ -60,6 +63,7 @@ let Search = Backbone.Model.extend({
     /**
      * Build the search API url based on the given parameters.
      *
+     * @since 0.9
      * @returns {string}
      * @private
      */

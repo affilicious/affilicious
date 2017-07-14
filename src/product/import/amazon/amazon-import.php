@@ -1,10 +1,11 @@
 <?php
-namespace Affilicious\Product\Import;
+namespace Affilicious\Product\Import\Amazon;
 
 use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Helper\Amazon_Helper;
+use Affilicious\Product\Import\Import_Interface;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Variant;
