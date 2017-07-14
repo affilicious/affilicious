@@ -225,6 +225,8 @@
     font-size: 1.2rem;
     line-height: 1.6rem;
     margin-bottom: 10px; }
+  .aff-amazon-import-config-label {
+    margin-bottom: 5px; }
   .aff-amazon-import-config-group {
     margin-bottom: 10px; }
   .aff-amazon-import-config-label {
@@ -239,10 +241,10 @@
     font-size: 14px;
     font-weight: 300;
     line-height: 1.4; }
-  .aff-amazon-import-config-option-merge-product-id {
+  .aff-amazon-import-config-option-replace-product-id, .aff-amazon-import-config-option-merge-product-id {
     width: 280px; }
-    .aff-amazon-import-config-option-merge-product-id .selectize-input {
+    .aff-amazon-import-config-option-replace-product-id .selectize-input, .aff-amazon-import-config-option-merge-product-id .selectize-input {
       padding: 6px 8px; }
-      .aff-amazon-import-config-option-merge-product-id .selectize-input .item {
+      .aff-amazon-import-config-option-replace-product-id .selectize-input .item, .aff-amazon-import-config-option-merge-product-id .selectize-input .item {
         font-size: 14px;
         line-height: 1.4; }

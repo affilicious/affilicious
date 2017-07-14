@@ -28,7 +28,7 @@ let Config =  Backbone.View.extend({
         let html = this.template(this.model.attributes);
         this.$el.html(html);
 
-        this.$el.find('.aff-amazon-import-config-option-merge-product-id').selectize({
+        this.$el.find('.aff-amazon-import-config-option-merge-product-id, .aff-amazon-import-config-option-replace-product-id').selectize({
             maxItems: 1,
             valueField: 'id',
             labelField: 'name',
@@ -86,13 +86,17 @@ let Config =  Backbone.View.extend({
     changeAction() {
         let selectedAction = this.$el.find('input[name="action"]:checked'),
             mergeProductId = this.$el.find('input[name="merge-product-id"]'),
-            selectize = mergeProductId.selectize()[0].selectize;
+            replaceProductId = this.$el.find('input[name="replace-product-id"]'),
+            mergeSelectize = mergeProductId.selectize()[0].selectize,
+            replaceSelectize = replaceProductId.selectize()[0].selectize;
 
-        selectedAction.val() === 'merge-product' ? selectize.enable() : selectize.disable();
+        selectedAction.val() === 'merge-product' ? mergeSelectize.enable() : mergeSelectize.disable();
+        selectedAction.val() === 'replace-product' ? replaceSelectize.enable() : replaceSelectize.disable();
 
         this.model.set({
             'selectedAction': selectedAction.val(),
-            'mergeProductId': mergeProductId.val()
+            'mergeProductId': mergeProductId.val(),
+            'replaceProductId': replaceProductId.val()
         });
     },
 });

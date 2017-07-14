@@ -4,6 +4,7 @@ let Config = Backbone.Model.extend({
         'newShopName': null,
         'selectedAction': 'new-product',
         'mergeProductId': null,
+        'replaceProductId': null,
     },
 });
 

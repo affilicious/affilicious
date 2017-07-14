@@ -198,7 +198,8 @@ class Amazon_Import implements Import_Interface
         }
 
         if($product instanceof Shop_Aware_Interface) {
-            $shop = Amazon_Helper::find_shop($item);
+            $shop_template_id = isset($config['shop_template_id']) ? $config['shop_template_id'] : null;
+            $shop = Amazon_Helper::find_shop($item, $shop_template_id );
             if ($shop !== null) {
                 $product->add_shop($shop);
             }

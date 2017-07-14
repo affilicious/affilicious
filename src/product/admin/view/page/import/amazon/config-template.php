@@ -37,5 +37,14 @@
         <label class="aff-amazon-import-config-label" for="merge-product-id">
             <input disabled="disabled" class="aff-amazon-import-config-option aff-amazon-import-config-option-merge-product-id" name="merge-product-id" type="text" value="" placeholder="<?php _e('Enter product name...', 'affilicious'); ?>">
         </label>
+
+        <label class="aff-amazon-import-config-label" for="replace-product">
+            <input class="aff-amazon-import-config-option aff-amazon-import-config-option-replace-product" name="action" type="radio" value="replace-product">
+            <?php _e('Replace with existing product', 'affilicious'); ?>
+        </label>
+
+        <label class="aff-amazon-import-config-label" for="replace-product-id">
+            <input disabled="disabled" class="aff-amazon-import-config-option aff-amazon-import-config-option-replace-product-id" name="replace-product-id" type="text" value="" placeholder="<?php _e('Enter product name...', 'affilicious'); ?>">
+        </label>
     </fieldset>
 </script>

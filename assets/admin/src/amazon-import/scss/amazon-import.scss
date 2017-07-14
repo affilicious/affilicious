@@ -281,6 +281,10 @@
     margin-bottom: 10px;
   }
 
+  &-label {
+    margin-bottom: 5px;
+  }
+
   &-group {
     margin-bottom: 10px;
   }
@@ -301,6 +305,7 @@
     line-height: 1.4;
   }
 
+  &-option-replace-product-id,
   &-option-merge-product-id {
     width: 280px;
 

@@ -625,7 +625,11 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.admin.ajax_handler.amazon_search'] = function ($c) {
                 return new \Affilicious\Product\Admin\Ajax_Handler\Amazon_Search_Ajax_Handler(
-                    $c['affilicious.product.search.amazon']
+                    $c['affilicious.product.search.amazon'],
+                    $c['affilicious.product.import.amazon'],
+                    $c['affilicious.product.repository.product'],
+                    $c['affilicious.shop.factory.shop_template'],
+                    $c['affilicious.shop.repository.shop_template']
                 );
             };
 
@@ -675,7 +679,7 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Admin\Filter\Menu_Order_Filter();
             };
 
-            $this->container['affilicious.product.importer.amazon'] = function($c) {
+            $this->container['affilicious.product.import.amazon'] = function($c) {
                 return new \Affilicious\Product\Import\Amazon\Amazon_Import(
                     $c['affilicious.provider.repository.provider'],
                     $c['affilicious.common.generator.slug']
@@ -892,6 +896,7 @@ if(!class_exists('Affilicious')) {
             // Hook the ajax handlers
             $amazon_search_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_search'];
             add_action('wp_ajax_aff_product_admin_amazon_search', array($amazon_search_ajax_handler, 'search'));
+            add_action('wp_ajax_aff_product_admin_amazon_import', array($amazon_search_ajax_handler, 'import'));
 
             // Add a custom affilicious admin init hook.
             add_action('admin_init', function() {
