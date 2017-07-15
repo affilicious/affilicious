@@ -4,6 +4,7 @@ let Config =  Backbone.View.extend({
     events: {
         'change input[name="shop"]': 'changeShop',
         'change input[name="action"]': 'changeAction',
+        'change input[name="status"]': 'changeStatus',
     },
 
     /**
@@ -28,7 +29,7 @@ let Config =  Backbone.View.extend({
         let html = this.template(this.model.attributes);
         this.$el.html(html);
 
-        this.$el.find('.aff-amazon-import-config-option-merge-product-id, .aff-amazon-import-config-option-replace-product-id').selectize({
+        this.$el.find('.aff-amazon-import-config-group-option-merge-product-id, .aff-amazon-import-config-group-option-replace-product-id').selectize({
             maxItems: 1,
             valueField: 'id',
             labelField: 'name',
@@ -60,7 +61,7 @@ let Config =  Backbone.View.extend({
     },
 
     /**
-     * Load the new config parameters into the model on change.
+     * Load the new shop configuration into the model on change.
      *
      * @since 0.9
      * @public
@@ -78,7 +79,7 @@ let Config =  Backbone.View.extend({
     },
 
     /**
-     * Load the new config parameters into the model on change.
+     * Load the new action configuration into the model on change.
      *
      * @since 0.9
      * @public
@@ -97,6 +98,20 @@ let Config =  Backbone.View.extend({
             'selectedAction': selectedAction.val(),
             'mergeProductId': mergeProductId.val(),
             'replaceProductId': replaceProductId.val()
+        });
+    },
+
+    /**
+     * Load the new status configuration into the model on change.
+     *
+     * @since 0.9
+     * @public
+     */
+    changeStatus() {
+        let selectedAction = this.$el.find('input[name="status"]:checked');
+
+        this.model.set({
+            'status': selectedAction.val(),
         });
     },
 });

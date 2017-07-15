@@ -1,3 +1,25 @@
+.aff-amazon-import {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-right: 20px; }
+  .aff-amazon-import-search {
+    display: inline-block;
+    width: calc(70% - 10px); }
+  .aff-amazon-import-config {
+    display: inline-block;
+    width: calc(30% - 10px); }
+
 .aff-amazon-import-load-more {
   text-align: center; }
   .aff-amazon-import-load-more-button {
@@ -215,36 +237,47 @@
   display: block;
   float: left; }
 
-.aff-amazon-import-config {
-  margin-top: 50px;
-  float: right;
-  max-width: 335px;
-  width: 100%;
-  display: block; }
-  .aff-amazon-import-config-legend {
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-    margin-bottom: 10px; }
-  .aff-amazon-import-config-label {
-    margin-bottom: 5px; }
-  .aff-amazon-import-config-group {
-    margin-bottom: 10px; }
-  .aff-amazon-import-config-label {
+.aff-amazon-import-config-group {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e5e5;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 60px 10px 10px 10px; }
+  .aff-amazon-import-config-group-title {
+    line-height: 1.4em;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    position: absolute;
     display: block;
-    font-size: 1rem;
-    line-height: 1.4rem; }
-  .aff-amazon-import-config-option-new-shop-name {
+    float: left;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee; }
+  .aff-amazon-import-config-group-label {
+    margin-bottom: 5px;
+    display: block;
+    line-height: 1.4rem;
+    font-size: 0.9rem; }
+  .aff-amazon-import-config-group-option-new-shop-name {
     margin: 0;
     padding: 5px 8px;
-    width: 280px;
+    width: 100%;
     max-width: 100%;
     font-size: 14px;
     font-weight: 300;
     line-height: 1.4; }
-  .aff-amazon-import-config-option-replace-product-id, .aff-amazon-import-config-option-merge-product-id {
-    width: 280px; }
-    .aff-amazon-import-config-option-replace-product-id .selectize-input, .aff-amazon-import-config-option-merge-product-id .selectize-input {
+  .aff-amazon-import-config-group-option-replace-product-id, .aff-amazon-import-config-group-option-merge-product-id {
+    width: 100%; }
+    .aff-amazon-import-config-group-option-replace-product-id .selectize-input, .aff-amazon-import-config-group-option-merge-product-id .selectize-input {
       padding: 6px 8px; }
-      .aff-amazon-import-config-option-replace-product-id .selectize-input .item, .aff-amazon-import-config-option-merge-product-id .selectize-input .item {
+      .aff-amazon-import-config-group-option-replace-product-id .selectize-input .item, .aff-amazon-import-config-group-option-merge-product-id .selectize-input .item {
         font-size: 14px;
         line-height: 1.4; }

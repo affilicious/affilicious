@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-07-14 "
-"17:03+0200\n"
+"POT-Creation-Date: 2017-07-15 "
+"10:31+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -281,6 +281,7 @@ msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:63
 #: src/common/setup/asset-setup.php:99
+#: src/product/admin/view/page/import/amazon/config-template.php:5
 #: src/product/setup/product-setup.php:148
 #: src/product/setup/product-setup.php:271
 #: src/product/setup/product-setup.php:366
@@ -498,13 +499,8 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/config-template.php:5
-#: src/product/setup/product-setup.php:408
-msgid "Shop"
-msgstr ""
-
 #: src/product/admin/view/page/import/amazon/config-template.php:16
-msgid "New shop"
+msgid "Create new shop"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:20
@@ -512,23 +508,35 @@ msgid "Enter shop name..."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:25
-msgid "Actions"
+msgid "Status"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:29
-msgid "Create new product"
+msgid "Save product as draft"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:34
-msgid "Merge with existing product"
+msgid "Publish product directly"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/config-template.php:38
-#: src/product/admin/view/page/import/amazon/config-template.php:47
-msgid "Enter product name..."
+#: src/product/admin/view/page/import/amazon/config-template.php:39
+msgid "Actions"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:43
+msgid "Create new product"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/config-template.php:48
+msgid "Merge with existing product"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/config-template.php:52
+#: src/product/admin/view/page/import/amazon/config-template.php:61
+msgid "Enter product name..."
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/config-template.php:57
 msgid ""
 "Replace with existing product"
 msgstr ""
@@ -918,6 +926,10 @@ msgid ""
 "<b>No shop templates available!</"
 "b> Please create one <a href=\"%s"
 "\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: src/product/setup/product-setup.php:408
+msgid "Shop"
 msgstr ""
 
 #: src/product/setup/product-setup.php:413

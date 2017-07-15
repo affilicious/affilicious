@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-14 17:03+0200\n"
+"POT-Creation-Date: 2017-07-15 10:31+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -168,7 +168,9 @@ msgid "Variants"
 msgstr "Varianten"
 
 #: src/common/admin/setup/assets-setup.php:63
-#: src/common/setup/asset-setup.php:99 src/product/setup/product-setup.php:148
+#: src/common/setup/asset-setup.php:99
+#: src/product/admin/view/page/import/amazon/config-template.php:5
+#: src/product/setup/product-setup.php:148
 #: src/product/setup/product-setup.php:271
 #: src/product/setup/product-setup.php:366
 #: src/product/setup/product-setup.php:407
@@ -312,37 +314,44 @@ msgstr "Details"
 msgid "Import"
 msgstr "Importieren"
 
-#: src/product/admin/view/page/import/amazon/config-template.php:5
-#: src/product/setup/product-setup.php:408
-msgid "Shop"
-msgstr "Shop"
-
 #: src/product/admin/view/page/import/amazon/config-template.php:16
-msgid "New shop"
-msgstr "Neuer Shop"
+msgid "Create new shop"
+msgstr "Erstelle neuen Shop"
 
 #: src/product/admin/view/page/import/amazon/config-template.php:20
 msgid "Enter shop name..."
-msgstr "Suchbegriff eingeben…"
+msgstr "Shop-Namen eingeben..."
 
 #: src/product/admin/view/page/import/amazon/config-template.php:25
+msgid "Status"
+msgstr "Status"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:29
+msgid "Save product as draft"
+msgstr "Produkt als Entwurf speichern"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:34
+msgid "Publish product directly"
+msgstr "Produkt sofort veröffentlichen"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:39
 msgid "Actions"
 msgstr "Aktionen"
 
-#: src/product/admin/view/page/import/amazon/config-template.php:29
+#: src/product/admin/view/page/import/amazon/config-template.php:43
 msgid "Create new product"
 msgstr "Erstelle neues Produkt"
 
-#: src/product/admin/view/page/import/amazon/config-template.php:34
+#: src/product/admin/view/page/import/amazon/config-template.php:48
 msgid "Merge with existing product"
 msgstr "Vereine mit bestehendem Produkt"
 
-#: src/product/admin/view/page/import/amazon/config-template.php:38
-#: src/product/admin/view/page/import/amazon/config-template.php:47
+#: src/product/admin/view/page/import/amazon/config-template.php:52
+#: src/product/admin/view/page/import/amazon/config-template.php:61
 msgid "Enter product name..."
 msgstr "Produktnamen eingeben…"
 
-#: src/product/admin/view/page/import/amazon/config-template.php:43
+#: src/product/admin/view/page/import/amazon/config-template.php:57
 msgid "Replace with existing product"
 msgstr "Tausche bestehendes Produkt aus"
 
@@ -658,6 +667,10 @@ msgid ""
 msgstr ""
 "<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
+
+#: src/product/setup/product-setup.php:408
+msgid "Shop"
+msgstr "Shop"
 
 #: src/product/setup/product-setup.php:413
 msgid "Shop Template ID"
@@ -1013,6 +1026,9 @@ msgstr "Logo"
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#~ msgid "New shop"
+#~ msgstr "Neuer Shop"
 
 #~ msgid "based on %s review"
 #~ msgid_plural "based on %s reviews"
@@ -1513,9 +1529,6 @@ msgstr ""
 
 #~ msgid "DetailTemplate Group"
 #~ msgstr "Detailgruppen"
-
-#~ msgid "Product Variant"
-#~ msgstr "Produktvariante"
 
 #~ msgid "Product Variants"
 #~ msgstr "Produktvarianten"

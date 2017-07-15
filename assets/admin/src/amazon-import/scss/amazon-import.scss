@@ -1,3 +1,32 @@
+.aff-amazon-import {
+  display: flex;
+  flex: 1 0 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 20px;
+
+  &-search {
+    display: inline-block;
+    width: calc(70% - 10px);
+  }
+
+  &-config {
+    display: inline-block;
+    width: calc(30% - 10px);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .aff-amazon-import-load-more {
   text-align: center;
 
@@ -269,52 +298,61 @@
 }
 
 .aff-amazon-import-config {
-  margin-top: 50px;
-  float: right;
-  max-width: 335px;
-  width: 100%;
-  display: block;
-
-  &-legend {
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-    margin-bottom: 10px;
-  }
-
-  &-label {
-    margin-bottom: 5px;
-  }
 
   &-group {
-    margin-bottom: 10px;
-  }
+    box-sizing: border-box;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+    position: relative;
+    padding: 60px 10px 10px 10px;
 
-  &-label {
-    display: block;
-    font-size: 1rem;
-    line-height: 1.4rem;
-  }
+    &-title {
+      line-height: 1.4em;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 10px;
+      position: absolute;
+      display: block;
+      float: left;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      border-bottom: 1px solid rgb(238, 238, 238);
+    }
 
-  &-option-new-shop-name {
-    margin: 0;
-    padding: 5px 8px;
-    width: 280px;
-    max-width: 100%;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.4;
-  }
+    &-label {
+      margin-bottom: 5px;
+      display: block;
+      line-height: 1.4rem;
+      font-size: 0.9rem;
+    }
 
-  &-option-replace-product-id,
-  &-option-merge-product-id {
-    width: 280px;
+    &-option-new-shop-name {
+      margin: 0;
+      padding: 5px 8px;
+      width: 100%;
+      max-width: 100%;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
 
-    .selectize-input {
-      padding: 6px 8px;
+    &-option-replace-product-id,
+    &-option-merge-product-id {
+      width: 100%;
 
-      .item {
-        font-size: 14px;
-        line-height: 1.4;
+      .selectize-input {
+        padding: 6px 8px;
+
+        .item {
+          font-size: 14px;
+          line-height: 1.4;
+        }
       }
     }
   }
