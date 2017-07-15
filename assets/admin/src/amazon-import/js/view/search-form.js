@@ -13,6 +13,9 @@ let SearchForm =  Backbone.View.extend({
      * @public
      */
     initialize() {
+        let providerConfigured = this.$el.data('provider-configured');
+
+        this.model.set('providerConfigured', providerConfigured === true || providerConfigured === 'true');
         this.model.on('change', this.render, this);
     },
 

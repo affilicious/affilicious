@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-15 10:31+0200\n"
+"POT-Creation-Date: 2017-07-15 11:09+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -306,8 +306,8 @@ msgstr "Detail-Vorlagen"
 msgid "Details"
 msgstr "Details"
 
-#: src/product/admin/page/import-page.php:39
-#: src/product/admin/page/import-page.php:40
+#: src/product/admin/page/import-page.php:50
+#: src/product/admin/page/import-page.php:51
 #: src/product/admin/view/page/import.php:2
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:71
 #: src/provider/options/amazon-options.php:139
@@ -354,6 +354,19 @@ msgstr "Produktnamen eingeben…"
 #: src/product/admin/view/page/import/amazon/config-template.php:57
 msgid "Replace with existing product"
 msgstr "Tausche bestehendes Produkt aus"
+
+#: src/product/admin/view/page/import/amazon/provider-not-configured-error.php:3
+msgid "Amazon provider not configured."
+msgstr "Amazon Provider wurde nicht konfiguriert."
+
+#: src/product/admin/view/page/import/amazon/provider-not-configured-error.php:5
+#, php-format
+msgid ""
+"Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the "
+"Amazon import."
+msgstr ""
+"Füge die Zugangsdaten <a href=\"%s\" target=\"_blank\">hier</a> hinzu um den "
+"Amazon-Import zu nutzen."
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:4
 msgid "Enter your search term..."
@@ -411,7 +424,7 @@ msgstr "Elektronik"
 msgid "Search"
 msgstr "Suchen"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:36
+#: src/product/admin/view/page/import/amazon/search-form-template.php:34
 msgid ""
 "Search with product variants doesn't work if the category \"All\" is "
 "selected."

@@ -1,6 +1,8 @@
 <div class="aff-amazon-import">
     <div class="aff-amazon-import-search">
-        <form class="aff-amazon-import-search-form"></form>
+        <form class="aff-amazon-import-search-form" data-provider-configured="<?php if(!empty($amazon_provider_configured)): ?>true<?php else: ?>false<?php endif; ?>"></form>
+
+        <?php include (__DIR__ . '/amazon/provider-not-configured-error.php'); ?>
 
         <div class="aff-amazon-import-search-results"></div>
 

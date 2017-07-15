@@ -338,7 +338,8 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.admin.page.import'] = function ($c) {
                 return new \Affilicious\Product\Admin\Page\Import_Page(
-                    $c['affilicious.shop.repository.shop_template']
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 

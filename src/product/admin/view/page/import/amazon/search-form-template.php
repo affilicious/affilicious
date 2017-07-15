@@ -26,9 +26,7 @@
             </select>
         </label>
 
-        <button class="aff-amazon-import-search-form-submit button-primary" type="submit"><?php _e('Search', 'affilicious'); ?></button>
-
-
+        <button class="aff-amazon-import-search-form-submit button-primary" type="submit" <% if(!providerConfigured) { %>disabled="disabled"<% } %>><?php _e('Search', 'affilicious'); ?></button>
     </div>
 
     <% if(category == 'all') { %>
