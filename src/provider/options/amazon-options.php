@@ -47,13 +47,6 @@ class Amazon_Options
     {
         do_action('affilicious_options_amazon_before_render');
 
-        $import_tab = array(
-            Carbon_Field::make('html', self::IMPORT)
-                ->set_html(View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/success-notice.php', array(
-                    'message' => __('<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API was successfully established.', 'affilicious')
-                ))),
-        );
-
         $credentials_tab = apply_filters('affilicious_options_amazon_container_credentials_tab', array(
             Carbon_Field::make('html', self::VALIDATION_STATUS)
                 ->set_html($this->get_validation_notice()),
@@ -136,7 +129,6 @@ class Amazon_Options
 
         $container = Carbon_Container::make('theme_options', __('Amazon', 'affilicious'))
             ->set_page_parent('affilicious')
-            ->add_tab(__('Import', 'affilicious'), $import_tab)
             ->add_tab(__('Credentials', 'affilicious'), $credentials_tab)
             ->add_tab(__('Updates', 'affilicious'), $updates_tab);
 
