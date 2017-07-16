@@ -1,4 +1,4 @@
-import ProductView from './search-results-item';
+import SearchResultsItem from './search-results-item';
 
 let SearchResults = Backbone.View.extend({
     el: '.aff-amazon-import-search-results',
@@ -48,7 +48,7 @@ let SearchResults = Backbone.View.extend({
      * @private
      */
     _addOne(product) {
-        let view = new ProductView({
+        let view = new SearchResultsItem({
             model: product,
         });
 

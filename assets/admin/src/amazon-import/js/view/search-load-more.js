@@ -12,6 +12,9 @@ let SearchLoadMore =  Backbone.View.extend({
      * @public
      */
     initialize() {
+        let templateHtml = jQuery('#aff-amazon-import-load-more-template').html();
+
+        this.template = _.template(templateHtml);
         this.model.on('change', this.render, this);
     },
 
@@ -23,10 +26,7 @@ let SearchLoadMore =  Backbone.View.extend({
      * @public
      */
     render() {
-        let html = jQuery('#aff-amazon-import-load-more-template').html(),
-            template = _.template(html);
-
-        this.$el.html(template(this.model.attributes));
+        this.$el.html(this.template(this.model.attributes));
 
         return this;
     },

@@ -14,6 +14,9 @@ let SearchResultsItem = Backbone.View.extend({
      * @public
      */
     initialize() {
+        let templateHtml = jQuery('#aff-amazon-import-search-results-item-template').html();
+
+        this.template = _.template(templateHtml);
         this.model.on('change', this.render, this);
     },
 
@@ -25,10 +28,7 @@ let SearchResultsItem = Backbone.View.extend({
      * @public
      */
     render() {
-        let html = jQuery('#aff-amazon-import-search-results-item-template').html(),
-            template = _.template(html);
-
-        this.setElement(template(this.model.attributes));
+        this.setElement(this.template(this.model.attributes));
 
         return this;
     },

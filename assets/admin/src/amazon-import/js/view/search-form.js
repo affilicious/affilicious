@@ -13,7 +13,10 @@ let SearchForm =  Backbone.View.extend({
      * @public
      */
     initialize() {
-        let providerConfigured = this.$el.data('provider-configured');
+        let templateHtml = jQuery('#aff-amazon-import-search-form-template').html(),
+            providerConfigured = this.$el.data('provider-configured');
+
+        this.template = _.template(templateHtml);
 
         this.model.set('providerConfigured', providerConfigured === true || providerConfigured === 'true');
         this.model.on('change', this.render, this);
@@ -27,10 +30,7 @@ let SearchForm =  Backbone.View.extend({
      * @public
      */
     render() {
-        let html = jQuery('#aff-amazon-import-search-form-template').html(),
-            template = _.template(html);
-
-        this.$el.html(template(this.model.attributes));
+        this.$el.html(this.template(this.model.attributes));
 
         return this;
     },
