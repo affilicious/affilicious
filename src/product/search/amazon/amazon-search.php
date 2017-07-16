@@ -79,29 +79,7 @@ class Amazon_Search implements Search_Interface
      */
     public function search(array $params)
     {
-        $term = $this->find_term($params);
-        if($term instanceof \WP_Error) {
-            return $term;
-        }
-
-        $type = $this->find_type($params);
-        if($type instanceof \WP_Error) {
-            return $type;
-        }
-
-        $category = $this->find_category($params);
-        if($category instanceof \WP_Error) {
-            return $category;
-        }
-
-        $with_variants = $this->find_with_variants($params);
-
-        $provider = $this->find_provider();
-        if($provider instanceof \WP_Error) {
-            return $provider;
-        }
-
-        $response = $this->request($term, $type, $category, $with_variants, $provider);
+        $response = $this->request($params);
         if($response instanceof \WP_Error) {
             if(in_array('aff_product_amazon_search_no_results', $response->get_error_codes())) {
                 return [];
@@ -200,6 +178,23 @@ class Amazon_Search implements Search_Interface
     }
 
     /**
+     * Find the search page for the pagination.
+     *
+     * @since 0.9
+     * @param array $params The parameters for the Amazon search.
+     * @return int|\WP_Error The search page or an error.
+     */
+    protected function find_page(array $params)
+    {
+        $page = isset($params['page']) ? $params['page'] : 1;
+        if($page > 5 || $page < 0) {
+            return new \WP_Error('aff_amazon_search_invalid_page_range', 'The page for the Amazon search has to be between 0 and 5.');
+        }
+
+        return $page;
+    }
+
+    /**
      * Find the amazon provider for the search.
      *
      * @since 0.9
@@ -219,15 +214,38 @@ class Amazon_Search implements Search_Interface
      * Lookup the Amazon product by the product ID.
      *
      * @since 0.9
-     * @param string $term
-     * @param string $type
-     * @param string $category
-     * @param string $with_variants
-     * @param Amazon_Provider $amazon_provider
+     * @param array $params
      * @return array|\WP_Error
      */
-    protected function request($term, $type, $category, $with_variants, Amazon_Provider $amazon_provider)
+    protected function request($params)
     {
+        $amazon_provider = $this->find_provider();
+        if($amazon_provider instanceof \WP_Error) {
+            return $amazon_provider;
+        }
+
+        $term = $this->find_term($params);
+        if($term instanceof \WP_Error) {
+            return $term;
+        }
+
+        $type = $this->find_type($params);
+        if($type instanceof \WP_Error) {
+            return $type;
+        }
+
+        $category = $this->find_category($params);
+        if($category instanceof \WP_Error) {
+            return $category;
+        }
+
+        $page = $this->find_page($params);
+        if($page instanceof \WP_Error) {
+            return $page;
+        }
+
+        $with_variants = $this->find_with_variants($params);
+
         $conf = new GenericConfiguration();
         $client = new Client();
         $request = new GuzzleRequest($client);
@@ -240,7 +258,7 @@ class Amazon_Search implements Search_Interface
             ->setRequest($request)
             ->setResponseTransformer(new XmlToArray());
 
-        $operation = $this->create_search_operation($term, $type, $category, $with_variants);
+        $operation = $this->create_search_operation($term, $type, $category, $with_variants, $page);
 
         try {
             $apaiIO = new ApaiIO($conf);
@@ -274,7 +292,7 @@ class Amazon_Search implements Search_Interface
      * @param bool $with_variants
      * @return OperationInterface
      */
-    protected function create_search_operation($term, $type, $category, $with_variants)
+    protected function create_search_operation($term, $type, $category, $with_variants, $page)
     {
         $response_group = ['Small', 'Images', 'Offers', 'ItemAttributes'];
         if($with_variants) {
@@ -285,6 +303,7 @@ class Amazon_Search implements Search_Interface
             $operation = new Search();
             $operation->setKeywords($term);
             $operation->setCategory($category);
+            $operation->setPage($page);
         } else {
             $operation = new Lookup();
             $operation->setItemId($term);

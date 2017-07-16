@@ -81,13 +81,15 @@ class Amazon_Search_Ajax_Handler
         $type = isset($_GET['type']) ? $_GET['type'] : null;
         $category = isset($_GET['category']) ? $_GET['category'] : null;
         $with_variants = !empty($_GET['with-variants']) && $_GET['with-variants'] == 'yes';
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
         // Perform the Amazon search.
         $products = $this->amazon_search->search([
             'term' => $term,
             'type' => $type,
             'category' => $category,
-            'with_variants' => $with_variants
+            'with_variants' => $with_variants,
+            'page' => $page
         ]);
 
         // Check for search errors.

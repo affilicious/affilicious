@@ -39,8 +39,8 @@ let Search = Backbone.Model.extend({
         this.set('page', 1);
         this.results.url = this._buildUrl();
 
-        this.results.fetch().done(() => {
-            this.loadMore.set('enabled', this.form.get('type') === 'keywords');
+        this.results.fetch().done((results) => {
+            this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
             this.set('started', true);
             this.form.done();
         });
@@ -54,9 +54,10 @@ let Search = Backbone.Model.extend({
      */
     load() {
         this.set('page', this.get('page') + 1);
-
         this.results.url = this._buildUrl();
-        this.results.fetch({'remove': false}).done(() => {
+
+        this.results.fetch({'remove': false}).done((results) => {
+            this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
             this.loadMore.done();
         });
     },
@@ -76,6 +77,20 @@ let Search = Backbone.Model.extend({
             + `&category=${this.form.get('category')}`
             + `&with-variants=${this.form.get('withVariants')}`
             + `&page=${this.get('page')}`
+    },
+
+    /**
+     * Check if the load more button is enabled (visible).
+     *
+     * @since 0.9
+     * @param {array|null} results
+     * @returns {bool}
+     * @private
+     */
+    _isLoadMoreEnabled(results) {
+        return (results && results.length > 0)
+            && this.get('page') < 5
+            && this.form.get('type') === 'keywords';
     }
 });
 
