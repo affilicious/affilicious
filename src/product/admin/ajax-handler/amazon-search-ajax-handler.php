@@ -77,11 +77,11 @@ class Amazon_Search_Ajax_Handler
     public function search()
     {
         // Extract the search params.
-        $term = isset($_GET['term']) ? $_GET['term'] : null;
-        $type = isset($_GET['type']) ? $_GET['type'] : null;
-        $category = isset($_GET['category']) ? $_GET['category'] : null;
+        $term = !empty($_GET['term']) ? $_GET['term'] : null;
+        $type = !empty($_GET['type']) ? $_GET['type'] : null;
+        $category = !empty($_GET['category']) ? $_GET['category'] : null;
         $with_variants = !empty($_GET['with-variants']) && $_GET['with-variants'] == 'yes';
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $page = !empty($_GET['page']) ? $_GET['page'] : 1;
 
         // Perform the Amazon search.
         $products = $this->amazon_search->search([
@@ -94,20 +94,16 @@ class Amazon_Search_Ajax_Handler
 
         // Check for search errors.
         if($products instanceof \WP_Error) {
-            status_header(400);
-            wp_die($products->get_error_message());
+            wp_send_json_error($products);
         }
 
-        // Map the products into arrays, which can be serialized.
+        // Map the products into arrays, which can be serialized into Json.
         $products = array_map(function(Product $product) {
             return Product_Helper::to_array($product);
         }, $products);
 
         // Return the json response.
-        $result = json_encode($products);
-
-        status_header(200);
-        die($result);
+        wp_send_json_success($products);
     }
 
     /**

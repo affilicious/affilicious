@@ -83,12 +83,12 @@ let Search = Backbone.Model.extend({
      * Check if the load more button is enabled (visible).
      *
      * @since 0.9
-     * @param {array|null} results
+     * @param {Array|null} results
      * @returns {bool}
      * @private
      */
     _isLoadMoreEnabled(results) {
-        return (results && results.length > 0)
+        return (results && results.data && results.data.length > 0)
             && this.get('page') < 5
             && this.form.get('type') === 'keywords';
     }
