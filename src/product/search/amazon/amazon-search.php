@@ -15,6 +15,8 @@ use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
+use ApaiIO\Operations\Lookup;
+use ApaiIO\Operations\OperationInterface;
 use ApaiIO\Operations\Search;
 use ApaiIO\Request\GuzzleRequest;
 use ApaiIO\ResponseTransformer\XmlToArray;
@@ -104,7 +106,7 @@ class Amazon_Search implements Search_Interface
             return $response;
         }
 
-        $results = $response['Items']['Item'];
+        $results = isset($response['Items']['Item'][0]) ? $response['Items']['Item'] : [$response['Items']['Item']] ;
         $products = array_map(function (array $result) {
             return $this->create_product($result, [
                 'variants' => true,
@@ -209,14 +211,14 @@ class Amazon_Search implements Search_Interface
      * Lookup the Amazon product by the product ID.
      *
      * @since 0.9
-     * @param string $keywords
+     * @param string $term
      * @param string $type
      * @param string $category
      * @param string $with_variants
      * @param Amazon_Provider $amazon_provider
      * @return array|\WP_Error
      */
-    protected function request($keywords, $type, $category, $with_variants, Amazon_Provider $amazon_provider)
+    protected function request($term, $type, $category, $with_variants, Amazon_Provider $amazon_provider)
     {
         $conf = new GenericConfiguration();
         $client = new Client();
@@ -230,21 +232,11 @@ class Amazon_Search implements Search_Interface
             ->setRequest($request)
             ->setResponseTransformer(new XmlToArray());
 
-        $apaiIO = new ApaiIO($conf);
-
-        $response_group = ['Small', 'Images', 'Offers', 'ItemAttributes'];
-        if($with_variants) {
-            $response_group = array_merge($response_group, ['VariationMatrix', 'VariationOffers']);
-        }
-
-        $search = new Search();
-
-        $search->setCategory($category);
-        $search->setKeywords($keywords);
-        $search->setResponsegroup($response_group);
+        $operation = $this->create_search_operation($term, $type, $category, $with_variants);
 
         try {
-            $response = $apaiIO->runOperation($search);
+            $apaiIO = new ApaiIO($conf);
+            $response = $apaiIO->runOperation($operation);
         } catch (\Exception $e) {
             $response = new \WP_Error('aff_failed_to_search_amazon_products', $e->getMessage());
         }
@@ -258,6 +250,37 @@ class Amazon_Search implements Search_Interface
         }
 
         return $response;
+    }
+
+    /**
+     * Create the search operation for the Amazon search based on the search parameters.
+     *
+     * @since 0.9
+     * @param string $term
+     * @param string $type
+     * @param string $category
+     * @param bool $with_variants
+     * @return OperationInterface
+     */
+    protected function create_search_operation($term, $type, $category, $with_variants)
+    {
+        $response_group = ['Small', 'Images', 'Offers', 'ItemAttributes'];
+        if($with_variants) {
+            $response_group = array_merge($response_group, ['VariationMatrix', 'VariationOffers']);
+        }
+
+        if($type == 'keywords') {
+            $operation = new Search();
+            $operation->setKeywords($term);
+            $operation->setCategory($category);
+        } else {
+            $operation = new Lookup();
+            $operation->setItemId($term);
+        }
+
+        $operation->setResponseGroup($response_group);
+
+        return $operation;
     }
 
     /**

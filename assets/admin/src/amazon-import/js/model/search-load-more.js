@@ -1,5 +1,6 @@
 let SearchLoadMore = Backbone.Model.extend({
     defaults: {
+        'enabled': true,
         'loading': false,
         'noResults': false,
     },

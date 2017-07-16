@@ -40,6 +40,7 @@ let Search = Backbone.Model.extend({
         this.results.url = this._buildUrl();
 
         this.results.fetch().done(() => {
+            this.loadMore.set('enabled', this.form.get('type') === 'keywords');
             this.set('started', true);
             this.form.done();
         });
