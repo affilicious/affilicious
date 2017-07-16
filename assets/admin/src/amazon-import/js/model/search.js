@@ -70,11 +70,11 @@ let Search = Backbone.Model.extend({
     _buildUrl() {
         return affAdminAmazonImportUrls.ajax
             + `?action=${this.get('action')}`
-            + `&aff-term=${this.form.get('term')}`
-            + `&aff-type=${this.form.get('type')}`
-            + `&aff-category=${this.form.get('category')}`
-            + `&aff-with-variants=${this.form.get('withVariants')}`
-            + `&aff-page=${this.get('page')}`
+            + `&term=${this.form.get('term')}`
+            + `&type=${this.form.get('type')}`
+            + `&category=${this.form.get('category')}`
+            + `&with-variants=${this.form.get('withVariants')}`
+            + `&page=${this.get('page')}`
     }
 });
 

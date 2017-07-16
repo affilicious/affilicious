@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-16 12:10+0200\n"
+"POT-Creation-Date: 2017-07-16 12:28+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -429,8 +429,8 @@ msgid "Electronics"
 msgstr "Elektronik"
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:31
-msgid "No variants"
-msgstr "Keine Varianten"
+msgid "Without variants"
+msgstr "Ohne Varianten"
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:32
 msgid "With variants"
@@ -1050,6 +1050,9 @@ msgstr "Logo"
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#~ msgid "No variants"
+#~ msgstr "Keine Varianten"
 
 #~ msgid "New shop"
 #~ msgstr "Neuer Shop"

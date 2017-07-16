@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2017-07-16 "
-"12:10+0200\n"
+"12:28+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -615,7 +615,7 @@ msgid "Electronics"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:31
-msgid "No variants"
+msgid "Without variants"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:32

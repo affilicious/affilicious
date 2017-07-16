@@ -28,7 +28,7 @@
 
         <label class="aff-amazon-import-search-form-with-variants-label aff-amazon-import-search-form-label" for="with-variants">
             <select class="aff-amazon-import-search-form-with-variants" name="with-variants">
-                <option value="no" <% if(withVariants == 'no') { %>selected="selected"<% } %>><?php _e('No variants', 'affilicious'); ?></option>
+                <option value="no" <% if(withVariants == 'no') { %>selected="selected"<% } %>><?php _e('Without variants', 'affilicious'); ?></option>
                 <option value="yes" <% if(withVariants == 'yes') { %>selected="selected"<% } %>><?php _e('With variants', 'affilicious'); ?></option>
             </select>
         </label>

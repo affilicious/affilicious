@@ -92,12 +92,14 @@ class Amazon_Search implements Search_Interface
             return $category;
         }
 
+        $with_variants = $this->find_with_variants($params);
+
         $provider = $this->find_provider();
         if($provider instanceof \WP_Error) {
             return $provider;
         }
 
-        $response = $this->request($term, $type, $category, $provider);
+        $response = $this->request($term, $type, $category, $with_variants, $provider);
         if($response instanceof \WP_Error) {
             return $response;
         }
@@ -176,6 +178,18 @@ class Amazon_Search implements Search_Interface
     }
 
     /**
+     * Find out whether the search is performed with variants or not.
+     *
+     * @since 0.9
+     * @param array $params The parameters for the Amazon search.
+     * @return bool Whether the search is performed with variants or not.
+     */
+    protected function find_with_variants(array $params)
+    {
+        return !empty($params['with_variants']);
+    }
+
+    /**
      * Find the amazon provider for the search.
      *
      * @since 0.9
@@ -196,12 +210,13 @@ class Amazon_Search implements Search_Interface
      *
      * @since 0.9
      * @param string $keywords
-     * @param $type
-     * @param $category
+     * @param string $type
+     * @param string $category
+     * @param string $with_variants
      * @param Amazon_Provider $amazon_provider
      * @return array|\WP_Error
      */
-    protected function request($keywords, $type, $category, Amazon_Provider $amazon_provider)
+    protected function request($keywords, $type, $category, $with_variants, Amazon_Provider $amazon_provider)
     {
         $conf = new GenericConfiguration();
         $client = new Client();
@@ -217,7 +232,10 @@ class Amazon_Search implements Search_Interface
 
         $apaiIO = new ApaiIO($conf);
 
-        $response_group = ['Small', 'Images', 'Offers', 'ItemAttributes', 'VariationMatrix', 'VariationOffers'];
+        $response_group = ['Small', 'Images', 'Offers', 'ItemAttributes'];
+        if($with_variants) {
+            $response_group = array_merge($response_group, ['VariationMatrix', 'VariationOffers']);
+        }
 
         $search = new Search();
 
