@@ -3,7 +3,6 @@
   flex: 1 0 100%;
   flex-direction: row;
   justify-content: space-between;
-  margin-right: 20px;
 
   &-search {
     display: inline-block;
@@ -15,17 +14,6 @@
     width: calc(30% - 10px);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .aff-amazon-import-load-more {
   text-align: center;
@@ -71,7 +59,8 @@
   }
 
   &-type,
-  &-category {
+  &-category,
+  &-with-variants {
     margin: 0 0 0 5px;
     height: 32px !important;
     line-height: 32px !important;

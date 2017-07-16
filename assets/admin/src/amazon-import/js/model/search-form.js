@@ -2,7 +2,8 @@ let SearchForm = Backbone.Model.extend({
     defaults: {
         'term': '',
         'type': 'keywords',
-        'category': 'all',
+        'category': 'All',
+        'withVariants': 'no',
         'loading': false,
         'providerConfigured': false
     },

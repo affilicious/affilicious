@@ -56,15 +56,16 @@ let SearchForm =  Backbone.View.extend({
      * @public
      */
     change() {
-        let term = this.$el.find('input[name="term"]').val(),
-            type = this.$el.find('select[name="type"]').val(),
-            category = this.$el.find('select[name="category"]').val();
-
+        let term = this.$el.find('input[name="term"]'),
+            type = this.$el.find('select[name="type"]'),
+            category = this.$el.find('select[name="category"]'),
+            withVariants = this.$el.find('select[name="with-variants"]');
 
         this.model.set({
-            'term': term,
-            'type': type,
-            'category': category
+            'term': term.val(),
+            'type': type.val(),
+            'category': category.val(),
+            'withVariants': withVariants.val()
         });
     },
 });

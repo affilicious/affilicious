@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-15 11:09+0200\n"
+"POT-Creation-Date: 2017-07-16 12:10+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -310,9 +310,13 @@ msgstr "Details"
 #: src/product/admin/page/import-page.php:51
 #: src/product/admin/view/page/import.php:2
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:71
-#: src/provider/options/amazon-options.php:139
 msgid "Import"
 msgstr "Importieren"
+
+#: src/product/admin/view/page/import.php:6
+#: src/provider/options/amazon-options.php:130
+msgid "Amazon"
+msgstr "Amazon"
 
 #: src/product/admin/view/page/import/amazon/config-template.php:16
 msgid "Create new shop"
@@ -372,6 +376,10 @@ msgstr ""
 msgid "Enter your search term..."
 msgstr "Suchbegriff eingeben…"
 
+#: src/product/admin/view/page/import/amazon/search-form-template.php:4
+msgid "Enter your ASIN..."
+msgstr "ASIN eingeben…"
+
 #: src/product/admin/view/page/import/amazon/search-form-template.php:9
 msgid "Keywords"
 msgstr "Schlüsselwörter"
@@ -420,11 +428,19 @@ msgstr "Uhr"
 msgid "Electronics"
 msgstr "Elektronik"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:29
+#: src/product/admin/view/page/import/amazon/search-form-template.php:31
+msgid "No variants"
+msgstr "Keine Varianten"
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:32
+msgid "With variants"
+msgstr "Mit Varianten"
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:36
 msgid "Search"
 msgstr "Suchen"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:34
+#: src/product/admin/view/page/import/amazon/search-form-template.php:41
 msgid ""
 "Search with product variants doesn't work if the category \"All\" is "
 "selected."
@@ -818,7 +834,178 @@ msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
 #: src/provider/options/amazon-options.php:53
-#: src/provider/options/amazon-options.php:159
+msgid "Access Key"
+msgstr "Access Key"
+
+#: src/provider/options/amazon-options.php:55
+msgid "The access key is used to identify you as an API user."
+msgstr "Der Access Key identifiziert dich als einen API Benutzer."
+
+#: src/provider/options/amazon-options.php:56
+msgid "Secret Key"
+msgstr "Secret Key"
+
+#: src/provider/options/amazon-options.php:58
+msgid "The secret key is used like a password to sign your API requests."
+msgstr ""
+"Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
+"authentifizieren."
+
+#: src/provider/options/amazon-options.php:59
+msgid "Country"
+msgstr "Land"
+
+#: src/provider/options/amazon-options.php:61
+msgid "Germany"
+msgstr "Deutschland"
+
+#: src/provider/options/amazon-options.php:62
+msgid "America"
+msgstr "Amerika"
+
+#: src/provider/options/amazon-options.php:63
+msgid "England"
+msgstr "England"
+
+#: src/provider/options/amazon-options.php:64
+msgid "Canada"
+msgstr "Kanada"
+
+#: src/provider/options/amazon-options.php:65
+msgid "France"
+msgstr "Frankreich"
+
+#: src/provider/options/amazon-options.php:66
+msgid "Japan"
+msgstr "Japan"
+
+#: src/provider/options/amazon-options.php:67
+msgid "Italy"
+msgstr "Italien"
+
+#: src/provider/options/amazon-options.php:68
+msgid "China"
+msgstr "China"
+
+#: src/provider/options/amazon-options.php:69
+msgid "Spain"
+msgstr "Spanien"
+
+#: src/provider/options/amazon-options.php:70
+msgid "India"
+msgstr "Indien"
+
+#: src/provider/options/amazon-options.php:71
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: src/provider/options/amazon-options.php:72
+msgid "Mexico"
+msgstr "Mexiko"
+
+#: src/provider/options/amazon-options.php:73
+msgid "Australia"
+msgstr "Australien"
+
+#: src/provider/options/amazon-options.php:76
+msgid "The country has to match the locale of your Amazon account. "
+msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen. "
+
+#: src/provider/options/amazon-options.php:77
+msgid "Associate Tag"
+msgstr "Associate Tag"
+
+#: src/provider/options/amazon-options.php:79
+msgid "Amazon uses this ID to credit an associate for a sale."
+msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
+
+#: src/provider/options/amazon-options.php:83
+msgid "Thumbnail Update Interval"
+msgstr "Rating Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:85
+#: src/provider/options/amazon-options.php:94
+#: src/provider/options/amazon-options.php:103
+#: src/provider/options/amazon-options.php:112
+#: src/provider/options/amazon-options.php:121
+msgid "Hourly"
+msgstr "Stündlich"
+
+#: src/provider/options/amazon-options.php:86
+#: src/provider/options/amazon-options.php:95
+#: src/provider/options/amazon-options.php:104
+#: src/provider/options/amazon-options.php:113
+#: src/provider/options/amazon-options.php:122
+msgid "Twice Daily"
+msgstr "2x Täglich"
+
+#: src/provider/options/amazon-options.php:87
+#: src/provider/options/amazon-options.php:96
+#: src/provider/options/amazon-options.php:105
+#: src/provider/options/amazon-options.php:114
+#: src/provider/options/amazon-options.php:123
+msgid "Daily"
+msgstr "Täglich"
+
+#: src/provider/options/amazon-options.php:88
+#: src/provider/options/amazon-options.php:97
+#: src/provider/options/amazon-options.php:106
+#: src/provider/options/amazon-options.php:115
+#: src/provider/options/amazon-options.php:124
+msgid "No Updates"
+msgstr "Keine Aktualisierungen"
+
+#: src/provider/options/amazon-options.php:90
+msgid "The automatic update interval for the product thumbnails."
+msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
+
+#: src/provider/options/amazon-options.php:92
+msgid "Image Gallery Update Interval"
+msgstr "Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:99
+msgid "The automatic update interval for the product image galleries."
+msgstr ""
+"Das automatische Aktualisierungsintervall für das Stimmen in den Bewertungen."
+
+#: src/provider/options/amazon-options.php:101
+msgid "Price Update Interval"
+msgstr "Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:108
+msgid "The automatic update interval for the shop prices in the products."
+msgstr ""
+"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
+
+#: src/provider/options/amazon-options.php:110
+msgid "Old Price Update Interval"
+msgstr "Alter Preis Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:117
+msgid "The automatic update interval for the old shop prices in the products."
+msgstr ""
+"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
+
+#: src/provider/options/amazon-options.php:119
+msgid "Availability Update Interval"
+msgstr "Verfügbarkeits Aktualisierungsintervall"
+
+#: src/provider/options/amazon-options.php:126
+msgid ""
+"The automatic update interval for the shop availabilities in the products."
+msgstr ""
+"Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
+"Produkten."
+
+#: src/provider/options/amazon-options.php:132
+msgid "Credentials"
+msgstr "Zugangsdaten"
+
+#: src/provider/options/amazon-options.php:133
+msgid "Updates"
+msgstr "Aktualisierungen"
+
+#: src/provider/options/amazon-options.php:151
 msgid ""
 "<b>The credentials are valid!</b> A connection to the Amazon Product "
 "Advertising API was successfully established."
@@ -826,183 +1013,7 @@ msgstr ""
 "<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
 "Advertising API wurde erfolgreich aufgebaut."
 
-#: src/provider/options/amazon-options.php:60
-msgid "Access Key"
-msgstr "Access Key"
-
-#: src/provider/options/amazon-options.php:62
-msgid "The access key is used to identify you as an API user."
-msgstr "Der Access Key identifiziert dich als einen API Benutzer."
-
-#: src/provider/options/amazon-options.php:63
-msgid "Secret Key"
-msgstr "Secret Key"
-
-#: src/provider/options/amazon-options.php:65
-msgid "The secret key is used like a password to sign your API requests."
-msgstr ""
-"Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
-"authentifizieren."
-
-#: src/provider/options/amazon-options.php:66
-msgid "Country"
-msgstr "Land"
-
-#: src/provider/options/amazon-options.php:68
-msgid "Germany"
-msgstr "Deutschland"
-
-#: src/provider/options/amazon-options.php:69
-msgid "America"
-msgstr "Amerika"
-
-#: src/provider/options/amazon-options.php:70
-msgid "England"
-msgstr "England"
-
-#: src/provider/options/amazon-options.php:71
-msgid "Canada"
-msgstr "Kanada"
-
-#: src/provider/options/amazon-options.php:72
-msgid "France"
-msgstr "Frankreich"
-
-#: src/provider/options/amazon-options.php:73
-msgid "Japan"
-msgstr "Japan"
-
-#: src/provider/options/amazon-options.php:74
-msgid "Italy"
-msgstr "Italien"
-
-#: src/provider/options/amazon-options.php:75
-msgid "China"
-msgstr "China"
-
-#: src/provider/options/amazon-options.php:76
-msgid "Spain"
-msgstr "Spanien"
-
-#: src/provider/options/amazon-options.php:77
-msgid "India"
-msgstr "Indien"
-
-#: src/provider/options/amazon-options.php:78
-msgid "Brazil"
-msgstr "Brasilien"
-
-#: src/provider/options/amazon-options.php:79
-msgid "Mexico"
-msgstr "Mexiko"
-
-#: src/provider/options/amazon-options.php:80
-msgid "Australia"
-msgstr "Australien"
-
-#: src/provider/options/amazon-options.php:83
-msgid "The country has to match the locale of your Amazon account. "
-msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen. "
-
-#: src/provider/options/amazon-options.php:84
-msgid "Associate Tag"
-msgstr "Associate Tag"
-
-#: src/provider/options/amazon-options.php:86
-msgid "Amazon uses this ID to credit an associate for a sale."
-msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
-
-#: src/provider/options/amazon-options.php:90
-msgid "Thumbnail Update Interval"
-msgstr "Rating Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:92
-#: src/provider/options/amazon-options.php:101
-#: src/provider/options/amazon-options.php:110
-#: src/provider/options/amazon-options.php:119
-#: src/provider/options/amazon-options.php:128
-msgid "Hourly"
-msgstr "Stündlich"
-
-#: src/provider/options/amazon-options.php:93
-#: src/provider/options/amazon-options.php:102
-#: src/provider/options/amazon-options.php:111
-#: src/provider/options/amazon-options.php:120
-#: src/provider/options/amazon-options.php:129
-msgid "Twice Daily"
-msgstr "2x Täglich"
-
-#: src/provider/options/amazon-options.php:94
-#: src/provider/options/amazon-options.php:103
-#: src/provider/options/amazon-options.php:112
-#: src/provider/options/amazon-options.php:121
-#: src/provider/options/amazon-options.php:130
-msgid "Daily"
-msgstr "Täglich"
-
-#: src/provider/options/amazon-options.php:95
-#: src/provider/options/amazon-options.php:104
-#: src/provider/options/amazon-options.php:113
-#: src/provider/options/amazon-options.php:122
-#: src/provider/options/amazon-options.php:131
-msgid "No Updates"
-msgstr "Keine Aktualisierungen"
-
-#: src/provider/options/amazon-options.php:97
-msgid "The automatic update interval for the product thumbnails."
-msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
-
-#: src/provider/options/amazon-options.php:99
-msgid "Image Gallery Update Interval"
-msgstr "Preis Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:106
-msgid "The automatic update interval for the product image galleries."
-msgstr ""
-"Das automatische Aktualisierungsintervall für das Stimmen in den Bewertungen."
-
-#: src/provider/options/amazon-options.php:108
-msgid "Price Update Interval"
-msgstr "Preis Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:115
-msgid "The automatic update interval for the shop prices in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
-
-#: src/provider/options/amazon-options.php:117
-msgid "Old Price Update Interval"
-msgstr "Alter Preis Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:124
-msgid "The automatic update interval for the old shop prices in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
-
-#: src/provider/options/amazon-options.php:126
-msgid "Availability Update Interval"
-msgstr "Verfügbarkeits Aktualisierungsintervall"
-
-#: src/provider/options/amazon-options.php:133
-msgid ""
-"The automatic update interval for the shop availabilities in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
-"Produkten."
-
-#: src/provider/options/amazon-options.php:137
-msgid "Amazon"
-msgstr "Amazon"
-
-#: src/provider/options/amazon-options.php:140
-msgid "Credentials"
-msgstr "Zugangsdaten"
-
-#: src/provider/options/amazon-options.php:141
-msgid "Updates"
-msgstr "Aktualisierungen"
-
-#: src/provider/options/amazon-options.php:163
+#: src/provider/options/amazon-options.php:155
 msgid ""
 "<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
 "Advertising API."
