@@ -103,7 +103,15 @@ class Amazon_Search implements Search_Interface
 
         $response = $this->request($term, $type, $category, $with_variants, $provider);
         if($response instanceof \WP_Error) {
+            if(in_array('aff_product_amazon_search_no_results', $response->get_error_codes())) {
+                return [];
+            }
+
             return $response;
+        }
+
+        if(isset($response['Items']['TotalResults']) && intval($response['Items']['TotalResults']) == 0) {
+            return [];
         }
 
         $results = isset($response['Items']['Item'][0]) ? $response['Items']['Item'] : [$response['Items']['Item']] ;
@@ -238,14 +246,18 @@ class Amazon_Search implements Search_Interface
             $apaiIO = new ApaiIO($conf);
             $response = $apaiIO->runOperation($operation);
         } catch (\Exception $e) {
-            $response = new \WP_Error('aff_failed_to_search_amazon_products', $e->getMessage());
+            $response = new \WP_Error('aff_product_amazon_search_error', $e->getMessage());
         }
 
         if(isset($response['Items']['Request']['Errors']['Error'])) {
-            $errors = $response['Items']['Request']['Errors']['Error'];
+            $errors = isset($response['Items']['Request']['Errors']['Error'][0]) ? $response['Items']['Request']['Errors']['Error'] : [$response['Items']['Request']['Errors']['Error']];
             $response = new \WP_Error();
             foreach ($errors as $error) {
-                $response->add('aff_failed_to_search_amazon_products', $error['Message']);
+                if($error['Code'] == 'AWS.ECommerceService.NoExactMatches') {
+                    $response->add('aff_product_amazon_search_no_results', $error['Code'], $error['Message']);
+                }
+
+                $response->add('aff_product_amazon_search_error', $error['Code'], $error['Message']);
             }
         }
 
