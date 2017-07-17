@@ -1,15 +1,7 @@
-import Search from './model/search';
-import SearchView from './view/search';
+import Import from './model/import';
+import ImportView from './view/import';
 
-let search = new Search();
-let searchView = new SearchView({model: search});
+let importModel = new Import();
+let importView = new ImportView({model: importModel});
 
-searchView.render();
-
-import Config from './model/config';
-import ConfigView from './view/config';
-
-let config = new Config();
-let configView = new ConfigView({model: config});
-
-configView.render();
+importView.render();

@@ -4,7 +4,8 @@ let SearchResultsItem = Backbone.View.extend({
     className: '',
 
     events: {
-        'click .aff-amazon-import-search-results-item-variants-show-all': 'showAll'
+        'click .aff-amazon-import-search-results-item-variants-show-all': 'showAll',
+        'click .aff-amazon-import-search-results-item-actions-import': 'import'
     },
 
     /**
@@ -46,6 +47,19 @@ let SearchResultsItem = Backbone.View.extend({
         this.$el.find('.aff-amazon-import-search-results-item-variants-show-all').hide();
         this.$el.find('.aff-amazon-import-search-results-item-variants-item').show();
     },
+
+    /**
+     * Import the search result item.
+     *
+     * @since 0.9
+     * @param e
+     * @public
+     */
+    import(e) {
+        e.preventDefault();
+
+        this.model.import();
+    }
 });
 
 export default SearchResultsItem;

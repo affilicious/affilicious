@@ -21,6 +21,7 @@ let Search = Backbone.Model.extend({
         this.loadMore = new SearchLoadMore();
         this.page = options && options.page ? options.page : 1;
 
+        this.results.on('aff:amazon-import:search:results:import-item', this.import, this);
         this.form.on('aff:amazon-import:search:search-form:submit', this.start, this);
         this.loadMore.on('aff:amazon-import:search:load-more:load', this.load, this);
     },
@@ -60,6 +61,17 @@ let Search = Backbone.Model.extend({
             this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
             this.loadMore.done();
         });
+    },
+
+    /**
+     * Import the given search results item.
+     *
+     * @since 0.9
+     * @param {Object} model
+     * @public
+     */
+    import(model) {
+        this.trigger('aff:amazon-import:import-results-item', model);
     },
 
     /**
