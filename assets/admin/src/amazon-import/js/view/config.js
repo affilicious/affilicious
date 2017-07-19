@@ -108,10 +108,10 @@ let Config =  Backbone.View.extend({
      * @public
      */
     changeStatus() {
-        let selectedAction = this.$el.find('input[name="status"]:checked');
+        let selectedStatus = this.$el.find('input[name="status"]:checked');
 
         this.model.set({
-            'status': selectedAction.val(),
+            'status': selectedStatus.val(),
         });
     },
 });

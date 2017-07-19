@@ -8,6 +8,7 @@ use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
+use Affilicious\Common\Model\Status;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Detail\Model\Detail_Template_Id;
 use Affilicious\Detail\Model\Value as Detail_Value;
@@ -359,6 +360,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $this->add_id($simple_product, $post);
         $this->add_content($simple_product, $post);
         $this->add_excerpt($simple_product, $post);
+        $this->add_status($simple_product, $post);
         $this->add_thumbnail($simple_product, $post);
         $this->add_shops($simple_product);
         $this->add_tags($simple_product);
@@ -400,6 +402,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $this->add_content($complex_product, $post);
         $this->add_excerpt($complex_product, $post);
         $this->add_thumbnail($complex_product, $post);
+        $this->add_status($complex_product, $post);
         $this->add_variants($complex_product);
         $this->add_review($complex_product, $post);
         $this->add_details($complex_product);
@@ -454,6 +457,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $product_variant = new Product_Variant($parent, $title, $slug);
         $this->add_id($product_variant, $post);
         $this->add_thumbnail($product_variant, $post);
+        $this->add_status($product_variant, $post);
         $this->add_shops($product_variant);
         $this->add_tags($product_variant);
         $this->add_image_gallery($product_variant, $post);
@@ -537,6 +541,18 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         if(!empty($excerpt)) {
             $product->set_excerpt(new Excerpt($excerpt));
         }
+    }
+
+    /**
+     * Add the status to the product.
+     *
+     * @since 0.9
+     * @param Product $product
+     * @param \WP_Post $post
+     */
+    private function add_status(Product $product, \WP_Post $post)
+    {
+        $product->set_status(new Status($post->post_status));
     }
 
     /**
@@ -1357,6 +1373,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             'post_title' => $product->get_name()->get_value(),
             'post_name' => $product->get_slug()->get_value(),
             'post_type' => Product::POST_TYPE,
+            'post_status' => $product->get_status()->get_value(),
             'post_modified' => date('Y-m-d H:i:s', $product->get_updated_at()->getTimestamp()),
             'post_modified_gmt' => gmdate('Y-m-d H:i:s', $product->get_updated_at()->getTimestamp()),
         ), $default_args);
@@ -1365,8 +1382,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $args['id'] = $product->get_id()->get_value();
         }
 
-        if($product instanceof Product_Variant && $product->get_parent()->get_post() !== null) {
-            $args['post_status'] = $product->get_parent()->get_post()->post_status;
+        if($product instanceof Product_Variant) {
+            $args['post_status'] = $product->get_parent()->get_status()->get_value();
         }
 
         if($product instanceof Content_Aware_Interface && $product->has_content()) {

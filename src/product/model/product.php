@@ -6,6 +6,8 @@ use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Aware_Trait;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Slug_Aware_Trait;
+use Affilicious\Common\Model\Status;
+use Affilicious\Common\Model\Status_Aware_Trait;
 use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
@@ -14,7 +16,7 @@ if (!defined('ABSPATH')) {
 
 class Product
 {
-    use Name_Aware_Trait, Slug_Aware_Trait;
+    use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait;
 
     /**
      * There is a limit of 20 characters for post types in Wordpress.
@@ -32,35 +34,35 @@ class Product
      *
      * @var null|Product_Id
      */
-    private $id;
+    protected $id;
 
     /**
      * The type of the product like simple, complex or variants.
      *
      * @var Type
      */
-    private $type;
+    protected $type;
 
     /**
      * The thumbnail ID of the product.
      *
      * @var null|Image_Id
      */
-    private $thumbnail_id;
+    protected $thumbnail_id;
 
     /**
      * The image IDs of the product gallery.
      *
      * @var Image_Id[]
      */
-    private $image_gallery;
+    protected $image_gallery;
 
     /**
      * The date and time of the last update.
      *
      * @var \DateTimeImmutable
      */
-    private $updated_at;
+    protected $updated_at;
 
     /**
      * @since 0.8
@@ -73,6 +75,7 @@ class Product
         $this->set_name($name);
         $this->set_slug($slug);
         $this->type = $type;
+        $this->status = Status::draft();
         $this->image_gallery = array();
         $this->updated_at = new \DateTimeImmutable('now');
     }

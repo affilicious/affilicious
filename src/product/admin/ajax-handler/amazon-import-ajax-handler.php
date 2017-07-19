@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Admin\Ajax_Handler;
 
 use Affilicious\Common\Model\Name;
+use Affilicious\Common\Model\Status;
 use Affilicious\Product\Helper\Product_Helper;
 use Affilicious\Product\Import\Import_Interface;
 use Affilicious\Product\Model\Complex_Product;
@@ -125,6 +126,7 @@ class Amazon_Import_Ajax_Handler
         // Extract the search params.
         $asin = isset($_POST['product']['shops'][0]['tracking']['affiliate_product_id']) ? $_POST['product']['shops'][0]['tracking']['affiliate_product_id'] : null;
         $action = isset($_POST['config']['selectedAction']) ? $_POST['config']['selectedAction'] : null;
+        $status = isset($_POST['config']['status']) ? $_POST['config']['status'] : null;
         $merge_product_id = isset($_POST['config']['mergeProductId']) ? $_POST['config']['mergeProductId'] : null;
         $replace_product_id = isset($_POST['config']['replaceProductId']) ? $_POST['config']['replaceProductId'] : null;
 
@@ -136,6 +138,11 @@ class Amazon_Import_Ajax_Handler
         // Check for import errors.
         if($imported_product instanceof \WP_Error) {
             return $imported_product;
+        }
+
+        // Set the product status.
+        if(!empty($status)) {
+            $imported_product->set_status(new Status($status));
         }
 
         // Perform some actions like replacing or merging.

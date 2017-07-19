@@ -25,12 +25,12 @@
         <legend class="aff-amazon-import-config-group-title"><?php _e('Status', 'affilicious'); ?></legend>
 
         <label class="aff-amazon-import-config-group-label" for="draft">
-            <input class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-draft" name="status" type="radio" value="publish" checked="checked">
+            <input class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-draft" name="status" type="radio" value="draft" checked="checked">
             <?php _e('Save product as draft', 'affilicious'); ?>
         </label>
 
         <label class="aff-amazon-import-config-group-label" for="publish">
-            <input class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-publish" name="status" type="radio" value="draft">
+            <input class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-publish" name="status" type="radio" value="publish">
             <?php _e('Publish product directly', 'affilicious'); ?>
         </label>
     </fieldset>
