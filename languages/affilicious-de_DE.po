@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-16 12:28+0200\n"
+"POT-Creation-Date: 2017-07-21 15:59+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -448,11 +448,11 @@ msgstr ""
 "Suche mit Produktvarianten funktioniert nicht, wenn die Kategorie \"Alle\" "
 "ausgewählt ist."
 
-#: src/product/admin/view/page/import/amazon/search-load-more-template.php:4
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:5
 msgid "Load more"
 msgstr "Mehr laden"
 
-#: src/product/admin/view/page/import/amazon/search-load-more-template.php:16
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:17
 msgid "No more results"
 msgstr "Keine weiteren Ergebnisse"
 
@@ -710,16 +710,14 @@ msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
 #: src/product/setup/product-setup.php:418
-msgid "Affiliate ID"
-msgstr "Affiliate ID"
+msgid "Affiliate Product ID"
+msgstr "Affiliate Produkt ID"
 
 #: src/product/setup/product-setup.php:419
-msgid ""
-"Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for the "
-"automatic shop update."
+msgid "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID and etc."
 msgstr ""
-"Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
-"automatische Shop Aktualisierung."
+"Einmalige Produkt ID des Shops wie Amazon ASIN, Affilinet ID, Ebay ID und "
+"usw."
 
 #: src/product/setup/product-setup.php:420
 msgid "Availability"
@@ -1050,6 +1048,13 @@ msgstr "Logo"
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#~ msgid ""
+#~ "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for "
+#~ "the automatic shop update."
+#~ msgstr ""
+#~ "Einmalige Produkt ID wie Amazon ASIN, Affilinet ID, Ebay ID, usw. für die "
+#~ "automatische Shop Aktualisierung."
 
 #~ msgid "No variants"
 #~ msgstr "Keine Varianten"
@@ -1427,13 +1432,6 @@ msgstr ""
 
 #~ msgid "Votes Update Interval"
 #~ msgstr "Stimmen Aktualisierungsintervall"
-
-#~ msgid ""
-#~ "Unique product ID of the shop like Amazon ASIN, Affilinet ID, ebay ID, "
-#~ "etc."
-#~ msgstr ""
-#~ "Einmalige Produkt ID des Shops wie Amazon ASIN,  Affilinet ID, ebay ID, "
-#~ "usw."
 
 #~ msgid "Updated at %s"
 #~ msgstr "Aktualisert am %s Uhr"

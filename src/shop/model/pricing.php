@@ -165,7 +165,7 @@ class Pricing
         return
             $other instanceof self &&
             $this->get_availability()->is_equal_to($other->get_availability()) &&
-            ($this->has_price() && $this->get_price()->is_equal_to($other->get_price()) || !$other->has_affiliate_id()) &&
+            ($this->has_price() && $this->get_price()->is_equal_to($other->get_price()) || !$other->has_affiliate_product_id()) &&
             ($this->has_old_price() && $this->get_old_price()->is_equal_to($other->get_old_price()) || !$other->has_old_price());
     }
 }

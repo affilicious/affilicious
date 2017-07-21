@@ -25,7 +25,7 @@ class Tracking_Helper
             'affiliate_product_id' => $tracking->has_affiliate_product_id() ? $tracking->get_affiliate_product_id()->get_value() : null,
 
             // Deprecated 1.0. It's just used for legacy purpose. Use 'affiliate_product_id' instead.
-            'affiliate_id' => $tracking->has_affiliate_product_id() ? $tracking->get_affiliate_product_id()->get_value() : null,
+            'affiliate_product_id' => $tracking->has_affiliate_product_id() ? $tracking->get_affiliate_product_id()->get_value() : null,
 
         );
 
@@ -49,8 +49,8 @@ class Tracking_Helper
         }
 
         // Deprecated 1.0. It's just used for legacy purpose. Use 'affiliate_product_id' instead.
-        if(!empty($array['affiliate_id'])) {
-            $affiliate_product_id = $array['affiliate_id'];
+        if(!empty($array['affiliate_product_id'])) {
+            $affiliate_product_id = $array['affiliate_product_id'];
         }
 
         $tracking = new Tracking(

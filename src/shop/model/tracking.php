@@ -13,7 +13,7 @@ class Tracking
     private $affiliate_link;
 
     /**
-     * @var null|Affiliate_Id
+     * @var null|Affiliate_Product_Id
      */
     private $affiliate_product_id;
 
@@ -54,7 +54,7 @@ class Tracking
      * Get the affiliate product ID of the tracking.
      *
      * @since 0.9
-     * @return null|Affiliate_Id
+     * @return null|Affiliate_Product_Id
      */
     public function get_affiliate_product_id()
     {
@@ -78,7 +78,7 @@ class Tracking
      *
      * @deprecated 1.0 Use 'get_affiliate_product_id' instead.
      * @since 0.8
-     * @return null|Affiliate_Id
+     * @return null|Affiliate_Product_Id
      */
     public function get_affiliate_id()
     {

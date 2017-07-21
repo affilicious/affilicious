@@ -107,13 +107,13 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Get the concrete affiliate IDs of the products for the Amazon item lookup
-        $affiliate_ids = $this->extract_affiliate_product_ids($products, self::MAX_UPDATES);
-        if(empty($affiliate_ids)) {
+        $affiliate_product_ids = $this->extract_affiliate_product_ids($products, self::MAX_UPDATES);
+        if(empty($affiliate_product_ids)) {
             return;
         }
 
         // Make an Amazon API lookup request based on the affiliate IDs.
-        $response = $this->item_lookups($provider, $affiliate_ids);
+        $response = $this->item_lookups($provider, $affiliate_product_ids);
         if(empty($response)) {
             return;
         }
@@ -145,7 +145,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     {
         $current = 0;
 
-        $affiliate_ids = array();
+        $affiliate_product_ids = array();
         foreach ($products as $product) {
 
             if($product instanceof Complex_Product) {
@@ -179,19 +179,19 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                $affiliate_id = $shop->get_tracking()->get_affiliate_id();
-                if($affiliate_id === null) {
+                $affiliate_product_id = $shop->get_tracking()->get_affiliate_product_id();
+                if($affiliate_product_id === null) {
                     continue;
                 }
 
                 if($provider->get_slug()->get_value() === self::PROVIDER) {
-                    $affiliate_ids[$affiliate_id->get_value()] = $affiliate_id;
+                    $affiliate_product_ids[$affiliate_product_id->get_value()] = $affiliate_product_id;
                     $current++;
                 }
             }
         }
 
-        return array_values($affiliate_ids);
+        return array_values($affiliate_product_ids);
     }
 
     /**
@@ -199,14 +199,14 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      *
      * @since 0.7
      * @param Amazon_Provider $provider The Amazon provider which holds the credentials.
-     * @param Affiliate_Product_Id[] $affiliate_ids The affiliate IDs for the lookup.
+     * @param Affiliate_Product_Id[] $affiliate_product_ids The affiliate IDs for the lookup.
      * @return null|array The Amazon API response as an array.
      */
-    protected function item_lookups(Amazon_Provider $provider, array $affiliate_ids)
+    protected function item_lookups(Amazon_Provider $provider, array $affiliate_product_ids)
     {
-        $raw_affiliate_ids = array();
-        foreach($affiliate_ids as $affiliate_id) {
-            $raw_affiliate_ids[] = $affiliate_id->get_value();
+        $raw_affiliate_product_ids = array();
+        foreach($affiliate_product_ids as $affiliate_product_id) {
+            $raw_affiliate_product_ids[] = $affiliate_product_id->get_value();
         }
 
         $conf = new GenericConfiguration();
@@ -222,7 +222,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             ->setResponseTransformer(new XmlToArray());
 
         $lookup = new Lookup();
-        $lookup->setItemId(implode(',', $raw_affiliate_ids));
+        $lookup->setItemId(implode(',', $raw_affiliate_product_ids));
         $lookup->setResponseGroup(array('Large'));
 
         $apaiIO = new ApaiIO($conf);
@@ -292,7 +292,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 
                 $shops = $product->get_shops();
                 foreach ($shops as $shop) {
-                    if($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_id())) {
+                    if($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_product_id())) {
                         if($result['availability'] !== null && $this->should_update_availability($update_interval, $product, $shop)) {
                             $this->update_availability($result['availability'], $product, $shop);
                         }

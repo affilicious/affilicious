@@ -11,16 +11,14 @@ use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Tag;
 use Affilicious\Product\Repository\Product_Repository_Interface;
-use Affilicious\Shop\Model\Affiliate_Id;
 use Affilicious\Shop\Model\Affiliate_Link;
+use Affilicious\Shop\Model\Affiliate_Product_Id;
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Money;
 use Affilicious\Shop\Model\Pricing;
 use Affilicious\Shop\Model\Tracking;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -153,7 +151,7 @@ class Variants_Migration
 
                             $slug = str_replace('_', '-', substr($shop['_type'], 1, strlen($shop['_type'])));
                             $affiliate_link = !empty($shop['affiliate_link']) ? $shop['affiliate_link'] : null;
-                            $affiliate_id = !empty($shop['affiliate_id']) ? $shop['affiliate_id'] : null;
+                            $affiliate_product_id = !empty($shop['affiliate_product_id']) ? $shop['affiliate_product_id'] : null;
                             $availability = !empty($shop['availability']) ? $shop['availability'] : null;
                             $currency = !empty($shop['currency']) ? $shop['currency'] : null;
                             $price = !empty($shop['price']) ? $shop['price'] : null;
@@ -172,7 +170,7 @@ class Variants_Migration
                             $shop = $shop_template->build(
                                 new Tracking(
                                     new Affiliate_Link($affiliate_link),
-                                    $affiliate_id !== null ? new Affiliate_Id($affiliate_id) : null
+                                    $affiliate_product_id !== null ? new Affiliate_Product_Id($affiliate_product_id) : null
                                 ),
                                 new Pricing(
                                     new Availability($availability),

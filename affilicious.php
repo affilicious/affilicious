@@ -298,6 +298,9 @@ if(!class_exists('Affilicious')) {
 
                 $product_variant_terms_to_0820_migration = $this->container['affilicious.product.migration.product_variant_terms_to_0820'];
                 $product_variant_terms_to_0820_migration->migrate();
+
+                $affiliate_product_id_to_090_migration = $this->container['affilicious.product.migration.affiliate_product_id_to_090'];
+                $affiliate_product_id_to_090_migration->migrate();
             }, 9999);
         }
 
@@ -564,6 +567,10 @@ if(!class_exists('Affilicious')) {
                 );
             };
 
+            $this->container['affilicious.product.migration.affiliate_product_id_to_090'] = function () {
+                return new \Affilicious\Product\Migration\Affiliate_Product_Id_To_090_Migration();
+            };
+
             $this->container['affilicious.product.migration.variants'] = function ($c) {
                 return new \Affilicious\Product\Migration\Variants_Migration(
                     $c['affilicious.product.repository.product'],
@@ -699,6 +706,8 @@ if(!class_exists('Affilicious')) {
                     $c['affilicious.common.generator.slug']
                 );
             };
+
+
         }
 
         /**

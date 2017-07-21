@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-07-16 "
-"12:28+0200\n"
+"POT-Creation-Date: 2017-07-21 "
+"15:59+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -633,11 +633,11 @@ msgid ""
 "\"All\" is selected."
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-load-more-template.php:4
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:5
 msgid "Load more"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-load-more-template.php:16
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:17
 msgid "No more results"
 msgstr ""
 
@@ -970,15 +970,14 @@ msgid "Affiliate Link"
 msgstr ""
 
 #: src/product/setup/product-setup.php:418
-msgid "Affiliate ID"
+msgid "Affiliate Product ID"
 msgstr ""
 
 #: src/product/setup/product-setup.php:419
 msgid ""
 "Unique Product ID like Amazon "
-"ASIN, Affilinet ID, Ebay ID, "
-"etc. used for the automatic shop "
-"update."
+"ASIN, Affilinet ID, Ebay ID and "
+"etc."
 msgstr ""
 
 #: src/product/setup/product-setup.php:420

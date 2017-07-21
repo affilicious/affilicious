@@ -33,8 +33,8 @@ use Affilicious\Product\Model\Tag_Aware_Interface;
 use Affilicious\Product\Model\Type;
 use Affilicious\Product\Model\Votes;
 use Affilicious\Product\Repository\Product_Repository_Interface;
-use Affilicious\Shop\Model\Affiliate_Id;
 use Affilicious\Shop\Model\Affiliate_Link;
+use Affilicious\Shop\Model\Affiliate_Product_Id;
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Money;
@@ -62,6 +62,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     const SHOP_CURRENCY = 'currency';
     const SHOP_AVAILABILITY = 'availability';
     const SHOP_AFFILIATE_ID = 'affiliate_id';
+    const SHOP_AFFILIATE_PRODUCT_ID = 'affiliate_product_id';
     const SHOP_AFFILIATE_LINK = 'affiliate_link';
     const SHOP_UPDATED_AT = 'updated_at';
 
@@ -892,7 +893,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         $affiliate_link = !empty($raw_shop[self::SHOP_AFFILIATE_LINK]) ? $raw_shop[self::SHOP_AFFILIATE_LINK] : null;
-        $affiliate_id = !empty($raw_shop[self::SHOP_AFFILIATE_ID]) ? $raw_shop[self::SHOP_AFFILIATE_ID] : null;
+        $affiliate_product_id = !empty($raw_shop[self::SHOP_AFFILIATE_PRODUCT_ID]) ? $raw_shop[self::SHOP_AFFILIATE_PRODUCT_ID] : (!empty($raw_shop[self::SHOP_AFFILIATE_ID]) ? $raw_shop[self::SHOP_AFFILIATE_ID] : null);
         $availability = !empty($raw_shop[self::SHOP_AVAILABILITY]) ? $raw_shop[self::SHOP_AVAILABILITY] : null;
         $price = !empty($raw_shop[self::SHOP_PRICE]) ? $raw_shop[self::SHOP_PRICE] : null;
         $old_price = !empty($raw_shop[self::SHOP_OLD_PRICE]) ? $raw_shop[self::SHOP_OLD_PRICE] : null;
@@ -906,7 +907,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         $shop = $shop_template->build(
             new Tracking(
                 new Affiliate_Link($affiliate_link),
-                $affiliate_id !== null ? new Affiliate_Id($affiliate_id) : null
+                $affiliate_product_id !== null ? new Affiliate_Product_Id($affiliate_product_id) : null
             ),
             new Pricing(
                 new Availability($availability),
@@ -980,7 +981,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $carbon_shops[$key->get_value()][$index] = array(
                 self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
                 self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
-                self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
+                self::SHOP_AFFILIATE_PRODUCT_ID => $shop->get_tracking()->has_affiliate_product_id() ? $shop->get_tracking()->get_affiliate_product_id()->get_value() : null,
                 self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
                 self::SHOP_PRICE => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_value() : null,
                 self::SHOP_OLD_PRICE => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_value() : null,
@@ -1137,7 +1138,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 $carbon_shops[$key->get_value()][$index2] = array(
                     self::SHOP_TEMPLATE_ID => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
                     self::SHOP_AFFILIATE_LINK => $shop->get_tracking()->get_affiliate_link()->get_value(),
-                    self::SHOP_AFFILIATE_ID => $shop->get_tracking()->has_affiliate_id() ? $shop->get_tracking()->get_affiliate_id()->get_value() : null,
+                    self::SHOP_AFFILIATE_PRODUCT_ID => $shop->get_tracking()->has_affiliate_product_id() ? $shop->get_tracking()->get_affiliate_product_id()->get_value() : null,
                     self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
                     self::SHOP_PRICE => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_value() : null,
                     self::SHOP_OLD_PRICE => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_value() : null,
