@@ -21,8 +21,8 @@ if (!defined('ABSPATH')) {
 
 class Product_Setup
 {
-    const VARIANTS_LIMIT = 50;
-    const SHOP_LIMIT = 10;
+    const VARIANTS_LIMIT = 100;
+    const SHOP_LIMIT = 50;
 
     /**
      * @var Shop_Template_Repository_Interface
