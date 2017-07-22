@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Shop\Helper;
 
+use Affilicious\Common\Helper\Image_Helper;
 use Affilicious\Common\Helper\Time_Helper;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
@@ -28,6 +29,7 @@ class Shop_Helper
             'slug' => $shop->get_slug()->get_value(),
             'updated_at' => Time_Helper::to_datetime_i18n($shop->get_updated_at()),
             'thumbnail_id' => $shop->has_thumbnail_id() ? $shop->get_thumbnail_id()->get_value() : null,
+            'thumbnail' => $shop->has_thumbnail() ? Image_Helper::to_array($shop->get_thumbnail()) : null,
             'tracking' => Tracking_Helper::to_array($shop->get_tracking()),
             'pricing' => Pricing_Helper::to_array($shop->get_pricing()),
         );
@@ -50,8 +52,10 @@ class Shop_Helper
         $slug = new Slug($array['slug']);
         $tracking = Tracking_Helper::from_array($array['tracking']);
         $pricing = Pricing_Helper::from_array($array['pricing']);
+        $thumbnail = Image_Helper::from_array($array['thumbnail']);
 
         $shop = new Shop($name, $slug, $tracking, $pricing);
+        $shop->set_thumbnail($thumbnail);
 
         if(!empty($array['template_id'])) {
             $shop->set_template_id(new Shop_Template_Id($array['template_id']));

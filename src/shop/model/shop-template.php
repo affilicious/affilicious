@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Shop\Model;
 
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Aware_Trait;
@@ -32,9 +33,9 @@ class Shop_Template
 	/**
      * The thumbnail of the shop template.
      *
-	 * @var null|Image_Id
+	 * @var null|Image
 	 */
-	private $thumbnail_id;
+	private $thumbnail;
 
     /**
      * The provider ID for the shop updates.
@@ -88,37 +89,77 @@ class Shop_Template
     }
 
     /**
-     * Check if the shop has an optional thumbnail ID.
+     * Check if the shop template has an optional thumbnail.
      *
-     * @since 0.8
+     * @since 0.9
      * @return bool
      */
-	public function has_thumbnail_id()
-	{
-		return $this->thumbnail_id !== null;
-	}
-
-    /**
-     * Set the optional thumbnail ID.
-     *
-     * @since 0.8
-     * @param null|Image_Id $thumbnail_id
-     */
-	public function set_thumbnail_id(Image_Id $thumbnail_id = null)
+    public function has_thumbnail()
     {
-        $this->thumbnail_id = $thumbnail_id;
+        return $this->thumbnail !== null;
     }
 
     /**
-     * Get the optional thumbnail image
+     * Get the optional shop template thumbnail.
      *
+     * @since 0.9
+     * @return null|Image
+     */
+    public function get_thumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set the optional shop template thumbnail.
+     *
+     * @since 0.9
+     * @param null|Image $thumbnail
+     */
+    public function set_thumbnail(Image $thumbnail = null)
+    {
+        $this->thumbnail = $thumbnail;
+    }
+
+    /**
+     * Check if the shop template has an optional thumbnail ID.
+     *
+     * @deprecated 1.1 Use 'has_thumbnail' instead.
+     * @since 0.8
+     * @return bool
+     */
+    public function has_thumbnail_id()
+    {
+        return $this->thumbnail !== null;
+    }
+
+    /**
+     * Get the optional shop template thumbnail ID.
+     *
+     * @deprecated 1.1 Use 'get_thumbnail' instead.
      * @since 0.8
      * @return null|Image_Id
      */
-	public function get_thumbnail_id()
-	{
-		return $this->thumbnail_id;
-	}
+    public function get_thumbnail_id()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set the optional shop template thumbnail ID.
+     *
+     * @deprecated 1.1 Use 'set_thumbnail' instead.
+     * @since 0.8
+     * @param null|Image_Id $thumbnail_id
+     */
+    public function set_thumbnail_id(Image_Id $thumbnail_id = null)
+    {
+        if($thumbnail_id instanceof Image_Id) {
+            $thumbnail_id = new Image($thumbnail_id->get_value());
+        }
+
+        $this->thumbnail = $thumbnail_id;
+    }
 
     /**
      * Check of the shop template has an optional provider ID.
@@ -164,7 +205,7 @@ class Shop_Template
     {
         $shop = new Shop($this->name, $this->slug, $tracking, $pricing);
         $shop->set_template_id($this->id);
-        $shop->set_thumbnail_id($this->thumbnail_id);
+        $shop->set_thumbnail($this->thumbnail);
 
         return $shop;
     }
@@ -183,7 +224,7 @@ class Shop_Template
             ($this->has_id() && $this->get_id()->is_equal_to($other->get_id()) || !$other->has_id()) &&
             $this->get_name()->is_equal_to($other->get_name()) &&
             $this->get_slug()->is_equal_to($other->get_slug()) &&
-            ($this->has_thumbnail_id() && $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) || !$other->has_thumbnail_id()) &&
+            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($other->get_thumbnail()) || !$other->has_thumbnail()) &&
             ($this->has_provider_id() && $this->get_provider_id()->is_equal_to($other->get_provider_id()) || !$other->has_provider_id());
 	}
 

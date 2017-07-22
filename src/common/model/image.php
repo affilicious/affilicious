@@ -58,4 +58,16 @@ class Image extends Image_Id
     {
         return $this->src;
     }
+
+    /**
+     * @inheritdoc
+     * @since 0.9
+     */
+    public function is_equal_to($other)
+    {
+        return
+            $other instanceof self &&
+            $this->get_id() == $other->get_id() &&
+            $this->get_src() == $other->get_src();
+    }
 }

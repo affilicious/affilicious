@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Model;
 
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Aware_Trait;
@@ -8,7 +9,6 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Slug_Aware_Trait;
 use Affilicious\Common\Model\Status;
 use Affilicious\Common\Model\Status_Aware_Trait;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -44,16 +44,16 @@ class Product
     protected $type;
 
     /**
-     * The thumbnail ID of the product.
+     * The thumbnail of the product.
      *
-     * @var null|Image_Id
+     * @var null|Image
      */
-    protected $thumbnail_id;
+    protected $thumbnail;
 
     /**
-     * The image IDs of the product gallery.
+     * The images of the product gallery.
      *
-     * @var Image_Id[]
+     * @var Image[]
      */
     protected $image_gallery;
 
@@ -126,36 +126,76 @@ class Product
     }
 
     /**
+     * Check if the product has a thumbnail.
+     *
+     * @since 0.9
+     * @return bool
+     */
+    public function has_thumbnail()
+    {
+        return $this->thumbnail !== null;
+    }
+
+    /**
+     * Get the product thumbnail.
+     *
+     * @since 0.9
+     * @return null|Image
+     */
+    public function get_thumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set the product thumbnail.
+     *
+     * @since 0.9
+     * @param null|Image $thumbnail
+     */
+    public function set_thumbnail(Image $thumbnail = null)
+    {
+        $this->thumbnail = $thumbnail;
+    }
+
+    /**
      * Check if the product has a thumbnail ID.
      *
+     * @deprecated 1.1 Use 'has_thumbnail' instead.
      * @since 0.8
      * @return bool
      */
     public function has_thumbnail_id()
     {
-        return $this->thumbnail_id !== null;
+        return $this->thumbnail !== null;
     }
 
     /**
      * Get the product thumbnail ID.
      *
+     * @deprecated 1.1 Use 'get_thumbnail' instead.
      * @since 0.8
      * @return null|Image_Id
      */
     public function get_thumbnail_id()
     {
-        return $this->thumbnail_id;
+        return $this->thumbnail;
     }
 
     /**
      * Set the product thumbnail ID.
      *
+     * @deprecated 1.1 Use 'set_thumbnail' instead.
      * @since 0.8
      * @param null|Image_Id $thumbnail_id
      */
     public function set_thumbnail_id(Image_Id $thumbnail_id = null)
     {
-        $this->thumbnail_id = $thumbnail_id;
+        if($thumbnail_id instanceof Image_Id) {
+            $thumbnail_id = new Image($thumbnail_id->get_value());
+        }
+
+        $this->thumbnail = $thumbnail_id;
     }
 
     /**
@@ -170,10 +210,10 @@ class Product
     }
 
     /**
-     * Get the image IDs of the product gallery.
+     * Get the images of the product gallery.
      *
      * @since 0.8
-     * @return Image_Id[]
+     * @return Image[]
      */
     public function get_image_gallery()
     {
@@ -183,15 +223,19 @@ class Product
     }
 
     /**
-     * Set the image IDs of the product gallery.
+     * Set the images of the product gallery.
      * If you do this, the old IDs going to be replaced.
      *
      * @since 0.8
-     * @param Image_Id[] $image_gallery
+     * @param Image[] $image_gallery
      */
-    public function set_image_gallery($image_gallery)
+    public function set_image_gallery(array $image_gallery)
     {
-        Assert::allIsInstanceOf($image_gallery, Image_Id::class);
+        foreach ($image_gallery as $index => $image) {
+            if($image instanceof Image_Id) {
+                $image_gallery[$index] = new Image($image->get_value());
+            }
+        }
 
         $this->image_gallery = $image_gallery;
     }
@@ -233,9 +277,9 @@ class Product
             $this->get_name()->is_equal_to($other->get_name()) &&
             $this->get_slug()->is_equal_to($other->get_slug()) &&
             $this->get_type()->is_equal_to($other->get_type()) &&
-            ($this->has_thumbnail_id() && $this->get_thumbnail_id()->is_equal_to($other->get_thumbnail_id()) || !$other->has_thumbnail_id()) &&
-            $this->get_image_gallery() == $this->get_image_gallery() &&
-            $this->get_updated_at() == $other->get_updated_at();
+            ($this->has_thumbnail() && $this->get_thumbnail()->is_equal_to($other->get_thumbnail()) || !$other->has_thumbnail()) &&
+            $this->get_image_gallery() === $this->get_image_gallery() &&
+            $this->get_updated_at() === $other->get_updated_at();
     }
 
     /**

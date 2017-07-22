@@ -353,8 +353,8 @@ class Amazon_Search implements Search_Interface
 
             $default_variant = $product->get_default_variant();
             if ($default_variant !== null) {
-                $variant_thumbnail_id = $default_variant->get_thumbnail_id();
-                $product->set_thumbnail_id($variant_thumbnail_id);
+                $variant_thumbnail = $default_variant->get_thumbnail();
+                $product->set_thumbnail($variant_thumbnail);
             }
         }
 
@@ -372,14 +372,14 @@ class Amazon_Search implements Search_Interface
             }
         }
 
-        $thumbnail_id = Amazon_Helper::find_thumbnail_id($item, !empty($config['store_thumbnail']));
-        if ($thumbnail_id !== null) {
-            $product->set_thumbnail_id($thumbnail_id);
+        $thumbnail = Amazon_Helper::find_thumbnail($item, !empty($config['store_thumbnail']));
+        if ($thumbnail !== null) {
+            $product->set_thumbnail($thumbnail);
         }
 
-        $image_gallery_ids = Amazon_Helper::find_image_gallery_ids($item, !empty($config['store_image_gallery']));
-        if (!empty($image_gallery_ids)) {
-            $product->set_image_gallery($image_gallery_ids);
+        $image_gallery = Amazon_Helper::find_image_gallery($item, !empty($config['store_image_gallery']));
+        if (!empty($image_gallery)) {
+            $product->set_image_gallery($image_gallery);
         }
 
         //$product = apply_filters('aff_amazon_import_create_product', $product, $item, $config);

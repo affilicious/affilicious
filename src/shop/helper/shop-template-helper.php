@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Shop\Helper;
 
+use Affilicious\Common\Helper\Image_Helper;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
@@ -112,6 +113,7 @@ class Shop_Template_Helper
             'name' => $shop_template->get_name()->get_value(),
             'slug' => $shop_template->get_slug()->get_value(),
             'thumbnail_id' => $shop_template->has_thumbnail_id() ? $shop_template->get_thumbnail_id()->get_value() : null,
+            'thumbnail' => $shop_template->has_thumbnail() ? Image_Helper::to_array($shop_template->get_thumbnail()) : null,
             'provider_id' => $shop_template->has_provider_id() ? $shop_template->get_provider_id()->get_value() : null,
         );
 

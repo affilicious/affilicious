@@ -6,7 +6,6 @@ use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Attribute_Template_Id;
 use Affilicious\Common\Admin\License\License_Status;
 use Affilicious\Common\Helper\Time_Helper;
-use Affilicious\Common\Model\Image_Id;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
 use Affilicious\Detail\Model\Detail;
@@ -40,6 +39,8 @@ use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Model\Availability;
+use Affilicious\Common\Model\Image;
+use Affilicious\Common\Helper\Image_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -507,11 +508,10 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
     }
 
     $details = $product->get_details();
+    $details = apply_filters('aff_product_details', $details, $product);
     if(empty($details)) {
         return null;
     }
-
-    $details = apply_filters('aff_product_details', $details, $product);
 
     if($output == 'array') {
         $details = array_map(function(Detail $detail) {
@@ -525,10 +525,79 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
 }
 
 /**
- * Get the product image gallery by the product.
+ * Check if the product has a thumbnail.
+ *
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @return bool Whether the product has a thumbnail or not.
+ */
+function aff_has_product_thumbnail($product_or_id = null)
+{
+    $thumbnail = aff_get_product_thumbnail($product_or_id, 'object');
+    $result = !empty($thumbnail);
+
+    return $result;
+}
+
+/**
+ * Get the thumbnail by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
- * @since 0.9.5
+ * @since 0.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param string $output The required return type. Choose from "scalar", "array" or "object". Default: "scalar".
+ * @return null|int|array|Image The image in the given output format.
+ */
+function aff_get_product_thumbnail($product_or_id = null, $output = 'array')
+{
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return null;
+    }
+
+    $thumbnail = $product->get_thumbnail();
+    $thumbnail = apply_filters('aff_product_thumbnail', $thumbnail, $product);
+    if(empty($thumbnail)) {
+        return null;
+    }
+
+    if($output == 'scalar') {
+        $thumbnail = $thumbnail->get_id();
+    }
+
+    if($output == 'array') {
+        $thumbnail = Image_Helper::to_array($thumbnail);
+    }
+
+    $thumbnail = apply_filters('aff_product_formatted_thumbnail', $thumbnail, $product, $output);
+
+    return $thumbnail;
+}
+
+/**
+ * Print the product thumbnail.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param string|array $size Image size to use. Accepts any valid image size, or an array of width and height values in pixels (in that order). Default value: 'post-thumbnail'.
+ * @param string|array $attr Query string or array of attributes. Default value: ''.
+ */
+function aff_the_product_thumbnail($product_or_id = null, $size = 'post-thumbnail', $attr = '')
+{
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return;
+    }
+
+    $thumbnail = get_the_post_thumbnail($product->get_id()->get_value(), $size, $attr);
+    echo $thumbnail;
+}
+
+/**
+ * Check if the product has an image gallery.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.8.5
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
  * @return bool
  */
@@ -541,13 +610,13 @@ function aff_has_product_image_gallery($product_or_id = null)
 }
 
 /**
- * Get the product image gallery by the product.
+ * Get the image gallery by the product.
  * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int[]|Image_Id[] The image IDs of the image gallery in the given output format.
+ * @param string $output The required return type. Choose from "scalar", "array" or "object". Default: "scalar".
+ * @return null|int[]|array|Image[] The image of the image gallery in the given output format.
  */
 function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar')
 {
@@ -556,22 +625,28 @@ function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar'
         return null;
     }
 
-    $image_ids = $product->get_image_gallery();
-    if(empty($image_ids)) {
+    $images = $product->get_image_gallery();
+    if(empty($images)) {
         return null;
     }
 
-    $image_ids = apply_filters('aff_product_image_gallery', $image_ids, $product);
+    $images = apply_filters('aff_product_image_gallery', $images, $product);
 
     if($output == 'scalar') {
-        $image_ids = array_map(function(Image_Id $image_id) {
-            return $image_id->get_value();
-        }, $image_ids);
+        $images = array_map(function(Image $image) {
+            return $image->get_id();
+        }, $images);
     }
 
-    $image_ids = apply_filters('aff_product_formatted_image_gallery', $image_ids, $product, $output);
+    if($output == 'array') {
+        $images = array_map(function(Image $image) {
+            return Image_Helper::to_array($image);
+        }, $images);
+    }
 
-    return $image_ids;
+    $images = apply_filters('aff_product_formatted_image_gallery', $images, $product, $output);
+
+    return $images;
 }
 
 /**
@@ -1952,6 +2027,78 @@ function aff_the_product_attribute_choices($product_or_id = null, $escape = true
 }
 
 /**
+ * Check if the shop has a thumbnail.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the thumbnail is taken.
+ * @return bool Whether the shop has a thumbnail or not.
+ */
+function aff_has_shop_thumbnail($shop = null)
+{
+    $thumbnail = aff_get_shop_thumbnail($shop, 'object');
+    $result = !empty($thumbnail);
+
+    return $result;
+}
+
+/**
+ * Get the shop thumbnail.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the thumbnail is taken.
+ * @param string $output The required return type. Choose from "scalar", "array" or "object". Default: "scalar".
+ * @return null|int|array|Image The image in the given output format.
+ */
+function aff_get_shop_thumbnail($shop, $output = 'array')
+{
+    // Normalize the shop.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $thumbnail = $shop->get_thumbnail();
+    $thumbnail = apply_filters('aff_shop_thumbnail', $thumbnail, $shop);
+
+    if(empty($thumbnail)) {
+        return null;
+    }
+
+    if($output == 'scalar') {
+        $thumbnail = $thumbnail->get_id();
+    }
+
+    if($output == 'array') {
+        $thumbnail = Image_Helper::to_array($thumbnail);
+    }
+
+    $thumbnail = apply_filters('aff_shop_formatted_thumbnail', $thumbnail, $shop, $output);
+
+    return $thumbnail;
+}
+
+/**
+ * Print the shop thumbnail.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.9
+ * @param array|Shop $shop
+ * @param string|array $size Image size to use. Accepts any valid image size, or an array of width and height values in pixels (in that order). Default value: 'post-thumbnail'.
+ * @param string|array $attr Query string or array of attributes. Default value: ''.
+ */
+function aff_the_shop_thumbnail($shop, $size = 'thumbnail', $attr = '')
+{
+    $thumbnail = aff_get_shop_thumbnail($shop, 'scalar');
+    if(empty($thumbnail)) {
+        return;
+    }
+
+    $result = wp_get_attachment_image($thumbnail, $size, false, $attr);
+
+    echo $result;
+}
+
+/**
  * Get the price indication like VAT and shipping costs of the shop.
  *
  * @since 0.7
@@ -2135,19 +2282,7 @@ function aff_is_shop_out_of_stock($shop)
  */
 function aff_should_shop_display_old_price($shop)
 {
-    // Normalize the shop.
-    if($shop instanceof Shop) {
-        $shop = Shop_Helper::to_array($shop);
-    }
-
-    if(!isset($shop['pricing']['price']['value']) || !isset($shop['pricing']['old_price']['value'])) {
-        return false;
-    }
-
-    $price = floatval($shop['pricing']['price']['value']);
-    $old_price = floatval($shop['pricing']['old_price']['value']);
-
-    return $old_price > $price;
+    return true;
 }
 
 /**

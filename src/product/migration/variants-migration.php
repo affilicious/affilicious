@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Migration;
 
-use Affilicious\Common\Model\Image_Id;
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Attribute\Model\Value;
@@ -139,7 +139,7 @@ class Variants_Migration
 
                     if(!empty($field['thumbnail'])) {
                         $thumbnail_id = $field['thumbnail'];
-                        $variant->set_thumbnail_id(new Image_Id($thumbnail_id));
+                        $variant->set_thumbnail(new Image($thumbnail_id));
                     }
 
                     if(!empty($field['shops'])) {

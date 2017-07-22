@@ -37,7 +37,7 @@ class Amazon_Helper
      * @param bool $create_missing
      * @return Image_Id|null
      */
-    public static function find_thumbnail_id(array $item, $create_missing = true)
+    public static function find_thumbnail(array $item, $create_missing = true)
     {
         if(isset($item['LargeImage'])) {
             $url = $item['LargeImage']['URL'];
@@ -50,14 +50,14 @@ class Amazon_Helper
         }
 
         if($create_missing) {
-            $thumbnail_id = Image_Helper::download($url);
+            $thumbnail = Image_Helper::download($url);
         } else {
-            $thumbnail_id = new Image(null, $url);
+            $thumbnail = new Image(null, $url);
         }
 
-        $thumbnail_id = apply_filters('aff_amazon_helper_find_thumbnail', $thumbnail_id, $item);
+        $thumbnail = apply_filters('aff_amazon_helper_find_thumbnail', $thumbnail, $item);
 
-        return $thumbnail_id;
+        return $thumbnail;
     }
 
     /**
@@ -68,9 +68,9 @@ class Amazon_Helper
      * @param bool $create_missing
      * @return Image_Id[]
      */
-    public static function find_image_gallery_ids(array $item, $create_missing = true)
+    public static function find_image_gallery(array $item, $create_missing = true)
     {
-        $image_gallery_ids = [];
+        $image_gallery = [];
 
         if(isset($item['ImageSets']['ImageSet'])) {
             $images = $item['ImageSets']['ImageSet'];
@@ -86,22 +86,22 @@ class Amazon_Helper
                 }
 
                 if($create_missing) {
-                    $image_id = Image_Helper::download($url);
+                    $image = Image_Helper::download($url);
                 } else {
-                    $image_id = new Image(null, $url);
+                    $image = new Image(null, $url);
                 }
 
-                if($image_id === null) {
+                if($image === null) {
                     continue;
                 }
 
-                $image_gallery_ids[] = $image_id;
+                $image_gallery[] = $image;
             }
         }
 
-        $image_gallery_ids = apply_filters('aff_amazon_helper_find_image_gallery_ids', $image_gallery_ids, $item);
+        $image_gallery = apply_filters('aff_amazon_helper_find_image_gallery', $image_gallery, $item);
 
-        return $image_gallery_ids;
+        return $image_gallery;
     }
 
     /**

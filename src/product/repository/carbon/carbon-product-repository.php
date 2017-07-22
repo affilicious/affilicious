@@ -5,6 +5,7 @@ use Affilicious\Attribute\Model\Value as Attribute_Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Generator\Slug_Generator_Interface;
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
@@ -520,8 +521,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
     {
         $thumbnail_id = get_post_thumbnail_id($post->ID);
         if (!empty($thumbnail_id) && intval($thumbnail_id) > 0) {
-            $thumbnail = new Image_Id($thumbnail_id);
-            $product->set_thumbnail_id($thumbnail);
+            $thumbnail = new Image($thumbnail_id);
+            $product->set_thumbnail($thumbnail);
         }
     }
 
@@ -664,7 +665,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             }
 
             if(!empty($thumbnail_id)) {
-                $product_variant->set_thumbnail_id(new Image_Id($thumbnail_id));
+                $product_variant->set_thumbnail(new Image($thumbnail_id));
             }
 
             if(!empty($default) && $default === 'yes') {
@@ -781,7 +782,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             $images = array();
             foreach ($image_ids as $image_id) {
-                $images[] = new Image_Id($image_id);
+                $images[] = new Image($image_id);
             }
 
             $product->set_image_gallery($images);
@@ -1161,7 +1162,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 self::VARIANT_NAME => $variant->get_name()->get_value(),
                 self::VARIANT_DEFAULT => $variant->is_default() ? 'yes' : null,
                 self::VARIANT_TAGS => !empty($raw_tags) ? $raw_tags : null,
-                self::VARIANT_THUMBNAIL_ID => $variant->has_thumbnail_id() ? $variant->get_thumbnail_id()->get_value() : null,
+                self::VARIANT_THUMBNAIL_ID => $variant->has_thumbnail() ? $variant->get_thumbnail()->get_id() : null,
                 self::VARIANT_SHOPS => !empty($carbon_shops) ? $carbon_shops : null,
             );
 
@@ -1218,11 +1219,11 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
      */
     private function store_thumbnail(Product $product)
     {
-        if(!$product->has_thumbnail_id()) {
+        if(!$product->has_thumbnail()) {
             return;
         }
 
-        $this->store_post_meta($product->get_id()->get_value(), self::THUMBNAIL_ID, $product->get_thumbnail_id()->get_value());
+        $this->store_post_meta($product->get_id()->get_value(), self::THUMBNAIL_ID, $product->get_thumbnail()->get_id());
     }
 
     /**

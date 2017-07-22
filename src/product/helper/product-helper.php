@@ -3,7 +3,8 @@ namespace Affilicious\Product\Helper;
 
 use Affilicious\Attribute\Helper\Attribute_Helper;
 use Affilicious\Attribute\Model\Attribute;
-use Affilicious\Common\Model\Image_Id;
+use Affilicious\Common\Helper\Image_Helper;
+use Affilicious\Common\Model\Image;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Model\Detail;
 use Affilicious\Product\Model\Complex_Product;
@@ -129,12 +130,8 @@ class Product_Helper
             'id' => $product->has_id() ? $product->get_id()->get_value() : null,
             'name' => $product->get_name()->get_value(),
             'slug' => $product->get_slug()->get_value(),
-            'thumbnail' => $product->has_thumbnail_id() ? $product->get_thumbnail_id()->get_value() : null,
-        ];
-
-        $result['thumbnail'] = !$product->has_thumbnail_id() ? null : [
-            'id' => $product->get_thumbnail_id()->get_id(),
-            'src' => $product->get_thumbnail_id()->get_src(),
+            'thumbnail_id' => $product->has_thumbnail_id() ? $product->get_thumbnail_id()->get_value() : null,
+            'thumbnail' => $product->has_thumbnail() ? Image_Helper::to_array($product->get_thumbnail()) : null,
         ];
 
         if($product instanceof Excerpt_Aware_Interface) {
@@ -145,8 +142,8 @@ class Product_Helper
             $result['content'] = $product->has_content() ? $product->get_content()->get_value() : null;
         }
 
-        $result['image_gallery'] = !$product->has_image_gallery() ? null : array_map(function(Image_Id $image_id) {
-            return $image_id->get_value();
+        $result['image_gallery'] = !$product->has_image_gallery() ? null : array_map(function(Image $image) {
+            return $image->get_id();
         }, $product->get_image_gallery());
 
         if($product instanceof Detail_Aware_Interface) {

@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Update\Worker;
 
 use Affilicious\Common\Helper\Image_Helper;
-use Affilicious\Common\Model\Image_Id;
+use Affilicious\Common\Model\Image;
 use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
@@ -250,8 +250,8 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         foreach ($items as $item) {
             $result[] = array(
                 'affiliate_product_id' => Amazon_Helper::find_affiliate_product_id($item),
-                'thumbnail_id' => Amazon_Helper::find_thumbnail_id($item),
-                'image_gallery_ids' => Amazon_Helper::find_image_gallery_ids($item),
+                'thumbnail' => Amazon_Helper::find_thumbnail($item),
+                'image_gallery' => Amazon_Helper::find_image_gallery($item),
                 'price' => Amazon_Helper::find_price($item),
                 'old_price' => Amazon_Helper::find_old_price($item),
                 'availability' => Amazon_Helper::find_availability($item),
@@ -282,12 +282,12 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                if($result['thumbnail_id'] !== null && $this->should_update_thumbnail($update_interval, $product)) {
-                    $this->update_thumbnail($result['thumbnail_id'], $product);
+                if($result['thumbnail'] !== null && $this->should_update_thumbnail($update_interval, $product)) {
+                    $this->update_thumbnail($result['thumbnail'], $product);
                 }
 
-                if(!empty($result['image_gallery_ids']) && $this->should_update_image_gallery($update_interval, $product)) {
-                    $this->update_image_gallery($result['image_gallery_ids'], $product);
+                if(!empty($result['image_gallery']) && $this->should_update_image_gallery($update_interval, $product)) {
+                    $this->update_image_gallery($result['image_gallery'], $product);
                 }
 
                 $shops = $product->get_shops();
@@ -314,45 +314,45 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the product thumbnail.
      *
      * @since 0.9
-     * @param Image_Id $thumbnail_id The new thumbnail ID for the update.
+     * @param Image $thumbnail The new thumbnail for the update.
      * @param Product $product The current product to update.
      */
-    protected function update_thumbnail(Image_Id $thumbnail_id, Product $product)
+    protected function update_thumbnail(Image $thumbnail, Product $product)
     {
-        do_action('aff_product_amazon_update_worker_before_update_thumbnail', $thumbnail_id, $product);
+        do_action('aff_product_amazon_update_worker_before_update_thumbnail', $thumbnail, $product);
 
-        $current_thumbnail_id = $product->get_thumbnail_id();
-        if($current_thumbnail_id !== null) {
-            Image_Helper::delete($current_thumbnail_id, true);
+        $current_thumbnail = $product->get_thumbnail();
+        if($current_thumbnail !== null) {
+            Image_Helper::delete($current_thumbnail, true);
         }
 
-        $product->set_thumbnail_id($thumbnail_id);
+        $product->set_thumbnail($thumbnail);
         $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
-        do_action('aff_product_amazon_update_worker_after_update_thumbnail', $thumbnail_id, $product);
+        do_action('aff_product_amazon_update_worker_after_update_thumbnail', $thumbnail, $product);
     }
 
     /**
      * Update the product image gallery.
      *
      * @since 0.9
-     * @param array $image_gallery_ids The image gallery IDs for the update.
+     * @param array $image_gallery The image gallery for the update.
      * @param Product $product The current product to update.
      */
-    protected function update_image_gallery(array $image_gallery_ids, Product $product)
+    protected function update_image_gallery(array $image_gallery, Product $product)
     {
-        do_action('aff_product_amazon_update_worker_before_update_image_gallery', $image_gallery_ids, $product);
+        do_action('aff_product_amazon_update_worker_before_update_image_gallery', $image_gallery, $product);
 
-        $current_image_gallery_ids = $product->get_image_gallery();
-        foreach ($current_image_gallery_ids as $current_image_gallery_id) {
-            Image_Helper::delete($current_image_gallery_id, true);
+        $current_image_gallery = $product->get_image_gallery();
+        foreach ($current_image_gallery as $current_image) {
+            Image_Helper::delete($current_image, true);
         }
 
-        $image_gallery_ids = apply_filters('aff_product_amazon_update_worker_update_price', $image_gallery_ids, $product);
-        $product->set_image_gallery($image_gallery_ids);
+        $image_gallery = apply_filters('aff_product_amazon_update_worker_update_price', $image_gallery, $product);
+        $product->set_image_gallery($image_gallery);
         $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
-        do_action('aff_product_amazon_update_worker_after_update_image_gallery', $image_gallery_ids, $product);
+        do_action('aff_product_amazon_update_worker_after_update_image_gallery', $image_gallery, $product);
     }
 
     /**

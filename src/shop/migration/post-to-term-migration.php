@@ -1,14 +1,12 @@
 <?php
 namespace Affilicious\Shop\Migration;
 
-use Affilicious\Common\Model\Image_Id;
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -65,7 +63,7 @@ class Post_To_Term_Migration
 
             $thumbnail_id = carbon_get_post_meta($post->ID, '_thumbnail_id');
             if(!empty($thumbnail_id)) {
-                $shop_template->set_thumbnail_id(new Image_Id($thumbnail_id));
+                $shop_template->set_thumbnail(new Image($thumbnail_id));
             }
 
             try {

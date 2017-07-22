@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Shop\Repository\Carbon;
 
-use Affilicious\Common\Model\Image_Id;
+use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
@@ -182,8 +182,8 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $shop_template->set_id($id);
 
         if($raw_thumbnail_id = carbon_get_term_meta($id->get_value(), self::THUMBNAIL_ID)) {
-            $thumbnail_id = new Image_Id($raw_thumbnail_id);
-            $shop_template->set_thumbnail_id($thumbnail_id);
+            $thumbnail_id = new Image($raw_thumbnail_id);
+            $shop_template->set_thumbnail($thumbnail_id);
         }
 
         if($raw_provider_id = carbon_get_term_meta($id->get_value(), self::PROVIDER)) {
@@ -225,11 +225,11 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 
         $shop_template->set_id(new Shop_Template_Id($term['term_id']));
 
-        if($shop_template->has_thumbnail_id()) {
+        if($shop_template->has_thumbnail() && $shop_template->get_thumbnail()->get_id()) {
             add_term_meta(
                 $shop_template->get_id()->get_value(),
                 self::THUMBNAIL_ID,
-                $shop_template->get_thumbnail_id()->get_value()
+                $shop_template->get_thumbnail()->get_id()
             );
         }
 
@@ -278,11 +278,11 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             $shop_template->set_slug(new Slug($term['slug']));
         }
 
-        if($shop_template->has_thumbnail_id()) {
+        if($shop_template->has_thumbnail() && $shop_template->get_thumbnail()->get_id()) {
             update_term_meta(
                 $shop_template->get_id()->get_value(),
                 self::THUMBNAIL_ID,
-                $shop_template->get_thumbnail_id()->get_value()
+                $shop_template->get_thumbnail()->get_id()
             );
         }
 
