@@ -49,10 +49,9 @@ if (!defined('ABSPATH')) {
 
 /**
  * Check if the product with the Wordpress ID or post is existing.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_is_product($post_or_id = null)
@@ -64,10 +63,9 @@ function aff_is_product($post_or_id = null)
 
 /**
  * Get the product by the Wordpress ID or post.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $post_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product The product in the given output format.
  */
@@ -293,10 +291,9 @@ function aff_get_product_taxonomies($output = 'names', $only_custom = true)
 
 /**
  * Get the product name.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return Name|null|string The name in the given output format.
  */
@@ -324,10 +321,9 @@ function aff_get_product_name($product_or_id = null, $output = 'scalar')
 
 /**
  * Print the shop name.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_name($product_or_id = null, $escape = true)
@@ -346,10 +342,9 @@ function aff_the_product_name($product_or_id = null, $escape = true)
 
 /**
  * Check if the product has a review.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_review($product_or_id = null)
@@ -362,10 +357,9 @@ function aff_has_product_review($product_or_id = null)
 
 /**
  * Get the product review.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Review The review in the given output format.
  */
@@ -398,10 +392,9 @@ function aff_get_product_review($product_or_id = null, $output = 'array')
 
 /**
  * Check if the product has a review rating.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_review_rating($product_or_id = null)
@@ -414,10 +407,9 @@ function aff_has_product_review_rating($product_or_id = null)
 
 /**
  * Get the product review rating from 0 to 5.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|float|Rating The review rating in the given output format.
  */
@@ -447,13 +439,12 @@ function aff_get_product_review_rating($product_or_id = null, $output = 'scalar'
 
 /**
  * Print the product review rating from 0 to 5 as stars.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.9
  * @param string $full_star
  * @param string $half_star
  * @param string $no_star
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  */
 function aff_the_product_review_rating($full_star, $half_star, $no_star, $product_or_id = null)
 {
@@ -475,10 +466,9 @@ function aff_the_product_review_rating($full_star, $half_star, $no_star, $produc
 
 /**
  * Check if the product has any review votes.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_review_votes($product_or_id = null)
@@ -491,10 +481,9 @@ function aff_has_product_review_votes($product_or_id = null)
 
 /**
  * Get the product review votes.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int|Votes The product votes in the given output format.
  */
@@ -530,7 +519,7 @@ function aff_get_product_review_votes($product_or_id = null, $output = 'scalar')
  * Print the product review votes.
  *
  * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_review_votes($product_or_id = null, $escape = true)
@@ -550,10 +539,9 @@ function aff_the_product_review_votes($product_or_id = null, $escape = true)
 
 /**
  * Get the plain product details of the detail groups.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Detail[] The details in the given output format.
  */
@@ -588,7 +576,7 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
 /**
  * Check if the product has a thumbnail.
  *
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product has a thumbnail or not.
  */
 function aff_has_product_thumbnail($product_or_id = null)
@@ -601,10 +589,9 @@ function aff_has_product_thumbnail($product_or_id = null)
 
 /**
  * Get the thumbnail by the product.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Choose from "scalar", "array" or "object". Default: "scalar".
  * @return null|int|array|Image The image in the given output format.
  */
@@ -636,10 +623,9 @@ function aff_get_product_thumbnail($product_or_id = null, $output = 'array')
 
 /**
  * Print the product thumbnail.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string|array $size Image size to use. Accepts any valid image size, or an array of width and height values in pixels (in that order). Default value: 'post-thumbnail'.
  * @param string|array $attr Query string or array of attributes. Default value: ''.
  */
@@ -656,10 +642,9 @@ function aff_the_product_thumbnail($product_or_id = null, $size = 'post-thumbnai
 
 /**
  * Check if the product has an image gallery.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.5
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_image_gallery($product_or_id = null)
@@ -672,10 +657,9 @@ function aff_has_product_image_gallery($product_or_id = null)
 
 /**
  * Get the image gallery by the product.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Choose from "scalar", "array" or "object". Default: "scalar".
  * @return null|int[]|array|Image[] The image of the image gallery in the given output format.
  */
@@ -712,10 +696,9 @@ function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar'
 
 /**
  * Check if the product has any shops.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_shops($product_or_id = null)
@@ -728,10 +711,9 @@ function aff_has_product_shops($product_or_id = null)
 
 /**
  * Get the shops by the product.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Shop[] The shop in the given output format.
  */
@@ -770,10 +752,9 @@ function aff_get_product_shops($product_or_id = null, $output = 'array')
 
 /**
  * Check if the product has any related products.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_related_products($product_or_id = null)
@@ -786,10 +767,9 @@ function aff_has_product_related_products($product_or_id = null)
 
 /**
  * Get the related products by the product.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int[]|Product_Id[] The IDs of the related products in the given output format.
  */
@@ -842,10 +822,9 @@ function aff_get_products_query($args = array())
 
 /**
  * Get the query of the related products by the product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param array $args
  * @return null|WP_Query
  */
@@ -872,10 +851,9 @@ function aff_get_product_related_products_query($product_or_id = null, $args = a
 
 /**
  * Check if the product has any related accessories.
- * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_related_accessories($product_or_id = null)
@@ -888,10 +866,9 @@ function aff_has_product_related_accessories($product_or_id = null)
 
 /**
  * Get the related accessories by the product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|int[]|Product_Id[] The IDs of the related accessories in the given output format.
  */
@@ -922,10 +899,9 @@ function aff_get_product_related_accessories($product_or_id = null, $output = 's
 
 /**
  * Get the query of the related accessories by the product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param array $args
  * @return null|WP_Query
  */
@@ -957,10 +933,9 @@ function aff_get_product_related_accessories_query($product_or_id = null, $args 
 
 /**
  * Get the product link.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return null|string The product link.
  */
 function aff_get_product_link($product_or_id = null)
@@ -982,10 +957,9 @@ function aff_get_product_link($product_or_id = null)
 
 /**
  * Print the product link.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.8.8
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_link($product_or_id = null, $escape = true)
@@ -1001,10 +975,9 @@ function aff_the_product_link($product_or_id = null, $escape = true)
 
 /**
  * Check if the given product has any tags.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool
  */
 function aff_has_product_tags($product_or_id = null)
@@ -1017,10 +990,9 @@ function aff_has_product_tags($product_or_id = null)
 
 /**
  * Get the tags of the given product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|string[]|Tag[] The tags in the given output format.
  */
@@ -1059,10 +1031,9 @@ function aff_get_product_tags($product_or_id = null, $output = 'scalar')
 
 /**
  * Print the tags of the given product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $before The html or string which is printed before every tag.
  * @param string $after The html or string which is printed after every tag.
  * @param bool $escape Whether to escape the output.
@@ -1085,12 +1056,10 @@ function aff_the_product_tags($product_or_id = null, $before = '', $after = '', 
 
 /**
  * Get the shop of the given product.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Shop The shop in the given output format.
  */
@@ -1132,11 +1101,10 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null, $ou
 
 /**
  * Get the cheapest shop of the given product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_shop' instead.
  * @since 0.5.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Shop The shop in the given output format.
  */
@@ -1147,12 +1115,10 @@ function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
 
 /**
  * Check if the product has any discounted price.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @return bool Whether the product has a price or not.
  */
 function aff_has_product_price($product_or_id = null, $affiliate_link = null)
@@ -1165,12 +1131,10 @@ function aff_has_product_price($product_or_id = null, $affiliate_link = null)
 
 /**
  * Get the discounted price with the currency of the product.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money The price in the given output format.
  */
@@ -1214,12 +1178,10 @@ function aff_get_product_price($product_or_id = null, $affiliate_link = null, $o
 
 /**
  * Print the price with the currency of the product.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_price($product_or_id = null, $affiliate_link = null, $escape = true)
@@ -1238,12 +1200,10 @@ function aff_the_product_price($product_or_id = null, $affiliate_link = null, $e
 
 /**
  * Check if the product has any old price.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @return bool Whether the product has an old price or not.
  */
 function aff_has_product_old_price($product_or_id = null, $affiliate_link = null)
@@ -1256,12 +1216,10 @@ function aff_has_product_old_price($product_or_id = null, $affiliate_link = null
 
 /**
  * Get the old price with the currency of the product.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money The old price in the given output format.
  */
@@ -1305,12 +1263,10 @@ function aff_get_product_old_price($product_or_id = null, $affiliate_link = null
 
 /**
  * Print the old price with the currency of the product.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as an affiliate link, the cheapest shop will be used.
  *
  * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param string|Affiliate_Link|null $affiliate_link
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_old_price($product_or_id = null, $affiliate_link = null, $escape = true)
@@ -1329,11 +1285,10 @@ function aff_the_product_old_price($product_or_id = null, $affiliate_link = null
 
 /**
  * Get the cheapest price with the currency of the product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_price' instead.
  * @since 0.5.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money The cheapest price in the given output format.
  */
@@ -1344,11 +1299,10 @@ function aff_get_product_cheapest_price($product_or_id = null, $output = 'scalar
 
 /**
  * Get the cheapest old price with the currency of the product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_old_price' instead.
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money The cheapest old price in the given output format.
  */
@@ -1359,12 +1313,10 @@ function aff_get_product_cheapest_old_price($product_or_id = null, $output = 'sc
 
 /**
  * Get the affiliate link by the product and shop
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the cheapest shop will be used.
  *
  * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id If you pass in nothing as a shop, the cheapest shop will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|string|Affiliate_Link The product affiliate link in the given output format.
  */
@@ -1398,12 +1350,10 @@ function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = nul
 
 /**
  * Print the affiliate link by the product and shop.
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a shop, the cheapest shop will be used.
  *
  * @since 0.8.8
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id If you pass in nothing as a shop, the cheapest shop will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null, $escape = true)
@@ -1422,11 +1372,10 @@ function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = nul
 
 /**
  * Get the affiliate link by the product and shop.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_the_product_affiliate_link' instead.
  * @since 0.5.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
  * @return null|string|Affiliate_Link The cheapest affiliate link in the given output format.
  */
@@ -1456,12 +1405,11 @@ function aff_get_product_cheapest_affiliate_link($product_or_id = null, $output 
 
 /**
  * Check if the product is of the given type.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_is_product_type' instead.
  * @since 0.6
  * @param string|Type $type
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of the type or not.
  */
 function aff_product_is_type($type, $product_or_id = null)
@@ -1471,11 +1419,10 @@ function aff_product_is_type($type, $product_or_id = null)
 
 /**
  * Check if the product is of the given type.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.9
  * @param string|Type $type
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of the type or not.
  */
 function aff_is_product_type($type, $product_or_id = null)
@@ -1497,11 +1444,10 @@ function aff_is_product_type($type, $product_or_id = null)
 
 /**
  * Check if the product is a simple product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_is_product_simple' instead.
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of simple type or not.
  */
 function aff_product_is_simple($product_or_id = null)
@@ -1511,10 +1457,9 @@ function aff_product_is_simple($product_or_id = null)
 
 /**
  * Check if the product is a simple product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of simple type or not.
  */
 function aff_is_product_simple($product_or_id = null)
@@ -1526,11 +1471,10 @@ function aff_is_product_simple($product_or_id = null)
 
 /**
  * Check if the product is a complex product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_is_product_complex' instead.
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of complex type or not.
  */
 function aff_product_is_complex($product_or_id = null)
@@ -1540,10 +1484,9 @@ function aff_product_is_complex($product_or_id = null)
 
 /**
  * Check if the product is a complex product.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of complex type or not.
  */
 function aff_is_product_complex($product_or_id = null)
@@ -1555,11 +1498,10 @@ function aff_is_product_complex($product_or_id = null)
 
 /**
  * Check if the product is a product variant.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_is_product_variant' instead
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of variant type or not.
  */
 function aff_product_is_variant($product_or_id = null)
@@ -1569,10 +1511,9 @@ function aff_product_is_variant($product_or_id = null)
 
 /**
  * Check if the product is a product variant.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of variant type or not.
  */
 function aff_is_product_variant($product_or_id = null)
@@ -1585,11 +1526,10 @@ function aff_is_product_variant($product_or_id = null)
 /**
  * Get the parent of the product variant.
  * If the given product is already the parent, it will be returned instead.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_variant_parent' instead
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return null|Product The complex parent product of the given product variant.
  */
 function aff_product_get_parent($product_or_id = null)
@@ -1600,10 +1540,9 @@ function aff_product_get_parent($product_or_id = null)
 /**
  * Get the parent of the product variant.
  * If the given product is already the parent, it will be returned instead.
- * If you pass in nothing as a product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product The complex parent product of the given product variant.
  */
@@ -1631,13 +1570,11 @@ function aff_get_product_variant_parent($product_or_id = null, $output = 'array'
 
 /**
  * Check if the given parent complex product contains the variants
- * If you pass in nothing as a complex product, the current post will be used.
- * If you pass in nothing as a product variant, the default variant will be used.
  *
  * @deprecated 1.1 Use 'aff_has_product_variant' instead
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @return bool Whether the complex parent product has the variant or not.
  */
 function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
@@ -1647,12 +1584,10 @@ function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
 
 /**
  * Check if the given parent complex product contains the variants
- * If you pass in nothing as a complex product, the current post will be used.
- * If you pass in nothing as a product variant, the default variant will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @return bool Whether the complex parent product has the variant or not.
  */
 function aff_has_product_variant($complex_or_id = null, $variant_or_id = null)
@@ -1665,13 +1600,11 @@ function aff_has_product_variant($complex_or_id = null, $variant_or_id = null)
 
 /**
  * Get the product variant by the complex parent product.
- * If you pass in nothing as a complex product, the current post will be used.
- * If you pass in nothing as a product variant, the default variant will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_variant' instead
  * @since 0.8
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @return null|Product_Variant The product variant as an object.
  */
 function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
@@ -1681,12 +1614,10 @@ function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
 
 /**
  * Get the product variant by the complex parent product.
- * If you pass in nothing as a complex product, the current post will be used.
- * If you pass in nothing as a product variant, the default variant will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product_Variant The product variant in the given output format.
  */
@@ -1720,11 +1651,10 @@ function aff_get_product_variant($complex_or_id = null, $variant_or_id = null, $
 
 /**
  * Check if the given product has any variants.
- * If you pass in nothing as a complex product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_has_product_variants' instead
  * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id  If you pass in nothing as a complex product, the current post will be used.
  * @return bool Whether the complex parent product has some variants or not.
  */
 function aff_product_has_variants($complex_or_id = null)
@@ -1734,10 +1664,9 @@ function aff_product_has_variants($complex_or_id = null)
 
 /**
  * Check if the given product has any variants.
- * If you pass in nothing as a complex product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @return bool Whether the complex parent product has some variants or not.
  */
 function aff_has_product_variants($complex_or_id = null)
@@ -1750,11 +1679,10 @@ function aff_has_product_variants($complex_or_id = null)
 
 /**
  * Get the product variants of the given product.
- * If you pass in nothing as a complex product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_variants' instead.
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @return Product_Variant[] All product variants of the given complex parent product.
  */
 function aff_product_get_variants($complex_or_id = null)
@@ -1764,10 +1692,9 @@ function aff_product_get_variants($complex_or_id = null)
 
 /**
  * Get the product variants of the given product.
- * If you pass in nothing as a complex product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product_Variant[] All product variants of the given complex parent product in the given output format.
  */
@@ -1798,11 +1725,10 @@ function aff_get_product_variants($complex_or_id = null, $output = 'array')
 
 /**
  * Get the default variant of the given product.
- * If you pass in nothing as a complex product, the current post will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_default_variant' instead
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @return null|Product_Variant The product variant or null,
  */
 function aff_product_get_default_variant($complex_or_id = null)
@@ -1812,10 +1738,9 @@ function aff_product_get_default_variant($complex_or_id = null)
 
 /**
  * Get the default variant of the given product.
- * If you pass in nothing as a complex product, the current post will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Product_Variant The product variant in the given output format.
  */
@@ -1847,8 +1772,8 @@ function aff_get_product_default_variant($complex_or_id = null, $output = 'array
  *
  * @deprecated 1.1 Use 'aff_is_product_default_variant' instead
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @return bool Whether the product variant is the default variant of the complex parent product or not.
  */
 function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = null)
@@ -1862,8 +1787,8 @@ function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = 
  * Check if the given variant is the default one of the complex parent product.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @return bool Whether the product variant is the default variant of the complex parent product or not.
  */
 function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = null)
@@ -1888,13 +1813,11 @@ function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = 
 
 /**
  * Get the attributes of the product variant
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a variant, the default variant will be used.
  *
  * @deprecated 1.1 Use 'aff_get_product_variant_attributes' instead
  * @since 0.8
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @return null|array The attributes or null.
  */
 function aff_product_get_variant_attributes($product_or_id = null, $variant_or_id = null)
@@ -1904,12 +1827,10 @@ function aff_product_get_variant_attributes($product_or_id = null, $variant_or_i
 
 /**
  * Get the attributes of the product variant
- * If you pass in nothing as a product, the current post will be used.
- * If you pass in nothing as a variant, the default variant will be used.
  *
  * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
  * @return null|array|Attribute[] The attribute in the given output format.
  */
@@ -1953,7 +1874,7 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
  * Get the product attributes choices for the variant switching.
  *
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return null|array The attribute choices for the variant switching.
  */
 function aff_get_product_attribute_choices($product_or_id = null)
@@ -2052,7 +1973,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
  * Prints the product attributes choices for the variant switching.
  *
  * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param bool $escape Whether to escape the output or not.
  */
 function aff_the_product_attribute_choices($product_or_id = null, $escape = true)
