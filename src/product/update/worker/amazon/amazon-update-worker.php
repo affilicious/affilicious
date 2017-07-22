@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Product\Update\Worker;
+namespace Affilicious\Product\Update\Worker\Amazon;
 
 use Affilicious\Common\Helper\Image_Helper;
 use Affilicious\Common\Model\Image;
@@ -11,6 +11,7 @@ use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration;
 use Affilicious\Product\Update\Task\Batch_Update_Task;
 use Affilicious\Product\Update\Update_Timer;
+use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Options\Amazon_Options;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;

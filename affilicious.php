@@ -695,19 +695,15 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.import.amazon'] = function($c) {
                 return new \Affilicious\Product\Import\Amazon\Amazon_Import(
-                    $c['affilicious.provider.repository.provider'],
-                    $c['affilicious.common.generator.slug']
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 
             $this->container['affilicious.product.search.amazon'] = function($c) {
                 return new \Affilicious\Product\Search\Amazon\Amazon_Search(
-                    $c['affilicious.provider.repository.provider'],
-                    $c['affilicious.common.generator.slug']
+                    $c['affilicious.provider.repository.provider']
                 );
             };
-
-
         }
 
         /**

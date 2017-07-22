@@ -6,11 +6,17 @@ use Affilicious\Attribute\Model\Attribute;
 use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Model\Value;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
+use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Helper\Image_Helper;
 use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
+use Affilicious\Product\Model\Complex_Product;
+use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Product_Variant;
+use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
@@ -314,7 +320,7 @@ class Amazon_Helper
     /**
      * Find the shops in the Amazon API item response.
      *
-     * @param array $item
+     * @param array $item The Amazon API response converted from XML to an array.
      * @param Shop_Template_Id|null $shop_template_id
      * @param bool $create_missing
      * @return Shop|null
@@ -366,5 +372,80 @@ class Amazon_Helper
         $shop = apply_filters('aff_amazon_helper_find_shop', $shop, $item);
 
         return $shop;
+    }
+
+    /**
+     * Create the product from the Amazon API response item.
+     *
+     * @since 0.9
+     * @param array $item  The Amazon API response converted from XML to an array.
+     * @param array $config
+     * @param Complex_Product|null $parent
+     * @return Product|\WP_Error
+     */
+    public static function create_product(array $item, array $config, Complex_Product $parent = null)
+    {
+        /** @var Slug_Generator_Interface $slug_generator */
+        $slug_generator = \Affilicious::get('affilicious.common.generator.slug');
+
+        $name = new Name($item['ItemAttributes']['Title']);
+        $slug = $slug_generator->generate_from_name($name);
+
+        if (!empty($config['variants']) && isset($item['Variations'])) {
+            $product = new Complex_Product($name, $slug);
+        } elseif(!empty($config['variants']) && $parent !== null && isset($item['VariationAttributes'])) {
+            $product = new Product_Variant($parent, $name, $slug);
+        } else {
+            $product = new Simple_Product($name, $slug);
+        }
+
+        if ($product instanceof Complex_Product) {
+            $variant_items = $item['Variations']['Item'];
+            foreach ($variant_items as $variant_item) {
+
+                // The variants doesn't have a affiliate link
+                $variant_item = wp_parse_args($variant_item, [
+                    'DetailPageURL' => $item['DetailPageURL']
+                ]);
+
+                /** @var Product_Variant $product_variant */
+                $product_variant = self::create_product($variant_item, $config, $product);
+                if($product_variant !== null) {
+                    $product->add_variant($product_variant);
+                }
+            }
+
+            $default_variant = $product->get_default_variant();
+            if ($default_variant !== null) {
+                $variant_thumbnail = $default_variant->get_thumbnail();
+                $product->set_thumbnail($variant_thumbnail);
+            }
+        }
+
+        if ($product instanceof Product_Variant) {
+            $attributes = Amazon_Helper::find_attributes($item, !empty($config['store_attributes']));
+            foreach ($attributes as $attribute) {
+                $product->add_attribute($attribute);
+            }
+        }
+
+        if ($product instanceof Shop_Aware_Interface) {
+            $shop = Amazon_Helper::find_shop($item, null, !empty($config['store_shop']));
+            if ($shop !== null) {
+                $product->add_shop($shop);
+            }
+        }
+
+        $thumbnail = Amazon_Helper::find_thumbnail($item, !empty($config['store_thumbnail']));
+        if ($thumbnail !== null) {
+            $product->set_thumbnail($thumbnail);
+        }
+
+        $image_gallery = Amazon_Helper::find_image_gallery($item, !empty($config['store_image_gallery']));
+        if (!empty($image_gallery)) {
+            $product->set_image_gallery($image_gallery);
+        }
+
+        return $product;
     }
 }
