@@ -5,7 +5,10 @@ use Affilicious\Attribute\Model\Attribute;
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Model\Attribute_Template_Id;
 use Affilicious\Common\Admin\License\License_Status;
+use Affilicious\Common\Helper\Image_Helper;
 use Affilicious\Common\Helper\Time_Helper;
+use Affilicious\Common\Model\Image;
+use Affilicious\Common\Model\Name;
 use Affilicious\Detail\Helper\Detail_Helper;
 use Affilicious\Detail\Helper\Detail_Template_Helper;
 use Affilicious\Detail\Model\Detail;
@@ -34,13 +37,11 @@ use Affilicious\Shop\Helper\Money_Helper;
 use Affilicious\Shop\Helper\Shop_Helper;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Affiliate_Link;
+use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Money;
 use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
-use Affilicious\Shop\Model\Availability;
-use Affilicious\Common\Model\Image;
-use Affilicious\Common\Helper\Image_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -291,7 +292,61 @@ function aff_get_product_taxonomies($output = 'names', $only_custom = true)
 }
 
 /**
+ * Get the product name.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return Name|null|string The name in the given output format.
+ */
+function aff_get_product_name($product_or_id = null, $output = 'scalar')
+{
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return null;
+    }
+
+    $name = $product->get_name();
+    $name = apply_filters('aff_product_name', $name, $product);
+    if(empty($name)) {
+        return null;
+    }
+
+    if($output == 'scalar') {
+        $name = $name->get_value();
+    }
+
+    $name = apply_filters('aff_product_formatted_name', $name, $product, $output);
+
+    return $name;
+}
+
+/**
+ * Print the shop name.
+ * If you pass in nothing as a parameter, the current post will be used.
+ *
+ * @since 0.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_name($product_or_id = null, $escape = true)
+{
+    $name = aff_get_product_name($product_or_id, 'scalar');
+    if($name == null) {
+        return;
+    }
+
+    if($escape) {
+        $name = esc_html($name);
+    }
+
+    echo $name;
+}
+
+/**
  * Check if the product has a review.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -307,6 +362,7 @@ function aff_has_product_review($product_or_id = null)
 
 /**
  * Get the product review.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -342,6 +398,7 @@ function aff_get_product_review($product_or_id = null, $output = 'array')
 
 /**
  * Check if the product has a review rating.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -357,6 +414,7 @@ function aff_has_product_review_rating($product_or_id = null)
 
 /**
  * Get the product review rating from 0 to 5.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -389,6 +447,7 @@ function aff_get_product_review_rating($product_or_id = null, $output = 'scalar'
 
 /**
  * Print the product review rating from 0 to 5 as stars.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.9
  * @param string $full_star
@@ -416,6 +475,7 @@ function aff_the_product_review_rating($full_star, $half_star, $no_star, $produc
 
 /**
  * Check if the product has any review votes.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.8.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -431,6 +491,7 @@ function aff_has_product_review_votes($product_or_id = null)
 
 /**
  * Get the product review votes.
+ * If you pass in nothing as a parameter, the current post will be used.
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id
@@ -2027,6 +2088,57 @@ function aff_the_product_attribute_choices($product_or_id = null, $escape = true
 }
 
 /**
+ * Get the shop name.
+ *
+ * @since 0.9
+ * @param array|Shop $shop Whether to escape the output or not.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return null|string|Name The name in the given output format.
+ */
+function aff_get_shop_name($shop, $output = 'scalar')
+{
+    // Normalize the shop.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    $name = $shop->get_name();
+    $name = apply_filters('aff_shop_name', $name, $shop);
+    if(empty($name)) {
+        return null;
+    }
+
+    if($output == 'scalar') {
+        $name = $name->get_value();
+    }
+
+    $name = apply_filters('aff_shop_formatted_name', $name, $shop, $output);
+
+    return $name;
+}
+
+/**
+ * Print the shop name.
+ *
+ * @since 0.9
+ * @param array|Shop $shop The shop from which the name is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_name($shop = null, $escape = true)
+{
+    $name = aff_get_shop_name($shop, 'scalar');
+    if($name == null) {
+        return;
+    }
+
+    if($escape) {
+        $name = esc_html($name);
+    }
+
+    echo $name;
+}
+
+/**
  * Check if the shop has a thumbnail.
  *
  * @since 0.9
@@ -2277,10 +2389,9 @@ function aff_is_shop_out_of_stock($shop)
  *
  * @deprecated 1.1 Don't use it anymore.
  * @since 0.8
- * @param array|Shop $shop
  * @return bool
  */
-function aff_should_shop_display_old_price($shop)
+function aff_should_shop_display_old_price()
 {
     return true;
 }
