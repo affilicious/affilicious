@@ -1988,14 +1988,14 @@ function aff_the_product_attribute_choices($product_or_id = null, $escape = true
 
     foreach ($attribute_choices as $attribute_choice) {
         echo '<li class="aff-product-attributes-choices">';
-        echo '<span class="aff-product-attributes-choices-name">' . $escape ? esc_html($attribute_choice['name']) : $attribute_choice['name'] . '</span>';
+        echo '<span class="aff-product-attributes-choices-name">' . ($escape ? esc_html($attribute_choice['name']) : $attribute_choice['name']) . '</span>';
         echo '<ul class="aff-product-attributes-choice-list">';
 
         foreach ($attribute_choice['attributes'] as $attribute) {
-            echo '<li class="aff-product-attributes-choice ' . $escape ? esc_attr($attribute['display']) : $attribute_choice['display'] . '">';
-            if(!empty($attribute['permalink'])): echo '<a href="' . $escape ? esc_url($attribute['permalink']) : $attribute_choice['permalink'] .'">'; endif;
+            echo '<li class="aff-product-attributes-choice ' . ($escape ? esc_attr($attribute['display']) : $attribute['display']) . '">';
+            if(!empty($attribute['permalink'])): echo '<a href="' . ($escape ? esc_url($attribute['permalink']) : $attribute['permalink']) .'">'; endif;
             echo $attribute['value'];
-            if(!empty($attribute['unit'])): echo ' <span class="aff-unit unit">' . $escape ? esc_html($attribute['unit']) : $attribute_choice['unit'] . '</span>'; endif;
+            if(!empty($attribute['unit'])): echo ' <span class="aff-unit unit">' . ($escape ? esc_html($attribute['unit']) : $attribute['unit']) . '</span>'; endif;
             if(!empty($attribute['permalink'])): echo '</a>'; endif;
             echo '</li>';
         }
