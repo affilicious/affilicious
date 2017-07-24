@@ -641,7 +641,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                 continue;
             }
 
-            $enabled_attributes = explode(',', $enabled_attributes);
+            $enabled_attributes = explode(';', $enabled_attributes);
             if(empty($enabled_attributes)) {
                 continue;
             }
@@ -807,7 +807,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
         }
 
         if(!empty($raw_tags)) {
-            $raw_tags = explode(',', $raw_tags);
+            $raw_tags = explode(';', $raw_tags);
             $tags = array_map(function($raw_tag) {
                 return new Tag($raw_tag);
             }, $raw_tags);
@@ -833,7 +833,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             return;
         }
 
-        $enabled_details = explode(',', $enabled_details);
+        $enabled_details = explode(';', $enabled_details);
         if(empty($enabled_details)) {
             return;
         }
@@ -1154,7 +1154,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
                     $raw_tags[] = $tag->get_value();
                 }
 
-                $raw_tags = implode(',', $raw_tags);
+                $raw_tags = implode(';', $raw_tags);
             }
 
             $carbon_variant = array(
@@ -1177,7 +1177,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $carbon_variants[''][] = $carbon_variant;
         }
 
-        $enabled_attributes = implode(',', $ids);
+        $enabled_attributes = implode(';', $ids);
         $this->store_post_meta($complex_product->get_id()->get_value(), self::ENABLED_ATTRIBUTES, $enabled_attributes);
 
         $carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_variants, self::VARIANTS);
@@ -1271,7 +1271,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $raw_tags[] = $tag->get_value();
         }
 
-        $raw_tags = implode(',', $raw_tags);
+        $raw_tags = implode(';', $raw_tags);
         $this->store_post_meta($product->get_id()->get_value(), self::TAGS, $raw_tags);
     }
 
@@ -1302,7 +1302,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             $ids[] = $detail->get_template_id()->get_value();
         }
 
-        $enabled_details = implode(',', $ids);
+        $enabled_details = implode(';', $ids);
         $this->store_post_meta($product->get_id()->get_value(), self::ENABLED_DETAILS, $enabled_details);
     }
 

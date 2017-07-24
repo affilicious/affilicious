@@ -113,6 +113,7 @@ jQuery(function($) {
 
             for (let attributesView of attributesViews) {
                 attributesView.model.set('value', value);
+                attributesView.$el.find('input').val(value);
             }
         }
     }
@@ -224,4 +225,3 @@ jQuery(function($) {
         return false;
     });
 });
-
