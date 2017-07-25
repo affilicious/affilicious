@@ -6,8 +6,9 @@ export default carbon.fields.View.extend({
     },
 
     initField: function() {
-        let self = this;
-        let tags = this.model.get('tags');
+        let self = this,
+            tags = this.model.get('tags'),
+            maxItems = this.model.get('maxItems');
 
         if(tags) {
             let options = Object.keys(tags).map((key) => {
@@ -23,6 +24,7 @@ export default carbon.fields.View.extend({
                 labelField: 'text',
                 maxOptions: 10,
                 searchField: ['text'],
+                maxItems: maxItems,
                 options: options,
                 onChange() {
                     self.model.set('value', self.$el.find('input[name="' + self.templateVariables.name +'"]').val());
@@ -33,6 +35,7 @@ export default carbon.fields.View.extend({
                 plugins: ['drag_drop', 'remove_button'],
                 delimiter: ',',
                 persist: true,
+                maxItems: maxItems,
                 create: true,
                 onChange() {
                     self.model.set('value', self.$el.find('input[name="' + self.templateVariables.name +'"]').val());

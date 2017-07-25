@@ -21,6 +21,9 @@ if (!defined('ABSPATH')) {
 
 class Product_Setup
 {
+    const TAGS_LIMIT = 10;
+    const ENABLED_ATTRIBUTES_LIMIT = 3;
+    const ENABLED_DETAILS_LIMIT = 25;
     const VARIANTS_LIMIT = 100;
     const SHOP_LIMIT = 50;
 
@@ -169,6 +172,7 @@ class Product_Setup
                     'complex' => __('Complex', 'affilicious'),
                 )),
             Carbon_Field::make('tags', Carbon_Product_Repository::TAGS, __('Tags', 'affilicious'))
+                ->set_max_items(self::TAGS_LIMIT)
                 ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious'))
                 ->set_conditional_logic(array(
                     'relation' => 'and',
@@ -219,6 +223,7 @@ class Product_Setup
 
         $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_ATTRIBUTES, __('Enabled Attributes', 'affilicious'))
             ->add_tags($tags)
+            ->set_max_items(self::ENABLED_ATTRIBUTES_LIMIT)
             ->set_help_text(sprintf(
                 __('Add the names of some <a href="%s" target="_blank">attribute templates</a> to attach them to the product variants.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_attribute_tmpl&post_type=aff_product')
@@ -265,6 +270,7 @@ class Product_Setup
             $this->get_variants_attribute_fields($attribute_templates),
             array(
                 Carbon_Field::make('tags', Carbon_Product_Repository::VARIANT_TAGS, __('Tags', 'affilicious'))
+                    ->set_max_items(self::TAGS_LIMIT)
                     ->set_help_text(__('Custom product tags like "test winner" or "best price".', 'affilicious')),
                 Carbon_Field::make('image', Carbon_Product_Repository::VARIANT_THUMBNAIL_ID, __('Thumbnail', 'affilicious')),
                 Carbon_Field::make('image_gallery', Carbon_Product_Repository::VARIANT_IMAGE_GALLERY, __('Image Gallery', 'affilicious')),
@@ -470,6 +476,7 @@ class Product_Setup
 
         $fields[] = Carbon_Field::make('tags', Carbon_Product_Repository::ENABLED_DETAILS, __('Enabled Details', 'affilicious'))
             ->add_class('aff_details')
+            ->set_max_items(self::ENABLED_DETAILS_LIMIT)
             ->add_tags($tags)
             ->set_help_text(sprintf(
                 __('Add the names of some <a href="%s" target="_blank">detail templates</a> to attach them to the product.', 'affilicious'),

@@ -7,7 +7,15 @@ if (!defined('ABSPATH')) {
 
 class Tags_Field extends Field
 {
+    /**
+     * @var string[]
+     */
     private $options;
+
+    /**
+     * @var int
+     */
+    private $max_items = 100;
 
     /**
      * @inheritdoc
@@ -18,8 +26,20 @@ class Tags_Field extends Field
         $field_data = parent::to_json($load);
 
         $field_data['tags'] = $this->options;
+        $field_data['maxItems'] = $this->max_items;
 
         return $field_data;
+    }
+
+    /**
+     * @param int $max_items
+     * @return $this
+     */
+    public function set_max_items($max_items)
+    {
+        $this->max_items = $max_items;
+
+        return $this;
     }
 
     /**
