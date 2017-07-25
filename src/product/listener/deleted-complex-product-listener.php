@@ -29,7 +29,7 @@ class Deleted_Complex_Product_Listener
     /**
      * Delete all variants of a deleted complex product.
      *
-     * @hook delete_post
+     * @filter delete_post
      * @since 0.8.4
      * @param int $post_id
      */

@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @deprecated 1.1 Use Affilicious\Common\Admin\License\License_Manager
+ * @deprecated 1.0 Use Affilicious\Common\Admin\License\License_Manager
  */
 final class License_Manager extends Base_License_Manager
 {

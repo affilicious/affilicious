@@ -102,7 +102,7 @@ class Attribute_Template_Helper
      */
     public static function to_array(Attribute_Template $attribute_template)
     {
-        $raw_attribute_template = array(
+        $array = array(
             'id' => $attribute_template->get_id()->get_value(),
             'name' => $attribute_template->get_name()->get_value(),
             'slug' => $attribute_template->get_slug()->get_value(),
@@ -110,6 +110,8 @@ class Attribute_Template_Helper
             'unit' => $attribute_template->has_unit() ? $attribute_template->get_unit()->get_value() : null,
         );
 
-        return $raw_attribute_template;
+        $array = apply_filters('aff_attribute_template_to_array', $array, $attribute_template);
+
+        return $array;
     }
 }

@@ -13,7 +13,7 @@ class Link_Target_Filter
      * affiliate marketers as it lowers the provision due to missing tracking.
      *
      *
-     * @hook tiny_mce_before_init
+     * @filter tiny_mce_before_init
      * @since 0.8.14
      * @param array $mceInit
      * @return array

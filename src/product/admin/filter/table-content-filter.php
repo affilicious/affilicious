@@ -12,7 +12,7 @@ class Table_Content_Filter
     /**
      * Hide the product variants from the product table list
      *
-     * @hook pre_get_posts
+     * @filter pre_get_posts
      * @since 0.9
      * @param \WP_Query $query
      */

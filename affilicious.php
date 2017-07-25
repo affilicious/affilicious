@@ -498,23 +498,27 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Attribute\Admin\Meta_Box\Attribute_Template_Meta_Box();
             };
 
-            $this->container['affilicious.common.options.affilicious'] = function ($c) {
-                return new \Affilicious\Common\Options\Affilicious_Options(
+            $this->container['affilicious.common.admin.options.affilicious'] = function ($c) {
+                return new \Affilicious\Common\Admin\Options\Affilicious_Options(
                     $c['affilicious.common.admin.license.manager'],
                     $c['affilicious.common.admin.license.processor']
                 );
             };
 
-            $this->container['affilicious.product.options.product'] = function () {
-                return new \Affilicious\Product\Options\Product_Options();
+            $this->container['affilicious.product.admin.options.product'] = function () {
+                return new \Affilicious\Product\Admin\Options\Product_Options();
+            };
+
+            $this->container['affilicious.product.setup.custom_taxonomies'] = function () {
+                return new \Affilicious\Product\Setup\Custom_Taxonomies_Setup();
             };
 
             $this->container['affilicious.product.setup.canonical'] = function () {
                 return new \Affilicious\Product\Setup\Canonical_Setup();
             };
 
-            $this->container['affilicious.provider.options.amazon'] = function ($c) {
-                return new \Affilicious\Provider\Options\Amazon_Options(
+            $this->container['affilicious.provider.admin.options.amazon'] = function ($c) {
+                return new \Affilicious\Provider\Admin\Options\Amazon_Options(
                     $c['affilicious.provider.validator.amazon_credentials']
                 );
             };
@@ -817,15 +821,9 @@ if(!class_exists('Affilicious')) {
             add_action('added_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
             add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
 
-            // Hook the options
-            $affilicious_options = $this->container['affilicious.common.options.affilicious'];
-            $product_options = $this->container['affilicious.product.options.product'];
-            $provider_options = $this->container['affilicious.provider.options.amazon'];
-            add_action('init', array($affilicious_options, 'render'), 15);
-            add_action('init', array($affilicious_options, 'apply'), 0);
-            add_action('init', array($product_options, 'render'), 15);
-            add_action('init', array($product_options, 'apply'), 0);
-            add_action('init', array($provider_options, 'render'), 15);
+            // Hook the custom taxonomies setup.
+            $custom_taxonomies_setup = $this->container['affilicious.product.setup.custom_taxonomies'];
+            add_action('init', array($custom_taxonomies_setup, 'init'), 0);
 
             // Hook the canonical tags
             $canonical_setup = $this->container['affilicious.product.setup.canonical'];
@@ -923,6 +921,14 @@ if(!class_exists('Affilicious')) {
             $shop_template_admin_table_rows_filter = $this->container['affilicious.shop.admin.filter.table_rows'];
             add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_admin_table_columns_filter, 'filter'));
             add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_admin_table_rows_filter, 'filter'), 15, 3);
+
+            // Hook the options
+            $affilicious_options = $this->container['affilicious.common.admin.options.affilicious'];
+            $product_options = $this->container['affilicious.product.admin.options.product'];
+            $provider_options = $this->container['affilicious.provider.admin.options.amazon'];
+            add_action('init', array($affilicious_options, 'render'), 15);
+            add_action('init', array($product_options, 'render'), 15);
+            add_action('init', array($provider_options, 'render'), 15);
 
             // Hook the import page
             $import_page = $this->container['affilicious.product.admin.page.import'];

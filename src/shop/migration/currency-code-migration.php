@@ -1,9 +1,6 @@
 <?php
 namespace Affilicious\Shop\Migration;
 
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
-
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }

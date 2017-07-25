@@ -2,11 +2,11 @@
 namespace Affilicious\Provider\Setup;
 
 use Affilicious\Common\Model\Name;
+use Affilicious\Provider\Admin\Options\Amazon_Options;
 use Affilicious\Provider\Factory\Amazon_Provider_Factory_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Credentials;
 use Affilicious\Provider\Model\Provider;
-use Affilicious\Provider\Options\Amazon_Options;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

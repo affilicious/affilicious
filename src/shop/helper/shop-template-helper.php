@@ -108,15 +108,19 @@ class Shop_Template_Helper
      */
     public static function to_array(Shop_Template $shop_template)
     {
-        $raw_shop_template = array(
+        $array = array(
             'id' => $shop_template->get_id()->get_value(),
             'name' => $shop_template->get_name()->get_value(),
             'slug' => $shop_template->get_slug()->get_value(),
-            'thumbnail_id' => $shop_template->has_thumbnail_id() ? $shop_template->get_thumbnail_id()->get_value() : null,
             'thumbnail' => $shop_template->has_thumbnail() ? Image_Helper::to_array($shop_template->get_thumbnail()) : null,
             'provider_id' => $shop_template->has_provider_id() ? $shop_template->get_provider_id()->get_value() : null,
+
+            // Deprecated 1.0. It's just used for legacy purpose. Use 'thumbnail' instead.
+            'thumbnail_id' => $shop_template->has_thumbnail_id() ? $shop_template->get_thumbnail_id()->get_value() : null,
         );
 
-        return $raw_shop_template;
+        $array = apply_filters('aff_shop_template_to_array', $array, $shop_template);
+
+        return $array;
     }
 }

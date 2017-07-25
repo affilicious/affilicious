@@ -18,7 +18,7 @@ class Attribute_Helper
      */
     public static function to_array(Attribute $attribute)
     {
-        $raw_attribute = array(
+        $array = array(
             'template_id' => $attribute->get_template_id()->get_value(),
             'name' => $attribute->get_name()->get_value(),
             'slug' => $attribute->get_slug()->get_value(),
@@ -27,6 +27,8 @@ class Attribute_Helper
             'value' => $attribute->get_value()->get_value(),
         );
 
-        return $raw_attribute;
+        $array = apply_filters('aff_attribute_to_array', $array, $attribute);
+
+        return $array;
     }
 }

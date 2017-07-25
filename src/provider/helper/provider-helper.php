@@ -90,13 +90,15 @@ class Provider_Helper
      */
     public static function to_array(Provider $provider)
     {
-        $raw_provider = array(
+        $array = array(
             'id' => $provider->has_id() ? $provider->get_id()->get_value() : null,
             'name' => $provider->get_name()->get_value(),
             'slug' => $provider->get_slug()->get_value(),
             'credentials' => $provider->get_credentials()->get_value(),
         );
 
-        return $raw_provider;
+        $array = apply_filters('aff_provider_to_array', $array, $provider);
+
+        return $array;
     }
 }

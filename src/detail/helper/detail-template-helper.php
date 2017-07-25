@@ -107,7 +107,7 @@ class Detail_Template_Helper
      */
     public static function to_array(Detail_Template $detail_template)
     {
-        $raw_detail_template = array(
+        $array = array(
             'id' => $detail_template->get_id()->get_value(),
             'name' => $detail_template->get_name()->get_value(),
             'slug' => $detail_template->get_slug()->get_value(),
@@ -115,6 +115,8 @@ class Detail_Template_Helper
             'unit' => $detail_template->has_unit() ? $detail_template->get_unit()->get_value() : null,
         );
 
-        return $raw_detail_template;
+        $array = apply_filters('aff_detail_to_array', $array, $detail_template);
+
+        return $array;
     }
 }

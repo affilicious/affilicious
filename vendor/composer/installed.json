@@ -1,116 +1,5 @@
 [
     {
-        "name": "htmlburger/carbon-fields",
-        "version": "v1.4.2",
-        "version_normalized": "1.4.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/affilicious-theme/carbon-fields.git",
-            "reference": "f9904524cf3d358e40a04046e58b451289e3d5cf"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/affilicious-theme/carbon-fields/zipball/f9904524cf3d358e40a04046e58b451289e3d5cf",
-            "reference": "f9904524cf3d358e40a04046e58b451289e3d5cf",
-            "shasum": ""
-        },
-        "time": "2017-01-29T13:44:33+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Carbon_Fields\\": "core/"
-            },
-            "files": [
-                "carbon-fields.php",
-                "core/functions.php"
-            ]
-        },
-        "license": [
-            "GPL-2.0"
-        ],
-        "authors": [
-            {
-                "name": "htmlBurger",
-                "email": "wordpress@htmlburger.com",
-                "homepage": "https://htmlburger.com/",
-                "role": "Developer"
-            },
-            {
-                "name": "Miroslav Mitev",
-                "email": "mmitev.2create@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Georgi Stoyanov",
-                "email": "stoyanov.gs@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Plamen Kostadinov",
-                "email": "pkostadinov.2create@gmail.com",
-                "homepage": "http://plasmen.info/",
-                "role": "Developer"
-            },
-            {
-                "name": "Stanimir Panchev",
-                "email": "Stan4omir@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Marin Atanasov",
-                "email": "contact@marinatanasov.com",
-                "homepage": "http://marinatanasov.com/",
-                "role": "Developer"
-            },
-            {
-                "name": "Siyan Panayotov",
-                "homepage": "http://siyanpanayotov.com/",
-                "role": "Developer"
-            },
-            {
-                "name": "Peter Petrov",
-                "email": "peter.petrov89@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Stanimir Stoyanov",
-                "email": "stanimir.k.stoyanov@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Kaloyan Ivanov",
-                "email": "kaloyanxivanov@gmail.com",
-                "homepage": "http://codepeace.net/",
-                "role": "Developer"
-            },
-            {
-                "name": "Georgi Popov",
-                "homepage": "http://magadanski.com/",
-                "role": "Developer"
-            },
-            {
-                "name": "German Velchev",
-                "email": "germozy@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Rashko Petrov",
-                "email": "brutalenemy666@gmail.com",
-                "homepage": "http://errorfactory.com/",
-                "role": "Developer"
-            }
-        ],
-        "description": "WordPress developer-friendly custom fields for post types, taxonomy terms, users, comments, widgets, options and more.",
-        "homepage": "http://carbonfields.net/",
-        "support": {
-            "source": "https://github.com/htmlburger/carbon-fields",
-            "docs": "http://carbonfields.net/docs/",
-            "issues": "https://github.com/htmlburger/carbon-fields/issues",
-            "email": "wordpress@htmlburger.com"
-        }
-    },
-    {
         "name": "psr/http-message",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -283,6 +172,73 @@
         ]
     },
     {
+        "name": "guzzlehttp/guzzle",
+        "version": "6.3.0",
+        "version_normalized": "6.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/promises": "^1.0",
+            "guzzlehttp/psr7": "^1.4",
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "phpunit/phpunit": "^4.0 || ^5.0",
+            "psr/log": "^1.0"
+        },
+        "suggest": {
+            "psr/log": "Required for using the Log middleware"
+        },
+        "time": "2017-06-22T18:50:49+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "6.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/functions_include.php"
+            ],
+            "psr-4": {
+                "GuzzleHttp\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    },
+    {
         "name": "exeu/apai-io",
         "version": "2.1.0",
         "version_normalized": "2.1.0.0",
@@ -339,56 +295,115 @@
         ]
     },
     {
-        "name": "webmozart/assert",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
+        "name": "htmlburger/carbon-fields",
+        "version": "v1.4.2",
+        "version_normalized": "1.4.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/webmozart/assert.git",
-            "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
+            "url": "https://github.com/affilicious-theme/carbon-fields.git",
+            "reference": "f9904524cf3d358e40a04046e58b451289e3d5cf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
-            "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
+            "url": "https://api.github.com/repos/affilicious-theme/carbon-fields/zipball/f9904524cf3d358e40a04046e58b451289e3d5cf",
+            "reference": "f9904524cf3d358e40a04046e58b451289e3d5cf",
             "shasum": ""
         },
-        "require": {
-            "php": "^5.3.3 || ^7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.6",
-            "sebastian/version": "^1.0.1"
-        },
-        "time": "2016-11-23T20:04:58+00:00",
+        "time": "2017-01-29T13:44:33+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Webmozart\\Assert\\": "src/"
-            }
+                "Carbon_Fields\\": "core/"
+            },
+            "files": [
+                "carbon-fields.php",
+                "core/functions.php"
+            ]
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "GPL-2.0"
         ],
         "authors": [
             {
-                "name": "Bernhard Schussek",
-                "email": "bschussek@gmail.com"
+                "name": "htmlBurger",
+                "email": "wordpress@htmlburger.com",
+                "homepage": "https://htmlburger.com/",
+                "role": "Developer"
+            },
+            {
+                "name": "Miroslav Mitev",
+                "email": "mmitev.2create@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Georgi Stoyanov",
+                "email": "stoyanov.gs@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Plamen Kostadinov",
+                "email": "pkostadinov.2create@gmail.com",
+                "homepage": "http://plasmen.info/",
+                "role": "Developer"
+            },
+            {
+                "name": "Stanimir Panchev",
+                "email": "Stan4omir@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Marin Atanasov",
+                "email": "contact@marinatanasov.com",
+                "homepage": "http://marinatanasov.com/",
+                "role": "Developer"
+            },
+            {
+                "name": "Siyan Panayotov",
+                "homepage": "http://siyanpanayotov.com/",
+                "role": "Developer"
+            },
+            {
+                "name": "Peter Petrov",
+                "email": "peter.petrov89@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Stanimir Stoyanov",
+                "email": "stanimir.k.stoyanov@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Kaloyan Ivanov",
+                "email": "kaloyanxivanov@gmail.com",
+                "homepage": "http://codepeace.net/",
+                "role": "Developer"
+            },
+            {
+                "name": "Georgi Popov",
+                "homepage": "http://magadanski.com/",
+                "role": "Developer"
+            },
+            {
+                "name": "German Velchev",
+                "email": "germozy@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Rashko Petrov",
+                "email": "brutalenemy666@gmail.com",
+                "homepage": "http://errorfactory.com/",
+                "role": "Developer"
             }
         ],
-        "description": "Assertions to validate method input/output with nice error messages.",
-        "keywords": [
-            "assert",
-            "check",
-            "validate"
-        ]
+        "description": "WordPress developer-friendly custom fields for post types, taxonomy terms, users, comments, widgets, options and more.",
+        "homepage": "http://carbonfields.net/",
+        "support": {
+            "source": "https://github.com/htmlburger/carbon-fields",
+            "docs": "http://carbonfields.net/docs/",
+            "issues": "https://github.com/htmlburger/carbon-fields/issues",
+            "email": "wordpress@htmlburger.com"
+        }
     },
     {
         "name": "psr/container",
@@ -494,47 +509,38 @@
         ]
     },
     {
-        "name": "guzzlehttp/guzzle",
-        "version": "6.3.0",
-        "version_normalized": "6.3.0.0",
+        "name": "webmozart/assert",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+            "url": "https://github.com/webmozart/assert.git",
+            "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
-            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+            "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+            "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
             "shasum": ""
         },
         "require": {
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.4",
-            "php": ">=5.5"
+            "php": "^5.3.3 || ^7.0"
         },
         "require-dev": {
-            "ext-curl": "*",
-            "phpunit/phpunit": "^4.0 || ^5.0",
-            "psr/log": "^1.0"
+            "phpunit/phpunit": "^4.6",
+            "sebastian/version": "^1.0.1"
         },
-        "suggest": {
-            "psr/log": "Required for using the Log middleware"
-        },
-        "time": "2017-06-22T18:50:49+00:00",
+        "time": "2016-11-23T20:04:58+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "6.2-dev"
+                "dev-master": "1.3-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "files": [
-                "src/functions_include.php"
-            ],
             "psr-4": {
-                "GuzzleHttp\\": "src/"
+                "Webmozart\\Assert\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -543,21 +549,15 @@
         ],
         "authors": [
             {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
+                "name": "Bernhard Schussek",
+                "email": "bschussek@gmail.com"
             }
         ],
-        "description": "Guzzle is a PHP HTTP client library",
-        "homepage": "http://guzzlephp.org/",
+        "description": "Assertions to validate method input/output with nice error messages.",
         "keywords": [
-            "client",
-            "curl",
-            "framework",
-            "http",
-            "http client",
-            "rest",
-            "web service"
+            "assert",
+            "check",
+            "validate"
         ]
     }
 ]

@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @deprecated 1.1 Use Affilicious\Common\Admin\License\License_Handler_Interface
+ * @deprecated 1.0 Use Affilicious\Common\Admin\License\License_Handler_Interface
  */
 interface License_Handler_Interface extends Base_License_Handler_Interface
 {

@@ -25,8 +25,7 @@ class Tracking_Helper
             'affiliate_product_id' => $tracking->has_affiliate_product_id() ? $tracking->get_affiliate_product_id()->get_value() : null,
 
             // Deprecated 1.0. It's just used for legacy purpose. Use 'affiliate_product_id' instead.
-            'affiliate_product_id' => $tracking->has_affiliate_product_id() ? $tracking->get_affiliate_product_id()->get_value() : null,
-
+            'affiliate_id' => $tracking->has_affiliate_id() ? $tracking->get_affiliate_id()->get_value() : null,
         );
 
         $array = apply_filters('aff_tracking_to_array', $array, $tracking);

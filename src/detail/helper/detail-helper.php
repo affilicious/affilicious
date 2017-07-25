@@ -18,7 +18,7 @@ class Detail_Helper
      */
     public static function to_array(Detail $detail)
     {
-        $raw_detail = array(
+        $array = array(
             'template_id' => $detail->get_template_id()->get_value(),
             'name' => $detail->get_name()->get_value(),
             'slug' => $detail->get_slug()->get_value(),
@@ -27,6 +27,8 @@ class Detail_Helper
             'value' => $detail->get_value()->get_value(),
         );
 
-        return $raw_detail;
+        $array = apply_filters('aff_detail_to_array', $array, $detail);
+
+        return $array;
     }
 }
