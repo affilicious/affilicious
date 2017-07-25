@@ -387,16 +387,13 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Product\Factory\In_Memory\In_Memory_Product_Variant_Factory();
             };
 
-            $this->container['affilicious.shop.repository.shop_template'] = function ($c) {
-                return new \Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository(
-                    $c['affilicious.provider.repository.provider']
-                );
+            $this->container['affilicious.shop.repository.shop_template'] = function () {
+                return new \Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository();
             };
 
             $this->container['affilicious.provider.setup.provider'] = function ($c) {
                 return new \Affilicious\Provider\Setup\Provider_Setup(
-                    $c['affilicious.provider.repository.provider'],
-                    $c['affilicious.provider.factory.provider.amazon']
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 
@@ -440,8 +437,12 @@ if(!class_exists('Affilicious')) {
                 );
             };
 
-            $this->container['affilicious.product.setup.product'] = function ($c) {
-                return new \Affilicious\Product\Setup\Product_Setup(
+            $this->container['affilicious.product.setup.product'] = function () {
+                return new \Affilicious\Product\Setup\Product_Setup();
+            };
+
+            $this->container['affilicious.product.admin.meta_box.product'] = function($c) {
+                return new \Affilicious\Product\Admin\Meta_Box\Product_Meta_Box(
                     $c['affilicious.shop.repository.shop_template'],
                     $c['affilicious.attribute.repository.attribute_template'],
                     $c['affilicious.detail.repository.detail_template'],
@@ -467,8 +468,12 @@ if(!class_exists('Affilicious')) {
                 );
             };
 
-            $this->container['affilicious.shop.setup.shop_template'] = function ($c) {
-                return new \Affilicious\Shop\Setup\Shop_Template_Setup(
+            $this->container['affilicious.shop.setup.shop_template'] = function () {
+                return new \Affilicious\Shop\Setup\Shop_Template_Setup();
+            };
+
+            $this->container['affilicious.shop.admin.meta_box.shop_template'] = function($c) {
+                return new \Affilicious\Shop\Admin\Meta_Box\Shop_Template_Meta_Box(
                     $c['affilicious.provider.repository.provider']
                 );
             };
@@ -481,8 +486,16 @@ if(!class_exists('Affilicious')) {
                 return new \Affilicious\Detail\Setup\Detail_Template_Setup();
             };
 
+            $this->container['affilicious.detail.admin.meta_box.detail_template'] = function() {
+                return new \Affilicious\Detail\Admin\Meta_Box\Detail_Template_Meta_Box();
+            };
+
             $this->container['affilicious.attribute.setup.attribute_template'] = function () {
                 return new \Affilicious\Attribute\Setup\Attribute_Template_Setup();
+            };
+
+            $this->container['affilicious.attribute.admin.meta_box.attribute_template'] = function() {
+                return new \Affilicious\Attribute\Admin\Meta_Box\Attribute_Template_Meta_Box();
             };
 
             $this->container['affilicious.common.options.affilicious'] = function ($c) {
@@ -771,22 +784,18 @@ if(!class_exists('Affilicious')) {
             // Hook the products
             $product_setup = $this->container['affilicious.product.setup.product'];
             add_action('init', array($product_setup, 'init'), 0);
-            add_action('aff_init', array($product_setup, 'render'));
 
             // Hook the shop templates.
             $shop_template_setup = $this->container['affilicious.shop.setup.shop_template'];
             add_action('init', array($shop_template_setup, 'init'), 0);
-            add_action('aff_init', array($shop_template_setup, 'render'));
 
             // Hook the attribute templates
             $attribute_template_setup = $this->container['affilicious.attribute.setup.attribute_template'];
             add_action('init', array($attribute_template_setup, 'init'), 0);
-            add_action('aff_init', array($attribute_template_setup, 'render'));
 
             // Hook the detail templates
             $detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
             add_action('init', array($detail_template_group_setup, 'init'), 0);
-            add_action('aff_init', array($detail_template_group_setup, 'render'));
 
             // Hook the providers
             $provider_setup = $this->container['affilicious.provider.setup.provider'];
@@ -870,6 +879,22 @@ if(!class_exists('Affilicious')) {
          */
         public function register_admin_hooks()
         {
+            // Hook the product meta box.
+            $product_meta_box = $this->container['affilicious.product.admin.meta_box.product'];
+            add_action('aff_init', array($product_meta_box, 'render'));
+
+            // Hook the shop template meta box.
+            $shop_template_meta_box = $this->container['affilicious.shop.admin.meta_box.shop_template'];
+            add_action('aff_init', array($shop_template_meta_box, 'render'));
+
+            // Hook the attribute template meta box.
+            $attribute_template_meta_box = $this->container['affilicious.attribute.admin.meta_box.attribute_template'];
+            add_action('aff_init', array($attribute_template_meta_box, 'render'));
+
+            // Hook the detail template meta box.
+            $detail_template_meta_box = $this->container['affilicious.detail.admin.meta_box.detail_template'];
+            add_action('aff_init', array($detail_template_meta_box, 'render'));
+
             // Hook the admin assets.
             $assets_setup = $this->container['affilicious.common.admin.setup.assets'];
             add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'), 10);
