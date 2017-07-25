@@ -16,7 +16,7 @@ export default carbon.fields.View.extend({
 
             this.$el.find('.aff-tags.aff-tags-predefined').selectize({
                 plugins: ['drag_drop', 'remove_button'],
-                delimiter: ';',
+                delimiter: ',',
                 persist: true,
                 create: true,
                 valueField: 'id',
@@ -31,7 +31,7 @@ export default carbon.fields.View.extend({
         } else {
             this.$el.find('.aff-tags.aff-tags-custom').selectize({
                 plugins: ['drag_drop', 'remove_button'],
-                delimiter: ';',
+                delimiter: ',',
                 persist: true,
                 create: true,
                 onChange() {

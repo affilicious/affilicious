@@ -301,6 +301,9 @@ if(!class_exists('Affilicious')) {
 
                 $affiliate_product_id_to_090_migration = $this->container['affilicious.product.migration.affiliate_product_id_to_090'];
                 $affiliate_product_id_to_090_migration->migrate();
+
+                $tags_to_090_migration = $this->container['affilicious.product.migration.tags_to_090'];
+                $tags_to_090_migration->migrate();
             }, 9999);
         }
 
@@ -691,6 +694,13 @@ if(!class_exists('Affilicious')) {
 
             $this->container['affilicious.product.admin.filter.menu_order'] = function() {
                 return new \Affilicious\Product\Admin\Filter\Menu_Order_Filter();
+            };
+
+            $this->container['affilicious.product.migration.tags_to_090'] = function($c) {
+                return new \Affilicious\Product\Migration\Tags_To_090_Migration(
+                    $c['affilicious.detail.repository.detail_template'],
+                    $c['affilicious.attribute.repository.attribute_template']
+                );
             };
 
             $this->container['affilicious.product.import.amazon'] = function($c) {
