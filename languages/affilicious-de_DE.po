@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-21 15:59+0200\n"
+"POT-Creation-Date: 2017-07-25 20:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -36,53 +36,55 @@ msgstr ""
 "Potenzial entfalten zu können. Bitte ändere die PHP Version in deinem "
 "Hosting Provider."
 
-#: functions.php:1969
+#: functions.php:2149
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: functions.php:2029
+#: functions.php:2209
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
 
 #: src/attribute/admin/filter/table-columns-filter.php:24
-#: src/attribute/setup/attribute-template-setup.php:76
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:27
 #: src/detail/admin/filter/table-columns-filter.php:24
-#: src/detail/setup/detail-template-setup.php:76
-#: src/product/setup/product-setup.php:166
+#: src/detail/admin/meta-box/detail-template-meta-box.php:27
+#: src/product/admin/meta-box/product-meta-box.php:106
 msgid "Type"
 msgstr "Typ"
 
 #: src/attribute/admin/filter/table-columns-filter.php:25
-#: src/attribute/setup/attribute-template-setup.php:82
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:33
 #: src/detail/admin/filter/table-columns-filter.php:25
-#: src/detail/setup/detail-template-setup.php:84
+#: src/detail/admin/meta-box/detail-template-meta-box.php:35
 msgid "Unit"
 msgstr "Einheit"
 
-#: src/attribute/model/type.php:91
-#: src/attribute/setup/attribute-template-setup.php:79
-#: src/detail/model/type.php:140 src/detail/setup/detail-template-setup.php:79
-msgid "Text"
-msgstr "Text"
-
-#: src/attribute/model/type.php:93
-#: src/attribute/setup/attribute-template-setup.php:80
-#: src/detail/model/type.php:142 src/detail/setup/detail-template-setup.php:80
-msgid "Number"
-msgstr "Numerisch"
-
-#: src/attribute/setup/attribute-template-setup.php:25
-#: src/attribute/setup/attribute-template-setup.php:73
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:24
+#: src/attribute/setup/attribute-template-setup.php:21
 msgid "Attribute Template"
 msgstr "Attribut-Vorlage"
 
-#: src/attribute/setup/attribute-template-setup.php:26
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:30
+#: src/attribute/model/type.php:91
+#: src/detail/admin/meta-box/detail-template-meta-box.php:30
+#: src/detail/model/type.php:140
+msgid "Text"
+msgstr "Text"
+
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:31
+#: src/attribute/model/type.php:93
+#: src/detail/admin/meta-box/detail-template-meta-box.php:31
+#: src/detail/model/type.php:142
+msgid "Number"
+msgstr "Numerisch"
+
+#: src/attribute/setup/attribute-template-setup.php:22
 msgid "Attribute Templates"
 msgstr "Attribut-Vorlagen"
 
-#: src/attribute/setup/attribute-template-setup.php:30
-#: src/attribute/setup/attribute-template-setup.php:34
+#: src/attribute/setup/attribute-template-setup.php:27
+#: src/attribute/setup/attribute-template-setup.php:31
 msgid "Attributes"
 msgstr "Attribute"
 
@@ -142,6 +144,58 @@ msgstr "Die Deaktivierung der Lizenz war erfolgreich."
 msgid "Failed to deactivate the license."
 msgstr "Die Deaktivierung der Lizenz ist fehlgeschlagen."
 
+#: src/common/admin/options/affilicious-options.php:45
+msgid "License"
+msgstr "Lizenz"
+
+#: src/common/admin/options/affilicious-options.php:46
+msgid "Scripts"
+msgstr "Skripte"
+
+#: src/common/admin/options/affilicious-options.php:62
+#, php-format
+msgid ""
+"More add-ons and themes can be found on the official website of <a href=\"%s"
+"\">Affilicious Theme</a>."
+msgstr ""
+"Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a "
+"href=„%s“>Affilicious Theme</a>."
+
+#: src/common/admin/options/affilicious-options.php:63
+#, php-format
+msgid ""
+"It looks like you haven't got any add-on or theme yet. Visit our official "
+"website of <a href=\"%s\">Affilicious Theme</a> to see what you can start "
+"with."
+msgstr ""
+"Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben "
+"hast. Schaue auf der offiziellen Webseite von <a href=„%s“>Affilicious "
+"Theme</a> nach, was du alles erwerben kannst."
+
+#: src/common/admin/options/affilicious-options.php:86
+msgid "Custom Header Scripts"
+msgstr "Eigene Header Skripte"
+
+#: src/common/admin/options/affilicious-options.php:87
+msgid ""
+"Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
+"or &lt;script&gt tags."
+msgstr ""
+"Füge deine eigenen Header Skripte wie CSS or JS mit den entprechenden &lt;"
+"style&gt oder &lt;script&gt Tags hinzu."
+
+#: src/common/admin/options/affilicious-options.php:88
+msgid "Custom Footer Scripts"
+msgstr "Eigene Footer Skripte"
+
+#: src/common/admin/options/affilicious-options.php:89
+msgid ""
+"Add your custom footer scripts like Google Analytics tracking code, CSS or "
+"JS with the proper &lt;style&gt or &lt;script&gt tags."
+msgstr ""
+"Füge deine eigenen Footer Skripte wie den Google Analytics Tracking Code, "
+"CSS or JS mit den entprechenden &lt;style&gt oder &lt;script&gt Tags hinzu."
+
 #: src/common/admin/page/addons-page.php:25
 #: src/common/admin/page/addons-page.php:26
 #: src/common/admin/view/page/addons.php:4
@@ -154,28 +208,29 @@ msgid "Extensions"
 msgstr "Erweiterungen"
 
 #: src/common/admin/setup/assets-setup.php:61
-#: src/common/setup/asset-setup.php:97 src/product/setup/product-setup.php:143
+#: src/common/setup/asset-setup.php:97
+#: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
 #: src/common/admin/setup/assets-setup.php:62
 #: src/common/setup/asset-setup.php:98
+#: src/product/admin/meta-box/product-meta-box.php:86
+#: src/product/admin/meta-box/product-meta-box.php:169
+#: src/product/admin/meta-box/product-meta-box.php:172
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:30
-#: src/product/setup/product-setup.php:147
-#: src/product/setup/product-setup.php:227
-#: src/product/setup/product-setup.php:230
 msgid "Variants"
 msgstr "Varianten"
 
 #: src/common/admin/setup/assets-setup.php:63
 #: src/common/setup/asset-setup.php:99
+#: src/product/admin/meta-box/product-meta-box.php:87
+#: src/product/admin/meta-box/product-meta-box.php:214
+#: src/product/admin/meta-box/product-meta-box.php:309
+#: src/product/admin/meta-box/product-meta-box.php:350
 #: src/product/admin/view/page/import/amazon/config-template.php:5
-#: src/product/setup/product-setup.php:148
-#: src/product/setup/product-setup.php:271
-#: src/product/setup/product-setup.php:366
-#: src/product/setup/product-setup.php:407
-#: src/shop/setup/shop-template-setup.php:44
-#: src/shop/setup/shop-template-setup.php:48
+#: src/shop/setup/shop-template-setup.php:27
+#: src/shop/setup/shop-template-setup.php:31
 msgid "Shops"
 msgstr "Shops"
 
@@ -231,80 +286,334 @@ msgstr "Dokumentation"
 msgid "Support"
 msgstr "Support"
 
-#: src/common/options/affilicious-options.php:44
-msgid "Custom Header Scripts"
-msgstr "Eigene Header Skripte"
-
-#: src/common/options/affilicious-options.php:45
-msgid ""
-"Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
-"or &lt;script&gt tags."
-msgstr ""
-"Füge deine eigenen Header Skripte wie CSS or JS mit den entprechenden &lt;"
-"style&gt oder &lt;script&gt Tags hinzu."
-
-#: src/common/options/affilicious-options.php:46
-msgid "Custom Footer Scripts"
-msgstr "Eigene Footer Skripte"
-
-#: src/common/options/affilicious-options.php:47
-msgid ""
-"Add your custom footer scripts like Google Analytics tracking code, CSS or "
-"JS with the proper &lt;style&gt or &lt;script&gt tags."
-msgstr ""
-"Füge deine eigenen Footer Skripte wie den Google Analytics Tracking Code, "
-"CSS or JS mit den entprechenden &lt;style&gt oder &lt;script&gt Tags hinzu."
-
-#: src/common/options/affilicious-options.php:52
-msgid "License"
-msgstr "Lizenz"
-
-#: src/common/options/affilicious-options.php:53
-msgid "Scripts"
-msgstr "Skripte"
-
-#: src/common/options/affilicious-options.php:66
-#, php-format
-msgid ""
-"More add-ons and themes can be found on the official website of <a href=\"%s"
-"\">Affilicious Theme</a>."
-msgstr ""
-"Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a "
-"href=„%s“>Affilicious Theme</a>."
-
-#: src/common/options/affilicious-options.php:67
-#, php-format
-msgid ""
-"It looks like you haven't got any add-on or theme yet. Visit our official "
-"website of <a href=\"%s\">Affilicious Theme</a> to see what you can start "
-"with."
-msgstr ""
-"Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben "
-"hast. Schaue auf der offiziellen Webseite von <a href=„%s“>Affilicious "
-"Theme</a> nach, was du alles erwerben kannst."
-
-#: src/detail/model/type.php:144 src/detail/setup/detail-template-setup.php:81
-msgid "Boolean"
-msgstr "Boolean"
-
-#: src/detail/model/type.php:146 src/detail/setup/detail-template-setup.php:82
-msgid "File"
-msgstr "Datei"
-
-#: src/detail/setup/detail-template-setup.php:25
-#: src/detail/setup/detail-template-setup.php:73
+#: src/detail/admin/meta-box/detail-template-meta-box.php:24
+#: src/detail/setup/detail-template-setup.php:21
 msgid "Detail Template"
 msgstr "Detail-Vorlage"
 
-#: src/detail/setup/detail-template-setup.php:26
+#: src/detail/admin/meta-box/detail-template-meta-box.php:32
+#: src/detail/model/type.php:144
+msgid "Boolean"
+msgstr "Boolean"
+
+#: src/detail/admin/meta-box/detail-template-meta-box.php:33
+#: src/detail/model/type.php:146
+msgid "File"
+msgstr "Datei"
+
+#: src/detail/setup/detail-template-setup.php:22
 msgid "Detail Templates"
 msgstr "Detail-Vorlagen"
 
-#: src/detail/setup/detail-template-setup.php:30
-#: src/detail/setup/detail-template-setup.php:34
-#: src/product/setup/product-setup.php:149
+#: src/detail/setup/detail-template-setup.php:27
+#: src/detail/setup/detail-template-setup.php:31
+#: src/product/admin/meta-box/product-meta-box.php:88
 msgid "Details"
 msgstr "Details"
+
+#: src/product/admin/meta-box/product-meta-box.php:85
+#: src/product/admin/options/product-options.php:22
+msgid "General"
+msgstr "Allgemein"
+
+#: src/product/admin/meta-box/product-meta-box.php:89
+msgid "Review"
+msgstr "Rezension"
+
+#: src/product/admin/meta-box/product-meta-box.php:90
+msgid "Relations"
+msgstr "Beziehungen"
+
+#: src/product/admin/meta-box/product-meta-box.php:108
+msgid "Simple"
+msgstr "Einfach"
+
+#: src/product/admin/meta-box/product-meta-box.php:109
+msgid "Complex"
+msgstr "Komplex"
+
+#: src/product/admin/meta-box/product-meta-box.php:111
+#: src/product/admin/meta-box/product-meta-box.php:209
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: src/product/admin/meta-box/product-meta-box.php:113
+#: src/product/admin/meta-box/product-meta-box.php:211
+msgid "Custom product tags like \"test winner\" or \"best price\"."
+msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
+
+#: src/product/admin/meta-box/product-meta-box.php:161
+msgid "Enabled Attributes"
+msgstr "Aktivierte Attribute"
+
+#: src/product/admin/meta-box/product-meta-box.php:165
+#, php-format
+msgid ""
+"Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
+"a> to attach them to the product variants."
+msgstr ""
+"Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Attribut-"
+"Vorlagen</a> hinzu um sie bei den Produktvarianten anzuzeigen."
+
+#: src/product/admin/meta-box/product-meta-box.php:173
+msgid "Variant"
+msgstr "Variante"
+
+#: src/product/admin/meta-box/product-meta-box.php:199
+msgid "Name"
+msgstr "Name"
+
+#: src/product/admin/meta-box/product-meta-box.php:202
+msgid "Default Variant"
+msgstr "Standartvariante"
+
+#: src/product/admin/meta-box/product-meta-box.php:204
+msgid "This variant will be shown as default for the parent product."
+msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
+
+#: src/product/admin/meta-box/product-meta-box.php:212
+#: src/shop/admin/filter/table-columns-filter.php:24
+msgid "Thumbnail"
+msgstr "Beitragsbild"
+
+#: src/product/admin/meta-box/product-meta-box.php:213
+#: src/product/meta-box/meta-box-manager.php:40
+msgid "Image Gallery"
+msgstr "Bildergallerie"
+
+#: src/product/admin/meta-box/product-meta-box.php:282
+#, php-format
+msgid ""
+"<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
+"target=\"_blank\">here</a>."
+msgstr ""
+"<b>Keine Attribut-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a "
+"href=\"%s\" target=\"_blank\">hier</a>."
+
+#: src/product/admin/meta-box/product-meta-box.php:324
+#, php-format
+msgid ""
+"<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
+"\"_blank\">here</a>."
+msgstr ""
+"<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
+"\"%s\" target=\"_blank\">hier</a>."
+
+#: src/product/admin/meta-box/product-meta-box.php:351
+msgid "Shop"
+msgstr "Shop"
+
+#: src/product/admin/meta-box/product-meta-box.php:356
+msgid "Shop Template ID"
+msgstr "Shop-Vorlage ID"
+
+#: src/product/admin/meta-box/product-meta-box.php:359
+msgid "Affiliate Link"
+msgstr "Affiliate Link"
+
+#: src/product/admin/meta-box/product-meta-box.php:361
+msgid "Affiliate Product ID"
+msgstr "Affiliate Produkt ID"
+
+#: src/product/admin/meta-box/product-meta-box.php:362
+msgid "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID and etc."
+msgstr ""
+"Einmalige Produkt ID des Shops wie Amazon ASIN, Affilinet ID, Ebay ID und "
+"usw."
+
+#: src/product/admin/meta-box/product-meta-box.php:363
+msgid "Availability"
+msgstr "Verfügbarkeit"
+
+#: src/product/admin/meta-box/product-meta-box.php:366
+msgid "Available"
+msgstr "Verfügbar"
+
+#: src/product/admin/meta-box/product-meta-box.php:367
+msgid "Out Of Stock"
+msgstr "Nicht verfügbar"
+
+#: src/product/admin/meta-box/product-meta-box.php:369
+msgid "Price"
+msgstr "Preis"
+
+#: src/product/admin/meta-box/product-meta-box.php:371
+msgid "Old Price"
+msgstr "Alter Preis"
+
+#: src/product/admin/meta-box/product-meta-box.php:373
+msgid "Currency"
+msgstr "Währung"
+
+#: src/product/admin/meta-box/product-meta-box.php:376
+#: src/shop/model/currency.php:68
+msgid "Euro"
+msgstr "Euro"
+
+#: src/product/admin/meta-box/product-meta-box.php:377
+#: src/shop/model/currency.php:69
+msgid "US-Dollar"
+msgstr "US-Dollar"
+
+#: src/product/admin/meta-box/product-meta-box.php:379
+msgid "Updated At"
+msgstr "Aktualisiert am"
+
+#: src/product/admin/meta-box/product-meta-box.php:414
+msgid "Enabled Details"
+msgstr "Aktivierte Details"
+
+#: src/product/admin/meta-box/product-meta-box.php:419
+#, php-format
+msgid ""
+"Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
+"to attach them to the product."
+msgstr ""
+"Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Detail-Vorlagen</"
+"a> hinzu um sie bei den Produkten anzuzeigen."
+
+#: src/product/admin/meta-box/product-meta-box.php:462
+msgid "Yes"
+msgstr "Ja"
+
+#: src/product/admin/meta-box/product-meta-box.php:463
+msgid "No"
+msgstr "Nein"
+
+#: src/product/admin/meta-box/product-meta-box.php:480
+#, php-format
+msgid ""
+"<b>No detail templates available!</b> Please create one <a href=\"%s\" "
+"target=\"_blank\">here</a>."
+msgstr ""
+"<b>Keine Detail Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
+"\"%s\" target=\"_blank\">hier</a>."
+
+#: src/product/admin/meta-box/product-meta-box.php:499
+msgid "Rating"
+msgstr "Bewertung"
+
+#: src/product/admin/meta-box/product-meta-box.php:501
+#: src/shop/admin/meta-box/shop-template-meta-box.php:64
+msgid "None"
+msgstr "Keine"
+
+#: src/product/admin/meta-box/product-meta-box.php:502
+#: src/product/admin/meta-box/product-meta-box.php:503
+#: src/product/admin/meta-box/product-meta-box.php:505
+#: src/product/admin/meta-box/product-meta-box.php:506
+#: src/product/admin/meta-box/product-meta-box.php:507
+#: src/product/admin/meta-box/product-meta-box.php:508
+#: src/product/admin/meta-box/product-meta-box.php:509
+#: src/product/admin/meta-box/product-meta-box.php:510
+#: src/product/admin/meta-box/product-meta-box.php:511
+#: src/product/admin/meta-box/product-meta-box.php:512
+#, php-format
+msgid "%s stars"
+msgstr "%s Sterne"
+
+#: src/product/admin/meta-box/product-meta-box.php:504
+#, php-format
+msgid "%s star"
+msgstr "%s Stern"
+
+#: src/product/admin/meta-box/product-meta-box.php:514
+msgid "Votes"
+msgstr "Stimmen"
+
+#: src/product/admin/meta-box/product-meta-box.php:515
+msgid "If you want to hide the votes, just leave it empty."
+msgstr ""
+"Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
+"leer."
+
+#: src/product/admin/meta-box/product-meta-box.php:538
+msgid "Related Products"
+msgstr "Ähnliche Produkte"
+
+#: src/product/admin/meta-box/product-meta-box.php:541
+msgid "Related Accessories"
+msgstr "Ähnliches Zubehör"
+
+#: src/product/admin/options/product-options.php:20
+#: src/product/setup/product-setup.php:20
+msgid "Product"
+msgstr "Produkt"
+
+#: src/product/admin/options/product-options.php:23
+msgid "Custom Taxonomies"
+msgstr "Eigene Taxonomien"
+
+#: src/product/admin/options/product-options.php:39
+#: src/product/admin/options/product-options.php:63
+msgid "Slug"
+msgstr "Titelform"
+
+#: src/product/admin/options/product-options.php:40
+msgid ""
+"Used as the slug for a nicer product URL (eg \"http://example.com/products/"
+"xyz\"), where \"products\" in the middle part of the product URL is the "
+"default. If you want to translate the slug into your language instead of "
+"\"products\", you have to write the new slug into this input field."
+msgstr ""
+"Wird als Titelform für eine hübschere Produkt-URL verwendet (z.B. \"http://"
+"beispiel.de/products/xyz“), wobei standardmäßig \"products\" im mittleren "
+"Teil der Produkt-URL verwendet wird. Wenn du statt „products“ die Titelform "
+"in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
+"Eingabefeld schreiben."
+
+#: src/product/admin/options/product-options.php:56
+#, php-format
+msgid ""
+"Create custom taxonomies to group products together. See this <a href=\"%s"
+"\">link</a> for a better description."
+msgstr ""
+"Erstelle eigene Taxonomien um Produkte logisch zu gruppieren. Klicke auf "
+"diesen <a href=\"%s\">Link</a> für eine bessere Beschreibung."
+
+#: src/product/admin/options/product-options.php:57
+msgid "Taxonomies"
+msgstr "Taxonomien"
+
+#: src/product/admin/options/product-options.php:59
+msgid "Taxonomy"
+msgstr "Taxonomie"
+
+#: src/product/admin/options/product-options.php:61
+#, php-format
+msgid ""
+"The name of the taxonomy. Slug should only contain lowercase letters and the "
+"underscore character, and not be more than 32 characters long. Care should "
+"be used in selecting a taxonomy name so that it does not conflict with other "
+"taxonomies, post types, and reserved Wordpress public and private query "
+"variables. A complete list of those is described in the <a href=\"%s"
+"\">Reserved Terms</a> section."
+msgstr ""
+"Der Slug der Taxonomie. Der Slug soll nur <b>Kleinbuchstaben</b> und das "
+"<b>Zeichen _</b> enthalten und nicht mehr als <b>32 Zeichen</b> lang sein. "
+"Vorsichtig sollest du bei der Auswahl des Namens sein, da der Slug nicht mit "
+"anderen Taxonomien, Beitragstypen und Wordpress öffentlichen und privaten "
+"Anfragenvariablen in Konflikt stehen darf. Hier findest du eine komplette "
+"Liste der <a href=\"%s\"> reservierten Wörter</a>."
+
+#: src/product/admin/options/product-options.php:64
+msgid ""
+"Used as pretty permalink text (i.e. \"http://test.com/your-slug/product-name"
+"\")."
+msgstr ""
+"Wird als Titelform für eine hübschere Produkt-URL verwendet (z.B. \"http://"
+"beispiel.de/products/xyz“), wobei standardmäßig \"products\" im mittleren "
+"Teil der Produkt-URL verwendet wird. Wenn du statt „products“ die Titelform "
+"in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
+"Eingabefeld schreiben."
+
+#: src/product/admin/options/product-options.php:66
+msgid "Singular Slug"
+msgstr "Slug im Singular"
+
+#: src/product/admin/options/product-options.php:68
+msgid "Plural Slug"
+msgstr "Slug im Plural"
 
 #: src/product/admin/page/import-page.php:50
 #: src/product/admin/page/import-page.php:51
@@ -314,7 +623,7 @@ msgid "Import"
 msgstr "Importieren"
 
 #: src/product/admin/view/page/import.php:6
-#: src/provider/options/amazon-options.php:130
+#: src/provider/admin/options/amazon-options.php:50
 msgid "Amazon"
 msgstr "Amazon"
 
@@ -460,11 +769,6 @@ msgstr "Keine weiteren Ergebnisse"
 msgid "Show all"
 msgstr "Alle anzeigen"
 
-#: src/product/meta-box/meta-box-manager.php:40
-#: src/product/setup/product-setup.php:270
-msgid "Image Gallery"
-msgstr "Bildergallerie"
-
 #: src/product/meta-box/product-image-gallery-meta-box.php:54
 msgid "Delete"
 msgstr "Löschen"
@@ -486,524 +790,230 @@ msgstr "Bild löschen"
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
 
-#: src/product/options/product-options.php:22
-#: src/product/options/product-options.php:35
-msgid "Slug"
-msgstr "Titelform"
-
-#: src/product/options/product-options.php:23
-msgid ""
-"Used as the slug for a nicer product URL (eg \"http://example.com/products/"
-"xyz\"), where \"products\" in the middle part of the product URL is the "
-"default. If you want to translate the slug into your language instead of "
-"\"products\", you have to write the new slug into this input field."
-msgstr ""
-"Wird als Titelform für eine hübschere Produkt-URL verwendet (z.B. \"http://"
-"beispiel.de/products/xyz“), wobei standardmäßig \"products\" im mittleren "
-"Teil der Produkt-URL verwendet wird. Wenn du statt „products“ die Titelform "
-"in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
-"Eingabefeld schreiben."
-
-#: src/product/options/product-options.php:28
-#, php-format
-msgid ""
-"Create custom taxonomies to group products together. See this <a href=\"%s"
-"\">link</a> for a better description."
-msgstr ""
-"Erstelle eigene Taxonomien um Produkte logisch zu gruppieren. Klicke auf "
-"diesen <a href=\"%s\">Link</a> für eine bessere Beschreibung."
-
-#: src/product/options/product-options.php:29
-#: src/product/options/product-options.php:48
-msgid "Taxonomies"
-msgstr "Taxonomien"
-
-#: src/product/options/product-options.php:31
-msgid "Taxonomy"
-msgstr "Taxonomie"
-
-#: src/product/options/product-options.php:33
-#, php-format
-msgid ""
-"The name of the taxonomy. Slug should only contain lowercase letters and the "
-"underscore character, and not be more than 32 characters long. Care should "
-"be used in selecting a taxonomy name so that it does not conflict with other "
-"taxonomies, post types, and reserved Wordpress public and private query "
-"variables. A complete list of those is described in the <a href=\"%s"
-"\">Reserved Terms</a> section."
-msgstr ""
-"Der Slug der Taxonomie. Der Slug soll nur <b>Kleinbuchstaben</b> und das "
-"<b>Zeichen _</b> enthalten und nicht mehr als <b>32 Zeichen</b> lang sein. "
-"Vorsichtig sollest du bei der Auswahl des Namens sein, da der Slug nicht mit "
-"anderen Taxonomien, Beitragstypen und Wordpress öffentlichen und privaten "
-"Anfragenvariablen in Konflikt stehen darf. Hier findest du eine komplette "
-"Liste der <a href=\"%s\"> reservierten Wörter</a>."
-
-#: src/product/options/product-options.php:36
-msgid ""
-"Used as pretty permalink text (i.e. \"http://test.com/your-slug/product-name"
-"\")."
-msgstr ""
-"Wird als Titelform für eine hübschere Produkt-URL verwendet (z.B. \"http://"
-"beispiel.de/products/xyz“), wobei standardmäßig \"products\" im mittleren "
-"Teil der Produkt-URL verwendet wird. Wenn du statt „products“ die Titelform "
-"in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
-"Eingabefeld schreiben."
-
-#: src/product/options/product-options.php:38
-msgid "Singular Slug"
-msgstr "Slug im Singular"
-
-#: src/product/options/product-options.php:40
-msgid "Plural Slug"
-msgstr "Slug im Plural"
-
-#: src/product/options/product-options.php:45
-#: src/product/setup/product-setup.php:75
-msgid "Product"
-msgstr "Produkt"
-
-#: src/product/options/product-options.php:47
-#: src/product/setup/product-setup.php:146
-msgid "General"
-msgstr "Allgemein"
-
-#: src/product/options/product-options.php:97
-#: src/product/options/product-options.php:98
-#: src/product/options/product-options.php:107
+#: src/product/setup/custom-taxonomies-setup.php:56
+#: src/product/setup/custom-taxonomies-setup.php:57
+#: src/product/setup/custom-taxonomies-setup.php:66
 #, php-format
 msgid "%s"
 msgstr "%s"
 
-#: src/product/options/product-options.php:99
+#: src/product/setup/custom-taxonomies-setup.php:58
 #, php-format
 msgid "Search %s"
 msgstr "Suche %s"
 
-#: src/product/options/product-options.php:100
+#: src/product/setup/custom-taxonomies-setup.php:59
 #, php-format
 msgid "All %s"
 msgstr "Alle %s"
 
-#: src/product/options/product-options.php:101
+#: src/product/setup/custom-taxonomies-setup.php:60
 #, php-format
 msgid "Parent %s"
 msgstr "Eltern %s"
 
-#: src/product/options/product-options.php:102
+#: src/product/setup/custom-taxonomies-setup.php:61
 #, php-format
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/product/options/product-options.php:103
+#: src/product/setup/custom-taxonomies-setup.php:62
 #, php-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: src/product/options/product-options.php:104
+#: src/product/setup/custom-taxonomies-setup.php:63
 #, php-format
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
-#: src/product/options/product-options.php:105
+#: src/product/setup/custom-taxonomies-setup.php:64
 #, php-format
 msgid "Add New %s"
 msgstr "%s erstellen"
 
-#: src/product/options/product-options.php:106
+#: src/product/setup/custom-taxonomies-setup.php:65
 #, php-format
 msgid "New %s"
 msgstr "Neue %s"
 
-#: src/product/setup/product-setup.php:76
+#: src/product/setup/product-setup.php:21
 msgid "Products"
 msgstr "Produkte"
 
-#: src/product/setup/product-setup.php:150
-msgid "Review"
-msgstr "Rezension"
+#: src/provider/admin/options/amazon-options.php:52
+msgid "Credentials"
+msgstr "Zugangsdaten"
 
-#: src/product/setup/product-setup.php:151
-msgid "Relations"
-msgstr "Beziehungen"
+#: src/provider/admin/options/amazon-options.php:53
+msgid "Updates"
+msgstr "Aktualisierungen"
 
-#: src/product/setup/product-setup.php:168
-msgid "Simple"
-msgstr "Einfach"
-
-#: src/product/setup/product-setup.php:169
-msgid "Complex"
-msgstr "Komplex"
-
-#: src/product/setup/product-setup.php:171
-#: src/product/setup/product-setup.php:267
-msgid "Tags"
-msgstr "Schlagwörter"
-
-#: src/product/setup/product-setup.php:172
-#: src/product/setup/product-setup.php:268
-msgid "Custom product tags like \"test winner\" or \"best price\"."
-msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
-
-#: src/product/setup/product-setup.php:220
-msgid "Enabled Attributes"
-msgstr "Aktivierte Attribute"
-
-#: src/product/setup/product-setup.php:223
-#, php-format
-msgid ""
-"Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
-"a> to attach them to the product variants."
-msgstr ""
-"Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Attribut-"
-"Vorlagen</a> hinzu um sie bei den Produktvarianten anzuzeigen."
-
-#: src/product/setup/product-setup.php:231
-msgid "Variant"
-msgstr "Variante"
-
-#: src/product/setup/product-setup.php:257
-msgid "Name"
-msgstr "Name"
-
-#: src/product/setup/product-setup.php:260
-msgid "Default Variant"
-msgstr "Standartvariante"
-
-#: src/product/setup/product-setup.php:262
-msgid "This variant will be shown as default for the parent product."
-msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
-
-#: src/product/setup/product-setup.php:269
-#: src/shop/admin/filter/table-columns-filter.php:24
-msgid "Thumbnail"
-msgstr "Beitragsbild"
-
-#: src/product/setup/product-setup.php:339
-#, php-format
-msgid ""
-"<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
-"target=\"_blank\">here</a>."
-msgstr ""
-"<b>Keine Attribut-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a "
-"href=\"%s\" target=\"_blank\">hier</a>."
-
-#: src/product/setup/product-setup.php:381
-#, php-format
-msgid ""
-"<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
-"\"_blank\">here</a>."
-msgstr ""
-"<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
-"\"%s\" target=\"_blank\">hier</a>."
-
-#: src/product/setup/product-setup.php:408
-msgid "Shop"
-msgstr "Shop"
-
-#: src/product/setup/product-setup.php:413
-msgid "Shop Template ID"
-msgstr "Shop-Vorlage ID"
-
-#: src/product/setup/product-setup.php:416
-msgid "Affiliate Link"
-msgstr "Affiliate Link"
-
-#: src/product/setup/product-setup.php:418
-msgid "Affiliate Product ID"
-msgstr "Affiliate Produkt ID"
-
-#: src/product/setup/product-setup.php:419
-msgid "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID and etc."
-msgstr ""
-"Einmalige Produkt ID des Shops wie Amazon ASIN, Affilinet ID, Ebay ID und "
-"usw."
-
-#: src/product/setup/product-setup.php:420
-msgid "Availability"
-msgstr "Verfügbarkeit"
-
-#: src/product/setup/product-setup.php:423
-msgid "Available"
-msgstr "Verfügbar"
-
-#: src/product/setup/product-setup.php:424
-msgid "Out Of Stock"
-msgstr "Nicht verfügbar"
-
-#: src/product/setup/product-setup.php:426
-msgid "Price"
-msgstr "Preis"
-
-#: src/product/setup/product-setup.php:428
-msgid "Old Price"
-msgstr "Alter Preis"
-
-#: src/product/setup/product-setup.php:430
-msgid "Currency"
-msgstr "Währung"
-
-#: src/product/setup/product-setup.php:433 src/shop/model/currency.php:68
-msgid "Euro"
-msgstr "Euro"
-
-#: src/product/setup/product-setup.php:434 src/shop/model/currency.php:69
-msgid "US-Dollar"
-msgstr "US-Dollar"
-
-#: src/product/setup/product-setup.php:436
-msgid "Updated At"
-msgstr "Aktualisiert am"
-
-#: src/product/setup/product-setup.php:471
-msgid "Enabled Details"
-msgstr "Aktivierte Details"
-
-#: src/product/setup/product-setup.php:475
-#, php-format
-msgid ""
-"Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
-"to attach them to the product."
-msgstr ""
-"Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Detail-Vorlagen</"
-"a> hinzu um sie bei den Produkten anzuzeigen."
-
-#: src/product/setup/product-setup.php:518
-msgid "Yes"
-msgstr "Ja"
-
-#: src/product/setup/product-setup.php:519
-msgid "No"
-msgstr "Nein"
-
-#: src/product/setup/product-setup.php:536
-#, php-format
-msgid ""
-"<b>No detail templates available!</b> Please create one <a href=\"%s\" "
-"target=\"_blank\">here</a>."
-msgstr ""
-"<b>Keine Detail Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
-"\"%s\" target=\"_blank\">hier</a>."
-
-#: src/product/setup/product-setup.php:555
-msgid "Rating"
-msgstr "Bewertung"
-
-#: src/product/setup/product-setup.php:557
-#: src/shop/setup/shop-template-setup.php:112
-msgid "None"
-msgstr "Keine"
-
-#: src/product/setup/product-setup.php:558
-#: src/product/setup/product-setup.php:559
-#: src/product/setup/product-setup.php:561
-#: src/product/setup/product-setup.php:562
-#: src/product/setup/product-setup.php:563
-#: src/product/setup/product-setup.php:564
-#: src/product/setup/product-setup.php:565
-#: src/product/setup/product-setup.php:566
-#: src/product/setup/product-setup.php:567
-#: src/product/setup/product-setup.php:568
-#, php-format
-msgid "%s stars"
-msgstr "%s Sterne"
-
-#: src/product/setup/product-setup.php:560
-#, php-format
-msgid "%s star"
-msgstr "%s Stern"
-
-#: src/product/setup/product-setup.php:570
-msgid "Votes"
-msgstr "Stimmen"
-
-#: src/product/setup/product-setup.php:571
-msgid "If you want to hide the votes, just leave it empty."
-msgstr ""
-"Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
-"leer."
-
-#: src/product/setup/product-setup.php:594
-msgid "Related Products"
-msgstr "Ähnliche Produkte"
-
-#: src/product/setup/product-setup.php:597
-msgid "Related Accessories"
-msgstr "Ähnliches Zubehör"
-
-#: src/provider/options/amazon-options.php:53
+#: src/provider/admin/options/amazon-options.php:71
 msgid "Access Key"
 msgstr "Access Key"
 
-#: src/provider/options/amazon-options.php:55
+#: src/provider/admin/options/amazon-options.php:73
 msgid "The access key is used to identify you as an API user."
 msgstr "Der Access Key identifiziert dich als einen API Benutzer."
 
-#: src/provider/options/amazon-options.php:56
+#: src/provider/admin/options/amazon-options.php:74
 msgid "Secret Key"
 msgstr "Secret Key"
 
-#: src/provider/options/amazon-options.php:58
+#: src/provider/admin/options/amazon-options.php:76
 msgid "The secret key is used like a password to sign your API requests."
 msgstr ""
 "Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
 "authentifizieren."
 
-#: src/provider/options/amazon-options.php:59
+#: src/provider/admin/options/amazon-options.php:77
 msgid "Country"
 msgstr "Land"
 
-#: src/provider/options/amazon-options.php:61
+#: src/provider/admin/options/amazon-options.php:79
 msgid "Germany"
 msgstr "Deutschland"
 
-#: src/provider/options/amazon-options.php:62
+#: src/provider/admin/options/amazon-options.php:80
 msgid "America"
 msgstr "Amerika"
 
-#: src/provider/options/amazon-options.php:63
+#: src/provider/admin/options/amazon-options.php:81
 msgid "England"
 msgstr "England"
 
-#: src/provider/options/amazon-options.php:64
+#: src/provider/admin/options/amazon-options.php:82
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/provider/options/amazon-options.php:65
+#: src/provider/admin/options/amazon-options.php:83
 msgid "France"
 msgstr "Frankreich"
 
-#: src/provider/options/amazon-options.php:66
+#: src/provider/admin/options/amazon-options.php:84
 msgid "Japan"
 msgstr "Japan"
 
-#: src/provider/options/amazon-options.php:67
+#: src/provider/admin/options/amazon-options.php:85
 msgid "Italy"
 msgstr "Italien"
 
-#: src/provider/options/amazon-options.php:68
+#: src/provider/admin/options/amazon-options.php:86
 msgid "China"
 msgstr "China"
 
-#: src/provider/options/amazon-options.php:69
+#: src/provider/admin/options/amazon-options.php:87
 msgid "Spain"
 msgstr "Spanien"
 
-#: src/provider/options/amazon-options.php:70
+#: src/provider/admin/options/amazon-options.php:88
 msgid "India"
 msgstr "Indien"
 
-#: src/provider/options/amazon-options.php:71
+#: src/provider/admin/options/amazon-options.php:89
 msgid "Brazil"
 msgstr "Brasilien"
 
-#: src/provider/options/amazon-options.php:72
+#: src/provider/admin/options/amazon-options.php:90
 msgid "Mexico"
 msgstr "Mexiko"
 
-#: src/provider/options/amazon-options.php:73
+#: src/provider/admin/options/amazon-options.php:91
 msgid "Australia"
 msgstr "Australien"
 
-#: src/provider/options/amazon-options.php:76
+#: src/provider/admin/options/amazon-options.php:94
 msgid "The country has to match the locale of your Amazon account. "
 msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen. "
 
-#: src/provider/options/amazon-options.php:77
+#: src/provider/admin/options/amazon-options.php:95
 msgid "Associate Tag"
 msgstr "Associate Tag"
 
-#: src/provider/options/amazon-options.php:79
+#: src/provider/admin/options/amazon-options.php:97
 msgid "Amazon uses this ID to credit an associate for a sale."
 msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
 
-#: src/provider/options/amazon-options.php:83
+#: src/provider/admin/options/amazon-options.php:112
 msgid "Thumbnail Update Interval"
 msgstr "Rating Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:85
-#: src/provider/options/amazon-options.php:94
-#: src/provider/options/amazon-options.php:103
-#: src/provider/options/amazon-options.php:112
-#: src/provider/options/amazon-options.php:121
+#: src/provider/admin/options/amazon-options.php:114
+#: src/provider/admin/options/amazon-options.php:123
+#: src/provider/admin/options/amazon-options.php:132
+#: src/provider/admin/options/amazon-options.php:141
+#: src/provider/admin/options/amazon-options.php:150
 msgid "Hourly"
 msgstr "Stündlich"
 
-#: src/provider/options/amazon-options.php:86
-#: src/provider/options/amazon-options.php:95
-#: src/provider/options/amazon-options.php:104
-#: src/provider/options/amazon-options.php:113
-#: src/provider/options/amazon-options.php:122
+#: src/provider/admin/options/amazon-options.php:115
+#: src/provider/admin/options/amazon-options.php:124
+#: src/provider/admin/options/amazon-options.php:133
+#: src/provider/admin/options/amazon-options.php:142
+#: src/provider/admin/options/amazon-options.php:151
 msgid "Twice Daily"
 msgstr "2x Täglich"
 
-#: src/provider/options/amazon-options.php:87
-#: src/provider/options/amazon-options.php:96
-#: src/provider/options/amazon-options.php:105
-#: src/provider/options/amazon-options.php:114
-#: src/provider/options/amazon-options.php:123
+#: src/provider/admin/options/amazon-options.php:116
+#: src/provider/admin/options/amazon-options.php:125
+#: src/provider/admin/options/amazon-options.php:134
+#: src/provider/admin/options/amazon-options.php:143
+#: src/provider/admin/options/amazon-options.php:152
 msgid "Daily"
 msgstr "Täglich"
 
-#: src/provider/options/amazon-options.php:88
-#: src/provider/options/amazon-options.php:97
-#: src/provider/options/amazon-options.php:106
-#: src/provider/options/amazon-options.php:115
-#: src/provider/options/amazon-options.php:124
+#: src/provider/admin/options/amazon-options.php:117
+#: src/provider/admin/options/amazon-options.php:126
+#: src/provider/admin/options/amazon-options.php:135
+#: src/provider/admin/options/amazon-options.php:144
+#: src/provider/admin/options/amazon-options.php:153
 msgid "No Updates"
 msgstr "Keine Aktualisierungen"
 
-#: src/provider/options/amazon-options.php:90
+#: src/provider/admin/options/amazon-options.php:119
 msgid "The automatic update interval for the product thumbnails."
 msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
 
-#: src/provider/options/amazon-options.php:92
+#: src/provider/admin/options/amazon-options.php:121
 msgid "Image Gallery Update Interval"
 msgstr "Preis Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:99
+#: src/provider/admin/options/amazon-options.php:128
 msgid "The automatic update interval for the product image galleries."
 msgstr ""
 "Das automatische Aktualisierungsintervall für das Stimmen in den Bewertungen."
 
-#: src/provider/options/amazon-options.php:101
+#: src/provider/admin/options/amazon-options.php:130
 msgid "Price Update Interval"
 msgstr "Preis Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:108
+#: src/provider/admin/options/amazon-options.php:137
 msgid "The automatic update interval for the shop prices in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
 
-#: src/provider/options/amazon-options.php:110
+#: src/provider/admin/options/amazon-options.php:139
 msgid "Old Price Update Interval"
 msgstr "Alter Preis Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:117
+#: src/provider/admin/options/amazon-options.php:146
 msgid "The automatic update interval for the old shop prices in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
 
-#: src/provider/options/amazon-options.php:119
+#: src/provider/admin/options/amazon-options.php:148
 msgid "Availability Update Interval"
 msgstr "Verfügbarkeits Aktualisierungsintervall"
 
-#: src/provider/options/amazon-options.php:126
+#: src/provider/admin/options/amazon-options.php:155
 msgid ""
 "The automatic update interval for the shop availabilities in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
 "Produkten."
 
-#: src/provider/options/amazon-options.php:132
-msgid "Credentials"
-msgstr "Zugangsdaten"
-
-#: src/provider/options/amazon-options.php:133
-msgid "Updates"
-msgstr "Aktualisierungen"
-
-#: src/provider/options/amazon-options.php:151
+#: src/provider/admin/options/amazon-options.php:174
 msgid ""
 "<b>The credentials are valid!</b> A connection to the Amazon Product "
 "Advertising API was successfully established."
@@ -1011,7 +1021,7 @@ msgstr ""
 "<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
 "Advertising API wurde erfolgreich aufgebaut."
 
-#: src/provider/options/amazon-options.php:155
+#: src/provider/admin/options/amazon-options.php:178
 msgid ""
 "<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
 "Advertising API."
@@ -1020,34 +1030,34 @@ msgstr ""
 "Amazon Product Advertising API aufgebaut werden."
 
 #: src/shop/admin/filter/table-columns-filter.php:25
-#: src/shop/setup/shop-template-setup.php:90
+#: src/shop/admin/meta-box/shop-template-meta-box.php:41
 msgid "Provider"
 msgstr "Provider"
 
-#: src/shop/setup/shop-template-setup.php:39
-#: src/shop/setup/shop-template-setup.php:87
+#: src/shop/admin/meta-box/shop-template-meta-box.php:38
+#: src/shop/setup/shop-template-setup.php:21
 msgid "Shop Template"
 msgstr "Shop-Vorlage"
 
-#: src/shop/setup/shop-template-setup.php:40
-msgid "Shop Templates"
-msgstr "Shop-Vorlagen"
-
-#: src/shop/setup/shop-template-setup.php:93
+#: src/shop/admin/meta-box/shop-template-meta-box.php:44
 msgid ""
 "The provider is used for the automatic updates for products using this shop."
 msgstr ""
 "Der Provider wird für automatische Aktualisierungen für Produkte benutzt, "
 "die diesen Shop nutzen."
 
-#: src/shop/setup/shop-template-setup.php:94
+#: src/shop/admin/meta-box/shop-template-meta-box.php:45
 msgid "Logo"
 msgstr "Logo"
 
-#: src/shop/setup/shop-template-setup.php:95
+#: src/shop/admin/meta-box/shop-template-meta-box.php:46
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
+
+#: src/shop/setup/shop-template-setup.php:22
+msgid "Shop Templates"
+msgstr "Shop-Vorlagen"
 
 #~ msgid ""
 #~ "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID, etc. used for "
