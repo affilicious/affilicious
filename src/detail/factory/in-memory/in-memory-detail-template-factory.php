@@ -38,11 +38,12 @@ class In_Memory_Detail_Template_Factory implements Detail_Template_Factory_Inter
      */
     public function create(Name $name, Slug $slug, Type $type, Unit $unit = null)
     {
-        do_action('affilicious_detail_template_factory_before_create');
+        do_action('aff_detail_template_factory_before_create');
 
         $detail_template = new Detail_Template($name, $slug, $type, $unit);
+        $detail_template = apply_filters('aff_detail_template_factory_create', $detail_template);
 
-        do_action('affilicious_detail_template_factory_after_create', $detail_template);
+        do_action('aff_detail_template_factory_after_create', $detail_template);
 
         return $detail_template;
     }

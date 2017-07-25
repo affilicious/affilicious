@@ -38,11 +38,12 @@ class In_Memory_Attribute_Template_Factory implements Attribute_Template_Factory
      */
     public function create(Name $name, Slug $slug, Type $type, Unit $unit = null)
     {
-        do_action('affilicious_attribute_template_factory_before_create');
+        do_action('aff_attribute_template_factory_before_create');
 
         $attribute_template = new Attribute_Template($name, $slug, $type, $unit);
+        $attribute_template = apply_filters('aff_attribute_template_factory_create', $attribute_template);
 
-        do_action('affilicious_attribute_template_factory_after_create', $attribute_template);
+        do_action('aff_attribute_template_factory_after_create', $attribute_template);
 
         return $attribute_template;
     }

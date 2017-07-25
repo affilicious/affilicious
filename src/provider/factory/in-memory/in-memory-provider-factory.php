@@ -36,11 +36,12 @@ class In_Memory_Provider_Factory implements Provider_Factory_Interface
      */
     public function create(Name $title, Slug $name, Credentials $credentials)
     {
-        do_action('affilicious_provider_factory_before_create');
+        do_action('aff_provider_factory_before_create');
 
         $provider = new Provider($title, $name, $credentials);
+        $provider = apply_filters('aff_provider_factory_create', $provider);
 
-        do_action('affilicious_provider_factory_after_create', $provider);
+        do_action('aff_provider_factory_after_create', $provider);
 
         return $provider;
     }

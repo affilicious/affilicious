@@ -36,13 +36,15 @@ class In_Memory_Amazon_Provider_Factory implements Amazon_Provider_Factory_Inter
      */
     public function create(Name $title, Slug $name, Credentials $credentials)
     {
-        do_action('affilicious_provider_factory_before_create');
-        do_action('affilicious_amazon_provider_factory_before_create');
+        do_action('aff_amazon_provider_factory_before_create');
+        do_action('aff_provider_factory_before_create');
 
         $amazon_provider = new Amazon_Provider($title, $name, $credentials);
+        $amazon_provider = apply_filters('aff_amazon_provider_factory_create', $amazon_provider);
+        $amazon_provider = apply_filters('aff_provider_factory_create', $amazon_provider);
 
-        do_action('affilicious_provider_factory_after_create', $amazon_provider);
-        do_action('affilicious_amazon_provider_factory_after_create', $amazon_provider);
+        do_action('aff_amazon_provider_factory_after_create', $amazon_provider);
+        do_action('aff_provider_factory_after_create', $amazon_provider);
 
         return $amazon_provider;
     }
