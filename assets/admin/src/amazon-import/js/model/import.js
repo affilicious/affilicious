@@ -29,6 +29,7 @@ let Import = Backbone.Model.extend({
         let data = {
             'product': product.attributes,
             'config': this.config.attributes,
+            'form': this.search.form.attributes,
         };
 
         jQuery.ajax({
