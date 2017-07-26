@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2017-07-26 "
-"18:52+0200\n"
+"20:06+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -867,170 +867,186 @@ msgid ""
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:4
+msgid "Search term"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:5
 msgid "Enter your search term..."
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:4
+#: src/product/admin/view/page/import/amazon/search-form-template.php:5
 msgid "Enter your ASIN..."
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:9
+#: src/product/admin/view/page/import/amazon/search-form-template.php:7
+msgid "Search"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:11
+msgid "Search type"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:13
 msgid "Keywords"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:10
+#: src/product/admin/view/page/import/amazon/search-form-template.php:14
 msgid "ASIN"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:16
-msgid "All"
-msgstr ""
-
 #: src/product/admin/view/page/import/amazon/search-form-template.php:17
-msgid "Apparel"
-msgstr ""
-
-#: src/product/admin/view/page/import/amazon/search-form-template.php:18
-msgid "Appliances"
+msgid "Search category"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:19
-msgid "Automotive"
+msgid "All Categories"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:20
-msgid "Baby"
+msgid "Apparel"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:21
-msgid "Beauty"
+msgid "Appliances"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:22
-msgid "Books"
+msgid "Automotive"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:23
-msgid "DVD"
+msgid "Baby"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:24
-msgid "Electronics"
+msgid "Beauty"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:25
-msgid "Furniture"
+msgid "Books"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:26
-msgid "Gift Cards"
+msgid "DVD"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:27
-msgid "Grocery"
+msgid "Electronics"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:28
-msgid "Health & Personal Care"
+msgid "Furniture"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:29
-msgid "Home & Garden"
+msgid "Gift Cards"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:30
-msgid "Industrial"
+msgid "Grocery"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:31
-msgid "Jewelry"
+msgid "Health & Personal Care"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:32
-msgid "KindleStore"
+msgid "Home & Garden"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:33
-msgid "Lawn & Garden"
+msgid "Industrial"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:34
-msgid "Luggage"
+msgid "Jewelry"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:35
-msgid "Luxury & Beauty"
+msgid "KindleStore"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:36
-msgid "Marketplace"
+msgid "Lawn & Garden"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:37
-msgid "Music"
+msgid "Luggage"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:38
-msgid "Musical Instruments"
+msgid "Luxury & Beauty"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:39
-msgid "Office Products"
+msgid "Marketplace"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:40
-msgid "Pantry"
+msgid "Music"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:41
-msgid "PC Hardware"
+msgid "Musical Instruments"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:42
-msgid "Pet Supplies"
+msgid "Office Products"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:43
-msgid "Shoes"
+msgid "Pantry"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:44
-msgid "Software"
+msgid "PC Hardware"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:45
-msgid "Sporting Goods"
+msgid "Pet Supplies"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:46
-msgid "Toys"
+msgid "Shoes"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:47
-msgid "Video"
+msgid "Software"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:48
-msgid "Video Games"
+msgid "Sporting Goods"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:49
+msgid "Toys"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:50
+msgid "Video"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:51
+msgid "Video Games"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:52
 msgid "Watches"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:55
+msgid "Search with variants"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-form-template.php:57
 msgid "Without variants"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:56
+#: src/product/admin/view/page/import/amazon/search-form-template.php:58
 msgid "With variants"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:60
-msgid "Search"
-msgstr ""
-
-#: src/product/admin/view/page/import/amazon/search-form-template.php:65
+#: src/product/admin/view/page/import/amazon/search-form-template.php:63
 msgid ""
 "Search with product variants "
 "doesn't work if the category "

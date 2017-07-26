@@ -17,7 +17,7 @@
         </label>
 
         <label class="aff-amazon-import-config-group-label" for="new-shop-name">
-            <input disabled="disabled" type="text" class="aff-amazon-import-config-group-option-new-shop-name regular-text" name="new-shop-name" placeholder="<?php _e('Enter shop name...', 'affilicious'); ?>">
+            <input disabled class="aff-amazon-import-config-group-option-new-shop-name regular-text" name="new-shop-name" placeholder="<?php _e('Enter shop name...', 'affilicious'); ?>">
         </label>
     </fieldset>
 
@@ -49,7 +49,7 @@
         </label>
 
         <label class="aff-amazon-import-config-group-label" for="merge-product-id">
-            <input disabled="disabled" class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-merge-product-id" name="merge-product-id" type="text" value="" placeholder="<?php _e('Enter product name...', 'affilicious'); ?>">
+            <input disabled class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-merge-product-id" name="merge-product-id" type="text" value="" placeholder="<?php _e('Enter product name...', 'affilicious'); ?>">
         </label>
 
         <label class="aff-amazon-import-config-group-label" for="replace-product">
@@ -58,7 +58,7 @@
         </label>
 
         <label class="aff-amazon-import-config-group-label" for="replace-product-id">
-            <input disabled="disabled" class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-replace-product-id" name="replace-product-id" type="text" value="" placeholder="<?php _e('Enter product name...', 'affilicious'); ?>">
+            <input disabled class="aff-amazon-import-config-group-option aff-amazon-import-config-group-option-replace-product-id" name="replace-product-id" type="text" value="" placeholder="<?php _e('Enter product name...', 'affilicious'); ?>">
         </label>
     </fieldset>
 </script>
