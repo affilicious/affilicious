@@ -4,14 +4,34 @@
   flex-direction: row;
   justify-content: space-between;
 
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+
   &-search {
     display: inline-block;
     width: calc(70% - 10px);
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+      width: calc(70% - 10px);
+    }
   }
 
   &-config {
     display: inline-block;
     width: calc(30% - 10px);
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+      width: calc(30% - 10px);
+    }
   }
 }
 
@@ -44,40 +64,7 @@
 }
 
 .aff-amazon-import-search-form {
-  &-label {
-    display: inline-block;
-  }
-
-  &-term {
-    margin: 0;
-    padding: 3px 5px;
-    max-width: 70%;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.4;
-    display: block;
-    width: 100%;
-  }
-
-  &-type,
-  &-category,
-  &-with-variants {
-    margin: 0 10px 0 0;
-    height: 32px !important;
-    line-height: 32px !important;
-    padding: 2px;
-    font-size: 14px;
-    min-width: 150px;
-    vertical-align: middle;
-  }
-
-  &-submit {
-    height: 32px !important;
-    line-height: 30px !important;
-    float: right;
-  }
-
-  &-content {
+  &-panel {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -92,34 +79,86 @@
     &-main {
       display: flex;
       width: 100%;
-      flex: 1 0 100%;
       flex-flow: row;
       justify-content: space-between;
-      padding: 15px 10px;
+      padding: 10px;
       box-sizing: border-box;
+
+      @media (max-width: 575px) {
+        flex-direction: column;
+      }
+
+      input[name="term"] {
+        margin: 0;
+        padding: 3px 5px;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.4;
+        display: block;
+        width: calc(100% - 110px);
+
+        @media (max-width: 575px) {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+
+      button {
+        border: 1px solid red;
+        height: 32px !important;
+        line-height: 30px !important;
+        width: 100px;
+        display: block;
+
+        @media (max-width: 575px) {
+          width: 100%;
+        }
+      }
     }
 
-    &-filter {
+    &-filters {
       width: 100%;
       box-sizing: border-box;
       display: flex;
       flex-flow: row;
       flex: 1 0 100%;
       flex-wrap: wrap;
-      padding: 15px 10px;
+      padding: 10px 10px 0 10px;
       border-top: 1px solid #eee;
       background: #fafafa;
-    }
-  }
 
-  &-notice {
-    display: block;
-    font-size: 13px;
-    font-style: italic;
-    color: #555;
+      @media (max-width: 575px) {
+        flex-direction: column;
+      }
 
-    p {
-      margin-bottom: 0;
+      &-option {
+        margin: 0 10px 10px 0;
+        height: 32px !important;
+        line-height: 32px !important;
+        padding: 2px;
+        font-size: 14px;
+        min-width: 150px;
+        vertical-align: middle;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+
+        @media (max-width: 575px) {
+          margin-right: 0;
+        }
+      }
+
+      &-notice {
+        display: block;
+        font-size: 13px;
+        font-style: italic;
+        color: #555;
+
+        p {
+          margin: 0 0 10px 0;
+        }
+      }
     }
   }
 
@@ -315,15 +354,7 @@
   }
 }
 
-.aff-amazon-import-search {
-  max-width: 750px;
-  min-width: 750px;
-  display: block;
-  float: left;
-}
-
 .aff-amazon-import-config {
-
   &-group {
     box-sizing: border-box;
     background: #fff;

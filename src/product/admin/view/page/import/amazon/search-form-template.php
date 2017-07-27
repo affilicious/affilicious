@@ -1,21 +1,21 @@
 <script id="aff-amazon-import-search-form-template" type="text/template">
-    <div class="aff-amazon-import-search-form-content">
-        <div class="aff-amazon-import-search-form-content-main">
-            <label class="aff-amazon-import-search-form-label screen-reader-text" for="term"><?php _e('Search term', 'affilicious'); ?></label>
-            <input class="aff-amazon-import-search-form-term" name="term" type="search" placeholder="<% if(type == 'keywords') { %><?php _e('Enter your search term...', 'affilicious'); ?><% } else { %><?php _e('Enter your ASIN...', 'affilicious'); ?><% } %>" value="<%= term %>">
+    <div class="aff-amazon-import-search-form-panel">
+        <div class="aff-amazon-import-search-form-panel-main">
+            <label class="screen-reader-text" for="term"><?php _e('Search term', 'affilicious'); ?></label>
+            <input class="aff-amazon-import-search-form-panel-main-item" name="term" type="search" placeholder="<% if(type == 'keywords') { %><?php _e('Enter your search term...', 'affilicious'); ?><% } else { %><?php _e('Enter your ASIN...', 'affilicious'); ?><% } %>" value="<%= term %>">
 
-            <button class="aff-amazon-import-search-form-submit button-primary <% if(!term) { %>disabled<% } %>" <% if(!providerConfigured) { %>disabled="disabled"<% } %>><?php _e('Search', 'affilicious'); ?></button>
+            <button class="aff-amazon-import-search-form-panel-main-item button-primary <% if(!term) { %>disabled<% } %>" <% if(!providerConfigured) { %>disabled="disabled"<% } %>><?php _e('Search', 'affilicious'); ?></button>
         </div>
 
-        <div class="aff-amazon-import-search-form-content-filter">
-            <label class="aff-amazon-import-search-form-label screen-reader-text" for="type"><?php _e('Search type', 'affilicious'); ?></label>
-            <select class="aff-amazon-import-search-form-type" name="type">
+        <div class="aff-amazon-import-search-form-panel-filters">
+            <label class="screen-reader-text" for="type"><?php _e('Search type', 'affilicious'); ?></label>
+            <select class="aff-amazon-import-search-form-panel-filters-option" name="type">
                 <option value="keywords" <% if(type == 'keywords') { %>selected="selected"<% } %>><?php _e('Keywords', 'affilicious'); ?></option>
                 <option value="asin" <% if(type == 'asin') { %>selected="selected"<% } %>><?php _e('ASIN', 'affilicious'); ?></option>
             </select>
 
-            <label class="aff-amazon-import-search-form-label screen-reader-text" for="category"><?php _e('Search category', 'affilicious'); ?></label>
-            <select class="aff-amazon-import-search-form-category" name="category">
+            <label class="screen-reader-text" for="category"><?php _e('Search category', 'affilicious'); ?></label>
+            <select class="aff-amazon-import-search-form-panel-filters-option" name="category">
                 <option value="All" <% if(category == 'All') { %>selected="selected"<% } %>><?php _e('All Categories', 'affilicious'); ?></option>
                 <option value="Apparel" <% if(category == 'Apparel') { %>selected="selected"<% } %>><?php _e('Apparel', 'affilicious'); ?></option>
                 <option value="Appliances" <% if(category == 'Appliances') { %>selected="selected"<% } %>><?php _e('Appliances', 'affilicious'); ?></option>
@@ -52,14 +52,14 @@
                 <option value="Watches" <% if(category == 'Watches') { %>selected="selected"<% } %>><?php _e('Watches', 'affilicious'); ?></option>
             </select>
 
-            <label class="aff-amazon-import-search-form-label screen-reader-text" for="with-variants"><?php _e('Search with variants', 'affilicious'); ?></label>
-            <select class="aff-amazon-import-search-form-with-variants" name="with-variants">
+            <label class="screen-reader-text" for="with-variants"><?php _e('Search with variants', 'affilicious'); ?></label>
+            <select class="aff-amazon-import-search-form-panel-filters-option" name="with-variants">
                 <option value="no" <% if(withVariants == 'no') { %>selected="selected"<% } %>><?php _e('Without variants', 'affilicious'); ?></option>
                 <option value="yes" <% if(withVariants == 'yes') { %>selected="selected"<% } %>><?php _e('With variants', 'affilicious'); ?></option>
             </select>
 
             <% if(category == 'All' && withVariants == 'yes') { %>
-                <div class="aff-amazon-import-search-form-notice">
+                <div class="aff-amazon-import-search-form-panel-filters-notice">
                     <p><?php _e('Search with product variants doesn\'t work if the category "All" is selected.' , 'affilicious'); ?></p>
                 </div>
             <% } %>
