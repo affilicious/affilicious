@@ -25,6 +25,10 @@
                 </div>
             <% } %>
 
+            <% if(typeof shops !== 'undefined' && shops !== null && shops[0].tracking.affiliate_product_id !== null) { %>
+                <span class="aff-amazon-import-search-results-item-affiliate-product-id"><%= shops[0].tracking.affiliate_product_id %></span>
+            <% } %>
+
             <% if(typeof variants !== 'undefined' && variants !== null) { %>
                 <div class="aff-amazon-import-search-results-item-variants">
                     <h3 class="aff-amazon-import-search-results-item-variants-title"><?php _e('Variants', 'affilicious'); ?></h3>

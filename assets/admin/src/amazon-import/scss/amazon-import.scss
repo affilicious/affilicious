@@ -214,7 +214,8 @@
     font-size: 1.4rem;
     line-height: 1.6rem;
     margin-top: 0;
-    margin-bottom: 10px;
+    padding: 0 !important;
+    margin-bottom: 10px !important;
   }
 
   &-price {
@@ -235,6 +236,14 @@
       text-decoration: line-through;
       color: #ff2320;
     }
+  }
+
+  &-affiliate-product-id {
+    padding: 5px 8px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 1px solid #eee;
+    background-color: rgb(250, 250, 250);
   }
 
   &-variants {

@@ -212,7 +212,8 @@
     font-size: 1.4rem;
     line-height: 1.6rem;
     margin-top: 0;
-    margin-bottom: 10px; }
+    padding: 0 !important;
+    margin-bottom: 10px !important; }
   .aff-amazon-import-search-results-item-price {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -231,6 +232,12 @@
       font-size: 1rem;
       text-decoration: line-through;
       color: #ff2320; }
+  .aff-amazon-import-search-results-item-affiliate-product-id {
+    padding: 5px 8px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 1px solid #eee;
+    background-color: #fafafa; }
   .aff-amazon-import-search-results-item-variants-title {
     margin: 30px 0 10px 0; }
   .aff-amazon-import-search-results-item-variants-show-all {
