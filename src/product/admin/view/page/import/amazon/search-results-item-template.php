@@ -10,7 +10,12 @@
             </div>
 
             <div class="aff-amazon-import-search-results-item-content-main">
-                <h1 class="aff-amazon-import-search-results-item-title"><%= name %></h1>
+                <h1 class="aff-amazon-import-search-results-item-title">
+                    <%= name %>
+                    <% if(typeof shops !== 'undefined' && shops !== null && shops[0].tracking.affiliate_link !== null) { %>
+                        <a class="aff-amazon-import-search-results-item-affiliate-link dashicons dashicons-admin-links" href="<%= shops[0].tracking.affiliate_link %>" target="_blank"></a>
+                    <% } %>
+                </h1>
 
                 <% if(typeof shops !== 'undefined' && shops !== null && shops[0].pricing.price !== null) { %>
                     <div class="aff-amazon-import-search-results-item-price">
@@ -27,7 +32,10 @@
                 <% } %>
 
                 <% if(typeof shops !== 'undefined' && shops !== null && shops[0].tracking.affiliate_product_id !== null) { %>
-                    <span class="aff-amazon-import-search-results-item-affiliate-product-id"><%= shops[0].tracking.affiliate_product_id %></span>
+                    <dl class="aff-amazon-import-search-results-item-other">
+                        <dt><?php _e('ASIN', 'affilicious'); ?></dt>
+                        <dd class="aff-amazon-import-search-results-item-affiliate-product-id"><%= shops[0].tracking.affiliate_product_id %></dd>
+                    </dl>
                 <% } %>
 
                 <% if(typeof variants !== 'undefined' && variants !== null) { %>
@@ -74,9 +82,7 @@
         </div>
 
         <div class="aff-amazon-import-search-results-item-actions">
-            <button class="aff-amazon-import-search-results-item-actions-import">
-                <?php _e('Import', 'affilicious'); ?>
-            </button>
+            <button class="aff-amazon-import-search-results-item-actions-import"><?php _e('Import', 'affilicious'); ?></button>
         </div>
     </div>
 </script>
