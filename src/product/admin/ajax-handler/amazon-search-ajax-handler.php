@@ -44,7 +44,7 @@ class Amazon_Search_Ajax_Handler
         // Search for the Amazon products based on the GET parameters.
         $products = $this->search();
         if($products instanceof \WP_Error) {
-            wp_send_json_error($products);
+            wp_send_json_error($products, 500);
         }
 
         $products = apply_filters('aff_product_admin_ajax_handler_amazon_search_handle', $products);

@@ -71,13 +71,13 @@ class Amazon_Import_Ajax_Handler
         // Create an optional new shop template.
         $shop_template = $this->create_shop_template();
         if($shop_template instanceof \WP_Error) {
-            wp_send_json_error($shop_template);
+            wp_send_json_error($shop_template, 500);
         }
 
         // Import the Amazon product
         $product = $this->import($shop_template);
         if($product instanceof \WP_Error) {
-            wp_send_json_error($product);
+            wp_send_json_error($product, 500);
         }
 
         $product = apply_filters('aff_product_admin_ajax_handler_amazon_import_handle', $product, $shop_template);

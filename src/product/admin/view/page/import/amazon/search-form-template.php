@@ -4,7 +4,7 @@
             <label class="screen-reader-text" for="term"><?php _e('Search term', 'affilicious'); ?></label>
             <input class="aff-amazon-import-search-form-panel-main-item" name="term" type="search" placeholder="<% if(type == 'keywords') { %><?php _e('Enter your search term...', 'affilicious'); ?><% } else { %><?php _e('Enter your ASIN...', 'affilicious'); ?><% } %>" value="<%= term %>">
 
-            <button class="aff-amazon-import-search-form-panel-main-item button-primary <% if(!term) { %>disabled<% } %>" <% if(!providerConfigured) { %>disabled="disabled"<% } %>><?php _e('Search', 'affilicious'); ?></button>
+            <button class="aff-amazon-import-search-form-panel-main-item button-primary <% if(!term) { %>disabled<% } %>" <% if(!providerConfigured || error) { %>disabled="disabled"<% } %>><?php _e('Search', 'affilicious'); ?></button>
         </div>
 
         <div class="aff-amazon-import-search-form-panel-filters">
@@ -69,6 +69,12 @@
     <% if(loading) { %>
         <div class="aff-amazon-import-search-form-loading">
             <span class="aff-amazon-import-search-form-loading-spinner spinner is-active"></span>
+        </div>
+    <% } %>
+
+    <% if(error) { %>
+        <div class="aff-amazon-import-search-form-error aff-notice aff-error-notice" role="alert">
+            <?php _e('The search has failed because an error has occurred.', 'affilicious'); ?>
         </div>
     <% } %>
 </script>

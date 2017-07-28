@@ -55,6 +55,8 @@
     font-style: italic;
     margin: 0;
     margin-bottom: 10px; }
+  .aff-amazon-import-load-more-error {
+    text-align: left; }
 
 .aff-amazon-import-search-form-panel {
   display: block;

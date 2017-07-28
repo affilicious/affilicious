@@ -42,8 +42,12 @@ let Search = Backbone.Model.extend({
 
         this.results.fetch().done((results) => {
             this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
-            this.set('started', true);
             this.form.done();
+        }).fail(() => {
+            this.loadMore.set('enabled', false);
+            this.form.error();
+        }).always(() => {
+            this.set('started', true);
         });
     },
 
@@ -58,8 +62,9 @@ let Search = Backbone.Model.extend({
         this.results.url = this._buildUrl();
 
         this.results.fetch({'remove': false}).done((results) => {
-            this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
-            this.loadMore.done();
+            this.loadMore.done(this._isLoadMoreEnabled(results));
+        }).fail(() => {
+            this.loadMore.error();
         });
     },
 
