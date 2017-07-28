@@ -49,7 +49,7 @@ class Amazon_Helper
             $url = $item['LargeImage']['URL'];
         } elseif(isset($item['MediumImage'])) {
             $url = $item['MediumImage']['URL'];
-        } else if(isset($item['SmallImage'])) {
+        } elseif(isset($item['SmallImage'])) {
             $url = $item['SmallImage']['URL'];
         } else {
             return null;
@@ -81,11 +81,11 @@ class Amazon_Helper
         if(isset($item['ImageSets']['ImageSet'])) {
             $images = $item['ImageSets']['ImageSet'];
             foreach ($images as $image) {
-                if(isset($item['LargeImage'])) {
+                if(isset($image['LargeImage'])) {
                     $url = $image['LargeImage']['URL'];
                 } elseif(isset($image['MediumImage'])) {
                     $url = $image['MediumImage']['URL'];
-                } else if(isset($image['SmallImage'])) {
+                } elseif(isset($image['SmallImage'])) {
                     $url = $image['SmallImage']['URL'];
                 } else {
                     continue;
