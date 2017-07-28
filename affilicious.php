@@ -5,7 +5,7 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
- * Version: 0.8.20
+ * Version: 0.9
  * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.8
@@ -42,7 +42,7 @@ if(!class_exists('Affilicious')) {
     class Affilicious
     {
         const NAME = 'affilicious';
-        const VERSION = '0.8.20';
+        const VERSION = '0.9';
         const MIN_PHP_VERSION = '5.6';
 
         /**
