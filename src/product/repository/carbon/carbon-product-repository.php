@@ -657,7 +657,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
                 $raw_attribute = !empty($raw_variant[$meta_key]) ? $raw_variant[$meta_key] : null;
                 if(empty($raw_attribute)) {
-                    $raw_attribute = null;
+                    continue;
                 }
 
                 $attribute = $attribute_template->build(new Attribute_Value($raw_attribute));
@@ -854,6 +854,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
             if($raw_detail === null && !$detail_template->get_type()->is_boolean()) {
                 $raw_detail = $raw_detail == 'yes' ? true : false;
+            }
+
+            if($raw_detail === null) {
+                continue;
             }
 
             $detail = $detail_template->build(new Detail_Value($raw_detail));

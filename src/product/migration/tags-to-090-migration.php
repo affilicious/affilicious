@@ -65,6 +65,7 @@ final class Tags_To_090_Migration
             SELECT *
             FROM $wpdb->postmeta
             WHERE meta_key = '_affilicious_product_tags'
+            OR meta_key LIKE '_affilicious_product_variants_-_tags_%'
         ", ARRAY_A);
 
         foreach ($results as $result) {
@@ -73,6 +74,11 @@ final class Tags_To_090_Migration
             }
 
             $tags = explode(';', $result['meta_value']);
+
+            if(!empty($tags) && is_array($tags)) {
+                $tags = array_unique($tags);
+            }
+
             $tags = implode(',', $tags);
 
             update_post_meta($result['post_id'], $result['meta_key'], $tags);
@@ -117,6 +123,10 @@ final class Tags_To_090_Migration
                 }
 
                 $ids[] = $detail_template->get_id()->get_value();
+            }
+
+            if(!empty($ids) && is_array($ids)) {
+                $ids = array_unique($ids);
             }
 
             $ids = implode(',', $ids);
@@ -164,6 +174,10 @@ final class Tags_To_090_Migration
                 }
 
                 $ids[] = $attributes_template->get_id()->get_value();
+            }
+
+            if(!empty($ids) && is_array($ids)) {
+                $ids = array_unique($ids);
             }
 
             $ids = implode(',', $ids);

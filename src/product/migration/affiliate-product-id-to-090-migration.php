@@ -22,7 +22,7 @@ final class Affiliate_Product_Id_To_090_Migration
             $wpdb->query("
                 UPDATE $wpdb->postmeta
                 SET meta_key = REPLACE(meta_key, 'affiliate_id', 'affiliate_product_id')
-                WHERE meta_key LIKE '_affilicious%affiliate_id%';
+                WHERE meta_key LIKE '_affilicious_%_affiliate_id%'
             ");
 
             update_option(self::OPTION, 'yes');
