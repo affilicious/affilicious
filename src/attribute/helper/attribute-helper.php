@@ -19,7 +19,7 @@ class Attribute_Helper
     public static function to_array(Attribute $attribute)
     {
         $array = array(
-            'template_id' => $attribute->get_template_id()->get_value(),
+            'template_id' => $attribute->has_template_id() ? $attribute->get_template_id()->get_value() : null,
             'name' => $attribute->get_name()->get_value(),
             'slug' => $attribute->get_slug()->get_value(),
             'type' => $attribute->get_type()->get_value(),
