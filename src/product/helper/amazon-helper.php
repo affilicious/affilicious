@@ -17,6 +17,7 @@ use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Variant;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Model\Simple_Product;
+use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
@@ -216,6 +217,10 @@ class Amazon_Helper
             $availability = $type == 'now' ? Availability::available() : Availability::out_of_stock();
         }
 
+        if($availability === null && isset($item['ItemAttributes']['ProductGroup']) && $item['ItemAttributes']['ProductGroup'] == 'eBooks') {
+            $availability = Availability::available();
+        }
+
         $availability = apply_filters('aff_amazon_helper_find_availability', $availability, $item);
 
         return $availability;
@@ -230,6 +235,9 @@ class Amazon_Helper
      */
     public static function find_price(array $item)
     {
+        /** @var Provider_Repository_Interface $provider_repository */
+        $provider_repository = \Affilicious::get('affilicious.provider.repository.provider');
+
         $price = null;
 
         if(isset($item['Offers']['Offer']['OfferListing'])) {
