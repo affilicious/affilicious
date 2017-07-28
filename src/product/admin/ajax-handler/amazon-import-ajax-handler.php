@@ -118,18 +118,28 @@ class Amazon_Import_Ajax_Handler
 
         $new_shop_name = isset($_POST['config']['newShopName']) ? $_POST['config']['newShopName'] : null;
         if(empty($new_shop_name)) {
-            return new \WP_Error('aff_product_amazon_import_failed_to_find_new_shop_name', 'Specify a shop name if you want to create a new shop.');
+            return new \WP_Error('aff_product_amazon_import_failed_to_find_new_shop_name', __('Specify a shop name if you want to create a new shop.', 'affilicious'));
         }
 
         $provider = $this->provider_repository->find_one_by_slug(new Slug('amazon'));
         if($provider === null) {
-            return new \WP_Error('aff_product_amazon_import_failed_to_find_amazon_provider', 'Failed to find the Amazon provider.');
+            return new \WP_Error('aff_product_amazon_import_failed_to_find_amazon_provider', __('Failed to find the Amazon provider.', 'affilicious'));
         }
 
         $shop_template = $this->shop_template_factory->create_from_name(new Name($new_shop_name));
         $shop_template->set_provider_id($provider->get_id());
 
-        $this->shop_template_repository->store($shop_template);
+        $shop_template_id = $this->shop_template_repository->store($shop_template);
+        if($shop_template_id instanceof \WP_Error) {
+        	if($shop_template_id->get_error_code() == 'term_exists') {
+        		return new \WP_Error('aff_product_amazon_import_shop_template_exists', sprintf(
+        			__('Failed to import the product because the shop "%s" couldn\'t be created. It\'s already existing.', 'affilicious'),
+			        $shop_template->get_name()->get_value()
+		        ));
+	        }
+
+        	return $shop_template_id;
+        }
 
         return $shop_template;
     }
@@ -184,7 +194,10 @@ class Amazon_Import_Ajax_Handler
         }
 
         // Store the product as a post.
-        $this->product_repository->store($imported_product);
+        $product_id = $this->product_repository->store($imported_product);
+        if($product_id instanceof \WP_Error) {
+        	return $product_id;
+        }
 
         return $imported_product;
     }
@@ -234,6 +247,8 @@ class Amazon_Import_Ajax_Handler
             $with_product->set_image_gallery(array_merge($imported_images, $images));
         }
 
+	    $with_product = apply_filters('aff_product_amazon_import_after_merge_products', $with_product, $imported_product);
+
         return $with_product;
     }
 
@@ -247,9 +262,13 @@ class Amazon_Import_Ajax_Handler
      */
     protected function replace_product(Product $imported_product, Product $with_product)
     {
-        $temp = $with_product;
+	    $with_product = apply_filters('aff_product_amazon_import_before_replace_products', $with_product, $imported_product);
+
+	    $temp = $with_product;
         $with_product = clone $imported_product;
         $with_product->set_id($temp->get_id());
+
+	    $with_product = apply_filters('aff_product_amazon_import_after_replace_products', $with_product, $imported_product);
 
         return $with_product;
     }
