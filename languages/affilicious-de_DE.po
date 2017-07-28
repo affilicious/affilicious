@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-28 12:44+0200\n"
+"POT-Creation-Date: 2017-07-29 00:12+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -207,13 +207,13 @@ msgstr "Erweiterungen"
 msgid "Extensions"
 msgstr "Erweiterungen"
 
-#: src/common/admin/setup/assets-setup.php:61
+#: src/common/admin/setup/assets-setup.php:70
 #: src/common/setup/asset-setup.php:97
 #: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
-#: src/common/admin/setup/assets-setup.php:62
+#: src/common/admin/setup/assets-setup.php:71
 #: src/common/setup/asset-setup.php:98
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
@@ -222,7 +222,7 @@ msgstr "Affilicious Produkt"
 msgid "Variants"
 msgstr "Varianten"
 
-#: src/common/admin/setup/assets-setup.php:63
+#: src/common/admin/setup/assets-setup.php:72
 #: src/common/setup/asset-setup.php:99
 #: src/product/admin/meta-box/product-meta-box.php:87
 #: src/product/admin/meta-box/product-meta-box.php:214
@@ -234,7 +234,7 @@ msgstr "Varianten"
 msgid "Shops"
 msgstr "Shops"
 
-#: src/common/admin/setup/assets-setup.php:69
+#: src/common/admin/setup/assets-setup.php:78
 #: src/common/setup/asset-setup.php:100
 msgid "Add"
 msgstr "Hinzufügen"
@@ -310,6 +310,32 @@ msgstr "Detail-Vorlagen"
 #: src/product/admin/meta-box/product-meta-box.php:88
 msgid "Details"
 msgstr "Details"
+
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:121
+msgid "Specify a shop name if you want to create a new shop."
+msgstr "Gebe einen Shop-Namen an, damit du einen neuen Shop erstellen kannst."
+
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:126
+msgid "Failed to find the Amazon provider."
+msgstr "Der Amazon Provider wurde nicht gefunden."
+
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:136
+#, php-format
+msgid ""
+"Failed to import the product because the shop \"%s\" couldn't be created. "
+"It's already existing."
+msgstr ""
+"Der Produktimport ist fehlgeschlagen, da der Shop „%s“ nicht erstellt werden "
+"konnte. Der Name existiert bereits."
+
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:218
+#, php-format
+msgid ""
+"Failed to merge different product types. Got \"%s\", but the important "
+"product is \"%s\"."
+msgstr ""
+"Das Vereinen von Produkten mit unterschiedlichen Typen ist nicht möglich. "
+"Der Typ ist „%s“, aber das importierte Produkt ist „%s“."
 
 #: src/product/admin/meta-box/product-meta-box.php:85
 #: src/product/admin/options/product-options.php:22
@@ -870,8 +896,8 @@ msgstr ""
 "Suche mit Produktvarianten funktioniert nicht, wenn die Kategorie \"Alle\" "
 "ausgewählt ist."
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:77
-#: src/product/admin/view/page/import/amazon/search-load-more-template.php:23
+#: src/product/admin/view/page/import/amazon/search-form-template.php:80
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:20
 msgid "The search has failed because an error has occurred."
 msgstr "Die Suche ist fehlgeschlagen, da ein Fehler aufgetaucht ist."
 
@@ -879,7 +905,7 @@ msgstr "Die Suche ist fehlgeschlagen, da ein Fehler aufgetaucht ist."
 msgid "Load more"
 msgstr "Mehr laden"
 
-#: src/product/admin/view/page/import/amazon/search-load-more-template.php:17
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:13
 msgid "No more results"
 msgstr "Keine weiteren Ergebnisse"
 
@@ -915,6 +941,18 @@ msgstr "Bild löschen"
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
+
+#: src/product/search/amazon/amazon-search.php:155
+msgid "The Amazon search term is missing"
+msgstr "Das Amazon Suchbegriff fehlt"
+
+#: src/product/search/amazon/amazon-search.php:172
+msgid "The Amazon search type is missing"
+msgstr "Der Amazon Suchtyp fehlt"
+
+#: src/product/search/amazon/amazon-search.php:189
+msgid "The Amazon search category is missing"
+msgstr "Die Amazon Suchkategorie fehlt"
 
 #: src/product/setup/custom-taxonomies-setup.php:56
 #: src/product/setup/custom-taxonomies-setup.php:57

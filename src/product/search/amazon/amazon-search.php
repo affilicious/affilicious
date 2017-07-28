@@ -152,7 +152,7 @@ class Amazon_Search implements Search_Interface
     {
         $term = isset($params['term']) ? $params['term'] : null;
         if(empty($term)) {
-            return new \WP_Error('aff_amazon_search_missing_term', 'The Amazon search term with the key "term" is missing in the parameters.');
+            return new \WP_Error('aff_amazon_search_missing_term', __('The Amazon search term is missing', 'affilicious'));
         }
 
         return $term;
@@ -169,7 +169,7 @@ class Amazon_Search implements Search_Interface
     {
         $type = isset($params['type']) ? $params['type'] : null;
         if(empty($type)) {
-            return new \WP_Error('aff_amazon_search_missing_type', 'The Amazon search type with the key "type" is missing in the parameter.');
+            return new \WP_Error('aff_amazon_search_missing_type', __('The Amazon search type is missing', 'affilicious'));
         }
 
         return $type;
@@ -186,7 +186,7 @@ class Amazon_Search implements Search_Interface
     {
         $category = isset($params['category']) ? $params['category'] : null;
         if(empty($category)) {
-            return new \WP_Error('aff_amazon_search_missing_category', 'The Amazon search category with the key "category" is missing in the parameters.');
+            return new \WP_Error('aff_amazon_search_missing_category', __('The Amazon search category is missing', 'affilicious'));
         }
 
         if(!in_array($category, self::$categories)) {
