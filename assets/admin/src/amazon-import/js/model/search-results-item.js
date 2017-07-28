@@ -1,8 +1,10 @@
 let SearchResultsItem = Backbone.Model.extend({
     defaults: {
         'loading': false,
-        'done': false,
+        'success': false,
+        'successMessage': null,
         'error': false,
+        'errorMessage': null,
     },
 
     /**
@@ -18,30 +20,34 @@ let SearchResultsItem = Backbone.Model.extend({
     },
 
     /**
-     * Finish the search result item import.
+     * Successfully finish the import with an optional message.
      *
      * @since 0.9
+     * @param {string|null} message
      * @public
      */
-    done() {
+    showSuccessMessage(message = null) {
         this.set({
             'loading': false,
-            'done': true,
+            'success': true,
+            'successMessage': message
         });
 
-        this.trigger('aff:amazon-import:search:results:item:done', this);
+        this.trigger('aff:amazon-import:search:results:item:success', this);
     },
 
     /**
-     * Display an error for the search result item import.
+     * Display an error for import with an optional message.
      *
      * @since 0.9
+     * @param {string|null} message
      * @public
      */
-    error() {
+    showErrorMessage(message = null) {
         this.set({
             'loading': false,
             'error': true,
+            'errorMessage': message,
         });
 
         this.trigger('aff:amazon-import:search:results:item:error', this);

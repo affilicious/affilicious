@@ -202,7 +202,7 @@ class Amazon_Import_Ajax_Handler
         // Check if both product types are compatible to each other.
         if(!$imported_product->get_type()->is_equal_to($with_product->get_type())) {
             return new \WP_Error('aff_product_amazon_import_failed_to_merge_different_product_types', sprintf(
-                'Failed to merge different product types. Got "%s", but the important product is "%s".',
+                __('Failed to merge different product types. Got "%s", but the important product is "%s".', 'affilicious'),
                 $with_product->get_type()->get_value(),
                 $imported_product->get_type()->get_value()
             ));

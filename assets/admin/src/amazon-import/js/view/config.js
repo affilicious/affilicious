@@ -72,8 +72,7 @@ let Config =  Backbone.View.extend({
      * @param {Object} shop
      * @public
      */
-    addShop(shop)
-    {
+    addShop(shop) {
         this.$el.find('input[value="new-shop"]').parent().before(`
             <label class="aff-amazon-import-config-group-label" for="${shop.slug}">
                 <input id="amazon" class="aff-amazon-import-config-group-option" name="shop" type="radio" value="${shop.slug}">

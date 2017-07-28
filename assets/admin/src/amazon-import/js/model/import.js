@@ -37,19 +37,17 @@ let Import = Backbone.Model.extend({
             url: this._buildUrl(),
             data: data,
         }).done((result) => {
+            let shopTemplate = ((result || {}).data || {}).shop_template || null;
 
-            console.log(result);
-
-            if(result.data && result.data.shop_template) {
-
-                console.log("Hier");
-                console.log(result);
-                this.config.trigger('aff:amazon-import:config:add-shop', result.data.shop_template);
+            if(shopTemplate) {
+                this.config.trigger('aff:amazon-import:config:add-shop', shopTemplate);
             }
 
-            product.done();
-        }).fail(() => {
-            product.error();
+            product.showSuccessMessage();
+        }).fail((result) => {
+            let errorMessage = ((((result || {}).responseJSON || {}).data || {})[0] || {}).message || null;
+
+            product.showErrorMessage(errorMessage);
         })
     },
 

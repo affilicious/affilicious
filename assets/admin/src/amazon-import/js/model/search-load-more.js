@@ -4,6 +4,7 @@ let SearchLoadMore = Backbone.Model.extend({
         'loading': false,
         'noResults': false,
         'error': false,
+        'errorMessage': null,
     },
 
     /**
@@ -52,13 +53,15 @@ let SearchLoadMore = Backbone.Model.extend({
      * Show a load more error and deactivate the spinner animation.
      *
      * @since 0.9
+     * @param {string|null} message
      * @public
      */
-    error() {
+    error(message = null) {
         this.set({
             'enabled': true,
             'loading': false,
             'error': true,
+            'errorMessage': message,
         });
 
         this.trigger('aff:amazon-import:search:load-more:error', this);

@@ -82,12 +82,12 @@
         </div>
 
         <div class="aff-amazon-import-search-results-item-actions">
-            <% if(!loading && !done && !error) { %>
+            <% if(!loading && !success && !error) { %>
                 <button class="aff-amazon-import-search-results-item-actions-import"><?php _e('Import', 'affilicious'); ?></button>
-            <% } else if(!loading && done) { %>
-                <p class="aff-amazon-import-search-results-item-actions-done"><?php _e('Successfully imported the product.', 'affilicious'); ?></p>
+            <% } else if(!loading && success) { %>
+                <p class="aff-amazon-import-search-results-item-actions-done"><% if(successMessage) { %><%= successMessage %><% } else { %><?php _e('Successfully imported the product.', 'affilicious'); ?><% } %></p>
             <% } else if(!loading && error) { %>
-                <p class="aff-amazon-import-search-results-item-actions-error"><?php _e('Failed to import the product.', 'affilicious'); ?></p>
+                <p class="aff-amazon-import-search-results-item-actions-error"><% if(errorMessage) { %><%= errorMessage %><% } else { %><?php _e('Failed to import the product.', 'affilicious'); ?><% } %></p>
             <% } else { %>
                 <div class="aff-amazon-import-search-results-item-actions-loading">
                     <span class="aff-amazon-import-search-results-item-actions-loading-spinner spinner is-active"></span>
