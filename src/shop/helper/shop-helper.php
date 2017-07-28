@@ -52,14 +52,15 @@ class Shop_Helper
         $slug = new Slug($array['slug']);
         $tracking = Tracking_Helper::from_array($array['tracking']);
         $pricing = Pricing_Helper::from_array($array['pricing']);
-        $thumbnail = Image_Helper::from_array($array['thumbnail']);
-
         $shop = new Shop($name, $slug, $tracking, $pricing);
-        $shop->set_thumbnail($thumbnail);
 
         if(!empty($array['template_id'])) {
             $shop->set_template_id(new Shop_Template_Id($array['template_id']));
         }
+
+	    if(!empty($array['thumbnail']) && $thumbnail = Image_Helper::from_array($array['thumbnail'])) {
+		    $shop->set_thumbnail($thumbnail);
+	    }
 
         if(!empty($array['updated_at']) && $updated_at = Time_Helper::to_datetime_immutable_object($array['updated_at'])) {
             $shop->set_updated_at($updated_at);
