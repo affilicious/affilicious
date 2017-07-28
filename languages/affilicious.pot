@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-07-26 "
-"20:06+0200\n"
+"POT-Creation-Date: 2017-07-28 "
+"11:57+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -327,7 +327,7 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:30
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:43
 msgid "Variants"
 msgstr ""
 
@@ -802,7 +802,7 @@ msgstr ""
 #: src/product/admin/page/import-page.php:50
 #: src/product/admin/page/import-page.php:51
 #: src/product/admin/view/page/import.php:2
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:71
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:85
 msgid "Import"
 msgstr ""
 
@@ -891,6 +891,7 @@ msgid "Keywords"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:14
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:36
 msgid "ASIN"
 msgstr ""
 
@@ -1053,6 +1054,13 @@ msgid ""
 "\"All\" is selected."
 msgstr ""
 
+#: src/product/admin/view/page/import/amazon/search-form-template.php:77
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:23
+msgid ""
+"The search has failed because an "
+"error has occurred."
+msgstr ""
+
 #: src/product/admin/view/page/import/amazon/search-load-more-template.php:5
 msgid "Load more"
 msgstr ""
@@ -1061,7 +1069,7 @@ msgstr ""
 msgid "No more results"
 msgstr ""
 
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:34
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:47
 msgid "Show all"
 msgstr ""
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-26 20:06+0200\n"
+"POT-Creation-Date: 2017-07-28 11:57+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -218,7 +218,7 @@ msgstr "Affilicious Produkt"
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:30
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:43
 msgid "Variants"
 msgstr "Varianten"
 
@@ -618,7 +618,7 @@ msgstr "Slug im Plural"
 #: src/product/admin/page/import-page.php:50
 #: src/product/admin/page/import-page.php:51
 #: src/product/admin/view/page/import.php:2
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:71
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:85
 msgid "Import"
 msgstr "Importieren"
 
@@ -706,6 +706,7 @@ msgid "Keywords"
 msgstr "Schlüsselwörter"
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:14
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:36
 msgid "ASIN"
 msgstr "ASIN"
 
@@ -869,6 +870,11 @@ msgstr ""
 "Suche mit Produktvarianten funktioniert nicht, wenn die Kategorie \"Alle\" "
 "ausgewählt ist."
 
+#: src/product/admin/view/page/import/amazon/search-form-template.php:77
+#: src/product/admin/view/page/import/amazon/search-load-more-template.php:23
+msgid "The search has failed because an error has occurred."
+msgstr "Die Suche ist fehlgeschlagen, da ein Fehler aufgetaucht ist."
+
 #: src/product/admin/view/page/import/amazon/search-load-more-template.php:5
 msgid "Load more"
 msgstr "Mehr laden"
@@ -877,7 +883,7 @@ msgstr "Mehr laden"
 msgid "No more results"
 msgstr "Keine weiteren Ergebnisse"
 
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:34
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:47
 msgid "Show all"
 msgstr "Alle anzeigen"
 
@@ -1049,7 +1055,7 @@ msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
 
 #: src/provider/admin/options/amazon-options.php:112
 msgid "Thumbnail Update Interval"
-msgstr "Rating Aktualisierungsintervall"
+msgstr "Thumbnail Aktualisierungsintervall"
 
 #: src/provider/admin/options/amazon-options.php:114
 #: src/provider/admin/options/amazon-options.php:123
@@ -1085,16 +1091,16 @@ msgstr "Keine Aktualisierungen"
 
 #: src/provider/admin/options/amazon-options.php:119
 msgid "The automatic update interval for the product thumbnails."
-msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
+msgstr "Das automatische Aktualisierungsintervall für die Produkt-Thumbnails."
 
 #: src/provider/admin/options/amazon-options.php:121
 msgid "Image Gallery Update Interval"
-msgstr "Preis Aktualisierungsintervall"
+msgstr "Bildergalerie Aktualisierungsintervall"
 
 #: src/provider/admin/options/amazon-options.php:128
 msgid "The automatic update interval for the product image galleries."
 msgstr ""
-"Das automatische Aktualisierungsintervall für das Stimmen in den Bewertungen."
+"Das automatische Aktualisierungsintervall für die Produkt-Bildergalerien."
 
 #: src/provider/admin/options/amazon-options.php:130
 msgid "Price Update Interval"
@@ -1102,8 +1108,7 @@ msgstr "Preis Aktualisierungsintervall"
 
 #: src/provider/admin/options/amazon-options.php:137
 msgid "The automatic update interval for the shop prices in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
+msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
 
 #: src/provider/admin/options/amazon-options.php:139
 msgid "Old Price Update Interval"
