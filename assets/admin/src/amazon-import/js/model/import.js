@@ -36,7 +36,17 @@ let Import = Backbone.Model.extend({
             type: 'POST',
             url: this._buildUrl(),
             data: data,
-        }).done(() => {
+        }).done((result) => {
+
+            console.log(result);
+
+            if(result.data && result.data.shop_template) {
+
+                console.log("Hier");
+                console.log(result);
+                this.config.trigger('aff:amazon-import:config:add-shop', result.data.shop_template);
+            }
+
             product.done();
         }).fail(() => {
             product.error();

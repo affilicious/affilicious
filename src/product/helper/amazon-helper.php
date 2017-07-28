@@ -434,7 +434,7 @@ class Amazon_Helper
         }
 
         if ($product instanceof Shop_Aware_Interface) {
-            $shop = Amazon_Helper::find_shop($item, null, !empty($config['store_shop']));
+            $shop = Amazon_Helper::find_shop($item, !empty($config['shop_template_id']) ? $config['shop_template_id'] : null, !empty($config['store_shop']));
             if ($shop !== null) {
                 $product->add_shop($shop);
             }

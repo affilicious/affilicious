@@ -7,7 +7,7 @@ let SearchResultsItem = Backbone.View.extend({
         'click .aff-amazon-import-search-results-item-variants-show-all': 'showAll',
         'click .aff-amazon-import-search-results-item-actions-import': 'import'
     },
-    
+
     /**
      * Initialize the search results item.
      *

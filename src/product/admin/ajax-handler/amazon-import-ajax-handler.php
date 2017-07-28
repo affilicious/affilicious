@@ -2,15 +2,17 @@
 namespace Affilicious\Product\Admin\Ajax_Handler;
 
 use Affilicious\Common\Model\Name;
+use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Status;
-use Affilicious\Product\Helper\Product_Helper;
 use Affilicious\Product\Import\Import_Interface;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Product\Repository\Product_Repository_Interface;
+use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
+use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
@@ -42,22 +44,30 @@ class Amazon_Import_Ajax_Handler
     protected $shop_template_repository;
 
     /**
+     * @var Provider_Repository_Interface
+     */
+    protected $provider_repository;
+
+    /**
      * @since 0.9
      * @param Import_Interface $amazon_import
      * @param Product_Repository_Interface $product_repository
      * @param Shop_Template_Factory_Interface $shop_template_factory
      * @param Shop_Template_Repository_Interface $shop_template_repository
+     * @param Provider_Repository_Interface $provider_repository
      */
     public function __construct(
         Import_Interface $amazon_import,
         Product_Repository_Interface $product_repository,
         Shop_Template_Factory_Interface $shop_template_factory,
-        Shop_Template_Repository_Interface $shop_template_repository
+        Shop_Template_Repository_Interface $shop_template_repository,
+        Provider_Repository_Interface $provider_repository
     ) {
         $this->amazon_import = $amazon_import;
         $this->product_repository = $product_repository;
         $this->shop_template_factory = $shop_template_factory;
         $this->shop_template_repository = $shop_template_repository;
+        $this->provider_repository = $provider_repository;
     }
 
     /**
@@ -80,14 +90,17 @@ class Amazon_Import_Ajax_Handler
             wp_send_json_error($product, 500);
         }
 
-        $product = apply_filters('aff_product_admin_ajax_handler_amazon_import_handle', $product, $shop_template);
+        // Map the created shop template into an array which can be serialized into JSON.
+        if($shop_template !== null) {
+            $shop_template = Shop_Template_Helper::to_array($shop_template);
 
-        // Map the imported product into an array which can be serialized into JSON.
-        $product = Product_Helper::to_array($product);
-        $product = apply_filters('aff_product_admin_ajax_handler_amazon_import_formatted_handle', $product, $shop_template);
+            // Return the created shop template.
+            wp_send_json_success([
+                'shop_template' => $shop_template
+            ]);
+        }
 
-        // Return the json response.
-        wp_send_json_success($product);
+        wp_send_json_success();
     }
 
     /**
@@ -108,7 +121,14 @@ class Amazon_Import_Ajax_Handler
             return new \WP_Error('aff_product_amazon_import_failed_to_find_new_shop_name', 'Specify a shop name if you want to create a new shop.');
         }
 
+        $provider = $this->provider_repository->find_one_by_slug(new Slug('amazon'));
+        if($provider === null) {
+            return new \WP_Error('aff_product_amazon_import_failed_to_find_amazon_provider', 'Failed to find the Amazon provider.');
+        }
+
         $shop_template = $this->shop_template_factory->create_from_name(new Name($new_shop_name));
+        $shop_template->set_provider_id($provider->get_id());
+
         $this->shop_template_repository->store($shop_template);
 
         return $shop_template;

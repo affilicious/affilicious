@@ -109,7 +109,7 @@ class Shop_Template_Helper
     public static function to_array(Shop_Template $shop_template)
     {
         $array = array(
-            'id' => $shop_template->get_id()->get_value(),
+            'id' => $shop_template->has_id() ? $shop_template->get_id()->get_value() : null,
             'name' => $shop_template->get_name()->get_value(),
             'slug' => $shop_template->get_slug()->get_value(),
             'thumbnail' => $shop_template->has_thumbnail() ? Image_Helper::to_array($shop_template->get_thumbnail()) : null,

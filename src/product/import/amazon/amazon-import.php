@@ -45,7 +45,8 @@ class Amazon_Import implements Import_Interface
             'store_attributes' => true,
             'store_shop' => true,
             'store_thumbnail' => true,
-            'store_image_gallery' => true
+            'store_image_gallery' => true,
+            'shop_template_id' => null,
         ]);
 
         $amazon_provider = $this->find_amazon_provider();

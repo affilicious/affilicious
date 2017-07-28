@@ -663,7 +663,8 @@ if(!class_exists('Affilicious')) {
                     $c['affilicious.product.import.amazon'],
                     $c['affilicious.product.repository.product'],
                     $c['affilicious.shop.factory.shop_template'],
-                    $c['affilicious.shop.repository.shop_template']
+                    $c['affilicious.shop.repository.shop_template'],
+                    $c['affilicious.provider.repository.provider']
                 );
             };
 
