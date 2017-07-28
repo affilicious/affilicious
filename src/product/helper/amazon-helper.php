@@ -407,9 +407,13 @@ class Amazon_Helper
             $variant_items = $item['Variations']['Item'];
             foreach ($variant_items as $variant_item) {
 
-                // The variants doesn't have a affiliate link
+                // The variants doesn't have an affiliate link and images.
                 $variant_item = wp_parse_args($variant_item, [
-                    'DetailPageURL' => $item['DetailPageURL']
+                    'DetailPageURL' => $item['DetailPageURL'],
+	                'SmallImage' => isset($item['SmallImage']) ? $item['SmallImage'] : null,
+	                'MediumImage' => isset($item['MediumImage']) ? $item['MediumImage'] : null,
+	                'LargeImage' => isset($item['LargeImage']) ? $item['LargeImage'] : null,
+	                'ImageSets' => isset($item['ImageSets']) ? $item['ImageSets'] : null,
                 ]);
 
                 /** @var Product_Variant $product_variant */
