@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-28 11:57+0200\n"
+"POT-Creation-Date: 2017-07-28 12:44+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -618,7 +618,7 @@ msgstr "Slug im Plural"
 #: src/product/admin/page/import-page.php:50
 #: src/product/admin/page/import-page.php:51
 #: src/product/admin/view/page/import.php:2
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:85
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:86
 msgid "Import"
 msgstr "Importieren"
 
@@ -886,6 +886,14 @@ msgstr "Keine weiteren Ergebnisse"
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:47
 msgid "Show all"
 msgstr "Alle anzeigen"
+
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:88
+msgid "Successfully imported the product."
+msgstr "Das Produkt wurde erfolgreich importiert."
+
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:90
+msgid "Failed to import the product."
+msgstr "Importieren des Produkts ist fehlgeschlagen."
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:54
 msgid "Delete"

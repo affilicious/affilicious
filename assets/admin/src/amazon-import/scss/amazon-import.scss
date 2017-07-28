@@ -352,10 +352,15 @@
 
   &-actions {
     padding: 10px;
+    height: 60px;
     border-top: 1px solid #eee;
     background: #fafafa;
     display: flex;
     justify-content: center;
+    flex: 1 0 100%;
+    align-items: center;
+    box-sizing: border-box;
+
 
     &-import {
       font-size: 13px;
@@ -380,6 +385,16 @@
         color: #fff !important;
         text-decoration: none;
       }
+    }
+
+    &-done {
+      margin: 0;
+      color: #179c2e;
+    }
+
+    &-error {
+      margin: 0;
+      color: #dd372e;
     }
   }
 }

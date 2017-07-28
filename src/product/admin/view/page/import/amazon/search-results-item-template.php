@@ -82,7 +82,17 @@
         </div>
 
         <div class="aff-amazon-import-search-results-item-actions">
-            <button class="aff-amazon-import-search-results-item-actions-import"><?php _e('Import', 'affilicious'); ?></button>
+            <% if(!loading && !done && !error) { %>
+                <button class="aff-amazon-import-search-results-item-actions-import"><?php _e('Import', 'affilicious'); ?></button>
+            <% } else if(!loading && done) { %>
+                <p class="aff-amazon-import-search-results-item-actions-done"><?php _e('Successfully imported the product.', 'affilicious'); ?></p>
+            <% } else if(!loading && error) { %>
+                <p class="aff-amazon-import-search-results-item-actions-error"><?php _e('Failed to import the product.', 'affilicious'); ?></p>
+            <% } else { %>
+                <div class="aff-amazon-import-search-results-item-actions-loading">
+                    <span class="aff-amazon-import-search-results-item-actions-loading-spinner spinner is-active"></span>
+                </div>
+            <% } %>
         </div>
     </div>
 </script>

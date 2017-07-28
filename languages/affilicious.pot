@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "POT-Creation-Date: 2017-07-28 "
-"11:57+0200\n"
+"12:44+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -802,7 +802,7 @@ msgstr ""
 #: src/product/admin/page/import-page.php:50
 #: src/product/admin/page/import-page.php:51
 #: src/product/admin/view/page/import.php:2
-#: src/product/admin/view/page/import/amazon/search-results-item-template.php:85
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:86
 msgid "Import"
 msgstr ""
 
@@ -1071,6 +1071,17 @@ msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:47
 msgid "Show all"
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:88
+msgid ""
+"Successfully imported the "
+"product."
+msgstr ""
+
+#: src/product/admin/view/page/import/amazon/search-results-item-template.php:90
+msgid ""
+"Failed to import the product."
 msgstr ""
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:54

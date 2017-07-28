@@ -22,7 +22,7 @@ let Import = Backbone.Model.extend({
      * Import the product.
      *
      * @since 0.9
-     * @param {Backbone.Model} product
+     * @param product
      * @public
      */
     import(product) {
@@ -36,11 +36,10 @@ let Import = Backbone.Model.extend({
             type: 'POST',
             url: this._buildUrl(),
             data: data,
-            dataType: "application/json",
-        }).done(function() {
-            alert('Done');
-        }).fail(function() {
-            alert('Fail');
+        }).done(() => {
+            product.done();
+        }).fail(() => {
+            product.error();
         })
     },
 

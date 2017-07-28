@@ -317,6 +317,7 @@
           background-color: white; }
   .aff-amazon-import-search-results-item-actions {
     padding: 10px;
+    height: 60px;
     border-top: 1px solid #eee;
     background: #fafafa;
     display: -webkit-box;
@@ -324,7 +325,15 @@
     display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
-            justify-content: center; }
+            justify-content: center;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 100%;
+            flex: 1 0 100%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
     .aff-amazon-import-search-results-item-actions-import {
       font-size: 13px;
       cursor: pointer;
@@ -346,6 +355,12 @@
         background-color: #ff9736;
         color: #fff !important;
         text-decoration: none; }
+    .aff-amazon-import-search-results-item-actions-done {
+      margin: 0;
+      color: #179c2e; }
+    .aff-amazon-import-search-results-item-actions-error {
+      margin: 0;
+      color: #dd372e; }
 
 .aff-amazon-import-config-group {
   -webkit-box-sizing: border-box;
