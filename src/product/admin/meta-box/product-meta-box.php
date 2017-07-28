@@ -277,7 +277,7 @@ class Product_Meta_Box
      */
     public function get_variants_empty_attributes_notice_field()
     {
-        $notice = View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+        $notice = View_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'src/common/view/notifications/warning-notice.php', array(
             'message' => sprintf(
                 __('<b>No attribute templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_attribute_tmpl&post_type=aff_product')
@@ -319,7 +319,7 @@ class Product_Meta_Box
      */
     private function get_shops_empty_notice_field()
     {
-        $notice = $notice = View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+        $notice = $notice = View_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'src/common/view/notifications/warning-notice.php', array(
             'message' => sprintf(
                 __('<b>No shop templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_shop_tmpl&post_type=aff_product')
@@ -475,7 +475,7 @@ class Product_Meta_Box
      */
     private function get_details_empty_notice_field()
     {
-        $notice =  View_Helper::stringify('src/common/view/notifications/warning-notice.php', array(
+        $notice =  View_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'src/common/view/notifications/warning-notice.php', array(
             'message' => sprintf(
                 __('<b>No detail templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_detail_tmpl&post_type=aff_product')
