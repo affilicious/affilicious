@@ -33,7 +33,7 @@
   "require": {
     "php": ">=5.6",
     "pimple/pimple": "^3.0",
-    "htmlburger/carbon-fields": "1.4.2",
+    "htmlburger/carbon-fields": "1.4.3",
     "exeu/apai-io": "~2.1",
     "webmozart/assert": "^1.2"
   },
@@ -41,6 +41,11 @@
     "phpunit/phpunit": "~4.8",
     "paulgibbs/behat-wordpress-extension": "dev-master",
     "behat/mink-goutte-driver": "^1.2"
+  },
+  "extra": {
+    "installer-paths": {
+      "./vendor/htmlburger/carbon-fields": ["htmlburger/carbon-fields"]
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true
