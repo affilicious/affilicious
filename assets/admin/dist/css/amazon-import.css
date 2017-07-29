@@ -1,3 +1,91 @@
+.aff-import-search-form-main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+  @media (max-width: 575px) {
+    .aff-import-search-form-main {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; } }
+  .aff-import-search-form-main input[name="term"] {
+    margin: 0;
+    padding: 3px 5px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+    display: block;
+    width: calc(100% - 110px); }
+    @media (max-width: 575px) {
+      .aff-import-search-form-main input[name="term"] {
+        width: 100%;
+        margin-bottom: 10px; } }
+  .aff-import-search-form-main button {
+    border: 1px solid red;
+    height: 32px !important;
+    line-height: 30px !important;
+    width: 100px;
+    display: block; }
+    @media (max-width: 575px) {
+      .aff-import-search-form-main button {
+        width: 100%; } }
+
+.aff-import-search-form-filters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 10px 10px 0 10px; }
+  @media (max-width: 575px) {
+    .aff-import-search-form-filters {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; } }
+  .aff-import-search-form-filters-item {
+    margin: 0 10px 10px 0;
+    height: 32px !important;
+    line-height: 32px !important;
+    padding: 2px;
+    font-size: 14px;
+    min-width: 150px;
+    vertical-align: middle; }
+    .aff-import-search-form-filters-item:last-of-type {
+      margin-right: 0; }
+    @media (max-width: 575px) {
+      .aff-import-search-form-filters-item {
+        margin-right: 0; } }
+  .aff-import-search-form-filters-notice {
+    display: block;
+    font-size: 13px;
+    font-style: italic;
+    color: #555; }
+    .aff-import-search-form-filters-notice p {
+      margin: 0 0 10px 0; }
+
+.aff-import-search-form-loading {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  width: 100%; }
+  .aff-import-search-form-loading-spinner {
+    float: none; }
+
 .aff-amazon-import {
   display: -webkit-box;
   display: -ms-flexbox;

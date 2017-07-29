@@ -170,6 +170,33 @@
   background-color: #FEE6E6;
   border-color: #F4B5B5; }
 
+.aff-panel {
+  width: 100%;
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #555;
+  font-size: 13px;
+  margin-bottom: 25px; }
+  .aff-panel-body {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
+  .aff-panel-footer {
+    display: block;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+    padding: 10px; }
+
 .taxonomy-aff_shop_tmpl .wp-editor-tools,
 .taxonomy-aff_shop_tmpl .wp-editor-container,
 .taxonomy-aff_shop_tmpl .term-description-wrap,
