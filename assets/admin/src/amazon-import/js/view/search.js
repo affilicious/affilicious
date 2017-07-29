@@ -3,7 +3,7 @@ import SearchLoadMore from './search-load-more';
 import SearchResults from './search-results';
 
 let Search = Backbone.View.extend({
-    el: '.aff-amazon-import-search',
+    el: '#aff-amazon-import-search',
 
     /**
      * Initialize the search.

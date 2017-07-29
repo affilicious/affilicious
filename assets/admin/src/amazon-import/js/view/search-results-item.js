@@ -4,8 +4,8 @@ let SearchResultsItem = Backbone.View.extend({
     className: '',
 
     events: {
-        'click .aff-amazon-import-search-results-item-variants-show-all': 'showAll',
-        'click .aff-amazon-import-search-results-item-actions-import': 'import'
+        'click .aff-import-search-results-item-variants-show-all': 'showAll',
+        'click .aff-import-search-results-item-actions-import': 'import'
     },
 
     /**

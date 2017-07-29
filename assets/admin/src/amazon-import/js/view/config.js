@@ -1,5 +1,5 @@
 let Config =  Backbone.View.extend({
-    el: '.aff-amazon-import-config',
+    el: '#aff-amazon-import-config',
 
     events: {
         'change input[name="shop"]': 'changeShop',
@@ -74,8 +74,8 @@ let Config =  Backbone.View.extend({
      */
     addShop(shop) {
         this.$el.find('input[value="new-shop"]').parent().before(`
-            <label class="aff-amazon-import-config-group-label" for="${shop.slug}">
-                <input id="amazon" class="aff-amazon-import-config-group-option" name="shop" type="radio" value="${shop.slug}">
+            <label class="aff-import-config-group-label" for="${shop.slug}">
+                <input id="amazon" class="aff-import-config-group-option" name="shop" type="radio" value="${shop.slug}">
                 ${shop.name}         
             </label>
         `);

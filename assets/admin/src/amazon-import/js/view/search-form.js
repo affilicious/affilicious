@@ -1,5 +1,5 @@
 let SearchForm =  Backbone.View.extend({
-    el: '.aff-amazon-import-search-form',
+    el: '#aff-amazon-import-search-form',
 
     events: {
         'change': 'change',
