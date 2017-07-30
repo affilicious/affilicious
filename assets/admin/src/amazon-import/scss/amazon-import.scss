@@ -119,13 +119,29 @@
           flex-direction: row;
           justify-content: space-between;
 
+          @media (max-width: 767px) {
+            flex-direction: column;
+          }
+
           &-media {
             width: 200px;
-            height: 100%;
+            display: inline-block;
+
+            @media (max-width: 767px) {
+              width: 100%;
+              display: block;
+              margin-bottom: 10px;
+            }
           }
 
           &-main {
             width: calc(100% - 220px);
+            display: inline-block;
+
+            @media (max-width: 767px) {
+              width: 100%;
+              display: block;
+            }
           }
         }
 
@@ -137,8 +153,12 @@
           width: 200px;
           height: 200px;
 
+          @media (max-width: 767px) {
+            margin: 0 auto;
+          }
+
           &-image {
-            display: block;
+            display: inline-block;
             max-width: 100%;
             max-height: 100%;
             height: auto;
