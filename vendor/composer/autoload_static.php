@@ -134,6 +134,8 @@ class ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820
         'Affilicious\\Common\\License\\License_Manager' => __DIR__ . '/../..' . '/src/common/license/license-manager.php',
         'Affilicious\\Common\\License\\License_Processor' => __DIR__ . '/../..' . '/src/common/license/license-processor.php',
         'Affilicious\\Common\\License\\License_Status' => __DIR__ . '/../..' . '/src/common/license/license-status.php',
+        'Affilicious\\Common\\Model\\Custom_Value_Aware_Interface' => __DIR__ . '/../..' . '/src/common/model/custom-value-aware-interface.php',
+        'Affilicious\\Common\\Model\\Custom_Value_Aware_Trait' => __DIR__ . '/../..' . '/src/common/model/custom-value-aware-trait.php',
         'Affilicious\\Common\\Model\\Image' => __DIR__ . '/../..' . '/src/common/model/image.php',
         'Affilicious\\Common\\Model\\Image_Id' => __DIR__ . '/../..' . '/src/common/model/image-id.php',
         'Affilicious\\Common\\Model\\Key' => __DIR__ . '/../..' . '/src/common/model/key.php',

@@ -49,6 +49,8 @@ return array(
     'Affilicious\\Common\\License\\License_Manager' => $baseDir . '/src/common/license/license-manager.php',
     'Affilicious\\Common\\License\\License_Processor' => $baseDir . '/src/common/license/license-processor.php',
     'Affilicious\\Common\\License\\License_Status' => $baseDir . '/src/common/license/license-status.php',
+    'Affilicious\\Common\\Model\\Custom_Value_Aware_Interface' => $baseDir . '/src/common/model/custom-value-aware-interface.php',
+    'Affilicious\\Common\\Model\\Custom_Value_Aware_Trait' => $baseDir . '/src/common/model/custom-value-aware-trait.php',
     'Affilicious\\Common\\Model\\Image' => $baseDir . '/src/common/model/image.php',
     'Affilicious\\Common\\Model\\Image_Id' => $baseDir . '/src/common/model/image-id.php',
     'Affilicious\\Common\\Model\\Key' => $baseDir . '/src/common/model/key.php',
