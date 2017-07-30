@@ -113,6 +113,7 @@ class Detail_Template_Helper
             'slug' => $detail_template->get_slug()->get_value(),
             'type' => $detail_template->get_type()->get_value(),
             'unit' => $detail_template->has_unit() ? $detail_template->get_unit()->get_value() : null,
+	        'custom_values' => $detail_template->has_custom_values() ? $detail_template->get_custom_values() : null,
         );
 
         $array = apply_filters('aff_detail_to_array', $array, $detail_template);

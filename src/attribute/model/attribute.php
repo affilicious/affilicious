@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Attribute\Model;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Trait;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Aware_Trait;
 use Affilicious\Common\Model\Slug;
@@ -12,7 +13,7 @@ if (!defined('ABSPATH')) {
 
 class Attribute
 {
-    use Name_Aware_Trait, Slug_Aware_Trait, Type_Trait, Unit_Trait {
+    use Name_Aware_Trait, Slug_Aware_Trait, Type_Trait, Unit_Trait, Custom_Value_Aware_Trait {
         Name_Aware_Trait::set_name as private;
         Slug_Aware_Trait::set_slug as private;
         Type_Trait::set_type as private;

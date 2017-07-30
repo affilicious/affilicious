@@ -25,6 +25,7 @@ class Attribute_Helper
             'type' => $attribute->get_type()->get_value(),
             'unit' => $attribute->has_unit() ? $attribute->get_unit()->get_value() : null,
             'value' => $attribute->get_value()->get_value(),
+	        'custom_values' => $attribute->has_custom_values() ? $attribute->get_custom_values() : null,
         );
 
         $array = apply_filters('aff_attribute_to_array', $array, $attribute);

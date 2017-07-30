@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Model;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Trait;
 use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
@@ -16,7 +17,7 @@ if (!defined('ABSPATH')) {
 
 class Product
 {
-    use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait;
+    use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait, Custom_Value_Aware_Trait;
 
     /**
      * There is a limit of 20 characters for post types in Wordpress.

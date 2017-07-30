@@ -25,6 +25,7 @@ class Detail_Helper
             'type' => $detail->get_type()->get_value(),
             'unit' => $detail->has_unit() ? $detail->get_unit()->get_value() : null,
             'value' => $detail->get_value()->get_value(),
+	        'custom_values' => $detail->has_custom_values() ? $detail->get_custom_values() : null,
         );
 
         $array = apply_filters('aff_detail_to_array', $array, $detail);

@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Shop\Model;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Trait;
 use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
@@ -14,7 +15,7 @@ if (!defined('ABSPATH')) {
 
 class Shop
 {
-    use Name_Aware_Trait, Slug_Aware_Trait {
+    use Name_Aware_Trait, Slug_Aware_Trait, Custom_Value_Aware_Trait {
         Name_Aware_Trait::set_name as private;
         Slug_Aware_Trait::set_slug as private;
     }

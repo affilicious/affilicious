@@ -95,6 +95,7 @@ class Provider_Helper
             'name' => $provider->get_name()->get_value(),
             'slug' => $provider->get_slug()->get_value(),
             'credentials' => $provider->get_credentials()->get_value(),
+	        'custom_values' => $provider->has_custom_values() ? $provider->get_custom_values() : null,
         );
 
         $array = apply_filters('aff_provider_to_array', $array, $provider);
