@@ -9,6 +9,7 @@ use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Simple_Product;
+use Affilicious\Product\Model\Type;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
@@ -78,14 +79,20 @@ class Amazon_Import_Ajax_Handler
      */
     public function handle()
     {
+    	// Get the post data
+		$data = $this->get_data();
+	    if($data instanceof \WP_Error) {
+		    wp_send_json_error($data, 500);
+	    }
+
         // Create an optional new shop template.
-        $shop_template = $this->create_shop_template();
+        $shop_template = $this->create_shop_template($data);
         if($shop_template instanceof \WP_Error) {
             wp_send_json_error($shop_template, 500);
         }
 
         // Import the Amazon product
-        $product = $this->import($shop_template);
+        $product = $this->import($data, $shop_template);
         if($product instanceof \WP_Error) {
             wp_send_json_error($product, 500);
         }
@@ -103,20 +110,42 @@ class Amazon_Import_Ajax_Handler
         wp_send_json_success();
     }
 
-    /**
-     * Create a new shop template with the given name from the POST parameters.
-     *
-     * @since 0.9
-     * @return null|Shop_Template|\WP_Error
-     */
-    protected function create_shop_template()
+	/**
+	 * Get the unserialized post request data.
+	 *
+	 * @since 0.9
+	 * @return array|\WP_Error
+	 */
+    protected function get_data()
     {
-        $selected_shop = isset($_POST['config']['selectedShop']) ? $_POST['config']['selectedShop'] : null;
+	    $data = [
+		    'product' => !empty($_POST['product']) ? $_POST['product'] : null,
+		    'config' => !empty($_POST['config']) ? $_POST['config'] : null,
+		    'form' => !empty($_POST['form']) ? $_POST['form'] : null,
+	    ];
+
+	    if(empty($data['product']) || empty($data['config']) || empty($data['form'])) {
+	    	return new \WP_Error('aff_product_amazon_import_not_valid_request', __('The Amazon import request is not valid.', 'affilicious'));
+	    }
+
+	    return $data;
+    }
+
+	/**
+	 * Create a new shop template with the given name from the POST parameters.
+	 *
+	 * @since 0.9
+	 * @param array $data
+	 * @return Shop_Template|null|\WP_Error
+	 */
+    protected function create_shop_template(array $data)
+    {
+        $selected_shop = isset($data['config']['selectedShop']) ? $data['config']['selectedShop'] : null;
         if($selected_shop !== 'new-shop') {
             return null;
         }
 
-        $new_shop_name = isset($_POST['config']['newShopName']) ? $_POST['config']['newShopName'] : null;
+        $new_shop_name = isset($data['config']['newShopName']) ? $data['config']['newShopName'] : null;
         if(empty($new_shop_name)) {
             return new \WP_Error('aff_product_amazon_import_failed_to_find_new_shop_name', __('Specify a shop name if you want to create a new shop.', 'affilicious'));
         }
@@ -148,21 +177,31 @@ class Amazon_Import_Ajax_Handler
      * Import the Amazon product by the POST config and with the given shop template as Amazon shop.
      *
      * @since 0.9
+     * @param array $data
      * @param Shop_Template|null $shop_template
      * @return Product|\WP_Error
      */
-    protected function import(Shop_Template $shop_template = null)
+    protected function import(array $data, Shop_Template $shop_template = null)
     {
         // Extract the search params.
-        $asin = isset($_POST['product']['shops'][0]['tracking']['affiliate_product_id']) ? $_POST['product']['shops'][0]['tracking']['affiliate_product_id'] : null;
-        $action = isset($_POST['config']['selectedAction']) ? $_POST['config']['selectedAction'] : null;
-        $status = isset($_POST['config']['status']) ? $_POST['config']['status'] : null;
-        $merge_product_id = isset($_POST['config']['mergeProductId']) ? $_POST['config']['mergeProductId'] : null;
-        $replace_product_id = isset($_POST['config']['replaceProductId']) ? $_POST['config']['replaceProductId'] : null;
+        $asin = isset($data['product']['shops'][0]['tracking']['affiliate_product_id']) ? $data['product']['shops'][0]['tracking']['affiliate_product_id'] : null;
+        if(empty($asin)) {
+        	$asin = isset($data['product']['custom_values']['amazon_parent_asin']) ? $data['product']['custom_values']['amazon_parent_asin'] : null;
+
+        	if(empty($asin)) {
+        		return new \WP_Error('aff_product_amazon_import_failed_to_find_asin', __('Failed to find the ASIN for product.', 'affilicious'));
+	        }
+        }
+
+        $action = isset($data['config']['selectedAction']) ? $data['config']['selectedAction'] : null;
+        $status = isset($data['config']['status']) ? $data['config']['status'] : null;
+        $merge_product_id = isset($data['config']['mergeProductId']) ? $data['config']['mergeProductId'] : null;
+        $replace_product_id = isset($data['config']['replaceProductId']) ? $data['config']['replaceProductId'] : null;
 
         // Import the product
         $imported_product = $this->amazon_import->import(new Affiliate_Product_Id($asin), [
-            'shop_template_id' => $shop_template !== null ? $shop_template->get_id() : null
+            'shop_template_id' => $shop_template !== null ? $shop_template->get_id() : null,
+	        'variants' => isset($data['product']['type']) && $data['product']['type'] == Type::COMPLEX ? true : false,
         ]);
 
         // Check for import errors.

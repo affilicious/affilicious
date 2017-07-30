@@ -130,6 +130,7 @@ class Product_Helper
             'id' => $product->has_id() ? $product->get_id()->get_value() : null,
             'name' => $product->get_name()->get_value(),
             'slug' => $product->get_slug()->get_value(),
+	        'type' => $product->get_type()->get_value(),
             'thumbnail_id' => $product->has_thumbnail_id() ? $product->get_thumbnail_id()->get_value() : null,
             'thumbnail' => $product->has_thumbnail() ? Image_Helper::to_array($product->get_thumbnail()) : null,
 	        'custom_values' => $product->has_custom_values() ? $product->get_custom_values() : null,

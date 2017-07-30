@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Admin\Ajax_Handler;
 
 use Affilicious\Product\Helper\Product_Helper;
+use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Search\Search_Interface;
@@ -51,7 +52,9 @@ class Amazon_Search_Ajax_Handler
 
         // Map the products into arrays which can be serialized into JSON.
         $products = array_map(function(Product $product) {
-            return Product_Helper::to_array($product);
+            $array = Product_Helper::to_array($product);
+
+            return $array;
         }, $products);
 
         $products = apply_filters('aff_product_admin_ajax_handler_amazon_search_formatted_handle', $products);
@@ -85,5 +88,14 @@ class Amazon_Search_Ajax_Handler
         ]);
 
         return $products;
+    }
+
+    protected function add_extra_data(Product $product, $array)
+    {
+    	if($product instanceof Complex_Product) {
+		    $array['extra']['complex']['affiliate_product_id'] = null;
+	    }
+
+	    return $array;
     }
 }

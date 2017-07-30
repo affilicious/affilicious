@@ -27,7 +27,12 @@ let Import = Backbone.Model.extend({
      */
     import(product) {
         let data = {
-            'product': product.attributes,
+            'product': {
+                'name' : product.attributes.name,
+                'type' : product.attributes.type,
+                'shops' : product.attributes.shops,
+                'custom_values' : product.attributes.custom_values,
+            },
             'config': this.config.attributes,
             'form': this.search.form.attributes,
         };

@@ -454,6 +454,10 @@ class Amazon_Helper
             $product->set_image_gallery($image_gallery);
         }
 
+	    if(isset($item['ParentASIN'])) {
+		    $product->add_custom_value('amazon_parent_asin', $item['ParentASIN'] );
+	    }
+
         return $product;
     }
 }
