@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-07-29 00:12+0200\n"
+"POT-Creation-Date: 2017-07-30 13:13+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -228,7 +228,7 @@ msgstr "Varianten"
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
-#: src/product/admin/view/page/import/amazon/config-template.php:5
+#: src/product/admin/view/page/import/amazon/config-template.php:6
 #: src/shop/setup/shop-template-setup.php:27
 #: src/shop/setup/shop-template-setup.php:31
 msgid "Shops"
@@ -311,15 +311,19 @@ msgstr "Detail-Vorlagen"
 msgid "Details"
 msgstr "Details"
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:121
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:128
+msgid "The Amazon import request is not valid."
+msgstr "Die Amazon Import Anfrage ist nicht valide."
+
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:150
 msgid "Specify a shop name if you want to create a new shop."
 msgstr "Gebe einen Shop-Namen an, damit du einen neuen Shop erstellen kannst."
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:126
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:155
 msgid "Failed to find the Amazon provider."
 msgstr "Der Amazon Provider wurde nicht gefunden."
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:136
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:165
 #, php-format
 msgid ""
 "Failed to import the product because the shop \"%s\" couldn't be created. "
@@ -328,7 +332,11 @@ msgstr ""
 "Der Produktimport ist fehlgeschlagen, da der Shop „%s“ nicht erstellt werden "
 "konnte. Der Name existiert bereits."
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:218
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:192
+msgid "Failed to find the ASIN for product."
+msgstr "Das Produkt ASIN wurde nicht gefunden."
+
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:257
 #, php-format
 msgid ""
 "Failed to merge different product types. Got \"%s\", but the important "
@@ -653,52 +661,11 @@ msgstr "Importieren"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/product/admin/view/page/import/amazon/config-template.php:16
-msgid "Create new shop"
-msgstr "Erstelle neuen Shop"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:20
-msgid "Enter shop name..."
-msgstr "Shop-Namen eingeben..."
-
-#: src/product/admin/view/page/import/amazon/config-template.php:25
-msgid "Status"
-msgstr "Status"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:29
-msgid "Save product as draft"
-msgstr "Produkt als Entwurf speichern"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:34
-msgid "Publish product directly"
-msgstr "Produkt sofort veröffentlichen"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:39
-msgid "Actions"
-msgstr "Aktionen"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:43
-msgid "Create new product"
-msgstr "Erstelle neues Produkt"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:48
-msgid "Merge with existing product"
-msgstr "Vereine mit bestehendem Produkt"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:52
-#: src/product/admin/view/page/import/amazon/config-template.php:61
-msgid "Enter product name..."
-msgstr "Produktnamen eingeben…"
-
-#: src/product/admin/view/page/import/amazon/config-template.php:57
-msgid "Replace with existing product"
-msgstr "Tausche bestehendes Produkt aus"
-
-#: src/product/admin/view/page/import/amazon/provider-not-configured-error.php:3
+#: src/product/admin/view/page/import/amazon.php:7
 msgid "Amazon provider not configured."
 msgstr "Amazon Provider wurde nicht konfiguriert."
 
-#: src/product/admin/view/page/import/amazon/provider-not-configured-error.php:5
+#: src/product/admin/view/page/import/amazon.php:9
 #, php-format
 msgid ""
 "Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the "
@@ -706,6 +673,47 @@ msgid ""
 msgstr ""
 "Füge die Zugangsdaten <a href=\"%s\" target=\"_blank\">hier</a> hinzu um den "
 "Amazon-Import zu nutzen."
+
+#: src/product/admin/view/page/import/amazon/config-template.php:19
+msgid "Create new shop"
+msgstr "Erstelle neuen Shop"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:23
+msgid "Enter shop name..."
+msgstr "Shop-Namen eingeben..."
+
+#: src/product/admin/view/page/import/amazon/config-template.php:30
+msgid "Status"
+msgstr "Status"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:36
+msgid "Save product as draft"
+msgstr "Produkt als Entwurf speichern"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:41
+msgid "Publish product directly"
+msgstr "Produkt sofort veröffentlichen"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:48
+msgid "Actions"
+msgstr "Aktionen"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:54
+msgid "Create new product"
+msgstr "Erstelle neues Produkt"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:59
+msgid "Merge with existing product"
+msgstr "Vereine mit bestehendem Produkt"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:63
+#: src/product/admin/view/page/import/amazon/config-template.php:72
+msgid "Enter product name..."
+msgstr "Produktnamen eingeben…"
+
+#: src/product/admin/view/page/import/amazon/config-template.php:68
+msgid "Replace with existing product"
+msgstr "Tausche bestehendes Produkt aus"
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:4
 msgid "Search term"
@@ -719,176 +727,176 @@ msgstr "Suchbegriff eingeben…"
 msgid "Enter your ASIN..."
 msgstr "ASIN eingeben…"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:7
+#: src/product/admin/view/page/import/amazon/search-form-template.php:8
 msgid "Search"
 msgstr "Suchen"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:11
+#: src/product/admin/view/page/import/amazon/search-form-template.php:13
 msgid "Search type"
 msgstr "Suchtyp"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:13
+#: src/product/admin/view/page/import/amazon/search-form-template.php:15
 msgid "Keywords"
 msgstr "Schlüsselwörter"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:14
+#: src/product/admin/view/page/import/amazon/search-form-template.php:16
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:36
 msgid "ASIN"
 msgstr "ASIN"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:17
+#: src/product/admin/view/page/import/amazon/search-form-template.php:19
 msgid "Search category"
 msgstr "Suchkategorie"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:19
+#: src/product/admin/view/page/import/amazon/search-form-template.php:21
 msgid "All Categories"
 msgstr "Alle Kategorien"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:20
+#: src/product/admin/view/page/import/amazon/search-form-template.php:22
 msgid "Apparel"
 msgstr "Bekleidung"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:21
+#: src/product/admin/view/page/import/amazon/search-form-template.php:23
 msgid "Appliances"
 msgstr "Geräte"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:22
+#: src/product/admin/view/page/import/amazon/search-form-template.php:24
 msgid "Automotive"
 msgstr "Automobil"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:23
+#: src/product/admin/view/page/import/amazon/search-form-template.php:25
 msgid "Baby"
 msgstr "Baby"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:24
+#: src/product/admin/view/page/import/amazon/search-form-template.php:26
 msgid "Beauty"
 msgstr "Kosmetik"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:25
+#: src/product/admin/view/page/import/amazon/search-form-template.php:27
 msgid "Books"
 msgstr "Bücher"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:26
+#: src/product/admin/view/page/import/amazon/search-form-template.php:28
 msgid "DVD"
 msgstr "DVD"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:27
+#: src/product/admin/view/page/import/amazon/search-form-template.php:29
 msgid "Electronics"
 msgstr "Elektronik"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:28
+#: src/product/admin/view/page/import/amazon/search-form-template.php:30
 msgid "Furniture"
 msgstr "Möbel"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:29
+#: src/product/admin/view/page/import/amazon/search-form-template.php:31
 msgid "Gift Cards"
 msgstr "Geschenkkarten"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:30
+#: src/product/admin/view/page/import/amazon/search-form-template.php:32
 msgid "Grocery"
 msgstr "Lebensmittel"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:31
+#: src/product/admin/view/page/import/amazon/search-form-template.php:33
 msgid "Health & Personal Care"
 msgstr "Gesundheit & Körperpflege"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:32
+#: src/product/admin/view/page/import/amazon/search-form-template.php:34
 msgid "Home & Garden"
 msgstr "Haus & Garten"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:33
+#: src/product/admin/view/page/import/amazon/search-form-template.php:35
 msgid "Industrial"
 msgstr "Industriell"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:34
+#: src/product/admin/view/page/import/amazon/search-form-template.php:36
 msgid "Jewelry"
 msgstr "Schmuck"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:35
+#: src/product/admin/view/page/import/amazon/search-form-template.php:37
 msgid "KindleStore"
 msgstr "Kindle Store"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:36
+#: src/product/admin/view/page/import/amazon/search-form-template.php:38
 msgid "Lawn & Garden"
 msgstr "Rasen & Garten"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:37
+#: src/product/admin/view/page/import/amazon/search-form-template.php:39
 msgid "Luggage"
 msgstr "Gepäck"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:38
+#: src/product/admin/view/page/import/amazon/search-form-template.php:40
 msgid "Luxury & Beauty"
 msgstr "Luxus & Beauty"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:39
+#: src/product/admin/view/page/import/amazon/search-form-template.php:41
 msgid "Marketplace"
 msgstr "Marktplatz"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:40
+#: src/product/admin/view/page/import/amazon/search-form-template.php:42
 msgid "Music"
 msgstr "Musik"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:41
+#: src/product/admin/view/page/import/amazon/search-form-template.php:43
 msgid "Musical Instruments"
 msgstr "Musikinstrumente"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:42
+#: src/product/admin/view/page/import/amazon/search-form-template.php:44
 msgid "Office Products"
 msgstr "Office-Produkte"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:43
+#: src/product/admin/view/page/import/amazon/search-form-template.php:45
 msgid "Pantry"
 msgstr "Speisekammer"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:44
+#: src/product/admin/view/page/import/amazon/search-form-template.php:46
 msgid "PC Hardware"
 msgstr "PC Hardware"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:45
+#: src/product/admin/view/page/import/amazon/search-form-template.php:47
 msgid "Pet Supplies"
 msgstr "Tierbedarf"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:46
+#: src/product/admin/view/page/import/amazon/search-form-template.php:48
 msgid "Shoes"
 msgstr "Schuhe"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:47
+#: src/product/admin/view/page/import/amazon/search-form-template.php:49
 msgid "Software"
 msgstr "Software"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:48
+#: src/product/admin/view/page/import/amazon/search-form-template.php:50
 msgid "Sporting Goods"
 msgstr "Sportartikel"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:49
+#: src/product/admin/view/page/import/amazon/search-form-template.php:51
 msgid "Toys"
 msgstr "Spielsachen"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:50
+#: src/product/admin/view/page/import/amazon/search-form-template.php:52
 msgid "Video"
 msgstr "Video"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:51
+#: src/product/admin/view/page/import/amazon/search-form-template.php:53
 msgid "Video Games"
 msgstr "Videospiele"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:52
+#: src/product/admin/view/page/import/amazon/search-form-template.php:54
 msgid "Watches"
 msgstr "Uhren"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:55
+#: src/product/admin/view/page/import/amazon/search-form-template.php:57
 msgid "Search with variants"
 msgstr "Suche mit Varianten"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:57
+#: src/product/admin/view/page/import/amazon/search-form-template.php:59
 msgid "Without variants"
 msgstr "Ohne Varianten"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:58
+#: src/product/admin/view/page/import/amazon/search-form-template.php:60
 msgid "With variants"
 msgstr "Mit Varianten"
 
-#: src/product/admin/view/page/import/amazon/search-form-template.php:63
+#: src/product/admin/view/page/import/amazon/search-form-template.php:65
 msgid ""
 "Search with product variants doesn't work if the category \"All\" is "
 "selected."
