@@ -238,6 +238,21 @@ class Amazon_Import_Ajax_Handler
         	return $product_id;
         }
 
+        // TODO: Clean up later (duplicated code)
+	    if($imported_product instanceof Complex_Product) {
+		    $product_variants = $imported_product->get_variants();
+		    foreach ($product_variants as $product_variant) {
+			    $this->product_repository->store($product_variant);
+		    }
+
+		    $this->product_repository->store($imported_product);
+		    $this->product_repository->delete_all_variants_except(
+			    $imported_product->get_id(),
+			    $product_variants,
+			    true
+		    );
+        }
+
         return $imported_product;
     }
 

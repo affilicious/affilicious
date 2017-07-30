@@ -71,11 +71,6 @@ class Saved_Complex_Product_Listener
             return false;
         }
 
-        // AJAX? Not used here
-        if (defined('DOING_AJAX') && DOING_AJAX) {
-            return false;
-        }
-
         // Check user permissions
         if (!current_user_can('edit_post', $post_id)) {
             return false;
