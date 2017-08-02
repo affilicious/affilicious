@@ -42,11 +42,11 @@ class Amazon_Provider extends Provider
      * @inheritdoc
      * @since 0.8
      */
-    public function __construct(Name $title, Slug $name, Credentials $credentials)
+    public function __construct(Name $name, Slug $slug, Credentials $credentials)
     {
         $this->validate_credentials($credentials);
 
-        parent::__construct($title, $name, $credentials);
+        parent::__construct($name, $slug, $credentials);
         $this->access_key = new Access_Key($credentials->get(self::ACCESS_KEY));
         $this->secret_key = new Secret_Key($credentials->get(self::SECRET_KEY));
         $this->country = new Country($credentials->get(self::COUNTRY));

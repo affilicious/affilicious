@@ -34,8 +34,18 @@ class Credentials
      */
     public function get($key)
     {
-        $value = $this->get_value();
+        return isset($this->value[$key]) ? $this->value[$key] : null;
+    }
 
-        return isset($value[$key]) ? $value[$key] : null;
+	/**
+	 * Check if the credentials contains a specific part by the key.
+	 *
+	 * @since 0.9.1
+	 * @param string $key
+	 * @return bool
+	 */
+    public function has($key)
+    {
+	    return isset($this->value[$key]);
     }
 }
