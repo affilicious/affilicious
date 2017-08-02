@@ -805,7 +805,7 @@ if(!class_exists('Affilicious')) {
 			// Hook the providers
 			$provider_setup = $this->container['affilicious.provider.setup.provider'];
 			$amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
-			add_action('init', array($provider_setup, 'init'), 0);
+			add_action('init', array($provider_setup, 'init'), 5);
 			add_filter('aff_provider_init', array($amazon_provider_setup, 'init'), 5);
 
 			// Hook the product listeners
@@ -841,7 +841,7 @@ if(!class_exists('Affilicious')) {
 			// Hook the update workers
 			$update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
 			$amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
-			add_action('aff_init', array($update_worker_setup, 'init'));
+			add_action('init', array($update_worker_setup, 'init'), 5);
 			add_filter('aff_product_update_worker_init', array($amazon_update_worker_setup, 'init'));
 
 			// Hook the update queues
@@ -862,13 +862,16 @@ if(!class_exists('Affilicious')) {
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
 			add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
 
+			do_action('aff_hooks');
+
 			// Add a custom affilicious init hook
 			add_action('init', function() {
+				/** @deprecated 1.1 */
 				do_action('aff_init');
 
 				/** @deprecated 1.0 */
 				do_action('affilicious_init');
-			}, 10);
+			}, 100);
 		}
 
 		/**
@@ -928,8 +931,8 @@ if(!class_exists('Affilicious')) {
 			$product_options = $this->container['affilicious.product.admin.options.product'];
 			$provider_options = $this->container['affilicious.provider.admin.options.amazon'];
 			add_action('init', array($affilicious_options, 'render'), 15);
-			add_action('init', array($product_options, 'render'), 15);
-			add_action('init', array($provider_options, 'render'), 15);
+			add_action('init', array($product_options, 'render'), 20);
+			add_action('init', array($provider_options, 'render'), 20);
 
 			// Hook the import page
 			$import_page = $this->container['affilicious.product.admin.page.import'];
@@ -953,13 +956,16 @@ if(!class_exists('Affilicious')) {
 			add_action('wp_ajax_aff_product_admin_amazon_search', array($amazon_search_ajax_handler, 'handle'));
 			add_action('wp_ajax_aff_product_admin_amazon_import', array($amazon_import_ajax_handler, 'handle'));
 
+			do_action('aff_admin_hooks');
+
 			// Add a custom affilicious admin init hook.
 			add_action('admin_init', function() {
+				/** @deprecated 1.1 */
 				do_action('aff_admin_init');
 
 				/** @deprecated 1.0 */
 				do_action('affilicious_admin_init');
-			}, 10);
+			}, 100);
 		}
 	}
 }
