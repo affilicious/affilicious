@@ -14,7 +14,7 @@ class Table_Rows_Filter
     /**
      * Filter the admin table rows of the attribute templates.
      *
-     * @hook manage_aff_attribute_tmpl_custom_column
+     * @filter manage_aff_attribute_tmpl_custom_column
      * @since 0.9
      * @param string $row
      * @param string $column_name

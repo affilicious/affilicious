@@ -5,6 +5,8 @@ let SearchForm = Backbone.Model.extend({
         'category': 'All',
         'withVariants': 'no',
         'loading': false,
+        'error': false,
+        'errorMessage': null,
         'providerConfigured': false
     },
 
@@ -15,7 +17,12 @@ let SearchForm = Backbone.Model.extend({
      * @public
      */
     submit() {
-        this.set('loading', true);
+        this.set({
+            'loading': true,
+            'error': false,
+            'errorMessage': null,
+        });
+
         this.trigger('aff:amazon-import:search:search-form:submit', this);
     },
 
@@ -27,7 +34,25 @@ let SearchForm = Backbone.Model.extend({
      */
     done() {
         this.set('loading', false);
+
         this.trigger('aff:amazon-import:search:search-form:done', this);
+    },
+
+    /**
+     * Show a submit error and stop the loading animation.
+     *
+     * @since 0.9
+     * @param {string|null} message
+     * @public
+     */
+    error(message = null) {
+        this.set({
+            'loading': false,
+            'error': true,
+            'errorMessage': message,
+        });
+
+        this.trigger('aff:amazon-import:search:search-form:error', this);
     }
 });
 

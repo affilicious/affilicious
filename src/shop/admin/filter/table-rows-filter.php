@@ -28,7 +28,7 @@ class Table_Rows_Filter
     /**
      * Filter the admin table rows of the shop templates.
      *
-     * @hook manage_aff_shop_tmpl_custom_column
+     * @filter manage_aff_shop_tmpl_custom_column
      * @since 0.9
      * @param string $row
      * @param string $column_name

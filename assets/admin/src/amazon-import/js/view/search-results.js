@@ -1,7 +1,7 @@
 import SearchResultsItem from './search-results-item';
 
 let SearchResults = Backbone.View.extend({
-    el: '.aff-amazon-import-search-results',
+    el: '#aff-amazon-import-search-results',
 
     /**
      * Initialize the search results.

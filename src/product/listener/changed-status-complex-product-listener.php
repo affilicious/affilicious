@@ -29,7 +29,7 @@ class Changed_Status_Complex_Product_Listener
     /**
      * Change the status of the variants if the parent complex product status changes.
      *
-     * @hook transition_post_status
+     * @filter transition_post_status
      * @since 0.8.20
      * @param string $new_status
      * @param string $old_status

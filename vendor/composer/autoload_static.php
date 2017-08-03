@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
+class ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820
 {
     public static $files = array (
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -93,6 +93,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
     public static $classMap = array (
         'Affilicious\\Attribute\\Admin\\Filter\\Table_Columns_Filter' => __DIR__ . '/../..' . '/src/attribute/admin/filter/table-columns-filter.php',
         'Affilicious\\Attribute\\Admin\\Filter\\Table_Rows_Filter' => __DIR__ . '/../..' . '/src/attribute/admin/filter/table-rows-filter.php',
+        'Affilicious\\Attribute\\Admin\\Meta_Box\\Attribute_Template_Meta_Box' => __DIR__ . '/../..' . '/src/attribute/admin/meta-box/attribute-template-meta-box.php',
         'Affilicious\\Attribute\\Factory\\Attribute_Template_Factory_Interface' => __DIR__ . '/../..' . '/src/attribute/factory/attribute-template-factory-interface.php',
         'Affilicious\\Attribute\\Factory\\In_Memory\\In_Memory_Attribute_Template_Factory' => __DIR__ . '/../..' . '/src/attribute/factory/in-memory/in-memory-attribute-template-factory.php',
         'Affilicious\\Attribute\\Helper\\Attribute_Helper' => __DIR__ . '/../..' . '/src/attribute/helper/attribute-helper.php',
@@ -114,6 +115,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Common\\Admin\\License\\License_Manager' => __DIR__ . '/../..' . '/src/common/admin/license/license-manager.php',
         'Affilicious\\Common\\Admin\\License\\License_Processor' => __DIR__ . '/../..' . '/src/common/admin/license/license-processor.php',
         'Affilicious\\Common\\Admin\\License\\License_Status' => __DIR__ . '/../..' . '/src/common/admin/license/license-status.php',
+        'Affilicious\\Common\\Admin\\Options\\Affilicious_Options' => __DIR__ . '/../..' . '/src/common/admin/options/affilicious-options.php',
         'Affilicious\\Common\\Admin\\Page\\Addons_Page' => __DIR__ . '/../..' . '/src/common/admin/page/addons-page.php',
         'Affilicious\\Common\\Admin\\Setup\\Assets_Setup' => __DIR__ . '/../..' . '/src/common/admin/setup/assets-setup.php',
         'Affilicious\\Common\\Admin\\Setup\\License_Handler_Setup' => __DIR__ . '/../..' . '/src/common/admin/setup/license-handler-setup.php',
@@ -132,6 +134,8 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Common\\License\\License_Manager' => __DIR__ . '/../..' . '/src/common/license/license-manager.php',
         'Affilicious\\Common\\License\\License_Processor' => __DIR__ . '/../..' . '/src/common/license/license-processor.php',
         'Affilicious\\Common\\License\\License_Status' => __DIR__ . '/../..' . '/src/common/license/license-status.php',
+        'Affilicious\\Common\\Model\\Custom_Value_Aware_Interface' => __DIR__ . '/../..' . '/src/common/model/custom-value-aware-interface.php',
+        'Affilicious\\Common\\Model\\Custom_Value_Aware_Trait' => __DIR__ . '/../..' . '/src/common/model/custom-value-aware-trait.php',
         'Affilicious\\Common\\Model\\Image' => __DIR__ . '/../..' . '/src/common/model/image.php',
         'Affilicious\\Common\\Model\\Image_Id' => __DIR__ . '/../..' . '/src/common/model/image-id.php',
         'Affilicious\\Common\\Model\\Key' => __DIR__ . '/../..' . '/src/common/model/key.php',
@@ -144,7 +148,6 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Common\\Model\\Status_Aware_Trait' => __DIR__ . '/../..' . '/src/common/model/status-aware-trait.php',
         'Affilicious\\Common\\Model\\Update_Aware_Interface' => __DIR__ . '/../..' . '/src/common/model/update-aware-interface.php',
         'Affilicious\\Common\\Model\\Update_Aware_Trait' => __DIR__ . '/../..' . '/src/common/model/update-aware-trait.php',
-        'Affilicious\\Common\\Options\\Affilicious_Options' => __DIR__ . '/../..' . '/src/common/options/affilicious-options.php',
         'Affilicious\\Common\\Queue\\Max_Priority_Queue' => __DIR__ . '/../..' . '/src/common/queue/max-priority-queue.php',
         'Affilicious\\Common\\Queue\\Min_Priority_Queue' => __DIR__ . '/../..' . '/src/common/queue/min-priority-queue.php',
         'Affilicious\\Common\\Repository\\Carbon\\Abstract_Carbon_Repository' => __DIR__ . '/../..' . '/src/common/repository/carbon/abstract-carbon-repository.php',
@@ -153,6 +156,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Common\\Setup\\Carbon_Setup' => __DIR__ . '/../..' . '/src/common/setup/carbon-setup.php',
         'Affilicious\\Detail\\Admin\\Filter\\Table_Columns_Filter' => __DIR__ . '/../..' . '/src/detail/admin/filter/table-columns-filter.php',
         'Affilicious\\Detail\\Admin\\Filter\\Table_Rows_Filter' => __DIR__ . '/../..' . '/src/detail/admin/filter/table-rows-filter.php',
+        'Affilicious\\Detail\\Admin\\Meta_Box\\Detail_Template_Meta_Box' => __DIR__ . '/../..' . '/src/detail/admin/meta-box/detail-template-meta-box.php',
         'Affilicious\\Detail\\Factory\\Detail_Template_Factory_Interface' => __DIR__ . '/../..' . '/src/detail/factory/detail-template-factory-interface.php',
         'Affilicious\\Detail\\Factory\\In_Memory\\In_Memory_Detail_Template_Factory' => __DIR__ . '/../..' . '/src/detail/factory/in-memory/in-memory-detail-template-factory.php',
         'Affilicious\\Detail\\Helper\\Detail_Helper' => __DIR__ . '/../..' . '/src/detail/helper/detail-helper.php',
@@ -174,6 +178,8 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Product\\Admin\\Filter\\Menu_Order_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/menu-order-filter.php',
         'Affilicious\\Product\\Admin\\Filter\\Table_Content_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/table-content-filter.php',
         'Affilicious\\Product\\Admin\\Filter\\Table_Count_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/table-count-filter.php',
+        'Affilicious\\Product\\Admin\\Meta_Box\\Product_Meta_Box' => __DIR__ . '/../..' . '/src/product/admin/meta-box/product-meta-box.php',
+        'Affilicious\\Product\\Admin\\Options\\Product_Options' => __DIR__ . '/../..' . '/src/product/admin/options/product-options.php',
         'Affilicious\\Product\\Admin\\Page\\Import_Page' => __DIR__ . '/../..' . '/src/product/admin/page/import-page.php',
         'Affilicious\\Product\\Factory\\Complex_Product_Factory_Interface' => __DIR__ . '/../..' . '/src/product/factory/complex-product-factory-interface.php',
         'Affilicious\\Product\\Factory\\In_Memory\\In_Memory_Complex_Product_Factory' => __DIR__ . '/../..' . '/src/product/factory/in-memory/in-memory-complex-product-factory.php',
@@ -201,6 +207,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Product\\Migration\\Product_Slugs_To_0818_Migration' => __DIR__ . '/../..' . '/src/product/migration/product-slugs-to-0818-migration.php',
         'Affilicious\\Product\\Migration\\Product_Variant_Terms_To_0820_Migration' => __DIR__ . '/../..' . '/src/product/migration/product-variant-terms-to-0820-migration.php',
         'Affilicious\\Product\\Migration\\Shops_Migration' => __DIR__ . '/../..' . '/src/product/migration/shops-migration.php',
+        'Affilicious\\Product\\Migration\\Tags_To_090_Migration' => __DIR__ . '/../..' . '/src/product/migration/tags-to-090-migration.php',
         'Affilicious\\Product\\Migration\\Variant_Inherit_Status_Migration' => __DIR__ . '/../..' . '/src/product/migration/variant-inherit-status-migration.php',
         'Affilicious\\Product\\Migration\\Variants_Migration' => __DIR__ . '/../..' . '/src/product/migration/variants-migration.php',
         'Affilicious\\Product\\Model\\Complex_Product' => __DIR__ . '/../..' . '/src/product/model/complex-product.php',
@@ -229,7 +236,6 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Product\\Model\\Tag_Aware_Trait' => __DIR__ . '/../..' . '/src/product/model/tag-aware-trait.php',
         'Affilicious\\Product\\Model\\Type' => __DIR__ . '/../..' . '/src/product/model/type.php',
         'Affilicious\\Product\\Model\\Votes' => __DIR__ . '/../..' . '/src/product/model/votes.php',
-        'Affilicious\\Product\\Options\\Product_Options' => __DIR__ . '/../..' . '/src/product/options/product-options.php',
         'Affilicious\\Product\\Repository\\Carbon\\Carbon_Product_Repository' => __DIR__ . '/../..' . '/src/product/repository/carbon/carbon-product-repository.php',
         'Affilicious\\Product\\Repository\\Product_Repository_Interface' => __DIR__ . '/../..' . '/src/product/repository/product-repository-interface.php',
         'Affilicious\\Product\\Search\\Amazon\\Amazon_Search' => __DIR__ . '/../..' . '/src/product/search/amazon/amazon-search.php',
@@ -237,6 +243,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Product\\Setup\\Admin_Bar_Setup' => __DIR__ . '/../..' . '/src/product/setup/admin-bar-setup.php',
         'Affilicious\\Product\\Setup\\Amazon_Update_Worker_Setup' => __DIR__ . '/../..' . '/src/product/setup/amazon-update-worker-setup.php',
         'Affilicious\\Product\\Setup\\Canonical_Setup' => __DIR__ . '/../..' . '/src/product/setup/canonical-setup.php',
+        'Affilicious\\Product\\Setup\\Custom_Taxonomies_Setup' => __DIR__ . '/../..' . '/src/product/setup/custom-taxonomies-setup.php',
         'Affilicious\\Product\\Setup\\Product_Setup' => __DIR__ . '/../..' . '/src/product/setup/product-setup.php',
         'Affilicious\\Product\\Setup\\Slug_Rewrite_Setup' => __DIR__ . '/../..' . '/src/product/setup/slug-rewrite-setup.php',
         'Affilicious\\Product\\Setup\\Update_Queue_Setup' => __DIR__ . '/../..' . '/src/product/setup/update-queue-setup.php',
@@ -252,6 +259,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Product\\Update\\Update_Timer' => __DIR__ . '/../..' . '/src/product/update/update-timer.php',
         'Affilicious\\Product\\Update\\Worker\\Amazon\\Amazon_Update_Worker' => __DIR__ . '/../..' . '/src/product/update/worker/amazon/amazon-update-worker.php',
         'Affilicious\\Product\\Update\\Worker\\Update_Worker_Interface' => __DIR__ . '/../..' . '/src/product/update/worker/update-worker-interface.php',
+        'Affilicious\\Provider\\Admin\\Options\\Amazon_Options' => __DIR__ . '/../..' . '/src/provider/admin/options/amazon-options.php',
         'Affilicious\\Provider\\Factory\\Amazon_Provider_Factory_Interface' => __DIR__ . '/../..' . '/src/provider/factory/amazon-provider-factory-interface.php',
         'Affilicious\\Provider\\Factory\\In_Memory\\In_Memory_Amazon_Provider_Factory' => __DIR__ . '/../..' . '/src/provider/factory/in-memory/in-memory-amazon-provider-factory.php',
         'Affilicious\\Provider\\Factory\\In_Memory\\In_Memory_Provider_Factory' => __DIR__ . '/../..' . '/src/provider/factory/in-memory/in-memory-provider-factory.php',
@@ -265,7 +273,6 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Provider\\Model\\Credentials' => __DIR__ . '/../..' . '/src/provider/model/credentials.php',
         'Affilicious\\Provider\\Model\\Provider' => __DIR__ . '/../..' . '/src/provider/model/provider.php',
         'Affilicious\\Provider\\Model\\Provider_Id' => __DIR__ . '/../..' . '/src/provider/model/provider-id.php',
-        'Affilicious\\Provider\\Options\\Amazon_Options' => __DIR__ . '/../..' . '/src/provider/options/amazon-options.php',
         'Affilicious\\Provider\\Repository\\Carbon\\Carbon_Provider_Repository' => __DIR__ . '/../..' . '/src/provider/repository/carbon/carbon-provider-repository.php',
         'Affilicious\\Provider\\Repository\\Provider_Repository_Interface' => __DIR__ . '/../..' . '/src/provider/repository/provider-repository-interface.php',
         'Affilicious\\Provider\\Setup\\Amazon_Provider_Setup' => __DIR__ . '/../..' . '/src/provider/setup/amazon-provider-setup.php',
@@ -274,6 +281,7 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
         'Affilicious\\Provider\\Validator\\Credentials_Validator_Interface' => __DIR__ . '/../..' . '/src/provider/validator/credentials-validator-interface.php',
         'Affilicious\\Shop\\Admin\\Filter\\Table_Columns_Filter' => __DIR__ . '/../..' . '/src/shop/admin/filter/table-columns-filter.php',
         'Affilicious\\Shop\\Admin\\Filter\\Table_Rows_Filter' => __DIR__ . '/../..' . '/src/shop/admin/filter/table-rows-filter.php',
+        'Affilicious\\Shop\\Admin\\Meta_Box\\Shop_Template_Meta_Box' => __DIR__ . '/../..' . '/src/shop/admin/meta-box/shop-template-meta-box.php',
         'Affilicious\\Shop\\Factory\\In_Memory\\In_Memory_Shop_Template_Factory' => __DIR__ . '/../..' . '/src/shop/factory/in-memory/in-memory-shop-template-factory.php',
         'Affilicious\\Shop\\Factory\\Shop_Template_Factory_Interface' => __DIR__ . '/../..' . '/src/shop/factory/shop-template-factory-interface.php',
         'Affilicious\\Shop\\Helper\\Money_Helper' => __DIR__ . '/../..' . '/src/shop/helper/money-helper.php',
@@ -481,10 +489,10 @@ class ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd1cdf474ac94f29f3e864c277052ab7c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$classMap;
 
         }, null, ClassLoader::class);
     }

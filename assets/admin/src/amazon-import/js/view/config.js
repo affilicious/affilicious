@@ -1,9 +1,12 @@
 let Config =  Backbone.View.extend({
-    el: '.aff-amazon-import-config',
+    el: '#aff-amazon-import-config',
 
     events: {
         'change input[name="shop"]': 'changeShop',
+        'change input[name="new-shop-name"]': 'changeShop',
         'change input[name="action"]': 'changeAction',
+        'change input[name="merge-product-id"]': 'changeAction',
+        'change input[name="replace-product-id"]': 'changeAction',
         'change input[name="status"]': 'changeStatus',
     },
 
@@ -16,6 +19,8 @@ let Config =  Backbone.View.extend({
     initialize() {
         let templateHtml = jQuery('#aff-amazon-import-config-template').html();
         this.template = _.template(templateHtml);
+
+        this.model.on('aff:amazon-import:config:add-shop', this.addShop, this);
     },
 
     /**
@@ -58,6 +63,27 @@ let Config =  Backbone.View.extend({
         });
 
         return this;
+    },
+
+    /**
+     * Add a new shop
+     *
+     * @since 0.9
+     * @param {Object} shop
+     * @public
+     */
+    addShop(shop) {
+        this.$el.find('input[value="new-shop"]').parent().before(`
+            <label class="aff-import-config-group-label" for="${shop.slug}">
+                <input id="amazon" class="aff-import-config-group-option" name="shop" type="radio" value="${shop.slug}">
+                ${shop.name}         
+            </label>
+        `);
+
+        this.$el.find(`input[name="shop"][value="${shop.slug}"]`).prop("checked", true)
+
+        let newShopName = this.$el.find('input[name="new-shop-name"]');
+        newShopName.selectize()[0].selectize.clear(true);
     },
 
     /**

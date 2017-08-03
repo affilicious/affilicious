@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Provider\Options;
+namespace Affilicious\Provider\Admin\Options;
 
 use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Provider\Model\Credentials;
@@ -29,7 +29,7 @@ class Amazon_Options
     private $amazon_credentials_validator;
 
     /**
-     * @since 0.8
+     * @since 0.9
      * @param Credentials_Validator_Interface $amazon_credentials_validator
      */
     public function __construct(Credentials_Validator_Interface $amazon_credentials_validator)
@@ -41,13 +41,31 @@ class Amazon_Options
      * Render the amazon options.
      *
      * @hook init
-     * @since 0.6
+     * @since 0.9
      */
     public function render()
     {
-        do_action('affilicious_options_amazon_before_render');
+        do_action('aff_admin_options_before_render_amazon_container');
 
-        $credentials_tab = apply_filters('affilicious_options_amazon_container_credentials_tab', array(
+        $container = Carbon_Container::make('theme_options', __('Amazon', 'affilicious'))
+            ->set_page_parent('affilicious')
+            ->add_tab(__('Credentials', 'affilicious'), $this->get_credentials_fields())
+            ->add_tab(__('Updates', 'affilicious'), $this->get_updates_fields());
+
+        $container = apply_filters('aff_admin_options_render_amazon_container', $container);
+
+        do_action('aff_admin_options_after_render_amazon_container', $container);
+    }
+
+    /**
+     * Get the credentials fields.
+     *
+     * @since 0.9
+     * @return array
+     */
+    private function get_credentials_fields()
+    {
+        $fields = array(
             Carbon_Field::make('html', self::VALIDATION_STATUS)
                 ->set_html($this->get_validation_notice()),
             Carbon_Field::make('text', self::ACCESS_KEY, __('Access Key', 'affilicious'))
@@ -77,9 +95,20 @@ class Amazon_Options
             Carbon_Field::make('text', self::ASSOCIATE_TAG, __('Associate Tag', 'affilicious'))
                 ->set_required(true)
                 ->set_help_text(__('Amazon uses this ID to credit an associate for a sale.', 'affilicious'))
-        ));
+        );
 
-        $updates_tab = apply_filters('affilicious_options_amazon_container_updates_interval_tab', array(
+        return apply_filters('aff_admin_options_render_amazon_container_credentials_fields', $fields);
+    }
+
+    /**
+     * Get the updates fields.
+     *
+     * @since 0.9
+     * @return array
+     */
+    private function get_updates_fields()
+    {
+        $fields = array(
             Carbon_Field::make('select', self::THUMBNAIL_UPDATE_INTERVAL, __('Thumbnail Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
@@ -125,21 +154,15 @@ class Amazon_Options
                 ))
                 ->set_help_text(__('The automatic update interval for the shop availabilities in the products.', 'affilicious'))
                 ->set_required(true),
-        ));
+        );
 
-        $container = Carbon_Container::make('theme_options', __('Amazon', 'affilicious'))
-            ->set_page_parent('affilicious')
-            ->add_tab(__('Credentials', 'affilicious'), $credentials_tab)
-            ->add_tab(__('Updates', 'affilicious'), $updates_tab);
-
-        apply_filters('affilicious_options_amazon_container', $container);
-        do_action('affilicious_options_amazon_after_render');
+        return apply_filters('aff_admin_options_render_amazon_container_updates_fields', $fields);
     }
 
     /**
      * Get the validation notice for Amazon.
      *
-     * @since 0.8
+     * @since 0.9
      * @return bool
      */
     protected function get_validation_notice()
@@ -162,7 +185,7 @@ class Amazon_Options
     /**
      * Check the validation status of the credentials for Amazon.
      *
-     * @since 0.8
+     * @since 0.9
      * @return bool
      */
     protected function check_validation_status()

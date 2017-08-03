@@ -18,15 +18,18 @@ class Attribute_Helper
      */
     public static function to_array(Attribute $attribute)
     {
-        $raw_attribute = array(
-            'template_id' => $attribute->get_template_id()->get_value(),
+        $array = array(
+            'template_id' => $attribute->has_template_id() ? $attribute->get_template_id()->get_value() : null,
             'name' => $attribute->get_name()->get_value(),
             'slug' => $attribute->get_slug()->get_value(),
             'type' => $attribute->get_type()->get_value(),
             'unit' => $attribute->has_unit() ? $attribute->get_unit()->get_value() : null,
             'value' => $attribute->get_value()->get_value(),
+	        'custom_values' => $attribute->has_custom_values() ? $attribute->get_custom_values() : null,
         );
 
-        return $raw_attribute;
+        $array = apply_filters('aff_attribute_to_array', $array, $attribute);
+
+        return $array;
     }
 }

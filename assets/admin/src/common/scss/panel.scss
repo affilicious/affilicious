@@ -1,0 +1,35 @@
+.aff-panel {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #555;
+  font-size: 13px;
+  margin-bottom: 25px;
+
+  &-header,
+  &-body,
+  &-footer {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  &-header {
+    border-bottom: 1px solid #eee;
+  }
+
+  &-body {
+    background-color: white;
+  }
+
+  &-footer {
+    border-top: 1px solid #eee;
+    background: #fafafa;
+  }
+}

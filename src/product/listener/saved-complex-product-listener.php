@@ -29,7 +29,7 @@ class Saved_Complex_Product_Listener
     /**
      * Store the product variants as a custom post if a product is saved
      *
-     * @hook carbon_after_save_post_meta
+     * @filter carbon_after_save_post_meta
      * @since 0.6
      * @param int $post_id
      */
@@ -68,11 +68,6 @@ class Saved_Complex_Product_Listener
     {
         // Autosave, do nothing
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return false;
-        }
-
-        // AJAX? Not used here
-        if (defined('DOING_AJAX') && DOING_AJAX) {
             return false;
         }
 

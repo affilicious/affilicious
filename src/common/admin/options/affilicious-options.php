@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Common\Options;
+namespace Affilicious\Common\Admin\Options;
 
 use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Common\Admin\License\License_Manager;
@@ -20,7 +20,7 @@ class Affilicious_Options
     private $license_processor;
 
     /**
-     * @since 0.8.12
+     * @since 0.9
      * @param License_Manager $license_manager
      * @param License_Processor $license_processor
      */
@@ -34,33 +34,29 @@ class Affilicious_Options
 	 * Render the settings into the admin area.
      *
      * @hook init
-	 * @since 0.7
+	 * @since 0.9
 	 */
 	public function render()
 	{
-		do_action('affilicious_options_affilicious_before_render');
-
-		$scripts_tab = apply_filters('affilicious_options_affilicious_container_scripts_tab', array(
-			Carbon_Field::make('header_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_header_scripts', __('Custom Header Scripts', 'affilicious'))
-                ->set_help_text(__("Add your custom header scripts like CSS or JS with the proper &lt;style&gt or &lt;script&gt tags.", 'affilicious')),
-			Carbon_Field::make('footer_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_footer_scripts', __('Custom Footer Scripts', 'affilicious'))
-                ->set_help_text(__("Add your custom footer scripts like Google Analytics tracking code, CSS or JS with the proper &lt;style&gt or &lt;script&gt tags.", 'affilicious')),
-		));
+		do_action('aff_admin_options_before_render_affilicious_container');
 
 		$container = Carbon_Container::make('theme_options', 'Affilicious')
 	        ->set_icon('dashicons-admin-generic')
-            ->add_tab(__('License', 'affilicious'), $this->get_license_tab())
-	        ->add_tab(__('Scripts', 'affilicious'), $scripts_tab);
+            ->add_tab(__('License', 'affilicious'), $this->get_license_fields())
+	        ->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields());
 
-		apply_filters('affilicious_options_affilicious_container', $container);
-        do_action('affilicious_options_affilicious_after_render');
+        $container = apply_filters('affilicious_admin_options_affilicious_container', $container);
+
+        do_action('aff_admin_options_after_render_affilicious_container', $container);
 	}
 
     /**
-     * @since 0.8.12
+     * Get the license fields.
+     *
+     * @since 0.9
      * @return array
      */
-	public function get_license_tab()
+	public function get_license_fields()
     {
         $help_text = count($this->license_manager->get_license_handlers()) > 0
             ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de')
@@ -75,21 +71,24 @@ class Affilicious_Options
                 ->set_help_text($help_text)
         );
 
-        return $fields;
+        return apply_filters('affilicious_admin_options_affilicious_container_license_fields', $fields);
     }
 
-	/**
-	 * Apply the saved settings.
+    /**
+     * Get the scripts fields.
      *
-     * @hook init
-	 * @since 0.7
-	 */
-	public function apply()
-	{
-		do_action('affilicious_options_affilicious_before_apply');
+     * @since 0.9
+     * @return array
+     */
+    public function get_scripts_fields()
+    {
+        $fields = array(
+            Carbon_Field::make('header_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_header_scripts', __('Custom Header Scripts', 'affilicious'))
+                ->set_help_text(__("Add your custom header scripts like CSS or JS with the proper &lt;style&gt or &lt;script&gt tags.", 'affilicious')),
+            Carbon_Field::make('footer_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_footer_scripts', __('Custom Footer Scripts', 'affilicious'))
+                ->set_help_text(__("Add your custom footer scripts like Google Analytics tracking code, CSS or JS with the proper &lt;style&gt or &lt;script&gt tags.", 'affilicious')),
+        );
 
-        // Nothing to do here yet
-
-		do_action('affilicious_options_affilicious_after_apply');
-	}
+        return apply_filters('affilicious_admin_options_affilicious_container_scripts_fields', $fields);
+    }
 }

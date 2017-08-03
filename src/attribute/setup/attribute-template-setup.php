@@ -2,11 +2,7 @@
 namespace Affilicious\Attribute\Setup;
 
 use Affilicious\Attribute\Model\Attribute_Template;
-use Affilicious\Attribute\Model\Type;
-use Affilicious\Attribute\Repository\Carbon\Carbon_Attribute_Template_Repository;
 use Affilicious\Product\Model\Product;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -20,10 +16,11 @@ class Attribute_Template_Setup
      */
     public function init()
     {
-        do_action('affilicious_attribute_template_setup_before_init');
+        do_action('aff_attribute_template_before_init');
 
         $singular = __('Attribute Template', 'affilicious');
         $plural = __('Attribute Templates', 'affilicious');
+
         $labels = array(
             'name'                  => $plural,
             'singular_name'         => $singular,
@@ -45,7 +42,7 @@ class Attribute_Template_Setup
             'filter_items_list'     => sprintf(_x('Filter %s', 'Attribute Template', 'affilicious'), $plural),
         );
 
-        register_taxonomy(Attribute_Template::TAXONOMY, Product::POST_TYPE, array(
+        $args = array(
             'hierarchical'      => false,
             'public'            => false,
             'labels'            => $labels,
@@ -57,40 +54,12 @@ class Attribute_Template_Setup
             'query_var'         => true,
             'description'       => false,
             'rewrite'           => false,
-        ));
+        );
 
-        do_action('affilicious_attribute_template_setup_after_init');
-    }
+        $args = apply_filters('aff_attribute_template_init_args', $args);
 
-    /**
-     * @hook init
-     * @since 0.8
-     */
-    public function render()
-    {
-        do_action('affilicious_attribute_template_setup_before_render');
+        register_taxonomy(Attribute_Template::TAXONOMY, Product::POST_TYPE, $args);
 
-        $carbon_container = Carbon_Container::make('term_meta', __('Attribute Template', 'affilicious'))
-            ->show_on_taxonomy(Attribute_Template::TAXONOMY)
-            ->add_fields(array(
-                Carbon_Field::make('select', Carbon_Attribute_Template_Repository::TYPE, __('Type', 'affilicious'))
-                    ->set_required(true)
-                    ->add_options(array(
-                        Type::TEXT => __('Text', 'affilicious'),
-                        Type::NUMBER => __('Number', 'affilicious'),
-                    )),
-                Carbon_Field::make('text', Carbon_Attribute_Template_Repository::UNIT, __('Unit', 'affilicious'))
-                    ->set_conditional_logic(array(
-                        'relation' => 'and',
-                        array(
-                            'field' => Carbon_Attribute_Template_Repository::TYPE,
-                            'value' => Type::NUMBER,
-                            'compare' => '=',
-                        )
-                    )),
-            ));
-
-        apply_filters('affilicious_attribute_template_render_attribute_template_container', $carbon_container);
-        do_action('affilicious_attribute_template_setup_after_render');
+        do_action('aff_attribute_template_after_init');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Provider\Model;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Trait;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Name_Aware_Trait;
 use Affilicious\Common\Model\Slug;
@@ -12,7 +13,7 @@ if (!defined('ABSPATH')) {
 
 class Provider
 {
-    use Name_Aware_Trait, Slug_Aware_Trait;
+    use Name_Aware_Trait, Slug_Aware_Trait, Custom_Value_Aware_Trait;
 
     /**
      * The unique and optional ID of the provider.

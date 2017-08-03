@@ -42,8 +42,14 @@ let Search = Backbone.Model.extend({
 
         this.results.fetch().done((results) => {
             this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
-            this.set('started', true);
             this.form.done();
+        }).fail((result) => {
+            let errorMessage = ((((result || {}).responseJSON || {}).data || {})[0] || {}).message || null;
+
+            this.form.error(errorMessage);
+            this.loadMore.set('enabled', false);
+        }).always(() => {
+            this.set('started', true);
         });
     },
 
@@ -58,8 +64,11 @@ let Search = Backbone.Model.extend({
         this.results.url = this._buildUrl();
 
         this.results.fetch({'remove': false}).done((results) => {
-            this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
-            this.loadMore.done();
+            this.loadMore.done(this._isLoadMoreEnabled(results));
+        }).fail(() => {
+            let errorMessage = ((((result || {}).responseJSON || {}).data || {})[0] || {}).message || null;
+
+            this.loadMore.error(errorMessage);
         });
     },
 

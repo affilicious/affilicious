@@ -102,14 +102,17 @@ class Attribute_Template_Helper
      */
     public static function to_array(Attribute_Template $attribute_template)
     {
-        $raw_attribute_template = array(
+        $array = array(
             'id' => $attribute_template->get_id()->get_value(),
             'name' => $attribute_template->get_name()->get_value(),
             'slug' => $attribute_template->get_slug()->get_value(),
             'type' => $attribute_template->get_type()->get_value(),
             'unit' => $attribute_template->has_unit() ? $attribute_template->get_unit()->get_value() : null,
+	        'custom_values' => $attribute_template->has_custom_values() ? $attribute_template->get_custom_values() : null,
         );
 
-        return $raw_attribute_template;
+        $array = apply_filters('aff_attribute_template_to_array', $array, $attribute_template);
+
+        return $array;
     }
 }

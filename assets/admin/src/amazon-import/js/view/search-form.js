@@ -1,5 +1,5 @@
 let SearchForm =  Backbone.View.extend({
-    el: '.aff-amazon-import-search-form',
+    el: '#aff-amazon-import-search-form',
 
     events: {
         'change': 'change',
@@ -31,6 +31,14 @@ let SearchForm =  Backbone.View.extend({
      */
     render() {
         this.$el.html(this.template(this.model.attributes));
+
+        let type = this.$el.find('select[name="type"]'),
+            category = this.$el.find('select[name="category"]'),
+            withVariants = this.$el.find('select[name="with-variants"]');
+
+        type.val(this.model.get('type'));
+        category.val(this.model.get('category'));
+        withVariants.val(this.model.get('withVariants'));
 
         return this;
     },

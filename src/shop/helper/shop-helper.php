@@ -32,6 +32,7 @@ class Shop_Helper
             'thumbnail' => $shop->has_thumbnail() ? Image_Helper::to_array($shop->get_thumbnail()) : null,
             'tracking' => Tracking_Helper::to_array($shop->get_tracking()),
             'pricing' => Pricing_Helper::to_array($shop->get_pricing()),
+	        'custom_values' => $shop->has_custom_values() ? $shop->get_custom_values() : null,
         );
 
         $array = apply_filters('aff_shop_to_array', $array, $shop);
@@ -52,17 +53,22 @@ class Shop_Helper
         $slug = new Slug($array['slug']);
         $tracking = Tracking_Helper::from_array($array['tracking']);
         $pricing = Pricing_Helper::from_array($array['pricing']);
-        $thumbnail = Image_Helper::from_array($array['thumbnail']);
-
         $shop = new Shop($name, $slug, $tracking, $pricing);
-        $shop->set_thumbnail($thumbnail);
 
         if(!empty($array['template_id'])) {
             $shop->set_template_id(new Shop_Template_Id($array['template_id']));
         }
 
+	    if(!empty($array['thumbnail']) && $thumbnail = Image_Helper::from_array($array['thumbnail'])) {
+		    $shop->set_thumbnail($thumbnail);
+	    }
+
         if(!empty($array['updated_at']) && $updated_at = Time_Helper::to_datetime_immutable_object($array['updated_at'])) {
             $shop->set_updated_at($updated_at);
+        }
+
+        if(!empty($array['custom_values'])) {
+        	$shop->set_custom_values($array['custom_values']);
         }
 
         $shop = apply_filters('aff_array_to_shop', $shop, $array);

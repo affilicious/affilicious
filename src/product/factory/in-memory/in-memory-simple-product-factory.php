@@ -18,8 +18,16 @@ class In_Memory_Simple_Product_Factory implements Simple_Product_Factory_Interfa
      */
     public function create(Name $name, Slug $slug)
     {
-        $product = new Simple_Product($name, $slug);
+        do_action('aff_simple_product_factory_before_create');
+        do_action('aff_product_factory_before_create');
 
-        return $product;
+        $simple_product = new Simple_Product($name, $slug);
+        $simple_product = apply_filters('aff_simple_product_factory_create', $simple_product);
+        $simple_product = apply_filters('aff_product_factory_create', $simple_product);
+
+        do_action('aff_simple_product_factory_after_create');
+        do_action('aff_product_factory_after_create');
+
+        return $simple_product;
     }
 }

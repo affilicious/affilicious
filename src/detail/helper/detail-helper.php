@@ -18,15 +18,18 @@ class Detail_Helper
      */
     public static function to_array(Detail $detail)
     {
-        $raw_detail = array(
+        $array = array(
             'template_id' => $detail->get_template_id()->get_value(),
             'name' => $detail->get_name()->get_value(),
             'slug' => $detail->get_slug()->get_value(),
             'type' => $detail->get_type()->get_value(),
             'unit' => $detail->has_unit() ? $detail->get_unit()->get_value() : null,
             'value' => $detail->get_value()->get_value(),
+	        'custom_values' => $detail->has_custom_values() ? $detail->get_custom_values() : null,
         );
 
-        return $raw_detail;
+        $array = apply_filters('aff_detail_to_array', $array, $detail);
+
+        return $array;
     }
 }

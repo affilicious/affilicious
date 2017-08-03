@@ -22,24 +22,37 @@ let Import = Backbone.Model.extend({
      * Import the product.
      *
      * @since 0.9
-     * @param {Backbone.Model} product
+     * @param product
      * @public
      */
     import(product) {
         let data = {
-            'product': product.attributes,
+            'product': {
+                'name' : product.attributes.name,
+                'type' : product.attributes.type,
+                'shops' : product.attributes.shops,
+                'custom_values' : product.attributes.custom_values,
+            },
             'config': this.config.attributes,
+            'form': this.search.form.attributes,
         };
 
         jQuery.ajax({
             type: 'POST',
             url: this._buildUrl(),
             data: data,
-            dataType: "application/json",
-        }).done(function() {
-            alert('Done');
-        }).fail(function() {
-            alert('Fail');
+        }).done((result) => {
+            let shopTemplate = ((result || {}).data || {}).shop_template || null;
+
+            if(shopTemplate) {
+                this.config.trigger('aff:amazon-import:config:add-shop', shopTemplate);
+            }
+
+            product.showSuccessMessage();
+        }).fail((result) => {
+            let errorMessage = ((((result || {}).responseJSON || {}).data || {})[0] || {}).message || null;
+
+            product.showErrorMessage(errorMessage);
         })
     },
 

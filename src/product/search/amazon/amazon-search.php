@@ -19,30 +19,79 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @see http://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleIN.html
+ */
 class Amazon_Search implements Search_Interface
 {
     const CATEGORY_ALL = 'All';
+    const CATEGORY_APPAREL = 'Apparel';
+    const CATEGORY_APPLIANCES = 'Appliances';
+    const CATEGORY_AUTOMOTIVE = 'Automotive';
+    const CATEGORY_BABY = 'Baby';
+    const CATEGORY_BEAUTY = 'Beauty';
     const CATEGORY_BOOKS = 'Books';
     const CATEGORY_DVD = 'DVD';
-    const CATEGORY_MUSIC = 'Music';
-    const CATEGORY_APPAREL = 'Apparel';
-    const CATEGORY_VIDEO = 'Video';
-    const CATEGORY_JEWELRY = 'Jewelry';
-    const CATEGORY_AUTOMOTIVE = 'Automotive';
-    const CATEGORY_WATCH = 'Watch';
     const CATEGORY_ELECTRONICS = 'Electronics';
+    const CATEGORY_FURNITURE = 'Furniture';
+    const CATEGORY_GIFT_CARDS = 'GiftCards';
+    const CATEGORY_GROCERY = 'Grocery';
+    const CATEGORY_HEALTH_PERSONAL_CARE = 'HealthPersonalCare';
+    const CATEGORY_HOME_GARDEN = 'HomeGarden';
+    const CATEGORY_INDUSTRIAL = 'Industrial';
+    const CATEGORY_JEWELRY = 'Jewelry';
+    const CATEGORY_KINDLE_STORE = 'KindleStore';
+    const CATEGORY_LAWN_AND_GARDEN = 'LawnAndGarden';
+    const CATEGORY_LUGGAGE = 'Luggage';
+    const CATEGORY_LUXURY_BEAUTY = 'LuxuryBeauty';
+    const CATEGORY_MARKETPLACE = 'Marketplace';
+    const CATEGORY_MUSIC = 'Music';
+    const CATEGORY_MUSICAL_INSTRUMENTS = 'MusicalInstruments';
+    const CATEGORY_OFFICE_PRODUCTS = 'OfficeProducts';
+    const CATEGORY_PANTRY = 'Pantry';
+    const CATEGORY_PC_HARDWARE = 'PCHardware';
+    const CATEGORY_PET_SUPPLIES = 'PetSupplies';
+    const CATEGORY_SHOES = 'Shoes';
+    const CATEGORY_SOFTWARE = 'Software';
+    const CATEGORY_SPORTING_GOODS = 'SportingGoods';
+    const CATEGORY_TOYS = 'Toys';
+    const CATEGORY_VIDEO_GAMES = 'VideoGames';
+    const CATEGORY_WATCHES = 'Watches';
 
     public static $categories = [
         self::CATEGORY_ALL,
+        self::CATEGORY_APPAREL,
+        self::CATEGORY_APPLIANCES,
+        self::CATEGORY_AUTOMOTIVE,
+        self::CATEGORY_BABY,
+        self::CATEGORY_BEAUTY,
         self::CATEGORY_BOOKS,
         self::CATEGORY_DVD,
-        self::CATEGORY_MUSIC,
-        self::CATEGORY_APPAREL,
-        self::CATEGORY_VIDEO,
-        self::CATEGORY_JEWELRY,
-        self::CATEGORY_AUTOMOTIVE,
-        self::CATEGORY_WATCH,
         self::CATEGORY_ELECTRONICS,
+        self::CATEGORY_FURNITURE,
+        self::CATEGORY_GIFT_CARDS,
+        self::CATEGORY_GROCERY,
+        self::CATEGORY_HEALTH_PERSONAL_CARE,
+        self::CATEGORY_HOME_GARDEN,
+        self::CATEGORY_INDUSTRIAL,
+        self::CATEGORY_JEWELRY,
+        self::CATEGORY_KINDLE_STORE,
+        self::CATEGORY_LAWN_AND_GARDEN,
+        self::CATEGORY_LUGGAGE,
+        self::CATEGORY_LUXURY_BEAUTY,
+        self::CATEGORY_MARKETPLACE,
+        self::CATEGORY_MUSIC,
+        self::CATEGORY_MUSICAL_INSTRUMENTS,
+        self::CATEGORY_OFFICE_PRODUCTS,
+        self::CATEGORY_PANTRY,
+        self::CATEGORY_PC_HARDWARE,
+        self::CATEGORY_PET_SUPPLIES,
+        self::CATEGORY_SHOES,
+        self::CATEGORY_SOFTWARE,
+        self::CATEGORY_SPORTING_GOODS,
+        self::CATEGORY_TOYS,
+        self::CATEGORY_VIDEO_GAMES,
+        self::CATEGORY_WATCHES,
     ];
 
     /**
@@ -103,7 +152,7 @@ class Amazon_Search implements Search_Interface
     {
         $term = isset($params['term']) ? $params['term'] : null;
         if(empty($term)) {
-            return new \WP_Error('aff_amazon_search_missing_term', 'The Amazon search term with the key "term" is missing in the parameters.');
+            return new \WP_Error('aff_amazon_search_missing_term', __('The Amazon search term is missing', 'affilicious'));
         }
 
         return $term;
@@ -120,7 +169,7 @@ class Amazon_Search implements Search_Interface
     {
         $type = isset($params['type']) ? $params['type'] : null;
         if(empty($type)) {
-            return new \WP_Error('aff_amazon_search_missing_type', 'The Amazon search type with the key "type" is missing in the parameter.');
+            return new \WP_Error('aff_amazon_search_missing_type', __('The Amazon search type is missing', 'affilicious'));
         }
 
         return $type;
@@ -137,13 +186,13 @@ class Amazon_Search implements Search_Interface
     {
         $category = isset($params['category']) ? $params['category'] : null;
         if(empty($category)) {
-            return new \WP_Error('aff_amazon_search_missing_category', 'The Amazon search category with the key "category" is missing in the parameters.');
+            return new \WP_Error('aff_amazon_search_missing_category', __('The Amazon search category is missing', 'affilicious'));
         }
 
         if(!in_array($category, self::$categories)) {
             return new \WP_Error('aff_amazon_search_invalid_category', sprintf(
                 'The Amazon search category is not valid. Choose from: %s',
-                explode(', ', self::$categories)
+                implode(', ', self::$categories)
             ));
         }
 

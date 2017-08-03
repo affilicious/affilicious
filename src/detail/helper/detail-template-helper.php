@@ -107,14 +107,17 @@ class Detail_Template_Helper
      */
     public static function to_array(Detail_Template $detail_template)
     {
-        $raw_detail_template = array(
+        $array = array(
             'id' => $detail_template->get_id()->get_value(),
             'name' => $detail_template->get_name()->get_value(),
             'slug' => $detail_template->get_slug()->get_value(),
             'type' => $detail_template->get_type()->get_value(),
             'unit' => $detail_template->has_unit() ? $detail_template->get_unit()->get_value() : null,
+	        'custom_values' => $detail_template->has_custom_values() ? $detail_template->get_custom_values() : null,
         );
 
-        return $raw_detail_template;
+        $array = apply_filters('aff_detail_to_array', $array, $detail_template);
+
+        return $array;
     }
 }

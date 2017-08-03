@@ -2,8 +2,6 @@
 namespace Affilicious\Product\Migration;
 
 use Affilicious\Product\Model\Product;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

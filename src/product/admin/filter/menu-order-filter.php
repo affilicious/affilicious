@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 class Menu_Order_Filter
 {
     /**
-     * @hook custom_menu_order
+     * @filter custom_menu_order
      * @since 0.9
      * @param $menu_order
      * @return mixed

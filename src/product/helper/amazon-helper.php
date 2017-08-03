@@ -49,7 +49,7 @@ class Amazon_Helper
             $url = $item['LargeImage']['URL'];
         } elseif(isset($item['MediumImage'])) {
             $url = $item['MediumImage']['URL'];
-        } else if(isset($item['SmallImage'])) {
+        } elseif(isset($item['SmallImage'])) {
             $url = $item['SmallImage']['URL'];
         } else {
             return null;
@@ -81,11 +81,11 @@ class Amazon_Helper
         if(isset($item['ImageSets']['ImageSet'])) {
             $images = $item['ImageSets']['ImageSet'];
             foreach ($images as $image) {
-                if(isset($item['LargeImage'])) {
+                if(isset($image['LargeImage'])) {
                     $url = $image['LargeImage']['URL'];
                 } elseif(isset($image['MediumImage'])) {
                     $url = $image['MediumImage']['URL'];
-                } else if(isset($image['SmallImage'])) {
+                } elseif(isset($image['SmallImage'])) {
                     $url = $image['SmallImage']['URL'];
                 } else {
                     continue;
@@ -214,6 +214,10 @@ class Amazon_Helper
         if($availability === null && isset($item['Offers']['Offer']['OfferListing']['AvailabilityAttributes']['AvailabilityType'])) {
             $type = $item['Offers']['Offer']['OfferListing']['AvailabilityAttributes']['AvailabilityType'];
             $availability = $type == 'now' ? Availability::available() : Availability::out_of_stock();
+        }
+
+        if($availability === null && isset($item['ItemAttributes']['ProductGroup']) && $item['ItemAttributes']['ProductGroup'] == 'eBooks') {
+            $availability = Availability::available();
         }
 
         $availability = apply_filters('aff_amazon_helper_find_availability', $availability, $item);
@@ -403,9 +407,13 @@ class Amazon_Helper
             $variant_items = $item['Variations']['Item'];
             foreach ($variant_items as $variant_item) {
 
-                // The variants doesn't have a affiliate link
+                // The variants doesn't have an affiliate link and images.
                 $variant_item = wp_parse_args($variant_item, [
-                    'DetailPageURL' => $item['DetailPageURL']
+                    'DetailPageURL' => $item['DetailPageURL'],
+	                'SmallImage' => isset($item['SmallImage']) ? $item['SmallImage'] : null,
+	                'MediumImage' => isset($item['MediumImage']) ? $item['MediumImage'] : null,
+	                'LargeImage' => isset($item['LargeImage']) ? $item['LargeImage'] : null,
+	                'ImageSets' => isset($item['ImageSets']) ? $item['ImageSets'] : null,
                 ]);
 
                 /** @var Product_Variant $product_variant */
@@ -430,7 +438,7 @@ class Amazon_Helper
         }
 
         if ($product instanceof Shop_Aware_Interface) {
-            $shop = Amazon_Helper::find_shop($item, null, !empty($config['store_shop']));
+            $shop = Amazon_Helper::find_shop($item, !empty($config['shop_template_id']) ? $config['shop_template_id'] : null, !empty($config['store_shop']));
             if ($shop !== null) {
                 $product->add_shop($shop);
             }
@@ -445,6 +453,10 @@ class Amazon_Helper
         if (!empty($image_gallery)) {
             $product->set_image_gallery($image_gallery);
         }
+
+	    if(isset($item['ParentASIN'])) {
+		    $product->add_custom_value('amazon_parent_asin', $item['ParentASIN'] );
+	    }
 
         return $product;
     }

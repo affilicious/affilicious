@@ -3,6 +3,8 @@ let SearchLoadMore = Backbone.Model.extend({
         'enabled': true,
         'loading': false,
         'noResults': false,
+        'error': false,
+        'errorMessage': null,
     },
 
     /**
@@ -20,10 +22,15 @@ let SearchLoadMore = Backbone.Model.extend({
      * Show the load more button and deactivate the spinner animation.
      *
      * @since 0.9
+     * @param {boolean} enabled
      * @public
      */
-    done() {
-        this.set('loading', false);
+    done(enabled = true) {
+        this.set({
+            'loading': false,
+            'enabled': enabled,
+        });
+
         this.trigger('aff:amazon-import:search:load-more:done', this);
     },
 
@@ -40,6 +47,24 @@ let SearchLoadMore = Backbone.Model.extend({
         });
 
         this.trigger('aff:amazon-import:search:load-more:no-results', this);
+    },
+
+    /**
+     * Show a load more error and deactivate the spinner animation.
+     *
+     * @since 0.9
+     * @param {string|null} message
+     * @public
+     */
+    error(message = null) {
+        this.set({
+            'enabled': true,
+            'loading': false,
+            'error': true,
+            'errorMessage': message,
+        });
+
+        this.trigger('aff:amazon-import:search:load-more:error', this);
     }
 });
 

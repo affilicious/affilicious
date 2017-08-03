@@ -5,8 +5,6 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

@@ -10,7 +10,7 @@ class Table_Columns_Filter
     /**
      * Filter the admin table columns of the attribute templates.
      *
-     * @hook manage_edit-aff_attribute_tmpl_columns
+     * @filter manage_edit-aff_attribute_tmpl_columns
      * @since 0.9
      * @param array $columns
      * @return array

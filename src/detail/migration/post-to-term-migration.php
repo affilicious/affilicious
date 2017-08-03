@@ -6,8 +6,6 @@ use Affilicious\Detail\Factory\Detail_Template_Factory_Interface;
 use Affilicious\Detail\Model\Type;
 use Affilicious\Detail\Model\Unit;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

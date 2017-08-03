@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.8
-Stable tag: 0.8.20
+Stable tag: 0.9
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,23 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9 =
+* New: Added Amazon import for simple and complex products with variants.
+* New: Added some more functions for theme developers.
+* New: Added some more hooks for theme und plugin developers.
+* New: Added support for international Amazon product import and update usage.
+* New: Added Amazon product update support for images.
+* Improvement: Added selectize.js support for carbon input fields.
+* Improvement: Added auto-completion for details and attributes tags in the products.
+* Improvement: Renamed "Affiliate ID" to "Affiliate Product ID".
+* Improvement: Added output formatter for the functions.
+* Improvement: Increased the shops and variants limits.
+* Improvement: Improved the function and method doc blocks.
+* Improvement: Switched from "Image IDs" to "Images".
+* Improvement: Restructured Gulp for handling Ecmascript 6 much better.
+* Improvement: Added translations for error messages to display them in the front-end.
+* Fix: Fixed many different bugs.
+
 = 0.8.20 =
 * Improvement: Product variants take the taxonomy terms of the parent complex product now.
 * Fix: Fixed the status change of the product variants when the parent product status changed.

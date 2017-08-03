@@ -19,8 +19,16 @@ class In_Memory_Product_Variant_Factory implements Product_Variant_Factory_Inter
      */
     public function create(Complex_Product $parent, Name $name, Slug $slug)
     {
-        $product = new Product_Variant($parent, $name, $slug);
+        do_action('aff_product_variant_factory_before_create');
+        do_action('aff_product_factory_before_create');
 
-        return $product;
+        $product_variant = new Product_Variant($parent, $name, $slug);
+        $product_variant = apply_filters('aff_product_variant_factory_create', $product_variant);
+        $product_variant = apply_filters('aff_product_factory_create', $product_variant);
+
+        do_action('aff_product_variant_factory_after_create');
+        do_action('aff_product_factory_after_create');
+
+        return $product_variant;
     }
 }

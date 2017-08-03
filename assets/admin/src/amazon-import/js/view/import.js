@@ -2,7 +2,7 @@ import Search from './search';
 import Config from './config';
 
 let Import = Backbone.View.extend({
-    el: '.aff-amazon-import',
+    el: '#aff-amazon-import',
 
     /**
      * Initialize the import.
