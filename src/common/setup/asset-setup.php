@@ -59,7 +59,6 @@ class Asset_Setup
      */
     public function add_public_styles()
     {
-        wp_enqueue_style('affilicious-public', self::get_public_styles_dir() . 'style.min.css', array(), \Affilicious::VERSION);
     }
 
     /**
@@ -81,7 +80,6 @@ class Asset_Setup
      */
     public function add_public_scripts()
     {
-        wp_enqueue_script('affilicious-public', self::get_public_script_dir() . 'script.min.js', array('jquery'), \Affilicious::VERSION, true);
     }
 
     /**
