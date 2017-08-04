@@ -754,32 +754,58 @@ if(!class_exists('Affilicious')) {
 		 */
 		public function register_public_hooks()
 		{
-			// Hook the text domain
+			// Hook the text domain for the correct translations.
 			add_action('plugins_loaded', array($this, 'load_textdomain'));
 
-			// Hook the products
+			// Hook the products.
 			$product_setup = $this->container['affilicious.product.setup.product'];
 			add_action('init', array($product_setup, 'init'), 0);
+
+			// Hook the custom product taxonomies.
+			$custom_product_taxonomies_setup = $this->container['affilicious.product.setup.custom_taxonomies'];
+			add_action('init', array($custom_product_taxonomies_setup, 'init'), 0);
 
 			// Hook the shop templates.
 			$shop_template_setup = $this->container['affilicious.shop.setup.shop_template'];
 			add_action('init', array($shop_template_setup, 'init'), 0);
 
-			// Hook the attribute templates
+			// Hook the attribute templates.
 			$attribute_template_setup = $this->container['affilicious.attribute.setup.attribute_template'];
 			add_action('init', array($attribute_template_setup, 'init'), 0);
 
-			// Hook the detail templates
-			$detail_template_group_setup = $this->container['affilicious.detail.setup.detail_template'];
-			add_action('init', array($detail_template_group_setup, 'init'), 0);
+			// Hook the detail templates.
+			$detail_template_setup = $this->container['affilicious.detail.setup.detail_template'];
+			add_action('init', array($detail_template_setup, 'init'), 0);
 
-			// Hook the providers
+			// Hook the product slug rewrite.
+			$slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
+			add_action('init', array($slug_rewrite_setup, 'run'), 1);
+			add_action('added_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
+			add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
+
+			// Hook the providers.
 			$provider_setup = $this->container['affilicious.provider.setup.provider'];
 			$amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
 			add_action('init', array($provider_setup, 'init'), 5);
 			add_filter('aff_provider_init', array($amazon_provider_setup, 'init'), 5);
 
-			// Hook the product listeners
+			// Hook the product update queues.
+			$update_queue_setup = $this->container['affilicious.product.setup.update_queue'];
+			add_filter('aff_provider_after_init', array($update_queue_setup, 'init'));
+
+			// Hook the product update workers.
+			$update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
+			$amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
+			add_action('init', array($update_worker_setup, 'init'), 5);
+			add_filter('aff_product_update_worker_init', array($amazon_update_worker_setup, 'init'), 5);
+
+			// Hook the product update timer to update the products regularly.
+			$update_timer = $this->container['affilicious.product.update.timer'];
+			add_action('aff_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
+			add_action('aff_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
+			add_action('aff_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+			// Hook the product listeners.
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
 			$deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
 			$changed_status_complex_product_listener = $this->container['affilicious.product.listener.changed_status_complex_product'];
@@ -787,55 +813,29 @@ if(!class_exists('Affilicious')) {
 			add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
 			add_action('transition_post_status', array($changed_status_complex_product_listener, 'listen'), 10, 3);
 
-			// Hook the slug rewrite
-			$slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
-			add_action('init', array($slug_rewrite_setup, 'run'), 1);
-			add_action('added_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
-			add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
-
-			// Hook the custom taxonomies setup.
-			$custom_taxonomies_setup = $this->container['affilicious.product.setup.custom_taxonomies'];
-			add_action('init', array($custom_taxonomies_setup, 'init'), 0);
-
-			// Hook the canonical tags
+			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];
 			add_action('wp_head', array($canonical_setup, 'set_up'));
 
-			// Hook the admin bar setup
+			// Hook the admin bar to make it compatible with products.
 			$admin_bar_setup = $this->container['affilicious.product.setup.admin_bar'];
 			add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 99);
 
-			// Filter the complex products from the search
+			// Filter the complex products from the front end search.
 			$complex_product_filter = $this->container['affilicious.product.filter.complex_product'];
 			add_action('pre_get_posts', array($complex_product_filter, 'filter'));
 
-			// Hook the update workers
-			$update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
-			$amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
-			add_action('init', array($update_worker_setup, 'init'), 5);
-			add_filter('aff_product_update_worker_init', array($amazon_update_worker_setup, 'init'));
-
-			// Hook the update queues
-			$update_queue_setup = $this->container['affilicious.product.setup.update_queue'];
-			add_filter('aff_provider_after_init', array($update_queue_setup, 'init'));
-
-			// Hook the update timer to update the products regularly
-			$update_timer = $this->container['affilicious.product.update.timer'];
-			add_action('aff_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
-			add_action('aff_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
-			add_action('aff_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
-
-			// Hook the license handler setup
+			// Hook the license handlers for the extensions.
 			$license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
 			add_action('init', array($license_handler_setup, 'init'), 15);
 
-			// Hook the link target setup
+			// Hook the link targets to make affiliate links work again.
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
 			add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
 
+			// Hook into this action if you want to create custom extensions or themes with the dependency injection container.
 			do_action('aff_hooks');
 
-			// Add a custom affilicious init hook
 			add_action('init', function() {
 				/** @deprecated 1.1 */
 				do_action('aff_init');
@@ -852,25 +852,25 @@ if(!class_exists('Affilicious')) {
 		 */
 		public function register_admin_hooks()
 		{
-			// Hook the Carbon Fields
+			// Hook the custom Carbon Fields.
 			$carbon_fields_setup = $this->container['affilicious.common.admin.setup.carbon'];
 			add_action('after_setup_theme', array($carbon_fields_setup, 'init'), 15);
 
 			// Hook the product meta box.
 			$product_meta_box = $this->container['affilicious.product.admin.meta_box.product'];
-			add_action('aff_init', array($product_meta_box, 'render'));
+			add_action('init', array($product_meta_box, 'render'), 10);
 
 			// Hook the shop template meta box.
 			$shop_template_meta_box = $this->container['affilicious.shop.admin.meta_box.shop_template'];
-			add_action('aff_init', array($shop_template_meta_box, 'render'));
+			add_action('init', array($shop_template_meta_box, 'render'), 10);
 
 			// Hook the attribute template meta box.
 			$attribute_template_meta_box = $this->container['affilicious.attribute.admin.meta_box.attribute_template'];
-			add_action('aff_init', array($attribute_template_meta_box, 'render'));
+			add_action('init', array($attribute_template_meta_box, 'render'), 10);
 
 			// Hook the detail template meta box.
 			$detail_template_meta_box = $this->container['affilicious.detail.admin.meta_box.detail_template'];
-			add_action('aff_init', array($detail_template_meta_box, 'render'));
+			add_action('init', array($detail_template_meta_box, 'render'), 10);
 
 			// Hook the admin assets.
 			$assets_setup = $this->container['affilicious.common.admin.setup.assets'];
@@ -901,7 +901,7 @@ if(!class_exists('Affilicious')) {
 			add_filter('manage_edit-aff_shop_tmpl_columns',  array($shop_template_admin_table_columns_filter, 'filter'));
 			add_filter('manage_aff_shop_tmpl_custom_column', array($shop_template_admin_table_rows_filter, 'filter'), 15, 3);
 
-			// Hook the options
+			// Hook the option pages.
 			$affilicious_options = $this->container['affilicious.common.admin.options.affilicious'];
 			$product_options = $this->container['affilicious.product.admin.options.product'];
 			$provider_options = $this->container['affilicious.provider.admin.options.amazon'];
@@ -909,7 +909,7 @@ if(!class_exists('Affilicious')) {
 			add_action('init', array($product_options, 'render'), 20);
 			add_action('init', array($provider_options, 'render'), 20);
 
-			// Hook the import page
+			// Hook the import page.
 			$import_page = $this->container['affilicious.product.admin.page.import'];
 			add_action('admin_menu', array($import_page, 'init'), 10);
 
@@ -917,7 +917,7 @@ if(!class_exists('Affilicious')) {
 			$addons_page = $this->container['affilicious.common.admin.page.addons'];
 			add_action('admin_menu', array($addons_page, 'init'), 100);
 
-			// Hook the menu order filter
+			// Hook the menu order filter.
 			$product_admin_menu_order_filter = $this->container['affilicious.product.admin.filter.menu_order'];
 			add_filter('custom_menu_order', array($product_admin_menu_order_filter, 'filter'));
 
@@ -925,12 +925,13 @@ if(!class_exists('Affilicious')) {
 			$admin_footer_text_filter = $this->container['affilicious.common.admin.filter.footer_text'];
 			add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
 
-			// Hook the ajax handlers
+			// Hook the ajax handlers.
 			$amazon_search_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_search'];
 			$amazon_import_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_import'];
 			add_action('wp_ajax_aff_product_admin_amazon_search', array($amazon_search_ajax_handler, 'handle'));
 			add_action('wp_ajax_aff_product_admin_amazon_import', array($amazon_import_ajax_handler, 'handle'));
 
+			// Hook into this action if you want to create custom extensions or themes with the dependency injection container.
 			do_action('aff_admin_hooks');
 
 			// Add a custom affilicious admin init hook.
