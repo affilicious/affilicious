@@ -47,7 +47,7 @@
                 <option value="PetSupplies"><?php _e('Pet Supplies', 'affilicious'); ?></option>
                 <option value="Shoes"><?php _e('Shoes', 'affilicious'); ?></option>
                 <option value="Software"><?php _e('Software', 'affilicious'); ?></option>
-                <option value="SportingGoods">><?php _e('Sporting Goods', 'affilicious'); ?></option>
+                <option value="SportingGoods"><?php _e('Sporting Goods', 'affilicious'); ?></option>
                 <option value="Toys"><?php _e('Toys', 'affilicious'); ?></option>
                 <option value="Video"><?php _e('Video', 'affilicious'); ?></option>
                 <option value="VideoGames"><?php _e('Video Games', 'affilicious'); ?></option>
