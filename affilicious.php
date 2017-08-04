@@ -151,7 +151,6 @@ if(!class_exists('Affilicious')) {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 
-			$this->load_includes();
 			$this->load_functions();
 			$this->load_services();
 			$this->register_public_hooks();
@@ -160,9 +159,6 @@ if(!class_exists('Affilicious')) {
 
 			// TODO: This old legacy class will be removed later
 			new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
-
-			// We have to call the container to the run code inside
-			$this->container['affilicious.common.setup.carbon'];
 		}
 
 		/**
@@ -330,8 +326,8 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
 
-			$this->container['affilicious.common.setup.carbon'] = function () {
-				return new \Affilicious\Common\Setup\Carbon_Setup();
+			$this->container['affilicious.common.admin.setup.carbon'] = function () {
+				return new \Affilicious\Common\Admin\Setup\Carbon_Setup();
 			};
 
 			$this->container['affilicious.common.admin.page.addons'] = function () {
@@ -742,18 +738,6 @@ if(!class_exists('Affilicious')) {
 		}
 
 		/**
-		 * Load the includes
-		 *
-		 * @since 0.5.1
-		 */
-		public function load_includes()
-		{
-			require_once(__DIR__ . '/src/common/form/carbon/hidden-field.php');
-			require_once(__DIR__ . '/src/common/form/carbon/number-field.php');
-			require_once(__DIR__ . '/src/common/form/carbon/image-gallery-field.php');
-		}
-
-		/**
 		 * Load the simple functions for an easier usage in templates
 		 *
 		 * @since 0.5.1
@@ -772,10 +756,6 @@ if(!class_exists('Affilicious')) {
 		{
 			// Hook the text domain
 			add_action('plugins_loaded', array($this, 'load_textdomain'));
-
-			// Hook the Carbon Fields
-			$carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
-			add_action('after_setup_theme', array($carbon_fields_setup, 'init'), 15);
 
 			// Hook the products
 			$product_setup = $this->container['affilicious.product.setup.product'];
@@ -872,6 +852,10 @@ if(!class_exists('Affilicious')) {
 		 */
 		public function register_admin_hooks()
 		{
+			// Hook the Carbon Fields
+			$carbon_fields_setup = $this->container['affilicious.common.admin.setup.carbon'];
+			add_action('after_setup_theme', array($carbon_fields_setup, 'init'), 15);
+
 			// Hook the product meta box.
 			$product_meta_box = $this->container['affilicious.product.admin.meta_box.product'];
 			add_action('aff_init', array($product_meta_box, 'render'));
