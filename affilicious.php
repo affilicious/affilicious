@@ -856,7 +856,7 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the license handler setup
 			$license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
-			add_action('aff_init', array($license_handler_setup, 'init'), 15);
+			add_action('init', array($license_handler_setup, 'init'), 15);
 
 			// Hook the link target setup
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
@@ -871,7 +871,7 @@ if(!class_exists('Affilicious')) {
 
 				/** @deprecated 1.0 */
 				do_action('affilicious_init');
-			}, 100);
+			});
 		}
 
 		/**
@@ -965,7 +965,7 @@ if(!class_exists('Affilicious')) {
 
 				/** @deprecated 1.0 */
 				do_action('affilicious_admin_init');
-			}, 100);
+			});
 		}
 	}
 }
