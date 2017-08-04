@@ -829,11 +829,11 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];
-			add_action('wp_head', array($canonical_setup, 'set_up'));
+			add_action('wp_head', array($canonical_setup, 'init'));
 
 			// Hook the admin bar to make it compatible with products.
 			$admin_bar_setup = $this->container['affilicious.product.setup.admin_bar'];
-			add_action('admin_bar_menu', array($admin_bar_setup, 'set_up'), 99);
+			add_action('admin_bar_menu', array($admin_bar_setup, 'init'), 99);
 
 			// Filter the complex products from the front end search.
 			$complex_product_filter = $this->container['affilicious.product.filter.complex_product'];

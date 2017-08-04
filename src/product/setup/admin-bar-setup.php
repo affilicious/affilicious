@@ -13,10 +13,10 @@ class Admin_Bar_Setup
      * Set up the correct product edit link for product variants
      *
      * @hook admin_bar_menu
-     * @since 0.6
+     * @since 0.9.1
      * @param \WP_Admin_Bar $wp_admin_bar
      */
-    public function set_up(\WP_Admin_Bar $wp_admin_bar)
+    public function init(\WP_Admin_Bar $wp_admin_bar)
     {
         $edit_node = $wp_admin_bar->get_node('edit');
         if(empty($edit_node)) {

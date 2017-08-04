@@ -13,9 +13,9 @@ class Canonical_Setup
      * Set up the canonical link for product variants to avoid duplicated content
      *
      * @hook wp_head
-     * @since 0.6
+     * @since 0.9.1
      */
-    public function set_up()
+    public function init()
     {
         $post = get_post();
         if(empty($post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
