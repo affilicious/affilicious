@@ -899,8 +899,8 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the admin assets.
 			$assets_setup = $this->container['affilicious.common.admin.setup.assets'];
-			add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'), 10);
-			add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'), 20);
+			add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'));
+			add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'));
 
 			// Hook the product admin table filters.
 			$product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];
