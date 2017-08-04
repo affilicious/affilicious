@@ -3,8 +3,8 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.8
-Stable tag: 0.9
+Tested up to: 4.8.1
+Stable tag: 0.9.1
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,17 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.1 =
+* New: Added "aff_hooks" and "aff_admin_hooks" hooks.
+* Improvement: Cleaned up the hooks and changed some priorities.
+* Improvement: Changed the admin licences tab label.
+* Improvement: Restructured some setups.
+* Improvement: Cleaned up the dependency injection services.
+* Improvement: Added version and min PHP version constants.
+* Fix: Improved loading performance by removing missing public styles and scripts.
+* Fix: Fixed the admin licenses box layout.
+* Fix: Removed a typo in the Amazon import search form.
+
 = 0.9 =
 * New: Added Amazon import for simple and complex products with variants.
 * New: Added some more functions for theme developers.
