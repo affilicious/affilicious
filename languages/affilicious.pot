@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-07-30 "
-"13:13+0200\n"
+"POT-Creation-Date: 2017-08-04 "
+"10:25+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -254,7 +254,7 @@ msgid ""
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:45
-msgid "License"
+msgid "Licenses"
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:46
@@ -317,13 +317,13 @@ msgid "Extensions"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:70
-#: src/common/setup/asset-setup.php:97
+#: src/common/setup/asset-setup.php:95
 #: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:71
-#: src/common/setup/asset-setup.php:98
+#: src/common/setup/asset-setup.php:96
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
@@ -332,7 +332,7 @@ msgid "Variants"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:72
-#: src/common/setup/asset-setup.php:99
+#: src/common/setup/asset-setup.php:97
 #: src/product/admin/meta-box/product-meta-box.php:87
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
@@ -344,15 +344,15 @@ msgid "Shops"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:78
-#: src/common/setup/asset-setup.php:100
+#: src/common/setup/asset-setup.php:98
 msgid "Add"
 msgstr ""
 
-#: src/common/admin/view/license/licenses.php:14
+#: src/common/admin/view/licenses/licenses.php:14
 msgid "Enter license code here..."
 msgstr ""
 
-#: src/common/admin/view/license/licenses.php:23
+#: src/common/admin/view/licenses/licenses.php:23
 msgid "Save"
 msgstr ""
 
@@ -524,7 +524,7 @@ msgid ""
 "product."
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:257
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:272
 #, php-format
 msgid ""
 "Failed to merge different "

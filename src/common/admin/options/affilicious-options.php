@@ -42,7 +42,7 @@ class Affilicious_Options
 
 		$container = Carbon_Container::make('theme_options', 'Affilicious')
 	        ->set_icon('dashicons-admin-generic')
-            ->add_tab(__('License', 'affilicious'), $this->get_license_fields())
+            ->add_tab(__('Licenses', 'affilicious'), $this->get_licenses_fields())
 	        ->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields());
 
         $container = apply_filters('affilicious_admin_options_affilicious_container', $container);
@@ -51,34 +51,34 @@ class Affilicious_Options
 	}
 
     /**
-     * Get the license fields.
+     * Get the licenses fields.
      *
-     * @since 0.9
-     * @return array
+     * @since 0.9.1
+     * @return Carbon_Field[]
      */
-	public function get_license_fields()
+	public function get_licenses_fields()
     {
         $help_text = count($this->license_manager->get_license_handlers()) > 0
             ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de')
             : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicioustheme.de');
 
         $fields = array(
-            Carbon_Field::make('html', 'affilicious_options_affilicious_container_license_tab_licences_field')
-                ->set_html(View_Helper::stringify(\Affilicious::get_root_path() . 'src/common/admin/view/license/licenses.php', array(
+            Carbon_Field::make('html', 'affilicious_options_affilicious_container_licenses_tab_licences_field')
+                ->set_html(View_Helper::stringify(\Affilicious::get_root_path() . 'src/common/admin/view/licenses/licenses.php', array(
                     'license_manager' => $this->license_manager,
                     'license_processor' => $this->license_processor,
                 )))
                 ->set_help_text($help_text)
         );
 
-        return apply_filters('affilicious_admin_options_affilicious_container_license_fields', $fields);
+        return apply_filters('affilicious_admin_options_affilicious_container_licenses_fields', $fields);
     }
 
     /**
      * Get the scripts fields.
      *
      * @since 0.9
-     * @return array
+     * @return Carbon_Field[]
      */
     public function get_scripts_fields()
     {
