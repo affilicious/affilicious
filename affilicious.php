@@ -330,10 +330,6 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
 
-			$this->container['affilicious.common.setup.asset'] = function () {
-				return new \Affilicious\Common\Setup\Asset_Setup();
-			};
-
 			$this->container['affilicious.common.setup.carbon'] = function () {
 				return new \Affilicious\Common\Setup\Carbon_Setup();
 			};
@@ -776,11 +772,6 @@ if(!class_exists('Affilicious')) {
 		{
 			// Hook the text domain
 			add_action('plugins_loaded', array($this, 'load_textdomain'));
-
-			// Hook the public assets
-			$asset_setup = $this->container['affilicious.common.setup.asset'];
-			add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_styles'));
-			add_action('wp_enqueue_scripts', array($asset_setup, 'add_public_scripts'));
 
 			// Hook the Carbon Fields
 			$carbon_fields_setup = $this->container['affilicious.common.setup.carbon'];
