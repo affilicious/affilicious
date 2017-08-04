@@ -33,6 +33,8 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+define('AFFILICIOUS_VERSION', '0.9');
+define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
@@ -126,7 +128,10 @@ if(!class_exists('Affilicious')) {
 
 			spl_autoload_register(array($this, 'autoload'));
 
-			$this->container = new \Pimple\Container();
+			// Check the PHP version requirement
+			if (version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
+				$this->container = new \Pimple\Container();
+			}
 		}
 
 		/**
@@ -151,14 +156,17 @@ if(!class_exists('Affilicious')) {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 
-			$this->load_functions();
-			$this->load_services();
-			$this->register_public_hooks();
-			$this->register_admin_hooks();
-			$this->migrate();
+			// Check the PHP version requirement
+			if (version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
+				$this->load_functions();
+				$this->load_services();
+				$this->register_public_hooks();
+				$this->register_admin_hooks();
+				$this->migrate();
 
-			// TODO: This old legacy class will be removed later
-			new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
+				// TODO: This old legacy class will be removed later
+				new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
+			}
 		}
 
 		/**
