@@ -12,8 +12,8 @@ class Table_Columns_Filter
      *
      * @filter manage_edit-aff_shop_tmpl_columns
      * @since 0.9
-     * @param array $columns
-     * @return array
+     * @param array $columns The columns to filter.
+     * @return array The filtered columns.
      */
     public function filter($columns)
     {

@@ -34,12 +34,12 @@ class In_Memory_Shop_Template_Factory implements Shop_Template_Factory_Interface
      */
     public function create(Name $name, Slug $slug)
     {
-        do_action('aff_shop_template_factory_before_create');
+        do_action('aff_shop_template_factory_before_create', $name, $slug);
 
         $shop_template = new Shop_Template($name, $slug);
         $shop_template = apply_filters('aff_shop_template_factory_create', $shop_template);
 
-        do_action('aff_shop_template_factory_after_create', $shop_template);
+        do_action('aff_shop_template_factory_after_create', $shop_template, $name, $slug);
 
         return $shop_template;
     }

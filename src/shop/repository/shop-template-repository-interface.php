@@ -17,8 +17,8 @@ interface Shop_Template_Repository_Interface
      * The ID and the slug of the shop template might be different afterwards.
      *
      * @since 0.8
-     * @param Shop_Template $shop_template
-     * @return Shop_Template_Id|\WP_Error
+     * @param Shop_Template $shop_template The shop template which will be stored.
+     * @return Shop_Template_Id|\WP_Error Either the stored shop template ID or an error.
      */
     public function store(Shop_Template $shop_template);
 
@@ -27,8 +27,8 @@ interface Shop_Template_Repository_Interface
      * The ID of the shop template is going to be null afterwards.
      *
      * @since 0.8
-     * @param Shop_Template_Id $shop_template_id
-     * @return Shop_Template|\WP_Error
+     * @param Shop_Template_Id $shop_template_id The shop template ID of the shop template which will be deleted.
+     * @return Shop_Template|\WP_Error Either the deleted shop template or an error.
      */
     public function delete(Shop_Template_Id $shop_template_id);
 
@@ -36,8 +36,8 @@ interface Shop_Template_Repository_Interface
      * Find an shop template by the ID.
      *
      * @since 0.8
-     * @param Shop_Template_Id $shop_template_id
-     * @return null|Shop_Template
+     * @param Shop_Template_Id $shop_template_id The shop template ID for the search.
+     * @return null|Shop_Template Either the shop template or no result.
      */
     public function find_one_by_id(Shop_Template_Id $shop_template_id);
 
@@ -45,35 +45,26 @@ interface Shop_Template_Repository_Interface
      * Find one shop template by the name.
      *
      * @since 0.8
-     * @param Name $name
-     * @return null|Shop_Template
+     * @param Name $name The name for the search.
+     * @return null|Shop_Template Either the shop template or no result.
      */
     public function find_one_by_name(Name $name);
 
     /**
-     * Find one shop template by the ID.
+     * Find one shop template by the slug.
      *
      * @since 0.8
-     * @param Slug $slug
-     * @return null|Shop_Template
+     * @param Slug $slug The slug for the search.
+     * @return null|Shop_Template Either the shop template or no result.
      */
     public function find_one_by_slug(Slug $slug);
-
-    /**
-     * Find all shop templates by the IDs.
-     *
-     * @since 0.8
-     * @param Shop_Template_Id[]$shop_template_ids
-     * @return Shop_Template[]
-     */
-    public function find_all_by_id($shop_template_ids);
 
     /**
      * Find all shop templates.
      *
      * @since 0.8
-     * @param array $args
-     * @return Shop_Template[]
+     * @param array|string $args Optional. Array or string of arguments. See WP_Term_Query::__construct() for information on accepted arguments. Default empty.
+     * @return Shop_Template[] The found shop templates.
      */
     public function find_all($args = array());
 }

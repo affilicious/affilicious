@@ -37,27 +37,42 @@ class Shop_Template_Meta_Box
 
         $container = Carbon_Container::make('term_meta', __('Shop Template', 'affilicious'))
             ->show_on_taxonomy(Shop_Template::TAXONOMY)
-            ->add_fields(array(
-                Carbon_Field::make('select', Carbon_Shop_Template_Repository::PROVIDER, __('Provider', 'affilicious'))
-                    ->set_required(true)
-                    ->add_options($this->get_provider_options())
-                    ->set_help_text(__('The provider is used for the automatic updates for products using this shop.', 'affilicious')),
-                Carbon_Field::make('image', Carbon_Shop_Template_Repository::THUMBNAIL_ID, __('Logo', 'affilicious'))
-                    ->set_help_text(__('The logo is used to show an image near the shop prices in products.', 'affilicious')),
-            ));
+            ->add_fields($this->get_fields());
 
         $container = apply_filters('aff_admin_meta_box_before_shop_template_container', $container);
 
         do_action('aff_admin_meta_box_after_render_shop_template_container', $container);
 	}
 
+	/**
+	 * Get the shop template fields.
+	 *
+	 * @since 0.9.2
+	 * @return Carbon_Field[] The list of fields.
+	 */
+	protected function get_fields()
+	{
+		$fields = array(
+			Carbon_Field::make('select', Carbon_Shop_Template_Repository::PROVIDER, __('Provider', 'affilicious'))
+			            ->set_required(true)
+			            ->add_options($this->get_provider_options())
+			            ->set_help_text(__('The provider is used for the automatic updates for products using this shop.', 'affilicious')),
+			Carbon_Field::make('image', Carbon_Shop_Template_Repository::THUMBNAIL_ID, __('Logo', 'affilicious'))
+			            ->set_help_text(__('The logo is used to show an image near the shop prices in products.', 'affilicious')),
+		);
+
+		$fields = apply_filters('aff_admin_meta_box_before_shop_template_container_fields', $fields);
+
+		return $fields;
+	}
+
     /**
      * Get the options for the provider choice.
      *
      * @since 0.9
-     * @return array
+     * @return array The list of available provider options.
      */
-	private function get_provider_options()
+	protected function get_provider_options()
     {
         $providers = $this->provider_repository->find_all();
 
@@ -67,6 +82,8 @@ class Shop_Template_Meta_Box
                 $options[$provider->get_id()->get_value()] = $provider->get_name()->get_value();
             }
         }
+
+        $options = apply_filters('aff_admin_meta_box_shop_template_provider_options', $options, $providers);
 
         return $options;
     }

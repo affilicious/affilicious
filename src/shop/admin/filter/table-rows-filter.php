@@ -30,10 +30,10 @@ class Table_Rows_Filter
      *
      * @filter manage_aff_shop_tmpl_custom_column
      * @since 0.9
-     * @param string $row
-     * @param string $column_name
-     * @param int $term_id
-     * @return string
+     * @param string $row The admin table column row content.
+     * @param string $column_name The admin table column name.
+     * @param int $term_id The term of the current row.
+     * @return string The filtered row content.
      */
     public function filter($row, $column_name, $term_id)
     {

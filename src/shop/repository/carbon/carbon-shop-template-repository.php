@@ -9,7 +9,6 @@ use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -42,7 +41,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $shop_template = $this->find_one_by_id($shop_template_id);
         if($shop_template === null) {
             return new \WP_Error('aff_shop_template_not_found', sprintf(
-               'Shop template #%s not found in the database.',
+               __('Shop template #%s was not found in the database.', 'affilicious'),
                 $shop_template_id->get_value()
             ));
         }
@@ -54,7 +53,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 
         if($result === 0) {
             return new \WP_Error('aff_invalid_deletion_of_default_category', sprintf(
-                "It's not allowed to delete a default Wordpress category",
+                __("It's not allowed to delete a default Wordpress category", 'affilicious'),
                 $shop_template_id->get_value()
             ));
         }
@@ -82,26 +81,6 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $shop_template = $this->build($term);
 
         return $shop_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_all_by_id($shop_template_ids)
-    {
-        Assert::allIsInstanceOf($shop_template_ids, Shop_Template_Id::class);
-
-        $shop_templates = array();
-
-        foreach ($shop_template_ids as $shop_template_id) {
-            $shop_template = $this->find_one_by_id($shop_template_id);
-            if($shop_template === null) {
-                $shop_templates[] = $shop_template;
-            }
-        }
-
-        return $shop_templates;
     }
 
     /**
@@ -142,7 +121,9 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     public function find_all($args = array())
     {
+    	// Its not allowed to use other taxonomies.
         $args['taxonomy'] = Shop_Template::TAXONOMY;
+
         $args = wp_parse_args($args, array(
             'hide_empty' => false
         ));
@@ -167,11 +148,13 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * Build the shop template from the term.
      *
      * @since 0.8
-     * @param \WP_Term $term
-     * @return Shop_Template
+     * @param \WP_Term $term The term to build the shop template from.
+     * @return Shop_Template The built shop template.
      */
     protected function build(\WP_Term $term)
     {
+	    do_action('aff_shop_template_repository_before_build', $term);
+
         $id = new Shop_Template_Id($term->term_id);
         $name = new Name($term->name);
         $slug = new Slug($term->slug);
@@ -191,6 +174,10 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             $shop_template->set_provider_id($provider_id);
         }
 
+        $shop_template = apply_filters('aff_shop_template_repository_build', $shop_template, $term);
+
+        do_action('aff_shop_template_repository_after_build', $shop_template, $term);
+
         return $shop_template;
     }
 
@@ -198,11 +185,14 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * Insert a new shop template into the database.
      *
      * @since 0.8
-     * @param Shop_Template $shop_template
-     * @return Shop_Template_Id|\WP_Error
+     * @param Shop_Template $shop_template The shop template for the insertion into the database.
+     * @return Shop_Template_Id|\WP_Error Either the inserted shop template ID or an error.
      */
     protected function insert(Shop_Template $shop_template)
     {
+	    do_action('aff_shop_template_repository_before_insert', $shop_template);
+
+	    // Insert the term.
         $term = wp_insert_term(
             $shop_template->get_name()->get_value(),
             Shop_Template::TAXONOMY,
@@ -211,9 +201,10 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             )
         );
 
+        // Check for errors.
         if(empty($term)) {
             return new \WP_Error('aff_shop_template_not_stored', sprintf(
-                'Failed to store the shop template #%s (%s) into the database.',
+                __('Failed to store the shop template #%s (%s) into the database.', 'affilicious'),
                 $shop_template->get_id()->get_value(),
                 $shop_template->get_name()->get_value()
             ));
@@ -223,8 +214,10 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             return $term;
         }
 
+	    // Refresh the ID.
         $shop_template->set_id(new Shop_Template_Id($term['term_id']));
 
+        // Insert the thumbnail.
         if($shop_template->has_thumbnail() && $shop_template->get_thumbnail()->get_id()) {
             add_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -233,6 +226,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             );
         }
 
+        // Insert the provider.
         if($shop_template->has_provider_id()) {
             add_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -241,6 +235,10 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             );
         }
 
+	    $shop_template = apply_filters('aff_shop_template_repository_insert', $shop_template, $term);
+
+	    do_action('aff_shop_template_repository_after_insert', $shop_template, $term);
+
         return $shop_template->get_id();
     }
 
@@ -248,11 +246,14 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * Update an existing shop template in the database.
      *
      * @since 0.8
-     * @param Shop_Template $shop_template
-     * @return Shop_Template_Id|\WP_Error
+     * @param Shop_Template $shop_template The shop template for the update in the database.
+     * @return Shop_Template_Id|\WP_Error Either the updated shop template ID or an error.
      */
     protected function update(Shop_Template $shop_template)
     {
+	    do_action('aff_shop_template_repository_before_update', $shop_template);
+
+	    // Update the term.
         $term = wp_update_term(
             $shop_template->get_id()->get_value(),
             Shop_Template::TAXONOMY,
@@ -262,9 +263,10 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             )
         );
 
+        // Check for errors.
         if(empty($term)) {
             return new \WP_Error('aff_shop_template_not_stored', sprintf(
-                'Failed to store the shop template #%s (%s) into the database.',
+                __('Failed to store the shop template #%s (%s) into the database.', 'affilicious'),
                 $shop_template->get_id()->get_value(),
                 $shop_template->get_name()->get_value()
             ));
@@ -274,10 +276,12 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             return $term;
         }
 
+        // Refresh the slug.
         if(!empty($term['slug'])) {
             $shop_template->set_slug(new Slug($term['slug']));
         }
 
+        // Update the thumbnail.
         if($shop_template->has_thumbnail() && $shop_template->get_thumbnail()->get_id()) {
             update_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -286,6 +290,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             );
         }
 
+        // Update the provider.
         if($shop_template->has_provider_id()) {
             update_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -293,6 +298,10 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
                 $shop_template->get_provider_id()->get_value()
             );
         }
+
+	    $shop_template = apply_filters('aff_shop_template_repository_update', $shop_template, $term);
+
+	    do_action('aff_shop_template_repository_after_update', $shop_template, $term);
 
         return $shop_template->get_id();
     }
