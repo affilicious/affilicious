@@ -9,7 +9,6 @@ use Affilicious\Detail\Model\Detail_Template_Id;
 use Affilicious\Detail\Model\Type;
 use Affilicious\Detail\Model\Unit;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -114,26 +113,6 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
         $detail_template = $this->build($term);
 
         return $detail_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_all_by_id($detail_template_ids)
-    {
-        Assert::allIsInstanceOf($detail_template_ids, Detail_Template_Id::class);
-
-        $detail_templates = array();
-
-        foreach ($detail_template_ids as $detail_template_id) {
-            $detail_template = $this->find_one_by_id($detail_template_id);
-            if($detail_template === null) {
-                $detail_templates[] = $detail_template;
-            }
-        }
-
-        return $detail_templates;
     }
 
     /**

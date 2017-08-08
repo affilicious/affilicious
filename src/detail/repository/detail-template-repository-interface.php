@@ -60,15 +60,6 @@ interface Detail_Template_Repository_Interface
     public function find_one_by_slug(Slug $slug);
 
     /**
-     * Find all detail templates by the IDs.
-     *
-     * @since 0.8
-     * @param Detail_Template_Id[]$detail_template_ids
-     * @return Detail_Template[]
-     */
-    public function find_all_by_id($detail_template_ids);
-
-    /**
      * Find all detail templates.
      *
      * @since 0.8

@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Model;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -24,6 +24,17 @@ class Status
     const TRASH = 'trash';
     const AUTO_DRAFT = 'auto-draft';
     const INHERIT = 'inherit';
+
+    public static $all = [
+        self::PUBLISH,
+	    self::FUTURE,
+	    self::DRAFT,
+	    self::PENDING,
+	    self::_PRIVATE,
+	    self::TRASH,
+	    self::AUTO_DRAFT,
+	    self::INHERIT
+    ];
 
     /**
      * Viewable by everyone.
@@ -120,8 +131,50 @@ class Status
 	 */
 	public function __construct($value)
 	{
-        Assert::string($value, 'The status must be a string. Got: %s');
+		Assert_Helper::is_string_not_empty($value, __METHOD__, 'The status must be a string. Got: %s', '0.9.2');
 
 		$this->set_value($value);
+	}
+
+	/**
+	 * Get the translated label.
+	 *
+	 * @since 0.9.2
+	 * @return null|string The translated label if any.
+	 */
+	public function get_label()
+	{
+		switch ($this->value) {
+			case self::PUBLISH:
+				$label = __('Publish', 'affilicious');
+				break;
+			case self::FUTURE:
+				$label = __('Future', 'affilicious');
+				break;
+			case self::DRAFT:
+				$label = __('Draft', 'affilicious');
+				break;
+			case self::PENDING:
+				$label = __('Pending', 'affilicious');
+				break;
+			case self::_PRIVATE:
+				$label = __('Private', 'affilicious');
+				break;
+			case self::TRASH:
+				$label = __('Trash', 'affilicious');
+				break;
+			case self::AUTO_DRAFT:
+				$label = __('Auto draft', 'affilicious');
+				break;
+			case self::INHERIT:
+				$label = __('Inherit', 'affilicious');
+				break;
+			default:
+				$label = null;
+		}
+
+		$label = apply_filters('aff_common_status_label', $label, $this->value);
+
+		return $label;
 	}
 }

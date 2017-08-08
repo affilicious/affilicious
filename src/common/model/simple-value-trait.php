@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Model;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -20,7 +20,7 @@ trait Simple_Value_Trait
      */
     public function __construct($value)
     {
-        Assert::notNull($value);
+        Assert_Helper::is_not_null($value, __METHOD__, 'The value must be not null. Got: %s', '0.9.2');
 
         $this->value = $value;
     }

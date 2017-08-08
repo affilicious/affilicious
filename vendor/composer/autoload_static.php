@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820
+class ComposerStaticInitd72e80c1bb40872f6fb5e43aab4a85d2
 {
     public static $files = array (
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -125,6 +125,7 @@ class ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820
         'Affilicious\\Common\\Generator\\Key_Generator_Interface' => __DIR__ . '/../..' . '/src/common/generator/key-generator-interface.php',
         'Affilicious\\Common\\Generator\\Slug_Generator_Interface' => __DIR__ . '/../..' . '/src/common/generator/slug-generator-interface.php',
         'Affilicious\\Common\\Generator\\Wordpress\\Wordpress_Slug_Generator' => __DIR__ . '/../..' . '/src/common/generator/wordpress/wordpress-slug-generator.php',
+        'Affilicious\\Common\\Helper\\Assert_Helper' => __DIR__ . '/../..' . '/src/common/helper/assert-helper.php',
         'Affilicious\\Common\\Helper\\Database_Helper' => __DIR__ . '/../..' . '/src/common/helper/database-helper.php',
         'Affilicious\\Common\\Helper\\Image_Helper' => __DIR__ . '/../..' . '/src/common/helper/image-helper.php',
         'Affilicious\\Common\\Helper\\Post_Helper' => __DIR__ . '/../..' . '/src/common/helper/post-helper.php',
@@ -488,10 +489,10 @@ class ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit8f7c2b5ccd3339c131ffe05ef12bb820::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd72e80c1bb40872f6fb5e43aab4a85d2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd72e80c1bb40872f6fb5e43aab4a85d2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd72e80c1bb40872f6fb5e43aab4a85d2::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd72e80c1bb40872f6fb5e43aab4a85d2::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Shop\Model;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -12,12 +12,12 @@ class Money
     /**
      * @var string
      */
-    private $value;
+    protected $value;
 
     /**
      * @var Currency
      */
-    private $currency;
+    protected $currency;
 
     /**
      * Create a new free of charge money with the currency.
@@ -47,7 +47,7 @@ class Money
             $value = number_format($value, 2, '.', '');
         }
 
-        Assert::stringNotEmpty($value, 'The money value must be a non empty string. Got: %s');
+        Assert_Helper::is_string_not_empty($value, __METHOD__, 'The money value must be a non empty string. Got: %s', '0.9.2');
 
         $this->value = $value;
         $this->currency = $currency;

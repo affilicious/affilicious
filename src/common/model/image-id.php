@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Model;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -27,7 +27,7 @@ class Image_Id
             $value = intval($value);
         }
 
-        Assert::integer($value, 'Expected the image ID to be an integer. Got: %s');
+        Assert_Helper::is_integer($value, __METHOD__, 'Expected the image ID to be an integer. Got: %s', '0.9.2');
 
         $this->set_value($value);
     }

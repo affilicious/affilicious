@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Admin\License;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -15,6 +15,15 @@ class License_Status
     const INVALID = 'invalid';
     const SUCCESS = 'success';
     const ERROR = 'error';
+
+    public static $all = [
+    	self::UNKNOWN,
+	    self::MISSING,
+	    self::VALID,
+	    self::INVALID,
+	    self::SUCCESS,
+	    self::ERROR
+    ];
 
     /**
      * @var string
@@ -153,8 +162,8 @@ class License_Status
      */
     public function __construct($type, $message = null)
     {
-        Assert::string($type, 'Expected the type to be a string. Got: %s');
-        Assert::nullOrString($type, 'Expected the message to be a string or null. Got: %s');
+    	Assert_Helper::is_string_not_empty($type, __METHOD__, 'Expected the type to be a string. Got: %s', '0.9.2');
+    	Assert_Helper::is_string_not_empty_or_null($message, __METHOD__, 'Expected the message to be a string or null. Got: %s', '0.9.2');
 
         $this->type = $type;
         $this->message = $message;

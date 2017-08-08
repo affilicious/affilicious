@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Model;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -57,7 +57,7 @@ trait Tag_Aware_Trait
      */
     public function set_tags($tags)
     {
-        Assert::allIsInstanceOf($tags, Tag::class);
+    	Assert_Helper::all_is_instance_of($tags, Tag::class, __METHOD__, 'Expected an array of attributes. But one of the values is %s', '0.9.2');
 
         $this->tags = $tags;
     }

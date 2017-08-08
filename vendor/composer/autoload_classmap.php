@@ -40,6 +40,7 @@ return array(
     'Affilicious\\Common\\Generator\\Key_Generator_Interface' => $baseDir . '/src/common/generator/key-generator-interface.php',
     'Affilicious\\Common\\Generator\\Slug_Generator_Interface' => $baseDir . '/src/common/generator/slug-generator-interface.php',
     'Affilicious\\Common\\Generator\\Wordpress\\Wordpress_Slug_Generator' => $baseDir . '/src/common/generator/wordpress/wordpress-slug-generator.php',
+    'Affilicious\\Common\\Helper\\Assert_Helper' => $baseDir . '/src/common/helper/assert-helper.php',
     'Affilicious\\Common\\Helper\\Database_Helper' => $baseDir . '/src/common/helper/database-helper.php',
     'Affilicious\\Common\\Helper\\Image_Helper' => $baseDir . '/src/common/helper/image-helper.php',
     'Affilicious\\Common\\Helper\\Post_Helper' => $baseDir . '/src/common/helper/post-helper.php',

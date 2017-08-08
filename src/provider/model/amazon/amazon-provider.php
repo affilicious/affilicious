@@ -1,11 +1,11 @@
 <?php
 namespace Affilicious\Provider\Model\Amazon;
 
+use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Credentials;
 use Affilicious\Provider\Model\Provider;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -44,7 +44,10 @@ class Amazon_Provider extends Provider
      */
     public function __construct(Name $name, Slug $slug, Credentials $credentials)
     {
-        $this->validate_credentials($credentials);
+	    Assert_Helper::key_exists($credentials->get_value(), self::ACCESS_KEY, __METHOD__, 'The access key ID for the Amazon provider is missing.', '0.9.2');
+	    Assert_Helper::key_exists($credentials->get_value(), self::SECRET_KEY, __METHOD__, 'The secret access key for the Amazon provider is missing.', '0.9.2');
+	    Assert_Helper::key_exists($credentials->get_value(), self::COUNTRY, __METHOD__, 'The country for the Amazon provider is missing.', '0.9.2');
+	    Assert_Helper::key_exists($credentials->get_value(), self::ASSOCIATE_TAG, __METHOD__, 'The associate tag for the Amazon provider is missing.', '0.9.2');
 
         parent::__construct($name, $slug, $credentials);
         $this->access_key = new Access_Key($credentials->get(self::ACCESS_KEY));
@@ -95,21 +98,5 @@ class Amazon_Provider extends Provider
     public function get_associate_tag()
     {
         return $this->associate_tag;
-    }
-
-    /**
-     * Validate the credentials for Amazon.
-     *
-     * @since 0.8
-     * @param Credentials $credentials
-     */
-    protected function validate_credentials(Credentials $credentials)
-    {
-        $value = $credentials->get_value();
-
-        Assert::keyExists($value, self::ACCESS_KEY, 'The access key ID for the Amazon provider is missing.');
-        Assert::keyExists($value, self::SECRET_KEY, 'The secret access key for the Amazon provider is missing.');
-        Assert::keyExists($value, self::COUNTRY, 'The country for the Amazon provider is missing.');
-        Assert::keyExists($value, self::ASSOCIATE_TAG, 'The associate tag for the Amazon provider is missing.');
     }
 }

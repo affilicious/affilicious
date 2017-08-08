@@ -1,9 +1,9 @@
 <?php
 namespace Affilicious\Product\Model;
 
+use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -142,7 +142,7 @@ class Complex_Product extends Product implements Excerpt_Aware_Interface, Conten
      */
     public function set_variants($variants)
     {
-        Assert::allIsInstanceOf($variants, Product_Variant::class);
+    	Assert_Helper::all_is_instance_of($variants, Product_Variant::class, __METHOD__, 'Expected an array of variants. But one of the values is %s', '0.9.2');
 
         $this->variants = $variants;
     }

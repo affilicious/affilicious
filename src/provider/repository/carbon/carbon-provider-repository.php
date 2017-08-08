@@ -6,7 +6,6 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -95,26 +94,6 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
         }
 
         return null;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_all_by_id($provider_ids)
-    {
-        Assert::allIsInstanceOf($provider_ids, Provider_Id::class);
-
-        $providers = array();
-        foreach ($this->providers as $provider) {
-            foreach ($provider_ids as $provider_id) {
-                if($provider->get_id()->is_equal_to($provider_id)) {
-                    $providers[] = $provider;
-                }
-            }
-        }
-
-        return $providers;
     }
 
     /**

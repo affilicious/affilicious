@@ -9,7 +9,6 @@ use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -114,26 +113,6 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
         $attribute_template = $this->build($term);
 
         return $attribute_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_all_by_id($attribute_template_ids)
-    {
-        Assert::allIsInstanceOf($attribute_template_ids, Attribute_Template_Id::class);
-
-        $attribute_templates = array();
-
-        foreach ($attribute_template_ids as $attribute_template_id) {
-            $attribute_template = $this->find_one_by_id($attribute_template_id);
-            if($attribute_template === null) {
-                $attribute_templates[] = $attribute_template;
-            }
-        }
-
-        return $attribute_templates;
     }
 
     /**

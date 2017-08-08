@@ -1,9 +1,9 @@
 <?php
 namespace Affilicious\Product\Model;
 
+use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Shop;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -127,7 +127,7 @@ trait Shop_Aware_Trait
      */
     public function set_shops($shops)
     {
-        Assert::allIsInstanceOf($shops, Shop::class);
+	    Assert_Helper::all_is_instance_of($shops, Shop::class, __METHOD__, 'Expected an array of shops. But one of the values is %s', '0.9.2');
 
         $this->shops = $shops;
     }

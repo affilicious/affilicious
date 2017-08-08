@@ -60,15 +60,6 @@ interface Attribute_Template_Repository_Interface
     public function find_one_by_slug(Slug $slug);
 
     /**
-     * Find all attribute templates by the IDs.
-     *
-     * @since 0.8
-     * @param Attribute_Template_Id[]$attribute_template_ids
-     * @return Attribute_Template[]
-     */
-    public function find_all_by_id($attribute_template_ids);
-
-    /**
      * Find all attribute templates.
      *
      * @since 0.8

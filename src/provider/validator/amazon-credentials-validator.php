@@ -8,7 +8,6 @@ use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Search;
 use ApaiIO\Request\GuzzleRequest;
 use GuzzleHttp\Client;
-use Webmozart\Assert\Assert;
 
 class Amazon_Credentials_Validator implements Credentials_Validator_Interface
 {
@@ -19,16 +18,26 @@ class Amazon_Credentials_Validator implements Credentials_Validator_Interface
     public function validate(Credentials $credentials)
     {
         $access_key = $credentials->get(Amazon_Provider::ACCESS_KEY);
+        if($access_key === null) {
+        	return new \WP_Error('aff_provider_validator_amazon_missing_access_key', __('The access key ID for the Amazon provider is missing.', 'affilicious'));
+        }
+
         $secret_key = $credentials->get(Amazon_Provider::SECRET_KEY);
+	    if($secret_key === null) {
+		    return new \WP_Error('aff_provider_validator_amazon_missing_secret_key', __('The secret access key for the Amazon provider is missing.', 'affilicious'));
+	    }
+
         $country = $credentials->get(Amazon_Provider::COUNTRY);
+	    if($country === null) {
+		    return new \WP_Error('aff_provider_validator_amazon_missing_country', __('The country for the Amazon provider is missing.', 'affilicious'));
+	    }
+
         $associate_tag = $credentials->get(Amazon_Provider::ASSOCIATE_TAG);
+	    if($country === null) {
+		    return new \WP_Error('aff_provider_validator_amazon_missing_associate_tag', __('The associate tag for the Amazon provider is missing.', 'affilicious'));
+	    }
 
         try {
-            Assert::notNull($access_key, 'The access key ID for the Amazon provider is missing.');
-            Assert::notNull($secret_key, 'The secret access key for the Amazon provider is missing.');
-            Assert::notNull($country, 'The country for the Amazon provider is missing.');
-            Assert::notNull($associate_tag, 'The associate tag for the Amazon provider is missing.');
-
             $conf = new GenericConfiguration();
             $client = new Client();
             $request = new GuzzleRequest($client);
@@ -46,7 +55,7 @@ class Amazon_Credentials_Validator implements Credentials_Validator_Interface
 
             $apaiIO->runOperation($search);
         } catch (\Exception $e) {
-            return false;
+            return new \WP_Error('aff_provider_validator_amazon_error', $e->getMessage());
         }
 
         return true;

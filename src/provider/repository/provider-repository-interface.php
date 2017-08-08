@@ -41,15 +41,6 @@ interface Provider_Repository_Interface
     public function find_one_by_id(Provider_Id $provider_id);
 
     /**
-     * Find all providers by the IDs.
-     *
-     * @since 0.8
-     * @param Provider_Id[] $provider_ids
-     * @return Provider[]
-     */
-    public function find_all_by_id($provider_ids);
-
-    /**
      * Find a provider by the slug.
      *
      * @since 0.8

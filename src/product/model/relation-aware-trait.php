@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Model;
 
-use Webmozart\Assert\Assert;
+use Affilicious\Common\Helper\Assert_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -65,7 +65,7 @@ trait Relation_Aware_Trait
      */
     public function set_related_products($related_products)
     {
-        Assert::allIsInstanceOf($related_products, Product_Id::class);
+    	Assert_Helper::all_is_instance_of($related_products, Product_Id::class, __METHOD__, 'Expected an array of product IDs. But one of the values is %s', '0.9.2');
 
         $this->related_products = $related_products;
     }
@@ -103,7 +103,7 @@ trait Relation_Aware_Trait
      */
     public function set_related_accessories($related_accessories)
     {
-        Assert::allIsInstanceOf($related_accessories, Product_Id::class);
+	    Assert_Helper::all_is_instance_of($related_accessories, Product_Id::class, __METHOD__, 'Expected an array of product IDs. But one of the values is %s', '0.9.2');
 
         $this->related_accessories = $related_accessories;
     }

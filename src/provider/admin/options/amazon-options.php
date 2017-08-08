@@ -2,6 +2,7 @@
 namespace Affilicious\Provider\Admin\Options;
 
 use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Credentials;
 use Affilicious\Provider\Validator\Credentials_Validator_Interface;
 use Carbon_Fields\Container as Carbon_Container;
@@ -205,18 +206,17 @@ class Amazon_Options
         }
 
         $credentials = new Credentials(array(
-            'access_key' => $access_key,
-            'secret_key' => $secret_key,
-            'country' => $country,
-            'associate_tag' => $associate_tag
+            Amazon_Provider::ACCESS_KEY => $access_key,
+            Amazon_Provider::SECRET_KEY => $secret_key,
+            Amazon_Provider::COUNTRY => $country,
+            Amazon_Provider::ASSOCIATE_TAG => $associate_tag
         ));
 
-        try {
-            $result = $this->amazon_credentials_validator->validate($credentials);
-
-            return $result;
-        } catch (\Exception $e) {
-            return false;
+        $result = $this->amazon_credentials_validator->validate($credentials);
+        if($result instanceof \WP_Error) {
+        	return false;
         }
+
+        return true;
     }
 }

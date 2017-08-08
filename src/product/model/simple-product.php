@@ -51,6 +51,5 @@ class Simple_Product extends Product implements Excerpt_Aware_Interface, Content
             $this->get_related_products() == $other->get_related_products() &&
             $this->get_related_accessories() == $other->get_related_accessories() &&
             ($this->has_review() && $this->get_review()->is_equal_to($other->get_review()) || !$other->has_review());
-
     }
 }

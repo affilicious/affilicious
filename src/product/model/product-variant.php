@@ -2,9 +2,9 @@
 namespace Affilicious\Product\Model;
 
 use Affilicious\Attribute\Model\Attribute;
+use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
-use Webmozart\Assert\Assert;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -69,7 +69,7 @@ class Product_Variant extends Product implements Shop_Aware_Interface, Tag_Aware
      */
     public function set_default($default)
     {
-        Assert::boolean($default, 'Expected default to be a boolean. Got: %s');
+    	Assert_Helper::is_boolean($default, __METHOD__, 'Expected default to be a boolean. Got: %s', '0.9.2');
 
         $this->default = $default;
     }
@@ -170,7 +170,7 @@ class Product_Variant extends Product implements Shop_Aware_Interface, Tag_Aware
      */
     public function set_attributes($attributes)
     {
-        Assert::allIsInstanceOf($attributes, Attribute::class);
+    	Assert_Helper::all_is_instance_of($attributes, Attribute::class, __METHOD__, 'Expected an array of attributes. But one of the values is %s', '0.9.2');
 
         $this->attributes = $attributes;
     }
