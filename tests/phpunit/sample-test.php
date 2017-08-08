@@ -2,8 +2,9 @@
 namespace Tests\Affilicious;
 
 use Affilicious\Common\Model\Slug;
+use PHPUnit\Framework\TestCase;
 
-class Sample_Test extends \WP_UnitTestCase
+class Sample_Test extends TestCase
 {
 	/**
 	 * A single example test.

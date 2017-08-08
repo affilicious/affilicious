@@ -38,7 +38,7 @@
     "webmozart/assert": "^1.2"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8",
+    "phpunit/phpunit": "^5.7",
     "paulgibbs/behat-wordpress-extension": "dev-master",
     "behat/mink-goutte-driver": "^1.2"
   },

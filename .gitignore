@@ -12,3 +12,19 @@ node_modules/
 
 # Temp
 /tmp/
+
+# Vendor
+vendor/behat/
+vendor/container-interop
+vendor/doctrine
+vendor/fabpot
+vendor/instaclick
+vendor/ocramius
+vendor/paulgibbs
+vendor/phpdocumentor
+vendor/phpspec
+vendor/phpunit
+vendor/sebastian
+vendor/sensiolabs
+vendor/symfony
+vendor/zendframework
