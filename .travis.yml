@@ -37,4 +37,4 @@ before_script:
   - bash bin/install-tests-database.sh affilicious_test root '' localhost
   - bash bin/install-tests.sh affilicious_test root '' localhost $WP_VERSION true
 
-script: phpunit
+script: vendor/bin/phpunit
