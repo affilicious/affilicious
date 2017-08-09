@@ -613,6 +613,12 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.product.listener.edited_detail_template'] = function ($c) {
+				return new \Affilicious\Product\Listener\Edited_Detail_Template_Listener(
+					$c['affilicious.common.generator.key']
+				);
+			};
+
 			$this->container['affilicious.product.listener.deleted_shop_template'] = function ($c) {
 				return new \Affilicious\Product\Listener\Deleted_Shop_Template_Listener(
 					$c['affilicious.common.generator.key']
@@ -621,6 +627,12 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.listener.deleted_attribute_template'] = function ($c) {
 				return new \Affilicious\Product\Listener\Deleted_Attribute_Template_Listener(
+					$c['affilicious.common.generator.key']
+				);
+			};
+
+			$this->container['affilicious.product.listener.deleted_detail_template'] = function ($c) {
+				return new \Affilicious\Product\Listener\Deleted_Detail_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
@@ -849,17 +861,22 @@ if(!class_exists('Affilicious')) {
 			$changed_status_complex_product_listener = $this->container['affilicious.product.listener.changed_status_complex_product'];
 			$edited_shop_template_listener = $this->container['affilicious.product.listener.edited_shop_template'];
 			$edited_attribute_template_listener = $this->container['affilicious.product.listener.edited_attribute_template'];
+			$edited_detail_template_listener = $this->container['affilicious.product.listener.edited_detail_template'];
 			$deleted_shop_template_listener = $this->container['affilicious.product.listener.deleted_shop_template'];
 			$deleted_attribute_template_listener = $this->container['affilicious.product.listener.deleted_attribute_template'];
+			$deleted_detail_template_listener = $this->container['affilicious.product.listener.deleted_detail_template'];
 			add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
 			add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
 			add_action('transition_post_status', array($changed_status_complex_product_listener, 'listen'), 10, 3);
 			add_action('edit_aff_shop_tmpl', array($edited_shop_template_listener, 'before_edit'), 10, 1);
 			add_action('edit_aff_attribute_tmpl', array($edited_attribute_template_listener, 'before_edit'), 10, 1);
+			add_action('edit_aff_detail_tmpl', array($edited_detail_template_listener, 'before_edit'), 10, 1);
 			add_action('edited_aff_shop_tmpl', array($edited_shop_template_listener, 'after_edit'), 10, 1);
 			add_action('edited_aff_attribute_tmpl', array($edited_attribute_template_listener, 'after_edit'), 10, 1);
+			add_action('edited_aff_detail_tmpl', array($edited_detail_template_listener, 'after_edit'), 10, 1);
 			add_action('delete_aff_shop_tmpl', array($deleted_shop_template_listener, 'delete'), 10, 3);
 			add_action('delete_aff_attribute_tmpl', array($deleted_attribute_template_listener, 'delete'), 10, 3);
+			add_action('delete_aff_detail_tmpl', array($deleted_detail_template_listener, 'delete'), 10, 3);
 
 			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];
