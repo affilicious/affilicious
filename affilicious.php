@@ -601,6 +601,18 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Product\Filter\Complex_Product_Filter();
 			};
 
+			$this->container['affilicious.product.listener.edited_shop_template'] = function ($c) {
+				return new \Affilicious\Product\Listener\Edited_Shop_Template_Listener(
+					$c['affilicious.common.generator.key']
+				);
+			};
+
+			$this->container['affilicious.product.listener.deleted_shop_template'] = function ($c) {
+				return new \Affilicious\Product\Listener\Deleted_Shop_Template_Listener(
+					$c['affilicious.common.generator.key']
+				);
+			};
+
 			$this->container['affilicious.product.setup.slug_rewrite'] = function () {
 				return new \Affilicious\Product\Setup\Slug_Rewrite_Setup();
 			};
@@ -823,9 +835,14 @@ if(!class_exists('Affilicious')) {
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
 			$deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
 			$changed_status_complex_product_listener = $this->container['affilicious.product.listener.changed_status_complex_product'];
+			$edited_shop_template_listener = $this->container['affilicious.product.listener.edited_shop_template'];
+			$deleted_shop_template_listener = $this->container['affilicious.product.listener.deleted_shop_template'];
 			add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
 			add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
 			add_action('transition_post_status', array($changed_status_complex_product_listener, 'listen'), 10, 3);
+			add_action('edit_aff_shop_tmpl', array($edited_shop_template_listener, 'before_edit'), 10, 1);
+			add_action('edited_aff_shop_tmpl', array($edited_shop_template_listener, 'after_edit'), 10, 1);
+			add_action('delete_aff_shop_tmpl', array($deleted_shop_template_listener, 'delete'), 10, 3);
 
 			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];
