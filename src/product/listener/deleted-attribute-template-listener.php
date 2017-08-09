@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Deleted_Shop_Template_Listener
+class Deleted_Attribute_Template_Listener
 {
 	/**
 	 * An array of changed term IDs and slugs
@@ -33,7 +33,7 @@ class Deleted_Shop_Template_Listener
 	}
 
 	/**
-	 * @hook delete_aff_shop_tmpl
+	 * @hook delete_aff_attribute_tmpl
 	 * @since 0.9.2
 	 * @param int $term_id Term ID.
 	 * @param int $taxonomy_id Term taxonomy ID.
@@ -43,7 +43,7 @@ class Deleted_Shop_Template_Listener
 	{
 		global $wpdb;
 
-		if(!($deleted_term instanceof \WP_Term) && $deleted_term->taxonomy === Shop_Template::TAXONOMY) {
+		if(!($deleted_term instanceof \WP_Term) && $deleted_term->taxonomy == Shop_Template::TAXONOMY) {
 			return;
 		}
 
@@ -53,7 +53,15 @@ class Deleted_Shop_Template_Listener
 		$wpdb->query("
 			DELETE
 			FROM $wpdb->postmeta
-			WHERE meta_key LIKE '_affilicious_product_shops_{$key}-%';
+			WHERE meta_key LIKE '_affilicious_product_variants_-_attribute_{$key}_%'
+			OR meta_key LIKE '_affilicious_product_attribute_{$key}_%';
+		");
+
+		$wpdb->query("
+			UPDATE $wpdb->postmeta
+			SET meta_value = TRIM(BOTH ',' FROM REPLACE(REPLACE(meta_value, '{$deleted_term->term_id}', ''), ',,', ','))
+			WHERE meta_key = '_affilicious_product_enabled_attributes'
+			OR meta_key LIKE '_affilicious_product_variants_-_enabled_attributes_%'
 		");
 	}
 }
