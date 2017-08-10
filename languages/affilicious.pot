@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-08-04 "
-"10:25+0200\n"
+"POT-Creation-Date: 2017-08-10 "
+"17:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -43,7 +43,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: "
 "tmp\n"
 
-#: affilicious.php:211
+#: affilicious.php:215
 #, php-format
 msgid ""
 "The Affilicious Plugin requires "
@@ -92,16 +92,16 @@ msgid "Attribute Template"
 msgstr ""
 
 #: src/attribute/admin/meta-box/attribute-template-meta-box.php:30
-#: src/attribute/model/type.php:91
+#: src/attribute/model/type.php:90
 #: src/detail/admin/meta-box/detail-template-meta-box.php:30
-#: src/detail/model/type.php:140
+#: src/detail/model/type.php:155
 msgid "Text"
 msgstr ""
 
 #: src/attribute/admin/meta-box/attribute-template-meta-box.php:31
 #: src/attribute/model/type.php:93
 #: src/detail/admin/meta-box/detail-template-meta-box.php:31
-#: src/detail/model/type.php:142
+#: src/detail/model/type.php:158
 msgid "Number"
 msgstr ""
 
@@ -209,46 +209,46 @@ msgid ""
 "Failed to delete the license."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:39
+#: src/common/admin/license/license-status.php:48
 msgid "The action was successful."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:55
+#: src/common/admin/license/license-status.php:64
 msgid ""
 "An error has occurred. Please "
 "try again."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:80
+#: src/common/admin/license/license-status.php:89
 msgid "The license is missing."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:91
+#: src/common/admin/license/license-status.php:100
 msgid "The license is valid"
 msgstr ""
 
-#: src/common/admin/license/license-status.php:102
+#: src/common/admin/license/license-status.php:111
 msgid "The license is invalid"
 msgstr ""
 
-#: src/common/admin/license/license-status.php:113
+#: src/common/admin/license/license-status.php:122
 msgid ""
 "Succeeded to activate the "
 "license."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:124
+#: src/common/admin/license/license-status.php:133
 msgid ""
 "Failed to activate the license."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:135
+#: src/common/admin/license/license-status.php:144
 msgid ""
 "Succeeded to deactivate the "
 "license."
 msgstr ""
 
-#: src/common/admin/license/license-status.php:146
+#: src/common/admin/license/license-status.php:155
 msgid ""
 "Failed to deactivate the license."
 msgstr ""
@@ -317,13 +317,11 @@ msgid "Extensions"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:70
-#: src/common/setup/asset-setup.php:95
 #: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:71
-#: src/common/setup/asset-setup.php:96
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
@@ -332,7 +330,6 @@ msgid "Variants"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:72
-#: src/common/setup/asset-setup.php:97
 #: src/product/admin/meta-box/product-meta-box.php:87
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
@@ -344,7 +341,6 @@ msgid "Shops"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:78
-#: src/common/setup/asset-setup.php:98
 msgid "Add"
 msgstr ""
 
@@ -394,18 +390,50 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
+#: src/common/model/status.php:149
+msgid "Publish"
+msgstr ""
+
+#: src/common/model/status.php:152
+msgid "Future"
+msgstr ""
+
+#: src/common/model/status.php:155
+msgid "Draft"
+msgstr ""
+
+#: src/common/model/status.php:158
+msgid "Pending"
+msgstr ""
+
+#: src/common/model/status.php:161
+msgid "Private"
+msgstr ""
+
+#: src/common/model/status.php:164
+msgid "Trash"
+msgstr ""
+
+#: src/common/model/status.php:167
+msgid "Auto draft"
+msgstr ""
+
+#: src/common/model/status.php:170
+msgid "Inherit"
+msgstr ""
+
 #: src/detail/admin/meta-box/detail-template-meta-box.php:24
 #: src/detail/setup/detail-template-setup.php:21
 msgid "Detail Template"
 msgstr ""
 
 #: src/detail/admin/meta-box/detail-template-meta-box.php:32
-#: src/detail/model/type.php:144
+#: src/detail/model/type.php:161
 msgid "Boolean"
 msgstr ""
 
 #: src/detail/admin/meta-box/detail-template-meta-box.php:33
-#: src/detail/model/type.php:146
+#: src/detail/model/type.php:164
 msgid "File"
 msgstr ""
 
@@ -546,10 +574,12 @@ msgid "Relations"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:108
+#: src/product/model/type.php:104
 msgid "Simple"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:109
+#: src/product/model/type.php:110
 msgid "Complex"
 msgstr ""
 
@@ -580,6 +610,7 @@ msgid ""
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:173
+#: src/product/model/type.php:107
 msgid "Variant"
 msgstr ""
 
@@ -652,6 +683,7 @@ msgid "Availability"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:366
+#: src/shop/model/availability.php:107
 msgid "Available"
 msgstr ""
 
@@ -672,12 +704,12 @@ msgid "Currency"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:376
-#: src/shop/model/currency.php:68
+#: src/shop/model/currency.php:107
 msgid "Euro"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:377
-#: src/shop/model/currency.php:69
+#: src/shop/model/currency.php:110
 msgid "US-Dollar"
 msgstr ""
 
@@ -720,7 +752,7 @@ msgid "Rating"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:501
-#: src/shop/admin/meta-box/shop-template-meta-box.php:64
+#: src/shop/admin/meta-box/shop-template-meta-box.php:79
 msgid "None"
 msgstr ""
 
@@ -809,35 +841,49 @@ msgstr ""
 #: src/product/admin/options/product-options.php:61
 #, php-format
 msgid ""
-"The name of the taxonomy. Slug "
-"should only contain lowercase "
-"letters and the underscore "
-"character, and not be more than "
-"32 characters long. Care should "
-"be used in selecting a taxonomy "
-"name so that it does not "
-"conflict with other taxonomies, "
-"post types, and reserved "
-"Wordpress public and private "
-"query variables. A complete list "
-"of those is described in the <a "
-"href=\"%s\">Reserved Terms</a> "
-"section."
+"The database name of the "
+"taxonomy like \"your_category\". "
+"Name should only contain "
+"lowercase letters and the "
+"underscore character, and not be "
+"more than 32 characters long. "
+"Care should be used in selecting "
+"a taxonomy name so that it does "
+"not conflict with other "
+"taxonomies, post types, and "
+"reserved Wordpress public and "
+"private query variables. A "
+"complete list of those is "
+"described in the <a href=\"%s"
+"\">Reserved Terms</a> section."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:64
 msgid ""
-"Used as pretty permalink text (i."
-"e. \"http://test.com/your-slug/"
-"product-name\")."
+"Used as pretty permalink text "
+"for your URL like \"http://test."
+"com/your-categories/product-name"
+"\")."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:66
-msgid "Singular Slug"
+msgid "Singular Name"
 msgstr ""
 
-#: src/product/admin/options/product-options.php:68
-msgid "Plural Slug"
+#: src/product/admin/options/product-options.php:67
+msgid ""
+"The singular name like \"Your "
+"category\"."
+msgstr ""
+
+#: src/product/admin/options/product-options.php:69
+msgid "Plural Name"
+msgstr ""
+
+#: src/product/admin/options/product-options.php:70
+msgid ""
+"The plural name like \"Your "
+"categories\"."
 msgstr ""
 
 #: src/product/admin/page/import-page.php:50
@@ -848,7 +894,7 @@ msgid "Import"
 msgstr ""
 
 #: src/product/admin/view/page/import.php:6
-#: src/provider/admin/options/amazon-options.php:50
+#: src/provider/admin/options/amazon-options.php:51
 msgid "Amazon"
 msgstr ""
 
@@ -1285,117 +1331,122 @@ msgctxt "Product"
 msgid "Filter %s"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:52
+#: src/provider/admin/options/amazon-options.php:53
 msgid "Credentials"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:53
+#: src/provider/admin/options/amazon-options.php:54
 msgid "Updates"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:71
+#: src/provider/admin/options/amazon-options.php:72
 msgid "Access Key"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:73
+#: src/provider/admin/options/amazon-options.php:74
 msgid ""
 "The access key is used to "
 "identify you as an API user."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:74
+#: src/provider/admin/options/amazon-options.php:75
 msgid "Secret Key"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:76
+#: src/provider/admin/options/amazon-options.php:77
 msgid ""
 "The secret key is used like a "
 "password to sign your API "
 "requests."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:77
+#: src/provider/admin/options/amazon-options.php:78
 msgid "Country"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:79
+#: src/provider/admin/options/amazon-options.php:80
+#: src/provider/model/amazon/country.php:211
 msgid "Germany"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:80
+#: src/provider/admin/options/amazon-options.php:81
+#: src/provider/model/amazon/country.php:214
 msgid "America"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:81
+#: src/provider/admin/options/amazon-options.php:82
+#: src/provider/model/amazon/country.php:217
 msgid "England"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:82
+#: src/provider/admin/options/amazon-options.php:83
+#: src/provider/model/amazon/country.php:220
 msgid "Canada"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:83
+#: src/provider/admin/options/amazon-options.php:84
+#: src/provider/model/amazon/country.php:223
 msgid "France"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:84
+#: src/provider/admin/options/amazon-options.php:85
+#: src/provider/model/amazon/country.php:226
 msgid "Japan"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:85
+#: src/provider/admin/options/amazon-options.php:86
+#: src/provider/model/amazon/country.php:229
 msgid "Italy"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:86
+#: src/provider/admin/options/amazon-options.php:87
+#: src/provider/model/amazon/country.php:232
 msgid "China"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:87
+#: src/provider/admin/options/amazon-options.php:88
+#: src/provider/model/amazon/country.php:235
 msgid "Spain"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:88
+#: src/provider/admin/options/amazon-options.php:89
+#: src/provider/model/amazon/country.php:238
 msgid "India"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:89
+#: src/provider/admin/options/amazon-options.php:90
+#: src/provider/model/amazon/country.php:241
 msgid "Brazil"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:90
+#: src/provider/admin/options/amazon-options.php:91
+#: src/provider/model/amazon/country.php:244
 msgid "Mexico"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:91
+#: src/provider/admin/options/amazon-options.php:92
+#: src/provider/model/amazon/country.php:247
 msgid "Australia"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:94
+#: src/provider/admin/options/amazon-options.php:95
 msgid ""
 "The country has to match the "
 "locale of your Amazon account. "
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:95
+#: src/provider/admin/options/amazon-options.php:96
 msgid "Associate Tag"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:97
+#: src/provider/admin/options/amazon-options.php:98
 msgid ""
 "Amazon uses this ID to credit an "
 "associate for a sale."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:112
+#: src/provider/admin/options/amazon-options.php:113
 msgid "Thumbnail Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:114
-#: src/provider/admin/options/amazon-options.php:123
-#: src/provider/admin/options/amazon-options.php:132
-#: src/provider/admin/options/amazon-options.php:141
-#: src/provider/admin/options/amazon-options.php:150
-msgid "Hourly"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:115
@@ -1403,7 +1454,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:133
 #: src/provider/admin/options/amazon-options.php:142
 #: src/provider/admin/options/amazon-options.php:151
-msgid "Twice Daily"
+msgid "Hourly"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:116
@@ -1411,7 +1462,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:134
 #: src/provider/admin/options/amazon-options.php:143
 #: src/provider/admin/options/amazon-options.php:152
-msgid "Daily"
+msgid "Twice Daily"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:117
@@ -1419,61 +1470,69 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:135
 #: src/provider/admin/options/amazon-options.php:144
 #: src/provider/admin/options/amazon-options.php:153
+msgid "Daily"
+msgstr ""
+
+#: src/provider/admin/options/amazon-options.php:118
+#: src/provider/admin/options/amazon-options.php:127
+#: src/provider/admin/options/amazon-options.php:136
+#: src/provider/admin/options/amazon-options.php:145
+#: src/provider/admin/options/amazon-options.php:154
 msgid "No Updates"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:119
+#: src/provider/admin/options/amazon-options.php:120
 msgid ""
 "The automatic update interval "
 "for the product thumbnails."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:121
+#: src/provider/admin/options/amazon-options.php:122
 msgid ""
 "Image Gallery Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:128
+#: src/provider/admin/options/amazon-options.php:129
 msgid ""
 "The automatic update interval "
 "for the product image galleries."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:130
+#: src/provider/admin/options/amazon-options.php:131
 msgid "Price Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:137
+#: src/provider/admin/options/amazon-options.php:138
 msgid ""
 "The automatic update interval "
 "for the shop prices in the "
 "products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:139
+#: src/provider/admin/options/amazon-options.php:140
 msgid "Old Price Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:146
+#: src/provider/admin/options/amazon-options.php:147
 msgid ""
 "The automatic update interval "
 "for the old shop prices in the "
 "products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:148
+#: src/provider/admin/options/amazon-options.php:149
 msgid ""
 "Availability Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:155
+#: src/provider/admin/options/amazon-options.php:156
 msgid ""
 "The automatic update interval "
 "for the shop availabilities in "
 "the products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:174
+#: src/provider/admin/options/amazon-options.php:175
 msgid ""
 "<b>The credentials are valid!</"
 "b> A connection to the Amazon "
@@ -1481,15 +1540,39 @@ msgid ""
 "successfully established."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:178
+#: src/provider/admin/options/amazon-options.php:179
 msgid ""
 "<b>The credentials are invalid!</"
 "b> Failed to connect to the "
 "Amazon Product Advertising API."
 msgstr ""
 
+#: src/provider/validator/amazon-credentials-validator.php:22
+msgid ""
+"The access key ID for the Amazon "
+"provider is missing."
+msgstr ""
+
+#: src/provider/validator/amazon-credentials-validator.php:27
+msgid ""
+"The secret access key for the "
+"Amazon provider is missing."
+msgstr ""
+
+#: src/provider/validator/amazon-credentials-validator.php:32
+msgid ""
+"The country for the Amazon "
+"provider is missing."
+msgstr ""
+
+#: src/provider/validator/amazon-credentials-validator.php:37
+msgid ""
+"The associate tag for the Amazon "
+"provider is missing."
+msgstr ""
+
 #: src/shop/admin/filter/table-columns-filter.php:25
-#: src/shop/admin/meta-box/shop-template-meta-box.php:41
+#: src/shop/admin/meta-box/shop-template-meta-box.php:56
 msgid "Provider"
 msgstr ""
 
@@ -1498,22 +1581,48 @@ msgstr ""
 msgid "Shop Template"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:44
+#: src/shop/admin/meta-box/shop-template-meta-box.php:59
 msgid ""
 "The provider is used for the "
 "automatic updates for products "
 "using this shop."
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:45
+#: src/shop/admin/meta-box/shop-template-meta-box.php:60
 msgid "Logo"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:46
+#: src/shop/admin/meta-box/shop-template-meta-box.php:61
 msgid ""
 "The logo is used to show an "
 "image near the shop prices in "
 "products."
+msgstr ""
+
+#: src/shop/model/availability.php:110
+msgid "Out of stock"
+msgstr ""
+
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:44
+#, php-format
+msgid ""
+"Shop template #%s was not found "
+"in the database."
+msgstr ""
+
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:56
+msgid ""
+"It's not allowed to delete a "
+"default Wordpress category"
+msgstr ""
+
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:207
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:269
+#, php-format
+msgid ""
+"Failed to store the shop "
+"template #%s (%s) into the "
+"database."
 msgstr ""
 
 #: src/shop/setup/shop-template-setup.php:22

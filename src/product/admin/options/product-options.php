@@ -58,14 +58,18 @@ class Product_Options
                 ->add_fields(array(
                     Carbon_Field::make('text', 'taxonomy', __('Taxonomy', 'affilicious'))
                         ->help_text(sprintf(
-                            __('The name of the taxonomy. Slug should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved Wordpress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'), self::LINK_RESERVED_TERMS))
+                            __('The database name of the taxonomy like "your_category". Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved Wordpress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'),
+                            self::LINK_RESERVED_TERMS
+                        ))
                         ->set_required(true),
                     Carbon_Field::make('text', 'slug', __('Slug', 'affilicious'))
-                        ->help_text(__('Used as pretty permalink text (i.e. "http://test.com/your-slug/product-name").', 'affilicious'))
+                        ->help_text(__('Used as pretty permalink text for your URL like "http://test.com/your-categories/product-name").', 'affilicious'))
                         ->set_required(true),
-                    Carbon_Field::make('text', 'singular_name', __('Singular Slug', 'affilicious'))
+                    Carbon_Field::make('text', 'singular_name', __('Singular Name', 'affilicious'))
+	                    ->help_text(__('The singular name like "Your category".', 'affilicious'))
                         ->set_required(true),
-                    Carbon_Field::make('text', 'plural_name', __('Plural Slug', 'affilicious'))
+                    Carbon_Field::make('text', 'plural_name', __('Plural Name', 'affilicious'))
+	                    ->help_text(__('The plural name like "Your categories".', 'affilicious'))
                         ->set_required(true),
                 ))
         );
