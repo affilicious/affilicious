@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.8.1
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,16 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.2=
+* Improvement: Marked Webmozart as deprectated and introducted custom Wordpress friendly assert helper.
+* Improvement: Switched PHPUnit to 5.7.
+* Improvement: Optimized the custom product taxonomies options.
+* Improvement: Wrote some unit tests.
+* Improvement: Added product listeners for deleted and edited shop templates.
+* Improvement: Added product listeners for deleted and edited attribute templates.
+* Improvement: Added product listeners for deleted and edited detail templates.
+* Fix: Fixed the missing products with draft status in the Amazon import.
+
 = 0.9.1 =
 * New: Added "aff_hooks" and "aff_admin_hooks" hooks.
 * Improvement: Cleaned up the hooks and changed some priorities.
