@@ -82,7 +82,9 @@ class Assets_Setup
         if($screen->id == 'aff_product_page_import') {
             wp_register_script('aff-admin-amazon-import', $base_admin_url . 'amazon-import.min.js', ['jquery', 'backbone'], \Affilicious::VERSION, true);
             wp_localize_script('aff-admin-amazon-import', 'affAdminAmazonImportUrls', [
-                'ajax' => admin_url('admin-ajax.php')
+                'ajax' => admin_url('admin-ajax.php'),
+                'apiRoot' => esc_url_raw(rest_url()),
+                'nonce' => wp_create_nonce('wp_rest')
             ]);
         }
 

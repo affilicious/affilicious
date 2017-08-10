@@ -40,15 +40,21 @@ let Config =  Backbone.View.extend({
             labelField: 'name',
             searchField: 'name',
             create: false,
-            load: function(query, callback) {
+            load(query, callback) {
                 if (!query.length) return callback();
                 jQuery.ajax({
-                    url: '/wp-json/wp/v2/aff-products/?search=' + query,
+                    url: affAdminAmazonImportUrls.apiRoot + 'wp/v2/aff-products/?status=publish,draft&search=' + query,
                     type: 'GET',
-                    error: function() {
+                    data: {
+                        'post_parent': 0,
+                    },
+                    beforeSend(xhr) {
+                        xhr.setRequestHeader('X-WP-Nonce', affAdminAmazonImportUrls.nonce)
+                    },
+                    error() {
                         callback();
                     },
-                    success: function(results) {
+                    success(results) {
                         results = results.map((result) => {
                             return {
                                 'id': result.id,
