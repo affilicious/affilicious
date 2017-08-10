@@ -50,7 +50,7 @@ class Assert_Helper
 	 */
 	public static function is_string_not_empty_or_null($value, $method, $message, $version)
 	{
-		if(WP_DEBUG && (is_string($value) && empty($value) || !is_null($value))) {
+		if(WP_DEBUG && ((is_string($value) && empty($value)) || !is_string($value) && !is_null($value))) {
 			_doing_it_wrong($method, sprintf($message, self::type_to_string($value)), $version);
 		}
 	}
