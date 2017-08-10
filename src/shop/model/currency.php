@@ -44,6 +44,23 @@ class Currency
         return new self(self::US_DOLLAR);
     }
 
+	/**
+	 * Get an array of currencies.
+	 *
+	 * @since 0.9.2
+	 * @return Currency[]
+	 */
+    public static function all()
+    {
+    	$all = [];
+
+    	foreach (self::$all as $value) {
+    		$all[] = new self($value);
+	    }
+
+	    return $all;
+    }
+
     /**
      * @inheritdoc
      * @since 0.8
@@ -54,6 +71,28 @@ class Currency
 
         $this->set_value($value);
     }
+
+	/**
+	 * Check if the currency is UD dollar.
+	 *
+	 * @since 0.9.2
+	 * @return bool
+	 */
+	public function is_us_dollar()
+	{
+		return $this->value === self::US_DOLLAR;
+	}
+
+	/**
+	 * Check if the currency is Euro.
+	 *
+	 * @since 0.9.2
+	 * @return bool
+	 */
+	public function is_euro()
+	{
+		return $this->value === self::EURO;
+	}
 
     /**
      * Get the translated label for the currency.

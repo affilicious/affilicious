@@ -146,7 +146,7 @@ class Money
     public function is_greater_than_or_equal_to(Money $money)
     {
         return
-            $this->is_smaller_than($money) ||
+            $this->is_greater_than($money) ||
             $this->is_equal_to($money);
     }
 

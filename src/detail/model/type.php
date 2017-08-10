@@ -29,7 +29,7 @@ class Type
 	/**
      * Build a new text type.
      *
-	 * @since 0.68
+	 * @since 0.8
 	 * @return Type
 	 */
 	public static function text()
@@ -68,6 +68,23 @@ class Type
 	public static function file()
 	{
 		return new self(self::FILE);
+	}
+
+	/**
+	 * Build an array of all types.
+	 *
+	 * @since 0.9.2
+	 * @return Type[]
+	 */
+	public static function all()
+	{
+		$all = [];
+
+		foreach (self::$all as $value) {
+			$all[] = new self($value);
+		}
+
+		return $all;
 	}
 
     /**

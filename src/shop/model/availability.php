@@ -17,7 +17,7 @@ class Availability
     const AVAILABLE = 'available';
     const OUT_OF_STOCK = 'out-of-stock';
 
-    public static $values = [
+    public static $all = [
         self::AVAILABLE,
 	    self::OUT_OF_STOCK
     ];
@@ -42,6 +42,23 @@ class Availability
     public static function out_of_stock()
     {
         return new self(self::OUT_OF_STOCK);
+    }
+
+	/**
+	 * Create an array of all availabilities.
+	 *
+	 * @since 0.9.2
+	 * @return array
+	 */
+    public static function all()
+    {
+    	$all = [];
+
+    	foreach (self::$all as $value) {
+    		$all[] = new self($value);
+	    }
+
+	    return $all;
     }
 
     /**
