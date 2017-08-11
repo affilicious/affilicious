@@ -167,7 +167,7 @@ class Type
                 $label = null;
         }
 
-	    $label = apply_filters('affilicious_detail_type_label', $label, $this->value);
+	    $label = apply_filters('aff_detail_type_label', $label, $this->value);
 
         return $label;
     }

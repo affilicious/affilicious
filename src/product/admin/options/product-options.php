@@ -22,7 +22,7 @@ class Product_Options
            ->add_tab(__('General', 'affilicious'), $this->get_general_fields())
            ->add_tab(__('Custom Taxonomies', 'affilicious'), $this->get_custom_taxonomies_fields());
 
-        $container = apply_filters('affilicious_admin_options_product_container', $container);
+        $container = apply_filters('aff_admin_options_render_product_container', $container);
 
         do_action('aff_admin_options_after_render_product_container', $container);
 	}
@@ -40,7 +40,7 @@ class Product_Options
                 ->help_text(__('Used as the slug for a nicer product URL (eg "http://example.com/products/xyz"), where "products" in the middle part of the product URL is the default. If you want to translate the slug into your language instead of "products", you have to write the new slug into this input field.', 'affilicious')),
         );
 
-        return apply_filters('aff_admin_options_after_render_product_container_general_fields', $fields);
+        return apply_filters('aff_admin_options_render_product_container_general_fields', $fields);
     }
 
     /**
@@ -74,6 +74,6 @@ class Product_Options
                 ))
         );
 
-        return apply_filters('aff_admin_options_after_render_product_container_custom_taxonomies_fields', $fields);
+        return apply_filters('aff_admin_options_render_product_container_custom_taxonomies_fields', $fields);
     }
 }

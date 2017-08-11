@@ -96,7 +96,7 @@ class Type
                 $label = null;
         }
 
-	    $label = apply_filters('affilicious_attribute_type_label', $label, $this->value);
+	    $label = apply_filters('aff_attribute_type_label', $label, $this->value);
 
         return $label;
     }

@@ -45,7 +45,7 @@ class Affilicious_Options
             ->add_tab(__('Licenses', 'affilicious'), $this->get_licenses_fields())
 	        ->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields());
 
-        $container = apply_filters('affilicious_admin_options_affilicious_container', $container);
+        $container = apply_filters('aff_admin_options_render_affilicious_container', $container);
 
         do_action('aff_admin_options_after_render_affilicious_container', $container);
 	}
@@ -71,7 +71,7 @@ class Affilicious_Options
                 ->set_help_text($help_text)
         );
 
-        return apply_filters('affilicious_admin_options_affilicious_container_licenses_fields', $fields);
+        return apply_filters('aff_admin_options_render_affilicious_container_licenses_fields', $fields);
     }
 
     /**
@@ -89,6 +89,6 @@ class Affilicious_Options
                 ->set_help_text(__("Add your custom footer scripts like Google Analytics tracking code, CSS or JS with the proper &lt;style&gt or &lt;script&gt tags.", 'affilicious')),
         );
 
-        return apply_filters('affilicious_admin_options_affilicious_container_scripts_fields', $fields);
+        return apply_filters('aff_admin_options_render_affilicious_container_scripts_fields', $fields);
     }
 }
