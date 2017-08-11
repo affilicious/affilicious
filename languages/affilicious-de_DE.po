@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-08-11 10:23+0200\n"
+"POT-Creation-Date: 2017-08-11 17:51+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -76,6 +76,7 @@ msgstr "Attribut-Vorlage"
 #: src/attribute/model/type.php:90
 #: src/detail/admin/meta-box/detail-template-meta-box.php:30
 #: src/detail/model/type.php:155
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:41
 msgid "Text"
 msgstr "Text"
 
@@ -526,6 +527,7 @@ msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:85
 #: src/product/admin/options/product-options.php:22
+#: vendor/htmlburger/carbon-fields/core/Container/Container.php:573
 msgid "General"
 msgstr "Allgemein"
 
@@ -753,9 +755,9 @@ msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
 #: src/product/admin/options/product-options.php:20
-#: src/product/setup/product-setup.php:20
-msgid "Product"
-msgstr "Produkt"
+#: src/product/setup/product-setup.php:21
+msgid "Products"
+msgstr "Produkte"
 
 #: src/product/admin/options/product-options.php:23
 msgid "Custom Taxonomies"
@@ -883,6 +885,7 @@ msgid "Publish product directly"
 msgstr "Produkt sofort veröffentlichen"
 
 #: src/product/admin/view/page/import/amazon/config-template.php:48
+#: vendor/htmlburger/carbon-fields/templates/Container/theme_options.php:31
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -916,6 +919,7 @@ msgid "Enter your ASIN..."
 msgstr "ASIN eingeben…"
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:8
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:226
 msgid "Search"
 msgstr "Suchen"
 
@@ -1117,6 +1121,12 @@ msgstr "Das Produkt wurde erfolgreich importiert."
 msgid "Failed to import the product."
 msgstr "Importieren des Produkts ist fehlgeschlagen."
 
+#: src/product/meta-box/product-image-gallery-meta-box.php:53
+#: src/product/meta-box/product-image-gallery-meta-box.php:79
+#: src/product/meta-box/product-image-gallery-meta-box.php:80
+msgid "Delete Image"
+msgstr "Bild löschen"
+
 #: src/product/meta-box/product-image-gallery-meta-box.php:54
 msgid "Delete"
 msgstr "Löschen"
@@ -1128,11 +1138,6 @@ msgstr "Bilder hinzufügen"
 #: src/product/meta-box/product-image-gallery-meta-box.php:78
 msgid "Add Image"
 msgstr "Bild hinzufügen"
-
-#: src/product/meta-box/product-image-gallery-meta-box.php:79
-#: src/product/meta-box/product-image-gallery-meta-box.php:80
-msgid "Delete Image"
-msgstr "Bild löschen"
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
@@ -1197,9 +1202,9 @@ msgstr "%s erstellen"
 msgid "New %s"
 msgstr "Neue %s"
 
-#: src/product/setup/product-setup.php:21
-msgid "Products"
-msgstr "Produkte"
+#: src/product/setup/product-setup.php:20
+msgid "Product"
+msgstr "Produkt"
 
 #: src/product/setup/product-setup.php:28
 #, php-format
@@ -1285,179 +1290,179 @@ msgstr "Aktualisierungen"
 msgid "Access Key"
 msgstr "Access Key"
 
-#: src/provider/admin/options/amazon-options.php:74
+#: src/provider/admin/options/amazon-options.php:73
 msgid "The access key is used to identify you as an API user."
 msgstr "Der Access Key identifiziert dich als einen API Benutzer."
 
-#: src/provider/admin/options/amazon-options.php:75
+#: src/provider/admin/options/amazon-options.php:74
 msgid "Secret Key"
 msgstr "Secret Key"
 
-#: src/provider/admin/options/amazon-options.php:77
+#: src/provider/admin/options/amazon-options.php:75
 msgid "The secret key is used like a password to sign your API requests."
 msgstr ""
 "Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
 "authentifizieren."
 
-#: src/provider/admin/options/amazon-options.php:78
+#: src/provider/admin/options/amazon-options.php:76
 msgid "Country"
 msgstr "Land"
 
-#: src/provider/admin/options/amazon-options.php:80
+#: src/provider/admin/options/amazon-options.php:78
 #: src/provider/model/amazon/country.php:211
 msgid "Germany"
 msgstr "Deutschland"
 
-#: src/provider/admin/options/amazon-options.php:81
+#: src/provider/admin/options/amazon-options.php:79
 #: src/provider/model/amazon/country.php:214
 msgid "America"
 msgstr "Amerika"
 
-#: src/provider/admin/options/amazon-options.php:82
+#: src/provider/admin/options/amazon-options.php:80
 #: src/provider/model/amazon/country.php:217
 msgid "England"
 msgstr "England"
 
-#: src/provider/admin/options/amazon-options.php:83
+#: src/provider/admin/options/amazon-options.php:81
 #: src/provider/model/amazon/country.php:220
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/provider/admin/options/amazon-options.php:84
+#: src/provider/admin/options/amazon-options.php:82
 #: src/provider/model/amazon/country.php:223
 msgid "France"
 msgstr "Frankreich"
 
-#: src/provider/admin/options/amazon-options.php:85
+#: src/provider/admin/options/amazon-options.php:83
 #: src/provider/model/amazon/country.php:226
 msgid "Japan"
 msgstr "Japan"
 
-#: src/provider/admin/options/amazon-options.php:86
+#: src/provider/admin/options/amazon-options.php:84
 #: src/provider/model/amazon/country.php:229
 msgid "Italy"
 msgstr "Italien"
 
-#: src/provider/admin/options/amazon-options.php:87
+#: src/provider/admin/options/amazon-options.php:85
 #: src/provider/model/amazon/country.php:232
 msgid "China"
 msgstr "China"
 
-#: src/provider/admin/options/amazon-options.php:88
+#: src/provider/admin/options/amazon-options.php:86
 #: src/provider/model/amazon/country.php:235
 msgid "Spain"
 msgstr "Spanien"
 
-#: src/provider/admin/options/amazon-options.php:89
+#: src/provider/admin/options/amazon-options.php:87
 #: src/provider/model/amazon/country.php:238
 msgid "India"
 msgstr "Indien"
 
-#: src/provider/admin/options/amazon-options.php:90
+#: src/provider/admin/options/amazon-options.php:88
 #: src/provider/model/amazon/country.php:241
 msgid "Brazil"
 msgstr "Brasilien"
 
-#: src/provider/admin/options/amazon-options.php:91
+#: src/provider/admin/options/amazon-options.php:89
 #: src/provider/model/amazon/country.php:244
 msgid "Mexico"
 msgstr "Mexiko"
 
-#: src/provider/admin/options/amazon-options.php:92
+#: src/provider/admin/options/amazon-options.php:90
 #: src/provider/model/amazon/country.php:247
 msgid "Australia"
 msgstr "Australien"
 
-#: src/provider/admin/options/amazon-options.php:95
+#: src/provider/admin/options/amazon-options.php:92
 msgid "The country has to match the locale of your Amazon account. "
 msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen. "
 
-#: src/provider/admin/options/amazon-options.php:96
+#: src/provider/admin/options/amazon-options.php:93
 msgid "Associate Tag"
 msgstr "Associate Tag"
 
-#: src/provider/admin/options/amazon-options.php:98
+#: src/provider/admin/options/amazon-options.php:94
 msgid "Amazon uses this ID to credit an associate for a sale."
 msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
 
-#: src/provider/admin/options/amazon-options.php:113
+#: src/provider/admin/options/amazon-options.php:109
 msgid "Thumbnail Update Interval"
 msgstr "Thumbnail Aktualisierungsintervall"
 
-#: src/provider/admin/options/amazon-options.php:115
-#: src/provider/admin/options/amazon-options.php:124
-#: src/provider/admin/options/amazon-options.php:133
-#: src/provider/admin/options/amazon-options.php:142
-#: src/provider/admin/options/amazon-options.php:151
+#: src/provider/admin/options/amazon-options.php:111
+#: src/provider/admin/options/amazon-options.php:119
+#: src/provider/admin/options/amazon-options.php:127
+#: src/provider/admin/options/amazon-options.php:135
+#: src/provider/admin/options/amazon-options.php:143
 msgid "Hourly"
 msgstr "Stündlich"
 
-#: src/provider/admin/options/amazon-options.php:116
-#: src/provider/admin/options/amazon-options.php:125
-#: src/provider/admin/options/amazon-options.php:134
-#: src/provider/admin/options/amazon-options.php:143
-#: src/provider/admin/options/amazon-options.php:152
+#: src/provider/admin/options/amazon-options.php:112
+#: src/provider/admin/options/amazon-options.php:120
+#: src/provider/admin/options/amazon-options.php:128
+#: src/provider/admin/options/amazon-options.php:136
+#: src/provider/admin/options/amazon-options.php:144
 msgid "Twice Daily"
 msgstr "2x Täglich"
 
-#: src/provider/admin/options/amazon-options.php:117
-#: src/provider/admin/options/amazon-options.php:126
-#: src/provider/admin/options/amazon-options.php:135
-#: src/provider/admin/options/amazon-options.php:144
-#: src/provider/admin/options/amazon-options.php:153
+#: src/provider/admin/options/amazon-options.php:113
+#: src/provider/admin/options/amazon-options.php:121
+#: src/provider/admin/options/amazon-options.php:129
+#: src/provider/admin/options/amazon-options.php:137
+#: src/provider/admin/options/amazon-options.php:145
 msgid "Daily"
 msgstr "Täglich"
 
-#: src/provider/admin/options/amazon-options.php:118
-#: src/provider/admin/options/amazon-options.php:127
-#: src/provider/admin/options/amazon-options.php:136
-#: src/provider/admin/options/amazon-options.php:145
-#: src/provider/admin/options/amazon-options.php:154
+#: src/provider/admin/options/amazon-options.php:114
+#: src/provider/admin/options/amazon-options.php:122
+#: src/provider/admin/options/amazon-options.php:130
+#: src/provider/admin/options/amazon-options.php:138
+#: src/provider/admin/options/amazon-options.php:146
 msgid "No Updates"
 msgstr "Keine Aktualisierungen"
 
-#: src/provider/admin/options/amazon-options.php:120
+#: src/provider/admin/options/amazon-options.php:116
 msgid "The automatic update interval for the product thumbnails."
 msgstr "Das automatische Aktualisierungsintervall für die Produkt-Thumbnails."
 
-#: src/provider/admin/options/amazon-options.php:122
+#: src/provider/admin/options/amazon-options.php:117
 msgid "Image Gallery Update Interval"
 msgstr "Bildergalerie Aktualisierungsintervall"
 
-#: src/provider/admin/options/amazon-options.php:129
+#: src/provider/admin/options/amazon-options.php:124
 msgid "The automatic update interval for the product image galleries."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die Produkt-Bildergalerien."
 
-#: src/provider/admin/options/amazon-options.php:131
+#: src/provider/admin/options/amazon-options.php:125
 msgid "Price Update Interval"
 msgstr "Preis Aktualisierungsintervall"
 
-#: src/provider/admin/options/amazon-options.php:138
+#: src/provider/admin/options/amazon-options.php:132
 msgid "The automatic update interval for the shop prices in the products."
 msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
 
-#: src/provider/admin/options/amazon-options.php:140
+#: src/provider/admin/options/amazon-options.php:133
 msgid "Old Price Update Interval"
 msgstr "Alter Preis Aktualisierungsintervall"
 
-#: src/provider/admin/options/amazon-options.php:147
+#: src/provider/admin/options/amazon-options.php:140
 msgid "The automatic update interval for the old shop prices in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
 
-#: src/provider/admin/options/amazon-options.php:149
+#: src/provider/admin/options/amazon-options.php:141
 msgid "Availability Update Interval"
 msgstr "Verfügbarkeits Aktualisierungsintervall"
 
-#: src/provider/admin/options/amazon-options.php:156
+#: src/provider/admin/options/amazon-options.php:148
 msgid ""
 "The automatic update interval for the shop availabilities in the products."
 msgstr ""
 "Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
 "Produkten."
 
-#: src/provider/admin/options/amazon-options.php:175
+#: src/provider/admin/options/amazon-options.php:166
 msgid ""
 "<b>The credentials are valid!</b> A connection to the Amazon Product "
 "Advertising API was successfully established."
@@ -1465,7 +1470,7 @@ msgstr ""
 "<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
 "Advertising API wurde erfolgreich aufgebaut."
 
-#: src/provider/admin/options/amazon-options.php:179
+#: src/provider/admin/options/amazon-options.php:170
 msgid ""
 "<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
 "Advertising API."
@@ -1611,6 +1616,274 @@ msgstr "%s Navigation"
 msgctxt "Shop Template"
 msgid "Filter %s"
 msgstr "%s filtern"
+
+#: vendor/htmlburger/carbon-fields/core/Container/Container.php:765
+msgid "Please fill out all required fields highlighted below."
+msgstr "Bitte fülle alle markierten Pflichtfelder unten aus."
+
+#: vendor/htmlburger/carbon-fields/core/Container/Container.php:766
+msgid "The changes you made will be lost if you navigate away from this page."
+msgstr ""
+"Deine getättigten Änderungen gehen verloren, wenn du diese Seite verlässt."
+
+#: vendor/htmlburger/carbon-fields/core/Container/Theme_Options_Container.php:149
+msgid "Settings saved."
+msgstr "Deine Einstellungen wurden gespeichert."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Association_Field.php:371
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:265
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Broken_Field.php:11
+msgid "This field is misconfigured"
+msgstr "Dieses Feld ist falsch konfiguriert"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Color_Field.php:17
+msgid "Select a Color"
+msgstr "Wähle eine Farbe"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:40
+msgid "Entry"
+msgstr "Eintrag"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:41
+msgid "Entries"
+msgstr "Einträge"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:497
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:498
+msgid "Collapse/Expand"
+msgstr "Ein/Ausklappen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:501
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:502
+msgid "Clone"
+msgstr "Klonen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:505
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:506
+msgid "Remove"
+msgstr "Entfernen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:572
+#, php-format
+msgid ""
+"Complex field \"%1$s\" layout is deprecated, please use \"%2$s\" or \"%3$s\" "
+"instead."
+msgstr ""
+"Komplexe Feldlayouts \"%1$s\" sind veraltet. Bitte benutze \"%2$s\" oder "
+"\"%3$s\" stattdessen."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:585
+msgid "Complex field <code>"
+msgstr "Komplexes Feld <code>"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Date_Field.php:39
+msgid "Date"
+msgstr "Datum"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:818
+#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:28
+msgid "Files"
+msgstr "Dateien"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:819
+msgid "The address could not be found. "
+msgstr "Die Adresse wurde nicht gefunden."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:820
+msgid "Geocode was not successful for the following reason: "
+msgstr "Der Geocode war nicht erfolgreich aus folgenden Gründen:"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:821
+#, php-format
+msgid "Maximum number of items reached (%s items)"
+msgstr "Maximale Anzahl von Einträgen wurde erreicht. (%s Einträge)"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:822
+#, php-format
+msgid "Maximum number of rows reached (%s rows)"
+msgstr "Maximale Anzahl von Reihen erreicht (%s Reihen)."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:823
+#, php-format
+msgid "Cannot create more than %s rows"
+msgstr "Mehr als %s Reihen können nicht erstellt werden"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:824
+msgid "Please enter the name of the new sidebar:"
+msgstr "Bitte benenne die neue Seitenleiste:"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:825
+msgid "Are you sure you wish to remove this sidebar?"
+msgstr "Möchest du diese Seitenleiste wirklich entfernen?"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:826
+msgid "Add Sidebar"
+msgstr "Seitenleiste hinzufügen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:827
+#, php-format
+msgid "There are no %s yet. Click <a href=\"#\">here</a> to add one."
+msgstr ""
+"Es gibt noch keine %s bis jetzt. Klicke <a href=\"#\">hier</a> zum "
+"Hinzufügen."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:828
+#, php-format
+msgid "Add %s"
+msgstr "%s hinzufügen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:829
+#, php-format
+msgid "Minimum number of rows not reached (%d %s)"
+msgstr "Minimale Anzahl von Reihen wurde nicht erreicht (%d %s)"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:830
+msgid "Please fill out all fields correctly. "
+msgstr "Bitte fülle alle Felder korrekt aus."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:831
+msgid "This field is required. "
+msgstr "Dieses Feld erforderlich."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:832
+msgid "Please choose an option. "
+msgstr "Bitte wähle eine Option."
+
+#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:26
+#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:27
+msgid "Select File"
+msgstr "Datei auswählen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Footer_Scripts_Field.php:14
+msgid ""
+"If you need to add scripts to your footer (like Google Analytics tracking "
+"code), you should enter them in this box."
+msgstr ""
+"Wenn du Skripte in deinen Footer hinzufügen möchtest (z.B. Google Analytics "
+"Tracking Code), solltest du sie in diese Box einfügen."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:44
+msgid "No form"
+msgstr "Kein Formular"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:79
+msgid "Please install Gravity Forms plugin"
+msgstr "Bitte installiere das Gravity Forms Plugins"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:85
+msgid "No Gravity Forms have been found."
+msgstr "Es wurden keine Gravity Formulare gefunden."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Header_Scripts_Field.php:14
+msgid "If you need to add scripts to your header, you should enter them here."
+msgstr ""
+"Wenn du Skripte in deinen Header hinzufügen möchtest, solltest du sie hier "
+"einfügen."
+
+#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:18
+#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:19
+msgid "Select Image"
+msgstr "Bild auswählen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:20
+msgid "Images"
+msgstr "Bilder"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Map_Field.php:102
+msgid "Locate Address on the map"
+msgstr "Adresse auf der Karte finden"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Map_Field.php:107
+msgid "Find"
+msgstr "Finden"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Radio_Field.php:15
+#: vendor/htmlburger/carbon-fields/core/Field/Select_Field.php:33
+#: vendor/htmlburger/carbon-fields/core/Field/Set_Field.php:73
+msgid "no options"
+msgstr "Keine Optionen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:211
+msgid "selected item"
+msgstr "Ausgewählter Eintrag"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:211
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:212
+msgid "selected items"
+msgstr "Ausgewählte Einträge"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:219
+msgid "out of"
+msgstr "aus"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:239
+msgid "Associated:"
+msgstr "Assoziiert:"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:26
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:27
+msgid "Add Media"
+msgstr "Medien hinzufügen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:38
+msgid "Visual"
+msgstr "Visuell"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Set_Field.php:92
+msgid "Show All Options"
+msgstr "Zeige alle Optionen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Sidebar_Field.php:35
+msgctxt "sidebar"
+msgid "Add New"
+msgstr "Erstellen"
+
+#: vendor/htmlburger/carbon-fields/core/Field/Time_Field.php:75
+msgid "Timepicker"
+msgstr "Zeit-Picker"
+
+#: vendor/htmlburger/carbon-fields/core/Manager/Sidebar_Manager.php:104
+msgid "Sidebar with the same ID is already registered."
+msgstr "Seitenleiste mit der gleichen ID is bereits registriert."
+
+#: vendor/htmlburger/carbon-fields/core/Manager/Sidebar_Manager.php:131
+msgid "Sidebar not found."
+msgstr "Seitenleiste nicht gefunden"
+
+#: vendor/htmlburger/carbon-fields/templates/Container/theme_options.php:40
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: vendor/htmlburger/carbon-fields/templates/Container/widget.php:5
+msgid "No options are available for this widget."
+msgstr "Keine Optionen sind für dieses Widget verfügbar."
+
+#. Plugin Name of the plugin/theme
+msgid "Affilicious"
+msgstr "Affilicious"
+
+#. Plugin URI of the plugin/theme
+msgid "https://affilicioustheme.com/downloads/affilicious/"
+msgstr "https://affilicioustheme.de/downloads/affilicious/"
+
+#. Description of the plugin/theme
+msgid ""
+"The best affiliate solution in Wordpress with products & variants, shops, "
+"price comparisons, Amazon import & update and much more."
+msgstr ""
+"Die beste Affiliate-Lösung für Wordpress mit Produkten & Varianten, Shops, "
+"Preisvergleichen, Amazon Import & Update und vielem mehr."
+
+#. Author of the plugin/theme
+msgid "Affilicious Theme"
+msgstr "Affilicious Theme"
+
+#. Author URI of the plugin/theme
+msgid "https://affilicioustheme.com/"
+msgstr "https://affilicioustheme.de/"
 
 #~ msgid "Singular Slug"
 #~ msgstr "Slug im Singular"
@@ -1773,9 +2046,6 @@ msgstr "%s filtern"
 #~ msgid "Detail Template ID"
 #~ msgstr "Detail-Vorlagengruppe ID"
 
-#~ msgid "Shop Template Options"
-#~ msgstr "Shop-Vorlagen Optionen"
-
 #~ msgid "Featured Image"
 #~ msgstr "Beitragsbild"
 
@@ -1885,9 +2155,6 @@ msgstr "%s filtern"
 #~ msgid "Uploaded To This %s"
 #~ msgstr "Zu %s hochladen"
 
-#~ msgid "%s Settings"
-#~ msgstr "%s Einstellungen"
-
 #~ msgid ""
 #~ "The name of the taxonomy. Slug should only contain lowercase letters and "
 #~ "the underscore character, and not be more than 32 characters long. Care "
@@ -1947,9 +2214,6 @@ msgstr "%s filtern"
 
 #~ msgid "Add New AttributeTemplate Group"
 #~ msgstr "Attributgruppen erstellen"
-
-#~ msgid "Add New"
-#~ msgstr "Erstellen"
 
 #~ msgid "New AttributeTemplate Group"
 #~ msgstr "Neue Attributgruppe"
@@ -2113,9 +2377,6 @@ msgstr "%s filtern"
 #~ msgid "Set Logo"
 #~ msgstr "Logo setzen"
 
-#~ msgid "Remove Logo"
-#~ msgstr "Logo entfernen"
-
 #~ msgid "Use As Logo"
 #~ msgstr "Als Logo verwenden"
 
@@ -2238,15 +2499,9 @@ msgstr "%s filtern"
 #~ msgid "Product Sidebar"
 #~ msgstr "Produkte-Sidebar"
 
-#~ msgid "Select a Sidebar"
-#~ msgstr "Sidebar wählen"
-
 #~ msgid "The selected product sidebar will be shown above the main sidebar."
 #~ msgstr ""
 #~ "Die ausgewählte Produkte-Sidebar wird über der Haupt-Sidebar angezeigt"
-
-#~ msgid "Main Sidebar"
-#~ msgstr "Haupt-Sidebar"
 
 #~ msgid ""
 #~ "Place your widgets into this sidebar, which is visible on every page."

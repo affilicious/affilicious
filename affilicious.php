@@ -4,7 +4,7 @@
  * Plugin URI: https://affilicioustheme.com/downloads/affilicious/
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
- * Description: Manage affiliate products in Wordpress with price comparisons, automatically updated shops, product variants and much more.
+ * Description: The best affiliate solution in Wordpress with products & variants, shops, price comparisons, Amazon import & update and much more.
  * Version: 0.9.3
  * License: GPL-2.0 or later
  * Requires at least: 4.5

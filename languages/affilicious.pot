@@ -1,56 +1,31 @@
-# WordPress Blank Pot
-# Copyright (C) 2014 ...
-# This file is distributed under the GNU General Public License v2 or later.
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-08-11 "
-"10:23+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Your Slug "
-"<you@example.com>\n"
-"Language-Team: Affilicious Team "
-"<team@affilicioustheme.de>\n"
-"Report-Msgid-Bugs-To: Translator "
-"Slug <translations@example.com>\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Affilicious\n"
+"POT-Creation-Date: 2017-08-11 17:51+0200\n"
+"PO-Revision-Date: 2017-08-11 17:46+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; "
-"charset=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; "
-"plural=n != 1;\n"
-"X-Textdomain-Support: yesX-"
-"Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;"
-"esc_html_e;esc_html__;esc_attr_e;"
-"esc_attr_x:1,2c;esc_attr_;"
-"_x:1,2c;_n:1,2;_n_noop:1,2;"
-"_nx:1,2;_nx_noop:1,2\n"
-"X-Poedit-Basepath: ..\n"
-"Language: en_US\n"
 "X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: affilicious.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: "
-"tests\n"
-"X-Poedit-SearchPathExcluded-1: "
-"vendor\n"
-"X-Poedit-SearchPathExcluded-2: "
-"assets\n"
-"X-Poedit-SearchPathExcluded-3: "
-"node_modules\n"
-"X-Poedit-SearchPathExcluded-4: "
-"tmp\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: affilicious.php:215
 #, php-format
 msgid ""
-"The Affilicious Plugin requires "
-"at least the PHP Version %s to "
-"reveal the full potential. "
-"Please switch the PHP version in "
-"your hosting provider."
+"The Affilicious Plugin requires at least the PHP Version %s to reveal the "
+"full potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
 #: functions.php:533
@@ -61,9 +36,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: functions.php:2149
-msgid ""
-"Incl. 19 % VAT and excl. "
-"shipping costs."
+msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr ""
 
 #: functions.php:2209
@@ -95,6 +68,7 @@ msgstr ""
 #: src/attribute/model/type.php:90
 #: src/detail/admin/meta-box/detail-template-meta-box.php:30
 #: src/detail/model/type.php:155
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:41
 msgid "Text"
 msgstr ""
 
@@ -189,14 +163,11 @@ msgstr ""
 #: src/common/admin/filter/footer-text-filter.php:21
 #, php-format
 msgid ""
-"Thank you for creating with <a "
-"href=\"%s\" target=\"_blank"
-"\">Affilicious</a>."
+"Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 
 #: src/common/admin/license/license-manager.php:39
-msgid ""
-"Failed to store the license."
+msgid "Failed to store the license."
 msgstr ""
 
 #: src/common/admin/license/license-manager.php:61
@@ -205,8 +176,7 @@ msgid "Failed to find the license."
 msgstr ""
 
 #: src/common/admin/license/license-manager.php:68
-msgid ""
-"Failed to delete the license."
+msgid "Failed to delete the license."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:48
@@ -214,9 +184,7 @@ msgid "The action was successful."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:64
-msgid ""
-"An error has occurred. Please "
-"try again."
+msgid "An error has occurred. Please try again."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:89
@@ -232,25 +200,19 @@ msgid "The license is invalid"
 msgstr ""
 
 #: src/common/admin/license/license-status.php:122
-msgid ""
-"Succeeded to activate the "
-"license."
+msgid "Succeeded to activate the license."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:133
-msgid ""
-"Failed to activate the license."
+msgid "Failed to activate the license."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:144
-msgid ""
-"Succeeded to deactivate the "
-"license."
+msgid "Succeeded to deactivate the license."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:155
-msgid ""
-"Failed to deactivate the license."
+msgid "Failed to deactivate the license."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:45
@@ -264,20 +226,16 @@ msgstr ""
 #: src/common/admin/options/affilicious-options.php:62
 #, php-format
 msgid ""
-"More add-ons and themes can be "
-"found on the official website of "
-"<a href=\"%s\">Affilicious "
-"Theme</a>."
+"More add-ons and themes can be found on the official website of <a href=\"%s"
+"\">Affilicious Theme</a>."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:63
 #, php-format
 msgid ""
-"It looks like you haven't got "
-"any add-on or theme yet. Visit "
-"our official website of <a href="
-"\"%s\">Affilicious Theme</a> to "
-"see what you can start with."
+"It looks like you haven't got any add-on or theme yet. Visit our official "
+"website of <a href=\"%s\">Affilicious Theme</a> to see what you can start "
+"with."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:86
@@ -286,10 +244,8 @@ msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:87
 msgid ""
-"Add your custom header scripts "
-"like CSS or JS with the proper "
-"&lt;style&gt or &lt;script&gt "
-"tags."
+"Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
+"or &lt;script&gt tags."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:88
@@ -298,11 +254,8 @@ msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:89
 msgid ""
-"Add your custom footer scripts "
-"like Google Analytics tracking "
-"code, CSS or JS with the proper "
-"&lt;style&gt or &lt;script&gt "
-"tags."
+"Add your custom footer scripts like Google Analytics tracking code, CSS or "
+"JS with the proper &lt;style&gt or &lt;script&gt tags."
 msgstr ""
 
 #: src/common/admin/page/addons-page.php:25
@@ -367,11 +320,9 @@ msgstr ""
 #: src/common/admin/view/page/addons.php:42
 #, php-format
 msgid ""
-"We offer a collection of amazing "
-"affiliate plugins and themes for "
-"Wordpress. Visit our <a href=\"%s"
-"\" target=\"_blank\">official "
-"website</a> for more information."
+"We offer a collection of amazing affiliate plugins and themes for Wordpress. "
+"Visit our <a href=\"%s\" target=\"_blank\">official website</a> for more "
+"information."
 msgstr ""
 
 #: src/common/admin/view/page/addons.php:47
@@ -520,48 +471,38 @@ msgid "Filter %s"
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:128
-msgid ""
-"The Amazon import request is not "
-"valid."
+msgid "The Amazon import request is not valid."
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:150
-msgid ""
-"Specify a shop name if you want "
-"to create a new shop."
+msgid "Specify a shop name if you want to create a new shop."
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:155
-msgid ""
-"Failed to find the Amazon "
-"provider."
+msgid "Failed to find the Amazon provider."
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:165
 #, php-format
 msgid ""
-"Failed to import the product "
-"because the shop \"%s\" couldn't "
-"be created. It's already "
-"existing."
+"Failed to import the product because the shop \"%s\" couldn't be created. "
+"It's already existing."
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:192
-msgid ""
-"Failed to find the ASIN for "
-"product."
+msgid "Failed to find the ASIN for product."
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:272
 #, php-format
 msgid ""
-"Failed to merge different "
-"product types. Got \"%s\", but "
-"the important product is \"%s\"."
+"Failed to merge different product types. Got \"%s\", but the important "
+"product is \"%s\"."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:85
 #: src/product/admin/options/product-options.php:22
+#: vendor/htmlburger/carbon-fields/core/Container/Container.php:573
 msgid "General"
 msgstr ""
 
@@ -590,9 +531,7 @@ msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:113
 #: src/product/admin/meta-box/product-meta-box.php:211
-msgid ""
-"Custom product tags like \"test "
-"winner\" or \"best price\"."
+msgid "Custom product tags like \"test winner\" or \"best price\"."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:161
@@ -602,11 +541,8 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:165
 #, php-format
 msgid ""
-"Add the names of some <a href="
-"\"%s\" target=\"_blank"
-"\">attribute templates</a> to "
-"attach them to the product "
-"variants."
+"Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
+"a> to attach them to the product variants."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:173
@@ -623,9 +559,7 @@ msgid "Default Variant"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:204
-msgid ""
-"This variant will be shown as "
-"default for the parent product."
+msgid "This variant will be shown as default for the parent product."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:212
@@ -641,18 +575,15 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:282
 #, php-format
 msgid ""
-"<b>No attribute templates "
-"available!</b> Please create one "
-"<a href=\"%s\" target=\"_blank"
-"\">here</a>."
+"<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
+"target=\"_blank\">here</a>."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:324
 #, php-format
 msgid ""
-"<b>No shop templates available!</"
-"b> Please create one <a href=\"%s"
-"\" target=\"_blank\">here</a>."
+"<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
+"\"_blank\">here</a>."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:351
@@ -672,10 +603,7 @@ msgid "Affiliate Product ID"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:362
-msgid ""
-"Unique Product ID like Amazon "
-"ASIN, Affilinet ID, Ebay ID and "
-"etc."
+msgid "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID and etc."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:363
@@ -724,10 +652,8 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:419
 #, php-format
 msgid ""
-"Add the names of some <a href="
-"\"%s\" target=\"_blank\">detail "
-"templates</a> to attach them to "
-"the product."
+"Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
+"to attach them to the product."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:462
@@ -741,10 +667,8 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:480
 #, php-format
 msgid ""
-"<b>No detail templates available!"
-"</b> Please create one <a href="
-"\"%s\" target=\"_blank\">here</"
-"a>."
+"<b>No detail templates available!</b> Please create one <a href=\"%s\" "
+"target=\"_blank\">here</a>."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:499
@@ -780,9 +704,7 @@ msgid "Votes"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:515
-msgid ""
-"If you want to hide the votes, "
-"just leave it empty."
+msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:538
@@ -794,8 +716,8 @@ msgid "Related Accessories"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:20
-#: src/product/setup/product-setup.php:20
-msgid "Product"
+#: src/product/setup/product-setup.php:21
+msgid "Products"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:23
@@ -809,25 +731,17 @@ msgstr ""
 
 #: src/product/admin/options/product-options.php:40
 msgid ""
-"Used as the slug for a nicer "
-"product URL (eg \"http://example."
-"com/products/xyz\"), where "
-"\"products\" in the middle part "
-"of the product URL is the "
-"default. If you want to "
-"translate the slug into your "
-"language instead of \"products"
-"\", you have to write the new "
-"slug into this input field."
+"Used as the slug for a nicer product URL (eg \"http://example.com/products/"
+"xyz\"), where \"products\" in the middle part of the product URL is the "
+"default. If you want to translate the slug into your language instead of "
+"\"products\", you have to write the new slug into this input field."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:56
 #, php-format
 msgid ""
-"Create custom taxonomies to "
-"group products together. See "
-"this <a href=\"%s\">link</a> for "
-"a better description."
+"Create custom taxonomies to group products together. See this <a href=\"%s"
+"\">link</a> for a better description."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:57
@@ -841,29 +755,18 @@ msgstr ""
 #: src/product/admin/options/product-options.php:61
 #, php-format
 msgid ""
-"The database name of the "
-"taxonomy like \"your_category\". "
-"Name should only contain "
-"lowercase letters and the "
-"underscore character, and not be "
-"more than 32 characters long. "
-"Care should be used in selecting "
-"a taxonomy name so that it does "
-"not conflict with other "
-"taxonomies, post types, and "
-"reserved Wordpress public and "
-"private query variables. A "
-"complete list of those is "
-"described in the <a href=\"%s"
-"\">Reserved Terms</a> section."
+"The database name of the taxonomy like \"your_category\". Name should only "
+"contain lowercase letters and the underscore character, and not be more than "
+"32 characters long. Care should be used in selecting a taxonomy name so that "
+"it does not conflict with other taxonomies, post types, and reserved "
+"Wordpress public and private query variables. A complete list of those is "
+"described in the <a href=\"%s\">Reserved Terms</a> section."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:66
 msgid ""
-"Used as pretty permalink text "
-"for your URL like \"http://"
-"example.com/your-categories/"
-"product-name\"."
+"Used as pretty permalink text for your URL like \"http://example.com/your-"
+"categories/product-name\"."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:68
@@ -871,9 +774,7 @@ msgid "Singular Name"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:69
-msgid ""
-"The singular name like \"Your "
-"category\"."
+msgid "The singular name like \"Your category\"."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:71
@@ -881,9 +782,7 @@ msgid "Plural Name"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:72
-msgid ""
-"The plural name like \"Your "
-"categories\"."
+msgid "The plural name like \"Your categories\"."
 msgstr ""
 
 #: src/product/admin/page/import-page.php:50
@@ -899,16 +798,14 @@ msgid "Amazon"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon.php:7
-msgid ""
-"Amazon provider not configured."
+msgid "Amazon provider not configured."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon.php:9
 #, php-format
 msgid ""
-"Add your credentials <a href=\"%s"
-"\" target=\"_blank\">here</a> to "
-"use the Amazon import."
+"Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the "
+"Amazon import."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:19
@@ -932,6 +829,7 @@ msgid "Publish product directly"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:48
+#: vendor/htmlburger/carbon-fields/templates/Container/theme_options.php:31
 msgid "Actions"
 msgstr ""
 
@@ -949,8 +847,7 @@ msgid "Enter product name..."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/config-template.php:68
-msgid ""
-"Replace with existing product"
+msgid "Replace with existing product"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:4
@@ -966,6 +863,7 @@ msgid "Enter your ASIN..."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:8
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:226
 msgid "Search"
 msgstr ""
 
@@ -1136,16 +1034,13 @@ msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:65
 msgid ""
-"Search with product variants "
-"doesn't work if the category "
-"\"All\" is selected."
+"Search with product variants doesn't work if the category \"All\" is "
+"selected."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-form-template.php:80
 #: src/product/admin/view/page/import/amazon/search-load-more-template.php:20
-msgid ""
-"The search has failed because an "
-"error has occurred."
+msgid "The search has failed because an error has occurred."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-load-more-template.php:5
@@ -1161,14 +1056,17 @@ msgid "Show all"
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:88
-msgid ""
-"Successfully imported the "
-"product."
+msgid "Successfully imported the product."
 msgstr ""
 
 #: src/product/admin/view/page/import/amazon/search-results-item-template.php:90
-msgid ""
-"Failed to import the product."
+msgid "Failed to import the product."
+msgstr ""
+
+#: src/product/meta-box/product-image-gallery-meta-box.php:53
+#: src/product/meta-box/product-image-gallery-meta-box.php:79
+#: src/product/meta-box/product-image-gallery-meta-box.php:80
+msgid "Delete Image"
 msgstr ""
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:54
@@ -1183,29 +1081,20 @@ msgstr ""
 msgid "Add Image"
 msgstr ""
 
-#: src/product/meta-box/product-image-gallery-meta-box.php:79
-#: src/product/meta-box/product-image-gallery-meta-box.php:80
-msgid "Delete Image"
-msgstr ""
-
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
 msgstr ""
 
 #: src/product/search/amazon/amazon-search.php:155
-msgid ""
-"The Amazon search term is missing"
+msgid "The Amazon search term is missing"
 msgstr ""
 
 #: src/product/search/amazon/amazon-search.php:172
-msgid ""
-"The Amazon search type is missing"
+msgid "The Amazon search type is missing"
 msgstr ""
 
 #: src/product/search/amazon/amazon-search.php:189
-msgid ""
-"The Amazon search category is "
-"missing"
+msgid "The Amazon search category is missing"
 msgstr ""
 
 #: src/product/setup/custom-taxonomies-setup.php:56
@@ -1255,8 +1144,8 @@ msgstr ""
 msgid "New %s"
 msgstr ""
 
-#: src/product/setup/product-setup.php:21
-msgid "Products"
+#: src/product/setup/product-setup.php:20
+msgid "Product"
 msgstr ""
 
 #: src/product/setup/product-setup.php:28
@@ -1343,232 +1232,198 @@ msgstr ""
 msgid "Access Key"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:74
-msgid ""
-"The access key is used to "
-"identify you as an API user."
+#: src/provider/admin/options/amazon-options.php:73
+msgid "The access key is used to identify you as an API user."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:75
+#: src/provider/admin/options/amazon-options.php:74
 msgid "Secret Key"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:77
-msgid ""
-"The secret key is used like a "
-"password to sign your API "
-"requests."
+#: src/provider/admin/options/amazon-options.php:75
+msgid "The secret key is used like a password to sign your API requests."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:78
+#: src/provider/admin/options/amazon-options.php:76
 msgid "Country"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:80
+#: src/provider/admin/options/amazon-options.php:78
 #: src/provider/model/amazon/country.php:211
 msgid "Germany"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:81
+#: src/provider/admin/options/amazon-options.php:79
 #: src/provider/model/amazon/country.php:214
 msgid "America"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:82
+#: src/provider/admin/options/amazon-options.php:80
 #: src/provider/model/amazon/country.php:217
 msgid "England"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:83
+#: src/provider/admin/options/amazon-options.php:81
 #: src/provider/model/amazon/country.php:220
 msgid "Canada"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:84
+#: src/provider/admin/options/amazon-options.php:82
 #: src/provider/model/amazon/country.php:223
 msgid "France"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:85
+#: src/provider/admin/options/amazon-options.php:83
 #: src/provider/model/amazon/country.php:226
 msgid "Japan"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:86
+#: src/provider/admin/options/amazon-options.php:84
 #: src/provider/model/amazon/country.php:229
 msgid "Italy"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:87
+#: src/provider/admin/options/amazon-options.php:85
 #: src/provider/model/amazon/country.php:232
 msgid "China"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:88
+#: src/provider/admin/options/amazon-options.php:86
 #: src/provider/model/amazon/country.php:235
 msgid "Spain"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:89
+#: src/provider/admin/options/amazon-options.php:87
 #: src/provider/model/amazon/country.php:238
 msgid "India"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:90
+#: src/provider/admin/options/amazon-options.php:88
 #: src/provider/model/amazon/country.php:241
 msgid "Brazil"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:91
+#: src/provider/admin/options/amazon-options.php:89
 #: src/provider/model/amazon/country.php:244
 msgid "Mexico"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:92
+#: src/provider/admin/options/amazon-options.php:90
 #: src/provider/model/amazon/country.php:247
 msgid "Australia"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:95
-msgid ""
-"The country has to match the "
-"locale of your Amazon account. "
+#: src/provider/admin/options/amazon-options.php:92
+msgid "The country has to match the locale of your Amazon account. "
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:96
+#: src/provider/admin/options/amazon-options.php:93
 msgid "Associate Tag"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:98
-msgid ""
-"Amazon uses this ID to credit an "
-"associate for a sale."
+#: src/provider/admin/options/amazon-options.php:94
+msgid "Amazon uses this ID to credit an associate for a sale."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:113
+#: src/provider/admin/options/amazon-options.php:109
 msgid "Thumbnail Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:115
-#: src/provider/admin/options/amazon-options.php:124
-#: src/provider/admin/options/amazon-options.php:133
-#: src/provider/admin/options/amazon-options.php:142
-#: src/provider/admin/options/amazon-options.php:151
+#: src/provider/admin/options/amazon-options.php:111
+#: src/provider/admin/options/amazon-options.php:119
+#: src/provider/admin/options/amazon-options.php:127
+#: src/provider/admin/options/amazon-options.php:135
+#: src/provider/admin/options/amazon-options.php:143
 msgid "Hourly"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:116
-#: src/provider/admin/options/amazon-options.php:125
-#: src/provider/admin/options/amazon-options.php:134
-#: src/provider/admin/options/amazon-options.php:143
-#: src/provider/admin/options/amazon-options.php:152
+#: src/provider/admin/options/amazon-options.php:112
+#: src/provider/admin/options/amazon-options.php:120
+#: src/provider/admin/options/amazon-options.php:128
+#: src/provider/admin/options/amazon-options.php:136
+#: src/provider/admin/options/amazon-options.php:144
 msgid "Twice Daily"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:117
-#: src/provider/admin/options/amazon-options.php:126
-#: src/provider/admin/options/amazon-options.php:135
-#: src/provider/admin/options/amazon-options.php:144
-#: src/provider/admin/options/amazon-options.php:153
+#: src/provider/admin/options/amazon-options.php:113
+#: src/provider/admin/options/amazon-options.php:121
+#: src/provider/admin/options/amazon-options.php:129
+#: src/provider/admin/options/amazon-options.php:137
+#: src/provider/admin/options/amazon-options.php:145
 msgid "Daily"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:118
-#: src/provider/admin/options/amazon-options.php:127
-#: src/provider/admin/options/amazon-options.php:136
-#: src/provider/admin/options/amazon-options.php:145
-#: src/provider/admin/options/amazon-options.php:154
+#: src/provider/admin/options/amazon-options.php:114
+#: src/provider/admin/options/amazon-options.php:122
+#: src/provider/admin/options/amazon-options.php:130
+#: src/provider/admin/options/amazon-options.php:138
+#: src/provider/admin/options/amazon-options.php:146
 msgid "No Updates"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:120
-msgid ""
-"The automatic update interval "
-"for the product thumbnails."
+#: src/provider/admin/options/amazon-options.php:116
+msgid "The automatic update interval for the product thumbnails."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:122
-msgid ""
-"Image Gallery Update Interval"
+#: src/provider/admin/options/amazon-options.php:117
+msgid "Image Gallery Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:129
-msgid ""
-"The automatic update interval "
-"for the product image galleries."
+#: src/provider/admin/options/amazon-options.php:124
+msgid "The automatic update interval for the product image galleries."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:131
+#: src/provider/admin/options/amazon-options.php:125
 msgid "Price Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:138
-msgid ""
-"The automatic update interval "
-"for the shop prices in the "
-"products."
+#: src/provider/admin/options/amazon-options.php:132
+msgid "The automatic update interval for the shop prices in the products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:140
+#: src/provider/admin/options/amazon-options.php:133
 msgid "Old Price Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:147
-msgid ""
-"The automatic update interval "
-"for the old shop prices in the "
-"products."
+#: src/provider/admin/options/amazon-options.php:140
+msgid "The automatic update interval for the old shop prices in the products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:149
-msgid ""
-"Availability Update Interval"
+#: src/provider/admin/options/amazon-options.php:141
+msgid "Availability Update Interval"
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:156
+#: src/provider/admin/options/amazon-options.php:148
 msgid ""
-"The automatic update interval "
-"for the shop availabilities in "
-"the products."
+"The automatic update interval for the shop availabilities in the products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:175
+#: src/provider/admin/options/amazon-options.php:166
 msgid ""
-"<b>The credentials are valid!</"
-"b> A connection to the Amazon "
-"Product Advertising API was "
-"successfully established."
+"<b>The credentials are valid!</b> A connection to the Amazon Product "
+"Advertising API was successfully established."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:179
+#: src/provider/admin/options/amazon-options.php:170
 msgid ""
-"<b>The credentials are invalid!</"
-"b> Failed to connect to the "
-"Amazon Product Advertising API."
+"<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
+"Advertising API."
 msgstr ""
 
 #: src/provider/validator/amazon-credentials-validator.php:22
-msgid ""
-"The access key ID for the Amazon "
-"provider is missing."
+msgid "The access key ID for the Amazon provider is missing."
 msgstr ""
 
 #: src/provider/validator/amazon-credentials-validator.php:27
-msgid ""
-"The secret access key for the "
-"Amazon provider is missing."
+msgid "The secret access key for the Amazon provider is missing."
 msgstr ""
 
 #: src/provider/validator/amazon-credentials-validator.php:32
-msgid ""
-"The country for the Amazon "
-"provider is missing."
+msgid "The country for the Amazon provider is missing."
 msgstr ""
 
 #: src/provider/validator/amazon-credentials-validator.php:37
-msgid ""
-"The associate tag for the Amazon "
-"provider is missing."
+msgid "The associate tag for the Amazon provider is missing."
 msgstr ""
 
 #: src/shop/admin/filter/table-columns-filter.php:25
@@ -1583,9 +1438,7 @@ msgstr ""
 
 #: src/shop/admin/meta-box/shop-template-meta-box.php:59
 msgid ""
-"The provider is used for the "
-"automatic updates for products "
-"using this shop."
+"The provider is used for the automatic updates for products using this shop."
 msgstr ""
 
 #: src/shop/admin/meta-box/shop-template-meta-box.php:60
@@ -1593,10 +1446,7 @@ msgid "Logo"
 msgstr ""
 
 #: src/shop/admin/meta-box/shop-template-meta-box.php:61
-msgid ""
-"The logo is used to show an "
-"image near the shop prices in "
-"products."
+msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 
 #: src/shop/model/availability.php:110
@@ -1605,24 +1455,17 @@ msgstr ""
 
 #: src/shop/repository/carbon/carbon-shop-template-repository.php:44
 #, php-format
-msgid ""
-"Shop template #%s was not found "
-"in the database."
+msgid "Shop template #%s was not found in the database."
 msgstr ""
 
 #: src/shop/repository/carbon/carbon-shop-template-repository.php:56
-msgid ""
-"It's not allowed to delete a "
-"default Wordpress category"
+msgid "It's not allowed to delete a default Wordpress category"
 msgstr ""
 
 #: src/shop/repository/carbon/carbon-shop-template-repository.php:207
 #: src/shop/repository/carbon/carbon-shop-template-repository.php:269
 #, php-format
-msgid ""
-"Failed to store the shop "
-"template #%s (%s) into the "
-"database."
+msgid "Failed to store the shop template #%s (%s) into the database."
 msgstr ""
 
 #: src/shop/setup/shop-template-setup.php:22
@@ -1699,4 +1542,261 @@ msgstr ""
 #, php-format
 msgctxt "Shop Template"
 msgid "Filter %s"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Container/Container.php:765
+msgid "Please fill out all required fields highlighted below."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Container/Container.php:766
+msgid "The changes you made will be lost if you navigate away from this page."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Container/Theme_Options_Container.php:149
+msgid "Settings saved."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Association_Field.php:371
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:265
+msgid "Edit"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Broken_Field.php:11
+msgid "This field is misconfigured"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Color_Field.php:17
+msgid "Select a Color"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:40
+msgid "Entry"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:41
+msgid "Entries"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:497
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:498
+msgid "Collapse/Expand"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:501
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:502
+msgid "Clone"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:505
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:506
+msgid "Remove"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:572
+#, php-format
+msgid ""
+"Complex field \"%1$s\" layout is deprecated, please use \"%2$s\" or \"%3$s\" "
+"instead."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:585
+msgid "Complex field <code>"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Date_Field.php:39
+msgid "Date"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:818
+#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:28
+msgid "Files"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:819
+msgid "The address could not be found. "
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:820
+msgid "Geocode was not successful for the following reason: "
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:821
+#, php-format
+msgid "Maximum number of items reached (%s items)"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:822
+#, php-format
+msgid "Maximum number of rows reached (%s rows)"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:823
+#, php-format
+msgid "Cannot create more than %s rows"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:824
+msgid "Please enter the name of the new sidebar:"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:825
+msgid "Are you sure you wish to remove this sidebar?"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:826
+msgid "Add Sidebar"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:827
+#, php-format
+msgid "There are no %s yet. Click <a href=\"#\">here</a> to add one."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:828
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:829
+#, php-format
+msgid "Minimum number of rows not reached (%d %s)"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:830
+msgid "Please fill out all fields correctly. "
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:831
+msgid "This field is required. "
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Field.php:832
+msgid "Please choose an option. "
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:26
+#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:27
+msgid "Select File"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Footer_Scripts_Field.php:14
+msgid ""
+"If you need to add scripts to your footer (like Google Analytics tracking "
+"code), you should enter them in this box."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:44
+msgid "No form"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:79
+msgid "Please install Gravity Forms plugin"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:85
+msgid "No Gravity Forms have been found."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Header_Scripts_Field.php:14
+msgid "If you need to add scripts to your header, you should enter them here."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:18
+#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:19
+msgid "Select Image"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:20
+msgid "Images"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Map_Field.php:102
+msgid "Locate Address on the map"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Map_Field.php:107
+msgid "Find"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Radio_Field.php:15
+#: vendor/htmlburger/carbon-fields/core/Field/Select_Field.php:33
+#: vendor/htmlburger/carbon-fields/core/Field/Set_Field.php:73
+msgid "no options"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:211
+msgid "selected item"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:211
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:212
+msgid "selected items"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:219
+msgid "out of"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:239
+msgid "Associated:"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:26
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:27
+msgid "Add Media"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:38
+msgid "Visual"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Set_Field.php:92
+msgid "Show All Options"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Sidebar_Field.php:35
+msgctxt "sidebar"
+msgid "Add New"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Field/Time_Field.php:75
+msgid "Timepicker"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Manager/Sidebar_Manager.php:104
+msgid "Sidebar with the same ID is already registered."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/core/Manager/Sidebar_Manager.php:131
+msgid "Sidebar not found."
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/templates/Container/theme_options.php:40
+msgid "Save Changes"
+msgstr ""
+
+#: vendor/htmlburger/carbon-fields/templates/Container/widget.php:5
+msgid "No options are available for this widget."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Affilicious"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://affilicioustheme.com/downloads/affilicious/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The best affiliate solution in Wordpress with products & variants, shops, "
+"price comparisons, Amazon import & update and much more."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Affilicious Theme"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://affilicioustheme.com/"
 msgstr ""
