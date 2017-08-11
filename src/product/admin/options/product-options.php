@@ -37,7 +37,7 @@ class Product_Options
     {
         $fields = array(
             Carbon_Field::make('text', 'affilicious_options_product_container_general_tab_slug_field', __('Slug', 'affilicious'))
-                ->help_text(sprintf(__('Used as the slug for a nicer product URL (eg "http://example.com/products/xyz"), where "products" in the middle part of the product URL is the default. If you want to translate the slug into your language instead of "products", you have to write the new slug into this input field.', 'affilicious'), 'product')),
+                ->help_text(__('Used as the slug for a nicer product URL (eg "http://example.com/products/xyz"), where "products" in the middle part of the product URL is the default. If you want to translate the slug into your language instead of "products", you have to write the new slug into this input field.', 'affilicious')),
         );
 
         return apply_filters('aff_admin_options_after_render_product_container_general_fields', $fields);
@@ -63,7 +63,7 @@ class Product_Options
                         ))
                         ->set_required(true),
                     Carbon_Field::make('text', 'slug', __('Slug', 'affilicious'))
-                        ->help_text(__('Used as pretty permalink text for your URL like "http://test.com/your-categories/product-name").', 'affilicious'))
+                        ->help_text(__('Used as pretty permalink text for your URL like "http://example.com/your-categories/product-name".', 'affilicious'))
                         ->set_required(true),
                     Carbon_Field::make('text', 'singular_name', __('Singular Name', 'affilicious'))
 	                    ->help_text(__('The singular name like "Your category".', 'affilicious'))

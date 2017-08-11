@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-08-10 17:24+0200\n"
+"POT-Creation-Date: 2017-08-11 10:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -762,7 +762,7 @@ msgid "Custom Taxonomies"
 msgstr "Eigene Taxonomien"
 
 #: src/product/admin/options/product-options.php:39
-#: src/product/admin/options/product-options.php:63
+#: src/product/admin/options/product-options.php:65
 msgid "Slug"
 msgstr "Titelform"
 
@@ -813,30 +813,27 @@ msgstr ""
 "öffentlichen und privaten Anfragenvariablen in Konflikt stehen darf. Hier "
 "findest du eine komplette Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
-#: src/product/admin/options/product-options.php:64
-msgid ""
-"Used as pretty permalink text for your URL like \"http://test.com/your-"
-"categories/product-name\")."
-msgstr ""
-"Wird als Titelform für eine hübschere Produkt-URL wie \"http://beispiel.de/"
-"deine-kategorien/produkt-name“ verwendet, wobei standardmäßig \"products\" "
-"im mittleren Teil der Produkt-URL verwendet wird. Wenn du statt „products“ "
-"die Titelform in deine Sprache übersetzen möchtest, musst du die neue "
-"Titelform in dieses Eingabefeld schreiben."
-
 #: src/product/admin/options/product-options.php:66
+msgid ""
+"Used as pretty permalink text for your URL like \"http://example.com/your-"
+"categories/product-name\"."
+msgstr ""
+"Wird als hübscherer Permalink-Text für deine URL wie \"http://beispiel.de/"
+"deine-kategorien/produkt-name\" verwendet."
+
+#: src/product/admin/options/product-options.php:68
 msgid "Singular Name"
 msgstr "Name im Singular"
 
-#: src/product/admin/options/product-options.php:67
+#: src/product/admin/options/product-options.php:69
 msgid "The singular name like \"Your category\"."
 msgstr "The Name im Singular wie „Deine Kategorie“."
 
-#: src/product/admin/options/product-options.php:69
+#: src/product/admin/options/product-options.php:71
 msgid "Plural Name"
 msgstr "Name im Plural"
 
-#: src/product/admin/options/product-options.php:70
+#: src/product/admin/options/product-options.php:72
 msgid "The plural name like \"Your categories\"."
 msgstr "Der Name im Plural wie „Deine Kategorien“."
 

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
-"POT-Creation-Date: 2017-08-10 "
-"17:24+0200\n"
+"POT-Creation-Date: 2017-08-11 "
+"10:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Slug "
 "<you@example.com>\n"
@@ -803,7 +803,7 @@ msgid "Custom Taxonomies"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:39
-#: src/product/admin/options/product-options.php:63
+#: src/product/admin/options/product-options.php:65
 msgid "Slug"
 msgstr ""
 
@@ -858,29 +858,29 @@ msgid ""
 "\">Reserved Terms</a> section."
 msgstr ""
 
-#: src/product/admin/options/product-options.php:64
+#: src/product/admin/options/product-options.php:66
 msgid ""
 "Used as pretty permalink text "
-"for your URL like \"http://test."
-"com/your-categories/product-name"
-"\")."
+"for your URL like \"http://"
+"example.com/your-categories/"
+"product-name\"."
 msgstr ""
 
-#: src/product/admin/options/product-options.php:66
+#: src/product/admin/options/product-options.php:68
 msgid "Singular Name"
 msgstr ""
 
-#: src/product/admin/options/product-options.php:67
+#: src/product/admin/options/product-options.php:69
 msgid ""
 "The singular name like \"Your "
 "category\"."
 msgstr ""
 
-#: src/product/admin/options/product-options.php:69
+#: src/product/admin/options/product-options.php:71
 msgid "Plural Name"
 msgstr ""
 
-#: src/product/admin/options/product-options.php:70
+#: src/product/admin/options/product-options.php:72
 msgid ""
 "The plural name like \"Your "
 "categories\"."
