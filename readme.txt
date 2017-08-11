@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.8.1
-Stable tag: 0.9.2
+Stable tag: 0.9.3
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,7 +59,13 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
-= 0.9.2=
+= 0.9.3 =
+* Improvement: Removed the required inputs fields from the Amazon provider options.
+* Improvement: Optimized some hook names.
+* Improvement: Renamed „product“ options to „products“ options.
+* Fix: Fixed some wrong translations.
+
+= 0.9.2 =
 * Improvement: Marked Webmozart as deprectated and introducted custom Wordpress friendly assert helper.
 * Improvement: Switched PHPUnit to 5.7.
 * Improvement: Optimized the custom product taxonomies options.
