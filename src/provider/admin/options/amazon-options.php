@@ -70,10 +70,8 @@ class Amazon_Options
             Carbon_Field::make('html', self::VALIDATION_STATUS)
                 ->set_html($this->get_validation_notice()),
             Carbon_Field::make('text', self::ACCESS_KEY, __('Access Key', 'affilicious'))
-                ->set_required(true)
                 ->set_help_text(__('The access key is used to identify you as an API user.', 'affilicious')),
             Carbon_Field::make('password', self::SECRET_KEY, __('Secret Key', 'affilicious'))
-                ->set_required(true)
                 ->set_help_text(__('The secret key is used like a password to sign your API requests.', 'affilicious')),
             Carbon_Field::make('select', self::COUNTRY, __('Country', 'affilicious'))
                 ->add_options(array(
@@ -91,10 +89,8 @@ class Amazon_Options
                     'com.mx' => __('Mexico', 'affilicious'),
                     'com.au' => __('Australia', 'affilicious'),
                 ))
-                ->set_required(true)
                 ->set_help_text(__('The country has to match the locale of your Amazon account. ', 'affilicious')),
             Carbon_Field::make('text', self::ASSOCIATE_TAG, __('Associate Tag', 'affilicious'))
-                ->set_required(true)
                 ->set_help_text(__('Amazon uses this ID to credit an associate for a sale.', 'affilicious'))
         );
 
@@ -117,8 +113,7 @@ class Amazon_Options
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
-                ->set_help_text(__('The automatic update interval for the product thumbnails.', 'affilicious'))
-                ->set_required(true),
+                ->set_help_text(__('The automatic update interval for the product thumbnails.', 'affilicious')),
             Carbon_Field::make('select', self::IMAGE_GALLERY_UPDATE_INTERVAL, __('Image Gallery Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
@@ -126,8 +121,7 @@ class Amazon_Options
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
-                ->set_help_text(__('The automatic update interval for the product image galleries.', 'affilicious'))
-                ->set_required(true),
+                ->set_help_text(__('The automatic update interval for the product image galleries.', 'affilicious')),
             Carbon_Field::make('select', self::PRICE_UPDATE_INTERVAL, __('Price Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
@@ -135,8 +129,7 @@ class Amazon_Options
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
-                ->set_help_text(__('The automatic update interval for the shop prices in the products.', 'affilicious'))
-                ->set_required(true),
+                ->set_help_text(__('The automatic update interval for the shop prices in the products.', 'affilicious')),
             Carbon_Field::make('select', self::OLD_PRICE_UPDATE_INTERVAL, __('Old Price Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
@@ -144,8 +137,7 @@ class Amazon_Options
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
-                ->set_help_text(__('The automatic update interval for the old shop prices in the products.', 'affilicious'))
-                ->set_required(true),
+                ->set_help_text(__('The automatic update interval for the old shop prices in the products.', 'affilicious')),
             Carbon_Field::make('select', self::AVAILABILITY_UPDATE_INTERVAL, __('Availability Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),
@@ -153,8 +145,7 @@ class Amazon_Options
                     'daily' => __('Daily', 'affilicious'),
                     'none' => __('No Updates', 'affilicious'),
                 ))
-                ->set_help_text(__('The automatic update interval for the shop availabilities in the products.', 'affilicious'))
-                ->set_required(true),
+                ->set_help_text(__('The automatic update interval for the shop availabilities in the products.', 'affilicious')),
         );
 
         return apply_filters('aff_admin_options_render_amazon_container_updates_fields', $fields);
