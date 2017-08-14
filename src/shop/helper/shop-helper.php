@@ -24,7 +24,7 @@ class Shop_Helper
     public static function to_array(Shop $shop)
     {
         $array = array(
-            'template_id' => $shop->get_template_id()->get_value(),
+            'template_id' => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
             'name' => $shop->get_name()->get_value(),
             'slug' => $shop->get_slug()->get_value(),
             'updated_at' => Time_Helper::to_datetime_i18n($shop->get_updated_at()),
