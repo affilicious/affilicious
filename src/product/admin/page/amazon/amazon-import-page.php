@@ -1,8 +1,8 @@
 <?php
-namespace Affilicious\Product\Admin\Page;
+namespace Affilicious\Product\Admin\Page\Amazon;
 
 use Affilicious\Common\Helper\View_Helper;
-use Affilicious\Common\Model\Slug;
+use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Shop_Template;
@@ -12,7 +12,7 @@ if(!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Import_Page
+class Amazon_Import_Page
 {
     /**
      * @var Shop_Template_Repository_Interface
@@ -37,22 +37,23 @@ class Import_Page
         $this->provider_repository = $provider_repository;
     }
 
-    /**
-     * Init the admin import page.
-     *
-	 * @hook admin_menu
+	/**
+	 * Init the admin import page.
+	 *
+	 * @hook aff_product_admin_import_pages
 	 * @since 0.9
+	 * @param array $import_pages
+	 * @return array
 	 */
-	public function init()
+	public function init(array $import_pages)
 	{
-		add_submenu_page(
-			'edit.php?post_type=aff_product',
-			__('Import', 'affilicious'),
-			__('Import', 'affilicious'),
-			'manage_options',
-            'import',
-			array($this, 'render')
-		);
+		$import_pages[10] = [
+			'title' => Amazon_Provider::NAME,
+			'slug' => Amazon_Provider::SLUG,
+			'render' => array($this, 'render')
+		];
+
+		return $import_pages;
 	}
 
 	/**
@@ -64,7 +65,7 @@ class Import_Page
 	{
         $shop_templates = [];
 
-	    $amazon_provider = $this->provider_repository->find_one_by_slug(new Slug('amazon'));
+	    $amazon_provider = $this->provider_repository->find_one_by_slug(Amazon_Provider::slug());
 	    if($amazon_provider !== null) {
             $shop_templates = $this->shop_template_repository->find_all();
 
@@ -79,7 +80,7 @@ class Import_Page
             }
         }
 
-	    View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import.php', [
+	    View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import/amazon.php', [
 	        'shop_templates' => $shop_templates,
             'amazon_provider_configured' => $amazon_provider !== null,
         ]);

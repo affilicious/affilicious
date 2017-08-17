@@ -33,9 +33,9 @@ class Assets_Setup
         wp_register_style('aff-admin-carbon-fields', $base_admin_url . 'carbon-fields.min.css', ['selectize'], \Affilicious::VERSION);
 
         // Register Amazon import styles
-        if($screen->id == 'aff_product_page_import') {
+        //if($screen->id == 'aff_product_page_import') {
             wp_register_style('aff-admin-amazon-import', $base_admin_url . 'amazon-import.min.css', [], \Affilicious::VERSION);
-        }
+        //}
 
         // Enqueue the styles
         wp_enqueue_style('selectize');
@@ -43,9 +43,9 @@ class Assets_Setup
         wp_enqueue_style('aff-admin-products');
         wp_enqueue_style('aff-admin-carbon-fields');
 
-        if($screen->id == 'aff_product_page_import') {
+        //if($screen->id == 'aff_product_page_import') {
             wp_enqueue_style('aff-admin-amazon-import');
-        }
+        //}
     }
 
     /**
@@ -79,7 +79,7 @@ class Assets_Setup
         ]);
 
         // Register Amazon import scripts
-        if($screen->id == 'aff_product_page_import') {
+	    if($screen->id == 'aff_product_page_aff-import-amazon') {
             wp_register_script('aff-admin-amazon-import', $base_admin_url . 'amazon-import.min.js', ['jquery', 'backbone'], \Affilicious::VERSION, true);
             wp_localize_script('aff-admin-amazon-import', 'affAdminAmazonImportUrls', [
                 'ajax' => admin_url('admin-ajax.php'),
@@ -93,7 +93,7 @@ class Assets_Setup
         wp_enqueue_script('aff-admin-products');
         wp_enqueue_script('aff-admin-carbon-fields');
 
-        if($screen->id == 'aff_product_page_import') {
+        if($screen->id == 'aff_product_page_aff-import-amazon') {
             wp_enqueue_script('aff-admin-amazon-import');
         }
     }

@@ -13,10 +13,34 @@ if (!defined('ABSPATH')) {
 
 class Amazon_Provider extends Provider
 {
+	const NAME = 'Amazon';
+	const SLUG = 'amazon';
     const ACCESS_KEY = 'access_key';
     const SECRET_KEY = 'secret_key';
     const COUNTRY = 'country';
     const ASSOCIATE_TAG = 'associate_tag';
+
+	/**
+	 * Get the Amazon provider name.
+	 *
+	 * @since 0.9.4
+	 * @return Name
+	 */
+    public static function name()
+    {
+    	return new Name(self::NAME);
+    }
+
+	/**
+	 * Get the Amazon provider slug.
+	 *
+	 * @since 0.9.4
+	 * @return Slug
+	 */
+    public static function slug()
+    {
+    	return new Slug(self::SLUG);
+    }
 
     /**
      * @var Access_Key
