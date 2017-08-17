@@ -981,8 +981,9 @@ if(!class_exists('Affilicious')) {
 			// Hook the import pages
 			$import_page_setup = $this->container['affilicious.product.admin.setup.import_page'];
 			$amazon_import_page = $this->container['affilicious.product.admin.page.amazon_import'];
-			add_action('admin_menu', array($import_page_setup, 'init'), 10);
-			add_filter('aff_product_admin_import_pages', array($amazon_import_page, 'init'), 10);
+			add_action('admin_menu', array($import_page_setup, 'init'));
+			add_filter('parent_file', array($import_page_setup, 'highlighted_url'));
+			add_filter('aff_product_admin_import_pages', array($amazon_import_page, 'init'));
 
 			// Hook the add-ons page.
 			$addons_page = $this->container['affilicious.common.admin.page.addons'];

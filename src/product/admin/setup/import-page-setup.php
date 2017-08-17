@@ -21,21 +21,15 @@ class Import_Page_Setup
 	 */
 	public function init()
 	{
-		// Collect all import pages
-		$import_pages = apply_filters('aff_product_admin_import_pages', []);
-		Assert_Helper::is_array($import_pages, __METHOD__, 'The import pages have to be arrays.', '0.9.4');
+		// Find all import pages
+		$import_pages = $this->find_import_pages();
 		if(empty($import_pages)) {
 			return;
 		}
 
-		// Sort the import pages
-		ksort($import_pages);
-		$import_pages = array_reverse($import_pages);
-
-		// Add the import pages to Wordpress.
-		$import_pages = array_values($import_pages);
 		do_action('aff_product_admin_before_import_pages', $import_pages);
 
+		// Add the pages to Wordpress.
 		foreach($import_pages as $index => $import_page) {
 
 			// Check if the import pages contain the required keys to call "add_submenu_page".
@@ -58,21 +52,15 @@ class Import_Page_Setup
 	}
 
 	/**
-	 * Render the admin import page.
+	 * Render the product import page.
 	 * This method is like a proxy, which wraps the import page into a wrapper with a tab navigation.
 	 *
 	 * @since 0.9.4
 	 */
 	public function render()
 	{
-		// Get the current import page to render it.
-		$screen = get_current_screen();
-		if(empty($screen)) {
-			return;
-		}
-
-		// Get all import page.
-		$import_pages = apply_filters('aff_product_admin_import_pages', []);
+		// Find all import pages
+		$import_pages = $this->find_import_pages();
 		if(empty($import_pages)) {
 			return;
 		}
@@ -80,12 +68,12 @@ class Import_Page_Setup
 		// Build the admin urls for the tab navigation
 		$admin_urls = [];
 		foreach ($import_pages as $import_page) {
-			$admin_urls[$import_page['slug']] = admin_url('edit.php?post_type=' . Product::POST_TYPE .'&page=' . sprintf(self::PAGE_SLUG, $import_page['slug']));
+			$admin_urls[$import_page['slug']] = admin_url($this->build_url($import_page));
 		}
 
 		// Render the import page
 		foreach ($import_pages as $import_page) {
-			if($screen->id == 'aff_product_page_' . sprintf(self::PAGE_SLUG, $import_page['slug'])) {
+			if($this->is_current_page($import_page)) {
 				View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import.php', [
 					'import_pages' => $import_pages,
 					'current_import_page' => $import_page,
@@ -93,5 +81,98 @@ class Import_Page_Setup
 				]);
 			}
 		}
+	}
+
+	/**
+	 * Keep the import submenu highlighted on all import pages.
+	 *
+	 * @filter parent_file
+	 * @since 1.0
+	 * @param string $file
+	 * @return string
+	 */
+	public function highlighted_url($file)
+	{
+		global $submenu_file;
+
+		// Find all import page.
+		$import_pages = $this->find_import_pages();
+		if(empty($import_pages)) {
+			return $file;
+		}
+
+		// Find the current highlighted page.
+		foreach ($import_pages as $import_page) {
+			if($this->is_current_page($import_page)) {
+				$submenu_file = $this->build_import_page_slug($import_pages[0]);
+			}
+		}
+
+		return $file;
+	}
+
+	/**
+	 * Find all product import pages.
+	 *
+	 * @since 1.0
+	 * @return array
+	 */
+	private function find_import_pages()
+	{
+		// Collect all import pages
+		$import_pages = apply_filters('aff_product_admin_import_pages', []);
+		Assert_Helper::is_array($import_pages, __METHOD__, 'The import pages have to be arrays.', '0.9.4');
+		if(empty($import_pages)) {
+			return [];
+		}
+
+		// Sort the import pages
+		ksort($import_pages);
+		$import_pages = array_reverse($import_pages);
+		$import_pages = array_values($import_pages);
+
+		return $import_pages;
+	}
+
+	/**
+	 * Build the url for the import page.
+	 *
+	 * @since 1.0
+	 * @param array $import_page
+	 * @return string
+	 */
+	private function build_url(array $import_page)
+	{
+		return 'edit.php?post_type=' . Product::POST_TYPE .'&page=' . sprintf(self::PAGE_SLUG, $import_page['slug']);
+	}
+
+	/**
+	 * Check if the import page is the current screen.
+	 *
+	 * @since 1.0
+	 * @param array $import_page
+	 * @return bool
+	 */
+	private function is_current_page(array $import_page)
+	{
+		// Get the current import page to render it.
+		$screen = get_current_screen();
+		if(empty($screen)) {
+			return false;
+		}
+
+		return $screen->id == 'aff_product_page_' . sprintf(self::PAGE_SLUG, $import_page['slug']);
+	}
+
+	/**
+	 * Build the full import page slug.
+	 *
+	 * @since 1.0
+	 * @param array $import_page
+	 * @return string
+	 */
+	private function build_import_page_slug(array $import_page)
+	{
+		return sprintf(self::PAGE_SLUG, $import_page['slug']);
 	}
 }
