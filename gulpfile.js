@@ -22,6 +22,7 @@ let modules = {
         'common',
         'products',
         'carbon-fields',
+        'import',
         'amazon-import'
     ]
 };

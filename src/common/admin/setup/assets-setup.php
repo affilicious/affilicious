@@ -15,8 +15,6 @@ class Assets_Setup
      */
     public function add_styles()
     {
-        $screen = get_current_screen();
-
         $base_vendor_url = \Affilicious::get_root_url() . '/assets/vendor/';
         $base_admin_url = \Affilicious::get_root_url() . '/assets/admin/dist/css/';
 
@@ -32,20 +30,15 @@ class Assets_Setup
         // Register Carbon Fields styles
         wp_register_style('aff-admin-carbon-fields', $base_admin_url . 'carbon-fields.min.css', ['selectize'], \Affilicious::VERSION);
 
-        // Register Amazon import styles
-        //if($screen->id == 'aff_product_page_import') {
-            wp_register_style('aff-admin-amazon-import', $base_admin_url . 'amazon-import.min.css', [], \Affilicious::VERSION);
-        //}
+        // Register import styles
+        wp_register_style('aff-admin-import', $base_admin_url . 'import.min.css', [], \Affilicious::VERSION);
 
         // Enqueue the styles
         wp_enqueue_style('selectize');
         wp_enqueue_style('aff-admin-common');
         wp_enqueue_style('aff-admin-products');
         wp_enqueue_style('aff-admin-carbon-fields');
-
-        //if($screen->id == 'aff_product_page_import') {
-            wp_enqueue_style('aff-admin-amazon-import');
-        //}
+        wp_enqueue_style('aff-admin-import');
     }
 
     /**
