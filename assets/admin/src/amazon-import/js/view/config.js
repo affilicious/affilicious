@@ -17,8 +17,10 @@ let Config =  Backbone.View.extend({
      * @public
      */
     initialize() {
-        let templateHtml = jQuery('#aff-amazon-import-config-template').html();
-        this.template = _.template(templateHtml);
+        let template = jQuery('#aff-amazon-import-config-template');
+        this.template = _.template(template.html());
+
+        this.model.set('selectedShop', jQuery(template.html()).find('input[name="shop"]').first().val());
 
         this.model.on('aff:amazon-import:config:add-shop', this.addShop, this);
     },
@@ -81,12 +83,12 @@ let Config =  Backbone.View.extend({
     addShop(shop) {
         this.$el.find('input[value="new-shop"]').parent().before(`
             <label class="aff-import-config-group-label" for="${shop.slug}">
-                <input id="amazon" class="aff-import-config-group-option" name="shop" type="radio" value="${shop.slug}">
+                <input id="${shop.slug}" class="aff-import-config-group-option" name="shop" type="radio" value="${shop.slug}">
                 ${shop.name}         
             </label>
         `);
 
-        this.$el.find(`input[name="shop"][value="${shop.slug}"]`).prop("checked", true)
+        this.$el.find(`input[name="shop"][value="${shop.slug}"]`).prop("checked", true);
 
         let newShopName = this.$el.find('input[name="new-shop-name"]');
         newShopName.selectize()[0].selectize.clear(true);

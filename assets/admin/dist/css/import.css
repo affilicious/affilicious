@@ -44,7 +44,7 @@
           -webkit-box-direction: normal;
               -ms-flex-direction: column;
                   flex-direction: column; } }
-      .aff-import-search-form-main input[name="term"] {
+      .aff-import-search-form-main-item-term {
         margin: 0;
         padding: 3px 5px;
         font-size: 16px;
@@ -53,17 +53,17 @@
         display: block;
         width: calc(100% - 110px); }
         @media (max-width: 575px) {
-          .aff-import-search-form-main input[name="term"] {
+          .aff-import-search-form-main-item-term {
             width: 100%;
             margin-bottom: 10px; } }
-      .aff-import-search-form-main button {
+      .aff-import-search-form-main-item-submit {
         border: 1px solid red;
         height: 32px !important;
         line-height: 30px !important;
         width: 100px;
         display: block; }
         @media (max-width: 575px) {
-          .aff-import-search-form-main button {
+          .aff-import-search-form-main-item-submit {
             width: 100%; } }
     .aff-import-search-form-filters {
       display: -webkit-box;
@@ -91,13 +91,12 @@
         line-height: 32px !important;
         padding: 2px;
         font-size: 14px;
-        min-width: 150px;
         vertical-align: middle; }
-        .aff-import-search-form-filters-item:last-of-type {
-          margin-right: 0; }
         @media (max-width: 575px) {
           .aff-import-search-form-filters-item {
             margin-right: 0; } }
+        .aff-import-search-form-filters-item-select, .aff-import-search-form-filters-item-input {
+          width: 150px; }
       .aff-import-search-form-filters-notice {
         display: block;
         font-size: 13px;

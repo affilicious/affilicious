@@ -11,6 +11,7 @@ use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Product\Model\Type;
 use Affilicious\Product\Repository\Product_Repository_Interface;
+use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Factory\Shop_Template_Factory_Interface;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
@@ -150,7 +151,7 @@ class Amazon_Import_Ajax_Handler
             return new \WP_Error('aff_product_amazon_import_failed_to_find_new_shop_name', __('Specify a shop name if you want to create a new shop.', 'affilicious'));
         }
 
-        $provider = $this->provider_repository->find_one_by_slug(new Slug('amazon'));
+        $provider = $this->provider_repository->find_one_by_slug(Amazon_Provider::slug());
         if($provider === null) {
             return new \WP_Error('aff_product_amazon_import_failed_to_find_amazon_provider', __('Failed to find the Amazon provider.', 'affilicious'));
         }
@@ -193,10 +194,16 @@ class Amazon_Import_Ajax_Handler
 	        }
         }
 
+        $shop = isset($data['config']['selectedShop']) ? $data['config']['selectedShop'] : null;
         $action = isset($data['config']['selectedAction']) ? $data['config']['selectedAction'] : null;
         $status = isset($data['config']['status']) ? $data['config']['status'] : null;
         $merge_product_id = isset($data['config']['mergeProductId']) ? $data['config']['mergeProductId'] : null;
         $replace_product_id = isset($data['config']['replaceProductId']) ? $data['config']['replaceProductId'] : null;
+
+        // Find the shop template for the import.
+	    if($shop_template === null && $shop !== null) {
+		    $shop_template = $this->shop_template_repository->find_one_by_slug(new Slug($shop));
+	    }
 
         // Import the product
         $imported_product = $this->amazon_import->import(new Affiliate_Product_Id($asin), [

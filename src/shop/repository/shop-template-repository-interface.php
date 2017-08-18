@@ -3,6 +3,7 @@ namespace Affilicious\Shop\Repository;
 
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
+use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
 
@@ -67,4 +68,13 @@ interface Shop_Template_Repository_Interface
      * @return Shop_Template[] The found shop templates.
      */
     public function find_all($args = array());
+
+	/**
+	 * Find all shop templates by the provider ID.
+	 *
+	 * @since 0.9.4
+	 * @param Provider_Id $provider_id The ID of the provider.
+	 * @return Shop_Template[] The found shop templates.
+	 */
+	public function find_all_by_provider_id(Provider_Id $provider_id);
 }

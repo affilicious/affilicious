@@ -7,20 +7,20 @@
         </div>
 
         <div class="aff-import-config-group-body aff-panel-body">
-	        <?php foreach ($shop_templates as $shop_template): ?>
+	        <?php foreach ($shop_templates as $index => $shop_template): ?>
                 <label class="aff-import-config-group-label" for="<?php echo esc_attr($shop_template['slug']); ?>">
-                    <input id="<?php echo esc_attr($shop_template['slug']); ?>" class="aff-import-config-group-option" name="shop" type="radio" value="<?php echo esc_attr($shop_template['slug']); ?>" <?php if($shop_template['slug'] == 'amazon'): ?>checked<?php endif; ?>>
+                    <input id="<?php echo esc_attr($shop_template['slug']); ?>" class="aff-import-config-group-option" name="shop" type="radio" value="<?php echo esc_attr($shop_template['slug']); ?>" <?php if($index == 0): ?>checked<?php endif; ?>>
 			        <?php echo esc_html($shop_template['name']); ?>
                 </label>
 	        <?php endforeach; ?>
 
             <label class="aff-import-config-group-label" for="new-shop">
-                <input id="new-shop" class="aff-import-config-group-option aff-amazon-import-config-group-option-new-shop" name="shop" type="radio" value="new-shop">
+                <input id="new-shop" class="aff-import-config-group-option aff-amazon-import-config-group-option-new-shop" name="shop" type="radio" value="new-shop" <?php if(empty($shop_templates)): ?>checked<?php endif; ?>>
 		        <?php _e('Create new shop', 'affilicious'); ?>
             </label>
 
             <label class="aff-import-config-group-label" for="new-shop-name">
-                <input disabled class="aff-import-config-group-option-new-shop-name regular-text" name="new-shop-name" placeholder="<?php _e('Enter shop name...', 'affilicious'); ?>">
+                <input class="aff-import-config-group-option-new-shop-name regular-text" name="new-shop-name" placeholder="<?php _e('Enter shop name...', 'affilicious'); ?>" <?php if(!empty($shop_templates)): ?>disabled<?php endif; ?>>
             </label>
         </div>
     </div>

@@ -2,22 +2,22 @@
     <div class="aff-panel">
         <div class="aff-import-search-form-main aff-panel-body">
             <label class="screen-reader-text" for="aff-amazon-import-search-term"><?php _e('Search term', 'affilicious'); ?></label>
-            <input id="aff-amazon-import-search-term" class="aff-import-search-form-main-item" name="term" type="search" placeholder="<% if(type == 'keywords') { %><?php _e('Enter your search term...', 'affilicious'); ?><% } else { %><?php _e('Enter your ASIN...', 'affilicious'); ?><% } %>" value="<%= term %>">
+            <input id="aff-amazon-import-search-term" class="aff-import-search-form-main-item aff-import-search-form-main-item-term" name="term" type="search" placeholder="<% if(type == 'keywords') { %><?php _e('Enter your search term...', 'affilicious'); ?><% } else { %><?php _e('Enter your ASIN...', 'affilicious'); ?><% } %>" value="<%= term %>">
 
-            <button class="aff-import-search-form-main-submit button-primary" <% if(!providerConfigured) { %>disabled<% } %>>
+            <button class="aff-import-search-form-main-item aff-import-search-form-main-item-submit button-primary" <% if(!providerConfigured) { %>disabled<% } %>>
                 <?php _e('Search', 'affilicious'); ?>
             </button>
         </div>
 
         <div class="aff-import-search-form-filters aff-panel-footer">
             <label class="screen-reader-text" for="aff-amazon-import-search-type"><?php _e('Search type', 'affilicious'); ?></label>
-            <select id="aff-amazon-import-search-type" class="aff-import-search-form-filters-item" name="type">
+            <select id="aff-amazon-import-search-type" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="type">
                 <option value="keywords"><?php _e('Keywords', 'affilicious'); ?></option>
                 <option value="asin"><?php _e('ASIN', 'affilicious'); ?></option>
             </select>
 
             <label class="screen-reader-text" for="aff-amazon-import-search-category"><?php _e('Search category', 'affilicious'); ?></label>
-            <select id="aff-amazon-import-search-category" class="aff-import-search-form-filters-item" name="category">
+            <select id="aff-amazon-import-search-category" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="category">
                 <option value="All" selected><?php _e('All Categories', 'affilicious'); ?></option>
                 <option value="Apparel"><?php _e('Apparel', 'affilicious'); ?></option>
                 <option value="Appliances"><?php _e('Appliances', 'affilicious'); ?></option>
@@ -55,7 +55,7 @@
             </select>
 
             <label class="screen-reader-text" for="aff-amazon-import-search-with-variants"><?php _e('Search with variants', 'affilicious'); ?></label>
-            <select id="aff-amazon-import-search-with-variants" class="aff-import-search-form-filters-item" name="with-variants">
+            <select id="aff-amazon-import-search-with-variants" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="with-variants">
                 <option value="no"><?php _e('Without variants', 'affilicious'); ?></option>
                 <option value="yes"><?php _e('With variants', 'affilicious'); ?></option>
             </select>

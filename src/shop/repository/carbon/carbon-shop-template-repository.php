@@ -144,6 +144,40 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         return $shop_templates;
     }
 
+	/**
+	 * @inheritdoc
+	 * @since 0.9.4
+	 */
+    public function find_all_by_provider_id(Provider_Id $provider_id)
+    {
+    	$args = [
+    		'taxonomy' => Shop_Template::TAXONOMY,
+		    'hide_empty' => false,
+		    'meta_query' => [
+			    [
+				    'key'       => self::PROVIDER,
+				    'value'     => $provider_id->get_value(),
+				    'compare'   => '='
+			    ]
+		    ]
+	    ];
+
+	    $terms = get_terms($args);
+	    if(empty($terms) || $terms instanceof \WP_Error) {
+		    return array();
+	    }
+
+	    $shop_templates = array();
+	    foreach ($terms as $term) {
+		    $shop_template = $this->build($term);
+		    if($shop_template !== null) {
+			    $shop_templates[] = $shop_template;
+		    }
+	    }
+
+	    return $shop_templates;
+    }
+
     /**
      * Build the shop template from the term.
      *

@@ -78,7 +78,7 @@ class Amazon_Import implements Import_Interface
      */
     private function find_amazon_provider()
     {
-        $amazon_provider = $this->provider_repository->find_one_by_slug(new Slug('amazon'));
+        $amazon_provider = $this->provider_repository->find_one_by_slug(Amazon_Provider::slug());
         if($amazon_provider === null) {
             $amazon_provider = new \WP_Error('aff_failed_to_find_amazon_provider', 'The Amazon provider with the slug "amazon" haven\'t been found.');
         }
