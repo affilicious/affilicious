@@ -20,7 +20,7 @@ trait Simple_Value_Trait
      */
     public function __construct($value)
     {
-        Assert_Helper::is_not_null($value, __METHOD__, 'The value must be not null. Got: %s', '0.9.2');
+        Assert_Helper::is_null($value, __METHOD__, 'The value must be not null. Got: %s', '0.9.2');
 
         $this->value = $value;
     }

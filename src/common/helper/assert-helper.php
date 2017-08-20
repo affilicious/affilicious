@@ -8,6 +8,22 @@ if (!defined('ABSPATH')) {
 class Assert_Helper
 {
 	/**
+	 * Check if the value is null.
+	 *
+	 * @since 0.9.4
+	 * @param mixed $value
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function is_null($value, $method, $message, $version)
+	{
+		if(WP_DEBUG && is_null($value)) {
+			_doing_it_wrong($method, sprintf($message, self::type_to_string($value)), $version);
+		}
+	}
+
+	/**
 	 * Check if the value is not null.
 	 *
 	 * @since 0.9.2
@@ -18,7 +34,7 @@ class Assert_Helper
 	 */
 	public static function is_not_null($value, $method, $message, $version)
 	{
-		if(WP_DEBUG && is_null($value)) {
+		if(WP_DEBUG && !is_null($value)) {
 			_doing_it_wrong($method, sprintf($message, self::type_to_string($value)), $version);
 		}
 	}
