@@ -114,7 +114,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Make an Amazon API lookup request based on the affiliate IDs.
-        $response = $this->item_lookups($provider, $affiliate_product_ids);
+        $response = $this->request($provider, $affiliate_product_ids);
         if(empty($response)) {
             return;
         }
@@ -203,7 +203,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * @param Affiliate_Product_Id[] $affiliate_product_ids The affiliate IDs for the lookup.
      * @return null|array The Amazon API response as an array.
      */
-    protected function item_lookups(Amazon_Provider $provider, array $affiliate_product_ids)
+    protected function request(Amazon_Provider $provider, array $affiliate_product_ids)
     {
         $raw_affiliate_product_ids = array();
         foreach($affiliate_product_ids as $affiliate_product_id) {

@@ -54,7 +54,6 @@ final class Configuration_Resolver
      */
     private function resolve_update_interval(Configuration $configuration, Configuration_Context $configuration_context)
     {
-
         $context_update_interval = $configuration_context->get('update_interval');
         $update_interval = $configuration->get('update_interval');
 
