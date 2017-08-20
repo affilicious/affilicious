@@ -417,7 +417,7 @@ if(!class_exists('Affilicious')) {
 			};
 
 			$this->container['affilicious.provider.validator.amazon_credentials'] = function () {
-				return new \Affilicious\Provider\Validator\Amazon_Credentials_Validator();
+				return new \Affilicious\Provider\Validator\Amazon\Amazon_Credentials_Validator();
 			};
 
 			$this->container['affilicious.provider.admin.options.amazon'] = function ($c) {
