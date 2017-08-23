@@ -543,7 +543,7 @@ function aff_the_product_review_votes($product_or_id = null, $escape = true)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Detail[] The details in the given output format.
+ * @return array|Detail[] The details in the given output format.
  */
 function aff_get_product_details($product_or_id = null, $output = 'array')
 {
@@ -553,13 +553,13 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
     }
 
     if(!($product instanceof Detail_Aware_Interface)) {
-        return null;
+        return [];
     }
 
     $details = $product->get_details();
     $details = apply_filters('aff_product_details', $details, $product);
     if(empty($details)) {
-        return null;
+        return [];
     }
 
     if($output == 'array') {
@@ -661,18 +661,18 @@ function aff_has_product_image_gallery($product_or_id = null)
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Choose from "scalar", "array" or "object". Default: "scalar".
- * @return null|int[]|array|Image[] The image of the image gallery in the given output format.
+ * @return int[]|array|Image[] The image of the image gallery in the given output format.
  */
 function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar')
 {
     $product = aff_get_product($product_or_id, 'object');
     if($product === null) {
-        return null;
+        return [];
     }
 
     $images = $product->get_image_gallery();
     if(empty($images)) {
-        return null;
+        return [];
     }
 
     $images = apply_filters('aff_product_image_gallery', $images, $product);
@@ -715,13 +715,13 @@ function aff_has_product_shops($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Shop[] The shop in the given output format.
+ * @return array|Shop[] The shop in the given output format.
  */
 function aff_get_product_shops($product_or_id = null, $output = 'array')
 {
     $product = aff_get_product($product_or_id, 'object');
     if($product === null) {
-        return null;
+        return [];
     }
 
     if ($product instanceof Complex_Product) {
@@ -729,12 +729,12 @@ function aff_get_product_shops($product_or_id = null, $output = 'array')
     }
 
     if(!($product instanceof Shop_Aware_Interface)) {
-        return null;
+        return [];
     }
 
     $shops = $product->get_shops();
     if(empty($shops)) {
-        return null;
+        return [];
     }
 
     $shops = apply_filters('aff_product_shops', $shops, $product);
@@ -771,18 +771,18 @@ function aff_has_product_related_products($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int[]|Product_Id[] The IDs of the related products in the given output format.
+ * @return int[]|Product_Id[] The IDs of the related products in the given output format.
  */
 function aff_get_product_related_products($product_or_id = null, $output = 'scalar')
 {
     $product = aff_get_product($product_or_id, 'object');
     if(!($product instanceof Relation_Aware_Interface)) {
-        return null;
+        return [];
     }
 
     $related_products = $product->get_related_products();
     if(empty($related_products)) {
-        return null;
+        return [];
     }
 
     $related_products = apply_filters('aff_product_related_products', $related_products, $product);
@@ -870,13 +870,13 @@ function aff_has_product_related_accessories($product_or_id = null)
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|int[]|Product_Id[] The IDs of the related accessories in the given output format.
+ * @return int[]|Product_Id[] The IDs of the related accessories in the given output format.
  */
 function aff_get_product_related_accessories($product_or_id = null, $output = 'scalar')
 {
     $product = aff_get_product($product_or_id, 'object');
     if($product === null || !($product instanceof Relation_Aware_Interface)) {
-        return null;
+        return [];
     }
 
     $related_accessories = $product->get_related_accessories();
@@ -994,13 +994,13 @@ function aff_has_product_tags($product_or_id = null)
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|string[]|Tag[] The tags in the given output format.
+ * @return string[]|Tag[] The tags in the given output format.
  */
 function aff_get_product_tags($product_or_id = null, $output = 'scalar')
 {
     $product = aff_get_product($product_or_id, 'object');
     if($product === null) {
-        return null;
+        return [];
     }
 
     if($product instanceof Complex_Product) {
@@ -1008,12 +1008,12 @@ function aff_get_product_tags($product_or_id = null, $output = 'scalar')
     }
 
     if(!($product instanceof Tag_Aware_Interface)) {
-        return null;
+        return [];
     }
 
     $tags = $product->get_tags();
     if(empty($tags)) {
-        return null;
+        return [];
     }
 
     $tags = apply_filters('aff_product_tags', $tags, $product);
@@ -1696,18 +1696,18 @@ function aff_product_get_variants($complex_or_id = null)
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Product_Variant[] All product variants of the given complex parent product in the given output format.
+ * @return array|Product_Variant[] All product variants of the given complex parent product in the given output format.
  */
 function aff_get_product_variants($complex_or_id = null, $output = 'array')
 {
     $complex_product = aff_get_product($complex_or_id, 'object');
     if(!($complex_product instanceof Complex_Product)) {
-        return null;
+        return [];
     }
 
     $product_variants = $complex_product->get_variants();
     if(empty($product_variants)) {
-        return null;
+        return [];
     }
 
     $product_variants = apply_filters('aff_product_variants', $product_variants, $complex_product);
@@ -1818,7 +1818,7 @@ function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = 
  * @since 0.8
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
- * @return null|array The attributes or null.
+ * @return array The attributes.
  */
 function aff_product_get_variant_attributes($product_or_id = null, $variant_or_id = null)
 {
@@ -1832,7 +1832,7 @@ function aff_product_get_variant_attributes($product_or_id = null, $variant_or_i
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Attribute[] The attribute in the given output format.
+ * @return array|Attribute[] The attribute in the given output format.
  */
 function aff_get_product_variant_attributes($product_or_id = null, $variant_or_id = null, $output = 'array')
 {
@@ -1842,7 +1842,7 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
     }
 
     if(!($complex_product instanceof Complex_Product)) {
-        return null;
+        return [];
     }
 
     $product_variant = null;
@@ -1853,7 +1853,7 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
     }
 
     if($product_variant === null) {
-        return null;
+        return [];
     }
 
     $attributes = $product_variant->get_attributes();
@@ -1875,26 +1875,26 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @return null|array The attribute choices for the variant switching.
+ * @return array The attribute choices for the variant switching.
  */
 function aff_get_product_attribute_choices($product_or_id = null)
 {
     // Current product
     $product = aff_get_product($product_or_id, 'object');
     if($product === null) {
-        return null;
+        return [];
     }
 
     // Parent product
     $parent = aff_get_product_variant_parent($product, 'object');
     if($parent === null) {
-        return null;
+        return [];
     }
 
     // Product variants
     $variants = aff_get_product_variants($parent, 'object');
     if($variants === null) {
-        return null;
+        return [];
     }
 
     // Current attribute
@@ -1905,7 +1905,7 @@ function aff_get_product_attribute_choices($product_or_id = null)
     }
 
     if(empty($current_attributes)) {
-        return null;
+        return [];
     }
 
     // Create the basic choices without permalinks and display
