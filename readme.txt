@@ -59,6 +59,9 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.6 =
+* Fix: Fixed some options of the Amazon import.
+
 = 0.9.5 =
 * New: New templating system for HTML templates.
 * Fix: Minor style fixes.
