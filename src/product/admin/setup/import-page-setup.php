@@ -2,7 +2,7 @@
 namespace Affilicious\Product\Admin\Setup;
 
 use Affilicious\Common\Helper\Assert_Helper;
-use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Product\Model\Product;
 
 if (!defined('ABSPATH')) {
@@ -74,7 +74,7 @@ class Import_Page_Setup
 		// Render the import page
 		foreach ($import_pages as $import_page) {
 			if($this->is_current_page($import_page)) {
-				View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import.php', [
+				Template_Helper::render('admin/page/imports', [
 					'import_pages' => $import_pages,
 					'current_import_page' => $import_page,
 					'admin_urls' => $admin_urls

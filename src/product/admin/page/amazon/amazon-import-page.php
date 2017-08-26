@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Product\Admin\Page\Amazon;
 
-use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
@@ -80,7 +80,7 @@ class Amazon_Import_Page
             }
         }
 
-	    View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/product/admin/view/page/import/amazon.php', [
+	    Template_Helper::render('admin/page/imports/amazon', [
 	        'shop_templates' => $shop_templates,
             'amazon_provider_configured' => $amazon_provider !== null,
         ]);

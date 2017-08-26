@@ -42,6 +42,7 @@ use Affilicious\Shop\Model\Money;
 use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
+use Affilicious\Common\Helper\Template_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -2649,4 +2650,31 @@ function aff_the_license_status_message(License_Status $status, $escape = true)
     }
 
     echo $message;
+}
+
+/**
+ * Render the template immediately.
+ *
+ * @since 0.9.5
+ * @param string $name The name for the template.
+ * @param array $params The variables for the template. Default: empty array.
+ * @param bool $require Whether to require or require. Default: true.
+ */
+function aff_render_template($name, $params = [], $require = true)
+{
+	Template_Helper::render($name, $params, $require);
+}
+
+/**
+ * Buffers the rendered template into a string.
+ *
+ * @since 0.9.5
+ * @param string $name The name for the template.
+ * @param array $params The variables for the template. Default: empty array.
+ * @param bool $require Whether to require or require. Default: true.
+ * @return string The buffered and rendered template.
+ */
+function aff_stringify_template($name, $params = [], $require = true)
+{
+	return Template_Helper::stringify($name, $params, $require);
 }

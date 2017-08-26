@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Provider\Admin\Options;
 
-use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Credentials;
 use Affilicious\Provider\Validator\Credentials_Validator_Interface;
@@ -162,11 +162,11 @@ class Amazon_Options
         $valid = $this->check_validation_status();
 
         if($valid) {
-            $notice = View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/success-notice.php', array(
+            $notice = Template_Helper::stringify('notices/success-notice', array(
                 'message' => __('<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API was successfully established.', 'affilicious')
             ));
         } else {
-            $notice = View_Helper::stringify( \Affilicious::get_root_path() . 'src/common/view/notifications/error-notice.php', array(
+            $notice = Template_Helper::stringify('notices/error-notice', array(
                 'message' => __('<b>The credentials are invalid!</b> Failed to connect to the Amazon Product Advertising API.', 'affilicious')
             ));
         }

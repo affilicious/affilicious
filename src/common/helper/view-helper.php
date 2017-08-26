@@ -5,11 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @deprecated 1.2 Use 'Affilicious\Common\Helper\Template_Helper' instead.
+ */
 class View_Helper
 {
     /**
      * Render the template immediately.
      *
+     * @deprecated 1.2 Use 'Affilicious\Common\Helper\Template_Helper::render' instead.
      * @since 0.7
      * @param string $path The full path to the template file.
      * @param array $params The variables for the template.
@@ -26,10 +30,11 @@ class View_Helper
     /**
      * Render the template into a simple string.
      *
+     * @deprecated 1.2 Use 'Affilicious\Common\Helper\Template_Helper::stringify' instead.
      * @since 0.7
      * @param string $path The full path to the template file.
      * @param array $params  The variables for the template.
-     * @return string
+     * @return string The buffered and rendered view.
      */
     public static function stringify($path, $params = array())
     {

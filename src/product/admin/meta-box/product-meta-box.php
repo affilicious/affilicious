@@ -3,7 +3,7 @@ namespace Affilicious\Product\Admin\Meta_Box;
 
 use Affilicious\Attribute\Model\Attribute_Template;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
-use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
@@ -277,7 +277,7 @@ class Product_Meta_Box
      */
     public function get_variants_empty_attributes_notice_field()
     {
-        $notice = View_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'src/common/view/notifications/warning-notice.php', array(
+        $notice = Template_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'notices/warning-notice.php', array(
             'message' => sprintf(
                 __('<b>No attribute templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_attribute_tmpl&post_type=aff_product')
@@ -319,7 +319,7 @@ class Product_Meta_Box
      */
     private function get_shops_empty_notice_field()
     {
-        $notice = $notice = View_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'src/common/view/notifications/warning-notice.php', array(
+        $notice = $notice = Template_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'notices/warning-notice.php', array(
             'message' => sprintf(
                 __('<b>No shop templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_shop_tmpl&post_type=aff_product')
@@ -475,7 +475,7 @@ class Product_Meta_Box
      */
     private function get_details_empty_notice_field()
     {
-        $notice =  View_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'src/common/view/notifications/warning-notice.php', array(
+        $notice =  Template_Helper::stringify(AFFILICIOUS_ROOT_PATH . 'notices/warning-notice.php', array(
             'message' => sprintf(
                 __('<b>No detail templates available!</b> Please create one <a href="%s" target="_blank">here</a>.', 'affilicious'),
                 admin_url('edit-tags.php?taxonomy=aff_detail_tmpl&post_type=aff_product')

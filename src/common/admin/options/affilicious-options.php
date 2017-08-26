@@ -1,9 +1,9 @@
 <?php
 namespace Affilicious\Common\Admin\Options;
 
-use Affilicious\Common\Helper\View_Helper;
 use Affilicious\Common\Admin\License\License_Manager;
 use Affilicious\Common\Admin\License\License_Processor;
+use Affilicious\Common\Helper\Template_Helper;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -64,7 +64,7 @@ class Affilicious_Options
 
         $fields = array(
             Carbon_Field::make('html', 'affilicious_options_affilicious_container_licenses_tab_licences_field')
-                ->set_html(View_Helper::stringify(\Affilicious::get_root_path() . 'src/common/admin/view/licenses/licenses.php', array(
+                ->set_html(Template_Helper::stringify('admin/licenses/licenses', array(
                     'license_manager' => $this->license_manager,
                     'license_processor' => $this->license_processor,
                 )))

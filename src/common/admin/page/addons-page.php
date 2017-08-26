@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Admin\Page;
 
-use Affilicious\Common\Helper\View_Helper;
+use Affilicious\Common\Helper\Template_Helper;
 
 if(!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -54,7 +54,7 @@ class Addons_Page
             return $this->is_addon($product) && ($this->is_paid($product) || $this->is_basic($product));
         });
 
-	    View_Helper::render(AFFILICIOUS_ROOT_PATH . 'src/common/admin/view/page/addons.php', [
+	    Template_Helper::render('admin/page/addons', [
 	        'products' => $products
         ]);
 	}

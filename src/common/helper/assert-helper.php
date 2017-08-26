@@ -332,6 +332,65 @@ class Assert_Helper
 	}
 
 	/**
+	 * Check if the values are all of the given type.
+	 *
+	 * @since 0.9.2
+	 * @param array $values
+	 * @param string $type
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function all_is_type_of(array $values, $type, $method, $message, $version)
+	{
+		if(WP_DEBUG) {
+			$is_all_instance_of = true;
+			$wrong_value = null;
+
+			foreach ($values as $value) {
+				if(gettype($value) !== $type) {
+					$is_all_instance_of = false;
+					$wrong_value = $value;
+					break;
+				}
+			}
+
+			if(!$is_all_instance_of) {
+				_doing_it_wrong($method, sprintf($message, self::type_to_string($wrong_value)), $version);
+			}
+		}
+	}
+
+	/**
+	 * Check if the values are all non empty strings.
+	 *
+	 * @since 0.9.2
+	 * @param array $values
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function all_is_string_not_empty(array $values, $method, $message, $version)
+	{
+		if(WP_DEBUG) {
+			$is_all_string = true;
+			$wrong_value = null;
+
+			foreach ($values as $value) {
+				if((empty($value) || !is_string($value))) {
+					$is_all_string = false;
+					$wrong_value = $value;
+					break;
+				}
+			}
+
+			if(!$is_all_string) {
+				_doing_it_wrong($method, sprintf($message, self::type_to_string($wrong_value)), $version);
+			}
+		}
+	}
+
+	/**
 	 * Check if the value is one of the multiple values.
 	 *
 	 * @since 0.9.2

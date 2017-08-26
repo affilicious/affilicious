@@ -348,6 +348,16 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Generator\Carbon\Carbon_Key_Generator();
 			};
 
+			$this->container['affilicious.common.template.locator'] = function () {
+				return new \Affilicious\Common\Template\Template_Locator();
+			};
+
+			$this->container['affilicious.common.template.renderer'] = function ($c) {
+				return new \Affilicious\Common\Template\Template_Renderer(
+					$c['affilicious.common.template.locator']
+				);
+			};
+
 			$this->container['affilicious.common.filter.link_target'] = function () {
 				return new \Affilicious\Common\Filter\Link_Target_Filter();
 			};
