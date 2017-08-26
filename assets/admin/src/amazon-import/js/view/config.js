@@ -89,9 +89,6 @@ let Config =  Backbone.View.extend({
         `);
 
         this.$el.find(`input[name="shop"][value="${shop.slug}"]`).prop("checked", true);
-
-        let newShopName = this.$el.find('input[name="new-shop-name"]');
-        newShopName.selectize()[0].selectize.clear(true);
     },
 
     /**
