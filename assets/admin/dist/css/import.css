@@ -57,7 +57,6 @@
             width: 100%;
             margin-bottom: 10px; } }
       .aff-import-search-form-main-item-submit {
-        border: 1px solid red;
         height: 32px !important;
         line-height: 30px !important;
         width: 100px;
@@ -97,6 +96,12 @@
             margin-right: 0; } }
         .aff-import-search-form-filters-item-select, .aff-import-search-form-filters-item-input {
           width: 150px; }
+        .aff-import-search-form-filters-item-input {
+          -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07) !important;
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07) !important;
+          background: #fff;
+          border: 1px solid #ddd;
+          padding: 3px 5px; }
       .aff-import-search-form-filters-notice {
         display: block;
         font-size: 13px;
@@ -347,12 +352,16 @@
         font-size: 0.9rem; }
       .aff-import-config-group-option-new-shop-name {
         margin: 0;
-        padding: 5px 8px;
         width: 100%;
         max-width: 100%;
         font-size: 14px;
         font-weight: 300;
-        line-height: 1.4; }
+        line-height: 1.4;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07) !important;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07) !important;
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 5px 5px; }
         .aff-import-config-group-option-new-shop-name[disabled] {
           opacity: 0.5;
           background-color: #fafafa;
