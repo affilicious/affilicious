@@ -23,4 +23,32 @@ class Slug
 
 		$this->set_value($value);
 	}
+
+	/**
+	 * Prefix the name.
+	 *
+	 * @since 0.9.7
+	 * @param string $value
+	 * @return Slug
+	 */
+	public function prefix($value)
+	{
+		Assert_Helper::is_string_not_empty($value, __METHOD__, 'The slug prefix must be a non empty string. Got: %s', '0.9.7');
+
+		return new self($value . $this->value);
+	}
+
+	/**
+	 * Postfix the name.
+	 *
+	 * @since 0.9.7
+	 * @param string $value
+	 * @return Slug
+	 */
+	public function postfix($value)
+	{
+		Assert_Helper::is_string_not_empty($value, __METHOD__, 'The slug postfix must be a non empty string. Got: %s', '0.9.7');
+
+		return new self($this->value . $value);
+	}
 }
