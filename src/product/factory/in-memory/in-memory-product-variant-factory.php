@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Factory\In_Memory;
 
+use Affilicious\Common\Generator\Slug_Generator_Interface;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Factory\Product_Variant_Factory_Interface;
@@ -13,6 +14,20 @@ if (!defined('ABSPATH')) {
 
 class In_Memory_Product_Variant_Factory implements Product_Variant_Factory_Interface
 {
+	/**
+	 * @var Slug_Generator_Interface
+	 */
+	protected $slug_generator;
+
+	/**
+	 * @since 0.9.7
+	 * @param Slug_Generator_Interface $slug_generator
+	 */
+	public function __construct(Slug_Generator_Interface $slug_generator)
+	{
+		$this->slug_generator = $slug_generator;
+	}
+
     /**
      * @inheritdoc
      * @since 0.8
@@ -31,4 +46,19 @@ class In_Memory_Product_Variant_Factory implements Product_Variant_Factory_Inter
 
         return $product_variant;
     }
+
+	/**
+	 * @inheritdoc
+	 * @since 0.9.7
+	 */
+	public function create_from_name(Complex_Product $parent, Name $name)
+	{
+		$product_variant = $this->create(
+			$parent,
+			$name,
+			$this->slug_generator->generate_from_name($name)
+		);
+
+		return $product_variant;
+	}
 }

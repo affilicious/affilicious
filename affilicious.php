@@ -565,16 +565,22 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
-			$this->container['affilicious.product.factory.simple_product'] = function () {
-				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Simple_Product_Factory();
+			$this->container['affilicious.product.factory.simple_product'] = function ($c) {
+				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Simple_Product_Factory(
+					$c['affilicious.common.generator.slug']
+				);
 			};
 
-			$this->container['affilicious.product.factory.complex_product'] = function () {
-				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Complex_Product_Factory();
+			$this->container['affilicious.product.factory.complex_product'] = function ($c) {
+				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Complex_Product_Factory(
+					$c['affilicious.common.generator.slug']
+				);
 			};
 
-			$this->container['affilicious.product.factory.product_variant'] = function () {
-				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Product_Variant_Factory();
+			$this->container['affilicious.product.factory.product_variant'] = function ($c) {
+				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Product_Variant_Factory(
+					$c['affilicious.common.generator.slug']
+				);
 			};
 
 			$this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
