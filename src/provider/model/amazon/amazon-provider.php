@@ -6,6 +6,7 @@ use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Credentials;
 use Affilicious\Provider\Model\Provider;
+use Affilicious\Provider\Model\Type;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -15,6 +16,7 @@ class Amazon_Provider extends Provider
 {
 	const NAME = 'Amazon';
 	const SLUG = 'amazon';
+	const TYPE = 'amazon';
     const ACCESS_KEY = 'access_key';
     const SECRET_KEY = 'secret_key';
     const COUNTRY = 'country';
@@ -41,6 +43,17 @@ class Amazon_Provider extends Provider
     {
     	return new Slug(self::SLUG);
     }
+
+	/**
+	 * Get the Amazon provider type.
+	 *
+	 * @since 0.9.7
+	 * @return Type
+	 */
+	public static function type()
+	{
+		return new Type(self::TYPE);
+	}
 
     /**
      * @var Access_Key
@@ -73,7 +86,7 @@ class Amazon_Provider extends Provider
 	    Assert_Helper::key_exists($credentials->get_value(), self::COUNTRY, __METHOD__, 'The country for the Amazon provider is missing.', '0.9.2');
 	    Assert_Helper::key_exists($credentials->get_value(), self::ASSOCIATE_TAG, __METHOD__, 'The associate tag for the Amazon provider is missing.', '0.9.2');
 
-        parent::__construct($name, $slug, $credentials);
+        parent::__construct($name, $slug, $credentials, new Type(self::TYPE));
         $this->access_key = new Access_Key($credentials->get(self::ACCESS_KEY));
         $this->secret_key = new Secret_Key($credentials->get(self::SECRET_KEY));
         $this->country = new Country($credentials->get(self::COUNTRY));

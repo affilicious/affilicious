@@ -5,6 +5,7 @@ use Affilicious\Common\Generator\Key_Generator_Interface;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;
+use Affilicious\Provider\Model\Type;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 
 if (!defined('ABSPATH')) {
@@ -120,7 +121,22 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
         return $providers;
     }
 
-    /**
+	/**
+	 * @inheritdoc
+	 * @since 0.9.7
+	 */
+    public function find_all_by_type(Type $type)
+    {
+	    $providers = $this->find_all();
+
+	    $providers = array_filter($providers, function(Provider $provider) use ($type) {
+		    return $type->is_equal_to($provider->get_type());
+	    });
+
+	    return $providers;
+    }
+
+	/**
      * @since 0.8
      * @param Slug $slug
      * @return Provider_Id|null

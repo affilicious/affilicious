@@ -5,6 +5,7 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Provider\Model\Provider;
 use Affilicious\Provider\Model\Provider_Id;
+use Affilicious\Provider\Model\Type;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -56,4 +57,13 @@ interface Provider_Repository_Interface
      * @return Provider[]
      */
     public function find_all();
+
+	/**
+	 * Find all providers by the type.
+	 *
+	 * @since 0.9.7
+	 * @param Type $type
+	 * @return Provider[]
+	 */
+    public function find_all_by_type(Type $type);
 }

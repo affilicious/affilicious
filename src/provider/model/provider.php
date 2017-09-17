@@ -20,24 +20,37 @@ class Provider
      *
      * @var Provider_Id
      */
-    private $id;
+    protected $id;
 
     /**
+     * The credentials contains all necessary information to build an API request
+     *
      * @var Credentials
      */
-    private $credentials;
+    protected $credentials;
 
-    /**
-     * @since 0.7
-     * @param Name $name
-     * @param Slug $slug
-     * @param Credentials $credentials
-     */
-    public function __construct(Name $name, Slug $slug, Credentials $credentials)
+	/**
+	 * The type like "amazon", "ebay" or "affilinet".
+	 * Very useful, if you have multiple providers of the same type.
+	 * It's optional now, but will be required in feature versions.
+	 *
+	 * @var Type|null
+	 */
+    protected $type;
+
+	/**
+	 * @since 0.7
+	 * @param Name $name The provider name.
+	 * @param Slug $slug The provider slug.
+	 * @param Credentials $credentials The credentials containing all necessary information to build an API request.
+	 * @param Type|null $type The type like "amazon", "ebay" or "affilinet". Very useful, if you have multiple providers of the same type. It's optional now, but will be required in feature versions.
+	 */
+    public function __construct(Name $name, Slug $slug, Credentials $credentials, Type $type = null)
     {
         $this->set_name($name);
         $this->set_slug($slug);
         $this->credentials = $credentials;
+        $this->type = $type;
     }
 
     /**
@@ -74,7 +87,7 @@ class Provider
     }
 
     /**
-     * Get the credentials
+     * Get the credentials containing all necessary information to build an API request.
      *
      * @since 0.7
      * @return Credentials
@@ -84,16 +97,30 @@ class Provider
         return $this->credentials;
     }
 
+	/**
+	 * Get the type like "amazon", "ebay" or "affilinet".
+	 * Very useful, if you have multiple providers of the same type.
+	 * It's optional now, but will be required in feature versions.
+	 *
+	 * @since 0.9.7
+	 * @return Type|null
+	 */
+    public function get_type()
+    {
+		return $this->type;
+    }
+
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function is_equal_to($object)
+    public function is_equal_to($other)
     {
         return
-            $object instanceof self &&
-            $this->get_name()->is_equal_to($object->get_name()) &&
-            $this->get_slug()->is_equal_to($object->get_slug()) &&
-            $this->get_credentials()->is_equal_to($object->get_credentials());
+	        $other instanceof self &&
+	        $this->get_name()->is_equal_to($other->get_name()) &&
+	        $this->get_slug()->is_equal_to($other->get_slug()) &&
+	        $this->get_credentials()->is_equal_to($other->get_credentials()) &&
+	        ($this->get_type() !== null && $this->get_type()->is_equal_to($other->get_type()) || $other->get_type() === null);
     }
 }
