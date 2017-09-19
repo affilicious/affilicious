@@ -27,6 +27,11 @@ class Carbon_Key_Generator implements Key_Generator_Interface
         // Unlike slugs, "-" isn't allowed in keys.
         $value = str_replace('-', '_', $value);
 
+	    // Plain numbers are not allowed. Prefix with "n" which stand for number.
+	    if(is_numeric($value)) {
+		    $value = 'n' . $value;
+	    }
+
         // Wrap it up
         $key = new Key($value);
 
@@ -41,12 +46,18 @@ class Carbon_Key_Generator implements Key_Generator_Interface
     {
         // Keys cannot contain underscores followed by digits in Carbon Fields.
         $value = preg_replace('/-([0-9])/', '$1', $slug->get_value());
+
+	    // Unlike slugs, "-" isn't allowed in keys.
         $value = str_replace('-', '_', $value);
+
+        // Plain numbers are not allowed. Prefix with "n" which stand for number.
+        if(is_numeric($value)) {
+        	$value = 'n' . $value;
+        }
 
         // Wrap it up
         $key = new Key($value);
 
         return $key;
-
     }
 }
