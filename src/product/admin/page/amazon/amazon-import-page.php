@@ -3,6 +3,7 @@ namespace Affilicious\Product\Admin\Page\Amazon;
 
 use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
+use Affilicious\Provider\Model\Amazon\Category;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Shop_Template;
@@ -83,6 +84,7 @@ class Amazon_Import_Page
 	    Template_Helper::render('admin/page/imports/amazon', [
 	        'shop_templates' => $shop_templates,
             'amazon_provider_configured' => $amazon_provider !== null,
+		    'categories' => Category::$germany
         ]);
 	}
 }

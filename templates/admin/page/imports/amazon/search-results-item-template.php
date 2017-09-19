@@ -2,11 +2,13 @@
     <div class="aff-import-search-results-item aff-panel " data-parent="<% if(typeof variants !== 'undefined' && variants !== null) { %>true<% } else { %>false<% } %>" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= shops[0].tracking.affiliate_product_id %>"<% } %>>
         <div class="aff-import-search-results-item-content aff-panel-body">
             <div class="aff-import-search-results-item-content-media">
-                <% if(typeof thumbnail !== 'undefined' && thumbnail !== null) { %>
-                    <div class="aff-import-search-results-item-thumbnail">
+                <div class="aff-import-search-results-item-thumbnail">
+                    <% if(typeof thumbnail !== 'undefined' && thumbnail !== null) { %>
                         <img class="aff-import-search-results-item-thumbnail-image" src="<%= thumbnail.src %>">
-                    </div>
-                <% } %>
+                    <% } else { %>
+                        <img class="aff-import-search-results-item-thumbnail-image" src="<?php echo AFFILICIOUS_ROOT_URL . 'assets/admin/dist/img/no-image.png'; ?>">
+                    <% } %>
+                </div>
             </div>
 
             <div class="aff-import-search-results-item-content-main">

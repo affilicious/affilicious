@@ -5,6 +5,7 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Search\Search_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
+use Affilicious\Provider\Model\Amazon\Category;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
@@ -24,76 +25,6 @@ if (!defined('ABSPATH')) {
  */
 class Amazon_Search implements Search_Interface
 {
-    const CATEGORY_ALL = 'All';
-    const CATEGORY_APPAREL = 'Apparel';
-    const CATEGORY_APPLIANCES = 'Appliances';
-    const CATEGORY_AUTOMOTIVE = 'Automotive';
-    const CATEGORY_BABY = 'Baby';
-    const CATEGORY_BEAUTY = 'Beauty';
-    const CATEGORY_BOOKS = 'Books';
-    const CATEGORY_DVD = 'DVD';
-    const CATEGORY_ELECTRONICS = 'Electronics';
-    const CATEGORY_FURNITURE = 'Furniture';
-    const CATEGORY_GIFT_CARDS = 'GiftCards';
-    const CATEGORY_GROCERY = 'Grocery';
-    const CATEGORY_HEALTH_PERSONAL_CARE = 'HealthPersonalCare';
-    const CATEGORY_HOME_GARDEN = 'HomeGarden';
-    const CATEGORY_INDUSTRIAL = 'Industrial';
-    const CATEGORY_JEWELRY = 'Jewelry';
-    const CATEGORY_KINDLE_STORE = 'KindleStore';
-    const CATEGORY_LAWN_AND_GARDEN = 'LawnAndGarden';
-    const CATEGORY_LUGGAGE = 'Luggage';
-    const CATEGORY_LUXURY_BEAUTY = 'LuxuryBeauty';
-    const CATEGORY_MARKETPLACE = 'Marketplace';
-    const CATEGORY_MUSIC = 'Music';
-    const CATEGORY_MUSICAL_INSTRUMENTS = 'MusicalInstruments';
-    const CATEGORY_OFFICE_PRODUCTS = 'OfficeProducts';
-    const CATEGORY_PANTRY = 'Pantry';
-    const CATEGORY_PC_HARDWARE = 'PCHardware';
-    const CATEGORY_PET_SUPPLIES = 'PetSupplies';
-    const CATEGORY_SHOES = 'Shoes';
-    const CATEGORY_SOFTWARE = 'Software';
-    const CATEGORY_SPORTING_GOODS = 'SportingGoods';
-    const CATEGORY_TOYS = 'Toys';
-    const CATEGORY_VIDEO_GAMES = 'VideoGames';
-    const CATEGORY_WATCHES = 'Watches';
-
-    public static $categories = [
-        self::CATEGORY_ALL,
-        self::CATEGORY_APPAREL,
-        self::CATEGORY_APPLIANCES,
-        self::CATEGORY_AUTOMOTIVE,
-        self::CATEGORY_BABY,
-        self::CATEGORY_BEAUTY,
-        self::CATEGORY_BOOKS,
-        self::CATEGORY_DVD,
-        self::CATEGORY_ELECTRONICS,
-        self::CATEGORY_FURNITURE,
-        self::CATEGORY_GIFT_CARDS,
-        self::CATEGORY_GROCERY,
-        self::CATEGORY_HEALTH_PERSONAL_CARE,
-        self::CATEGORY_HOME_GARDEN,
-        self::CATEGORY_INDUSTRIAL,
-        self::CATEGORY_JEWELRY,
-        self::CATEGORY_KINDLE_STORE,
-        self::CATEGORY_LAWN_AND_GARDEN,
-        self::CATEGORY_LUGGAGE,
-        self::CATEGORY_LUXURY_BEAUTY,
-        self::CATEGORY_MARKETPLACE,
-        self::CATEGORY_MUSIC,
-        self::CATEGORY_MUSICAL_INSTRUMENTS,
-        self::CATEGORY_OFFICE_PRODUCTS,
-        self::CATEGORY_PANTRY,
-        self::CATEGORY_PC_HARDWARE,
-        self::CATEGORY_PET_SUPPLIES,
-        self::CATEGORY_SHOES,
-        self::CATEGORY_SOFTWARE,
-        self::CATEGORY_SPORTING_GOODS,
-        self::CATEGORY_TOYS,
-        self::CATEGORY_VIDEO_GAMES,
-        self::CATEGORY_WATCHES,
-    ];
-
     /**
      * @var Provider_Repository_Interface
      */
@@ -189,10 +120,11 @@ class Amazon_Search implements Search_Interface
             return new \WP_Error('aff_amazon_search_missing_category', __('The Amazon search category is missing', 'affilicious'));
         }
 
-        if(!in_array($category, self::$categories)) {
+        if(!in_array($category, array_keys(Category::$germany))) {
             return new \WP_Error('aff_amazon_search_invalid_category', sprintf(
-                'The Amazon search category is not valid. Choose from: %s',
-                implode(', ', self::$categories)
+                'The Amazon search category %s is not valid. Choose from: %s',
+                $category,
+                implode(', ', Category::$germany)
             ));
         }
 
@@ -280,6 +212,7 @@ class Amazon_Search implements Search_Interface
 
         $with_variants = $this->find_with_variants($params);
 
+        // Prepare the search request.
         $conf = new GenericConfiguration();
         $client = new Client();
         $request = new GuzzleRequest($client);
@@ -294,6 +227,7 @@ class Amazon_Search implements Search_Interface
 
         $operation = $this->create_search_operation($term, $type, $category, $with_variants, $page);
 
+        // Make the search request.
         try {
             $apaiIO = new ApaiIO($conf);
             $response = $apaiIO->runOperation($operation);
@@ -301,6 +235,14 @@ class Amazon_Search implements Search_Interface
             $response = new \WP_Error('aff_product_amazon_search_error', $e->getMessage());
         }
 
+        // Make the search request again for the parent item, if the search request type is "asin" and "with parents" is enabled.
+	    if($type == 'asin' && $with_variants && isset($response['Items']['Item']['ParentASIN']) && $response['Items']['Item']['ASIN'] !== $response['Items']['Item']['ParentASIN']) {
+		    $response = $this->request(wp_parse_args([
+			    'term' => $response['Items']['Item']['ParentASIN']
+		    ], $params));
+	    }
+
+	    // Check if there are any errors.
         if(isset($response['Items']['Request']['Errors']['Error'])) {
             $errors = isset($response['Items']['Request']['Errors']['Error'][0]) ? $response['Items']['Request']['Errors']['Error'] : [$response['Items']['Request']['Errors']['Error']];
             $response = new \WP_Error();

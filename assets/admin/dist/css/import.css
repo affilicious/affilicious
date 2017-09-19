@@ -103,12 +103,16 @@
           border: 1px solid #ddd;
           padding: 3px 5px; }
       .aff-import-search-form-filters-notice {
+        -webkit-box-flex: 0;
+            -ms-flex: 0 1 100%;
+                flex: 0 1 100%;
         display: block;
         font-size: 13px;
         font-style: italic;
-        color: #555; }
+        color: #555;
+        margin-bottom: 10px; }
         .aff-import-search-form-filters-notice p {
-          margin: 0 0 10px 0; }
+          margin: 0; }
     .aff-import-search-form-loading {
       display: block;
       text-align: center;

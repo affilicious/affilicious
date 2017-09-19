@@ -44,8 +44,8 @@ let SearchResultsItem = Backbone.View.extend({
     showAll(e) {
         e.preventDefault();
 
-        this.$el.find('.aff-amazon-import-search-results-item-variants-show-all').hide();
-        this.$el.find('.aff-amazon-import-search-results-item-variants-item').show();
+        this.$el.find('.aff-import-search-results-item-variants-show-all').hide();
+        this.$el.find('.aff-import-search-results-item-variants-item').show();
     },
 
     /**

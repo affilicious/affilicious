@@ -72,7 +72,7 @@ let SearchForm =  Backbone.View.extend({
         this.model.set({
             'term': term.val(),
             'type': type.val(),
-            'category': category.val(),
+            'category': category.length !== 0 ? category.val() : this.model.get('category'),
             'withVariants': withVariants.val()
         });
     },

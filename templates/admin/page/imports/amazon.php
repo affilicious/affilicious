@@ -1,6 +1,7 @@
 <?php
     /** @var bool $amazon_provider_configured */
     /** @var array $shop_templates */
+    /** @var array $categories */
 ?>
 
 <div id="aff-amazon-import" class="aff-import">
@@ -25,7 +26,7 @@
     <form id="aff-amazon-import-config" class="aff-import-config"></form>
 </div>
 
-<?php aff_render_template('admin/page/imports/amazon/search-form-template'); ?>
+<?php aff_render_template('admin/page/imports/amazon/search-form-template', ['categories' => $categories]); ?>
 
 <?php aff_render_template('admin/page/imports/amazon/search-results-item-template'); ?>
 

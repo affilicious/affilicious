@@ -1,4 +1,6 @@
-<?php /** @var array $shop_templates */ ?>
+<?php
+    /** @var array $shop_templates */
+?>
 
 <script id="aff-amazon-import-config-template" type="text/template">
     <div class="aff-import-config-group aff-panel">
