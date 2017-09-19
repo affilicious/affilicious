@@ -22,6 +22,15 @@ class Provider
      */
     protected $id;
 
+	/**
+	 * The type like "amazon", "ebay" or "affilinet".
+	 * Very useful, if you have multiple providers of the same type.
+	 * It's optional now, but will be required in feature versions.
+	 *
+	 * @var Type
+	 */
+	protected $type;
+
     /**
      * The credentials contains all necessary information to build an API request
      *
@@ -30,27 +39,23 @@ class Provider
     protected $credentials;
 
 	/**
-	 * The type like "amazon", "ebay" or "affilinet".
-	 * Very useful, if you have multiple providers of the same type.
-	 * It's optional now, but will be required in feature versions.
-	 *
-	 * @var Type|null
-	 */
-    protected $type;
-
-	/**
 	 * @since 0.7
 	 * @param Name $name The provider name.
 	 * @param Slug $slug The provider slug.
-	 * @param Credentials $credentials The credentials containing all necessary information to build an API request.
-	 * @param Type|null $type The type like "amazon", "ebay" or "affilinet". Very useful, if you have multiple providers of the same type. It's optional now, but will be required in feature versions.
+	 * @param Type|Credentials|null $type The type like "amazon", "ebay" or "affilinet". Very useful, if you have multiple providers of the same type. The signature will be more strict in future versions.
+	 * @param Credentials|null $credentials The credentials containing all necessary information to build an API request. The signature will be more strict in future versions.
 	 */
-    public function __construct(Name $name, Slug $slug, Credentials $credentials, Type $type = null)
+    public function __construct(Name $name, Slug $slug, $type, Credentials $credentials = null)
     {
         $this->set_name($name);
         $this->set_slug($slug);
-        $this->credentials = $credentials;
-        $this->type = $type;
+
+        if($type instanceof Credentials) {
+        	$this->credentials = $type;
+        } else {
+	        $this->type = $type;
+	        $this->credentials = $credentials;
+        }
     }
 
     /**

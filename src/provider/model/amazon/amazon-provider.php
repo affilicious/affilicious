@@ -86,7 +86,7 @@ class Amazon_Provider extends Provider
 	    Assert_Helper::key_exists($credentials->get_value(), self::COUNTRY, __METHOD__, 'The country for the Amazon provider is missing.', '0.9.2');
 	    Assert_Helper::key_exists($credentials->get_value(), self::ASSOCIATE_TAG, __METHOD__, 'The associate tag for the Amazon provider is missing.', '0.9.2');
 
-        parent::__construct($name, $slug, $credentials, new Type(self::TYPE));
+        parent::__construct($name, $slug, self::type(), $credentials);
         $this->access_key = new Access_Key($credentials->get(self::ACCESS_KEY));
         $this->secret_key = new Secret_Key($credentials->get(self::SECRET_KEY));
         $this->country = new Country($credentials->get(self::COUNTRY));
