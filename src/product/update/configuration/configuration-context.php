@@ -121,7 +121,7 @@ final class Configuration_Context
     {
         if(!$this->has(self::QUEUE)) {
             return new \WP_Error('aff_invalid_product_update_configuration_context', sprintf(
-                'Invalid configuration context. The value for the key "%s" is missing.',
+                __('Invalid configuration context. The value for the key "%s" is missing.', 'affilicious'),
                 self::QUEUE
             ));
         }
@@ -129,7 +129,7 @@ final class Configuration_Context
         $queue = $this->get('queue');
         if(!($queue instanceof Update_Queue_Interface)) {
             return new \WP_Error('aff_invalid_product_update_configuration_context', sprintf(
-                'Invalid configuration context. The value for the key "%s" must implement %s.',
+                __('Invalid configuration context. The value for the key "%s" must implement %s.', 'affilicious'),
                 self::QUEUE,
                 Update_Queue_Interface::class
             ));
@@ -137,7 +137,7 @@ final class Configuration_Context
 
         if(!$this->has(self::UPDATE_INTERVAL)) {
             return new \WP_Error('aff_invalid_product_update_configuration_context', sprintf(
-                'Invalid configuration context. The value for the key %s is missing.',
+                __('Invalid configuration context. The value for the key %s is missing.', 'affilicious'),
                 self::UPDATE_INTERVAL
             ));
         }

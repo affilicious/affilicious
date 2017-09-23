@@ -1,8 +1,8 @@
 <?php
 namespace Affilicious\Product\Update\Queue;
 
+use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Queue\Min_Priority_Queue;
-use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Update\Task\Batch_Update_Task;
 use Affilicious\Product\Update\Task\Update_Task;
@@ -14,35 +14,53 @@ if (!defined('ABSPATH')) {
 class Update_Queue implements Update_Queue_Interface
 {
     /**
-     * @var Slug
+     * @var string
      */
-    private $name;
+    protected $provider_slug;
+
+	/**
+	 * @var string|null
+	 */
+	protected $provider_type;
 
     /**
      * @var Min_Priority_Queue
      */
-    private $min_priority_queue;
+    protected $min_priority_queue;
 
-    /**
+	/**
      * @inheritdoc
      * @since 0.9
      */
-    public function __construct($name)
+    public function __construct($provider_slug, $provider_type = null)
     {
-        $this->name = $name;
-        $this->min_priority_queue = new Min_Priority_Queue();
+    	Assert_Helper::is_string_not_empty($provider_slug, __METHOD__, 'The provider slug has to be a non empty string.', '0.9.7');
+    	Assert_Helper::is_string_not_empty_or_null($provider_slug, __METHOD__, 'The provider slug has to be a non empty string or null.', '0.9.7');
+
+        $this->provider_slug = $provider_slug;
+	    $this->provider_type = $provider_type;
+	    $this->min_priority_queue = new Min_Priority_Queue();
     }
 
-    /**
-     * @inheritdoc
-     * @since 0.9
-     */
-    public function get_name()
-    {
-        return $this->name;
-    }
+	/**
+	 * @inheritdoc
+	 * @since 0.9.7
+	 */
+	public function get_provider_slug()
+	{
+		return $this->provider_slug;
+	}
 
-    /**
+	/**
+	 * @inheritdoc
+	 * @since 0.9.7
+	 */
+	public function get_provider_type()
+	{
+		return $this->provider_type;
+	}
+
+	/**
      * @inheritdoc
      * @since 0.7
      */
@@ -158,4 +176,13 @@ class Update_Queue implements Update_Queue_Interface
     {
         return $this->get_size() == 0;
     }
+
+	/**
+	 * @inheritdoc
+	 * @since 0.9
+	 */
+	public function get_name()
+	{
+		return $this->get_provider_slug();
+	}
 }

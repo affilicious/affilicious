@@ -13,21 +13,31 @@ interface Update_Queue_Interface
     const MIN = 1;
     const MAX = 100;
 
-    /**
-     * Create a new queue with the given name
-     *
-     * @since 0.9
-     * @param string $name
-     */
-    public function __construct($name);
+	/**
+	 * Create a new queue with the given name
+	 *
+	 * @since 0.9
+	 * @param string $provider_slug The slug of the provider used for the update queue.
+	 * @param null|string $provider_type The of the provider used for the update queue. This argument is optional now, but will be required in future versions. Default: null
+	 */
+    public function __construct($provider_slug, $provider_type = null);
 
-    /**
-     * Get the name of the queue.
-     *
-     * @since 0.9
-     * @return string
-     */
-    public function get_name();
+	/**
+	 * Get the slug of the provider used for the update queue.
+	 *
+	 * @since 0.9.7
+	 * @return string
+	 */
+    public function get_provider_slug();
+
+	/**
+	 * The of the provider used for the update queue.
+	 * This argument is optional now, but will be required in future versions.
+	 *
+	 * @since 0.9.7
+	 * @return null|string
+	 */
+    public function get_provider_type();
 
     /**
      * Put a new update task into the queue.
@@ -84,4 +94,13 @@ interface Update_Queue_Interface
      * @return bool
      */
     public function is_empty();
+
+	/**
+	 * Get the slug of the provider used for the update queue.
+	 *
+	 * @deprecated 1.1 Use 'get_provider_slug' instead.
+	 * @since 0.9
+	 * @return string
+	 */
+	public function get_name();
 }

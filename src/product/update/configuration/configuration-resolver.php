@@ -87,7 +87,8 @@ final class Configuration_Resolver
         $queue = $configuration_context->get('queue');
 
         $min_tasks = $configuration->get(Configuration::MIN_TASKS);
-        $resolved = $queue->get_size() >= $min_tasks;
+        $size = $queue->get_size();
+        $resolved = $size >= $min_tasks;
 
         return $resolved;
     }

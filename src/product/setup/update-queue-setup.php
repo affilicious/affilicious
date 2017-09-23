@@ -39,7 +39,8 @@ class Update_Queue_Setup
         $queues = [];
         foreach ($providers as $provider) {
             $slug = $provider->get_slug()->get_value();
-            $queue = new Update_Queue($slug);
+            $type = $provider->get_type() !== null ? $provider->get_type()->get_value() : null;
+            $queue = new Update_Queue($slug, $type);
             $queues[$slug] = $queue;
         }
 

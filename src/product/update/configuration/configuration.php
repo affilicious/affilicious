@@ -7,13 +7,17 @@ if (!defined('ABSPATH')) {
 
 final class Configuration
 {
-    const PROVIDER = 'provider';
+	const PROVIDER_SLUG = 'provider_slug';
+	const PROVIDER_TYPE = 'provider_type';
     const UPDATE_INTERVAL = 'update_interval';
     const MIN_TASKS = 'min_tasks';
     const MAX_TASKS = 'max_tasks';
     const DEFAULT_UPDATE_INTERVAL = 'hourly';
     const DEFAULT_MIN_TASKS = 1;
     const DEFAULT_MAX_TASKS = 10;
+
+    // @deprecated 1.1 Use 'provider_slug' instead.
+	const PROVIDER = 'provider';
 
     /**
      * @var array
@@ -123,30 +127,31 @@ final class Configuration
      */
     public function validate()
     {
-        if(!$this->has(self::PROVIDER)) {
+        if(!$this->has(self::PROVIDER_SLUG) && !$this->has(self::PROVIDER_TYPE)) {
             return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-                'Invalid configuration. The value for the key "%s" is missing.',
-                self::PROVIDER
+	            __('Invalid configuration. Neither "%s" nor "%s" has been found.', 'affilicious'),
+                self::PROVIDER_SLUG,
+	            self::PROVIDER_TYPE
             ));
         }
 
         if(!$this->has(self::UPDATE_INTERVAL)) {
             return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-                'Invalid configuration. The value for the key "%s" is missing.',
+	            __('Invalid configuration. The value for the key "%s" is missing.', 'affilicious'),
                 self::UPDATE_INTERVAL
             ));
         }
 
         if(!$this->has(self::MIN_TASKS)) {
             return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-                'Invalid configuration. The value for the key "%s" is missing.',
+	            __('Invalid configuration. The value for the key "%s" is missing.', 'affilicious'),
                 self::MIN_TASKS
             ));
         }
 
         if(!$this->has(self::MAX_TASKS)) {
             return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-                'Invalid configuration. The value for the key "%s" is missing.',
+	            __('Invalid configuration. The value for the key "%s" is missing.', 'affilicious'),
                 self::MAX_TASKS
             ));
         }

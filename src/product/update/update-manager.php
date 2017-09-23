@@ -344,7 +344,10 @@ final class Update_Manager
             $config = new Configuration();
             $worker->configure($config);
 
-            if($config->get('provider') === $queue->get_name()) {
+            // @deprecated 1.1 The config "provider" is deprecated. Use "provider_slug" instead.
+            if($config->get('provider') === $queue->get_provider_slug() ||
+               $config->get('provider_slug') === $queue->get_provider_slug() ||
+               $config->get('provider_type') === $queue->get_provider_type()) {
                 return $worker;
             }
         }
