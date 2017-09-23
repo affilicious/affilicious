@@ -133,6 +133,8 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
 		    return $type->is_equal_to($provider->get_type());
 	    });
 
+	    $providers = array_values($providers);
+
 	    return $providers;
     }
 

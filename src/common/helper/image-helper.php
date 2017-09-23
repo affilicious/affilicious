@@ -19,8 +19,9 @@ class Image_Helper
     public static function download($file)
     {
         $filename = basename($file);
+        $file_content = file_get_contents($file);
+        $upload_file = wp_upload_bits($filename, null, $file_content);
 
-        $upload_file = wp_upload_bits($filename, null, file_get_contents($file));
         if (!$upload_file['error']) {
             $wp_filetype = wp_check_filetype($filename, null);
             $attachment = array(
@@ -36,7 +37,7 @@ class Image_Helper
                 $attachment_data = wp_generate_attachment_metadata($attachment_id, $upload_file['file']);
                 wp_update_attachment_metadata($attachment_id,  $attachment_data);
 
-                return new Image($attachment_id);
+                return new Image($attachment_id, $file);
             }
         }
 
