@@ -84,7 +84,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     public function configure(Configuration $configuration)
     {
         $configuration->set_all([
-            'provider' => self::PROVIDER,
+            'provider_slug' => self::PROVIDER,
             'max_updates' => self::MAX_UPDATES,
         ]);
     }

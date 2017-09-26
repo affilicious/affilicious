@@ -127,7 +127,7 @@ final class Configuration
      */
     public function validate()
     {
-        if(!$this->has(self::PROVIDER_SLUG) && !$this->has(self::PROVIDER_TYPE)) {
+        if(!$this->has(self::PROVIDER_SLUG) && !$this->has(self::PROVIDER_TYPE) && !$this->has(self::PROVIDER)) {
             return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
 	            __('Invalid configuration. Neither "%s" nor "%s" has been found.', 'affilicious'),
                 self::PROVIDER_SLUG,
