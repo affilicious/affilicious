@@ -276,43 +276,39 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     {
         foreach ($results as $result) {
             $affiliate_product_id = $result['affiliate_product_id'];
-            if($affiliate_product_id === null || !($affiliate_product_id instanceof Affiliate_Product_Id)) {
-                continue;
-            }
+            if($affiliate_product_id instanceof Affiliate_Product_Id) {
+	            foreach ($products as $product) {
+	                if($result['thumbnail'] !== null && $this->should_update_thumbnail($update_interval, $product)) {
+	                    $this->update_thumbnail($result['thumbnail'], $product);
+	                }
 
-            foreach ($products as $product) {
-                if(!($product instanceof Shop_Aware_Interface) || !$product->has_shops()) {
-                    continue;
-                }
+	                if(!empty($result['image_gallery']) && $this->should_update_image_gallery($update_interval, $product)) {
+	                    $this->update_image_gallery($result['image_gallery'], $product);
+	                }
 
-                if($result['thumbnail'] !== null && $this->should_update_thumbnail($update_interval, $product)) {
-                    $this->update_thumbnail($result['thumbnail'], $product);
-                }
+		            if($product instanceof Shop_Aware_Interface) {
+			            $shops = $product->get_shops();
+			            foreach ($shops as $shop) {
+				            if ($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_product_id())) {
+					            if ($result['availability'] !== null && $this->should_update_availability($update_interval, $product, $shop)) {
+						            $this->update_availability($result['availability'], $product, $shop );
+					            }
 
-                if(!empty($result['image_gallery']) && $this->should_update_image_gallery($update_interval, $product)) {
-                    $this->update_image_gallery($result['image_gallery'], $product);
-                }
+					            if ($result['affiliate_link'] !== null && $this->should_update_affiliate_link($update_interval, $product, $shop)) {
+						            $this->update_affiliate_link($result['affiliate_link'], $product, $shop);
+					            }
 
-                $shops = $product->get_shops();
-                foreach ($shops as $shop) {
-                    if($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_product_id())) {
-                        if($result['availability'] !== null && $this->should_update_availability($update_interval, $product, $shop)) {
-                            $this->update_availability($result['availability'], $product, $shop);
-                        }
+					            if ($result['price'] !== null && $this->should_update_price($update_interval, $product, $shop)) {
+						            $this->update_price($result['price'], $product, $shop);
+					            }
 
-	                    if($result['affiliate_link'] !== null && $this->should_update_affiliate_link($update_interval, $product, $shop)) {
-		                    $this->update_affiliate_link($result['affiliate_link'], $product, $shop);
-	                    }
-
-                        if($result['price'] !== null && $this->should_update_price($update_interval, $product, $shop)) {
-                            $this->update_price($result['price'], $product, $shop);
-                        }
-
-                        if($result['old_price'] !== null && $this->should_update_old_price($update_interval, $product, $shop)) {
-                            $this->update_old_price($result['old_price'], $product, $shop);
-                        }
-                    }
-                }
+					            if ($result['old_price'] !== null && $this->should_update_old_price($update_interval, $product, $shop)) {
+						            $this->update_old_price($result['old_price'], $product, $shop);
+					            }
+				            }
+			            }
+		            }
+	            }
             }
         }
     }
