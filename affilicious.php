@@ -362,6 +362,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Filter\Link_Target_Filter();
 			};
 
+			$this->container['affilicious.common.filter.taxonomy_templates'] = function () {
+				return new \Affilicious\Common\Filter\Taxonomy_Templates_Filter();
+			};
+
 			$this->container['affilicious.common.admin.filter.footer_text'] = function () {
 				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
@@ -917,6 +921,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the link targets to make affiliate links work again.
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
 			add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
+
+			// Hook the product taxonomy templates
+			$taxonomy_templates_filter = $this->container['affilicious.common.filter.taxonomy_templates'];
+			add_filter('taxonomy_template_hierarchy', array($taxonomy_templates_filter, 'filter'));
 
 			// Hook into this action if you want to create custom extensions or themes with the dependency injection container.
 			do_action('aff_hooks');
