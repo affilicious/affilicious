@@ -381,6 +381,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         $price = apply_filters('aff_product_amazon_update_worker_update_price', $price, $product, $shop);
         $shop->get_pricing()->set_price($price);
         $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+	    $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
         do_action('aff_product_amazon_update_worker_after_update_price', $price, $product, $shop);
     }
@@ -404,6 +405,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         $old_price = apply_filters('aff_product_amazon_update_worker_update_old_price', $old_price, $product, $shop);
         $shop->get_pricing()->set_old_price($old_price);
         $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+	    $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
         do_action('aff_product_amazon_update_worker_after_update_old_price', $old_price, $product, $shop);
     }
@@ -423,6 +425,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         $availability = apply_filters('aff_product_amazon_update_worker_update_availability', $availability, $product, $shop);
         $shop->get_pricing()->set_availability($availability);
         $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+	    $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
         do_action('aff_product_amazon_update_worker_before_update_availability', $availability, $product, $shop);
     }
@@ -442,6 +445,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 	    $affiliate_link = apply_filters('aff_product_amazon_update_worker_update_affiliate_link', $affiliate_link, $product, $shop);
 	    $shop->get_tracking()->set_affiliate_link($affiliate_link);
 	    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+	    $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
 	    do_action('aff_product_amazon_update_worker_before_update_affiliate_link', $affiliate_link, $product, $shop);
     }

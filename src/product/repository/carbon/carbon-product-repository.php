@@ -356,9 +356,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		// Build the simple product
 		$name = new Name($post->post_title);
 		$slug = new Slug($post->post_name);
-		$key = $this->key_generator->generate_from_slug($slug);
 
-		$simple_product = new Simple_Product($name, $slug, $key);
+		$simple_product = new Simple_Product($name, $slug);
 		$this->add_id($simple_product, $post);
 		$this->add_content($simple_product, $post);
 		$this->add_excerpt($simple_product, $post);
@@ -397,9 +396,8 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		// Build the complex product
 		$title = new Name($post->post_title);
 		$slug = new Slug($post->post_name);
-		$key = $this->key_generator->generate_from_slug($slug);
 
-		$complex_product = new Complex_Product($title, $slug, $key);
+		$complex_product = new Complex_Product($title, $slug);
 		$this->add_id($complex_product, $post);
 		$this->add_content($complex_product, $post);
 		$this->add_excerpt($complex_product, $post);
