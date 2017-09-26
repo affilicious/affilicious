@@ -3,7 +3,7 @@ namespace Affilicious\Product\Update;
 
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
-use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Model\Simple_Product;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration;
 use Affilicious\Product\Update\Configuration\Configuration_Context;
@@ -272,7 +272,16 @@ final class Update_Manager
                 foreach ($shops as $shop) {
                     $this->mediate_product($product, $shop);
                 }
-            } elseif($product instanceof Shop_Aware_Interface) {
+
+	            // Mediate the product variants
+	            $variants = $product->get_variants();
+	            foreach ($variants as $variant) {
+		            $shops = $variant->get_shops();
+		            foreach ($shops as $shop) {
+			            $this->mediate_product($variant, $shop);
+		            }
+	            }
+            } elseif($product instanceof Simple_Product) {
 	            $shops = $product->get_shops();
 	            foreach ($shops as $shop) {
 		            $this->mediate_product($product, $shop);

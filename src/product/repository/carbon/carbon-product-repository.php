@@ -185,6 +185,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 			$this->store_review($product);
 		}
 
+		if($product instanceof Tag_Aware_Interface) {
+			$this->store_tags($product);
+		}
+
 		if($product instanceof Product_Variant) {
 			$this->store_terms($product);
 			$this->store_attributes($product);
@@ -197,10 +201,6 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
 		if($product instanceof Complex_Product) {
 			$this->store_variants($product);
-		}
-
-		if($product instanceof Tag_Aware_Interface) {
-			$this->store_tags($product);
 		}
 
 		return $product->get_id();
@@ -1174,11 +1174,22 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 				$raw_tags = implode(',', $raw_tags);
 			}
 
+			if($variant->has_image_gallery()) {
+				$image_gallery = $variant->get_image_gallery();
+				$raw_image_gallery = array();
+				foreach ($image_gallery as $image) {
+					$raw_image_gallery[] = $image->get_id();
+				}
+
+				$raw_image_gallery = implode(',', $raw_image_gallery);
+			}
+
 			$carbon_variant = array(
 				self::VARIANT_ID => $variant->has_id() ? $variant->get_id()->get_value() : null,
 				self::VARIANT_NAME => $variant->get_name()->get_value(),
 				self::VARIANT_DEFAULT => $variant->is_default() ? 'yes' : null,
 				self::VARIANT_TAGS => !empty($raw_tags) ? $raw_tags : null,
+				self::VARIANT_IMAGE_GALLERY => !empty($raw_image_gallery) ? $raw_image_gallery : null,
 				self::VARIANT_THUMBNAIL_ID => $variant->has_thumbnail() ? $variant->get_thumbnail()->get_id() : null,
 				self::VARIANT_SHOPS => !empty($carbon_shops) ? $carbon_shops : null,
 			);
@@ -1237,6 +1248,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 	private function store_thumbnail(Product $product)
 	{
 		if(!$product->has_thumbnail()) {
+			$this->delete_post_meta($product->get_id()->get_value(), self::THUMBNAIL_ID);
 			return;
 		}
 
@@ -1252,13 +1264,14 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 	private function store_image_gallery(Product $product)
 	{
 		if(!$product->has_image_gallery()) {
+			$this->delete_post_meta($product->get_id()->get_value(), self::IMAGE_GALLERY);
 			return;
 		}
 
 		$images = $product->get_image_gallery();
 		$raw_images = array();
 		foreach ($images as $image) {
-			$raw_images[] = $image->get_value();
+			$raw_images[] = $image->get_id();
 		}
 
 		$meta_value = implode(',', $raw_images);
@@ -1279,6 +1292,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		}
 
 		if(!$product->has_tags()) {
+			$this->delete_post_meta($product->get_id()->get_value(), self::TAGS);
 			return;
 		}
 
