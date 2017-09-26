@@ -18,10 +18,10 @@ class Amazon_Options
     const ASSOCIATE_TAG = 'affilicious_options_amazon_container_credentials_tab_associate_tag_field';
     const THUMBNAIL_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_thumbnail_update_interval_field';
     const IMAGE_GALLERY_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_image_gallery_update_interval_field';
-    const PRICE_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_price_update_interval_field';
-    const OLD_PRICE_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_old_price_update_interval_field';
-    const RATING_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_rating_update_interval_field';
-    const VOTES_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_votes_update_interval_field';
+	const AFFILIATE_LINK_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_affiliate_link_update_interval_field';
+	const PRICE_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_price_update_interval_field';
+	const OLD_PRICE_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_old_price_update_interval_field';
+	const RATING_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_rating_update_interval_field';
     const AVAILABILITY_UPDATE_INTERVAL = 'affilicious_options_amazon_container_updates_tab_availability_update_interval_field';
 
     /**
@@ -122,6 +122,14 @@ class Amazon_Options
                     'none' => __('No Updates', 'affilicious'),
                 ))
                 ->set_help_text(__('The automatic update interval for the product image galleries.', 'affilicious')),
+	        Carbon_Field::make('select', self::AFFILIATE_LINK_UPDATE_INTERVAL, __('Affiliate Link Update Interval', 'affilicious'))
+                ->add_options(array(
+                    'hourly' => __('Hourly', 'affilicious'),
+                    'twicedaily' => __('Twice Daily', 'affilicious'),
+                    'daily' => __('Daily', 'affilicious'),
+                    'none' => __('No Updates', 'affilicious'),
+                ))
+                ->set_help_text(__('The automatic update interval for the shop affiliate links in the products.', 'affilicious')),
             Carbon_Field::make('select', self::PRICE_UPDATE_INTERVAL, __('Price Update Interval', 'affilicious'))
                 ->add_options(array(
                     'hourly' => __('Hourly', 'affilicious'),

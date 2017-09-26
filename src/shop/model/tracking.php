@@ -39,6 +39,17 @@ class Tracking
         return $this->affiliate_link;
     }
 
+	/**
+	 * Set the affiliate link of the tracking.
+	 *
+	 * @since 0.9.8
+	 * @param Affiliate_Link $affiliate_link
+	 */
+    public function set_affiliate_link(Affiliate_Link $affiliate_link)
+    {
+    	$this->affiliate_link = $affiliate_link;
+    }
+
     /**
      * Check if the tracking has an affiliate product ID.
      *
@@ -59,6 +70,17 @@ class Tracking
     public function get_affiliate_product_id()
     {
         return $this->affiliate_product_id;
+    }
+
+	/**
+	 * Set the affiliate product ID of the tracking.
+	 *
+	 * @since 0.9.8
+	 * @param Affiliate_Product_Id $affiliate_product_id
+	 */
+    public function set_affiliate_product_id(Affiliate_Product_Id $affiliate_product_id)
+    {
+    	$this->affiliate_product_id = $affiliate_product_id;
     }
 
     /**

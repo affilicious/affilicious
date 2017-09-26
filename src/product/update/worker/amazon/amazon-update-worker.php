@@ -15,6 +15,7 @@ use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 use Affilicious\Provider\Admin\Options\Amazon_Options;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
+use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Money;
@@ -251,6 +252,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         foreach ($items as $item) {
             $result[] = array(
                 'affiliate_product_id' => Amazon_Helper::find_affiliate_product_id($item),
+                'affiliate_link' => Amazon_Helper::find_affiliate_link($item),
                 'thumbnail' => Amazon_Helper::find_thumbnail($item),
                 'image_gallery' => Amazon_Helper::find_image_gallery($item),
                 'price' => Amazon_Helper::find_price($item),
@@ -297,6 +299,10 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                         if($result['availability'] !== null && $this->should_update_availability($update_interval, $product, $shop)) {
                             $this->update_availability($result['availability'], $product, $shop);
                         }
+
+	                    if($result['affiliate_link'] !== null && $this->should_update_affiliate_link($update_interval, $product, $shop)) {
+		                    $this->update_affiliate_link($result['affiliate_link'], $product, $shop);
+	                    }
 
                         if($result['price'] !== null && $this->should_update_price($update_interval, $product, $shop)) {
                             $this->update_price($result['price'], $product, $shop);
@@ -421,6 +427,25 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         do_action('aff_product_amazon_update_worker_before_update_availability', $availability, $product, $shop);
     }
 
+	/**
+	 * Update the shop affiliate link in the product.
+	 *
+	 * @since 0.9.8
+	 * @param Affiliate_Link $affiliate_link
+	 * @param Product $product
+	 * @param Shop $shop
+	 */
+    protected function update_affiliate_link(Affiliate_Link $affiliate_link, Product $product, Shop $shop)
+    {
+	    do_action('aff_product_amazon_update_worker_before_update_affiliate_link', $affiliate_link, $product, $shop);
+
+	    $affiliate_link = apply_filters('aff_product_amazon_update_worker_update_affiliate_link', $affiliate_link, $product, $shop);
+	    $shop->get_tracking()->set_affiliate_link($affiliate_link);
+	    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
+
+	    do_action('aff_product_amazon_update_worker_before_update_affiliate_link', $affiliate_link, $product, $shop);
+    }
+
     /**
      * Check if we have to update the product thumbnails.
      *
@@ -454,6 +479,24 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 
         return $should_update;
     }
+
+	/**
+	 * Check if we have to update the shop affiliate links in the products.
+	 *
+	 * @since 0.9.8
+	 * @param string $update_interval The current update interval from the cron job.
+	 * @param Product $product The current product to update.
+	 * @param Shop $shop The current shop to update.
+	 * @return bool Whether to update the shop price or not.
+	 */
+	protected function should_update_affiliate_link($update_interval, Product $product, Shop $shop)
+	{
+		$price_update_interval = carbon_get_theme_option(Amazon_Options::AFFILIATE_LINK_UPDATE_INTERVAL);
+		$should_update = $this->should_update($update_interval, $price_update_interval);
+		$should_update = apply_filters('aff_product_amazon_update_worker_should_update_affiliate_link', $should_update, $update_interval, $product, $shop);
+
+		return $should_update;
+	}
 
     /**
      * Check if we have to update the shop prices in the products.
