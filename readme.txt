@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.8.2
-Stable tag: 0.9.7
+Stable tag: 0.9.8
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,11 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.8 =
+New: Added possibility to update Amazon affiliate links.
+New: Added product archive template to taxonomies hierarchy.
+Fix: Fixed the broken Amazon updates.
+
 = 0.9.7 =
 * New: Added provider type
 * Improvement: Added some methods to the product factories.

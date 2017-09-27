@@ -121,6 +121,7 @@ class ComposerStaticInitdef324b11435cb8acab8b714dcb55855
         'Affilicious\\Common\\Admin\\Setup\\Carbon_Setup' => __DIR__ . '/../..' . '/src/common/admin/setup/carbon-setup.php',
         'Affilicious\\Common\\Admin\\Setup\\License_Handler_Setup' => __DIR__ . '/../..' . '/src/common/admin/setup/license-handler-setup.php',
         'Affilicious\\Common\\Filter\\Link_Target_Filter' => __DIR__ . '/../..' . '/src/common/filter/link-target-filter.php',
+        'Affilicious\\Common\\Filter\\Taxonomy_Templates_Filter' => __DIR__ . '/../..' . '/src/common/filter/taxonomy-templates-filter.php',
         'Affilicious\\Common\\Generator\\Carbon\\Carbon_Key_Generator' => __DIR__ . '/../..' . '/src/common/generator/carbon/carbon-key-generator.php',
         'Affilicious\\Common\\Generator\\Key_Generator_Interface' => __DIR__ . '/../..' . '/src/common/generator/key-generator-interface.php',
         'Affilicious\\Common\\Generator\\Slug_Generator_Interface' => __DIR__ . '/../..' . '/src/common/generator/slug-generator-interface.php',

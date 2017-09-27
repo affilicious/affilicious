@@ -36,6 +36,7 @@ return array(
     'Affilicious\\Common\\Admin\\Setup\\Carbon_Setup' => $baseDir . '/src/common/admin/setup/carbon-setup.php',
     'Affilicious\\Common\\Admin\\Setup\\License_Handler_Setup' => $baseDir . '/src/common/admin/setup/license-handler-setup.php',
     'Affilicious\\Common\\Filter\\Link_Target_Filter' => $baseDir . '/src/common/filter/link-target-filter.php',
+    'Affilicious\\Common\\Filter\\Taxonomy_Templates_Filter' => $baseDir . '/src/common/filter/taxonomy-templates-filter.php',
     'Affilicious\\Common\\Generator\\Carbon\\Carbon_Key_Generator' => $baseDir . '/src/common/generator/carbon/carbon-key-generator.php',
     'Affilicious\\Common\\Generator\\Key_Generator_Interface' => $baseDir . '/src/common/generator/key-generator-interface.php',
     'Affilicious\\Common\\Generator\\Slug_Generator_Interface' => $baseDir . '/src/common/generator/slug-generator-interface.php',
