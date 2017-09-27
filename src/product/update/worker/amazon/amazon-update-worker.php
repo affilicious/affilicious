@@ -6,6 +6,7 @@ use Affilicious\Common\Model\Image;
 use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration;
@@ -108,48 +109,36 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             return;
         }
 
-        // Get the concrete affiliate IDs of the products for the Amazon item lookup
-        $affiliate_product_ids = $this->extract_affiliate_product_ids($products, self::MAX_UPDATES);
+        // Find the affiliate product IDs for the Amazon API batch item lookups.
+        $affiliate_product_ids = $this->find_affiliate_product_ids($products, self::MAX_UPDATES);
         if(empty($affiliate_product_ids)) {
             return;
         }
 
-        // Make an Amazon API lookup request based on the affiliate IDs.
-        $response = $this->request($provider, $affiliate_product_ids);
-        if(empty($response)) {
-            return;
-        }
-
-        // Map the Amazon API response to objects used internally by Affilicious.
-        $results = $this->map_response_to_results($response);
+        // Make a Amazon API batch item lookup based on the affiliate IDs.
+        $results = $this->batch_item_lookup($provider, $affiliate_product_ids);
         if(empty($results)) {
             return;
         }
 
         // Apply the updated information's to the products.
-        $this->apply_results_to_products($update_interval, $results, $products);
-
-        // Store all updated products.
-        foreach ($products as $product) {
-            $this->product_repository->store($product);
-        }
+        $this->update_products($update_interval, $results, $products);
     }
 
     /**
-     * Extract the given number of affiliate product IDs from the products.
+     * Find the given number of affiliate product IDs from the products.
      *
-     * @since 0.7
+     * @since 0.9.8
      * @param Product[] $products The products for the affiliate product ID extraction.
-     * @param int $limit The max limit for the extraction.
+     * @param int $limit The max limit to find.
      * @return Affiliate_Product_Id[]
      */
-    protected function extract_affiliate_product_ids(array $products, $limit)
+    protected function find_affiliate_product_ids(array $products, $limit)
     {
         $current = 0;
 
         $affiliate_product_ids = array();
         foreach ($products as $product) {
-
             if($product instanceof Complex_Product) {
                 $shops = $product->get_default_variant()->get_shops();
             } elseif($product instanceof Shop_Aware_Interface) {
@@ -187,30 +176,34 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                 }
 
                 if($provider->get_slug()->get_value() === self::PROVIDER) {
-                    $affiliate_product_ids[$affiliate_product_id->get_value()] = $affiliate_product_id;
+                    $affiliate_product_ids[$product->get_id()->get_value()] = $affiliate_product_id;
                     $current++;
                 }
             }
         }
 
-        return array_values($affiliate_product_ids);
+        return $affiliate_product_ids;
     }
 
     /**
-     * Make multiple Amazon Item lookups.
+     * Make one Amazon API batch item lookup.
      *
-     * @since 0.7
+     * @since 0.9.8
      * @param Amazon_Provider $provider The Amazon provider which holds the credentials.
-     * @param Affiliate_Product_Id[] $affiliate_product_ids The affiliate IDs for the lookup.
+     * @param Affiliate_Product_Id[] $affiliate_product_ids The affiliate IDs for the batch item lookup.
      * @return null|array The Amazon API response as an array.
      */
-    protected function request(Amazon_Provider $provider, array $affiliate_product_ids)
+    protected function batch_item_lookup(Amazon_Provider $provider, array $affiliate_product_ids)
     {
-        $raw_affiliate_product_ids = array();
+    	// Convert the affiliate product IDs to unique item IDs.
+        $items_ids = array();
         foreach($affiliate_product_ids as $affiliate_product_id) {
-            $raw_affiliate_product_ids[] = $affiliate_product_id->get_value();
+            $items_ids[$affiliate_product_id->get_value()] = $affiliate_product_id->get_value();
         }
 
+	    $items_ids = implode(',', $items_ids);
+
+        // Build the Amazon item lookup request.
         $conf = new GenericConfiguration();
         $client = new Client();
         $request = new GuzzleRequest($client);
@@ -224,60 +217,57 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             ->setResponseTransformer(new XmlToArray());
 
         $lookup = new Lookup();
-        $lookup->setItemId(implode(',', $raw_affiliate_product_ids));
-        $lookup->setResponseGroup(array('Large'));
+        $lookup->setItemId($items_ids);
+        $lookup->setResponseGroup(['Large']);
 
+        // Do the Amazon batch item lookup request.
         $apaiIO = new ApaiIO($conf);
         $response = $apaiIO->runOperation($lookup);
-
         if(empty($response)) {
             return null;
         }
 
-        return $response;
+        // Convert the items into results.
+	    $results = [];
+
+	    foreach ($affiliate_product_ids as $product_id => $affiliate_product_id) {
+		    $items = $this->find_items($response);
+		    foreach ($items as $item) {
+			    if($affiliate_product_id->is_equal_to(Amazon_Helper::find_affiliate_product_id($item))) {
+				    $results[$product_id] = array(
+					    'affiliate_product_id' => Amazon_Helper::find_affiliate_product_id($item),
+					    'affiliate_link' => Amazon_Helper::find_affiliate_link($item),
+					    'thumbnail' => Amazon_Helper::find_thumbnail($item),
+					    'image_gallery' => Amazon_Helper::find_image_gallery($item),
+					    'price' => Amazon_Helper::find_price($item),
+					    'old_price' => Amazon_Helper::find_old_price($item),
+					    'availability' => Amazon_Helper::find_availability($item),
+				    );
+			    }
+		    }
+	    }
+
+	    return $results;
     }
 
     /**
-     * Map the Amazon Item Lookup response to the update results.
+     * Update the products with the help of the results.
      *
-     * @since 0.7
-     * @param array $response The Amazon API response.
-     * @return array The results which can be applied to the products.
-     */
-    protected function map_response_to_results($response)
-    {
-        $result = array();
-
-        $items = $this->find_items($response);
-        foreach ($items as $item) {
-            $result[] = array(
-                'affiliate_product_id' => Amazon_Helper::find_affiliate_product_id($item),
-                'affiliate_link' => Amazon_Helper::find_affiliate_link($item),
-                'thumbnail' => Amazon_Helper::find_thumbnail($item),
-                'image_gallery' => Amazon_Helper::find_image_gallery($item),
-                'price' => Amazon_Helper::find_price($item),
-                'old_price' => Amazon_Helper::find_old_price($item),
-                'availability' => Amazon_Helper::find_availability($item),
-            );
-        }
-
-        return $result;
-    }
-
-    /**
-     * Apply the Amazon API results to the products.
-     *
-     * @since 0.9
+     * @since 0.9.8
      * @param string $update_interval The current update interval from the cron job.
      * @param array $results The results which can be applied to the products.
      * @param Product[] $products The products where the results can be applied to.
      */
-    protected function apply_results_to_products($update_interval, array $results, array $products)
+    protected function update_products($update_interval, array $results, array $products)
     {
-        foreach ($results as $result) {
+        foreach ($results as $product_id => $result) {
             $affiliate_product_id = $result['affiliate_product_id'];
             if($affiliate_product_id instanceof Affiliate_Product_Id) {
 	            foreach ($products as $product) {
+	            	if(!$product->get_id()->is_equal_to(new Product_Id($product_id))) {
+	            		continue;
+		            }
+
 	                if($result['thumbnail'] !== null && $this->should_update_thumbnail($update_interval, $product)) {
 	                    $this->update_thumbnail($result['thumbnail'], $product);
 	                }
@@ -311,6 +301,11 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 	            }
             }
         }
+
+	    // Store all updated products.
+	    foreach ($products as $product) {
+		    $this->product_repository->store($product);
+	    }
     }
 
     /**
