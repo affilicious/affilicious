@@ -1,11 +1,13 @@
 <?php
 namespace Affilicious\Product\Update;
 
+use Affilicious\Common\Timer\Abstract_Timer;
+
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-final class Update_Timer
+final class Update_Timer extends Abstract_Timer
 {
     const HOURLY = 'hourly';
     const TWICE_DAILY = 'twicedaily';
@@ -26,8 +28,7 @@ final class Update_Timer
     }
 
     /**
-     * Activate all scheduled events for the update workers.
-     *
+     * @inheritdoc
      * @since 0.7
      */
     public function activate()
@@ -38,8 +39,7 @@ final class Update_Timer
     }
 
     /**
-     * Deactivate all existing scheduled events from the update workers.
-     *
+     * @inheritdoc
      * @since 0.7
      */
     public function deactivate()
@@ -80,34 +80,5 @@ final class Update_Timer
     public function run_tasks_daily()
     {
         $this->update_manager->run_tasks(self::DAILY);
-    }
-
-    /**
-     * Add a new scheduled cron job action.
-     *
-     * @since 0.7
-     * @param string $hook The name of the hook for the cron job.
-     * @param string $recurrence How often the cron job should reoccur like "hourly", "twicedaily" or "daily".
-     */
-    private function add_scheduled_action($hook, $recurrence)
-    {
-        if($recurrence == 'twice_daily') {
-            $recurrence = self::TWICE_DAILY;
-        }
-
-        if (!wp_next_scheduled($hook)) {
-            wp_schedule_event(time(), $recurrence, $hook);
-        }
-    }
-
-    /**
-     * Remove an existing scheduled cron job action.
-     *
-     * @since 0.7
-     * @param string $hook
-     */
-    private function remove_scheduled_action($hook)
-    {
-        wp_clear_scheduled_hook($hook);
     }
 }
