@@ -2512,7 +2512,7 @@ function aff_get_license_key($item_key)
     /** @var \Affilicious\Common\License\License_Manager $license_manager */
     $license_manager = Affilicious::get('affilicious.common.admin.license.manager');
 
-    $license_key = $license_manager->get_item_license_key($item_key);
+    $license_key = $license_manager->find_item_license_key($item_key);
     if($license_key === null) {
         return null;
     }

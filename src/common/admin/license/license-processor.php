@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class License_Processor
+final class License_Processor
 {
     const LICENSE_ACTIVE = 'license_active';
     const LICENSE_MISSING = 'license_missing';
@@ -17,7 +17,7 @@ class License_Processor
     /**
      * @var License_Manager
      */
-    private $license_manager;
+    protected $license_manager;
 
     /**
      * @since 0.9
@@ -46,19 +46,16 @@ class License_Processor
         $item_key = $license_handler->get_item_key();
         $status = $this->get_previous_status($item_key);
 
-        // Don't process already processed licenses.
+        // Don't process already processed licenses. Carbon Fields calls this method twice.
         if($status !== null && isset($_GET['settings-updated'])) {
             $this->delete_previous_status($item_key);
             return $status;
         }
 
         // Check if the license is valid, invalid or missing.
-        $current_license = $this->license_manager->get_item_license_key($item_key);
+        $current_license = $this->license_manager->find_item_license_key($item_key);
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $status = $current_license !== null ?
-                $this->license_manager->check_item($item_key):
-                License_Status::missing();
-
+            $status = $current_license !== null ? $this->license_manager->check_item($item_key): License_Status::missing();
             $this->store_previous_status($item_key, $status);
 
             return $status;
@@ -70,10 +67,7 @@ class License_Processor
 
         // The license remains the same.
         if($current_license == $posted_license) {
-            $status = $current_license !== null ?
-                $this->license_manager->check_item($item_key) :
-                License_Status::missing();
-
+            $status = $current_license !== null ? $this->license_manager->check_item($item_key) : License_Status::missing();
             $this->store_previous_status($item_key, $status);
 
             return $status;

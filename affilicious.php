@@ -217,11 +217,17 @@ if(!class_exists('Affilicious')) {
 				));
 			}
 
-			$slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
-			$slug_rewrite_setup->activate();
+			// Activate the automatic license checks.
+			$license_timer = $this->container['affilicious.common.admin.license.timer'];
+			$license_timer->activate();
 
-			$update_timer = $this->container['affilicious.product.update.timer'];
-			$update_timer->activate();
+			// Activate the product slug rewrites.
+			$product_slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
+			$product_slug_rewrite_setup->activate();
+
+			// Activate the product update cron jobs.
+			$product_update_timer = $this->container['affilicious.product.update.timer'];
+			$product_update_timer->activate();
 		}
 
 		/**
@@ -231,11 +237,17 @@ if(!class_exists('Affilicious')) {
 		 */
 		public function deactivate()
 		{
-			$slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
-			$slug_rewrite_setup->deactivate();
+			// Deactivate the automatic license checks.
+			$license_timer = $this->container['affilicious.common.admin.license.timer'];
+			$license_timer->deactivate();
 
-			$update_timer = $this->container['affilicious.product.update.timer'];
-			$update_timer->deactivate();
+			// Deactivate the product slug rewrites.
+			$product_slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
+			$product_slug_rewrite_setup->deactivate();
+
+			// Deactivate the product update cron jobs.
+			$product_update_timer = $this->container['affilicious.product.update.timer'];
+			$product_update_timer->deactivate();
 		}
 
 		/**
@@ -386,6 +398,12 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.common.admin.license.manager'] = function () {
 				return new \Affilicious\Common\Admin\License\License_Manager();
+			};
+
+			$this->container['affilicious.common.admin.license.timer'] = function ($c) {
+				return new \Affilicious\Common\Admin\License\License_Timer(
+					$c['affilicious.common.admin.license.manager']
+				);
 			};
 
 			$this->container['affilicious.common.admin.setup.license_handler'] = function ($c) {
@@ -914,9 +932,13 @@ if(!class_exists('Affilicious')) {
 			$complex_product_filter = $this->container['affilicious.product.filter.complex_product'];
 			add_action('pre_get_posts', array($complex_product_filter, 'filter'));
 
-			// Hook the license handlers for the extensions.
+			// Hook the license handlers for the extensions and themes.
 			$license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
 			add_action('init', array($license_handler_setup, 'init'), 15);
+
+			// Hook the license timer for the daily license checks.
+			$license_timer = $this->container['affilicious.common.admin.license.timer'];
+			add_action('aff_common_admin_license_run_checks_daily', array($license_timer, 'run_checks_daily'));
 
 			// Hook the link targets to make affiliate links work again.
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];

@@ -47,6 +47,7 @@ interface License_Handler_Interface
 
     /**
      * Check the license status of the item.
+     * An item might be an extension or theme for instance.
      *
      * @since 0.9
      * @param string $license The current activate license.
