@@ -406,6 +406,10 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.common.admin.system.info'] = function () {
+				return new Affilicious\Common\Admin\System\System_Info();
+			};
+
 			$this->container['affilicious.common.admin.setup.license_handler'] = function ($c) {
 				return new \Affilicious\Common\Admin\Setup\License_Handler_Setup(
 					$c['affilicious.common.admin.license.manager']
@@ -415,7 +419,8 @@ if(!class_exists('Affilicious')) {
 			$this->container['affilicious.common.admin.options.affilicious'] = function ($c) {
 				return new \Affilicious\Common\Admin\Options\Affilicious_Options(
 					$c['affilicious.common.admin.license.manager'],
-					$c['affilicious.common.admin.license.processor']
+					$c['affilicious.common.admin.license.processor'],
+					$c['affilicious.common.admin.system.info']
 				);
 			};
 

@@ -3,6 +3,7 @@ namespace Affilicious\Common\Admin\Options;
 
 use Affilicious\Common\Admin\License\License_Manager;
 use Affilicious\Common\Admin\License\License_Processor;
+use Affilicious\Common\Admin\System\System_Info;
 use Affilicious\Common\Helper\Template_Helper;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
@@ -19,15 +20,25 @@ class Affilicious_Options
      */
     private $license_processor;
 
-    /**
+	/**
+	 * @var System_Info
+	 */
+	private $system_info;
+
+	/**
      * @since 0.9
      * @param License_Manager $license_manager
      * @param License_Processor $license_processor
+     * @param System_Info $system_info
      */
-    public function __construct(License_Manager $license_manager, License_Processor $license_processor)
-    {
+    public function __construct(
+    	License_Manager $license_manager,
+	    License_Processor $license_processor,
+	    System_Info $system_info
+    ) {
         $this->license_manager = $license_manager;
         $this->license_processor = $license_processor;
+	    $this->system_info = $system_info;
     }
 
     /**
@@ -43,7 +54,9 @@ class Affilicious_Options
 		$container = Carbon_Container::make('theme_options', 'Affilicious')
 	        ->set_icon('dashicons-admin-generic')
             ->add_tab(__('Licenses', 'affilicious'), $this->get_licenses_fields())
-	        ->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields());
+			->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields())
+            ->add_tab(__('System', 'affilicious'), $this->get_system_fields())
+		;
 
         $container = apply_filters('aff_admin_options_render_affilicious_container', $container);
 
@@ -91,4 +104,20 @@ class Affilicious_Options
 
         return apply_filters('aff_admin_options_render_affilicious_container_scripts_fields', $fields);
     }
+
+	/**
+	 * Get the system fields.
+	 *
+	 * @since 0.9.9
+	 * @return Carbon_Field[]
+	 */
+	public function get_system_fields()
+	{
+		$fields = [
+			Carbon_Field::make('html', 'affilicious_options_affilicious_container_system_tab_info_field')
+			            ->set_html($this->system_info->stringify(true))
+		];
+
+		return apply_filters('aff_admin_options_render_affilicious_container_system_fields', $fields);
+	}
 }
