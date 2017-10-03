@@ -9,7 +9,7 @@ prod:
 	@composer install --no-dev --optimize-autoloader
 
 ready: dev
-dev: tests-install
+dev: test-install
 	@composer install
 	@npm install
 
@@ -33,12 +33,3 @@ test-uninstall:
 
 test:
 	@bin/phpunit
-
-behat:
-	@bin/behat
-
-selenium:
-	@selenium-server -port 4444
-
-server:
-	@php -S localhost:8000 -t tmp/wordpress -d disable_functions=mail
