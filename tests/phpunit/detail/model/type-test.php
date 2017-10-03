@@ -3,7 +3,7 @@ namespace Tests\Affilicious\Detail\Model;
 
 use Affilicious\Detail\Model\Type;
 
-class Type_Test extends \PHPUnit_Framework_TestCase
+class Type_Test extends \WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.2
