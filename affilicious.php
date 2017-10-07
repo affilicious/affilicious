@@ -178,17 +178,19 @@ if(!class_exists('Affilicious')) {
 		public function autoload($class)
 		{
 			$prefix = 'Affilicious\\';
-			if (stripos($class, $prefix) === false) {
+			$test_prefix = 'Affilicious_Tests\\';
+			if (stripos($class, $prefix) === false && stripos($class, $test_prefix) === false) {
 				return;
 			}
 
-			$file_path = str_ireplace('Affilicious\\', '', $class) . '.php';
+			$file_path = str_ireplace($prefix, '', $class);
+			$file_path = str_ireplace($test_prefix, '', $file_path);
+			$file_path .= '.php';
 			$file_path = strtolower($file_path);
 			$file_path = str_replace('_', '-', $file_path);
 
-			$test_prefix = 'Affilicious\\Tests\\';
 			if (stripos($class, $test_prefix) !== false) {
-				$file_path = __DIR__ . '/' . $file_path;
+				$file_path = __DIR__ . '/tests/' . $file_path;
 			} else {
 				$file_path = __DIR__ . '/src/' . $file_path;
 			}

@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Affilicious\Shop\Model;
+namespace Affilicious_Tests\Shop\Model;
 
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Currency;

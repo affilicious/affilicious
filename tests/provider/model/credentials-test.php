@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Affilicious\Attribute\Model;
+namespace Affilicious_Tests\Attribute\Model;
 
 use Affilicious\Provider\Model\Credentials;
 

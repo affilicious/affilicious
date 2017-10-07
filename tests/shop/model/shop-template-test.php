@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Affilicious\Detail\Model;
+namespace Affilicious_Tests\Detail\Model;
 
 
 use Affilicious\Common\Model\Name;

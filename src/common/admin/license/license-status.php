@@ -108,7 +108,7 @@ class License_Status
      */
     public static function invalid()
     {
-        return new self(self::ERROR, __('The license is invalid', 'affilicious'));
+        return new self(self::INVALID, __('The license is invalid', 'affilicious'));
     }
 
     /**

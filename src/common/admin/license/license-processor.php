@@ -126,12 +126,12 @@ final class License_Processor
      */
     private function get_previous_status($item_key)
     {
-        $type = get_option(sprintf('affilicious_license_status_type_%s', $item_key));
+        $type = get_option(sprintf('affilicious_temp_previous_license_status_type_%s', $item_key));
         if(empty($type)) {
             return null;
         }
 
-        $message = get_option(sprintf('affilicious_license_status_message_%s', $item_key));
+        $message = get_option(sprintf('affilicious_temp_previous_license_status_message_%s', $item_key));
         if(empty($message)) {
             $message = null;
         }
@@ -150,10 +150,10 @@ final class License_Processor
      */
     private function store_previous_status($item_key, License_Status $status)
     {
-        update_option(sprintf('affilicious_license_status_type_%s', $item_key), $status->get_type(), false);
+        update_option(sprintf('affilicious_temp_previous_license_status_type_%s', $item_key), $status->get_type(), false);
 
         if($status->has_message()) {
-            update_option(sprintf('affilicious_license_status_message_%s', $item_key), $status->get_message(), false);
+            update_option(sprintf('affilicious_temp_previous_license_status_message_%s', $item_key), $status->get_message(), false);
         }
     }
 
@@ -165,7 +165,7 @@ final class License_Processor
      */
     private function delete_previous_status($item_key)
     {
-        delete_option(sprintf('affilicious_license_status_type_%s', $item_key));
-        delete_option(sprintf('affilicious_license_status_message_%s', $item_key));
+        delete_option(sprintf('affilicious_temp_previous_license_status_type_%s', $item_key));
+        delete_option(sprintf('affilicious_temp_previous_license_status_message_%s', $item_key));
     }
 }

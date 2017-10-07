@@ -7,8 +7,28 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="Tests">
-			<directory suffix="test.php">./tests/unit</directory>
+		<testsuite name="Common Module Tests">
+			<directory suffix="test.php">./tests/common/</directory>
+		</testsuite>
+
+		<testsuite name="Provider Module Tests">
+			<directory suffix="test.php">./tests/provider/</directory>
+		</testsuite>
+
+		<testsuite name="Shop Module Tests">
+			<directory suffix="test.php">./tests/shop/</directory>
+		</testsuite>
+
+		<testsuite name="Detail Module Tests">
+			<directory suffix="test.php">./tests/detail/</directory>
+		</testsuite>
+
+		<testsuite name="Attribute Module Tests">
+			<directory suffix="test.php">./tests/attribute/</directory>
+		</testsuite>
+
+		<testsuite name="Product Module Tests">
+			<directory suffix="test.php">./tests/product/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

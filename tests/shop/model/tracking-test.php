@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Affilicious\Detail\Model;
+namespace Affilicious_Tests\Detail\Model;
 
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
