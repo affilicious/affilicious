@@ -26,7 +26,7 @@ update:
 	@composer update
 
 test-install:
-	@bin/install-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST) $(WP_VERSION)
+	@bin/install-wp-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST) $(WP_VERSION)
 
 test-uninstall:
 	@rm -rf tmp
