@@ -76,9 +76,9 @@ class Product
         $this->set_name($name);
         $this->set_slug($slug);
         $this->type = $type;
-        $this->status = Status::draft();
+        $this->set_status(Status::draft());
         $this->image_gallery = array();
-        $this->updated_at = new \DateTimeImmutable('now');
+        $this->updated_at = (new \DateTimeImmutable())->setTimestamp(current_time('timestamp'));
     }
 
     /**

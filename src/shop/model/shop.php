@@ -68,7 +68,7 @@ class Shop
         $this->set_slug($slug);
         $this->tracking = $tracking;
         $this->pricing = $pricing;
-        $this->updated_at = new \DateTimeImmutable('now');
+        $this->updated_at = (new \DateTimeImmutable())->setTimestamp(current_time('timestamp'));
     }
 
     /**
