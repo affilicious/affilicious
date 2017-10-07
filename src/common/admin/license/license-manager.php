@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 class License_Manager
 {
 	const LICENSE_KEY_OPTION = 'affilicious_license_key_%s';
-	const LICENSE_VALIDITY_OPTION = 'affilicious_license_validity_%s';
+	const LICENSE_VALID_OPTION = 'affilicious_license_valid_%s';
 
     /**
      * The license handlers are responsible for handling the activation, deactivation and license checks
@@ -53,7 +53,7 @@ class License_Manager
         $this->store_item_license_key($item_key, $license_key);
 
         // Store the item's license validity.
-	    $this->store_item_license_validity($item_key, true);
+	    $this->store_item_license_valid($item_key, true);
 
         return $status;
     }
@@ -90,9 +90,8 @@ class License_Manager
         // Delete the item's existing license key.
 	    $this->delete_item_license_key($item_key);
 
-
 	    // Store the item's license validity.
-	    $this->store_item_license_validity($item_key, false);
+	    $this->store_item_license_valid($item_key, false);
 
         return $status;
     }
@@ -124,7 +123,7 @@ class License_Manager
         $status = $license_handler->check_item($license_key);
 
 	    // Store the item's license validity.
-	    $this->store_item_license_validity($item_key, $status->is_valid());
+	    $this->store_item_license_valid($item_key, $status->is_valid());
 
         return $status;
     }
@@ -186,18 +185,18 @@ class License_Manager
     }
 
 	/**
-	 * Find the item's license validity.
+	 * Check if the item's license is valid.
 	 *
 	 * @since 0.9.9
 	 * @param string $item_key The unique item key.
 	 * @return bool Whether the operation was successful or not.
 	 */
-    public function find_item_license_validity($item_key)
+    public function is_item_license_valid($item_key)
     {
 	    Assert_Helper::is_string_not_empty($item_key, __METHOD__, 'Expected the item key to be a non empty string. Got: %s', '0.9.9');
 
 	    // Read the Wordpress option.
-	    $option = sprintf(self::LICENSE_VALIDITY_OPTION, $item_key);
+	    $option = sprintf(self::LICENSE_VALID_OPTION, $item_key);
 	    $license_validity = get_option($option);
 	    if(empty($license_validity)) {
 		    return false;
@@ -213,13 +212,13 @@ class License_Manager
 	 * @param string $item_key The unique item key.
 	 * @param bool $valid Whether the license is valid or not.
 	 */
-	public function store_item_license_validity($item_key, $valid)
+	public function store_item_license_valid($item_key, $valid)
 	{
 		Assert_Helper::is_string_not_empty($item_key, __METHOD__, 'Expected the item key to be a non empty string. Got: %s', '0.9.9');
 		Assert_Helper::is_boolean($valid, __METHOD__, 'Expected "valid" to be a boolean. Got: %s', '0.9.9');
 
 		// Update the Wordpress option.
-		$option = sprintf(self::LICENSE_VALIDITY_OPTION, $item_key);
+		$option = sprintf(self::LICENSE_VALID_OPTION, $item_key);
 		update_option($option, $valid ? '1' : '0', false);
 	}
 
@@ -229,12 +228,12 @@ class License_Manager
 	 * @since 0.9.9
 	 * @param string $item_key The unique item key.
 	 */
-	public function delete_item_license_validity($item_key)
+	public function delete_item_license_valid($item_key)
 	{
 		Assert_Helper::is_string_not_empty($item_key, __METHOD__, 'Expected the item key to be a non empty string. Got: %s', '0.9.9');
 
 		// Delete the Wordpress option.
-		$option = sprintf(self::LICENSE_VALIDITY_OPTION, $item_key);
+		$option = sprintf(self::LICENSE_VALID_OPTION, $item_key);
 		delete_option($option);
 	}
 

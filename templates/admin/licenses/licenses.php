@@ -10,7 +10,7 @@
         <div class="aff-license-item <?php if(aff_is_license_status_success($status)): ?>aff-license-item-success<?php endif; ?> <?php if(aff_is_license_status_error($status)): ?>aff-license-item-error<?php endif; ?>">
             <h3><?php echo esc_html($license_handler->get_item_name()); ?></h3>
             <div class="aff-license-item-content">
-                <input class="regular-text" type="text"
+                <input class="regular-text"
                        placeholder="<?php _e('Enter license code here...', 'affilicious'); ?>"
                        name="<?php printf('aff-license-%s', $license_handler->get_item_key()); ?>"
                        value="<?php aff_the_license_key($license_handler->get_item_key()); ?>"/>
@@ -19,7 +19,7 @@
                     <p><?php aff_the_license_status_message($status); ?></p>
                 <?php endif; ?>
 
-                <button class="button-primary" type="submit">
+                <button class="button-primary">
                     <?php _e('Save', 'affilicious'); ?>
                 </button>
             </div>
