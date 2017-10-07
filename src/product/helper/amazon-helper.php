@@ -265,7 +265,18 @@ class Amazon_Helper
 
         if(isset($item['Offers']['Offer']['OfferListing'])) {
             $offerListing = $item['Offers']['Offer']['OfferListing'];
-            $old_price = isset($offerListing['SalePrice']) && isset($offerListing['Price']) ? $offerListing['Price'] : null;
+            $old_price = null;
+
+            if(isset($offerListing['SalePrice']) && isset($offerListing['Price'])) {
+            	$old_price = $offerListing['Price'];
+            }
+
+	        if(isset($offerListing['AmountSaved']) && isset($offerListing['Price'])) {
+		        $old_price = [
+		            'Amount' => intval($offerListing['Price']['Amount']) + intval($offerListing['AmountSaved']['Amount']),
+			        'CurrencyCode' => $offerListing['Price']['CurrencyCode']
+		        ];
+	        }
 
             if(isset($old_price['Amount']) && isset($old_price['CurrencyCode'])) {
                 $amount = floatval($old_price['Amount']) / 100;
