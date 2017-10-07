@@ -2,7 +2,6 @@
 namespace Affilicious\Shop\Helper;
 
 use Affilicious\Common\Helper\Image_Helper;
-use Affilicious\Common\Helper\Time_Helper;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Shop\Model\Shop;
@@ -27,7 +26,7 @@ class Shop_Helper
             'template_id' => $shop->has_template_id() ? $shop->get_template_id()->get_value() : null,
             'name' => $shop->get_name()->get_value(),
             'slug' => $shop->get_slug()->get_value(),
-            'updated_at' => Time_Helper::to_datetime_i18n($shop->get_updated_at()),
+            'updated_at' => $shop->get_updated_at()->getTimestamp(),
             'thumbnail_id' => $shop->has_thumbnail_id() ? $shop->get_thumbnail_id()->get_value() : null,
             'thumbnail' => $shop->has_thumbnail() ? Image_Helper::to_array($shop->get_thumbnail()) : null,
             'tracking' => Tracking_Helper::to_array($shop->get_tracking()),
@@ -63,8 +62,8 @@ class Shop_Helper
 		    $shop->set_thumbnail($thumbnail);
 	    }
 
-        if(!empty($array['updated_at']) && $updated_at = Time_Helper::to_datetime_immutable_object($array['updated_at'])) {
-            $shop->set_updated_at($updated_at);
+        if(!empty($array['updated_at'])) {
+            $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp($array['updated_at']));
         }
 
         if(!empty($array['custom_values'])) {
