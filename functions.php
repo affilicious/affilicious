@@ -1979,34 +1979,21 @@ function aff_get_product_attribute_choices($product_or_id = null)
  */
 function aff_the_product_attribute_choices($product_or_id = null, $escape = true)
 {
-    $attribute_choices = aff_get_product_attribute_choices($product_or_id);
-    if(empty($attribute_choices)) {
-        return;
-    }
+	$product = aff_get_product($product_or_id);
+	if($product === null) {
+		return;
+	}
 
-    echo '<div class="aff-product-attributes-container">';
-    echo '<ul class="aff-product-attributes-choices-list">';
+	$attribute_choices = aff_get_product_attribute_choices($product);
+	if(empty($attribute_choices)) {
+		return;
+	}
 
-    foreach ($attribute_choices as $attribute_choice) {
-        echo '<li class="aff-product-attributes-choices">';
-        echo '<span class="aff-product-attributes-choices-name">' . ($escape ? esc_html($attribute_choice['name']) : $attribute_choice['name']) . '</span>';
-        echo '<ul class="aff-product-attributes-choice-list">';
-
-        foreach ($attribute_choice['attributes'] as $attribute) {
-            echo '<li class="aff-product-attributes-choice ' . ($escape ? esc_attr($attribute['display']) : $attribute['display']) . '">';
-            if(!empty($attribute['permalink'])): echo '<a href="' . ($escape ? esc_url($attribute['permalink']) : $attribute['permalink']) .'">'; endif;
-            echo $attribute['value'];
-            if(!empty($attribute['unit'])): echo ' <span class="aff-unit unit">' . ($escape ? esc_html($attribute['unit']) : $attribute['unit']) . '</span>'; endif;
-            if(!empty($attribute['permalink'])): echo '</a>'; endif;
-            echo '</li>';
-        }
-
-        echo '</ul>';
-        echo '</li>';
-    }
-
-    echo "</ul>";
-    echo "</div>";
+	aff_render_template('product/attribute-choices', [
+		'product' => $product,
+		'attribute_choices' => $attribute_choices,
+		'escape' => $escape
+	]);
 }
 
 /**
