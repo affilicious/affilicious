@@ -682,8 +682,11 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
-			$this->container['affilicious.product.setup.slug_rewrite'] = function () {
-				return new \Affilicious\Product\Setup\Slug_Rewrite_Setup();
+			$this->container['affilicious.product.setup.slug_rewrite'] = function ($c) {
+				return new \Affilicious\Product\Setup\Slug_Rewrite_Setup(
+					$c['affilicious.product.setup.product'],
+					$c['affilicious.product.setup.custom_taxonomies']
+				);
 			};
 
 			$this->container['affilicious.product.update.timer'] = function ($c) {

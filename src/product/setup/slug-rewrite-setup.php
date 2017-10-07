@@ -13,14 +13,22 @@ class Slug_Rewrite_Setup
     /**
      * @var Product_Setup
      */
-    protected $productSetup;
+    protected $product_setup;
 
-    /**
-     * @since 0.6
-     */
-    public function __construct()
+	/**
+	 * @var Custom_Taxonomies_Setup
+	 */
+    protected $custom_taxonomies_setup;
+
+	/**
+	 * @since 0.6
+	 * @param Product_Setup $product_setup
+	 * @param Custom_Taxonomies_Setup $custom_taxonomies_setup
+	 */
+    public function __construct(Product_Setup $product_setup, Custom_Taxonomies_Setup $custom_taxonomies_setup)
     {
-        $this->productSetup = \Affilicious::get('affilicious.product.setup.product');
+        $this->product_setup = $product_setup;
+        $this->custom_taxonomies_setup = $custom_taxonomies_setup;
     }
 
     /**
@@ -30,7 +38,8 @@ class Slug_Rewrite_Setup
      */
     public function activate()
     {
-        $this->productSetup->init();
+        $this->product_setup->init();
+        $this->custom_taxonomies_setup->init();
         flush_rewrite_rules();
     }
 
