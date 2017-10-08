@@ -59,6 +59,17 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.9 =
+New: Added system info for support reasons.
+Improvement: Added license key daily checks.
+Improvement: Optimized Wordpress tests.
+Improvement: Outsourced the product attribute choices into a separate template.
+Improvement: Optimized the image downloads.
+Improvement: Optimized the Amazon update worker.
+Fix: Fixed the Amazon product old price update and import in some cases.
+Fix: Fixed the missing product archive pages on plugin reinstall.
+Fix: Fixed the timestamp of newly created products and shops.
+
 = 0.9.8 =
 New: Added possibility to update Amazon affiliate links.
 New: Added product archive template to taxonomies hierarchy.
