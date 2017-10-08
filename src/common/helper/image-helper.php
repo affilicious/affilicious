@@ -18,10 +18,13 @@ class Image_Helper
      */
     public static function download($file)
     {
-        $filename = basename($file);
         $file_content = file_get_contents($file);
-        $upload_file = wp_upload_bits($filename, null, $file_content);
+        if($file_content === false) {
+        	return null;
+        }
 
+	    $filename = basename($file);
+        $upload_file = wp_upload_bits($filename, null, $file_content);
         if (!$upload_file['error']) {
             $wp_filetype = wp_check_filetype($filename, null);
             $attachment = array(

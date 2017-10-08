@@ -85,8 +85,8 @@ class Amazon_Helper
                     $url = $image['LargeImage']['URL'];
                 } elseif(isset($image['MediumImage'])) {
                     $url = $image['MediumImage']['URL'];
-                } elseif(isset($image['SmallImage'])) {
-                    $url = $image['SmallImage']['URL'];
+                } elseif(isset($image['TinyImage'])) {
+                    $url = $image['TinyImage']['URL'];
                 } else {
                     continue;
                 }
