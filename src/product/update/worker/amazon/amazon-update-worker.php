@@ -268,11 +268,11 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 	            		continue;
 		            }
 
-	                if($result['thumbnail'] !== null && $this->should_update_thumbnail($update_interval, $product)) {
+	                if($this->should_update_thumbnail($update_interval, $product)) {
 	                    $this->update_thumbnail($result['thumbnail'], $product);
 	                }
 
-	                if(!empty($result['image_gallery']) && $this->should_update_image_gallery($update_interval, $product)) {
+	                if(!empty($this->should_update_image_gallery($update_interval, $product))) {
 	                    $this->update_image_gallery($result['image_gallery'], $product);
 	                }
 
@@ -280,19 +280,19 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 			            $shops = $product->get_shops();
 			            foreach ($shops as $shop) {
 				            if ($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_product_id())) {
-					            if ($result['availability'] !== null && $this->should_update_availability($update_interval, $product, $shop)) {
+					            if ($this->should_update_availability($update_interval, $product, $shop)) {
 						            $this->update_availability($result['availability'], $product, $shop );
 					            }
 
-					            if ($result['affiliate_link'] !== null && $this->should_update_affiliate_link($update_interval, $product, $shop)) {
+					            if ($this->should_update_affiliate_link($update_interval, $product, $shop)) {
 						            $this->update_affiliate_link($result['affiliate_link'], $product, $shop);
 					            }
 
-					            if ($result['price'] !== null && $this->should_update_price($update_interval, $product, $shop)) {
+					            if ($this->should_update_price($update_interval, $product, $shop)) {
 						            $this->update_price($result['price'], $product, $shop);
 					            }
 
-					            if ($result['old_price'] !== null && $this->should_update_old_price($update_interval, $product, $shop)) {
+					            if ($this->should_update_old_price($update_interval, $product, $shop)) {
 						            $this->update_old_price($result['old_price'], $product, $shop);
 					            }
 				            }
@@ -312,10 +312,10 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the product thumbnail.
      *
      * @since 0.9
-     * @param Image $thumbnail The new thumbnail for the update.
+     * @param Image|null $thumbnail The new thumbnail for the update.
      * @param Product $product The current product to update.
      */
-    protected function update_thumbnail(Image $thumbnail, Product $product)
+    protected function update_thumbnail(Image $thumbnail = null, Product $product)
     {
         do_action('aff_product_amazon_update_worker_before_update_thumbnail', $thumbnail, $product);
 
@@ -337,7 +337,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * @param array $image_gallery The image gallery for the update.
      * @param Product $product The current product to update.
      */
-    protected function update_image_gallery(array $image_gallery, Product $product)
+    protected function update_image_gallery(array $image_gallery = [], Product $product)
     {
         do_action('aff_product_amazon_update_worker_before_update_image_gallery', $image_gallery, $product);
 
@@ -357,11 +357,11 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the shop price in the product.
      *
      * @since 0.9
-     * @param Money $price The new price for the update.
+     * @param Money $price|null The new price for the update.
      * @param Product $product The current product to update.
      * @param Shop $shop The current shop to update.
      */
-    protected function update_price(Money $price, Product $product, Shop $shop)
+    protected function update_price(Money $price = null, Product $product, Shop $shop)
     {
         do_action('aff_product_amazon_update_worker_before_update_price', $price, $product, $shop);
 
@@ -381,11 +381,11 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the shop old price in the product.
      *
      * @since 0.9
-     * @param Money $old_price The new old price for the update.
+     * @param Money $old_price|null The new old price for the update.
      * @param Product $product The current product to update.
      * @param Shop $shop The current shop to update.
      */
-    protected function update_old_price(Money $old_price, Product $product, Shop $shop)
+    protected function update_old_price(Money $old_price = null, Product $product, Shop $shop)
     {
         do_action('aff_product_amazon_update_worker_before_update_old_price', $old_price, $product, $shop);
 
@@ -405,11 +405,11 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the shop availability in the product.
      *
      * @since 0.9
-     * @param Availability $availability The new availability for the update.
+     * @param Availability|null $availability The new availability for the update.
      * @param Product $product The current product to update.
      * @param Shop $shop The current shop to update.
      */
-    protected function update_availability(Availability $availability, Product $product, Shop $shop)
+    protected function update_availability(Availability $availability = null, Product $product, Shop $shop)
     {
         do_action('aff_product_amazon_update_worker_before_update_availability', $availability, $product, $shop);
 
@@ -425,16 +425,20 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 	 * Update the shop affiliate link in the product.
 	 *
 	 * @since 0.9.8
-	 * @param Affiliate_Link $affiliate_link
+	 * @param Affiliate_Link|null $affiliate_link
 	 * @param Product $product
 	 * @param Shop $shop
 	 */
-    protected function update_affiliate_link(Affiliate_Link $affiliate_link, Product $product, Shop $shop)
+    protected function update_affiliate_link(Affiliate_Link $affiliate_link = null, Product $product, Shop $shop)
     {
 	    do_action('aff_product_amazon_update_worker_before_update_affiliate_link', $affiliate_link, $product, $shop);
 
 	    $affiliate_link = apply_filters('aff_product_amazon_update_worker_update_affiliate_link', $affiliate_link, $product, $shop);
-	    $shop->get_tracking()->set_affiliate_link($affiliate_link);
+
+	    if($affiliate_link !== null) {
+		    $shop->get_tracking()->set_affiliate_link( $affiliate_link );
+	    }
+
 	    $shop->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 	    $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
