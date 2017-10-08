@@ -380,6 +380,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Filter\Taxonomy_Templates_Filter();
 			};
 
+			$this->container['affilicious.common.setup.assets'] = function() {
+				return new \Affilicious\Common\Setup\Assets_Setup();
+			};
+
 			$this->container['affilicious.common.admin.filter.footer_text'] = function () {
 				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
@@ -900,6 +904,11 @@ if(!class_exists('Affilicious')) {
 			$amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
 			add_action('init', array($update_worker_setup, 'init'), 5);
 			add_filter('aff_product_update_worker_init', array($amazon_update_worker_setup, 'init'), 5);
+
+			// Hook the public assets.
+			$assets_setup = $this->container['affilicious.common.setup.assets'];
+			add_action('wp_enqueue_scripts', array($assets_setup, 'add_styles'));
+			add_action('wp_enqueue_scripts', array($assets_setup, 'add_scripts'));
 
 			// Hook the product update timer to update the products regularly.
 			$update_timer = $this->container['affilicious.product.update.timer'];

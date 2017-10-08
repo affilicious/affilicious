@@ -1975,24 +1975,16 @@ function aff_get_product_attribute_choices($product_or_id = null)
  *
  * @since 0.6
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_attribute_choices($product_or_id = null, $escape = true)
+function aff_the_product_attribute_choices($product_or_id = null)
 {
 	$product = aff_get_product($product_or_id);
 	if($product === null) {
 		return;
 	}
 
-	$attribute_choices = aff_get_product_attribute_choices($product);
-	if(empty($attribute_choices)) {
-		return;
-	}
-
 	aff_render_template('product/attribute-choices', [
 		'product' => $product,
-		'attribute_choices' => $attribute_choices,
-		'escape' => $escape
 	]);
 }
 
@@ -2665,3 +2657,30 @@ function aff_stringify_template($name, $params = [], $require = true)
 {
 	return Template_Helper::stringify($name, $params, $require);
 }
+
+
+function wpdev_before_after($content)
+{
+	if(!aff_is_product_page()) {
+		return $content;
+	}
+
+	$product = aff_get_product();
+	if(empty($product)) {
+		return $content;
+	}
+
+	$universal_box = aff_stringify_template('product/universal-box', [
+		'product' => $product
+	]);
+
+	return $content . $universal_box;
+}
+
+add_filter('the_content', 'wpdev_before_after');
+
+
+
+
+
+// http://wpdevelopers.com/adding-content-before-and-after-the_content/

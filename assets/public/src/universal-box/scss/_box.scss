@@ -1,0 +1,215 @@
+.aff-product-universal-box {
+  background-color: white;
+  border: 1px solid #eee;
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+
+  &-row {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 1 0 100%;
+    width: 100%;
+  }
+
+  &-column {
+    padding: 25px;
+
+    &-full-width {
+      flex: 1 0 100%;
+      width: 100%;
+    }
+
+    &-half-width {
+      flex: 1 0 50%;
+      width: 50%;
+
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+    }
+  }
+
+  &-header {
+    border-bottom: 1px solid #eee;
+  }
+
+  &-footer {
+    border-top: 1px solid #eee;
+  }
+
+  &-intro {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .aff-product {
+    &-title {
+      flex: 1 0 100%;
+      margin: 0;
+      font-size: 2rem;
+      line-height: 2.5rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    &-tags {
+      flex: 1 0 100%;
+      display: flex;
+
+      &-item {
+        background-color: #3bafda;
+        border: 1px solid #379ac3;
+        color: white;
+        box-sizing: border-box;
+        padding: 5px 10px;
+        margin-bottom: 15px;
+        margin-right: 10px;
+        font-size: 0.8rem;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: #379ac3;
+        }
+      }
+    }
+
+    &-review {
+      flex: 1 0 calc(60% - 10px);
+      display: inline-flex;
+      justify-self: flex-start;
+      justify-content: flex-start;
+      align-items: center;
+
+      &-rating {
+        height: 25px;
+
+        &-star {
+          padding: 0;
+          margin: 0;
+          width: 25px;
+          height: 25px;
+
+          path {
+            fill: #ffd055 !important;
+          }
+        }
+      }
+
+      &-votes {
+        font-size: 1rem;
+        margin: 0;
+        margin-left: 10px;
+      }
+    }
+
+    &-price {
+      flex: 1 0 calc(40% - 10px);
+      display: inline-flex;
+      justify-self: flex-end;
+      justify-content: flex-end;
+      align-items: center;
+
+      &-current {
+        color: #2fa32f;
+        font-size: 1.8rem;
+      }
+
+      &-old {
+        color: red;
+        font-size: 1.4rem;
+        text-decoration: line-through;
+        margin-left: 10px;
+        font-weight: lighter;
+      }
+    }
+
+    &-thumbnail {
+      display: block;
+      width: 100%;
+      max-width: 100% !important;
+      height: auto !important;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    &-details {
+      border-bottom: 1px solid #eee;
+
+      &-item {
+        font-size: 1rem;
+
+        &-name {
+          font-weight: bold;
+        }
+
+        td {
+          border-top: 1px solid #eee;
+        }
+      }
+    }
+
+    &-shops {
+      &-item {
+        flex: 1 0 100%;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        &-brand {
+          width: 40%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &-info {
+          width: 50%;
+        }
+
+        &-thumbnail {
+          display: block;
+          width: 100%;
+          max-width: 100% !important;
+          height: auto !important;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        &-price {
+          flex: 1 0 calc(40% - 10px);
+          display: inline-flex;
+          justify-self: flex-end;
+          justify-content: flex-end;
+          align-items: center;
+
+          &-current {
+            color: #2fa32f;
+            font-size: 1.8rem;
+          }
+
+          &-old {
+            color: red;
+            font-size: 1.4rem;
+            text-decoration: line-through;
+            margin-left: 10px;
+            font-weight: lighter;
+          }
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
