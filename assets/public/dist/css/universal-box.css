@@ -290,18 +290,24 @@
   .aff-product-universal-box .aff-product-thumbnail {
     display: block;
     width: 100%;
-    max-width: 100% !important;
-    height: auto !important;
+    max-width: 100%;
+    height: auto;
     -webkit-box-shadow: none;
-    box-shadow: none; }
+    box-shadow: none;
+    -o-object-fit: contain;
+       object-fit: contain; }
   .aff-product-universal-box .aff-product-details {
-    border-bottom: 1px solid #eee; }
+    border: none; }
     .aff-product-universal-box .aff-product-details-item {
-      font-size: 1rem; }
+      font-size: 1rem;
+      border: none; }
       .aff-product-universal-box .aff-product-details-item-name {
         font-weight: bold; }
       .aff-product-universal-box .aff-product-details-item td {
-        border-top: 1px solid #eee; }
+        border: none;
+        border-bottom: 1px solid #eee; }
+      .aff-product-universal-box .aff-product-details-item:last-child td {
+        border-bottom: none; }
   .aff-product-universal-box .aff-product-shops-item {
     -webkit-box-flex: 1;
         -ms-flex: 1 0 100%;
@@ -309,7 +315,7 @@
     width: 100%;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    margin-bottom: 25px;
+    padding: 25px 0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -317,7 +323,13 @@
         -ms-flex-pack: justify;
             justify-content: space-between;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+        flex-wrap: wrap;
+    border-bottom: 1px solid #eee; }
+    .aff-product-universal-box .aff-product-shops-item:first-child {
+      padding-top: 0; }
+    .aff-product-universal-box .aff-product-shops-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0; }
     .aff-product-universal-box .aff-product-shops-item-brand {
       width: 40%;
       display: -webkit-box;
@@ -330,36 +342,107 @@
           -ms-flex-align: center;
               align-items: center; }
     .aff-product-universal-box .aff-product-shops-item-info {
-      width: 50%; }
+      width: 50%;
+      text-align: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; }
+    .aff-product-universal-box .aff-product-shops-item-actions {
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: end;
+          -ms-flex-pack: end;
+              justify-content: flex-end; }
     .aff-product-universal-box .aff-product-shops-item-thumbnail {
-      display: block;
-      width: 100%;
-      max-width: 100% !important;
-      height: auto !important;
+      max-width: 100%;
+      height: auto;
+      max-height: 100px;
+      -o-object-fit: contain;
+         object-fit: contain;
       -webkit-box-shadow: none;
       box-shadow: none; }
     .aff-product-universal-box .aff-product-shops-item-price {
+      margin-bottom: 10px;
       -webkit-box-flex: 1;
           -ms-flex: 1 0 calc(40% - 10px);
               flex: 1 0 calc(40% - 10px);
-      display: -webkit-inline-box;
-      display: -ms-inline-flexbox;
-      display: inline-flex;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
       justify-self: flex-end;
       -webkit-box-pack: end;
           -ms-flex-pack: end;
               justify-content: flex-end;
       -webkit-box-align: center;
           -ms-flex-align: center;
-              align-items: center; }
+              align-items: center;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
       .aff-product-universal-box .aff-product-shops-item-price-current {
         color: #2fa32f;
-        font-size: 1.8rem; }
+        font-size: 1.8rem;
+        line-height: 2rem; }
       .aff-product-universal-box .aff-product-shops-item-price-old {
         color: red;
         font-size: 1.4rem;
+        line-height: 2rem;
         text-decoration: line-through;
         margin-left: 10px;
         font-weight: lighter; }
+      .aff-product-universal-box .aff-product-shops-item-price-indication {
+        display: inline; }
+    .aff-product-universal-box .aff-product-shops-item-indication {
+      color: #888;
+      font-size: .8rem;
+      line-height: 1.6rem; }
+      .aff-product-universal-box .aff-product-shops-item-indication-updated-at {
+        margin-top: 5px; }
+    .aff-product-universal-box .aff-product-shops-item-button {
+      width: 100%;
+      display: block;
+      font-weight: 400;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border: 1px solid transparent;
+      padding: .5rem .75rem;
+      font-size: 1rem;
+      line-height: 1.25;
+      border-radius: .25rem;
+      -webkit-transition: all .15s ease-in-out;
+      transition: all .15s ease-in-out;
+      text-decoration: none;
+      -ms-flex-item-align: end;
+          align-self: flex-end; }
+      .aff-product-universal-box .aff-product-shops-item-button-buy {
+        background-color: #ff8c14;
+        border-color: #ff870a;
+        color: white !important; }
+        .aff-product-universal-box .aff-product-shops-item-button-buy:hover, .aff-product-universal-box .aff-product-shops-item-button-buy:focus {
+          background-color: #ed7709;
+          border-color: #ed7709;
+          color: white !important; }
+      .aff-product-universal-box .aff-product-shops-item-button-not-available {
+        background-color: #fff;
+        border-color: #ccc;
+        color: black !important; }
+        .aff-product-universal-box .aff-product-shops-item-button-not-available:hover, .aff-product-universal-box .aff-product-shops-item-button-not-available:focus {
+          background-color: #e6e6e6;
+          border-color: #adadad;
+          color: black !important; }
     .aff-product-universal-box .aff-product-shops-item:last-child {
       margin-bottom: 0; }

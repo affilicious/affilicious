@@ -27,30 +27,32 @@
                             <?php if(aff_has_shop_old_price($shop)): ?>
                                 <span class="aff-product-shops-item-price-old"><?php aff_the_shop_old_price($shop); ?></span>
                             <?php endif; ?>
+
+                            <small class="aff-product-shops-item-price-indication aff-product-shops-item-indication">
+		                        <?php aff_the_shop_price_indication($shop); ?>
+                            </small>
                         </div>
+                    <?php endif; ?>
 
-                        <small class="aff-product-shops-item-indication-price aff-product-shops-item-indication">
-                            <?php aff_the_shop_price_indication($shop); ?>
+                    <div class="aff-product-shops-item-actions">
+                        <?php if(aff_is_shop_available($shop)): ?>
+                            <a class="aff-product-shops-item-button-buy aff-product-shops-item-button"
+                               href="<?php echo esc_attr(aff_get_shop_affiliate_link($shop)); ?>"
+                               rel="nofollow" target="blank">
+                                Jetzt kaufen
+                            </a>
+                        <?php else: ?>
+                            <a class="aff-product-shops-item-button-not-available aff-product-shops-item-button"
+                               href="<?php echo esc_attr(aff_get_shop_affiliate_link($shop)); ?>"
+                               rel="nofollow" target="blank">
+                                Nicht verfügbar
+                            </a>
+                        <?php endif; ?>
+
+                        <small class="aff-product-shops-item-indication-updated-at aff-product-shops-item-indication">
+		                    <?php aff_the_shop_updated_at_indication($shop); ?>
                         </small>
-                    <?php endif; ?>
-
-                    <?php if(aff_is_shop_available($shop)): ?>
-                        <a class="aff-product-shops-item-button-buy aff-product-shops-item-button"
-                           href="<?php echo esc_attr(aff_get_shop_affiliate_link($shop)); ?>"
-                           rel="nofollow" target="blank">
-                            Kaufen
-                        </a>
-                    <?php else: ?>
-                        <a class="aff-product-shops-item-button-not-available aff-product-shops-item-button"
-                           href="<?php echo esc_attr(aff_get_shop_affiliate_link($shop)); ?>"
-                           rel="nofollow" target="blank">
-                            Nicht verfügbar
-                        </a>
-                    <?php endif; ?>
-
-                    <small class="aff-product-shops-item-indication-updated-at aff-product-shops-item-indication">
-                        <?php aff_the_shop_updated_at_indication($shop); ?>
-                    </small>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
