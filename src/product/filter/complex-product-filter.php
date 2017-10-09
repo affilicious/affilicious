@@ -10,7 +10,7 @@ class Complex_Product_Filter
     /**
      * Filter the complex products in the front end. Just show the variants.
      *
-     * @hook pre_get_posts
+     * @filter pre_get_posts
      * @since 0.6
      * @param \WP_Query $query
      */

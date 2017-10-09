@@ -616,6 +616,10 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.product.filter.universal_box'] = function () {
+				return new \Affilicious\Product\Filter\Universal_Box_Filter();
+			};
+
 			$this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
 				return new \Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
@@ -942,6 +946,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];
 			add_action('wp_head', array($canonical_setup, 'init'));
+
+			// Hook the universal box
+			$universal_box_filter = $this->container['affilicious.product.filter.universal_box'];
+			add_filter('the_content', array($universal_box_filter, 'filter'));
 
 			// Hook the admin bar to make it compatible with products.
 			$admin_bar_setup = $this->container['affilicious.product.setup.admin_bar'];

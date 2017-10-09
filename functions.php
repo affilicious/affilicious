@@ -2657,30 +2657,3 @@ function aff_stringify_template($name, $params = [], $require = true)
 {
 	return Template_Helper::stringify($name, $params, $require);
 }
-
-
-function wpdev_before_after($content)
-{
-	if(!aff_is_product_page()) {
-		return $content;
-	}
-
-	$product = aff_get_product();
-	if(empty($product)) {
-		return $content;
-	}
-
-	$universal_box = aff_stringify_template('product/universal-box', [
-		'product' => $product
-	]);
-
-	return $content . $universal_box;
-}
-
-add_filter('the_content', 'wpdev_before_after');
-
-
-
-
-
-// http://wpdevelopers.com/adding-content-before-and-after-the_content/
