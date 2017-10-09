@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Filter;
 
+use Affilicious\Product\Helper\Universal_Mode_Helper;
+
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
@@ -15,9 +17,9 @@ class Universal_Box_Filter
 	 * @param string $content
 	 * @return string
 	 */
-	function filter($content)
+	public function filter($content)
 	{
-		if(!aff_is_product_page()) {
+		if(!aff_is_product_page() || !Universal_Mode_Helper::is_enabled()) {
 			return $content;
 		}
 
