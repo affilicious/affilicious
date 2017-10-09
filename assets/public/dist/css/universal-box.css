@@ -161,6 +161,7 @@
 .aff-product-universal-box {
   background-color: white;
   border: 1px solid #eee;
+  border-bottom: none;
   display: block;
   width: 100%;
   max-width: 800px;
@@ -182,7 +183,8 @@
             flex: 1 0 100%;
     width: 100%; }
   .aff-product-universal-box-column {
-    padding: 25px; }
+    padding: 25px;
+    border-bottom: 1px solid #eee; }
     .aff-product-universal-box-column-full-width {
       -webkit-box-flex: 1;
           -ms-flex: 1 0 100%;
@@ -195,10 +197,6 @@
       width: 50%; }
       .aff-product-universal-box-column-half-width:first-child {
         border-right: 1px solid #eee; }
-  .aff-product-universal-box-header {
-    border-bottom: 1px solid #eee; }
-  .aff-product-universal-box-footer {
-    border-top: 1px solid #eee; }
   .aff-product-universal-box-intro {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
@@ -296,6 +294,46 @@
     box-shadow: none;
     -o-object-fit: contain;
        object-fit: contain; }
+  .aff-product-universal-box .aff-product-attributes {
+    margin-bottom: 10px;
+    width: 100%; }
+    .aff-product-universal-box .aff-product-attributes-choices {
+      list-style: none;
+      width: 100%;
+      margin: 0; }
+      .aff-product-universal-box .aff-product-attributes-choices:last-child {
+        margin-bottom: 0; }
+      .aff-product-universal-box .aff-product-attributes-choices-list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
+        padding: 0; }
+    .aff-product-universal-box .aff-product-attributes-choice {
+      list-style: none;
+      border-width: 1px;
+      border-style: solid;
+      padding: 5px 10px;
+      margin: 0 10px 10px 0;
+      min-width: 50px;
+      text-align: center; }
+      .aff-product-universal-box .aff-product-attributes-choice.unreachable {
+        opacity: 0.5;
+        border-style: dotted; }
+      .aff-product-universal-box .aff-product-attributes-choice:first-child {
+        margin-left: 0; }
+      .aff-product-universal-box .aff-product-attributes-choice-list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
+        padding: 0; }
   .aff-product-universal-box .aff-product-details {
     border: none; }
     .aff-product-universal-box .aff-product-details-item {
@@ -419,7 +457,9 @@
       -ms-user-select: none;
       user-select: none;
       border: 1px solid transparent;
-      padding: .5rem .75rem;
+      padding: .75rem 1.5rem;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
       font-size: 1rem;
       line-height: 1.25;
       border-radius: .25rem;
@@ -446,3 +486,34 @@
           color: black !important; }
     .aff-product-universal-box .aff-product-shops-item:last-child {
       margin-bottom: 0; }
+  .aff-product-universal-box .aff-product-related {
+    margin-bottom: 25px; }
+    .aff-product-universal-box .aff-product-related-title {
+      margin: 0;
+      margin-bottom: 10px;
+      font-size: 1.4rem; }
+    .aff-product-universal-box .aff-product-related-scroll {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      padding-bottom: 10px; }
+    .aff-product-universal-box .aff-product-related-item {
+      cursor: pointer;
+      border: 1px solid #eee;
+      width: 150px;
+      height: 150px;
+      -webkit-box-flex: 1;
+          -ms-flex: 1 0 150px;
+              flex: 1 0 150px;
+      margin: 0;
+      margin-right: 25px;
+      overflow: hidden; }
+      .aff-product-universal-box .aff-product-related-item-thumbnail {
+        -o-object-fit: contain;
+           object-fit: contain;
+        max-width: 100%;
+        height: auto;
+        -webkit-box-shadow: none;
+        box-shadow: none; }
