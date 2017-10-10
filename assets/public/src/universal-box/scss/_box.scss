@@ -72,11 +72,12 @@
     }
 
     &-review {
-      flex: 1 0 calc(60% - 10px);
+      flex: 1 0 100%;
       display: inline-flex;
       justify-self: flex-start;
-      justify-content: flex-start;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
 
       &-rating {
         height: 25px;
@@ -92,7 +93,6 @@
       &-votes {
         font-size: 1rem;
         margin: 0;
-        margin-left: 10px;
       }
     }
 
@@ -363,7 +363,7 @@
         &-thumbnail {
           object-fit: contain;
           max-width: 100%;
-          height: auto;
+          height: 100%;
           -webkit-box-shadow: none;
           box-shadow: none;
         }
@@ -424,6 +424,14 @@
 
       &-price {
         flex-direction: column;
+        align-items: flex-end;
+      }
+      &-review {
+        flex-direction: column;
+        align-items: flex-start;
+        &-votes {
+          margin-left: 0;
+        }
       }
     }
   }
