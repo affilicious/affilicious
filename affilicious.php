@@ -384,6 +384,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Setup\Assets_Setup();
 			};
 
+			$this->container['affilicious.common.setup.image_size'] = function() {
+				return new \Affilicious\Common\Setup\Image_Size_Setup();
+			};
+
 			$this->container['affilicious.common.admin.filter.footer_text'] = function () {
 				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
@@ -950,6 +954,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];
 			add_action('wp_head', array($canonical_setup, 'init'));
+
+			// Hook the image sizes
+			$image_size_setup = $this->container['affilicious.common.setup.image_size'];
+			add_action('init', array($image_size_setup, 'init'));
 
 			// Hook the universal box
 			$universal_box_filter = $this->container['affilicious.product.filter.universal_box'];

@@ -125,6 +125,20 @@
       object-fit: contain;
     }
 
+    &-image-gallery {
+      &-item {
+        &-thumbnail {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          object-fit: contain;
+        }
+      }
+    }
+
     &-attributes {
       margin-bottom: 10px;
       width: 100%;

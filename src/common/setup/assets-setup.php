@@ -15,10 +15,14 @@ class Assets_Setup
      */
     public function add_styles()
     {
-        $base_public_url = \Affilicious::get_root_url() . 'assets/public/dist/css/';
+        $base_public_url = \Affilicious::get_root_url() . 'assets/public/dist/';
+        $base_vendor_url = \Affilicious::get_root_url() . 'assets/vendor/';
 
-        // Register Selectize styles
-        wp_enqueue_style('aff-universal-box', $base_public_url . 'universal-box.min.css', [], \Affilicious::VERSION);
+	    // Register Lightslider styles
+	    wp_enqueue_style('lightslider', $base_vendor_url . 'lightslider/css/lightslider.min.css', [], '1.1.6');
+
+        // Register universal box styles
+        wp_enqueue_style('aff-universal-box', $base_public_url . 'css/universal-box.min.css', ['lightslider'], \Affilicious::VERSION);
     }
 
     /**
@@ -29,6 +33,13 @@ class Assets_Setup
      */
     public function add_scripts()
     {
+	    $base_public_url = \Affilicious::get_root_url() . 'assets/public/dist/';
+	    $base_vendor_url = \Affilicious::get_root_url() . 'assets/vendor/';
 
+		// Register Lightslider scripts
+	    wp_enqueue_script('lightslider', $base_vendor_url . 'lightslider/js/lightslider.min.js', ['jquery'], '1.1.6', true);
+
+	    // Register universal box scripts
+	    wp_enqueue_script('aff-universal-box', $base_public_url . 'js/universal-box.min.js', ['lightslider'], \Affilicious::VERSION, true);
     }
 }
