@@ -3,7 +3,7 @@
 $product = !empty($product) ? $product : aff_get_product();
 ?>
 
-<?php do_action('affilicious_template_before_product_shops', $product); ?>
+<?php do_action('affilicious_template_before_product_universal_box_shops', $product); ?>
 
 <?php $shops = aff_get_product_shops($product); ?>
 <?php if(!empty($shops)): ?>
@@ -38,13 +38,13 @@ $product = !empty($product) ? $product : aff_get_product();
                             <a class="aff-product-shops-item-button-buy aff-product-shops-item-button"
                                href="<?php echo esc_attr(aff_get_shop_affiliate_link($shop)); ?>"
                                rel="nofollow" target="blank">
-                                Jetzt kaufen
+                                <?php aff_the_product_universal_box_buy_button_text($shop); ?>
                             </a>
                         <?php else: ?>
                             <a class="aff-product-shops-item-button-not-available aff-product-shops-item-button"
                                href="<?php echo esc_attr(aff_get_shop_affiliate_link($shop)); ?>"
                                rel="nofollow" target="blank">
-                                Nicht verfügbar
+	                            <?php aff_the_product_universal_box_not_available_button_text($shop); ?>
                             </a>
                         <?php endif; ?>
 
@@ -58,4 +58,4 @@ $product = !empty($product) ? $product : aff_get_product();
     </div>
 <?php endif; ?>
 
-<?php do_action('affilicious_template_after_product_shops', $product); ?>
+<?php do_action('affilicious_template_after_product_universal_box_shops', $product); ?>

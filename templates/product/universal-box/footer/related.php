@@ -3,7 +3,7 @@
 $product = !empty($product) ? $product : aff_get_product();
 ?>
 
-<?php do_action('affilicious_template_before_product_universal_box_intro', $product); ?>
+<?php do_action('affilicious_template_before_product_universal_box_related', $product); ?>
 
 <div class="aff-product-universal-box-related aff-product-universal-box-column-full-width aff-product-universal-box-column">
 	<?php if(aff_has_product_related_products()): ?>
@@ -15,4 +15,4 @@ $product = !empty($product) ? $product : aff_get_product();
 	<?php endif; ?>
 </div>
 
-<?php do_action('affilicious_template_after_product_universal_box_intro', $product); ?>
+<?php do_action('affilicious_template_after_product_universal_box_related', $product); ?>

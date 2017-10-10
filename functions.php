@@ -2657,3 +2657,81 @@ function aff_stringify_template($name, $params = [], $require = true)
 {
 	return Template_Helper::stringify($name, $params, $require);
 }
+
+/**
+ * Get the buy button text for the product universal box.
+ *
+ * @since 0.9.10
+ * @param null|array $shop The shop from which the data is taken.
+ * @return string The buy button text.
+ */
+function aff_get_product_universal_box_buy_button_text($shop = null)
+{
+	$text = get_theme_mod('aff_universal_box-shops-button_buy_text');
+	if(empty($text)) {
+		$text = __('Buy now at %s', 'affilicious');
+	}
+
+	if(isset($shop['name']) && strpos($text, '%s') !== false) {
+		$text = sprintf($text, $shop['name']);
+	}
+
+	return $text;
+}
+
+/**
+ * Print the buy button text for the product universal box.
+ *
+ * @since 0.9.10
+ * @param null|array $shop The shop from which the data is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_universal_box_buy_button_text($shop = null, $escape = true)
+{
+	$text = aff_get_product_universal_box_buy_button_text($shop);
+
+	if($escape) {
+		$text = esc_html($text);
+	}
+
+	echo $text;
+}
+
+/**
+ * Get the not available button text for the product universal box.
+ *
+ * @since 0.9.10
+ * @param null|array $shop The shop from which the data is taken.
+ * @return string The not available button text.
+ */
+function aff_get_product_universal_box_not_available_button_text($shop = null)
+{
+	$text = get_theme_mod('aff_universal_box-shops-button_not_available_text');
+	if(empty($text)) {
+		return __('Unfortunately not available', 'affilicious');
+	}
+
+	if(isset($shop['name']) && strpos($text, '%s') !== false) {
+		$text = sprintf($text, $shop['name']);
+	}
+
+	return $text;
+}
+
+/**
+ * Print the not available button text for the product universal box.
+ *
+ * @since 0.9.10
+ * @param null|array $shop The shop from which the data is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_universal_box_not_available_button_text($shop = null, $escape = true)
+{
+	$text = aff_get_product_universal_box_not_available_button_text($shop);
+
+	if($escape) {
+		$text = esc_html($text);
+	}
+
+	echo $text;
+}

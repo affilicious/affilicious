@@ -3,7 +3,7 @@
 $product = !empty($product) ? $product : aff_get_product();
 ?>
 
-<?php do_action('affilicious_template_before_product_image_gallery', $product); ?>
+<?php do_action('affilicious_template_before_product_universal_box_image_gallery', $product); ?>
 
 <?php $image_gallery = aff_get_product_image_gallery($product); ?>
 <div class="aff-product-image-gallery">
@@ -16,4 +16,4 @@ $product = !empty($product) ? $product : aff_get_product();
 	<?php endforeach; ?>
 </div>
 
-<?php do_action('affilicious_template_after_product_image_gallery', $product); ?>
+<?php do_action('affilicious_template_after_product_universal_box_image_gallery', $product); ?>

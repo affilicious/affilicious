@@ -3,7 +3,7 @@
 $product = !empty($product) ? $product : aff_get_product();
 ?>
 
-<?php do_action('affilicious_template_before_product_attribute_choices', $product); ?>
+<?php do_action('affilicious_template_before_product_universal_box_attribute_choices', $product); ?>
 
 <?php $attribute_choices = aff_get_product_attribute_choices($product) ?>
 <?php if(!empty($attribute_choices)): ?>
@@ -39,4 +39,4 @@ $product = !empty($product) ? $product : aff_get_product();
     </div>
 <?php endif; ?>
 
-<?php do_action('affilicious_template_after_product_attribute_choices', $product); ?>
+<?php do_action('affilicious_template_after_product_universal_box_attribute_choices', $product); ?>
