@@ -194,6 +194,7 @@
         td {
           border: none;
           border-bottom: 1px solid #eee;
+          padding: 7px 0;
         }
 
         &:last-child {
@@ -378,6 +379,51 @@
           -webkit-box-shadow: none;
           box-shadow: none;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aff-product-universal-box {
+    &-row {
+      flex-direction: column;
+    }
+    &-column-half-width {
+      flex: 1;
+      width: 100%;
+      &:first-child {
+        border-right: 0;
+      }
+    }
+    &-buy {
+      flex: 1;
+    }
+    .aff-product-shops {
+      &-item-brand, &-item-info  {
+        width: 100%;
+      }
+      &-item-price {
+        flex-direction: column;
+        margin-bottom: 5px;
+      }
+      &-item-price, &-item-actions {
+        flex: 1;
+        &-current {
+          margin-top: 15px;
+        }
+        &-old {
+          margin-left: 0;
+          margin-bottom: 15px;
+        }
+      }
+    }
+    .aff-product {
+      &-title {
+        text-align: center;
+      }
+      &-price {
+        flex-direction: column;
       }
     }
   }
