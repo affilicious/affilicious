@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-09-19 18:55+0200\n"
+"POT-Creation-Date: 2017-10-10 23:58+0200\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,9 +19,13 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+"X-Poedit-SearchPathExcluded-2: tests\n"
+"X-Poedit-SearchPathExcluded-3: tmp\n"
+"X-Poedit-SearchPathExcluded-4: *.js\n"
 
-#: affilicious.php:215
+#: affilicious.php:217
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
@@ -35,11 +39,11 @@ msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:2150
+#: functions.php:2129
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr ""
 
-#: functions.php:2210
+#: functions.php:2189
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
@@ -68,7 +72,6 @@ msgstr ""
 #: src/attribute/model/type.php:90
 #: src/detail/admin/meta-box/detail-template-meta-box.php:30
 #: src/detail/model/type.php:155
-#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:41
 msgid "Text"
 msgstr ""
 
@@ -166,17 +169,9 @@ msgid ""
 "Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 
-#: src/common/admin/license/license-manager.php:39
-msgid "Failed to store the license."
-msgstr ""
-
-#: src/common/admin/license/license-manager.php:61
-#: src/common/admin/license/license-manager.php:91
-msgid "Failed to find the license."
-msgstr ""
-
-#: src/common/admin/license/license-manager.php:68
-msgid "Failed to delete the license."
+#: src/common/admin/license/license-manager.php:81
+#: src/common/admin/license/license-manager.php:119
+msgid "Failed to find the license key."
 msgstr ""
 
 #: src/common/admin/license/license-status.php:48
@@ -215,22 +210,26 @@ msgstr ""
 msgid "Failed to deactivate the license."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:45
+#: src/common/admin/options/affilicious-options.php:56
 msgid "Licenses"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:46
+#: src/common/admin/options/affilicious-options.php:57
 msgid "Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:62
+#: src/common/admin/options/affilicious-options.php:58
+msgid "System"
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:75
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
 "\">Affilicious Theme</a>."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:63
+#: src/common/admin/options/affilicious-options.php:76
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
@@ -238,21 +237,21 @@ msgid ""
 "with."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:86
+#: src/common/admin/options/affilicious-options.php:99
 msgid "Custom Header Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:87
+#: src/common/admin/options/affilicious-options.php:100
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
 "or &lt;script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:88
+#: src/common/admin/options/affilicious-options.php:101
 msgid "Custom Footer Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:89
+#: src/common/admin/options/affilicious-options.php:102
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or "
 "JS with the proper &lt;style&gt or &lt;script&gt tags."
@@ -277,7 +276,7 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
-#: templates/admin/page/imports/amazon/search-results-item-template.php:43
+#: templates/admin/page/imports/amazon/search-results-item-template.php:45
 msgid "Variants"
 msgstr ""
 
@@ -286,6 +285,7 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
+#: src/product/customizer/universal-box-customizer.php:517
 #: src/shop/setup/shop-template-setup.php:27
 #: src/shop/setup/shop-template-setup.php:31
 #: templates/admin/page/imports/amazon/config-template.php:8
@@ -350,6 +350,7 @@ msgstr ""
 #: src/detail/setup/detail-template-setup.php:27
 #: src/detail/setup/detail-template-setup.php:31
 #: src/product/admin/meta-box/product-meta-box.php:88
+#: src/product/customizer/universal-box-customizer.php:387
 msgid "Details"
 msgstr ""
 
@@ -458,13 +459,13 @@ msgstr ""
 #: src/product/admin/filter/menu-order-filter.php:27
 #: src/product/admin/setup/import-page-setup.php:44
 #: templates/admin/page/imports.php:8
-#: templates/admin/page/imports/amazon/search-results-item-template.php:86
+#: templates/admin/page/imports/amazon/search-results-item-template.php:88
 msgid "Import"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:85
 #: src/product/admin/options/product-options.php:22
-#: vendor/htmlburger/carbon-fields/core/Container/Container.php:573
+#: src/product/customizer/universal-box-customizer.php:67
 msgid "General"
 msgstr ""
 
@@ -488,6 +489,7 @@ msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:111
 #: src/product/admin/meta-box/product-meta-box.php:209
+#: src/product/customizer/universal-box-customizer.php:147
 msgid "Tags"
 msgstr ""
 
@@ -582,6 +584,7 @@ msgid "Out Of Stock"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:369
+#: src/product/customizer/universal-box-customizer.php:291
 msgid "Price"
 msgstr ""
 
@@ -754,6 +757,222 @@ msgid ""
 "\"add_submenu_page\"."
 msgstr ""
 
+#: src/product/customizer/universal-box-customizer.php:39
+msgid "Universal box"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:73
+msgid "Box Background Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:85
+msgid "Box Border Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:117
+msgid "Title"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:123
+msgid "Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:153
+msgid "Tag Text Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:165
+msgid "Tag Text Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:181
+#: src/product/customizer/universal-box-customizer.php:209
+msgid "Tag Background Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:193
+#: src/product/customizer/universal-box-customizer.php:221
+msgid "Tag Background Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:249
+msgid "Reviews"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:255
+msgid "Rating Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:267
+msgid "Votes Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:297
+#: src/product/customizer/universal-box-customizer.php:523
+msgid "Price Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:309
+#: src/product/customizer/universal-box-customizer.php:535
+msgid "Old Price Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:333
+msgid "Attribute choices"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:339
+msgid "Attribute Choice Background Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:345
+msgid "Attribute Choice Background Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:351
+msgid "Attribute Choice Background Color (Selected)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:357
+msgid "Attribute Choice Border Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:363
+msgid "Attribute Choice Border Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:369
+msgid "Attribute Choice Border Color (Selected)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:393
+msgid "Background Color (Odd)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:405
+msgid "Background Color (Even)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:417
+msgid "Name Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:429
+msgid "Value Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:441
+#: src/product/customizer/universal-box-customizer.php:453
+msgid "File Link Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:469
+msgid "Boolean Check Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:481
+msgid "Boolean Cross Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:493
+msgid "Separator Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:547
+msgid "Price Indication Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:559
+msgid "Buy Text"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:560
+#: src/product/customizer/universal-box-customizer.php:651
+#, php-format
+msgid "Use %s as a placeholder for the shop name."
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:562
+#, php-format
+msgid "Buy now at %s"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:566
+msgid "Buy Background Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:578
+msgid "Buy Background Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:594
+msgid "Buy Border Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:606
+msgid "Buy Border Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:622
+msgid "Buy Text Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:634
+msgid "Buy Text Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:650
+msgid "Not Available Text"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:653
+msgid "Unfortunately not available."
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:657
+msgid "Not Available Background Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:669
+msgid "Not Available Background Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:685
+msgid "Not Available Border Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:697
+msgid "Not Available Border Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:713
+msgid "Not Available Text Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:725
+msgid "Not Available Text Color (Hover)"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:741
+msgid "Updated At Indication Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:753
+msgid "Separator color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:777
+msgid "Related products & accessories"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:783
+msgid "Title Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:795
+msgid "Item Border Color"
+msgstr ""
+
 #: src/product/meta-box/product-image-gallery-meta-box.php:53
 #: src/product/meta-box/product-image-gallery-meta-box.php:79
 #: src/product/meta-box/product-image-gallery-meta-box.php:80
@@ -911,6 +1130,35 @@ msgctxt "Product"
 msgid "Filter %s"
 msgstr ""
 
+#: src/product/update/configuration/configuration-context.php:124
+#, php-format
+msgid "Invalid configuration context. The value for the key \"%s\" is missing."
+msgstr ""
+
+#: src/product/update/configuration/configuration-context.php:132
+#, php-format
+msgid ""
+"Invalid configuration context. The value for the key \"%s\" must implement "
+"%s."
+msgstr ""
+
+#: src/product/update/configuration/configuration-context.php:140
+#, php-format
+msgid "Invalid configuration context. The value for the key %s is missing."
+msgstr ""
+
+#: src/product/update/configuration/configuration.php:132
+#, php-format
+msgid "Invalid configuration. Neither \"%s\" nor \"%s\" has been found."
+msgstr ""
+
+#: src/product/update/configuration/configuration.php:140
+#: src/product/update/configuration/configuration.php:147
+#: src/product/update/configuration/configuration.php:154
+#, php-format
+msgid "Invalid configuration. The value for the key \"%s\" is missing."
+msgstr ""
+
 #: src/provider/admin/options/amazon-options.php:51
 msgid "Amazon"
 msgstr ""
@@ -1029,6 +1277,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:127
 #: src/provider/admin/options/amazon-options.php:135
 #: src/provider/admin/options/amazon-options.php:143
+#: src/provider/admin/options/amazon-options.php:151
 msgid "Hourly"
 msgstr ""
 
@@ -1037,6 +1286,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:128
 #: src/provider/admin/options/amazon-options.php:136
 #: src/provider/admin/options/amazon-options.php:144
+#: src/provider/admin/options/amazon-options.php:152
 msgid "Twice Daily"
 msgstr ""
 
@@ -1045,6 +1295,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:129
 #: src/provider/admin/options/amazon-options.php:137
 #: src/provider/admin/options/amazon-options.php:145
+#: src/provider/admin/options/amazon-options.php:153
 msgid "Daily"
 msgstr ""
 
@@ -1053,6 +1304,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:130
 #: src/provider/admin/options/amazon-options.php:138
 #: src/provider/admin/options/amazon-options.php:146
+#: src/provider/admin/options/amazon-options.php:154
 msgid "No Updates"
 msgstr ""
 
@@ -1069,37 +1321,46 @@ msgid "The automatic update interval for the product image galleries."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:125
-msgid "Price Update Interval"
+msgid "Affiliate Link Update Interval"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:132
-msgid "The automatic update interval for the shop prices in the products."
+msgid ""
+"The automatic update interval for the shop affiliate links in the products."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:133
-msgid "Old Price Update Interval"
+msgid "Price Update Interval"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:140
-msgid "The automatic update interval for the old shop prices in the products."
+msgid "The automatic update interval for the shop prices in the products."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:141
-msgid "Availability Update Interval"
+msgid "Old Price Update Interval"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:148
+msgid "The automatic update interval for the old shop prices in the products."
+msgstr ""
+
+#: src/provider/admin/options/amazon-options.php:149
+msgid "Availability Update Interval"
+msgstr ""
+
+#: src/provider/admin/options/amazon-options.php:156
 msgid ""
 "The automatic update interval for the shop availabilities in the products."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:166
+#: src/provider/admin/options/amazon-options.php:174
 msgid ""
 "<b>The credentials are valid!</b> A connection to the Amazon Product "
 "Advertising API was successfully established."
 msgstr ""
 
-#: src/provider/admin/options/amazon-options.php:170
+#: src/provider/admin/options/amazon-options.php:178
 msgid ""
 "<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
 "Advertising API."
@@ -1315,7 +1576,6 @@ msgid "Publish product directly"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/config-template.php:50
-#: vendor/htmlburger/carbon-fields/templates/Container/theme_options.php:31
 msgid "Actions"
 msgstr ""
 
@@ -1349,7 +1609,6 @@ msgid "Enter your ASIN..."
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:12
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:226
 msgid "Search"
 msgstr ""
 
@@ -1362,7 +1621,7 @@ msgid "Keywords"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:20
-#: templates/admin/page/imports/amazon/search-results-item-template.php:36
+#: templates/admin/page/imports/amazon/search-results-item-template.php:38
 msgid "ASIN"
 msgstr ""
 
@@ -1411,251 +1670,28 @@ msgstr ""
 msgid "No more results"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:47
+#: templates/admin/page/imports/amazon/search-results-item-template.php:49
 msgid "Show all"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:88
+#: templates/admin/page/imports/amazon/search-results-item-template.php:90
 msgid "Successfully imported the product."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:90
+#: templates/admin/page/imports/amazon/search-results-item-template.php:92
 msgid "Failed to import the product."
 msgstr ""
 
-#: vendor/htmlburger/carbon-fields/core/Container/Container.php:765
-msgid "Please fill out all required fields highlighted below."
+#: templates/product/footer/relations/accessory.php:1
+msgid "Related accessories"
 msgstr ""
 
-#: vendor/htmlburger/carbon-fields/core/Container/Container.php:766
-msgid "The changes you made will be lost if you navigate away from this page."
+#: templates/product/footer/relations/product.php:1
+msgid "Related products"
 msgstr ""
 
-#: vendor/htmlburger/carbon-fields/core/Container/Theme_Options_Container.php:149
-msgid "Settings saved."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Association_Field.php:371
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:265
-msgid "Edit"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Broken_Field.php:11
-msgid "This field is misconfigured"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Color_Field.php:17
-msgid "Select a Color"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:40
-msgid "Entry"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:41
-msgid "Entries"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:497
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:498
-msgid "Collapse/Expand"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:501
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:502
-msgid "Clone"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:505
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:506
-msgid "Remove"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:572
-#, php-format
-msgid ""
-"Complex field \"%1$s\" layout is deprecated, please use \"%2$s\" or \"%3$s\" "
-"instead."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Complex_Field.php:585
-msgid "Complex field <code>"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Date_Field.php:39
-msgid "Date"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:818
-#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:28
-msgid "Files"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:819
-msgid "The address could not be found. "
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:820
-msgid "Geocode was not successful for the following reason: "
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:821
-#, php-format
-msgid "Maximum number of items reached (%s items)"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:822
-#, php-format
-msgid "Maximum number of rows reached (%s rows)"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:823
-#, php-format
-msgid "Cannot create more than %s rows"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:824
-msgid "Please enter the name of the new sidebar:"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:825
-msgid "Are you sure you wish to remove this sidebar?"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:826
-msgid "Add Sidebar"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:827
-#, php-format
-msgid "There are no %s yet. Click <a href=\"#\">here</a> to add one."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:828
-#, php-format
-msgid "Add %s"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:829
-#, php-format
-msgid "Minimum number of rows not reached (%d %s)"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:830
-msgid "Please fill out all fields correctly. "
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:831
-msgid "This field is required. "
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Field.php:832
-msgid "Please choose an option. "
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:26
-#: vendor/htmlburger/carbon-fields/core/Field/File_Field.php:27
-msgid "Select File"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Footer_Scripts_Field.php:14
-msgid ""
-"If you need to add scripts to your footer (like Google Analytics tracking "
-"code), you should enter them in this box."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:44
-msgid "No form"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:79
-msgid "Please install Gravity Forms plugin"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Gravity_Form_Field.php:85
-msgid "No Gravity Forms have been found."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Header_Scripts_Field.php:14
-msgid "If you need to add scripts to your header, you should enter them here."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:18
-#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:19
-msgid "Select Image"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Image_Field.php:20
-msgid "Images"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Map_Field.php:102
-msgid "Locate Address on the map"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Map_Field.php:107
-msgid "Find"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Radio_Field.php:15
-#: vendor/htmlburger/carbon-fields/core/Field/Select_Field.php:33
-#: vendor/htmlburger/carbon-fields/core/Field/Set_Field.php:73
-msgid "no options"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:211
-msgid "selected item"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:211
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:212
-msgid "selected items"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:219
-msgid "out of"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Relationship_Field.php:239
-msgid "Associated:"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:26
-#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:27
-msgid "Add Media"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Rich_Text_Field.php:38
-msgid "Visual"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Set_Field.php:92
-msgid "Show All Options"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Sidebar_Field.php:35
-msgctxt "sidebar"
-msgid "Add New"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Field/Time_Field.php:75
-msgid "Timepicker"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Manager/Sidebar_Manager.php:104
-msgid "Sidebar with the same ID is already registered."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/core/Manager/Sidebar_Manager.php:131
-msgid "Sidebar not found."
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/templates/Container/theme_options.php:40
-msgid "Save Changes"
-msgstr ""
-
-#: vendor/htmlburger/carbon-fields/templates/Container/widget.php:5
-msgid "No options are available for this widget."
+#: templates/product/universal-box/body/info/details.php:16
+msgid "Download"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
