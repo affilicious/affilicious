@@ -187,8 +187,33 @@
         font-size: 1rem;
         border: none;
 
+        &-name, &-value {
+          line-height: 2rem;
+        }
+
         &-name {
           font-weight: bold;
+        }
+
+        &-value {
+          &-boolean {
+            &-check, &-cross {
+              margin-top: -5px;
+              vertical-align: middle;
+            }
+
+            &-check {
+              path {
+                fill: rgb(92, 184, 92);
+              }
+            }
+
+            &-cross {
+              path {
+                fill: rgb(217, 83, 79);
+              }
+            }
+          }
         }
 
         td {

@@ -339,8 +339,17 @@
     .aff-product-universal-box .aff-product-details-item {
       font-size: 1rem;
       border: none; }
+      .aff-product-universal-box .aff-product-details-item-name, .aff-product-universal-box .aff-product-details-item-value {
+        line-height: 2rem; }
       .aff-product-universal-box .aff-product-details-item-name {
         font-weight: bold; }
+      .aff-product-universal-box .aff-product-details-item-value-boolean-check, .aff-product-universal-box .aff-product-details-item-value-boolean-cross {
+        margin-top: -5px;
+        vertical-align: middle; }
+      .aff-product-universal-box .aff-product-details-item-value-boolean-check path {
+        fill: #5cb85c; }
+      .aff-product-universal-box .aff-product-details-item-value-boolean-cross path {
+        fill: #d9534f; }
       .aff-product-universal-box .aff-product-details-item td {
         border: none;
         border-bottom: 1px solid #eee;
