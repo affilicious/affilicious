@@ -743,6 +743,10 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.product.customizer.universal_box'] = function() {
+				return new Affilicious\Product\Customizer\Universal_Box_Customizer();
+			};
+
 			$this->container['affilicious.product.migration.post_type'] = function () {
 				return new \Affilicious\Product\Migration\Post_Type_Migration();
 			};
@@ -971,9 +975,14 @@ if(!class_exists('Affilicious')) {
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
 			add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
 
-			// Hook the product taxonomy templates
+			// Hook the product taxonomy templates.
 			$taxonomy_templates_filter = $this->container['affilicious.common.filter.taxonomy_templates'];
 			add_filter('taxonomy_template_hierarchy', array($taxonomy_templates_filter, 'filter'));
+
+			// Hook the customizers.
+			$universal_box_customizer = $this->container['affilicious.product.customizer.universal_box'];
+			add_action('customize_register', array($universal_box_customizer, 'register'));
+			add_action('wp_enqueue_scripts', array($universal_box_customizer, 'render'));
 
 			// Hook into this action if you want to create custom extensions or themes with the dependency injection container.
 			do_action('aff_hooks');
