@@ -494,12 +494,13 @@
       display: flex;
       padding-bottom: 10px; }
     .aff-product-universal-box .aff-product-related-item {
+      padding: 0;
       cursor: pointer;
       width: 150px;
       height: 150px;
-      -webkit-box-flex: 1;
-          -ms-flex: 1 0 150px;
-              flex: 1 0 150px;
+      -webkit-box-flex: 0;
+          -ms-flex: 0 0 150px;
+              flex: 0 0 150px;
       margin: 0;
       margin-right: 25px;
       overflow: hidden;
