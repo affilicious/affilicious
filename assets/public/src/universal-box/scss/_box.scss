@@ -182,6 +182,10 @@
           flex-flow: row wrap;
           padding: 0;
         }
+
+        &-link {
+          text-decoration: none;
+        }
       }
     }
 

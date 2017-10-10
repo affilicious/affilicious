@@ -338,37 +338,81 @@ class Universal_Box_Customizer extends Abstract_Customizer
 		$panels['aff_universal_box']['sections']['attribute_choices']['settings']['choice-background-color'] = array(
 			'label'     => __('Attribute Choice Background Color', 'affilicious'),
 			'type'      => 'color',
-			'default'   => '#fff',
+			'default'   => '',
+			'css' => array(
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice:not(.selected)",
+					'property' => 'background-color',
+				),
+			)
 		);
 
 		$panels['aff_universal_box']['sections']['attribute_choices']['settings']['choice-background-color-hover'] = array(
 			'label'     => __('Attribute Choice Background Color (Hover)', 'affilicious'),
 			'type'      => 'color',
-			'default'   => '#fff',
+			'default'   => '',
+			'css' => array(
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice:not(.selected):hover",
+					'property' => 'background-color',
+				),
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice:not(.selected):focus",
+					'property' => 'background-color',
+				),
+			)
 		);
 
 		$panels['aff_universal_box']['sections']['attribute_choices']['settings']['choice-background-color-selected'] = array(
 			'label'     => __('Attribute Choice Background Color (Selected)', 'affilicious'),
 			'type'      => 'color',
-			'default'   => '#fff',
+			'default'   => '',
+			'css' => array(
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice.selected",
+					'property' => 'background-color',
+				),
+			)
 		);
 
 		$panels['aff_universal_box']['sections']['attribute_choices']['settings']['choice-border-color'] = array(
 			'label'     => __('Attribute Choice Border Color', 'affilicious'),
 			'type'      => 'color',
 			'default'   => '#999',
+			'css' => array(
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice:not(.selected)",
+					'property' => 'border-color',
+				),
+			)
 		);
 
 		$panels['aff_universal_box']['sections']['attribute_choices']['settings']['choice-border-color-hover'] = array(
 			'label'     => __('Attribute Choice Border Color (Hover)', 'affilicious'),
 			'type'      => 'color',
 			'default'   => '#333',
+			'css' => array(
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice:not(.selected):hover",
+					'property' => 'border-color',
+				),
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice:not(.selected):focus",
+					'property' => 'border-color',
+				),
+			)
 		);
 
 		$panels['aff_universal_box']['sections']['attribute_choices']['settings']['choice-border-color-selected'] = array(
 			'label'     => __('Attribute Choice Border Color (Selected)', 'affilicious'),
 			'type'      => 'color',
 			'default'   => '#000',
+			'css' => array(
+				array(
+					'selector' => ".aff-product-universal-box .aff-product-attributes-choice.selected",
+					'property' => 'border-color',
+				),
+			)
 		);
 
 		return $panels;
