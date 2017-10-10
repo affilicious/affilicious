@@ -8,12 +8,14 @@ if (!defined('ABSPATH')) {
 interface Customizer_Interface
 {
 	/**
-	 * Name of the customizer used for the stylesheet handle name.
+	 * Name of the customizer.
 	 *
 	 * @since 0.9.10
 	 * @return string
 	 */
 	public function get_name();
+
+	public function get_stylesheet_handle();
 
     /**
      * Register the panels, sections and settings of the customizer in the back-end.

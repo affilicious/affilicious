@@ -30,7 +30,7 @@ abstract class Abstract_Customizer implements Customizer_Interface
         $styles = $this->get_inline_styles($panels, false);
 
         // Attach our customizer styles to our stylesheet.
-        wp_add_inline_style($this->get_name(), $styles);
+        wp_add_inline_style($this->get_stylesheet_handle(), $styles);
     }
 
     /**
@@ -82,10 +82,19 @@ abstract class Abstract_Customizer implements Customizer_Interface
 
                     // Start building an array of args for adding the setting.
                     $setting_args = array(
-                        'default'              => $setting['default'],
-                        'sanitize_callback'    => $setting['sanitize_callback'],
-                        'sanitize_js_callback' => $setting['sanitize_js_callback'],
+                        'default' => !empty($setting['default']) ? $setting['default'] : '',
+	                    'transport' => !empty($setting['transport']) ? $setting['transport'] : 'refresh',
                     );
+
+                    // Sanitize callback
+                    if($setting['type'] == 'color' && empty($setting['sanitize_callback'])) {
+                    	$setting_args['sanitize_callback'] = 'sanitize_hex_color';
+                    }
+
+                    // Sanitize JS callback
+	                if($setting['type'] == 'color' && empty($setting['sanitize_js_callback'])) {
+		                $setting_args['sanitize_js_callback'] = 'sanitize_hex_color';
+	                }
 
                     // Register the setting.
                     $wp_customize->add_setting(
@@ -140,13 +149,20 @@ abstract class Abstract_Customizer implements Customizer_Interface
         foreach ($panels as $panel_id => $panel) {
             foreach ($panel['sections'] as $section_id => $section) {
                 foreach ($section['settings'] as $setting_id => $setting) {
+                	if(empty($setting['type']) || $setting['type'] == 'text') {
+                		continue;
+	                }
 
                     // Grab the css for this setting.
-                    $css_rules = $setting['css'];
+                    $css_rules = !empty($setting['css']) ? $setting['css'] : [];
 
                     $value = get_theme_mod(sprintf('%s-%s-%s', $panel_id, $section_id, $setting_id));
                     if(empty($value)) {
-                        continue;
+                    	if(!isset($setting['default'])) {
+                    		continue;
+	                    }
+
+                        $value = $setting['default'];
                     }
 
                     // For each css rule...

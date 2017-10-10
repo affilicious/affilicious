@@ -159,8 +159,8 @@
     clear: both; }
 
 .aff-product-universal-box {
-  background-color: white;
-  border: 1px solid #eee;
+  border-width: 1px;
+  border-style: solid;
   border-bottom: none;
   display: block;
   width: 100%;
@@ -184,7 +184,8 @@
     width: 100%; }
   .aff-product-universal-box-column {
     padding: 25px;
-    border-bottom: 1px solid #eee; }
+    border-bottom-width: 1px;
+    border-bottom-style: solid; }
     .aff-product-universal-box-column-full-width {
       -webkit-box-flex: 1;
           -ms-flex: 1 0 100%;
@@ -196,7 +197,8 @@
               flex: 1 0 50%;
       width: 50%; }
       .aff-product-universal-box-column-half-width:first-child {
-        border-right: 1px solid #eee; }
+        border-right-width: 1px;
+        border-right-style: solid; }
   .aff-product-universal-box-intro {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
@@ -223,9 +225,8 @@
     display: -ms-flexbox;
     display: flex; }
     .aff-product-universal-box .aff-product-tags-item {
-      background-color: #3bafda;
-      border: 1px solid #379ac3;
-      color: white;
+      min-width: 50px;
+      text-align: center;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       padding: 5px 10px;
@@ -233,8 +234,6 @@
       margin-right: 10px;
       font-size: 0.8rem;
       border-radius: 5px; }
-      .aff-product-universal-box .aff-product-tags-item:hover {
-        background-color: #379ac3; }
   .aff-product-universal-box .aff-product-review {
     -webkit-box-flex: 1;
         -ms-flex: 1 0 calc(60% - 10px);
@@ -256,8 +255,6 @@
         margin: 0;
         width: 25px;
         height: 25px; }
-        .aff-product-universal-box .aff-product-review-rating-star path {
-          fill: #ffd055 !important; }
     .aff-product-universal-box .aff-product-review-votes {
       font-size: 1rem;
       margin: 0;
@@ -277,10 +274,8 @@
         -ms-flex-align: center;
             align-items: center; }
     .aff-product-universal-box .aff-product-price-current {
-      color: #2fa32f;
       font-size: 1.8rem; }
     .aff-product-universal-box .aff-product-price-old {
-      color: red;
       font-size: 1.4rem;
       text-decoration: line-through;
       margin-left: 10px;
@@ -343,16 +338,15 @@
         line-height: 2rem; }
       .aff-product-universal-box .aff-product-details-item-name {
         font-weight: bold; }
+      .aff-product-universal-box .aff-product-details-item-value-file a {
+        text-decoration: none; }
       .aff-product-universal-box .aff-product-details-item-value-boolean-check, .aff-product-universal-box .aff-product-details-item-value-boolean-cross {
         margin-top: -5px;
         vertical-align: middle; }
-      .aff-product-universal-box .aff-product-details-item-value-boolean-check path {
-        fill: #5cb85c; }
-      .aff-product-universal-box .aff-product-details-item-value-boolean-cross path {
-        fill: #d9534f; }
       .aff-product-universal-box .aff-product-details-item td {
         border: none;
-        border-bottom: 1px solid #eee;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
         padding: 7px 0; }
       .aff-product-universal-box .aff-product-details-item:last-child td {
         border-bottom: none; }
@@ -372,7 +366,8 @@
             justify-content: space-between;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    border-bottom: 1px solid #eee; }
+    border-bottom-width: 1px;
+    border-bottom-style: solid; }
     .aff-product-universal-box .aff-product-shops-item:first-child {
       padding-top: 0; }
     .aff-product-universal-box .aff-product-shops-item:last-child {
@@ -440,11 +435,9 @@
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
       .aff-product-universal-box .aff-product-shops-item-price-current {
-        color: #2fa32f;
         font-size: 1.8rem;
         line-height: 2rem; }
       .aff-product-universal-box .aff-product-shops-item-price-old {
-        color: red;
         font-size: 1.4rem;
         line-height: 2rem;
         text-decoration: line-through;
@@ -453,7 +446,6 @@
       .aff-product-universal-box .aff-product-shops-item-price-indication {
         display: inline; }
     .aff-product-universal-box .aff-product-shops-item-indication {
-      color: #888;
       font-size: .8rem;
       line-height: 1.6rem; }
       .aff-product-universal-box .aff-product-shops-item-indication-updated-at {
@@ -483,22 +475,6 @@
           align-self: flex-end;
       -webkit-box-shadow: none !important;
               box-shadow: none !important; }
-      .aff-product-universal-box .aff-product-shops-item-button-buy {
-        background-color: #ff8c14;
-        border-color: #ff870a;
-        color: white !important; }
-        .aff-product-universal-box .aff-product-shops-item-button-buy:hover, .aff-product-universal-box .aff-product-shops-item-button-buy:focus {
-          background-color: #ed7709;
-          border-color: #ed7709;
-          color: white !important; }
-      .aff-product-universal-box .aff-product-shops-item-button-not-available {
-        background-color: #fff;
-        border-color: #ccc;
-        color: black !important; }
-        .aff-product-universal-box .aff-product-shops-item-button-not-available:hover, .aff-product-universal-box .aff-product-shops-item-button-not-available:focus {
-          background-color: #e6e6e6;
-          border-color: #adadad;
-          color: black !important; }
     .aff-product-universal-box .aff-product-shops-item:last-child {
       margin-bottom: 0; }
   .aff-product-universal-box .aff-product-related {
@@ -516,7 +492,6 @@
       padding-bottom: 10px; }
     .aff-product-universal-box .aff-product-related-item {
       cursor: pointer;
-      border: 1px solid #eee;
       width: 150px;
       height: 150px;
       -webkit-box-flex: 1;
@@ -524,7 +499,9 @@
               flex: 1 0 150px;
       margin: 0;
       margin-right: 25px;
-      overflow: hidden; }
+      overflow: hidden;
+      border-width: 1px;
+      border-style: solid; }
       .aff-product-universal-box .aff-product-related-item-thumbnail {
         -o-object-fit: contain;
            object-fit: contain;
