@@ -437,7 +437,7 @@
           -ms-flex: 1;
               flex: 1; }
     .aff-product-universal-box .aff-product-shops-item-thumbnail {
-      max-width: 250px;
+      max-width: 200px;
       height: auto;
       max-height: 100px;
       -o-object-fit: contain;

@@ -63,8 +63,8 @@ class Product_Options
 			Carbon_Field::make('select', 'affilicious_options_product_container_universal_box_tab_position_field', __('Position', 'affilicious'))
 	            ->help_text(__('Whether the position of the universal box is above or below the content.', 'affilicious'))
 				->add_options([
-					'above' => __('Above the content', 'affilicious'),
 					'below' => __('Below the content', 'affilicious'),
+					'above' => __('Above the content', 'affilicious'),
 				])
 	            ->set_required(true),
 		];

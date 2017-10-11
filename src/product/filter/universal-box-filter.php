@@ -73,7 +73,7 @@ class Universal_Box_Filter
 	{
 		$position = carbon_get_theme_option('affilicious_options_product_container_universal_box_tab_position_field');
 		if(empty($position)) {
-			$position = 'above';
+			$position = 'below';
 		}
 
 		return $position;
