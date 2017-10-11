@@ -25,11 +25,13 @@
     &-full-width {
       flex: 1 0 100%;
       width: 100%;
+      max-width: 100%;
     }
 
     &-half-width {
       flex: 1 0 50%;
       width: 50%;
+      max-width: 50%;
 
       &:first-child {
         border-right-width: 1px;
@@ -420,6 +422,7 @@
       &-half-width {
         flex: 1;
         width: 100%;
+        max-width: 100%;
 
         &:first-child {
           border-right: 0;

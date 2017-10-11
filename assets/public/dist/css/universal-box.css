@@ -191,12 +191,14 @@
       -webkit-box-flex: 1;
           -ms-flex: 1 0 100%;
               flex: 1 0 100%;
-      width: 100%; }
+      width: 100%;
+      max-width: 100%; }
     .aff-product-universal-box-column-half-width {
       -webkit-box-flex: 1;
           -ms-flex: 1 0 50%;
               flex: 1 0 50%;
-      width: 50%; }
+      width: 50%;
+      max-width: 50%; }
       .aff-product-universal-box-column-half-width:first-child {
         border-right-width: 1px;
         border-right-style: solid; }
@@ -550,7 +552,8 @@
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
-    width: 100%; }
+    width: 100%;
+    max-width: 100%; }
     .aff-product-universal-box-column-half-width:first-child {
       border-right: 0; }
   .aff-product-universal-box-buy {
