@@ -60,13 +60,13 @@
     &-tags {
       flex: 1 0 100%;
       display: flex;
+      margin-bottom: 20px;
 
       &-item {
         min-width: 50px;
         text-align: center;
         box-sizing: border-box;
         padding: 5px 10px;
-        margin-bottom: 15px;
         margin-right: 10px;
         font-size: 11.2px;
         -webkit-border-radius: 5px;
