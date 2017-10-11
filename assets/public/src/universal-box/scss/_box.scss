@@ -50,9 +50,9 @@
     &-title {
       flex: 1 0 100%;
       margin: 0;
-      font-size: 2rem;
-      line-height: 2.5rem;
-      margin-bottom: 15px;
+      font-size: 28px;
+      line-height: 35px;
+      margin-bottom: 20px;
       font-weight: bold;
     }
 
@@ -67,7 +67,7 @@
         padding: 5px 10px;
         margin-bottom: 15px;
         margin-right: 10px;
-        font-size: 0.8rem;
+        font-size: 11.2px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
@@ -77,7 +77,7 @@
     &-review {
       flex: 1 0 auto;
       display: inline-flex;
-      justify-self: flex-start;
+      justify-self: flex-end;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
@@ -94,7 +94,7 @@
       }
 
       &-votes {
-        font-size: 1rem;
+        font-size: 14px;
         margin: 0;
       }
     }
@@ -107,11 +107,11 @@
       align-items: center;
 
       &-current {
-        font-size: 1.8rem;
+        font-size: 25.2px;
       }
 
       &-old {
-        font-size: 1.4rem;
+        font-size: 19.6px;
         text-decoration: line-through;
         margin-left: 10px;
         font-weight: lighter;
@@ -126,6 +126,7 @@
       -webkit-box-shadow: none;
       box-shadow: none;
       object-fit: contain;
+      padding: 0;
     }
 
     &-image-gallery {
@@ -196,11 +197,11 @@
       border: none;
 
       &-item {
-        font-size: 1rem;
+        font-size: 14px;
         border: none;
 
         &-name, &-value {
-          line-height: 2rem;
+          line-height: 28px;
         }
 
         &-name {
@@ -226,8 +227,10 @@
           border: none;
           border-bottom-width: 1px;
           border-bottom-style: solid;
-          padding: 7px 0;
+          padding: 5px 10px;
+          box-sizing: border-box;
           text-align: left;
+          background-color: transparent !important;
         }
 
         &:last-child {
@@ -260,6 +263,7 @@
         }
 
         &-brand {
+          box-sizing: border-box;
           width: 40%;
           display: flex;
           justify-content: center;
@@ -267,6 +271,7 @@
         }
 
         &-info {
+          box-sizing: border-box;
           width: 50%;
           text-align: center;
           display: flex;
@@ -291,8 +296,8 @@
         }
 
         &-price {
-          margin-bottom: 10px;
           flex: 1;
+          margin-bottom: 20px;
           display: flex;
           justify-self: flex-end;
           justify-content: flex-end;
@@ -300,26 +305,29 @@
           flex-wrap: wrap;
 
           &-current {
-            font-size: 1.8rem;
-            line-height: 2rem;
+            font-size: 25.2px;
+            line-height: 28px;
           }
 
           &-old {
-            font-size: 1.4rem;
-            line-height: 2rem;
+            font-size: 19.6px;
+            line-height: 28px;
             text-decoration: line-through;
             margin-left: 10px;
             font-weight: lighter;
           }
 
           &-indication {
-            display: inline;
+            display: block;
+            max-width: 100%;
+            width: 100%;
+            text-align: right;
           }
         }
 
         &-indication {
-          font-size: .8rem;
-          line-height: 1.6rem;
+          font-size: 12px;
+          line-height: 22.4px;
 
           &-updated-at {
             margin-top: 5px;
@@ -338,11 +346,11 @@
           -ms-user-select: none;
           user-select: none;
           border: 1px solid transparent;
-          padding: .75rem 1.5rem;
+          padding: 10px;
           box-sizing: border-box;
-          font-size: 1rem;
-          line-height: 1.25;
-          border-radius: .25rem;
+          font-size: 14px;
+          line-height: 17.5px;
+          border-radius: 5px;
           transition: all .15s ease-in-out;
           text-decoration: none;
           align-self: flex-end;
@@ -361,7 +369,7 @@
       &-title {
         margin: 0;
         margin-bottom: 10px;
-        font-size: 1.4rem;
+        font-size: 19.6px;
       }
 
       &-scroll {
@@ -389,24 +397,8 @@
           height: 100%;
           -webkit-box-shadow: none;
           box-shadow: none;
+          padding: 0;
         }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .aff-product-universal-box {
-    .aff-product {
-      &-title {
-        text-align: center;
-      }
-      &-review {
-        flex: 1 0 100%;
-        margin-bottom: 20px;
-      }
-      &-price, &-review {
-        align-items: center !important;
       }
     }
   }
@@ -430,43 +422,45 @@
       }
     }
 
-    &-buy {
-      flex: 1;
-    }
-
     .aff-product-shops {
-      &-item-brand, &-item-info  {
+      &-item-brand,
+      &-item-info  {
+        flex: 1 0 100%;
+        max-width: 100%;
         width: 100%;
-      }
-
-      &-item-price {
-        flex-direction: column;
-        margin-bottom: 5px;
-      }
-
-      &-item-price, &-item-actions {
-        flex: 1;
-
-        &-current {
-          margin-top: 15px;
-        }
-
-        &-old {
-          margin-left: 0;
-          margin-bottom: 15px;
-        }
       }
     }
 
     .aff-product {
-      &-price, &-review {
-        flex-direction: column !important;
+      &-title {
+        text-align: center;
       }
-      &-price {
-        align-items: flex-end;
-      }
+
       &-review {
-        align-items: flex-start;
+        margin-bottom: 20px !important;
+      }
+
+      &-price,
+      &-shop-item-price,
+      &-review {
+        text-align: center;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      &-price,
+      &-shops-item-price {
+        &-current,
+        &-old,
+        &-indication {
+          display: block;
+          width: 100%;
+          margin: 0 !important;
+          text-align: center;
+        }
+      }
+
+      &-review {
         &-votes {
           margin-left: 0;
         }

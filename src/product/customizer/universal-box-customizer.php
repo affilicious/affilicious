@@ -441,7 +441,7 @@ class Universal_Box_Customizer extends Abstract_Customizer
 	    $panels['aff_universal_box']['sections']['details']['settings']['background_color_odd'] = array(
 		    'label'     => __('Background Color (Odd)', 'affilicious'),
 		    'type'      => 'color',
-		    'default'   => '',
+		    'default'   => '#fff',
 		    'css' => array(
 			    array(
 				    'selector' => ".aff-product-universal-box .aff-product-details-item:nth-child(odd)",
@@ -453,7 +453,7 @@ class Universal_Box_Customizer extends Abstract_Customizer
 	    $panels['aff_universal_box']['sections']['details']['settings']['background_color_even'] = array(
 		    'label'     => __('Background Color (Even)', 'affilicious'),
 		    'type'      => 'color',
-		    'default'   => '',
+		    'default'   => '#fff',
 		    'css' => array(
 			    array(
 				    'selector' => ".aff-product-universal-box .aff-product-details-item:nth-child(even)",
