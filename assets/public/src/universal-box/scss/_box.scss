@@ -73,7 +73,7 @@
     }
 
     &-review {
-      flex: 1 0 100%;
+      flex: 1 0 auto;
       display: inline-flex;
       justify-self: flex-start;
       justify-content: center;
@@ -225,6 +225,7 @@
           border-bottom-width: 1px;
           border-bottom-style: solid;
           padding: 7px 0;
+          text-align: left;
         }
 
         &:last-child {
@@ -392,6 +393,23 @@
   }
 }
 
+@media screen and (max-width: 576px) {
+  .aff-product-universal-box {
+    .aff-product {
+      &-title {
+        text-align: center;
+      }
+      &-review {
+        flex: 1 0 100%;
+        margin-bottom: 20px;
+      }
+      &-price, &-review {
+        align-items: center !important;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .aff-product-universal-box {
     &-row {
@@ -438,16 +456,13 @@
     }
 
     .aff-product {
-      &-title {
-        text-align: center;
+      &-price, &-review {
+        flex-direction: column !important;
       }
-
       &-price {
-        flex-direction: column;
         align-items: flex-end;
       }
       &-review {
-        flex-direction: column;
         align-items: flex-start;
         &-votes {
           margin-left: 0;

@@ -237,8 +237,8 @@
       border-radius: 5px; }
   .aff-product-universal-box .aff-product-review {
     -webkit-box-flex: 1;
-        -ms-flex: 1 0 100%;
-            flex: 1 0 100%;
+        -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
@@ -362,7 +362,8 @@
         border: none;
         border-bottom-width: 1px;
         border-bottom-style: solid;
-        padding: 7px 0; }
+        padding: 7px 0;
+        text-align: left; }
       .aff-product-universal-box .aff-product-details-item:last-child td {
         border-bottom: none; }
   .aff-product-universal-box .aff-product-shops-item {
@@ -526,6 +527,19 @@
         -webkit-box-shadow: none;
         box-shadow: none; }
 
+@media screen and (max-width: 576px) {
+  .aff-product-universal-box .aff-product-title {
+    text-align: center; }
+  .aff-product-universal-box .aff-product-review {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 100%;
+            flex: 1 0 100%;
+    margin-bottom: 20px; }
+  .aff-product-universal-box .aff-product-price, .aff-product-universal-box .aff-product-review {
+    -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+            align-items: center !important; } }
+
 @media screen and (max-width: 768px) {
   .aff-product-universal-box-row {
     -webkit-box-orient: vertical;
@@ -560,21 +574,16 @@
     .aff-product-universal-box .aff-product-shops-item-price-old, .aff-product-universal-box .aff-product-shops-item-actions-old {
       margin-left: 0;
       margin-bottom: 15px; }
-  .aff-product-universal-box .aff-product-title {
-    text-align: center; }
+  .aff-product-universal-box .aff-product-price, .aff-product-universal-box .aff-product-review {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important; }
   .aff-product-universal-box .aff-product-price {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
     -webkit-box-align: end;
         -ms-flex-align: end;
             align-items: flex-end; }
   .aff-product-universal-box .aff-product-review {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start; }
