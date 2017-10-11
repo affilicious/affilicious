@@ -230,8 +230,12 @@
   display: none;
   visibility: hidden; }
 
-.taxonomy-aff_shop_tmpl .wp-list-table .column-thumbnail img {
-  width: 100%;
-  max-width: 100px;
-  height: auto; }
+.taxonomy-aff_shop_tmpl .wp-list-table .column-thumbnail,
+.post-type-aff_product .wp-list-table .column-thumbnail {
+  width: 100px; }
+  .taxonomy-aff_shop_tmpl .wp-list-table .column-thumbnail img,
+  .post-type-aff_product .wp-list-table .column-thumbnail img {
+    width: 100%;
+    max-width: 100px;
+    height: auto; }
 

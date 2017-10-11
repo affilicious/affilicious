@@ -11,13 +11,16 @@
   }
 }
 
-.taxonomy-aff_shop_tmpl {
+.taxonomy-aff_shop_tmpl,
+.post-type-aff_product {
   .wp-list-table {
     .column {
       &-thumbnail {
+        width: 100px;
+
         img {
           width: 100%;
-          max-width: $shop-column-logo-thumbnail-width;
+          max-width: 100px;
           height: auto;
         }
       }

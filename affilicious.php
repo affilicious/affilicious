@@ -815,6 +815,14 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Product\Admin\Setup\Import_Page_Setup();
 			};
 
+			$this->container['affilicious.product.admin.filter.table_columns'] = function () {
+				return new \Affilicious\Product\Admin\Filter\Table_Columns_Filter();
+			};
+
+			$this->container['affilicious.product.admin.filter.table_rows'] = function () {
+				return new \Affilicious\Product\Admin\Filter\Table_Rows_Filter();
+			};
+
 			$this->container['affilicious.product.admin.page.amazon_import'] = function ($c) {
 				return new \Affilicious\Product\Admin\Page\Amazon\Amazon_Import_Page(
 					$c['affilicious.shop.repository.shop_template'],
@@ -1039,8 +1047,12 @@ if(!class_exists('Affilicious')) {
 			// Hook the product admin table filters.
 			$product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];
 			$product_admin_table_count_filter = $this->container['affilicious.product.admin.filter.table_count'];
+			$product_admin_table_columns_filter = $this->container['affilicious.product.admin.filter.table_columns'];
+			$product_admin_table_rows_filter = $this->container['affilicious.product.admin.filter.table_rows'];
 			add_action('pre_get_posts', array($product_admin_table_content_filter, 'filter'));
 			add_filter("views_edit-aff_product", array($product_admin_table_count_filter, 'filter'), 10, 1);
+			add_filter('manage_aff_product_posts_columns', array($product_admin_table_columns_filter, 'filter'));
+			add_filter('manage_aff_product_posts_custom_column', array($product_admin_table_rows_filter, 'filter'), 10, 2);
 
 			// Hook the attribute template admin table filters.
 			$attribute_template_admin_table_columns_filter = $this->container['affilicious.attribute.admin.filter.table_columns'];
