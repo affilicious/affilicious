@@ -19,12 +19,18 @@ class Table_Columns_Filter
     {
         // Add the new columns
         $temp_columns = $columns;
-        array_splice($temp_columns, 5);
+        array_splice($temp_columns, 1);
 
         $temp_columns['thumbnail'] = __('Thumbnail', 'affilicious');
-        $temp_columns['provider'] = __('Provider', 'affilicious');
 
         $columns = array_merge($temp_columns, $columns);
+
+	    $temp_columns = $columns;
+	    array_splice($temp_columns, 5);
+
+	    $temp_columns['provider'] = __('Provider', 'affilicious');
+
+	    $columns = array_merge($temp_columns, $columns);
 
         // Remove some existing columns
         unset($columns['description'], $columns['posts']);
