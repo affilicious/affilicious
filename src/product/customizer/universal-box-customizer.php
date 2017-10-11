@@ -2,6 +2,7 @@
 namespace Affilicious\Product\Customizer;
 
 use Affilicious\Common\Customizer\Abstract_Customizer;
+use Affilicious\Product\Helper\Universal_Mode_Helper;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -33,6 +34,10 @@ class Universal_Box_Customizer extends Abstract_Customizer
      */
     protected function build()
     {
+	    if(!Universal_Mode_Helper::is_enabled()) {
+		    return [];
+	    }
+
         $panels = [];
 
         $panels['aff_universal_box'] = [

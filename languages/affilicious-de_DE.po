@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-10-10 23:58+0200\n"
+"POT-Creation-Date: 2017-10-11 09:26+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -52,6 +52,15 @@ msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
+
+#: functions.php:2672 src/product/customizer/universal-box-customizer.php:606
+#, php-format
+msgid "Buy now at %s"
+msgstr "Jetzt bei %s kaufen"
+
+#: functions.php:2711
+msgid "Unfortunately not available"
+msgstr "Leider nicht verfügbar"
 
 #: src/attribute/admin/filter/table-columns-filter.php:24
 #: src/attribute/admin/meta-box/attribute-template-meta-box.php:27
@@ -300,7 +309,7 @@ msgstr "Varianten"
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
-#: src/product/customizer/universal-box-customizer.php:517
+#: src/product/customizer/universal-box-customizer.php:561
 #: src/shop/setup/shop-template-setup.php:27
 #: src/shop/setup/shop-template-setup.php:31
 #: templates/admin/page/imports/amazon/config-template.php:8
@@ -365,7 +374,7 @@ msgstr "Detail-Vorlagen"
 #: src/detail/setup/detail-template-setup.php:27
 #: src/detail/setup/detail-template-setup.php:31
 #: src/product/admin/meta-box/product-meta-box.php:88
-#: src/product/customizer/universal-box-customizer.php:387
+#: src/product/customizer/universal-box-customizer.php:431
 msgid "Details"
 msgstr "Details"
 
@@ -482,8 +491,14 @@ msgstr ""
 msgid "Import"
 msgstr "Importieren"
 
+#: src/product/admin/filter/table-columns-filter.php:24
+#: src/product/admin/meta-box/product-meta-box.php:212
+#: src/shop/admin/filter/table-columns-filter.php:24
+msgid "Thumbnail"
+msgstr "Beitragsbild"
+
 #: src/product/admin/meta-box/product-meta-box.php:85
-#: src/product/admin/options/product-options.php:22
+#: src/product/admin/options/product-options.php:23
 #: src/product/customizer/universal-box-customizer.php:67
 msgid "General"
 msgstr "Allgemein"
@@ -546,11 +561,6 @@ msgstr "Standartvariante"
 #: src/product/admin/meta-box/product-meta-box.php:204
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
-
-#: src/product/admin/meta-box/product-meta-box.php:212
-#: src/shop/admin/filter/table-columns-filter.php:24
-msgid "Thumbnail"
-msgstr "Beitragsbild"
 
 #: src/product/admin/meta-box/product-meta-box.php:213
 #: src/product/meta-box/meta-box-manager.php:40
@@ -713,21 +723,26 @@ msgstr "Ähnliche Produkte"
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/product/admin/options/product-options.php:20
+#: src/product/admin/options/product-options.php:21
 #: src/product/setup/product-setup.php:21
 msgid "Products"
 msgstr "Produkte"
 
-#: src/product/admin/options/product-options.php:23
+#: src/product/admin/options/product-options.php:24
+#: src/product/customizer/universal-box-customizer.php:39
+msgid "Universal box"
+msgstr "Universal Box"
+
+#: src/product/admin/options/product-options.php:25
 msgid "Custom Taxonomies"
 msgstr "Eigene Taxonomien"
 
-#: src/product/admin/options/product-options.php:39
-#: src/product/admin/options/product-options.php:65
+#: src/product/admin/options/product-options.php:41
+#: src/product/admin/options/product-options.php:94
 msgid "Slug"
 msgstr "Titelform"
 
-#: src/product/admin/options/product-options.php:40
+#: src/product/admin/options/product-options.php:42
 msgid ""
 "Used as the slug for a nicer product URL (eg \"http://example.com/products/"
 "xyz\"), where \"products\" in the middle part of the product URL is the "
@@ -740,7 +755,33 @@ msgstr ""
 "in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
 "Eingabefeld schreiben."
 
-#: src/product/admin/options/product-options.php:56
+#: src/product/admin/options/product-options.php:61
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: src/product/admin/options/product-options.php:62
+msgid "Whether to disable the universal box or not."
+msgstr "Bestimmt ob die Universal Box angezeigt wird oder nicht."
+
+#: src/product/admin/options/product-options.php:63
+msgid "Position"
+msgstr "Position"
+
+#: src/product/admin/options/product-options.php:64
+msgid ""
+"Whether the position of the universal box is above or below the content."
+msgstr ""
+"Bestimmt ob die Position der Universal Box über oder unter dem Inhalt ist."
+
+#: src/product/admin/options/product-options.php:66
+msgid "Above the content"
+msgstr "Über dem Inhalt"
+
+#: src/product/admin/options/product-options.php:67
+msgid "Below the content"
+msgstr "Unter dem Inhalt"
+
+#: src/product/admin/options/product-options.php:85
 #, php-format
 msgid ""
 "Create custom taxonomies to group products together. See this <a href=\"%s"
@@ -749,22 +790,22 @@ msgstr ""
 "Erstelle eigene Taxonomien um Produkte logisch zu gruppieren. Klicke auf "
 "diesen <a href=\"%s\">Link</a> für eine bessere Beschreibung."
 
-#: src/product/admin/options/product-options.php:57
+#: src/product/admin/options/product-options.php:86
 msgid "Taxonomies"
 msgstr "Taxonomien"
 
-#: src/product/admin/options/product-options.php:59
+#: src/product/admin/options/product-options.php:88
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: src/product/admin/options/product-options.php:61
+#: src/product/admin/options/product-options.php:90
 #, php-format
 msgid ""
 "The database name of the taxonomy like \"your_category\". Name should only "
 "contain lowercase letters and the underscore character, and not be more than "
 "32 characters long. Care should be used in selecting a taxonomy name so that "
 "it does not conflict with other taxonomies, post types, and reserved "
-"Wordpress public and private query variables. A complete list of those is "
+"Wordpress public and protected query variables. A complete list of those is "
 "described in the <a href=\"%s\">Reserved Terms</a> section."
 msgstr ""
 "Der Datenbank-Name der Taxonomie wie „deine_kategorie“. Der Name soll nur "
@@ -774,7 +815,7 @@ msgstr ""
 "öffentlichen und privaten Anfragenvariablen in Konflikt stehen darf. Hier "
 "findest du eine komplette Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
-#: src/product/admin/options/product-options.php:66
+#: src/product/admin/options/product-options.php:95
 msgid ""
 "Used as pretty permalink text for your URL like \"http://example.com/your-"
 "categories/product-name\"."
@@ -782,19 +823,19 @@ msgstr ""
 "Wird als hübscherer Permalink-Text für deine URL wie \"http://beispiel.de/"
 "deine-kategorien/produkt-name\" verwendet."
 
-#: src/product/admin/options/product-options.php:68
+#: src/product/admin/options/product-options.php:97
 msgid "Singular Name"
 msgstr "Name im Singular"
 
-#: src/product/admin/options/product-options.php:69
+#: src/product/admin/options/product-options.php:98
 msgid "The singular name like \"Your category\"."
 msgstr "The Name im Singular wie „Deine Kategorie“."
 
-#: src/product/admin/options/product-options.php:71
+#: src/product/admin/options/product-options.php:100
 msgid "Plural Name"
 msgstr "Name im Plural"
 
-#: src/product/admin/options/product-options.php:72
+#: src/product/admin/options/product-options.php:101
 msgid "The plural name like \"Your categories\"."
 msgstr "Der Name im Plural wie „Deine Kategorien“."
 
@@ -806,10 +847,6 @@ msgid ""
 msgstr ""
 "Die Import-Seite muss den Schlüssel \"%s\" enthalten, damit die Wordpress "
 "Funktion \"add_submenu_page\" aufgerufen werden kann."
-
-#: src/product/customizer/universal-box-customizer.php:39
-msgid "Universal box"
-msgstr "Universal Box"
 
 #: src/product/customizer/universal-box-customizer.php:73
 msgid "Box Background Color"
@@ -858,12 +895,12 @@ msgid "Votes Color"
 msgstr "Rezension Stimmenfarbe"
 
 #: src/product/customizer/universal-box-customizer.php:297
-#: src/product/customizer/universal-box-customizer.php:523
+#: src/product/customizer/universal-box-customizer.php:567
 msgid "Price Color"
 msgstr "Preisfarbe"
 
 #: src/product/customizer/universal-box-customizer.php:309
-#: src/product/customizer/universal-box-customizer.php:535
+#: src/product/customizer/universal-box-customizer.php:579
 msgid "Old Price Color"
 msgstr "Alte Preisfarbe"
 
@@ -875,151 +912,146 @@ msgstr "Attribut-Auswahl"
 msgid "Attribute Choice Background Color"
 msgstr "Attributauswahl Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:345
+#: src/product/customizer/universal-box-customizer.php:351
 msgid "Attribute Choice Background Color (Hover)"
 msgstr "Attributauswahl Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:351
+#: src/product/customizer/universal-box-customizer.php:367
 msgid "Attribute Choice Background Color (Selected)"
 msgstr "Attributauswahl Hintergrundfarbe (Ausgewählt)"
 
-#: src/product/customizer/universal-box-customizer.php:357
+#: src/product/customizer/universal-box-customizer.php:379
 msgid "Attribute Choice Border Color"
 msgstr "Attributauswahl Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:363
+#: src/product/customizer/universal-box-customizer.php:391
 msgid "Attribute Choice Border Color (Hover)"
 msgstr "Attributauswahl Rahmenfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:369
+#: src/product/customizer/universal-box-customizer.php:407
 msgid "Attribute Choice Border Color (Selected)"
 msgstr "Attributauswahl Rahmenfarbe (Ausgewählt)"
 
-#: src/product/customizer/universal-box-customizer.php:393
+#: src/product/customizer/universal-box-customizer.php:437
 msgid "Background Color (Odd)"
 msgstr "Hintergrundfarbe (Ungerade)"
 
-#: src/product/customizer/universal-box-customizer.php:405
+#: src/product/customizer/universal-box-customizer.php:449
 msgid "Background Color (Even)"
 msgstr "Hintergrundfarbe (Gerade)"
 
-#: src/product/customizer/universal-box-customizer.php:417
+#: src/product/customizer/universal-box-customizer.php:461
 msgid "Name Color"
 msgstr "Farbe des Namens"
 
-#: src/product/customizer/universal-box-customizer.php:429
+#: src/product/customizer/universal-box-customizer.php:473
 msgid "Value Color"
 msgstr "Farbe des Wertes"
 
-#: src/product/customizer/universal-box-customizer.php:441
-#: src/product/customizer/universal-box-customizer.php:453
+#: src/product/customizer/universal-box-customizer.php:485
+#: src/product/customizer/universal-box-customizer.php:497
 msgid "File Link Color"
 msgstr "Datei Linkfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:469
+#: src/product/customizer/universal-box-customizer.php:513
 msgid "Boolean Check Color"
 msgstr "Boolsche Hackenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:481
+#: src/product/customizer/universal-box-customizer.php:525
 msgid "Boolean Cross Color"
 msgstr "Boolsche Kreuzfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:493
+#: src/product/customizer/universal-box-customizer.php:537
 msgid "Separator Color"
 msgstr "Trennlinie Farbe"
 
-#: src/product/customizer/universal-box-customizer.php:547
+#: src/product/customizer/universal-box-customizer.php:591
 msgid "Price Indication Color"
 msgstr "Preishinweisfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:559
+#: src/product/customizer/universal-box-customizer.php:603
 msgid "Buy Text"
 msgstr "„Kaufen“ Text"
 
-#: src/product/customizer/universal-box-customizer.php:560
-#: src/product/customizer/universal-box-customizer.php:651
+#: src/product/customizer/universal-box-customizer.php:604
+#: src/product/customizer/universal-box-customizer.php:695
 #, php-format
 msgid "Use %s as a placeholder for the shop name."
 msgstr "Benutze %s als einen Platzhalter für den Namen des Shops."
 
-#: src/product/customizer/universal-box-customizer.php:562
-#, php-format
-msgid "Buy now at %s"
-msgstr "Jetzt bei %s kaufen"
-
-#: src/product/customizer/universal-box-customizer.php:566
+#: src/product/customizer/universal-box-customizer.php:610
 msgid "Buy Background Color"
 msgstr "„Kaufen“ Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:578
+#: src/product/customizer/universal-box-customizer.php:622
 msgid "Buy Background Color (Hover)"
 msgstr "„Kaufen“ Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:594
+#: src/product/customizer/universal-box-customizer.php:638
 msgid "Buy Border Color"
 msgstr "„Kaufen“ Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:606
+#: src/product/customizer/universal-box-customizer.php:650
 msgid "Buy Border Color (Hover)"
 msgstr "„Kaufen“ Rahmenfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:622
+#: src/product/customizer/universal-box-customizer.php:666
 msgid "Buy Text Color"
 msgstr "„Kaufen“ Textfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:634
+#: src/product/customizer/universal-box-customizer.php:678
 msgid "Buy Text Color (Hover)"
 msgstr "„Kaufen“ Textfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:650
+#: src/product/customizer/universal-box-customizer.php:694
 msgid "Not Available Text"
 msgstr "\"Nicht verfügbar\" Text"
 
-#: src/product/customizer/universal-box-customizer.php:653
+#: src/product/customizer/universal-box-customizer.php:697
 msgid "Unfortunately not available."
 msgstr "Leider nicht verfügbar."
 
-#: src/product/customizer/universal-box-customizer.php:657
+#: src/product/customizer/universal-box-customizer.php:701
 msgid "Not Available Background Color"
 msgstr "„Nicht verfügbar“ Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:669
+#: src/product/customizer/universal-box-customizer.php:713
 msgid "Not Available Background Color (Hover)"
 msgstr "„Nicht verfügbar“ Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:685
+#: src/product/customizer/universal-box-customizer.php:729
 msgid "Not Available Border Color"
 msgstr "„Nicht verfügbar“ Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:697
+#: src/product/customizer/universal-box-customizer.php:741
 msgid "Not Available Border Color (Hover)"
 msgstr "„Nicht verfügbar“ Rahmenfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:713
+#: src/product/customizer/universal-box-customizer.php:757
 msgid "Not Available Text Color"
 msgstr "„Nicht verfügbar“ Textfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:725
+#: src/product/customizer/universal-box-customizer.php:769
 msgid "Not Available Text Color (Hover)"
 msgstr "„Nicht verfügbar“ Textfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:741
+#: src/product/customizer/universal-box-customizer.php:785
 msgid "Updated At Indication Color"
 msgstr "Preishinweisfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:753
+#: src/product/customizer/universal-box-customizer.php:797
 msgid "Separator color"
 msgstr "Trennlinie Farbe"
 
-#: src/product/customizer/universal-box-customizer.php:777
+#: src/product/customizer/universal-box-customizer.php:821
 msgid "Related products & accessories"
 msgstr "Ähnliche Produkte & Zubehör"
 
-#: src/product/customizer/universal-box-customizer.php:783
+#: src/product/customizer/universal-box-customizer.php:827
 msgid "Title Color"
 msgstr "Titelfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:795
+#: src/product/customizer/universal-box-customizer.php:839
 msgid "Item Border Color"
 msgstr "Item Rahmenfarbe"
 
@@ -1448,7 +1480,7 @@ msgstr "Das Land für den Amazon Provider fehlt."
 msgid "The associate tag for the Amazon provider is missing."
 msgstr "Der Associate Tag für den Amazon Provider fehlt."
 
-#: src/shop/admin/filter/table-columns-filter.php:25
+#: src/shop/admin/filter/table-columns-filter.php:31
 #: src/shop/admin/meta-box/shop-template-meta-box.php:56
 msgid "Provider"
 msgstr "Provider"
@@ -1763,10 +1795,12 @@ msgid "Failed to import the product."
 msgstr "Importieren des Produkts ist fehlgeschlagen."
 
 #: templates/product/footer/relations/accessory.php:1
+#: templates/product/universal-box/footer/related/accessories.php:10
 msgid "Related accessories"
 msgstr "Ähnliches Zubehör"
 
 #: templates/product/footer/relations/product.php:1
+#: templates/product/universal-box/footer/related/products.php:10
 msgid "Related products"
 msgstr "Ähnliche Produkte"
 
@@ -1930,11 +1964,6 @@ msgstr "https://affilicioustheme.de/"
 
 #~ msgid "Select Image"
 #~ msgstr "Bild auswählen"
-
-#, fuzzy
-#~| msgid "Images"
-#~ msgid "Image Position"
-#~ msgstr "Bilder"
 
 #, fuzzy
 #~| msgid "Images"
@@ -2597,11 +2626,6 @@ msgstr "https://affilicioustheme.de/"
 #~| msgid "Themes"
 #~ msgid "Theme"
 #~ msgstr "Themes"
-
-#, fuzzy
-#~| msgid "Available"
-#~ msgid "Disable"
-#~ msgstr "Verfügbar"
 
 #, fuzzy
 #~| msgid "Select File"

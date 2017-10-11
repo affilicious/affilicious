@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Admin\Options;
 
+use Affilicious\Product\Helper\Universal_Mode_Helper;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
@@ -20,6 +21,7 @@ class Product_Options
 		$container = Carbon_Container::make('theme_options',  __('Products', 'affilicious'))
            ->set_page_parent('affilicious')
            ->add_tab(__('General', 'affilicious'), $this->get_general_fields())
+           ->add_tab(__('Universal box', 'affilicious'), $this->get_universal_box_fields())
            ->add_tab(__('Custom Taxonomies', 'affilicious'), $this->get_custom_taxonomies_fields());
 
         $container = apply_filters('aff_admin_options_render_products_container', $container);
@@ -28,12 +30,12 @@ class Product_Options
 	}
 
     /**
-     * Get the general fields
+     * Get the general fields.
      *
      * @since 0.9
      * @return array
      */
-	private function get_general_fields()
+	protected function get_general_fields()
     {
         $fields = array(
             Carbon_Field::make('text', 'affilicious_options_product_container_general_tab_slug_field', __('Slug', 'affilicious'))
@@ -43,13 +45,40 @@ class Product_Options
         return apply_filters('aff_admin_options_render_products_container_general_fields', $fields);
     }
 
+	/**
+	 * Get the universal box fields.
+	 *
+	 * @since 0.9
+	 * @return array
+	 */
+    protected function get_universal_box_fields()
+    {
+    	if(!Universal_Mode_Helper::is_enabled()) {
+    		return [];
+	    }
+
+		$fields = [
+			Carbon_Field::make('checkbox', 'affilicious_options_product_container_universal_box_tab_disabled_field', __('Disabled', 'affilicious'))
+                ->help_text(__('Whether to disable the universal box or not.', 'affilicious')),
+			Carbon_Field::make('select', 'affilicious_options_product_container_universal_box_tab_position_field', __('Position', 'affilicious'))
+	            ->help_text(__('Whether the position of the universal box is above or below the content.', 'affilicious'))
+				->add_options([
+					'above' => __('Above the content', 'affilicious'),
+					'below' => __('Below the content', 'affilicious'),
+				])
+	            ->set_required(true),
+		];
+
+	    return apply_filters('aff_admin_options_render_products_container_universal_box_fields', $fields);
+    }
+
     /**
-     * Get the custom taxonomies fields
+     * Get the custom taxonomies fields.
      *
      * @since 0.9
      * @return array
      */
-    private function get_custom_taxonomies_fields()
+    protected function get_custom_taxonomies_fields()
     {
         $fields = array(
             Carbon_Field::make('html', 'affilicious_options_product_container_taxonomies_tab_description_field')
@@ -58,7 +87,7 @@ class Product_Options
                 ->add_fields(array(
                     Carbon_Field::make('text', 'taxonomy', __('Taxonomy', 'affilicious'))
                         ->help_text(sprintf(
-                            __('The database name of the taxonomy like "your_category". Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved Wordpress public and private query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'),
+                            __('The database name of the taxonomy like "your_category". Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long. Care should be used in selecting a taxonomy name so that it does not conflict with other taxonomies, post types, and reserved Wordpress public and protected query variables. A complete list of those is described in the <a href="%s">Reserved Terms</a> section.', 'affilicious'),
                             self::LINK_RESERVED_TERMS
                         ))
                         ->set_required(true),
