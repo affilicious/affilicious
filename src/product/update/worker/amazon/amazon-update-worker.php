@@ -2,7 +2,6 @@
 namespace Affilicious\Product\Update\Worker\Amazon;
 
 use Affilicious\Common\Helper\Image_Helper;
-use Affilicious\Common\Model\Image;
 use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
@@ -16,10 +15,7 @@ use Affilicious\Product\Update\Worker\Update_Worker_Interface;
 use Affilicious\Provider\Admin\Options\Amazon_Options;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
-use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
-use Affilicious\Shop\Model\Availability;
-use Affilicious\Shop\Model\Money;
 use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 use ApaiIO\ApaiIO;
@@ -116,13 +112,13 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Make a Amazon API batch item lookup based on the affiliate IDs.
-        $results = $this->batch_item_lookup($provider, $affiliate_product_ids);
-        if(empty($results)) {
+        $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
+        if(empty($items)) {
             return;
         }
 
         // Apply the updated information's to the products.
-        $this->update_products($update_interval, $results, $products);
+        $this->update_products($update_interval, $items, $products);
     }
 
     /**
@@ -227,22 +223,13 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             return null;
         }
 
-        // Convert the items into results.
+        // Map the items to the related product IDs.
 	    $results = [];
-
 	    foreach ($affiliate_product_ids as $product_id => $affiliate_product_id) {
-		    $items = $this->find_items($response);
+	    	$items = $this->find_items($response);
 		    foreach ($items as $item) {
 			    if($affiliate_product_id->is_equal_to(Amazon_Helper::find_affiliate_product_id($item))) {
-				    $results[$product_id] = array(
-					    'affiliate_product_id' => Amazon_Helper::find_affiliate_product_id($item),
-					    'affiliate_link' => Amazon_Helper::find_affiliate_link($item),
-					    'thumbnail' => Amazon_Helper::find_thumbnail($item),
-					    'image_gallery' => Amazon_Helper::find_image_gallery($item),
-					    'price' => Amazon_Helper::find_price($item),
-					    'old_price' => Amazon_Helper::find_old_price($item),
-					    'availability' => Amazon_Helper::find_availability($item),
-				    );
+				    $results[$product_id] = $item;
 			    }
 		    }
 	    }
@@ -254,52 +241,57 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the products with the help of the results.
      *
      * @since 0.9.8
+     *
      * @param string $update_interval The current update interval from the cron job.
-     * @param array $results The results which can be applied to the products.
+     * @param array $items The results which can be applied to the products.
      * @param Product[] $products The products where the results can be applied to.
      */
-    protected function update_products($update_interval, array $results, array $products)
+    protected function update_products($update_interval, array $items, array $products)
     {
-        foreach ($results as $product_id => $result) {
-            $affiliate_product_id = $result['affiliate_product_id'];
-            if($affiliate_product_id instanceof Affiliate_Product_Id) {
-	            foreach ($products as $product) {
-	            	if(!$product->get_id()->is_equal_to(new Product_Id($product_id))) {
-	            		continue;
-		            }
+        foreach ($items as $product_id => $item) {
+	        $product_id = new Product_Id($product_id);
 
-	                if($this->should_update_thumbnail($update_interval, $product)) {
-	                    $this->update_thumbnail($result['thumbnail'], $product);
-	                }
+	        foreach ($products as $product) {
+		        if(!$product_id->is_equal_to($product->get_id())) {
+			        continue;
+		        }
 
-	                if(!empty($this->should_update_image_gallery($update_interval, $product))) {
-	                    $this->update_image_gallery($result['image_gallery'], $product);
-	                }
+		        if($this->should_update_thumbnail($update_interval, $product)) {
+			        $this->update_thumbnail($item, $product);
+		        }
 
-		            if($product instanceof Shop_Aware_Interface) {
-			            $shops = $product->get_shops();
-			            foreach ($shops as $shop) {
-				            if ($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_product_id())) {
-					            if ($this->should_update_availability($update_interval, $product, $shop)) {
-						            $this->update_availability($result['availability'], $product, $shop );
-					            }
+		        if($this->should_update_image_gallery($update_interval, $product)) {
+			        $this->update_image_gallery($item, $product);
+		        }
 
-					            if ($this->should_update_affiliate_link($update_interval, $product, $shop)) {
-						            $this->update_affiliate_link($result['affiliate_link'], $product, $shop);
-					            }
+		        if(($product instanceof Shop_Aware_Interface)) {
+			        $affiliate_product_id = Amazon_Helper::find_affiliate_product_id($item);
+			        if($affiliate_product_id === null) {
+				        continue;
+			        }
 
-					            if ($this->should_update_price($update_interval, $product, $shop)) {
-						            $this->update_price($result['price'], $product, $shop);
-					            }
+			        $shops = $product->get_shops();
+			        foreach($shops as $shop) {
+				        if($affiliate_product_id->is_equal_to($shop->get_tracking()->get_affiliate_product_id())) {
+					        if($this->should_update_availability($update_interval, $product, $shop)) {
+						        $this->update_availability($item, $product, $shop);
+					        }
 
-					            if ($this->should_update_old_price($update_interval, $product, $shop)) {
-						            $this->update_old_price($result['old_price'], $product, $shop);
-					            }
-				            }
-			            }
-		            }
-	            }
-            }
+					        if($this->should_update_affiliate_link($update_interval, $product, $shop)) {
+						        $this->update_affiliate_link($item, $product, $shop);
+					        }
+
+					        if($this->should_update_price($update_interval, $product, $shop)) {
+						        $this->update_price($item, $product, $shop);
+					        }
+
+					        if($this->should_update_old_price($update_interval, $product, $shop)) {
+						        $this->update_old_price($item, $product, $shop);
+					        }
+				        }
+			        }
+		        }
+	        }
         }
 
 	    // Store all updated products.
@@ -312,11 +304,13 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the product thumbnail.
      *
      * @since 0.9
-     * @param Image|null $thumbnail The new thumbnail for the update.
+     * @param array $item The Amazon API response item containing all data.
      * @param Product $product The current product to update.
      */
-    protected function update_thumbnail(Image $thumbnail = null, Product $product)
+    protected function update_thumbnail(array $item, Product $product)
     {
+	    $thumbnail = Amazon_Helper::find_thumbnail($item);
+
         do_action('aff_product_amazon_update_worker_before_update_thumbnail', $thumbnail, $product);
 
         $current_thumbnail = $product->get_thumbnail();
@@ -324,6 +318,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             Image_Helper::delete($current_thumbnail, true);
         }
 
+	    $thumbnail = apply_filters('aff_product_amazon_update_worker_update_thumbnail', $thumbnail, $product);
         $product->set_thumbnail($thumbnail);
         $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
@@ -334,11 +329,13 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the product image gallery.
      *
      * @since 0.9
-     * @param array $image_gallery The image gallery for the update.
+     * @param array $item The Amazon API response item containing all data.
      * @param Product $product The current product to update.
      */
-    protected function update_image_gallery(array $image_gallery = [], Product $product)
+    protected function update_image_gallery(array $item, Product $product)
     {
+	    $image_gallery = Amazon_Helper::find_image_gallery($item);
+
         do_action('aff_product_amazon_update_worker_before_update_image_gallery', $image_gallery, $product);
 
         $current_image_gallery = $product->get_image_gallery();
@@ -346,7 +343,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             Image_Helper::delete($current_image, true);
         }
 
-        $image_gallery = apply_filters('aff_product_amazon_update_worker_update_price', $image_gallery, $product);
+        $image_gallery = apply_filters('aff_product_amazon_update_worker_update_image_gallery', $image_gallery, $product);
         $product->set_image_gallery($image_gallery);
         $product->set_updated_at((new \DateTimeImmutable())->setTimestamp(current_time('timestamp')));
 
@@ -357,12 +354,14 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the shop price in the product.
      *
      * @since 0.9
-     * @param Money $price|null The new price for the update.
+     * @param array $item The Amazon API response item containing all data.
      * @param Product $product The current product to update.
      * @param Shop $shop The current shop to update.
      */
-    protected function update_price(Money $price = null, Product $product, Shop $shop)
+    protected function update_price(array $item, Product $product, Shop $shop)
     {
+	    $price = Amazon_Helper::find_price($item);
+
         do_action('aff_product_amazon_update_worker_before_update_price', $price, $product, $shop);
 
         if($shop->get_pricing()->get_availability()->is_out_of_stock()) {
@@ -381,12 +380,14 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the shop old price in the product.
      *
      * @since 0.9
-     * @param Money $old_price|null The new old price for the update.
+     * @param array $item The Amazon API response item containing all data.
      * @param Product $product The current product to update.
      * @param Shop $shop The current shop to update.
      */
-    protected function update_old_price(Money $old_price = null, Product $product, Shop $shop)
+    protected function update_old_price(array $item, Product $product, Shop $shop)
     {
+	    $old_price = Amazon_Helper::find_old_price($item);
+
         do_action('aff_product_amazon_update_worker_before_update_old_price', $old_price, $product, $shop);
 
         if($shop->get_pricing()->get_availability()->is_out_of_stock()) {
@@ -405,12 +406,14 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the shop availability in the product.
      *
      * @since 0.9
-     * @param Availability|null $availability The new availability for the update.
+     * @param array $item The Amazon API response item containing all data.
      * @param Product $product The current product to update.
      * @param Shop $shop The current shop to update.
      */
-    protected function update_availability(Availability $availability = null, Product $product, Shop $shop)
+    protected function update_availability(array $item, Product $product, Shop $shop)
     {
+	    $availability = Amazon_Helper::find_availability($item);
+
         do_action('aff_product_amazon_update_worker_before_update_availability', $availability, $product, $shop);
 
         $availability = apply_filters('aff_product_amazon_update_worker_update_availability', $availability, $product, $shop);
@@ -425,12 +428,14 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 	 * Update the shop affiliate link in the product.
 	 *
 	 * @since 0.9.8
-	 * @param Affiliate_Link|null $affiliate_link
+	 * @param array $item The Amazon API response item containing all data.
 	 * @param Product $product
 	 * @param Shop $shop
 	 */
-    protected function update_affiliate_link(Affiliate_Link $affiliate_link = null, Product $product, Shop $shop)
+    protected function update_affiliate_link(array $item, Product $product, Shop $shop)
     {
+	    $affiliate_link = Amazon_Helper::find_affiliate_link($item);
+
 	    do_action('aff_product_amazon_update_worker_before_update_affiliate_link', $affiliate_link, $product, $shop);
 
 	    $affiliate_link = apply_filters('aff_product_amazon_update_worker_update_affiliate_link', $affiliate_link, $product, $shop);

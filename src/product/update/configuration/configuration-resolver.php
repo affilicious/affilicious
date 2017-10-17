@@ -57,20 +57,7 @@ final class Configuration_Resolver
         $context_update_interval = $configuration_context->get('update_interval');
         $update_interval = $configuration->get('update_interval');
 
-        $resolved = false;
-        switch($update_interval) {
-            case 'hourly':
-                $resolved = in_array($context_update_interval, array('hourly', 'twicedaily', 'daily'));
-                break;
-            case 'twicedaily':
-                $resolved = in_array($context_update_interval, array('twicedaily', 'daily'));
-                break;
-            case 'daily':
-                $resolved = in_array($context_update_interval, array('daily'));
-                break;
-            default:
-                break;
-        }
+        $resolved = $context_update_interval == $update_interval;
 
         return $resolved;
     }

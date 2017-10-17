@@ -31,7 +31,8 @@ class Image_Helper
                 'post_mime_type' => $wp_filetype['type'],
                 'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
                 'post_content' => '',
-                'post_status' => 'inherit');
+                'post_status' => 'inherit'
+            );
 
             $attachment_id = wp_insert_attachment($attachment, $upload_file['file']);
             if (!is_wp_error($attachment_id)) {
