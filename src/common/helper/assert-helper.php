@@ -403,7 +403,7 @@ class Assert_Helper
 	public static function one_of($value, array $values, $method, $message, $version)
 	{
 		if(WP_DEBUG && !in_array($value, $values)) {
-			_doing_it_wrong($method, sprintf($message, self::type_to_string($value)), $version);
+			_doing_it_wrong($method, sprintf($message, implode(',', $values), $value), $version);
 		}
 	}
 

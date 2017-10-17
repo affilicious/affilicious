@@ -354,6 +354,10 @@ if(!class_exists('Affilicious')) {
 		public function load_services()
 		{
 			// Common services
+			$this->container['affilicious.common.logger'] = function () {
+				return new \Affilicious\Common\Logger\Logger();
+			};
+
 			$this->container['affilicious.common.generator.slug'] = function () {
 				return new \Affilicious\Common\Generator\Wordpress\Wordpress_Slug_Generator();
 			};
@@ -386,6 +390,12 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.common.setup.image_size'] = function() {
 				return new \Affilicious\Common\Setup\Image_Size_Setup();
+			};
+
+			$this->container['affilicious.common.setup.logger_handler'] = function($c) {
+				return new \Affilicious\Common\Setup\Logger_Handler_Setup(
+					$c['affilicious.common.logger']
+				);
 			};
 
 			$this->container['affilicious.common.admin.filter.footer_text'] = function () {
@@ -914,6 +924,10 @@ if(!class_exists('Affilicious')) {
 			$amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
 			add_action('init', array($provider_setup, 'init'), 5);
 			add_filter('aff_provider_init', array($amazon_provider_setup, 'init'), 5);
+
+			// Hook the logger handlers
+			$logger_handler_setup = $this->container['affilicious.common.setup.logger_handler'];
+			add_action('init', array($logger_handler_setup, 'init'), 5);
 
 			// Hook the product update queues.
 			$update_queue_setup = $this->container['affilicious.product.setup.update_queue'];
