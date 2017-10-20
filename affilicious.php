@@ -230,6 +230,10 @@ if(!class_exists('Affilicious')) {
 			// Activate the product update cron jobs.
 			$product_update_timer = $this->container['affilicious.product.update.timer'];
 			$product_update_timer->activate();
+
+			// Install the semaphore.
+			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
+			$product_update_semaphore->install();
 		}
 
 		/**
@@ -250,6 +254,10 @@ if(!class_exists('Affilicious')) {
 			// Deactivate the product update cron jobs.
 			$product_update_timer = $this->container['affilicious.product.update.timer'];
 			$product_update_timer->deactivate();
+
+			// Uninstall the semaphore.
+			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
+			$product_update_semaphore->uninstall();
 		}
 
 		/**
@@ -713,7 +721,8 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.update.timer'] = function ($c) {
 				return new \Affilicious\Product\Update\Update_Timer(
-					$c['affilicious.product.update.manager']
+					$c['affilicious.product.update.manager'],
+					$c['affilicious.product.update.semaphore']
 				);
 			};
 
@@ -722,6 +731,12 @@ if(!class_exists('Affilicious')) {
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.shop.repository.shop_template'],
 					$c['affilicious.provider.repository.provider']
+				);
+			};
+
+			$this->container['affilicious.product.update.semaphore'] = function ($c) {
+				return new \Affilicious\Product\Update\Update_Semaphore(
+					$c['affilicious.common.logger']
 				);
 			};
 

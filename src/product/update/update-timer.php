@@ -18,13 +18,20 @@ final class Update_Timer extends Abstract_Timer
      */
     private $update_manager;
 
-    /**
-     * @since 0.7
-     * @param Update_Manager $update_manager The update manager creates and runs all tasks.
-     */
-    public function __construct(Update_Manager $update_manager)
+	/**
+	 * @var Update_Semaphore
+	 */
+	private $update_semaphore;
+
+	/**
+	 * @since 0.7
+	 * @param Update_Manager $update_manager The update manager creates and runs all tasks.
+	 * @param Update_Semaphore $update_semaphore The binary semaphore prevents multiple updates which are running in parallel.
+	 */
+    public function __construct(Update_Manager $update_manager, Update_Semaphore $update_semaphore)
     {
         $this->update_manager = $update_manager;
+	    $this->update_semaphore = $update_semaphore;
     }
 
     /**
@@ -57,7 +64,10 @@ final class Update_Timer extends Abstract_Timer
      */
     public function run_tasks_hourly()
     {
-        $this->update_manager->run_tasks(self::HOURLY);
+    	if($this->update_semaphore->acquire()) {
+		    $this->update_manager->run_tasks(self::HOURLY);
+		    $this->update_semaphore->release();
+	    }
     }
 
     /**
@@ -68,7 +78,10 @@ final class Update_Timer extends Abstract_Timer
      */
     public function run_tasks_twice_daily()
     {
-        $this->update_manager->run_tasks(self::TWICE_DAILY);
+	    if($this->update_semaphore->acquire()) {
+            $this->update_manager->run_tasks(self::TWICE_DAILY);
+		    $this->update_semaphore->release();
+	    }
     }
 
     /**
@@ -79,6 +92,9 @@ final class Update_Timer extends Abstract_Timer
      */
     public function run_tasks_daily()
     {
-        $this->update_manager->run_tasks(self::DAILY);
+	    if($this->update_semaphore->acquire()) {
+            $this->update_manager->run_tasks(self::DAILY);
+		    $this->update_semaphore->release();
+        }
     }
 }
