@@ -241,7 +241,6 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * Update the products with the help of the results.
      *
      * @since 0.9.8
-     *
      * @param string $update_interval The current update interval from the cron job.
      * @param array $items The results which can be applied to the products.
      * @param Product[] $products The products where the results can be applied to.
