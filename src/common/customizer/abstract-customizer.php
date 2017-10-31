@@ -175,9 +175,10 @@ abstract class Abstract_Customizer implements Customizer_Interface
                         $property = $css_rule['property'];
 
                         $valency = !empty($css_rule['valency']) ? $css_rule['valency'] : '';
+                        $unit = !empty($css_rule['unit']) ? $css_rule['unit'] : '';
 
                         // Build this into a CSS rule.
-                        $rule_string = "$selector { $property : $value $valency ; }";
+                        $rule_string = "$selector { $property : $value$unit $valency ; }";
 
                         // Does this css rule have media queries?
                         if (isset($css_rule['queries'])) {
