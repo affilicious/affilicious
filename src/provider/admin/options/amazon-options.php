@@ -70,9 +70,9 @@ class Amazon_Options
             Carbon_Field::make('html', self::VALIDATION_STATUS)
                 ->set_html($this->get_validation_notice()),
             Carbon_Field::make('text', self::ACCESS_KEY, __('Access Key', 'affilicious'))
-                ->set_help_text(__('The access key is used to identify you as an API user.', 'affilicious')),
+                ->set_help_text(__('The access key is used to identify you as an API user. It\'s not your private Amazon username.', 'affilicious')),
             Carbon_Field::make('password', self::SECRET_KEY, __('Secret Key', 'affilicious'))
-                ->set_help_text(__('The secret key is used like a password to sign your API requests.', 'affilicious')),
+                ->set_help_text(__('The secret key is used like a password to sign your API requests. It\'s not your private Amazon password.', 'affilicious')),
             Carbon_Field::make('select', self::COUNTRY, __('Country', 'affilicious'))
                 ->add_options(array(
                     'de' => __('Germany', 'affilicious'),

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-10-11 09:26+0200\n"
+"POT-Creation-Date: 2017-10-31 22:57+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:2672 src/product/customizer/universal-box-customizer.php:606
+#: functions.php:2672 src/product/customizer/universal-box-customizer.php:611
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
@@ -294,7 +294,7 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
-#: src/product/customizer/universal-box-customizer.php:561
+#: src/product/customizer/universal-box-customizer.php:566
 #: src/shop/setup/shop-template-setup.php:27
 #: src/shop/setup/shop-template-setup.php:31
 #: templates/admin/page/imports/amazon/config-template.php:8
@@ -359,7 +359,7 @@ msgstr ""
 #: src/detail/setup/detail-template-setup.php:27
 #: src/detail/setup/detail-template-setup.php:31
 #: src/product/admin/meta-box/product-meta-box.php:88
-#: src/product/customizer/universal-box-customizer.php:431
+#: src/product/customizer/universal-box-customizer.php:436
 msgid "Details"
 msgstr ""
 
@@ -480,7 +480,7 @@ msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:85
 #: src/product/admin/options/product-options.php:23
-#: src/product/customizer/universal-box-customizer.php:67
+#: src/product/customizer/universal-box-customizer.php:72
 msgid "General"
 msgstr ""
 
@@ -504,7 +504,7 @@ msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:111
 #: src/product/admin/meta-box/product-meta-box.php:209
-#: src/product/customizer/universal-box-customizer.php:147
+#: src/product/customizer/universal-box-customizer.php:152
 msgid "Tags"
 msgstr ""
 
@@ -594,7 +594,7 @@ msgid "Out Of Stock"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:369
-#: src/product/customizer/universal-box-customizer.php:291
+#: src/product/customizer/universal-box-customizer.php:296
 msgid "Price"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgid "Products"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:24
-#: src/product/customizer/universal-box-customizer.php:39
+#: src/product/customizer/universal-box-customizer.php:44
 msgid "Universal box"
 msgstr ""
 
@@ -735,11 +735,11 @@ msgid ""
 msgstr ""
 
 #: src/product/admin/options/product-options.php:66
-msgid "Above the content"
+msgid "Below the content"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:67
-msgid "Below the content"
+msgid "Above the content"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:85
@@ -797,210 +797,210 @@ msgid ""
 "\"add_submenu_page\"."
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:73
+#: src/product/customizer/universal-box-customizer.php:78
 msgid "Box Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:85
+#: src/product/customizer/universal-box-customizer.php:90
 msgid "Box Border Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:117
+#: src/product/customizer/universal-box-customizer.php:122
 msgid "Title"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:123
+#: src/product/customizer/universal-box-customizer.php:128
 msgid "Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:153
+#: src/product/customizer/universal-box-customizer.php:158
 msgid "Tag Text Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:165
+#: src/product/customizer/universal-box-customizer.php:170
 msgid "Tag Text Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:181
-#: src/product/customizer/universal-box-customizer.php:209
+#: src/product/customizer/universal-box-customizer.php:186
+#: src/product/customizer/universal-box-customizer.php:214
 msgid "Tag Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:193
-#: src/product/customizer/universal-box-customizer.php:221
+#: src/product/customizer/universal-box-customizer.php:198
+#: src/product/customizer/universal-box-customizer.php:226
 msgid "Tag Background Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:249
+#: src/product/customizer/universal-box-customizer.php:254
 msgid "Reviews"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:255
+#: src/product/customizer/universal-box-customizer.php:260
 msgid "Rating Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:267
+#: src/product/customizer/universal-box-customizer.php:272
 msgid "Votes Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:297
-#: src/product/customizer/universal-box-customizer.php:567
+#: src/product/customizer/universal-box-customizer.php:302
+#: src/product/customizer/universal-box-customizer.php:572
 msgid "Price Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:309
-#: src/product/customizer/universal-box-customizer.php:579
+#: src/product/customizer/universal-box-customizer.php:314
+#: src/product/customizer/universal-box-customizer.php:584
 msgid "Old Price Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:333
+#: src/product/customizer/universal-box-customizer.php:338
 msgid "Attribute choices"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:339
+#: src/product/customizer/universal-box-customizer.php:344
 msgid "Attribute Choice Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:351
+#: src/product/customizer/universal-box-customizer.php:356
 msgid "Attribute Choice Background Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:367
+#: src/product/customizer/universal-box-customizer.php:372
 msgid "Attribute Choice Background Color (Selected)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:379
+#: src/product/customizer/universal-box-customizer.php:384
 msgid "Attribute Choice Border Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:391
+#: src/product/customizer/universal-box-customizer.php:396
 msgid "Attribute Choice Border Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:407
+#: src/product/customizer/universal-box-customizer.php:412
 msgid "Attribute Choice Border Color (Selected)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:437
+#: src/product/customizer/universal-box-customizer.php:442
 msgid "Background Color (Odd)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:449
+#: src/product/customizer/universal-box-customizer.php:454
 msgid "Background Color (Even)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:461
+#: src/product/customizer/universal-box-customizer.php:466
 msgid "Name Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:473
+#: src/product/customizer/universal-box-customizer.php:478
 msgid "Value Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:485
-#: src/product/customizer/universal-box-customizer.php:497
+#: src/product/customizer/universal-box-customizer.php:490
+#: src/product/customizer/universal-box-customizer.php:502
 msgid "File Link Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:513
+#: src/product/customizer/universal-box-customizer.php:518
 msgid "Boolean Check Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:525
+#: src/product/customizer/universal-box-customizer.php:530
 msgid "Boolean Cross Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:537
+#: src/product/customizer/universal-box-customizer.php:542
 msgid "Separator Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:591
+#: src/product/customizer/universal-box-customizer.php:596
 msgid "Price Indication Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:603
+#: src/product/customizer/universal-box-customizer.php:608
 msgid "Buy Text"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:604
-#: src/product/customizer/universal-box-customizer.php:695
+#: src/product/customizer/universal-box-customizer.php:609
+#: src/product/customizer/universal-box-customizer.php:700
 #, php-format
 msgid "Use %s as a placeholder for the shop name."
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:610
+#: src/product/customizer/universal-box-customizer.php:615
 msgid "Buy Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:622
+#: src/product/customizer/universal-box-customizer.php:627
 msgid "Buy Background Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:638
+#: src/product/customizer/universal-box-customizer.php:643
 msgid "Buy Border Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:650
+#: src/product/customizer/universal-box-customizer.php:655
 msgid "Buy Border Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:666
+#: src/product/customizer/universal-box-customizer.php:671
 msgid "Buy Text Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:678
+#: src/product/customizer/universal-box-customizer.php:683
 msgid "Buy Text Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:694
+#: src/product/customizer/universal-box-customizer.php:699
 msgid "Not Available Text"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:697
+#: src/product/customizer/universal-box-customizer.php:702
 msgid "Unfortunately not available."
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:701
+#: src/product/customizer/universal-box-customizer.php:706
 msgid "Not Available Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:713
+#: src/product/customizer/universal-box-customizer.php:718
 msgid "Not Available Background Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:729
+#: src/product/customizer/universal-box-customizer.php:734
 msgid "Not Available Border Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:741
+#: src/product/customizer/universal-box-customizer.php:746
 msgid "Not Available Border Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:757
+#: src/product/customizer/universal-box-customizer.php:762
 msgid "Not Available Text Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:769
+#: src/product/customizer/universal-box-customizer.php:774
 msgid "Not Available Text Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:785
+#: src/product/customizer/universal-box-customizer.php:790
 msgid "Updated At Indication Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:797
+#: src/product/customizer/universal-box-customizer.php:802
 msgid "Separator color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:821
+#: src/product/customizer/universal-box-customizer.php:826
 msgid "Related products & accessories"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:827
+#: src/product/customizer/universal-box-customizer.php:832
 msgid "Title Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:839
+#: src/product/customizer/universal-box-customizer.php:844
 msgid "Item Border Color"
 msgstr ""
 
@@ -1207,7 +1207,9 @@ msgid "Access Key"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:73
-msgid "The access key is used to identify you as an API user."
+msgid ""
+"The access key is used to identify you as an API user. It's not your private "
+"Amazon username."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:74
@@ -1215,7 +1217,9 @@ msgid "Secret Key"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:75
-msgid "The secret key is used like a password to sign your API requests."
+msgid ""
+"The secret key is used like a password to sign your API requests. It's not "
+"your private Amazon password."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:76
