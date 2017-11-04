@@ -350,6 +350,9 @@
         text-decoration: none; }
   .aff-product-universal-box .aff-product-details {
     border: none; }
+    .aff-product-universal-box .aff-product-details-none {
+      font-size: 14px;
+      text-align: center; }
     .aff-product-universal-box .aff-product-details-item {
       font-size: 14px;
       border: none; }

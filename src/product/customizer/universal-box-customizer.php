@@ -550,6 +550,18 @@ class Universal_Box_Customizer extends Abstract_Customizer
 		    )
 	    );
 
+	    $panels['aff_universal_box']['sections']['details']['settings']['no_details'] = array(
+		    'label'     => __('No Details Color', 'affilicious'),
+		    'type'      => 'color',
+		    'default'   => '#888',
+		    'css' => array(
+			    array(
+				    'selector' => ".aff-product-universal-box .aff-product-details-none",
+				    'property' => 'color',
+			    ),
+		    )
+	    );
+
     	return $panels;
     }
 

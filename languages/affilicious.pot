@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-10-31 22:57+0100\n"
+"POT-Creation-Date: 2017-11-04 20:08+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:2672 src/product/customizer/universal-box-customizer.php:611
+#: functions.php:2672 src/product/customizer/universal-box-customizer.php:623
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
@@ -294,7 +294,7 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
-#: src/product/customizer/universal-box-customizer.php:566
+#: src/product/customizer/universal-box-customizer.php:578
 #: src/shop/setup/shop-template-setup.php:27
 #: src/shop/setup/shop-template-setup.php:31
 #: templates/admin/page/imports/amazon/config-template.php:8
@@ -844,12 +844,12 @@ msgid "Votes Color"
 msgstr ""
 
 #: src/product/customizer/universal-box-customizer.php:302
-#: src/product/customizer/universal-box-customizer.php:572
+#: src/product/customizer/universal-box-customizer.php:584
 msgid "Price Color"
 msgstr ""
 
 #: src/product/customizer/universal-box-customizer.php:314
-#: src/product/customizer/universal-box-customizer.php:584
+#: src/product/customizer/universal-box-customizer.php:596
 msgid "Old Price Color"
 msgstr ""
 
@@ -914,93 +914,97 @@ msgstr ""
 msgid "Separator Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:596
-msgid "Price Indication Color"
+#: src/product/customizer/universal-box-customizer.php:554
+msgid "No Details Color"
 msgstr ""
 
 #: src/product/customizer/universal-box-customizer.php:608
+msgid "Price Indication Color"
+msgstr ""
+
+#: src/product/customizer/universal-box-customizer.php:620
 msgid "Buy Text"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:609
-#: src/product/customizer/universal-box-customizer.php:700
+#: src/product/customizer/universal-box-customizer.php:621
+#: src/product/customizer/universal-box-customizer.php:712
 #, php-format
 msgid "Use %s as a placeholder for the shop name."
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:615
+#: src/product/customizer/universal-box-customizer.php:627
 msgid "Buy Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:627
+#: src/product/customizer/universal-box-customizer.php:639
 msgid "Buy Background Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:643
+#: src/product/customizer/universal-box-customizer.php:655
 msgid "Buy Border Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:655
+#: src/product/customizer/universal-box-customizer.php:667
 msgid "Buy Border Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:671
+#: src/product/customizer/universal-box-customizer.php:683
 msgid "Buy Text Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:683
+#: src/product/customizer/universal-box-customizer.php:695
 msgid "Buy Text Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:699
+#: src/product/customizer/universal-box-customizer.php:711
 msgid "Not Available Text"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:702
+#: src/product/customizer/universal-box-customizer.php:714
 msgid "Unfortunately not available."
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:706
+#: src/product/customizer/universal-box-customizer.php:718
 msgid "Not Available Background Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:718
+#: src/product/customizer/universal-box-customizer.php:730
 msgid "Not Available Background Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:734
+#: src/product/customizer/universal-box-customizer.php:746
 msgid "Not Available Border Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:746
+#: src/product/customizer/universal-box-customizer.php:758
 msgid "Not Available Border Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:762
+#: src/product/customizer/universal-box-customizer.php:774
 msgid "Not Available Text Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:774
+#: src/product/customizer/universal-box-customizer.php:786
 msgid "Not Available Text Color (Hover)"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:790
+#: src/product/customizer/universal-box-customizer.php:802
 msgid "Updated At Indication Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:802
+#: src/product/customizer/universal-box-customizer.php:814
 msgid "Separator color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:826
+#: src/product/customizer/universal-box-customizer.php:838
 msgid "Related products & accessories"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:832
+#: src/product/customizer/universal-box-customizer.php:844
 msgid "Title Color"
 msgstr ""
 
-#: src/product/customizer/universal-box-customizer.php:844
+#: src/product/customizer/universal-box-customizer.php:856
 msgid "Item Border Color"
 msgstr ""
 

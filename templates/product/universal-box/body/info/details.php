@@ -33,6 +33,8 @@ $product = !empty($product) ? $product : aff_get_product();
             <?php endforeach; ?>
         </tbody>
     </table>
+<?php else: ?>
+    <p class="aff-product-details-none">Keine Details vorhanden</p>
 <?php endif; ?>
 
 <?php do_action('affilicious_template_after_product_universal_box_details', $product); ?>

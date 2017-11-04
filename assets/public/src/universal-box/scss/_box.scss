@@ -198,6 +198,11 @@
     &-details {
       border: none;
 
+      &-none {
+        font-size: 14px;
+        text-align: center;
+      }
+
       &-item {
         font-size: 14px;
         border: none;
