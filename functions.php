@@ -842,7 +842,8 @@ function aff_get_product_related_products_query($product_or_id = null, $args = a
     $options = wp_parse_args($args, array(
         'post_type' => Product::POST_TYPE,
         'post__in' => $related_product_ids,
-        'order_by' => 'ASC',
+        'orderby' => 'post__in',
+        'order' => 'ASC'
     ));
 
     $query = new \WP_Query($options);
@@ -924,7 +925,8 @@ function aff_get_product_related_accessories_query($product_or_id = null, $args 
     $options = wp_parse_args($args, array(
         'post_type' => Product::POST_TYPE,
         'post__in' => $related_accessories_ids,
-        'order_by' => 'ASC',
+        'orderby' => 'post__in',
+        'order' => 'ASC'
     ));
 
     $query = new \WP_Query($options);
