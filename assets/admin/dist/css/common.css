@@ -159,6 +159,17 @@
       width: 100%;
       margin-right: 0; } }
 
+#adminmenu a[href="edit.php?post_type=aff_product&page=addons"]::after {
+  content: ' ';
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  background-image: url("../img/star.svg");
+  background-size: 18px 18px;
+  margin-left: 5px;
+  margin-top: -2px; }
+
 .aff-notice, .aff-info-notice, .aff-success-notice, .aff-warning-notice, .aff-error-notice {
   font-size: 14px;
   background-repeat: no-repeat;

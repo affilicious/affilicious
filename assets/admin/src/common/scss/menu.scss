@@ -1,0 +1,11 @@
+#adminmenu a[href="edit.php?post_type=aff_product&page=addons"]::after {
+  content: ' ';
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  background-image: url("../img/star.svg");
+  background-size: 18px 18px;
+  margin-left: 5px;
+  margin-top: -2px;
+}
