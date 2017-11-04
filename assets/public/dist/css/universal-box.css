@@ -76,8 +76,7 @@
     margin: 0;
     padding: 0;
     font-size: 100%;
-    vertical-align: baseline;
-    background: transparent; }
+    vertical-align: baseline; }
   .aff-product-universal-box del {
     text-decoration: line-through; }
   .aff-product-universal-box abbr[title], .aff-product-universal-box dfn[title] {
@@ -305,7 +304,8 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     -o-object-fit: contain;
-       object-fit: contain; }
+       object-fit: contain;
+    padding: 0; }
   .aff-product-universal-box .aff-product-attributes {
     margin-bottom: 10px;
     width: 100%; }
