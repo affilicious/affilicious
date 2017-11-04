@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-11-04 20:08+0100\n"
+"POT-Creation-Date: 2017-11-04 20:30+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,6 +32,13 @@ msgid ""
 "full potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
+#: affilicious.php:227
+#, php-format
+msgid ""
+"The Affilicious Plugin requires the PHP extension %s. Please install the PHP "
+"extension in your hosting provider."
+msgstr ""
+
 #: functions.php:534
 #, php-format
 msgid "based on %s review"
@@ -39,21 +46,21 @@ msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:2129
+#: functions.php:2131
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr ""
 
-#: functions.php:2189
+#: functions.php:2191
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:2672 src/product/customizer/universal-box-customizer.php:623
+#: functions.php:2674 src/product/customizer/universal-box-customizer.php:623
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
 
-#: functions.php:2711
+#: functions.php:2713
 msgid "Unfortunately not available"
 msgstr ""
 

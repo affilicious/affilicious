@@ -122,16 +122,18 @@ if(!class_exists('Affilicious')) {
 		 */
 		private function __construct()
 		{
+			// Check the PHP version and extensions requirement.
+			if (!$this->check_requirements()) {
+				return;
+			}
+
 			if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 				require(__DIR__ . '/vendor/autoload.php');
 			}
 
 			spl_autoload_register(array($this, 'autoload'));
 
-			// Check the PHP version requirement
-			if (version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
-				$this->container = new \Pimple\Container();
-			}
+			$this->container = new \Pimple\Container();
 		}
 
 		/**
@@ -156,17 +158,19 @@ if(!class_exists('Affilicious')) {
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 
-			// Check the PHP version requirement
-			if (version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
-				$this->load_functions();
-				$this->load_services();
-				$this->register_public_hooks();
-				$this->register_admin_hooks();
-				$this->migrate();
-
-				// TODO: This old legacy class will be removed later
-				new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
+			// Check the PHP version and extensions requirement.
+			if (!$this->check_requirements()) {
+				return;
 			}
+
+			$this->load_functions();
+			$this->load_services();
+			$this->register_public_hooks();
+			$this->register_admin_hooks();
+			$this->migrate();
+
+			// TODO: This old legacy class will be removed later
+			new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
 		}
 
 		/**
@@ -202,6 +206,17 @@ if(!class_exists('Affilicious')) {
 		}
 
 		/**
+		 * Check the plugin requirements.
+		 *
+		 * @since 0.9.12
+		 * @return bool
+		 */
+		public function check_requirements()
+		{
+			return version_compare(phpversion(), self::MIN_PHP_VERSION, '>=') && extension_loaded('mbstring');
+		}
+
+		/**
 		 * The code that runs during plugin activation.
 		 *
 		 * @since 0.3
@@ -216,6 +231,16 @@ if(!class_exists('Affilicious')) {
 				wp_die(sprintf(
 					__('The Affilicious Plugin requires at least the PHP Version %s to reveal the full potential. Please switch the PHP version in your hosting provider.', 'affilicious'),
 					self::MIN_PHP_VERSION
+				));
+			}
+
+			if (!extension_loaded('mbstring')) {
+				deactivate_plugins(AFFILICIOUS_BASE_NAME);
+
+				$this->load_textdomain();
+				wp_die(sprintf(
+					__('The Affilicious Plugin requires the PHP extension %s. Please install the PHP extension in your hosting provider.', 'affilicious'),
+					'mdstring'
 				));
 			}
 
