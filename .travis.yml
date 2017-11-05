@@ -36,4 +36,4 @@ matrix:
 before_script:
   - bash bin/install-wp-tests.sh affilicious_test root '' localhost $WP_VERSION true
 
-script: bin/phpunit
+script: vendor/bin/phpunit
