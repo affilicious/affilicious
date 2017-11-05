@@ -551,6 +551,10 @@
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column; }
+  .aff-product-universal-box-column-full-width {
+    -webkit-box-flex: 1;
+        -ms-flex: auto;
+            flex: auto; }
   .aff-product-universal-box-column-half-width {
     -webkit-box-flex: 1;
         -ms-flex: 1;

@@ -418,6 +418,9 @@
     }
 
     &-column {
+      &-full-width {
+        flex: auto;
+      }
       &-half-width {
         flex: 1;
         width: 100%;
