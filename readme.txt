@@ -3,8 +3,8 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.8.2
-Stable tag: 0.9.11
+Tested up to: 4.8.3
+Stable tag: 0.9.12
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,19 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.12 =
+New: Added a start to the addons menu item.
+New: Added universal box image gallery controls.
+Improvement: Added "no details" message to the universal box
+Improvement: Added support for units in the customizer.
+Improvement: Optimized Amazon access and secret key description.
+Improvement: Added PHP mbstring extensions check on installation.
+Improvement: Added better support for the universal box in older browsers.
+Improvement: Optimized the update manager.
+Fix: Fixed the order of related products and accessories.
+Fix: Added some fixes for related products in the universal box.
+Fix: Fixed some product meta box warning notices.
+
 = 0.9.11 =
 New: Added log support.
 Improvement: Added semaphore to prevent parallel product updates.

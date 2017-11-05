@@ -34,7 +34,6 @@ matrix:
       env: WP_VERSION=latest WP_MULTISITE=1
 
 before_script:
-  - bash bin/install-tests-database.sh affilicious_test root '' localhost
   - bash bin/install-wp-tests.sh affilicious_test root '' localhost $WP_VERSION true
 
 script: bin/phpunit
