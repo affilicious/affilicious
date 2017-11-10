@@ -49,13 +49,10 @@ class Template_Locator
 	/**
 	 * Get a list of all available template directory path locations.
 	 *
-	 * Default paths by priority:
-	 *    10. 'aff-templates' dir in the child theme.
-	 *    20. 'templates' dir in the child theme.
-	 *    30. 'aff-templates' dir in the parent theme.
-	 *    40. 'templates' dir in the parent theme.
-	 *    50. 'aff-templates' dir in the Affilicious plugin.
-	 *    60. 'templates' dir in the Affilicious plugin.
+	 * Default paths:
+	 *    'aff-templates' dir in the child theme.
+	 *    'aff-templates' dir in the parent theme.
+	 *    'templates' dir in the Affilicious plugin.
 	 *
 	 * You can add new paths with the "aff_template_paths" filter.
 	 *
@@ -65,16 +62,13 @@ class Template_Locator
 	public function get_template_dir_paths()
 	{
 		$file_paths = [
-			10 => trailingslashit(get_stylesheet_directory()) . 'aff-templates',
-			20 => trailingslashit(get_template_directory()) . 'aff-templates',
-			100 => trailingslashit(AFFILICIOUS_ROOT_PATH) . 'templates',
+			trailingslashit(get_stylesheet_directory()) . 'aff-templates',
+			trailingslashit(get_template_directory()) . 'aff-templates',
+			trailingslashit(AFFILICIOUS_ROOT_PATH) . 'templates',
 		];
 
 		$file_paths = apply_filters('aff_template_paths', $file_paths);
 		Assert_Helper::all_is_type_of($file_paths, 'string', __METHOD__, 'Every template path has to be a string. Got: %s', '0.9.5');
-
-		// Sort by priority.
-		ksort($file_paths, SORT_NUMERIC);
 
 		// Finalize the paths with a trailing slash.
 		$file_paths = array_map('trailingslashit', $file_paths);
