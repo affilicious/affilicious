@@ -10,7 +10,7 @@ trait Review_Aware_Trait
     /**
      * @var null|Review
      */
-    private $review;
+	protected $review;
 
     /**
      * Check if the product has a review.

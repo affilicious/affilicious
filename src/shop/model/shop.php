@@ -25,35 +25,35 @@ class Shop
      *
      * @var Tracking
      */
-    private $tracking;
+    protected $tracking;
 
     /**
      * The pricing contains all information to show prices and availability.
      *
      * @var Pricing
      */
-    private $pricing;
+    protected $pricing;
 
     /**
      * The optional thumbnail of the shop.
      *
      * @var null|Image
      */
-    private $thumbnail;
+    protected $thumbnail;
 
     /**
      * The optional shop template ID.
      *
      * @var Shop_Template_Id
      */
-    private $template_id;
+    protected $template_id;
 
     /**
      * The date and time of the last update.
      *
      * @var \DateTimeImmutable
      */
-    private $updated_at;
+    protected $updated_at;
 
     /**
      * @since 0.8

@@ -12,7 +12,7 @@ trait Type_Trait
      *
      * @var Type
      */
-    private $type;
+	protected $type;
 
     /**
      * Get the type like text or numeric.

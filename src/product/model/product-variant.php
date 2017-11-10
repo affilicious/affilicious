@@ -20,19 +20,19 @@ class Product_Variant extends Product implements Shop_Aware_Interface, Tag_Aware
     /**
      * @var Complex_Product
      */
-    private $parent;
+    protected $parent;
 
     /**
      * Indicates if the variant is the default one for the parent complex product.
      *
      * @var bool
      */
-    private $default;
+    protected $default;
 
     /**
      * @var Attribute[]
      */
-    private $attributes;
+    protected $attributes;
 
     /**
      * @since 0.8

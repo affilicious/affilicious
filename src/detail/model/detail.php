@@ -25,14 +25,14 @@ class Detail
      *
      * @var Value
      */
-    private $value;
+    protected $value;
 
     /**
      * The optional detail template ID.
      *
      * @var Detail_Template_Id
      */
-    private $template_id;
+    protected $template_id;
 
     /**
      * Create a new text detail from the name and value.

@@ -58,22 +58,22 @@ class Amazon_Provider extends Provider
     /**
      * @var Access_Key
      */
-    private $access_key;
+    protected $access_key;
 
     /**
      * @var Secret_Key
      */
-    private $secret_key;
+    protected $secret_key;
 
     /**
      * @var Country
      */
-    private $country;
+    protected $country;
 
     /**
      * @var Associate_Tag
      */
-    private $associate_tag;
+    protected $associate_tag;
 
     /**
      * @inheritdoc

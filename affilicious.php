@@ -361,6 +361,7 @@ if(!class_exists('Affilicious')) {
 		/**
 		 * Register the plugin textdomain for internationalization.
 		 *
+		 * @hook plugins_loaded
 		 * @since 0.5.1
 		 */
 		public function load_textdomain()

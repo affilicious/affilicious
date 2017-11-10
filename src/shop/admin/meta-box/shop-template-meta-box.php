@@ -28,6 +28,8 @@ class Shop_Template_Meta_Box
     }
 
 	/**
+	 * Render the shop template taxonomy meta box.
+	 *
 	 * @hook init
      * @since 0.9
 	 */

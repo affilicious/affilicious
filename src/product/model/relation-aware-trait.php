@@ -14,14 +14,14 @@ trait Relation_Aware_Trait
      *
      * @var Product_Id[]
      */
-    private $related_products;
+    protected $related_products;
 
     /**
      * The IDs of all related accessories.
      *
      * @var Product_Id[]
      */
-    private $related_accessories;
+    protected $related_accessories;
 
     /**
      * @since 0.8

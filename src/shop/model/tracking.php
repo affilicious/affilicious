@@ -10,12 +10,12 @@ class Tracking
     /**
      * @var Affiliate_Link
      */
-    private $affiliate_link;
+    protected $affiliate_link;
 
     /**
      * @var null|Affiliate_Product_Id
      */
-    private $affiliate_product_id;
+    protected $affiliate_product_id;
 
     /**
      * @since 0.8

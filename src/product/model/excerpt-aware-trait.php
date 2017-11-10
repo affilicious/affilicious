@@ -12,7 +12,7 @@ trait Excerpt_Aware_Trait
      *
      * @var null|Excerpt
      */
-    private $excerpt;
+	protected $excerpt;
 
     /**
      * Check if the product has any excerpt.

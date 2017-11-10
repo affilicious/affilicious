@@ -12,7 +12,7 @@ trait Content_Aware_Trait
      *
      * @var null|Content
      */
-    private $content;
+	protected $content;
 
     /**
      * Check if the product has any content.

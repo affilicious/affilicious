@@ -29,21 +29,21 @@ class Shop_Template
      *
      * @var null|Shop_Template_Id
      */
-    private $id;
+    protected $id;
 
 	/**
      * The thumbnail of the shop template.
      *
 	 * @var null|Image
 	 */
-	private $thumbnail;
+	protected $thumbnail;
 
     /**
      * The provider ID for the shop updates.
      *
      * @var null|Provider_Id
      */
-    private $provider_id;
+    protected $provider_id;
 
     /**
      * @since 0.8

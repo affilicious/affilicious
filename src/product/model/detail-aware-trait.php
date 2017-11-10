@@ -14,7 +14,7 @@ trait Detail_Aware_Trait
     /**
      * @var Detail[]
      */
-    private $details;
+	protected $details;
 
     /**
      * @since 0.8

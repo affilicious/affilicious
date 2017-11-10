@@ -10,12 +10,12 @@ class Review
     /**
      * @var Rating
      */
-    private $rating;
+    protected $rating;
 
     /**
      * @var null|Votes
      */
-    private $votes;
+    protected $votes;
 
     /**
      * @since 0.8

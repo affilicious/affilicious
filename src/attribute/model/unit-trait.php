@@ -12,7 +12,7 @@ trait Unit_Trait
      *
      * @var null|Unit
      */
-    private $unit;
+	protected $unit;
 
     /**
      * Check if the optional unit exists.

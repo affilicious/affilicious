@@ -14,7 +14,7 @@ trait Shop_Aware_Trait
     /**
      * @var Shop[]
      */
-    private $shops;
+	protected $shops;
 
     /**
      * @since 0.8

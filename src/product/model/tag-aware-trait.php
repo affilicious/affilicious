@@ -14,7 +14,7 @@ trait Tag_Aware_Trait
      *
      * @var Tag[]
      */
-    private $tags;
+	protected $tags;
 
     /**
      * @since 0.8

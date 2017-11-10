@@ -28,7 +28,7 @@ class Detail_Template
      *
      * @var null|Detail_Template_Id
      */
-    private $id;
+	protected $id;
 
     /**
      * The unit will be stored only, if the type is number.

@@ -28,7 +28,7 @@ class Attribute_Template
      *
      * @var null|Attribute_Template_Id
      */
-    private $id;
+	protected $id;
 
     /**
      * The unit will be stored only, if the type is number.

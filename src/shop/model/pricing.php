@@ -10,21 +10,21 @@ class Pricing
     /**
      * @var Availability
      */
-    private $availability;
+    protected $availability;
 
     /**
      * The discounted price (sometimes called current price).
      *
      * @var null|Money
      */
-    private $price;
+    protected $price;
 
     /**
      * The regular stock price (sometimes called old price).
      *
      * @var null|Money
      */
-    private $old_price;
+    protected $old_price;
 
     /**
      * Create a new available pricing with the discounted price and stock price.
