@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-11-04 20:30+0100\n"
+"POT-Creation-Date: 2017-11-10 10:35+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: affilicious.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;"
+"esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
@@ -25,14 +25,14 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: tmp\n"
 "X-Poedit-SearchPathExcluded-4: *.js\n"
 
-#: affilicious.php:217
+#: affilicious.php:232
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
 "full potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
-#: affilicious.php:227
+#: affilicious.php:242
 #, php-format
 msgid ""
 "The Affilicious Plugin requires the PHP extension %s. Please install the PHP "
@@ -658,7 +658,7 @@ msgid "Rating"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:501
-#: src/shop/admin/meta-box/shop-template-meta-box.php:79
+#: src/shop/admin/meta-box/shop-template-meta-box.php:81
 msgid "None"
 msgstr ""
 
@@ -1429,25 +1429,25 @@ msgid "The associate tag for the Amazon provider is missing."
 msgstr ""
 
 #: src/shop/admin/filter/table-columns-filter.php:31
-#: src/shop/admin/meta-box/shop-template-meta-box.php:56
+#: src/shop/admin/meta-box/shop-template-meta-box.php:58
 msgid "Provider"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:38
+#: src/shop/admin/meta-box/shop-template-meta-box.php:40
 #: src/shop/setup/shop-template-setup.php:21
 msgid "Shop Template"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:59
+#: src/shop/admin/meta-box/shop-template-meta-box.php:61
 msgid ""
 "The provider is used for the automatic updates for products using this shop."
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:60
+#: src/shop/admin/meta-box/shop-template-meta-box.php:62
 msgid "Logo"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:61
+#: src/shop/admin/meta-box/shop-template-meta-box.php:63
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 
