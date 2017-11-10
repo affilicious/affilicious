@@ -397,6 +397,8 @@
         overflow: hidden;
         border-width: 1px;
         border-style: solid;
+        display: flex !important;
+        align-items: center !important;
 
         &-thumbnail {
           object-fit: contain;

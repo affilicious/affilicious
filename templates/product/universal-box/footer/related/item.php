@@ -5,7 +5,7 @@ $product = !empty($product) ? $product : aff_get_product();
 
 <?php do_action('affilicious_template_before_product_universal_box_related_item', $product); ?>
 
-<article class="aff-product-related-item d-flex align-items-center">
+<article class="aff-product-related-item">
     <a href="<?php the_permalink() ?>">
         <?php if(has_post_thumbnail()): ?>
             <?php the_post_thumbnail('post-thumbnail', [

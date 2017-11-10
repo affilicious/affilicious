@@ -535,7 +535,13 @@
       margin-right: 25px;
       overflow: hidden;
       border-width: 1px;
-      border-style: solid; }
+      border-style: solid;
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      -webkit-box-align: center !important;
+          -ms-flex-align: center !important;
+              align-items: center !important; }
       .aff-product-universal-box .aff-product-related-item-thumbnail {
         -o-object-fit: contain;
            object-fit: contain;
