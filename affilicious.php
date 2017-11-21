@@ -5,10 +5,10 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: The best affiliate solution in Wordpress with products & variants, shops, price comparisons, Amazon import & update and much more.
- * Version: 0.9.12
+ * Version: 0.9.13
  * License: GPL-2.0 or later
  * Requires at least: 4.5
- * Tested up to: 4.8.2
+ * Tested up to: 4.9
  * Text Domain: affilicious
  * Domain Path: languages/
  *
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-define('AFFILICIOUS_VERSION', '0.9.12');
+define('AFFILICIOUS_VERSION', '0.9.13');
 define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
@@ -44,7 +44,7 @@ if(!class_exists('Affilicious')) {
 	class Affilicious
 	{
 		const NAME = 'affilicious';
-		const VERSION = '0.9.12';
+		const VERSION = '0.9.13';
 		const MIN_PHP_VERSION = '5.6';
 
 		/**
