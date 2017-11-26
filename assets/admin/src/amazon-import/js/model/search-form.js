@@ -7,6 +7,8 @@ let SearchForm = Backbone.Model.extend({
         'loading': false,
         'error': false,
         'errorMessage': null,
+        'noResults': false,
+        'noResultsMessage': null,
         'providerConfigured': false
     },
 
@@ -21,6 +23,8 @@ let SearchForm = Backbone.Model.extend({
             'loading': true,
             'error': false,
             'errorMessage': null,
+            'noResults': false,
+            'noResultsMessage': null,
         });
 
         this.trigger('aff:amazon-import:search:search-form:submit', this);
@@ -36,6 +40,23 @@ let SearchForm = Backbone.Model.extend({
         this.set('loading', false);
 
         this.trigger('aff:amazon-import:search:search-form:done', this);
+    },
+
+    /**
+     * Finish the search submit with no results and stop the loading animation.
+     *
+     * @since 0.9.14
+     * @param {string|null} message
+     * @public
+     */
+    noResults(message = null) {
+        this.set({
+            'loading': false,
+            'noResults': true,
+            'noResultsMessage': message,
+        });
+
+        this.trigger('affebayiu:ebay-import:search:search-form:no-results', this);
     },
 
     /**

@@ -55,6 +55,14 @@
         <div class="aff-import-search-form-loading">
             <span class="aff-import-search-form-loading-spinner spinner is-active"></span>
         </div>
+    <% } else if(noResults) { %>
+        <div class="aff-import-search-form-no-results aff-notice aff-warning-notice" role="alert">
+            <% if(noResultsMessage) { %>
+                <%= noResultsMessage %>
+            <% } else { %>
+                <?php _e('No results have been found for the search term.', 'affilicious-ebay-import-and-update'); ?>
+            <% } %>
+        </div>
     <% } else if(error) { %>
         <div class="aff-import-search-form-error aff-notice aff-error-notice" role="alert">
             <% if(errorMessage) { %>

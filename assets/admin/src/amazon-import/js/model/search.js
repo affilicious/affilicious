@@ -42,7 +42,12 @@ let Search = Backbone.Model.extend({
 
         this.results.fetch().done((results) => {
             this.loadMore.set('enabled', this._isLoadMoreEnabled(results));
-            this.form.done();
+
+            if(this._hasResults(results)) {
+                this.form.done();
+            } else {
+                this.form.noResults();
+            }
         }).fail((result) => {
             let errorMessage = ((((result || {}).responseJSON || {}).data || {})[0] || {}).message || null;
 
@@ -112,6 +117,20 @@ let Search = Backbone.Model.extend({
         return (results && results.data && results.data.length > 0)
             && this.get('page') < 5
             && this.form.get('type') === 'keywords';
+    },
+
+    /**
+     * Check if there are any other results.
+     *
+     * @since 1.1.2
+     * @param {Array|null} results
+     * @returns {bool}
+     * @private
+     */
+    _hasResults(results) {
+        return results
+            && results.data
+            && results.data.length > 0;
     }
 });
 

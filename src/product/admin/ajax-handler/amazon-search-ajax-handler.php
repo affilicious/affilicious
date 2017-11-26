@@ -48,6 +48,9 @@ class Amazon_Search_Ajax_Handler
         }
 
         $products = apply_filters('aff_product_admin_ajax_handler_amazon_search_handle', $products);
+	    if(empty($products)) {
+		    wp_send_json_success([]);
+	    }
 
         // Map the products into arrays which can be serialized into JSON.
         $products = array_map(function(Product $product) {
