@@ -72,7 +72,7 @@ class Assets_Setup
         ]);
 
         // Register Amazon import scripts
-	    if($screen->id == 'aff_product_page_aff-import-amazon') {
+		if(isset($_GET['page']) && $_GET['page'] == 'aff-import-amazon') {
             wp_register_script('aff-admin-amazon-import', $base_admin_url . 'amazon-import.min.js', ['jquery', 'backbone'], \Affilicious::VERSION, true);
             wp_localize_script('aff-admin-amazon-import', 'affAdminAmazonImportUrls', [
                 'ajax' => admin_url('admin-ajax.php'),
