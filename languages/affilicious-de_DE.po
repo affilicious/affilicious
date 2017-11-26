@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-11-10 10:39+0100\n"
+"POT-Creation-Date: 2017-11-26 21:42+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -1789,6 +1789,10 @@ msgid "Note that not all products with variants contain an image."
 msgstr "Nicht alle Produkte mit Varianten enthalten ein Bild."
 
 #: templates/admin/page/imports/amazon/search-form-template.php:63
+msgid "No results have been found for the search term."
+msgstr "Es wurden keine Suchergebnisse für diesen Suchbegriff gefunden."
+
+#: templates/admin/page/imports/amazon/search-form-template.php:71
 #: templates/admin/page/imports/amazon/search-load-more-template.php:20
 msgid "The search has failed because an error has occurred."
 msgstr "Die Suche ist fehlgeschlagen, da ein Fehler aufgetaucht ist."
