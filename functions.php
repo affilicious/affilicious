@@ -575,6 +575,23 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
 }
 
 /**
+ * Check if the product has any details.
+ *
+ * @since 0.9.14
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product has details or not.
+ */
+function aff_has_product_details($product_or_id = null)
+{
+	$details = aff_get_product_details($product_or_id, 'array');
+	if(empty($details)) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
  * Check if the product has a thumbnail.
  *
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
