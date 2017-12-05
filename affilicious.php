@@ -482,6 +482,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Admin\Setup\Assets_Setup();
 			};
 
+			$this->container['affilicious.common.admin.notice.download_recommendation'] = function() {
+				return new \Affilicious\Common\Admin\Notice\Download_Recommendation_Notice();
+			};
+
 			// Provider services
 			$this->container['affilicious.provider.setup.provider'] = function ($c) {
 				return new \Affilicious\Provider\Setup\Provider_Setup(
@@ -1093,6 +1097,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the detail template meta box.
 			$detail_template_meta_box = $this->container['affilicious.detail.admin.meta_box.detail_template'];
 			add_action('init', array($detail_template_meta_box, 'render'), 10);
+
+			// Hook the admin notices
+			$download_recommendation_notice = $this->container['affilicious.common.admin.notice.download_recommendation'];
+			add_action('admin_notices', array($download_recommendation_notice, 'render'));
 
 			// Hook the admin assets.
 			$assets_setup = $this->container['affilicious.common.admin.setup.assets'];

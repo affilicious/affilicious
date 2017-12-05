@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-11-26 21:42+0100\n"
+"POT-Creation-Date: 2017-12-02 20:56+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -225,6 +225,18 @@ msgstr ""
 msgid "Failed to deactivate the license."
 msgstr ""
 
+#: src/common/admin/notice/download-recommendation-notice.php:30
+#, php-format
+msgid ""
+"Download recommendation: %s Visit <a href=\"%s\" target=\"_blank\" rel=\"nofollow\">"
+"%s</a> now."
+msgstr ""
+
+#: src/common/admin/notice/download-recommendation-notice.php:76
+#: src/common/admin/page/addons-page.php:77
+msgid "Extensions"
+msgstr ""
+
 #: src/common/admin/options/affilicious-options.php:56
 msgid "Licenses"
 msgstr ""
@@ -274,10 +286,6 @@ msgstr ""
 #: src/common/admin/page/addons-page.php:25 src/common/admin/page/addons-page.php:26
 #: templates/admin/page/addons.php:4 templates/admin/page/addons/resources.php:7
 msgid "Add-ons"
-msgstr ""
-
-#: src/common/admin/page/addons-page.php:77
-msgid "Extensions"
 msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:63

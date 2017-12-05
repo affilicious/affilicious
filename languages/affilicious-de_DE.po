@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-11-26 21:42+0100\n"
+"POT-Creation-Date: 2017-12-02 20:56+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -234,6 +234,20 @@ msgstr "Die Deaktivierung der Lizenz war erfolgreich."
 msgid "Failed to deactivate the license."
 msgstr "Die Deaktivierung der Lizenz ist fehlgeschlagen."
 
+#: src/common/admin/notice/download-recommendation-notice.php:30
+#, php-format
+msgid ""
+"Download recommendation: %s Visit <a href=\"%s\" target=\"_blank\" rel="
+"\"nofollow\">%s</a> now."
+msgstr ""
+"Download Empfehlung: %s Jetzt <a href=\"%s\" target=\"_blank\" rel=\"nofollow"
+"\">%s</a> anschauen."
+
+#: src/common/admin/notice/download-recommendation-notice.php:76
+#: src/common/admin/page/addons-page.php:77
+msgid "Extensions"
+msgstr "Erweiterungen"
+
 #: src/common/admin/options/affilicious-options.php:56
 msgid "Licenses"
 msgstr "Lizenzen"
@@ -294,10 +308,6 @@ msgstr ""
 #: src/common/admin/page/addons-page.php:26 templates/admin/page/addons.php:4
 #: templates/admin/page/addons/resources.php:7
 msgid "Add-ons"
-msgstr "Erweiterungen"
-
-#: src/common/admin/page/addons-page.php:77
-msgid "Extensions"
 msgstr "Erweiterungen"
 
 #: src/common/admin/setup/assets-setup.php:63
