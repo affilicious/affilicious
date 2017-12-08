@@ -2278,6 +2278,10 @@ function aff_is_shop_available($shop)
         $shop = Shop_Helper::from_array($shop);
     }
 
+    if(empty($shop)) {
+    	return false;
+    }
+
     $available = $shop->get_pricing()->get_availability()->is_available();
     $available = apply_filters('aff_is_shop_available', $available, $shop);
 
