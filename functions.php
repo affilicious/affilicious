@@ -1891,6 +1891,23 @@ function aff_get_product_variant_attributes($product_or_id = null, $variant_or_i
 }
 
 /**
+ * Check if the product attribute choices are enabled for the variant switching.
+ *
+ * @since 0.9.15
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product attribute choices are enabled for the product or not.
+ */
+function aff_has_product_attribute_choices($product_or_id = null)
+{
+	$product_attribute_choices = aff_get_product_attribute_choices($product_or_id);
+	if(empty($product_attribute_choices)) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
  * Get the product attributes choices for the variant switching.
  *
  * @since 0.6
