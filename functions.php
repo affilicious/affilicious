@@ -2268,7 +2268,11 @@ function aff_get_shop_availability($shop, $output = 'scalar')
         $shop = Shop_Helper::from_array($shop);
     }
 
-    $availability = $shop->get_pricing()->get_availability();
+	if(empty($shop)) {
+		$availability = Availability::out_of_stock();
+	} else {
+		$availability = $shop->get_pricing()->get_availability();
+	}
 
     $availability = apply_filters('aff_shop_availability', $availability, $shop);
 
