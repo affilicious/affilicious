@@ -8,7 +8,7 @@
  * Version: 0.9.13
  * License: GPL-2.0 or later
  * Requires at least: 4.5
- * Tested up to: 4.9
+ * Tested up to: 4.9.1
  * Text Domain: affilicious
  * Domain Path: languages/
  *

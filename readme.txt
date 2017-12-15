@@ -3,7 +3,7 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.9
+Tested up to: 4.9.1
 Stable tag: 0.9.13
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
