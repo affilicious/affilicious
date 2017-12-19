@@ -2,7 +2,9 @@ let SearchForm =  Backbone.View.extend({
     el: '#aff-amazon-import-search-form',
 
     events: {
-        'change': 'change',
+        'change select[name="type"]': 'change',
+        'change select[name="category"]': 'change',
+        'change select[name="with-variants"]': 'change',
         'submit': 'submit',
     },
 
@@ -47,7 +49,7 @@ let SearchForm =  Backbone.View.extend({
      * Submit the search form.
      *
      * @since 0.9
-     * @param e
+     * @param {Event} e
      * @public
      */
     submit(e) {
