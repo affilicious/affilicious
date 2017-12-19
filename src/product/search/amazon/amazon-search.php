@@ -66,6 +66,7 @@ class Amazon_Search implements Search_Interface
                 'store_image_gallery' => false,
                 'store_shop' => false,
                 'store_attributes' => false,
+                'condition' => $this->find_condition($params)
             ]);
         }, $results);
 
@@ -83,7 +84,7 @@ class Amazon_Search implements Search_Interface
     {
         $term = isset($params['term']) ? $params['term'] : null;
         if(empty($term)) {
-            return new \WP_Error('aff_amazon_search_missing_term', __('The Amazon search term is missing', 'affilicious'));
+            return new \WP_Error('aff_amazon_search_missing_term', __('The Amazon search term is missing.', 'affilicious'));
         }
 
         return $term;
@@ -117,7 +118,7 @@ class Amazon_Search implements Search_Interface
     {
         $category = isset($params['category']) ? $params['category'] : null;
         if(empty($category)) {
-            return new \WP_Error('aff_amazon_search_missing_category', __('The Amazon search category is missing', 'affilicious'));
+            return new \WP_Error('aff_amazon_search_missing_category', __('The Amazon search category is missing.', 'affilicious'));
         }
 
         if(!in_array($category, array_keys(Category::$germany))) {
@@ -142,6 +143,80 @@ class Amazon_Search implements Search_Interface
     {
         return !empty($params['with_variants']);
     }
+
+	/**
+	 * Find the min price for the search.
+	 *
+	 * @since 0.9.15
+	 * @param array $params The parameters for the Amazon search.
+	 * @return string|null|\WP_Error Either the min price or and error.
+	 */
+	protected function find_min_price(array $params)
+	{
+		$min_price = !empty($params['min_price']) && is_numeric($params['min_price']) ? $params['min_price'] : null;
+		if($min_price === null) {
+			return null;
+		}
+
+		if(!is_numeric($min_price)) {
+			return new \WP_Error('aff_amazon_search_invalid_min_price', __('The Amazon search min price is invalid.', 'affilicious'));
+		}
+
+		$min_price = ceil(floatval($min_price) * 100);
+
+		return $min_price;
+	}
+
+	/**
+	 * Find the max price for the search.
+	 *
+	 * @since 0.9.15
+	 * @param array $params The parameters for the Amazon search.
+	 * @return string|null|\WP_Error Either the max price or and error.
+	 */
+	protected function find_max_price(array $params)
+	{
+		$max_price = !empty($params['max_price']) || is_numeric($params['max_price']) ? $params['max_price'] : null;
+		if($max_price === null) {
+			return null;
+		}
+
+		if(!is_numeric($max_price)) {
+			return new \WP_Error('aff_amazon_search_invalid_max_price', __('The Amazon search max price is invalid.', 'affilicious'));
+		}
+
+		$max_price = ceil(floatval($max_price) * 100);
+
+		return $max_price;
+	}
+
+	/**
+	 * Find the condition for the search.
+	 *
+	 * @since 0.9.15
+	 * @param array $params The parameters for the Amazon search.
+	 * @return string The condition like all, new or used.
+	 */
+	protected function find_condition(array $params)
+	{
+		$condition = !empty($params['condition']) ? $params['condition'] : 'New';
+
+		return $condition;
+	}
+
+	/**
+	 * Find the sort order for the search.
+	 *
+	 * @since 0.9.15
+	 * @param array $params The parameters for the Amazon search.
+	 * @return string The sort order.
+	 */
+	protected function find_sort(array $params)
+	{
+		$sort = !empty($params['sort']) ? $params['sort'] : 'price-desc-rank';
+
+		return $sort;
+	}
 
     /**
      * Find the search page for the pagination.
@@ -210,6 +285,26 @@ class Amazon_Search implements Search_Interface
             return $page;
         }
 
+        $min_price = $this->find_min_price($params);
+	    if($min_price instanceof \WP_Error) {
+		    return $min_price;
+	    }
+
+        $max_price = $this->find_max_price($params);
+	    if($max_price instanceof \WP_Error) {
+		    return $max_price;
+	    }
+
+	    $sort = $this->find_sort($params);
+	    if($sort instanceof \WP_Error) {
+		    return $sort;
+	    }
+
+        $condition = $this->find_condition($params);
+	    if($condition instanceof \WP_Error) {
+		    return $condition;
+	    }
+
         $with_variants = $this->find_with_variants($params);
 
         // Prepare the search request.
@@ -225,7 +320,7 @@ class Amazon_Search implements Search_Interface
             ->setRequest($request)
             ->setResponseTransformer(new XmlToArray());
 
-        $operation = $this->create_search_operation($term, $type, $category, $with_variants, $page);
+        $operation = $this->create_search_operation($term, $type, $category, $min_price, $max_price, $sort, $condition, $with_variants, $page);
 
         // Make the search request.
         try {
@@ -258,18 +353,23 @@ class Amazon_Search implements Search_Interface
         return $response;
     }
 
-    /**
-     * Create the search operation for the Amazon search based on the search parameters.
-     *
-     * @since 0.9
-     * @param string $term
-     * @param string $type
-     * @param string $category
-     * @param bool $with_variants
-     * @param int $page
-     * @return OperationInterface
-     */
-    protected function create_search_operation($term, $type, $category, $with_variants, $page)
+	/**
+	 * Create the search operation for the Amazon search based on the search parameters.
+	 *
+	 * @since 0.9
+	 *
+	 * @param string $term
+	 * @param string $type
+	 * @param string $category
+	 * @param int|null $min_price
+	 * @param int|null $max_price
+	 * @param string|null $sort
+	 * @param string $condition
+	 * @param bool $with_variants
+	 * @param int $page
+	 * @return OperationInterface
+	 */
+    protected function create_search_operation($term, $type, $category, $min_price, $max_price, $sort, $condition, $with_variants, $page)
     {
         $response_group = ['Small', 'Images', 'Offers', 'ItemAttributes'];
         if($with_variants) {
@@ -279,8 +379,22 @@ class Amazon_Search implements Search_Interface
         if($type == 'keywords') {
             $operation = new Search();
             $operation->setKeywords($term);
-            $operation->setCategory($category);
             $operation->setPage($page);
+            $operation->setCategory($category);
+            $operation->setCondition($condition);
+            $operation->setAvailability('Available');
+
+	        if($category !== 'All' && $sort !== null) {
+		        $operation->setSort($sort);
+	        }
+
+            if($min_price !== null) {
+	            $operation->setMinimumPrice($min_price);
+            }
+
+            if($max_price !== null) {
+	            $operation->setMaximumPrice($max_price);
+            }
         } else {
             $operation = new Lookup();
             $operation->setItemId($term);

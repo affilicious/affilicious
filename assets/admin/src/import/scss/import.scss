@@ -21,6 +21,10 @@
     }
 
     &-form {
+      &-error {
+        margin-bottom: 25px;
+      }
+
       &-main {
         display: flex;
         flex-flow: row;

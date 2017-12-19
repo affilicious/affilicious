@@ -101,6 +101,10 @@ let Search = Backbone.Model.extend({
             + `&term=${this.form.get('term')}`
             + `&type=${this.form.get('type')}`
             + `&category=${this.form.get('category')}`
+            + `&min-price=${this.form.get('minPrice')}`
+            + `&max-price=${this.form.get('maxPrice')}`
+            + `&condition=${this.form.get('condition')}`
+            + `&sort=${this.form.get('sort')}`
             + `&with-variants=${this.form.get('withVariants')}`
             + `&page=${this.get('page')}`
     },

@@ -8,9 +8,7 @@
             <label class="screen-reader-text" for="aff-amazon-import-search-term"><?php _e('Search term', 'affilicious'); ?></label>
             <input id="aff-amazon-import-search-term" class="aff-import-search-form-main-item aff-import-search-form-main-item-term" name="term" type="search" placeholder="<% if(type == 'keywords') { %><?php _e('Enter your search term...', 'affilicious'); ?><% } else { %><?php _e('Enter your ASIN...', 'affilicious'); ?><% } %>" value="<%= term %>">
 
-            <button class="aff-import-search-form-main-item aff-import-search-form-main-item-submit button-primary" <% if(!providerConfigured) { %>disabled<% } %>>
-                <?php _e('Search', 'affilicious'); ?>
-            </button>
+            <button class="aff-import-search-form-main-item aff-import-search-form-main-item-submit button-primary" <% if(!providerConfigured) { %>disabled<% } %>><?php _e('Search', 'affilicious'); ?></button>
         </div>
 
         <div class="aff-import-search-form-filters aff-panel-footer">
@@ -27,26 +25,47 @@
                         <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($name); ?></option>
                     <?php endforeach; ?>
                 </select>
+
+                <label class="screen-reader-text" for="aff-amazon-import-search-min-price"><?php _e('Min price', 'affilicious'); ?></label>
+                <input id="aff-amazon-import-search-max-price" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-input" name="min-price" placeholder="<?php _e('Min price', 'affilicious'); ?>" />
+
+                <label class="screen-reader-text" for="aff-amazon-import-search-min-price"><?php _e('Max price', 'affilicious'); ?></label>
+                <input id="aff-amazon-import-search-max-price" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-input" name="max-price" placeholder="<?php _e('Max price', 'affilicious'); ?>" />
+
+                <% if(category != 'All') { %>
+                    <label class="screen-reader-text" for="aff-amazon-import-search-sort"><?php _e('Sort order', 'affilicious'); ?></label>
+                    <select id="aff-amazon-import-search-sort" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="sort">
+                        <option value="-price"><?php _e('Price: high to low', 'affilicious'); ?></option>
+                        <option value="price"><?php _e('Price: low to high', 'affilicious'); ?></option>
+                        <option value="salesrank"><?php _e('Bestselling', 'affilicious'); ?></option>
+                        <option value="relevancerank"><?php _e('Relevance', 'affilicious'); ?></option>
+                        <option value="reviewrank"><?php _e('Reviews', 'affilicious'); ?></option>
+                    </select>
+                <% } %>
+
+                <label class="screen-reader-text" for="aff-amazon-import-search-condition"><?php _e('Condition', 'affilicious'); ?></label>
+                <select id="aff-amazon-import-search-condition" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="condition">
+                    <option value="New"><?php _e('New', 'affilicious'); ?></option>
+                    <option value="Used"><?php _e('Used', 'affilicious'); ?></option>
+                    <option value="Refurbished"><?php _e('Refurbished', 'affilicious'); ?></option>
+                    <option value="Collectible"><?php _e('Collectible', 'affilicious'); ?></option>
+                </select>
             <% } %>
 
-            <label class="screen-reader-text" for="aff-amazon-import-search-with-variants"><?php _e('Search with variants', 'affilicious'); ?></label>
-            <select id="aff-amazon-import-search-with-variants" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="with-variants">
-                <option value="no"><?php _e('Without variants', 'affilicious'); ?></option>
-                <option value="yes"><?php _e('With variants', 'affilicious'); ?></option>
-            </select>
+            <% if(category != 'All') { %>
+                <label class="screen-reader-text" for="aff-amazon-import-search-with-variants"><?php _e('Search with variants', 'affilicious'); ?></label>
+                <select id="aff-amazon-import-search-with-variants" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="with-variants">
+                    <option value="no"><?php _e('Without variants', 'affilicious'); ?></option>
+                    <option value="yes"><?php _e('With variants', 'affilicious'); ?></option>
+                </select>
+            <% } %>
 
             <% if(type == 'keywords' && category == 'All' && withVariants == 'yes') { %>
-                <div class="aff-import-search-form-filters-notice" role="alert">
-                    <?php _e('Search with product variants doesn\'t work if the category "All" is selected.' , 'affilicious'); ?>
-                </div>
+                <div class="aff-import-search-form-filters-notice" role="alert"><?php _e('Search with product variants doesn\'t work if the category "All" is selected.' , 'affilicious'); ?></div>
             <% } else if(type == 'keywords' && category != 'All' && withVariants == 'yes') { %>
-                <div class="aff-import-search-form-filters-notice" role="alert">
-                    <?php _e('Due to limitations, not all products with variants are found in the keyword search.', 'affilicious'); ?>
-                </div>
+                <div class="aff-import-search-form-filters-notice" role="alert"><?php _e('Due to limitations, not all products with variants are found in the keyword search.', 'affilicious'); ?></div>
             <% } else if(type == 'asin' && withVariants == 'yes') { %>
-                <div class="aff-import-search-form-filters-notice" role="alert">
-                    <?php _e('Note that not all products with variants contain an image.' , 'affilicious'); ?>
-                </div>
+                <div class="aff-import-search-form-filters-notice" role="alert"><?php _e('Note that not all products with variants contain an image.' , 'affilicious'); ?></div>
             <% } %>
         </div>
     </div>
