@@ -140,7 +140,7 @@
           }
 
           &-media {
-            width: 200px;
+            width: 150px;
             display: inline-block;
 
             @media (max-width: 767px) {
@@ -151,7 +151,7 @@
           }
 
           &-main {
-            width: calc(100% - 220px);
+            width: calc(100% - 170px);
             display: inline-block;
 
             @media (max-width: 767px) {
@@ -166,8 +166,8 @@
           justify-content: center;
           align-items: center;
           border: 1px solid #eee;
-          width: 200px;
-          height: 200px;
+          width: 150px;
+          height: 150px;
 
           @media (max-width: 767px) {
             margin: 0 auto;
