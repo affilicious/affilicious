@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-12-22 13:46+0100\n"
+"POT-Creation-Date: 2017-12-22 14:03+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1777,6 +1777,10 @@ msgstr ""
 
 #: templates/admin/page/imports/amazon/search-results-item-template.php:92
 msgid "Failed to import the product."
+msgstr ""
+
+#: templates/admin/page/imports/amazon/search-results-item-template.php:93
+msgid "Retry"
 msgstr ""
 
 #: templates/product/footer/relations/accessory.php:1

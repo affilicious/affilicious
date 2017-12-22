@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-12-22 13:46+0100\n"
+"POT-Creation-Date: 2017-12-22 14:03+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -1588,6 +1588,10 @@ msgstr "Das Produkt wurde erfolgreich importiert."
 msgid "Failed to import the product."
 msgstr "Importieren des Produkts ist fehlgeschlagen."
 
+#: templates/admin/page/imports/amazon/search-results-item-template.php:93
+msgid "Retry"
+msgstr "Nochmal probieren"
+
 #: templates/product/footer/relations/accessory.php:1
 #: templates/product/universal-box/footer/related/accessories.php:10
 msgid "Related accessories"
@@ -1601,6 +1605,9 @@ msgstr "Ähnliche Produkte"
 #: templates/product/universal-box/body/info/details.php:16
 msgid "Download"
 msgstr "Herunterladen"
+
+#~ msgid "Retry import"
+#~ msgstr "Nochmals importieren"
 
 #~ msgid "based on %s review"
 #~ msgid_plural "based on %s reviews"

@@ -273,17 +273,21 @@
           .aff-import-search-results-item-variants-item-attributes-item-value {
             background-color: white; }
     .aff-import-search-results-item-actions {
-      height: 60px;
+      min-height: 60px;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: column nowrap;
+              flex-flow: column nowrap;
       -webkit-box-pack: center;
           -ms-flex-pack: center;
               justify-content: center;
       -webkit-box-align: center;
           -ms-flex-align: center;
               align-items: center; }
-      .aff-import-search-results-item-actions-import {
+      .aff-import-search-results-item-actions-import, .aff-import-search-results-item-actions-retry-import {
         font-size: 13px;
         cursor: pointer;
         display: block;
@@ -299,7 +303,7 @@
         text-shadow: 0 -1px 1px #e67c0b, 1px 0 1px #e67c0b, 0 1px 1px #e67c0b, -1px 0 1px #e67c0b;
         -webkit-box-shadow: 0 1px 0 #e67c0b;
         box-shadow: 0 1px 0 #e67c0b; }
-        .aff-import-search-results-item-actions-import:hover {
+        .aff-import-search-results-item-actions-import:hover, .aff-import-search-results-item-actions-retry-import:hover {
           border-color: #ed7709;
           background-color: #ff9736;
           color: #fff !important;
@@ -309,6 +313,7 @@
         color: #179c2e; }
       .aff-import-search-results-item-actions-error {
         margin: 0;
+        margin-bottom: 10px;
         color: #dd372e; }
     .aff-import-search-load-more {
       text-align: center; }

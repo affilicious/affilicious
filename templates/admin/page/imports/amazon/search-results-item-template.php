@@ -90,6 +90,7 @@
                 <p class="aff-import-search-results-item-actions-done"><% if(successMessage) { %><%= successMessage %><% } else { %><?php _e('Successfully imported the product.', 'affilicious'); ?><% } %></p>
             <% } else if(!loading && error) { %>
                 <p class="aff-import-search-results-item-actions-error"><% if(errorMessage) { %><%= errorMessage %><% } else { %><?php _e('Failed to import the product.', 'affilicious'); ?><% } %></p>
+                <button class="aff-import-search-results-item-actions-retry-import"><?php _e('Retry', 'affilicious'); ?></button>
             <% } else { %>
                 <div class="aff-import-search-results-item-actions-loading">
                     <span class="aff-import-search-results-item-actions-loading-spinner spinner is-active"></span>

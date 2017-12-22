@@ -7,6 +7,8 @@ let SearchForm =  Backbone.View.extend({
         'submit': 'submit',
     },
 
+    initialFocus: false,
+
     /**
      * Initialize the search form.
      *
@@ -33,13 +35,19 @@ let SearchForm =  Backbone.View.extend({
     render() {
         this.$el.html(this.template(this.model.attributes));
 
-        let type = this.$el.find('select[name="type"]'),
+        let term = this.$el.find('input[name="term"]'),
+            type = this.$el.find('select[name="type"]'),
             category = this.$el.find('select[name="category"]'),
             minPrice = this.$el.find('input[name="min-price"]'),
             maxPrice = this.$el.find('input[name="max-price"]'),
             condition = this.$el.find('select[name="condition"]'),
             sort = this.$el.find('select[name="sort"]'),
             withVariants = this.$el.find('select[name="with-variants"]');
+
+        if(!this.initialFocus) {
+            term.focus();
+            this.initialFocus = true;
+        }
 
         type.val(this.model.get('type'));
         category.val(this.model.get('category'));

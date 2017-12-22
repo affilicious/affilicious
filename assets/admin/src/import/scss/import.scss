@@ -312,12 +312,14 @@
         }
 
         &-actions {
-          height: 60px;
+          min-height: 60px;
           display: flex;
+          flex-flow: column nowrap;
           justify-content: center;
           align-items: center;
 
-          &-import {
+          &-import,
+          &-retry-import {
             font-size: 13px;
             cursor: pointer;
             display: block;
@@ -349,7 +351,9 @@
 
           &-error {
             margin: 0;
+            margin-bottom: 10px;
             color: #dd372e;
+
           }
         }
       }
