@@ -327,7 +327,11 @@ class Amazon_Search implements Search_Interface
             $apaiIO = new ApaiIO($conf);
             $response = $apaiIO->runOperation($operation);
         } catch (\Exception $e) {
-            $response = new \WP_Error('aff_product_amazon_search_error', $e->getMessage());
+	        if($e->getCode() == 503) {
+		        $response = new \WP_Error('aff_product_amazon_search_error', __('Amazon has throttled your search speed for a short time.', 'affilicious'));
+	        } else {
+		        $response = new \WP_Error('aff_product_amazon_search_error', $e->getMessage());
+	        }
         }
 
         // Make the search request again for the parent item, if the search request type is "asin" and "with parents" is enabled.
@@ -338,7 +342,7 @@ class Amazon_Search implements Search_Interface
 	    }
 
 	    // Check if there are any errors.
-        if(isset($response['Items']['Request']['Errors']['Error'])) {
+        if(!($response instanceof \WP_Error) && isset($response['Items']['Request']['Errors']['Error'])) {
             $errors = isset($response['Items']['Request']['Errors']['Error'][0]) ? $response['Items']['Request']['Errors']['Error'] : [$response['Items']['Request']['Errors']['Error']];
             $response = new \WP_Error();
             foreach ($errors as $error) {

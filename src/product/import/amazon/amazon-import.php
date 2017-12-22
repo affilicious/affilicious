@@ -125,10 +125,14 @@ class Amazon_Import implements Import_Interface
         try {
             $response = $apaiIO->runOperation($lookup);
         } catch (\Exception $e) {
-            $response = new \WP_Error('aff_failed_to_lookup_amazon_product', $e->getMessage());
+        	if($e->getCode() == 503) {
+        		$response = new \WP_Error('aff_product_amazon_import_error', __('Amazon has throttled your import speed for a short time.', 'affilicious'));
+	        } else {
+		        $response = new \WP_Error('aff_product_amazon_import_error', $e->getMessage());
+	        }
         }
 
-        if(isset($response['Items']['Request']['Errors']['Error'])) {
+        if(!($response instanceof \WP_Error) && isset($response['Items']['Request']['Errors']['Error'])) {
             $errors = $response['Items']['Request']['Errors']['Error'];
             $response = new \WP_Error();
             foreach ($errors as $error) {
