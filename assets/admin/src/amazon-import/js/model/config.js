@@ -5,7 +5,7 @@ let Config = Backbone.Model.extend({
         'selectedAction': 'new-product',
         'mergeProductId': null,
         'replaceProductId': null,
-        'status': 'draft',
+        'status': 'publish',
     },
 });
 
