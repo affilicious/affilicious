@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Model;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Interface;
 use Affilicious\Common\Model\Custom_Value_Aware_Trait;
 use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
@@ -15,7 +16,7 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product
+class Product implements Custom_Value_Aware_Interface
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait, Custom_Value_Aware_Trait;
 

@@ -1,8 +1,12 @@
 <?php
 namespace Affilicious\Product\Search\Amazon;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Interface;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Helper\Amazon_Helper;
+use Affilicious\Product\Model\Product;
+use Affilicious\Product\Model\Shop_Aware_Interface;
+use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Search\Search_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Amazon\Category;
@@ -25,18 +29,25 @@ if (!defined('ABSPATH')) {
  */
 class Amazon_Search implements Search_Interface
 {
+	/**
+	 * @var Product_Repository_Interface
+	 */
+	protected $product_repository;
+
     /**
      * @var Provider_Repository_Interface
      */
     protected $provider_repository;
 
-    /**
-     * @since 0.9
-     * @param Provider_Repository_Interface $provider_repository
-     */
-    public function __construct(Provider_Repository_Interface $provider_repository)
+	/**
+	 * @since 0.9
+	 * @param Product_Repository_Interface $product_repository
+	 * @param Provider_Repository_Interface $provider_repository
+	 */
+    public function __construct(Product_Repository_Interface $product_repository, Provider_Repository_Interface $provider_repository)
     {
-        $this->provider_repository = $provider_repository;
+	    $this->product_repository = $product_repository;
+	    $this->provider_repository = $provider_repository;
     }
 
     /**
@@ -66,11 +77,49 @@ class Amazon_Search implements Search_Interface
                 'store_image_gallery' => false,
                 'store_shop' => false,
                 'store_attributes' => false,
-                'condition' => $this->find_condition($params)
             ]);
         }, $results);
 
+        // Mark the products as already imported if it's true.
+	    foreach($products as $product) {
+		    $this->add_already_imported($product);
+        }
+
         return $products;
+    }
+
+	/**
+	 * Check if the product is already imported.
+	 *
+	 * @since 0.9.15
+	 * @param Product $product
+	 * @return bool
+	 */
+    protected function add_already_imported(Product $product)
+    {
+	    $already_imported  = false;
+
+	    if($product instanceof Shop_Aware_Interface && $product instanceof Custom_Value_Aware_Interface) {
+		    $shops = $product->get_shops();
+		    $shop = !empty($shops[0]) ? $shops[0] : null;
+		    if($shop !== null) {
+			    $products_with_shop = $this->product_repository->find_all([
+				    'post_parent' => 0,
+				    'meta_query'  => [
+					    [
+						    'key'   => "_affilicious_product_shops_%-_affiliate_product_id_%",
+						    'value' => $shop->get_tracking()->get_affiliate_product_id()->get_value(),
+					    ],
+				    ],
+			    ]);
+
+			    $already_imported = !empty($products_with_shop);
+		    }
+	    }
+
+	    $product->add_custom_value('already_imported', $already_imported);
+
+	    return $already_imported;
     }
 
     /**

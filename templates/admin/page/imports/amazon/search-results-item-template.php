@@ -19,6 +19,13 @@
                     <% } %>
                 </h1>
 
+                <% if(custom_values.already_imported) { %>
+                    <div class="aff-import-search-results-item-already-imported">
+                        <img class="aff-import-search-results-item-already-imported-icon" src="<?php echo AFFILICIOUS_ROOT_URL . 'assets/admin/dist/img/check.svg'; ?>" height="18" width="18">
+                        <span class="aff-import-search-results-item-already-imported-text"><?php _e('Already imported', 'affilicious'); ?></span>
+                    </div>
+                <% } %>
+
                 <% if(typeof shops !== 'undefined' && shops !== null && shops[0].pricing.price !== null) { %>
                     <div class="aff-import-search-results-item-price">
                         <span class="aff-import-search-results-item-price-current">

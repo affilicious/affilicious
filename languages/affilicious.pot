@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-12-22 14:03+0100\n"
+"POT-Creation-Date: 2017-12-23 11:18+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -289,7 +289,7 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
-#: templates/admin/page/imports/amazon/search-results-item-template.php:45
+#: templates/admin/page/imports/amazon/search-results-item-template.php:52
 msgid "Variants"
 msgstr ""
 
@@ -470,7 +470,7 @@ msgstr ""
 
 #: src/product/admin/filter/menu-order-filter.php:27
 #: src/product/admin/setup/import-page-setup.php:44 templates/admin/page/imports.php:8
-#: templates/admin/page/imports/amazon/search-results-item-template.php:88
+#: templates/admin/page/imports/amazon/search-results-item-template.php:95
 msgid "Import"
 msgstr ""
 
@@ -1031,27 +1031,27 @@ msgstr ""
 msgid "Add Images To Image Gallery"
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:87
+#: src/product/search/amazon/amazon-search.php:118
 msgid "The Amazon search term is missing."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:104
+#: src/product/search/amazon/amazon-search.php:135
 msgid "The Amazon search type is missing"
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:121
+#: src/product/search/amazon/amazon-search.php:152
 msgid "The Amazon search category is missing."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:162
+#: src/product/search/amazon/amazon-search.php:193
 msgid "The Amazon search min price is invalid."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:185
+#: src/product/search/amazon/amazon-search.php:216
 msgid "The Amazon search max price is invalid."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:331
+#: src/product/search/amazon/amazon-search.php:362
 msgid "Amazon has throttled your search speed for a short time."
 msgstr ""
 
@@ -1667,7 +1667,7 @@ msgid "Keywords"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:18
-#: templates/admin/page/imports/amazon/search-results-item-template.php:38
+#: templates/admin/page/imports/amazon/search-results-item-template.php:45
 msgid "ASIN"
 msgstr ""
 
@@ -1767,19 +1767,23 @@ msgstr ""
 msgid "No more results"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:49
+#: templates/admin/page/imports/amazon/search-results-item-template.php:25
+msgid "Already imported"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/search-results-item-template.php:56
 msgid "Show all"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:90
+#: templates/admin/page/imports/amazon/search-results-item-template.php:97
 msgid "Successfully imported the product."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:92
+#: templates/admin/page/imports/amazon/search-results-item-template.php:99
 msgid "Failed to import the product."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:93
+#: templates/admin/page/imports/amazon/search-results-item-template.php:100
 msgid "Retry"
 msgstr ""
 

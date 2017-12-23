@@ -30,7 +30,10 @@ let SearchResultsItem = Backbone.Model.extend({
         this.set({
             'loading': false,
             'success': true,
-            'successMessage': message
+            'successMessage': message,
+            'custom_values': {
+                'already_imported': true,
+            }
         });
 
         this.trigger('aff:amazon-import:search:results:item:success', this);

@@ -183,6 +183,11 @@
       margin-top: 0;
       padding: 0 !important;
       margin-bottom: 10px !important; }
+    .aff-import-search-results-item-already-imported {
+      display: inline-block;
+      margin-bottom: 10px !important; }
+      .aff-import-search-results-item-already-imported-icon, .aff-import-search-results-item-already-imported-text {
+        vertical-align: middle; }
     .aff-import-search-results-item-affiliate-link {
       line-height: inherit; }
     .aff-import-search-results-item-price {

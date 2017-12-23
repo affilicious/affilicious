@@ -273,13 +273,14 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 	 * @inheritdoc
 	 * @since 0.6
 	 */
-	public function find_all($args = array())
+	public function find_all($args = [])
 	{
 		// Prepare the arguments for the search.
 		$args['post_type'] = Product::POST_TYPE;
-		$args = wp_parse_args($args, array(
-			'posts_per_page' => -1
-		));
+		$args = wp_parse_args($args, [
+			'suppress_filters' => false,
+			'posts_per_page'   => -1
+		]);
 
 		// Search for all products by the arguments.
 		$products = array();

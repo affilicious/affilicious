@@ -46,7 +46,7 @@ interface Product_Repository_Interface
      * @param array $args
      * @return Product[]
      */
-    public function find_all($args = array());
+    public function find_all($args = []);
 
     /**
      * Delete all variants from the parent complex product except the given ones.

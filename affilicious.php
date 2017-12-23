@@ -668,6 +668,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Product\Filter\Universal_Box_Filter();
 			};
 
+			$this->container['affilicious.product.filter.product_shops_meta_like_query'] = function () {
+				return new \Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
+			};
+
 			$this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
 				return new \Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
@@ -794,6 +798,7 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.search.amazon'] = function($c) {
 				return new \Affilicious\Product\Search\Amazon\Amazon_Search(
+					$c['affilicious.product.repository.product'],
 					$c['affilicious.provider.repository.provider']
 				);
 			};
@@ -1045,6 +1050,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the link targets to make affiliate links work again.
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
 			add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
+
+			// Hook the filters.
+			$product_shops_meta_like_query_filter = $this->container['affilicious.product.filter.product_shops_meta_like_query'];
+			add_filter('posts_where' , array($product_shops_meta_like_query_filter, 'filter'), 10, 2);
 
 			// Hook the product taxonomy templates.
 			$taxonomy_templates_filter = $this->container['affilicious.common.filter.taxonomy_templates'];

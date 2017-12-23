@@ -189,6 +189,16 @@
           margin-bottom: 10px !important;
         }
 
+        &-already-imported {
+          display: inline-block;
+          margin-bottom: 10px !important;
+
+          &-icon,
+          &-text {
+            vertical-align: middle;
+          }
+        }
+
         &-affiliate-link {
           line-height: inherit;
         }
