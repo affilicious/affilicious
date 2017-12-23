@@ -91,8 +91,8 @@ let SearchForm =  Backbone.View.extend({
             withVariants = this.$el.find('select[name="with-variants"]');
 
         this.model.set({
-            'term': term.val(),
-            'type': type.val(),
+            'term': term.length !== 0 ? term.val() : this.model.get('term'),
+            'type': type.length !== 0 ? type.val() : this.model.get('type'),
             'minPrice': minPrice.length !== 0 ? minPrice.val() : this.model.get('minPrice'),
             'maxPrice': maxPrice.length !== 0 ? maxPrice.val() : this.model.get('maxPrice'),
             'condition': condition.length !== 0 ? condition.val() : this.model.get('condition'),

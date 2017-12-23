@@ -123,6 +123,7 @@ return array(
     'Affilicious\\Product\\Factory\\Product_Variant_Factory_Interface' => $baseDir . '/src/product/factory/product-variant-factory-interface.php',
     'Affilicious\\Product\\Factory\\Simple_Product_Factory_Interface' => $baseDir . '/src/product/factory/simple-product-factory-interface.php',
     'Affilicious\\Product\\Filter\\Complex_Product_Filter' => $baseDir . '/src/product/filter/complex-product-filter.php',
+    'Affilicious\\Product\\Filter\\Product_Shops_Meta_Like_Query_Filter' => $baseDir . '/src/product/filter/product-shops-meta-like-query-filter.php',
     'Affilicious\\Product\\Filter\\Universal_Box_Filter' => $baseDir . '/src/product/filter/universal-box-filter.php',
     'Affilicious\\Product\\Helper\\Amazon_Helper' => $baseDir . '/src/product/helper/amazon-helper.php',
     'Affilicious\\Product\\Helper\\Product_Helper' => $baseDir . '/src/product/helper/product-helper.php',
