@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-12-23 11:18+0100\n"
+"POT-Creation-Date: 2017-12-27 17:13+0100\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: affilicious.php\n"
@@ -1031,27 +1031,27 @@ msgstr ""
 msgid "Add Images To Image Gallery"
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:118
+#: src/product/search/amazon/amazon-search.php:136
 msgid "The Amazon search term is missing."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:135
+#: src/product/search/amazon/amazon-search.php:153
 msgid "The Amazon search type is missing"
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:152
+#: src/product/search/amazon/amazon-search.php:170
 msgid "The Amazon search category is missing."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:193
+#: src/product/search/amazon/amazon-search.php:211
 msgid "The Amazon search min price is invalid."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:216
+#: src/product/search/amazon/amazon-search.php:234
 msgid "The Amazon search max price is invalid."
 msgstr ""
 
-#: src/product/search/amazon/amazon-search.php:362
+#: src/product/search/amazon/amazon-search.php:380
 msgid "Amazon has throttled your search speed for a short time."
 msgstr ""
 
@@ -1776,14 +1776,18 @@ msgid "Show all"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-results-item-template.php:97
-msgid "Successfully imported the product."
+msgid "Reimport"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-results-item-template.php:99
+msgid "Successfully imported the product."
+msgstr ""
+
+#: templates/admin/page/imports/amazon/search-results-item-template.php:101
 msgid "Failed to import the product."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:100
+#: templates/admin/page/imports/amazon/search-results-item-template.php:102
 msgid "Retry"
 msgstr ""
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2017-12-23 11:18+0100\n"
+"POT-Creation-Date: 2017-12-27 17:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;"
 "esc_attr_x:1,2c;esc_attr_\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: tests\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
@@ -1095,27 +1095,27 @@ msgstr "Bild hinzufügen"
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
 
-#: src/product/search/amazon/amazon-search.php:118
+#: src/product/search/amazon/amazon-search.php:136
 msgid "The Amazon search term is missing."
 msgstr "Das Amazon Suchbegriff fehlt."
 
-#: src/product/search/amazon/amazon-search.php:135
+#: src/product/search/amazon/amazon-search.php:153
 msgid "The Amazon search type is missing"
 msgstr "Der Amazon Suchtyp fehlt"
 
-#: src/product/search/amazon/amazon-search.php:152
+#: src/product/search/amazon/amazon-search.php:170
 msgid "The Amazon search category is missing."
 msgstr "Die Amazon Suchkategorie fehlt."
 
-#: src/product/search/amazon/amazon-search.php:193
+#: src/product/search/amazon/amazon-search.php:211
 msgid "The Amazon search min price is invalid."
 msgstr "Der Amazon minimale Preis fehlt."
 
-#: src/product/search/amazon/amazon-search.php:216
+#: src/product/search/amazon/amazon-search.php:234
 msgid "The Amazon search max price is invalid."
 msgstr "Der Amazon maximale Preis fehlt."
 
-#: src/product/search/amazon/amazon-search.php:362
+#: src/product/search/amazon/amazon-search.php:380
 msgid "Amazon has throttled your search speed for a short time."
 msgstr "Amazon hat deine Suchgeschwindigkeit für eine kurze Zeit gedrosselt."
 
@@ -1881,14 +1881,18 @@ msgid "Show all"
 msgstr "Alle anzeigen"
 
 #: templates/admin/page/imports/amazon/search-results-item-template.php:97
+msgid "Reimport"
+msgstr "Nochmal importieren"
+
+#: templates/admin/page/imports/amazon/search-results-item-template.php:99
 msgid "Successfully imported the product."
 msgstr "Das Produkt wurde erfolgreich importiert."
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:99
+#: templates/admin/page/imports/amazon/search-results-item-template.php:101
 msgid "Failed to import the product."
 msgstr "Importieren des Produkts ist fehlgeschlagen."
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:100
+#: templates/admin/page/imports/amazon/search-results-item-template.php:102
 msgid "Retry"
 msgstr "Nochmal probieren"
 
