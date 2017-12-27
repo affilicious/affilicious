@@ -282,6 +282,7 @@
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      padding: 10px;
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
           -ms-flex-flow: column nowrap;
@@ -316,11 +317,12 @@
       .aff-import-search-results-item-actions-reimport {
         text-decoration: none; }
       .aff-import-search-results-item-actions-done {
+        text-align: center;
         margin: 0;
         color: #179c2e; }
       .aff-import-search-results-item-actions-error {
+        text-align: center;
         margin: 0;
-        margin-bottom: 10px;
         color: #dd372e; }
     .aff-import-search-load-more {
       text-align: center; }

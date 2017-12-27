@@ -324,6 +324,7 @@
         &-actions {
           min-height: 60px;
           display: flex;
+          padding: 10px;
           flex-flow: column nowrap;
           justify-content: center;
           align-items: center;
@@ -358,13 +359,14 @@
           }
 
           &-done {
+            text-align: center;
             margin: 0;
             color: #179c2e;
           }
 
           &-error {
+            text-align: center;
             margin: 0;
-            margin-bottom: 10px;
             color: #dd372e;
           }
         }

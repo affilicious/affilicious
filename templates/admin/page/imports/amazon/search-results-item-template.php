@@ -84,14 +84,14 @@
         </div>
 
         <div class="aff-import-search-results-item-actions aff-panel-footer ">
-            <% if(!loading && (success || custom_values.already_imported)) { %>
-                <p class="aff-import-search-results-item-actions-done">
-                    <% if(successMessage) { %><%= successMessage %><% } else { %><?php _e('Successfully imported the product.', 'affilicious'); ?><% } %>
-                    <a class="aff-import-search-results-item-actions-reimport" href="#"><?php _e('Reimport', 'affilicious'); ?></a>
-                </p>
-            <% } else if(!loading && error) { %>
+            <% if(!loading && error) { %>
                 <p class="aff-import-search-results-item-actions-error">
                     <% if(errorMessage) { %><%= errorMessage %><% } else { %><?php _e('Failed to import the product.', 'affilicious'); ?><% } %>
+                    <a class="aff-import-search-results-item-actions-reimport" href="#"><?php _e('Reimport', 'affilicious'); ?></a>
+                </p>
+            <% } else if(!loading && (success || custom_values.already_imported)) { %>
+                <p class="aff-import-search-results-item-actions-done">
+                    <% if(successMessage) { %><%= successMessage %><% } else { %><?php _e('Successfully imported the product.', 'affilicious'); ?><% } %>
                     <a class="aff-import-search-results-item-actions-reimport" href="#"><?php _e('Reimport', 'affilicious'); ?></a>
                 </p>
             <% } else if(loading) { %>
