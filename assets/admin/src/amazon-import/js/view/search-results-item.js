@@ -6,7 +6,7 @@ let SearchResultsItem = Backbone.View.extend({
     events: {
         'click .aff-import-search-results-item-variants-show-all': 'showAll',
         'click .aff-import-search-results-item-actions-import': 'import',
-        'click .aff-import-search-results-item-actions-retry-import': 'import'
+        'click .aff-import-search-results-item-actions-reimport': 'import'
     },
 
     /**

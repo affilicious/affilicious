@@ -292,7 +292,7 @@
       -webkit-box-align: center;
           -ms-flex-align: center;
               align-items: center; }
-      .aff-import-search-results-item-actions-import, .aff-import-search-results-item-actions-retry-import {
+      .aff-import-search-results-item-actions-import {
         font-size: 13px;
         cursor: pointer;
         display: block;
@@ -308,11 +308,13 @@
         text-shadow: 0 -1px 1px #e67c0b, 1px 0 1px #e67c0b, 0 1px 1px #e67c0b, -1px 0 1px #e67c0b;
         -webkit-box-shadow: 0 1px 0 #e67c0b;
         box-shadow: 0 1px 0 #e67c0b; }
-        .aff-import-search-results-item-actions-import:hover, .aff-import-search-results-item-actions-retry-import:hover {
+        .aff-import-search-results-item-actions-import:hover {
           border-color: #ed7709;
           background-color: #ff9736;
           color: #fff !important;
           text-decoration: none; }
+      .aff-import-search-results-item-actions-reimport {
+        text-decoration: none; }
       .aff-import-search-results-item-actions-done {
         margin: 0;
         color: #179c2e; }

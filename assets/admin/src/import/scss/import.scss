@@ -328,8 +328,7 @@
           justify-content: center;
           align-items: center;
 
-          &-import,
-          &-retry-import {
+          &-import {
             font-size: 13px;
             cursor: pointer;
             display: block;
@@ -354,6 +353,10 @@
             }
           }
 
+          &-reimport {
+            text-decoration: none;
+          }
+
           &-done {
             margin: 0;
             color: #179c2e;
@@ -363,7 +366,6 @@
             margin: 0;
             margin-bottom: 10px;
             color: #dd372e;
-
           }
         }
       }
