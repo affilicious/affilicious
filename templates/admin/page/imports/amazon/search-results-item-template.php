@@ -1,5 +1,5 @@
 <script id="aff-amazon-import-search-results-item-template" type="text/template">
-    <div class="aff-import-search-results-item aff-panel<% if(error) { %> aff-import-search-results-item-danger aff-panel-danger<% } else if(custom_values.already_imported || success) { %> aff-import-search-results-item-success aff-panel-success<% } %>" data-parent="<% if(typeof variants !== 'undefined' && variants !== null) { %>true<% } else { %>false<% } %>" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= shops[0].tracking.affiliate_product_id %>"<% } %>>
+    <div class="aff-import-search-results-item aff-panel<% if(error) { %> aff-panel-danger<% } else if(custom_values.already_imported || success) { %> aff-panel-success<% } %>" data-parent="<% if(typeof variants !== 'undefined' && variants !== null) { %>true<% } else { %>false<% } %>" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= shops[0].tracking.affiliate_product_id %>"<% } %>>
         <div class="aff-import-search-results-item-content aff-panel-body">
             <div class="aff-import-search-results-item-content-media">
                 <div class="aff-import-search-results-item-thumbnail">
