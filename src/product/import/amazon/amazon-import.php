@@ -1,7 +1,6 @@
 <?php
 namespace Affilicious\Product\Import\Amazon;
 
-use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Helper\Amazon_Helper;
 use Affilicious\Product\Import\Import_Interface;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
@@ -23,7 +22,7 @@ class Amazon_Import implements Import_Interface
     /**
      * @var Provider_Repository_Interface
      */
-    private $provider_repository;
+    protected $provider_repository;
 
     /**
      * @since 0.9
@@ -76,11 +75,15 @@ class Amazon_Import implements Import_Interface
      * @since 0.9
      * @return Amazon_Provider|\WP_Error
      */
-    private function find_amazon_provider()
+    protected function find_amazon_provider()
     {
+        /** @var Amazon_Provider $amazon_provider */
         $amazon_provider = $this->provider_repository->find_one_by_slug(Amazon_Provider::slug());
         if($amazon_provider === null) {
-            $amazon_provider = new \WP_Error('aff_failed_to_find_amazon_provider', 'The Amazon provider with the slug "amazon" haven\'t been found.');
+            return new \WP_Error('aff_failed_to_find_amazon_provider', sprintf(
+                __('The Amazon provider with the slug "%s" hasn\'t been found.', 'affilicious'),
+                Amazon_Provider::slug()->get_value()
+            ));
         }
 
         return $amazon_provider;
@@ -95,7 +98,7 @@ class Amazon_Import implements Import_Interface
      * @param array $config
      * @return array|\WP_Error
      */
-    private function lookup(Affiliate_Product_Id $affiliate_product_id, Amazon_Provider $amazon_provider, array $config)
+    protected function lookup(Affiliate_Product_Id $affiliate_product_id, Amazon_Provider $amazon_provider, array $config)
     {
         $conf = new GenericConfiguration();
         $client = new Client();
@@ -124,20 +127,17 @@ class Amazon_Import implements Import_Interface
 
         try {
             $response = $apaiIO->runOperation($lookup);
+            if(!empty($response['Items']['Request']['Errors']['Error'][0])) {
+                $error = $response['Items']['Request']['Errors']['Error'][0];
+
+                return new \WP_Error('aff_failed_to_lookup_amazon_product', $error['Message']);
+            }
         } catch (\Exception $e) {
         	if($e->getCode() == 503) {
-        		$response = new \WP_Error('aff_product_amazon_import_error', __('Amazon has throttled your import speed for a short time.', 'affilicious'));
+        		return new \WP_Error('aff_product_amazon_import_error', __('Amazon has throttled your import speed for a short time.', 'affilicious'));
 	        } else {
-		        $response = new \WP_Error('aff_product_amazon_import_error', $e->getMessage());
+		        return new \WP_Error('aff_product_amazon_import_error', $e->getMessage());
 	        }
-        }
-
-        if(!($response instanceof \WP_Error) && isset($response['Items']['Request']['Errors']['Error'])) {
-            $errors = $response['Items']['Request']['Errors']['Error'];
-            $response = new \WP_Error();
-            foreach ($errors as $error) {
-                $response->add('aff_failed_to_lookup_amazon_product', $error['Message']);
-            }
         }
 
         return $response;
