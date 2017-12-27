@@ -31,6 +31,8 @@ let SearchResultsItem = Backbone.Model.extend({
             'loading': false,
             'success': true,
             'successMessage': message,
+            'error': false,
+            'errorMessage': null,
             'custom_values': {
                 'already_imported': true,
             }
@@ -49,6 +51,8 @@ let SearchResultsItem = Backbone.Model.extend({
     showErrorMessage(message = null) {
         this.set({
             'loading': false,
+            'success': false,
+            'successMessage': null,
             'error': true,
             'errorMessage': message,
         });
