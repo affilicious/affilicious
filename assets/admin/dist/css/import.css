@@ -95,7 +95,8 @@
         vertical-align: middle; }
         @media (max-width: 575px) {
           .aff-import-search-form-filters-item {
-            margin-right: 0; } }
+            margin-right: 0;
+            width: 100% !important; } }
         .aff-import-search-form-filters-item-select, .aff-import-search-form-filters-item-input {
           width: 150px; }
         .aff-import-search-form-filters-item-input {
