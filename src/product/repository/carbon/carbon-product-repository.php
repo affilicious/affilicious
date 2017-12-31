@@ -10,6 +10,8 @@ use Affilicious\Common\Model\Image_Id;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Status;
+use Affilicious\Common\Model\Taxonomy;
+use Affilicious\Common\Model\Term;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Detail\Model\Detail_Template_Id;
 use Affilicious\Detail\Model\Value as Detail_Value;
@@ -172,6 +174,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		$this->store_type($product);
 		$this->store_thumbnail($product);
 		$this->store_image_gallery($product);
+		$this->store_terms($product);
 
 		if($product instanceof Detail_Aware_Interface) {
 			$this->store_details($product);
@@ -190,7 +193,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		}
 
 		if($product instanceof Product_Variant) {
-			$this->store_terms($product);
+			$this->store_variant_terms($product);
 			$this->store_attributes($product);
 
 			// Quick fix to update the variant in the parent product
@@ -208,7 +211,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
 	/**
 	 * @inheritdoc
-	 * @since 0.6
+	 * @since 0.9.16
 	 */
 	public function delete(Product_Id $product_id, $force_delete = false)
 	{
@@ -239,20 +242,42 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 			));
 		}
 
-		// Build the deleted product
-		$product = $this->build_product($post);
-		if($product->has_id()) {
-			$product->set_id(null);
-		}
-
-		return $product;
+		return true;
 	}
+
+    /**
+     * @inheritdoc
+     * @since 0.9.16
+     */
+	public function delete_all($args = [], $force_delete = false)
+    {
+        // Prepare the arguments for the search.
+        $args['post_type'] = Product::POST_TYPE;
+        $args = wp_parse_args($args, [
+            'suppress_filters' => false,
+            'posts_per_page'   => -1
+        ]);
+
+        // Delete one after the other one. (either force deletion or not).
+        $posts = get_posts($args);
+        foreach ($posts as $post) {
+            $deleted_post = wp_delete_post($post->ID, $force_delete);
+            if($deleted_post === false || !($deleted_post instanceof \WP_Post)) {
+                return new \WP_Error('aff_failed_to_delete_product', sprintf(
+                    'Failed to delete the product #%s.',
+                    $post->ID
+                ));
+            }
+        }
+
+        return true;
+    }
 
 	/**
 	 * @inheritdoc
-	 * @since 0.6
+	 * @since 0.9.16
 	 */
-	public function find_one_by_id(Product_Id $product_id)
+	public function find(Product_Id $product_id)
 	{
 		// Find the post.
 		$post = get_post($product_id->get_value());
@@ -283,7 +308,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		]);
 
 		// Search for all products by the arguments.
-		$products = array();
+		$products = [];
 		$posts = get_posts($args);
 		foreach ($posts as $post) {
 			$product = self::build_product($post);
@@ -368,6 +393,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		$this->add_tags($simple_product);
 		$this->add_details($simple_product);
 		$this->add_review($simple_product, $post);
+		$this->add_terms($simple_product);
 		$this->add_related_products($simple_product, $post);
 		$this->add_related_accessories($simple_product, $post);
 		$this->add_image_gallery($simple_product, $post);
@@ -407,6 +433,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		$this->add_variants($complex_product);
 		$this->add_review($complex_product, $post);
 		$this->add_details($complex_product);
+		$this->add_terms($complex_product);
 		$this->add_related_products($complex_product, $post);
 		$this->add_related_accessories($complex_product, $post);
 		$this->add_image_gallery($complex_product, $post);
@@ -460,6 +487,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		$this->add_thumbnail($product_variant, $post);
 		$this->add_status($product_variant, $post);
 		$this->add_shops($product_variant);
+		$this->add_terms($product_variant);
 		$this->add_tags($product_variant);
 		$this->add_image_gallery($product_variant, $post);
 		$this->add_updated_at($product_variant, $post);
@@ -825,6 +853,36 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		}
 	}
 
+    /**
+     * Add the terms to the product.
+     *
+     * @since 0.9.16
+     * @param Product $product
+     */
+	private function add_terms(Product $product)
+    {
+        // Get all custom available product taxonomies without the details, attributes and shops.
+        $taxonomies = aff_get_product_taxonomies('object');
+        if(empty($taxonomies)) {
+            return;
+        }
+
+        // Add the terms.
+        foreach ($taxonomies as $taxonomy) {
+            $terms = wp_get_object_terms($product->get_id()->get_value(), $taxonomy->name, 'object');
+            if(empty($terms)) {
+                continue;
+            }
+
+            foreach ($terms as $term) {
+                $taxonomy = new Taxonomy(new Slug($taxonomy->name));
+                $term = new Term(new Slug($term->slug), $taxonomy);
+
+                $product->add_term($term);
+            }
+        }
+    }
+
 	/**
 	 * Add the details to the product.
 	 *
@@ -1048,10 +1106,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 	/**
 	 * Store the product variants terms which are taken from the parent complex product.
 	 *
-	 * @since 0.8.20
+	 * @since 0.9.16
 	 * @param Product_Variant $product_variant
 	 */
-	private function store_terms(Product_Variant $product_variant)
+	private function store_variant_terms(Product_Variant $product_variant)
 	{
 		global $wp_version;
 
@@ -1338,39 +1396,24 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		$this->store_post_meta($product->get_id()->get_value(), self::ENABLED_DETAILS, $enabled_details);
 	}
 
-	/**
-	 * @inheritdoc
-	 * @since 0.8.11
-	 */
-	public function delete_all_variants_except(Product_Id $parent_product_id, $product_variants, $force_delete = false)
-	{
-		// Get the raw IDs of the product variants which should not be deleted.
-		$not_to_delete = array();
-		foreach ($product_variants as $product_variant) {
-			if(!($product_variant instanceof Product_Variant) || !$product_variant->has_id())  {
-				continue;
-			}
+    /**
+     * Store the product terms with the related taxonomies.
+     *
+     * @since 0.9.16
+     * @param Product $product
+     */
+	private function store_terms(Product $product)
+    {
+        $terms = $product->get_terms();
 
-			$parent_id = $product_variant->get_parent()->get_id();
-			if(!$parent_product_id->is_equal_to($parent_id)) {
-				continue;
-			}
+        foreach ($terms as $term) {
+            $product_id = $product->get_id()->get_value();
+            $term_slug = $term->get_slug()->get_value();
+            $taxonomy_slug = $term->get_taxonomy()->get_slug()->get_value();
 
-			$not_to_delete[] = $product_variant->get_id()->get_value();
-		}
-
-		// Get the posts of the product variants except the given ones.
-		$posts = get_posts(array(
-			'post_type' => Product::POST_TYPE,
-			'post_parent' => $parent_product_id->get_value(),
-			'post__not_in' => $not_to_delete,
-		));
-
-		// Delete one after the other one (force delete)
-		foreach ($posts as $post) {
-			wp_delete_post($post->ID, $force_delete);
-		}
-	}
+            wp_set_object_terms($product_id, $term_slug, $taxonomy_slug, true);
+        }
+    }
 
 	/**
 	 * Build the default args from the saved product in the database.
@@ -1434,4 +1477,41 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 
 		return $args;
 	}
+
+    /**
+     * @inheritdoc
+     * @since 0.6
+     */
+    public function find_one_by_id(Product_Id $product_id)
+    {
+        return $this->find($product_id);
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8.11
+     */
+    public function delete_all_variants_except(Product_Id $parent_product_id, $product_variants, $force_delete = false)
+    {
+        // Get the raw IDs of the product variants which should not be deleted.
+        $not_to_delete = array();
+        foreach ($product_variants as $product_variant) {
+            if(!($product_variant instanceof Product_Variant) || !$product_variant->has_id())  {
+                continue;
+            }
+
+            $parent_id = $product_variant->get_parent()->get_id();
+            if(!$parent_product_id->is_equal_to($parent_id)) {
+                continue;
+            }
+
+            $not_to_delete[] = $product_variant->get_id()->get_value();
+        }
+
+        // Delete the variants of the product variants except the given ones.
+        $this->delete_all([
+            'post_parent' => $parent_product_id->get_value(),
+            'post__not_in' => $not_to_delete,
+        ], $force_delete);
+    }
 }

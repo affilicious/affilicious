@@ -228,6 +228,10 @@
   .aff-panel-footer {
     border-top: 1px solid #eee;
     background: #fafafa; }
+  .aff-panel-title {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4; }
   .aff-panel-success {
     border-color: #77c770; }
     .aff-panel-success .aff-panel-header, .aff-panel-success .aff-panel-footer {

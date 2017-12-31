@@ -34,6 +34,14 @@ let SearchForm = Backbone.Model.extend({
         this.trigger('aff:amazon-import:search:search-form:submit', this);
     },
 
+    parse() {
+        return {
+            'term': this.get('term'),
+            'type': this.get('type'),
+            'category': this.get('type'),
+        };
+    },
+
     /**
      * Finish the submit and stop the loading animation.
      *

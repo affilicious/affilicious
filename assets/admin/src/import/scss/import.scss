@@ -463,6 +463,15 @@
         }
       }
 
+      select {
+        width: 100%;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
       &-option-replace-product-id,
       &-option-merge-product-id {
         width: 100%;

@@ -4,6 +4,8 @@ namespace Affilicious\Product\Admin\Ajax_Handler;
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Status;
+use Affilicious\Common\Model\Taxonomy;
+use Affilicious\Common\Model\Term;
 use Affilicious\Product\Import\Import_Interface;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
@@ -146,24 +148,29 @@ class Amazon_Import_Ajax_Handler
 	 */
     protected function create_shop_template(array $data)
     {
-        $selected_shop = isset($data['config']['selectedShop']) ? $data['config']['selectedShop'] : null;
+        // Check if we have to create a shop.
+        $selected_shop = !empty($data['config']['shop']) ? $data['config']['shop'] : null;
         if($selected_shop !== 'new-shop') {
             return null;
         }
 
-        $new_shop_name = isset($data['config']['newShopName']) ? $data['config']['newShopName'] : null;
+        // If we have to create a new shop, we need a shop name.
+        $new_shop_name = !empty($data['config']['newShopName']) ? $data['config']['newShopName'] : null;
         if(empty($new_shop_name)) {
             return new \WP_Error('aff_product_amazon_import_failed_to_find_new_shop_name', __('Specify a shop name if you want to create a new shop.', 'affilicious'));
         }
 
+        // Find the Amazon provider for creating a new shop template.
         $provider = $this->provider_repository->find_one_by_slug(Amazon_Provider::slug());
         if($provider === null) {
             return new \WP_Error('aff_product_amazon_import_failed_to_find_amazon_provider', __('Failed to find the Amazon provider.', 'affilicious'));
         }
 
+        // Now, create a new shop template and pass in the Amazon provider ID.
         $shop_template = $this->shop_template_factory->create_from_name(new Name($new_shop_name));
         $shop_template->set_provider_id($provider->get_id());
 
+        // Store the newly created shop template and check for any errors.
         $shop_template_id = $this->shop_template_repository->store($shop_template);
         if($shop_template_id instanceof \WP_Error) {
         	if($shop_template_id->get_error_code() == 'term_exists') {
@@ -199,11 +206,12 @@ class Amazon_Import_Ajax_Handler
 	        }
         }
 
-        $shop = isset($data['config']['selectedShop']) ? $data['config']['selectedShop'] : null;
-        $action = isset($data['config']['selectedAction']) ? $data['config']['selectedAction'] : null;
-        $status = isset($data['config']['status']) ? $data['config']['status'] : null;
-        $merge_product_id = isset($data['config']['mergeProductId']) ? $data['config']['mergeProductId'] : null;
-        $replace_product_id = isset($data['config']['replaceProductId']) ? $data['config']['replaceProductId'] : null;
+        $shop = !empty($data['config']['shop']) ? $data['config']['shop'] : null;
+        $status = !empty($data['config']['status']) ? $data['config']['status'] : null;
+        $taxonomy = !empty($data['config']['taxonomy']) ? $data['config']['taxonomy'] : null;
+        $term = !empty($data['config']['term']) ? $data['config']['term'] : null;
+        $action = !empty($data['config']['action']) ? $data['config']['action'] : null;
+        $merge_product_id = !empty($data['config']['mergeProductId']) ? $data['config']['mergeProductId'] : null;
 
         // Find the shop template for the import.
 	    if($shop_template === null && $shop !== null) {
@@ -226,13 +234,15 @@ class Amazon_Import_Ajax_Handler
             $imported_product->set_status(new Status($status));
         }
 
-        // Perform some actions like replacing or merging.
-        if($action == 'replace-product' && $replace_product_id !== null) {
-            $product = $this->product_repository->find_one_by_id(new Product_Id($replace_product_id));
-            if($product !== null) {
-                $imported_product = $this->replace_product($imported_product, $product);
-            }
-        } elseif($action == 'merge-product' && $merge_product_id !== null) {
+        // Set the term with the related taxonomy.
+        if(!empty($term) && !empty($taxonomy)) {
+            $taxonomy = new Taxonomy(new Slug($taxonomy));
+            $term = new Term(new Slug($term), $taxonomy);
+            $imported_product->add_term($term);
+        }
+
+        // Perform some actions like merging.
+        if($action == 'merge-product' && $merge_product_id !== null) {
             $product = $this->product_repository->find_one_by_id(new Product_Id($merge_product_id));
             if($product !== null) {
                 $imported_product = $this->merge_product($imported_product, $product);
@@ -314,27 +324,6 @@ class Amazon_Import_Ajax_Handler
         }
 
 	    $with_product = apply_filters('aff_product_amazon_import_after_merge_products', $with_product, $imported_product);
-
-        return $with_product;
-    }
-
-    /**
-     * Replace the imported product with the existing one.
-     *
-     * @since 0.9
-     * @param Product $imported_product
-     * @param Product $with_product
-     * @return Product
-     */
-    protected function replace_product(Product $imported_product, Product $with_product)
-    {
-	    $with_product = apply_filters('aff_product_amazon_import_before_replace_products', $with_product, $imported_product);
-
-	    $temp = $with_product;
-        $with_product = clone $imported_product;
-        $with_product->set_id($temp->get_id());
-
-	    $with_product = apply_filters('aff_product_amazon_import_after_replace_products', $with_product, $imported_product);
 
         return $with_product;
     }
