@@ -294,7 +294,28 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 		return $product;
 	}
 
-	/**
+    /**
+     * @inheritdoc
+     * @since 0.9.16
+     */
+    public function find_by_slug(Slug $slug)
+    {
+        $posts = get_posts(array(
+            'post_type' => Product::POST_TYPE,
+            'name' => $slug->get_value(),
+            'posts_per_page' => 1,
+        ));
+
+        if(empty($posts)) {
+            return null;
+        }
+
+        $product = self::build_product($posts[0]);
+
+        return $product;
+    }
+
+    /**
 	 * @inheritdoc
 	 * @since 0.6
 	 */

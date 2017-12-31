@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Repository;
 
+use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
 use Affilicious\Product\Model\Product_Variant;
@@ -26,7 +27,7 @@ interface Product_Repository_Interface
      * @since 0.9.16
      * @param Product_Id $product_id The product id of the product to delete.
      * @param bool $force_delete Optional. Whether to bypass trash and force deletion. Default false.
-     * @return bool|\WP_Error It always returns true on success and an error on failure.
+     * @return bool|\WP_Error Always returns true on success and an error on failure.
      */
     public function delete(Product_Id $product_id, $force_delete = false);
 
@@ -36,18 +37,27 @@ interface Product_Repository_Interface
      * @since 0.9.16
      * @param array $args Optional. Arguments to retrieve posts. See WP_Query::parse_query() for all. Default empty.
      * @param bool $force_delete Optional. Whether to bypass trash and force deletion. Default false.
-     * @return bool|\WP_Error It always returns true on success and an error on failure.
+     * @return bool|\WP_Error Always returns true on success and an error on failure.
      */
     public function delete_all($args = [], $force_delete = false);
 
     /**
-     * Find a product by the product ID.
+     * Find the product by the ID.
      *
      * @since 0.9.16
      * @param Product_Id $product_id The product id of the product to find.
      * @return Product|null Either the product on success or an error on failure.
      */
     public function find(Product_Id $product_id);
+
+    /**
+     * Find the product by the slug.
+     *
+     * @since 0.9.16
+     * @param Slug $slug The product slug used to find the product.
+     * @return Product|null Either the product on success or an error on failure.
+     */
+    public function find_by_slug(Slug $slug);
 
     /**
      * Find all products by the args.
