@@ -57,6 +57,9 @@ class Assets_Setup
         // Register Selectize scripts
         wp_register_script('selectize', $base_vendor_url . 'selectize/js/selectize.min.js', [], '0.12.4');
 
+        // Register common scripts.
+        wp_register_script('aff-admin-common', $base_admin_url . 'common.min.js', ['jquery'], \Affilicious::VERSION, true);
+
         // Register products scripts
         wp_register_script('aff-admin-products', $base_admin_url  . 'products.min.js', ['jquery', 'carbon-fields'], \Affilicious::VERSION, true);
         wp_localize_script('aff-admin-products', 'affProductTranslations', array(
@@ -83,6 +86,7 @@ class Assets_Setup
 
         // Enqueue the scripts
         wp_enqueue_script('selectize');
+        wp_enqueue_script('aff-admin-common');
         wp_enqueue_script('aff-admin-products');
         wp_enqueue_script('aff-admin-carbon-fields');
 

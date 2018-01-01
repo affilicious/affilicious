@@ -7,15 +7,20 @@ if (!defined('ABSPATH')) {
 
 class Download_Recommendation_Notice
 {
+    const DISMISSIBLE_ID = 'download-recommendation';
 	const PRODUCTS_API_URL = 'https://affilicioustheme.com/edd-api/products';
 
 	/**
      * Render the notice if the license is invalid.
      *
-     * @since 0.9.14
+     * @since 0.9.16
      */
     public function render()
     {
+        if(aff_is_notice_dismissed(self::DISMISSIBLE_ID)) {
+            return;
+        }
+
     	$product = $this->find_random_product();
 
     	$title = !empty($product['info']['title']) ? $product['info']['title'] : null;
@@ -27,12 +32,13 @@ class Download_Recommendation_Notice
 	    }
 
 	    aff_render_template('admin/notice/info-notice', [
-		    'message' => sprintf(__('Download recommendation: %s Visit <a href="%s" target="_blank" rel="nofollow">%s</a> now.', 'affilicious'), $message, $link, $title)
+		    'message' => sprintf(__('Download recommendation: %s Visit <a href="%s" target="_blank" rel="nofollow">%s</a> now.', 'affilicious'), $message, $link, $title),
+            'dismissible_id' => self::DISMISSIBLE_ID,
 	    ]);
     }
 
 	/**
-	 * @since 0.9.14
+	 * @since 0.9.16
 	 */
     protected function find_random_product()
     {
@@ -61,7 +67,7 @@ class Download_Recommendation_Notice
 	/**
 	 * Check if the product from the API is an add-on.
 	 *
-	 * @since 0.9.14
+	 * @since 0.9.16
 	 * @param array $product
 	 * @return bool
 	 */
@@ -84,7 +90,7 @@ class Download_Recommendation_Notice
 	/**
 	 * Check if the product from the API belongs to the basics.
 	 *
-	 * @since 0.9.14
+	 * @since 0.9.16
 	 * @param array $product
 	 * @return bool
 	 */
@@ -107,7 +113,7 @@ class Download_Recommendation_Notice
 	/**
 	 * Check if the product from the API is paid.
 	 *
-	 * @since 0.9.14
+	 * @since 0.9.16
 	 * @param array $product
 	 * @return bool
 	 */

@@ -464,6 +464,10 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Common\Admin\System\System_Info();
 			};
 
+            $this->container['affilicious.common.admin.ajax_handler.dismissed_notice'] = function () {
+                return new \Affilicious\Common\Admin\Ajax_Handler\Dismissed_Notice_Ajax_Handler();
+            };
+
 			$this->container['affilicious.common.admin.setup.license_handler'] = function ($c) {
 				return new \Affilicious\Common\Admin\Setup\License_Handler_Setup(
 					$c['affilicious.common.admin.license.manager']
@@ -1172,8 +1176,10 @@ if(!class_exists('Affilicious')) {
 			add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
 
 			// Hook the ajax handlers.
+            $dismissed_notice_ajax_handler = $this->container['affilicious.common.admin.ajax_handler.dismissed_notice'];
 			$amazon_search_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_search'];
 			$amazon_import_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_import'];
+			add_action('wp_ajax_aff_dismissed_notice', array($dismissed_notice_ajax_handler , 'handle'));
 			add_action('wp_ajax_aff_product_admin_amazon_search', array($amazon_search_ajax_handler, 'handle'));
 			add_action('wp_ajax_aff_product_admin_amazon_import', array($amazon_import_ajax_handler, 'handle'));
 

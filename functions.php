@@ -2779,3 +2779,18 @@ function aff_the_product_universal_box_not_available_button_text($shop = null, $
 
 	echo $text;
 }
+
+/**
+ * Check if the notice with the ID is dismissed.
+ *
+ * @since 0.9.16
+ * @param string $dismissible_id The unique ID used for the notice.
+ * @return bool Whether the notice is dismissed or not.
+ */
+function aff_is_notice_dismissed($dismissible_id)
+{
+    $option = get_option("aff_notice_{$dismissible_id}_dismissed");
+    $is_dismissed = $option == 'yes';
+
+    return $is_dismissed;
+}

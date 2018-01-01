@@ -1,3 +1,3 @@
-<div class="aff-admin-notice aff-admin-notice-error error notice">
+<div class="notice notice-error <?php if(!empty($dismissible_id)): ?>is-dismissible<?php endif; ?>" <?php if(!empty($dismissible_id)): ?>data-dismissible-id="<?php echo esc_attr($dismissible_id); ?>"<?php endif; ?>>
 	<p><?php echo $message; ?></p>
 </div>
