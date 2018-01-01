@@ -17,67 +17,80 @@ class Download_Recommendation_Notice
      */
     public function render()
     {
-        if(aff_is_notice_dismissed(self::DISMISSIBLE_ID)) {
+        // Check if the download recommendation notice is already dismissed.
+        $is_dismissed = aff_is_notice_dismissed(self::DISMISSIBLE_ID);
+        if($is_dismissed) {
             return;
         }
 
-    	$product = $this->find_random_product();
+        // Find a random download per API call and check if we have enough data to display the recommendation.
+    	$download = $this->find_random_download();
+        if(empty($download['title']) || empty($download['message']) || empty($download['link'])) {
+            return;
+        }
 
-    	$title = !empty($product['info']['title']) ? $product['info']['title'] : null;
-    	$message = !empty($product['info']['excerpt']) ? $product['info']['excerpt'] : null;
-    	$link = !empty($product['info']['link']) ? $product['info']['link'] : null;
-
-    	if(empty($title) || empty($message) || empty($link)) {
-    		return;
-	    }
-
+	    // Render the download recommendation.
 	    aff_render_template('admin/notice/info-notice', [
-		    'message' => sprintf(__('Download recommendation: %s Visit <a href="%s" target="_blank" rel="nofollow">%s</a> now.', 'affilicious'), $message, $link, $title),
+		    'message' => sprintf(
+		        __('Download recommendation: %s Visit <a href="%s" target="_blank" rel="nofollow">%s</a> now.', 'affilicious'),
+                $download['message'],
+                $download['link'],
+                $download['title']
+            ),
             'dismissible_id' => self::DISMISSIBLE_ID,
 	    ]);
     }
 
 	/**
+     * Find the random download per API call.
+     *
 	 * @since 0.9.16
+     * @return array|null Either the download or null on non existence.
 	 */
-    protected function find_random_product()
+    protected function find_random_download()
     {
 	    $response = wp_remote_get(self::PRODUCTS_API_URL);
 	    if(is_wp_error($response)) {
-		    return;
+		    return null;
 	    }
 
 	    $body = wp_remote_retrieve_body($response);
 	    $body = json_decode($body, true);
 
-	    $products = isset($body['products']) ? $body['products'] : [];
-	    if(empty($products)) {
-		    return;
+	    $downloads = isset($body['products']) ? $body['products'] : [];
+	    if(empty($downloads)) {
+		    return null;
 	    }
 
-	    $products = array_filter($products, function($product) {
-		    return $this->is_addon($product) && ($this->is_paid($product) || $this->is_basic($product));
+	    $downloads = array_filter($downloads, function($download) {
+		    return $this->is_addon($download) && ($this->is_paid($download) || $this->is_basic($download));
 	    });
 
-	    $product = $products[rand(0, count($products) - 1)];
+	    $download = $downloads[rand(0, count($downloads) - 1)];
 
-	    return $product;
+	    $result = [
+            'title' => !empty($download['info']['title']) ? $download['info']['title'] : null,
+            'message' => !empty($download['info']['excerpt']) ? $download['info']['excerpt'] : null,
+            'link' => !empty($download['info']['link']) ? $download['info']['link'] : null,
+        ];
+
+	    return $result;
     }
 
 	/**
-	 * Check if the product from the API is an add-on.
+	 * Check if the download from the API is an add-on.
 	 *
 	 * @since 0.9.16
-	 * @param array $product
-	 * @return bool
+	 * @param array $download The download from the API call.
+	 * @return bool Whether the download is an addon or not.
 	 */
-	protected function is_addon($product)
+	protected function is_addon($download)
 	{
-		if(empty($product['info']['category'])) {
+		if(empty($download['info']['category'])) {
 			return false;
 		}
 
-		$categories = $product['info']['category'];
+		$categories = $download['info']['category'];
 		foreach ($categories as $category) {
 			if($category['name'] == __('Extensions', 'affilicious')) {
 				return true;
@@ -88,19 +101,19 @@ class Download_Recommendation_Notice
 	}
 
 	/**
-	 * Check if the product from the API belongs to the basics.
+	 * Check if the download from the API belongs to the basics.
 	 *
 	 * @since 0.9.16
-	 * @param array $product
-	 * @return bool
+	 * @param array $download The download from the API call.
+	 * @return bool Whether the download is basic or not
 	 */
-	protected function is_basic($product)
+	protected function is_basic($download)
 	{
-		if(empty($product['info']['tags'])) {
+		if(empty($download['info']['tags'])) {
 			return false;
 		}
 
-		$tags = $product['info']['tags'];
+		$tags = $download['info']['tags'];
 		foreach ($tags as $tag) {
 			if($tag['slug'] == 'basics') {
 				return true;
@@ -111,14 +124,14 @@ class Download_Recommendation_Notice
 	}
 
 	/**
-	 * Check if the product from the API is paid.
+	 * Check if the download from the API is paid.
 	 *
 	 * @since 0.9.16
-	 * @param array $product
-	 * @return bool
+	 * @param array $download The download from the API call.
+	 * @return bool Whether the download is paid or not.
 	 */
-	protected function is_paid($product)
+	protected function is_paid($download)
 	{
-		return !isset($product['pricing']['amount']) || floatval($product['pricing']['amount']) > 0;
+		return !isset($download['pricing']['amount']) || floatval($download['pricing']['amount']) > 0;
 	}
 }
