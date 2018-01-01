@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-01 22:43+0200\n"
+"POT-Creation-Date: 2018-01-01 23:02+0200\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -337,6 +337,14 @@ msgstr ""
 
 #: src/common/admin/setup/assets-setup.php:74
 msgid "Add"
+msgstr ""
+
+#: src/common/admin/setup/plugin-actions-setup.php:19
+msgid "Settings"
+msgstr ""
+
+#: src/common/admin/setup/plugin-actions-setup.php:23
+msgid "Addons"
 msgstr ""
 
 #: src/common/model/status.php:149

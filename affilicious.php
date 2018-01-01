@@ -436,6 +436,10 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+            $this->container['affilicious.common.admin.setup.plugin_actions'] = function() {
+                return new \Affilicious\Common\Admin\Setup\Plugin_Actions_Setup();
+            };
+
 			$this->container['affilicious.common.admin.filter.footer_text'] = function () {
 				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
@@ -1127,6 +1131,10 @@ if(!class_exists('Affilicious')) {
 			$assets_setup = $this->container['affilicious.common.admin.setup.assets'];
 			add_action('admin_enqueue_scripts', array($assets_setup, 'add_styles'));
 			add_action('admin_enqueue_scripts', array($assets_setup, 'add_scripts'));
+
+			// Hook the plugin actions
+            $plugin_actions_setup = $this->container['affilicious.common.admin.setup.plugin_actions'];
+            add_filter('plugin_action_links_' . AFFILICIOUS_BASE_NAME, array($plugin_actions_setup, 'init'));
 
 			// Hook the product admin table filters.
 			$product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2018-01-01 22:43+0200\n"
+"POT-Creation-Date: 2018-01-01 23:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -284,6 +284,14 @@ msgstr "Shops"
 #: src/common/admin/setup/assets-setup.php:74
 msgid "Add"
 msgstr "Hinzufügen"
+
+#: src/common/admin/setup/plugin-actions-setup.php:19
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/common/admin/setup/plugin-actions-setup.php:23
+msgid "Addons"
+msgstr "Erweiterungen"
 
 #: src/common/model/status.php:149
 msgid "Publish"
@@ -3552,11 +3560,6 @@ msgstr "Herunterladen"
 #~| msgid "Attribute Template Group"
 #~ msgid "Attribute all content to:"
 #~ msgstr "Attribut-Vorlagengruppe"
-
-#, fuzzy
-#~| msgid "Settings saved."
-#~ msgid "Settings"
-#~ msgstr "Deine Einstellungen wurden gespeichert."
 
 #, fuzzy
 #~| msgid "Custom JS"
