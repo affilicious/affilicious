@@ -31,7 +31,7 @@ let Config = Backbone.Model.extend({
             'newShopName': this.shop.get('newShopName'),
             'status': this.status.get('status'),
             'taxonomy': this.taxonomy.get('taxonomy'),
-            'term': this.taxonomy.get('term'),
+            'terms': this.taxonomy.get('terms'),
             'action': this.action.get('action'),
             'mergeProductId': this.action.get('mergeProductId'),
         }

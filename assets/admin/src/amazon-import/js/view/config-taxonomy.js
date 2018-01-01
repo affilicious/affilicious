@@ -2,9 +2,9 @@ let ConfigTaxonomy =  Backbone.View.extend({
     el: '#aff-amazon-import-config-taxonomy',
 
     events: {
-        'change select[name="taxonomy"]': '_onChangeTaxonomy',
-        'change select[name="term"]': '_onChangeTerm',
-        'submit': '_onChangeTerm',
+        'change select[name="taxonomy"]': '_onChange',
+        'change input[name="terms"]': '_onChange',
+        'submit': '_onChange',
     },
 
     /**
@@ -17,7 +17,7 @@ let ConfigTaxonomy =  Backbone.View.extend({
         let template = jQuery('#aff-amazon-import-config-taxonomy-template');
         this.template = _.template(template.html());
 
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change:taxonomy', this.render);
     },
 
     /**
@@ -29,44 +29,82 @@ let ConfigTaxonomy =  Backbone.View.extend({
      */
     render() {
         this.$el.html(this.template(this.model.toJSON()));
+        this._selectize();
 
         return this;
     },
 
     /**
-     * Load the current taxonomy config into the model on change.
+     * Load the current config into the model on change.
      *
      * @since 0.9.16
      * @private
      * @param {Event} e
      */
-    _onChangeTaxonomy(e) {
+    _onChange(e) {
         e.preventDefault();
 
         let taxonomies = this.$el.find('select[name="taxonomy"]');
+        let terms = this.$el.find('input[name="terms"]');
+        let selectize = terms.selectize()[0].selectize;
+
+        taxonomies.val() === null || taxonomies.val() === 'none' ? selectize.disable() : selectize.enable();
 
         this.model.set({
             'taxonomy': taxonomies.val() !== 'none' ? taxonomies.val() : null,
-            'term': null,
+            'terms': terms.val(),
         });
     },
 
     /**
-     * Load the current term config into the model on change.
+     * Selectize the input for enabling auto-completion and product search.
      *
      * @since 0.9.16
      * @private
-     * @param {Event} e
      */
-    _onChangeTerm(e) {
-        e.preventDefault();
+    _selectize() {
+        let apiRoot = affAdminAmazonImportUrls.apiRoot;
+        let nonce = affAdminAmazonImportUrls.nonce;
+        let terms = this.$el.find('input[name="terms"]');
 
-        let terms = this.$el.find('select[name="term"]');
+        terms.selectize({
+            delimiter: ',',
+            valueField: 'slug',
+            labelField: 'name',
+            searchField: 'name',
+            create: false,
+            load: (query, callback) => {
+                let taxonomy = this.model.get('taxonomy');
 
-        this.model.set({
-            'term': terms.val() !== 'none' ? terms.val() : null,
+                if (!query.length || !taxonomy) {
+                    return callback();
+                }
+
+                jQuery.ajax({
+                    url: `${apiRoot}wp/v2/${taxonomy}`,
+                    type: 'GET',
+                    beforeSend(xhr) {
+                        xhr.setRequestHeader('X-WP-Nonce', nonce)
+                    },
+                    error() {
+                        callback();
+                    },
+                    success(results) {
+                        results = results.map((result) => {
+                            return {
+                                'id': result.id,
+                                'name': result.name,
+                                'slug': result.slug,
+                                'taxonomy': result.taxonomy,
+                            }
+                        });
+
+                        callback(results);
+                    }
+                });
+            }
         });
-    },
+    }
 });
 
 export default ConfigTaxonomy;

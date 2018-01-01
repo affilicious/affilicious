@@ -209,7 +209,7 @@ class Amazon_Import_Ajax_Handler
         $shop = !empty($data['config']['shop']) ? $data['config']['shop'] : null;
         $status = !empty($data['config']['status']) ? $data['config']['status'] : null;
         $taxonomy = !empty($data['config']['taxonomy']) ? $data['config']['taxonomy'] : null;
-        $term = !empty($data['config']['term']) ? $data['config']['term'] : null;
+        $terms = !empty($data['config']['terms']) ? $data['config']['terms'] : null;
         $action = !empty($data['config']['action']) ? $data['config']['action'] : null;
         $merge_product_id = !empty($data['config']['mergeProductId']) ? $data['config']['mergeProductId'] : null;
 
@@ -235,10 +235,14 @@ class Amazon_Import_Ajax_Handler
         }
 
         // Set the term with the related taxonomy.
-        if(!empty($term) && !empty($taxonomy)) {
+        if(!empty($terms) && !empty($taxonomy)) {
             $taxonomy = new Taxonomy(new Slug($taxonomy));
-            $term = new Term(new Slug($term), $taxonomy);
-            $imported_product->add_term($term);
+
+            $terms = explode(',', $terms);
+            foreach ($terms as $term) {
+                $term = new Term(new Slug($term), $taxonomy);
+                $imported_product->add_term($term);
+            }
         }
 
         // Perform some actions like merging.

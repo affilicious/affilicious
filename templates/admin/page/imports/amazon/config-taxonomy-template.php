@@ -19,17 +19,9 @@
                 <?php endforeach; ?>
             </select>
 
-            <?php foreach ($taxonomies as $taxonomy): ?>
-                <% if(taxonomy == '<?php echo esc_attr($taxonomy['name']); ?>') { %>
-                    <label class="screen-reader-text" for="aff-amazon-status-config-group-term-option"><?php _e('Term', 'affilicious'); ?></label>
-                    <select id="aff-amazon-status-config-group-term-option" class="aff-import-config-group-option" name="term" data-taxonomy="<?php echo esc_attr($taxonomy['name']); ?>">
-                        <option value="none" <% if(term === null) { %> selected<% } %>><?php _e('No term', 'affilicious'); ?></option>
-                        <?php foreach ($taxonomy['terms'] as $term): ?>
-                            <option value="<?php echo esc_attr($term['slug']); ?>"<% if(term === '<?php echo esc_attr($term['slug']); ?>') { %> selected<% } %>><?php echo esc_html($term['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                <% } %>
-            <?php endforeach; ?>
+            <label class="aff-import-config-group-label">
+                <input id="aff-amazon-status-config-group-term-option" class="regular-text" name="terms" placeholder="<?php _e('Enter terms...', 'affilicious'); ?>" <% if(taxonomy === null) { %> disabled<% } %> >
+            </label>
         </div>
     </div>
 </script>

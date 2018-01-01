@@ -474,7 +474,8 @@
       }
 
       &-option-replace-product-id,
-      &-option-merge-product-id {
+      &-option-merge-product-id,
+      .regular-text {
         width: 100%;
 
         .selectize-input {
