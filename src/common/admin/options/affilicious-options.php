@@ -13,17 +13,17 @@ class Affilicious_Options
     /**
      * @var License_Manager
      */
-    private $license_manager;
+    protected $license_manager;
 
     /**
      * @var License_Processor
      */
-    private $license_processor;
+    protected $license_processor;
 
 	/**
 	 * @var System_Info
 	 */
-	private $system_info;
+	protected $system_info;
 
 	/**
      * @since 0.9
@@ -55,6 +55,7 @@ class Affilicious_Options
 	        ->set_icon('dashicons-admin-generic')
             ->add_tab(__('Licenses', 'affilicious'), $this->get_licenses_fields())
 			->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields())
+            ->add_tab(__('Notices', 'affilicious'), $this->get_notices_fields())
             ->add_tab(__('System', 'affilicious'), $this->get_system_fields())
 		;
 
@@ -69,7 +70,7 @@ class Affilicious_Options
      * @since 0.9.1
      * @return Carbon_Field[]
      */
-	public function get_licenses_fields()
+	protected function get_licenses_fields()
     {
         $help_text = count($this->license_manager->get_license_handlers()) > 0
             ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de')
@@ -93,7 +94,7 @@ class Affilicious_Options
      * @since 0.9
      * @return Carbon_Field[]
      */
-    public function get_scripts_fields()
+    protected function get_scripts_fields()
     {
         $fields = array(
             Carbon_Field::make('header_scripts', 'affilicious_options_affilicious_container_scripts_tab_custom_header_scripts', __('Custom Header Scripts', 'affilicious'))
@@ -105,13 +106,30 @@ class Affilicious_Options
         return apply_filters('aff_admin_options_render_affilicious_container_scripts_fields', $fields);
     }
 
+    /**
+     * Get the notices fields.
+     *
+     * @since 0.9.16
+     * @return Carbon_Field[]
+     */
+    protected function get_notices_fields()
+    {
+        $fields = [
+            Carbon_Field::make('checkbox', 'affilicious_options_affilicious_container_notices_tab_download_recommendations_disabled_field', __('Disable download recommendations', 'affilicious'))
+                ->set_help_text(__("If you enable this option, download recommendation notices won't be shown after activation anymore.", 'affilicious'))
+                ->set_option_value('yes')
+        ];
+
+        return apply_filters('aff_admin_options_render_affilicious_container_notices_fields', $fields);
+    }
+
 	/**
 	 * Get the system fields.
 	 *
 	 * @since 0.9.9
 	 * @return Carbon_Field[]
 	 */
-	public function get_system_fields()
+	protected function get_system_fields()
 	{
 		$fields = [
 			Carbon_Field::make('html', 'affilicious_options_affilicious_container_system_tab_info_field')

@@ -16,8 +16,12 @@ class Download_Recommendation_Setup
      */
     public function init()
     {
-        $dismissible_id = Download_Recommendation_Notice::DISMISSIBLE_ID;
+        $disabled = carbon_get_theme_option('affilicious_options_affilicious_container_notices_tab_download_recommendations_disabled_field');
+        if($disabled == 'yes') {
+            return;
+        }
 
+        $dismissible_id = Download_Recommendation_Notice::DISMISSIBLE_ID;
         delete_option("aff_notice_{$dismissible_id}_dismissed");
     }
 }

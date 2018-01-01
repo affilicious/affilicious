@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-01 21:09+0200\n"
+"POT-Creation-Date: 2018-01-01 22:43+0200\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -255,41 +255,55 @@ msgid "Scripts"
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:58
+msgid "Notices"
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:59
 msgid "System"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:75
+#: src/common/admin/options/affilicious-options.php:76
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
 "\">Affilicious Theme</a>."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:76
+#: src/common/admin/options/affilicious-options.php:77
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official website of "
 "<a href=\"%s\">Affilicious Theme</a> to see what you can start with."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:99
+#: src/common/admin/options/affilicious-options.php:100
 msgid "Custom Header Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:100
+#: src/common/admin/options/affilicious-options.php:101
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt or &lt;"
 "script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:101
+#: src/common/admin/options/affilicious-options.php:102
 msgid "Custom Footer Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:102
+#: src/common/admin/options/affilicious-options.php:103
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or JS with "
 "the proper &lt;style&gt or &lt;script&gt tags."
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:118
+msgid "Disable download recommendations"
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:119
+msgid ""
+"If you enable this option, download recommendation notices won't be shown after "
+"activation anymore."
 msgstr ""
 
 #: src/common/admin/page/addons-page.php:25 src/common/admin/page/addons-page.php:26
