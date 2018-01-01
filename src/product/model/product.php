@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Model;
 
+use Affilicious\Common\Model\Custom_Value_Aware_Interface;
 use Affilicious\Common\Model\Custom_Value_Aware_Trait;
 use Affilicious\Common\Model\Image;
 use Affilicious\Common\Model\Image_Id;
@@ -10,14 +11,15 @@ use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Model\Slug_Aware_Trait;
 use Affilicious\Common\Model\Status;
 use Affilicious\Common\Model\Status_Aware_Trait;
+use Affilicious\Common\Model\Term_Aware_Trait;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product
+class Product implements Custom_Value_Aware_Interface
 {
-    use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait, Custom_Value_Aware_Trait;
+    use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait, Term_Aware_Trait, Custom_Value_Aware_Trait;
 
     /**
      * There is a limit of 20 characters for post types in Wordpress.
@@ -77,7 +79,8 @@ class Product
         $this->set_slug($slug);
         $this->type = $type;
         $this->set_status(Status::draft());
-        $this->image_gallery = array();
+        $this->image_gallery = [];
+        $this->terms = [];
         $this->updated_at = (new \DateTimeImmutable())->setTimestamp(current_time('timestamp'));
     }
 

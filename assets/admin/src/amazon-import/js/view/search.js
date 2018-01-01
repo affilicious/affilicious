@@ -12,17 +12,9 @@ let Search = Backbone.View.extend({
      * @public
      */
     initialize() {
-        this.form = new SearchForm({
-            model: this.model.form,
-        });
-
-        this.results = new SearchResults({
-            collection: this.model.results,
-        });
-
-        this.loadMore = new SearchLoadMore({
-            model: this.model.loadMore,
-        });
+        this.form = new SearchForm({model: this.model.form});
+        this.results = new SearchResults({collection: this.model.results});
+        this.loadMore = new SearchLoadMore({model: this.model.loadMore});
 
         this.model.on('change', this.render, this);
     },

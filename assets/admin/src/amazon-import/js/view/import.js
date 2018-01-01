@@ -11,13 +11,8 @@ let Import = Backbone.View.extend({
      * @public
      */
     initialize() {
-        this.search = new Search({
-            model: this.model.search,
-        });
-
-        this.config = new Config({
-            model: this.model.config,
-        });
+        this.search = new Search({model: this.model.search});
+        this.config = new Config({model: this.model.config});
     },
 
     /**

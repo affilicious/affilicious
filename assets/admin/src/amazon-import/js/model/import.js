@@ -22,19 +22,19 @@ let Import = Backbone.Model.extend({
      * Import the product.
      *
      * @since 0.9
-     * @param product
+     * @param {SearchResultsItem} searchResultsItem
      * @public
      */
-    import(product) {
+    import(searchResultsItem) {
         let data = {
             'product': {
-                'name' : product.attributes.name,
-                'type' : product.attributes.type,
-                'shops' : product.attributes.shops,
-                'custom_values' : product.attributes.custom_values,
+                'name' : searchResultsItem.get('name'),
+                'type' : searchResultsItem.get('type'),
+                'shops' : searchResultsItem.get('shops'),
+                'custom_values' : searchResultsItem.get('custom_values'),
             },
-            'config': this.config.attributes,
-            'form': this.search.form.attributes,
+            'config': this.config.parse(),
+            'form': this.search.form.parse(),
         };
 
         jQuery.ajax({
@@ -48,11 +48,11 @@ let Import = Backbone.Model.extend({
                 this.config.trigger('aff:amazon-import:config:add-shop', shopTemplate);
             }
 
-            product.showSuccessMessage();
+            searchResultsItem.showSuccessMessage();
         }).fail((result) => {
             let errorMessage = ((((result || {}).responseJSON || {}).data || {})[0] || {}).message || null;
 
-            product.showErrorMessage(errorMessage);
+            searchResultsItem.showErrorMessage(errorMessage);
         })
     },
 

@@ -5,14 +5,14 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: The best affiliate solution in Wordpress with products & variants, shops, price comparisons, Amazon import & update and much more.
- * Version: 0.9.13
+ * Version: 0.9.15
  * License: GPL-2.0 or later
  * Requires at least: 4.5
- * Tested up to: 4.9
+ * Tested up to: 4.9.1
  * Text Domain: affilicious
  * Domain Path: languages/
  *
- * Affilicious Plugin
+ * Affilicious
  * Copyright (C) 2016-2017, Affilicious - support@affilicioustheme.de
  *
  * Affilicious is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-define('AFFILICIOUS_VERSION', '0.9.13');
+define('AFFILICIOUS_VERSION', '0.9.15');
 define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
@@ -44,7 +44,7 @@ if(!class_exists('Affilicious')) {
 	class Affilicious
 	{
 		const NAME = 'affilicious';
-		const VERSION = '0.9.13';
+		const VERSION = '0.9.15';
 		const MIN_PHP_VERSION = '5.6';
 
 		/**
@@ -672,6 +672,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Product\Filter\Universal_Box_Filter();
 			};
 
+			$this->container['affilicious.product.filter.product_shops_meta_like_query'] = function () {
+				return new \Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
+			};
+
 			$this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
 				return new \Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
@@ -798,6 +802,7 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.search.amazon'] = function($c) {
 				return new \Affilicious\Product\Search\Amazon\Amazon_Search(
+					$c['affilicious.product.repository.product'],
 					$c['affilicious.provider.repository.provider']
 				);
 			};
@@ -1049,6 +1054,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the link targets to make affiliate links work again.
 			$link_target_filter = $this->container['affilicious.common.filter.link_target'];
 			add_filter('tiny_mce_before_init', array($link_target_filter, 'filter'));
+
+			// Hook the filters.
+			$product_shops_meta_like_query_filter = $this->container['affilicious.product.filter.product_shops_meta_like_query'];
+			add_filter('posts_where' , array($product_shops_meta_like_query_filter, 'filter'), 10, 2);
 
 			// Hook the product taxonomy templates.
 			$taxonomy_templates_filter = $this->container['affilicious.common.filter.taxonomy_templates'];

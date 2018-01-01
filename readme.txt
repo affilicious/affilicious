@@ -3,8 +3,8 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.9
-Stable tag: 0.9.13
+Tested up to: 4.9.1
+Stable tag: 0.9.15
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,22 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.15 =
+* New: Added Amazon search fields like min price, max price, order and condition.
+* New: Added retry button for Amazon import.
+* New: Added indicator for already imported products.
+* Improvement: Changed the default product status in the Amazon import.
+* Improvement: Improved Amazon search and import error messages.
+* Improvement: Made the search item thumbnails smaller.
+* Fix: Removed the "explicit double search button" click in the Amazon import.
+
+= 0.9.14 =
+* New: Added aff_has_product_details.
+* New: Added aff_get_shop_availability.
+* Improvement: Added Amazon import message for no search results.
+* Improvement: Added some translations.
+* Fix: Fixed aff_get_shop_availability.
+
 = 0.9.13 =
 * Improvement: Optimized the template path system.
 * Fix: Fixed a bug for the related product images in universal mode.

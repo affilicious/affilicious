@@ -1,5 +1,5 @@
 <script id="aff-amazon-import-search-results-item-template" type="text/template">
-    <div class="aff-import-search-results-item aff-panel " data-parent="<% if(typeof variants !== 'undefined' && variants !== null) { %>true<% } else { %>false<% } %>" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= shops[0].tracking.affiliate_product_id %>"<% } %>>
+    <div class="aff-import-search-results-item aff-panel<% if(error) { %> aff-panel-danger<% } else if(custom_values.already_imported || success) { %> aff-panel-success<% } %>" data-parent="<% if(typeof variants !== 'undefined' && variants !== null) { %>true<% } else { %>false<% } %>" <% if(typeof shops !== 'undefined' && shops !== null) { %>data-affiliate-product-id="<%= shops[0].tracking.affiliate_product_id %>"<% } %>>
         <div class="aff-import-search-results-item-content aff-panel-body">
             <div class="aff-import-search-results-item-content-media">
                 <div class="aff-import-search-results-item-thumbnail">
@@ -84,16 +84,20 @@
         </div>
 
         <div class="aff-import-search-results-item-actions aff-panel-footer ">
-            <% if(!loading && !success && !error) { %>
-                <button class="aff-import-search-results-item-actions-import"><?php _e('Import', 'affilicious'); ?></button>
-            <% } else if(!loading && success) { %>
-                <p class="aff-import-search-results-item-actions-done"><% if(successMessage) { %><%= successMessage %><% } else { %><?php _e('Successfully imported the product.', 'affilicious'); ?><% } %></p>
-            <% } else if(!loading && error) { %>
-                <p class="aff-import-search-results-item-actions-error"><% if(errorMessage) { %><%= errorMessage %><% } else { %><?php _e('Failed to import the product.', 'affilicious'); ?><% } %></p>
+            <% if(!loading && error) { %>
+                <p class="aff-import-search-results-item-actions-error">
+                    <% if(errorMessage) { %><%= errorMessage %><% } else { %><?php _e('Failed to import the product.', 'affilicious'); ?><% } %>
+                    <a class="aff-import-search-results-item-actions-reimport" href="#"><?php _e('Reimport', 'affilicious'); ?></a>
+                </p>
+            <% } else if(!loading && (success || custom_values.already_imported)) { %>
+                <p class="aff-import-search-results-item-actions-done">
+                    <% if(successMessage) { %><%= successMessage %><% } else { %><?php _e('Successfully imported the product.', 'affilicious'); ?><% } %>
+                    <a class="aff-import-search-results-item-actions-reimport" href="#"><?php _e('Reimport', 'affilicious'); ?></a>
+                </p>
+            <% } else if(loading) { %>
+                <span class="aff-import-search-results-item-actions-loading spinner is-active"></span>
             <% } else { %>
-                <div class="aff-import-search-results-item-actions-loading">
-                    <span class="aff-import-search-results-item-actions-loading-spinner spinner is-active"></span>
-                </div>
+                <button class="aff-import-search-results-item-actions-import"><?php _e('Import', 'affilicious'); ?></button>
             <% } %>
         </div>
     </div>

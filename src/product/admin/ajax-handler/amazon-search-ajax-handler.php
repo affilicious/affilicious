@@ -75,6 +75,10 @@ class Amazon_Search_Ajax_Handler
         $term = !empty($_GET['term']) ? $_GET['term'] : null;
         $type = !empty($_GET['type']) ? $_GET['type'] : null;
         $category = !empty($_GET['category']) ? $_GET['category'] : null;
+        $min_price = isset($_GET['min-price']) ? $_GET['min-price'] : null;
+        $max_price = isset($_GET['max-price']) ? $_GET['max-price'] : null;
+        $condition = !empty($_GET['condition']) ? $_GET['condition'] : null;
+        $sort = !empty($_GET['sort']) ? $_GET['sort'] : null;
         $with_variants = !empty($_GET['with-variants']) && $_GET['with-variants'] == 'yes';
         $page = !empty($_GET['page']) ? $_GET['page'] : 1;
 
@@ -83,6 +87,10 @@ class Amazon_Search_Ajax_Handler
             'term' => $term,
             'type' => $type,
             'category' => $category,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+            'condition' => $condition,
+            'sort' => $sort,
             'with_variants' => $with_variants,
             'page' => $page
         ]);

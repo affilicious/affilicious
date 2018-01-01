@@ -81,10 +81,59 @@ class Amazon_Import_Page
             }
         }
 
+        $taxonomies = $this->find_taxonomies_with_terms();
+
 	    Template_Helper::render('admin/page/imports/amazon', [
 	        'shop_templates' => $shop_templates,
             'amazon_provider_configured' => $amazon_provider !== null,
-		    'categories' => Category::$germany
+		    'categories' => Category::$germany,
+            'taxonomies' => $taxonomies,
         ]);
 	}
+
+    /**
+     * Find all product taxonomies with the related terms.
+     *
+     * @since 0.9.16
+     * @return array
+     */
+	protected function find_taxonomies_with_terms()
+    {
+        global $wp_version;
+
+        $results = [];
+        $taxonomies = aff_get_product_taxonomies('objects');
+
+        foreach ($taxonomies as $taxonomy)
+        {
+            $result = [
+                'name' => $taxonomy->name,
+                'label' => $taxonomy->label,
+                'terms' => []
+            ];
+
+            if($wp_version >= '4.5') {
+                $terms = get_terms([
+                    'taxonomy' => $taxonomy->name,
+                    'hide_empty' => false,
+                ]);
+            } else {
+                $terms = get_terms($taxonomy->name, [
+                    'hide_empty' => false,
+                ]);
+            }
+
+            foreach ($terms as $term) {
+                $result['terms'][] = [
+                    'term_id' => $term->term_id,
+                    'name' => $term->name,
+                    'slug' => $term->slug,
+                ];
+            }
+
+            $results[] = $result;
+        }
+
+        return $results;
+    }
 }

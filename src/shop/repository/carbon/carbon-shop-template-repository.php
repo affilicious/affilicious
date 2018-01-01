@@ -38,14 +38,6 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     public function delete(Shop_Template_Id $shop_template_id)
     {
-        $shop_template = $this->find_one_by_id($shop_template_id);
-        if($shop_template === null) {
-            return new \WP_Error('aff_shop_template_not_found', sprintf(
-               __('Shop template #%s was not found in the database.', 'affilicious'),
-                $shop_template_id->get_value()
-            ));
-        }
-
         $result = wp_delete_term(
             $shop_template_id->get_value(),
             Shop_Template::TAXONOMY
@@ -62,16 +54,49 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             return $result;
         }
 
-        $shop_template->set_id(null);
+        return true;
+    }
 
-        return $shop_template;
+    /**
+     * @inheritdoc
+     * @since 0.9.16
+     */
+    public function delete_all($args = [])
+    {
+        // Its not allowed to use other taxonomies.
+        $args['taxonomy'] = Shop_Template::TAXONOMY;
+
+        $args = wp_parse_args($args, array(
+            'hide_empty' => false
+        ));
+
+        /** @var \WP_Term[] $terms */
+        $terms = get_terms($args);
+        if($terms instanceof \WP_Error) {
+            return $terms;
+        }
+
+        // If there are no terms, than there was nothing to delete.
+        if(empty($terms)) {
+            return true;
+        }
+
+        // Delete each term and check for any errors.
+        foreach ($terms as $term) {
+            $result = $this->delete(new Shop_Template_Id($term->term_id));
+            if($result instanceof \WP_Error) {
+                return $result;
+            }
+        }
+
+        return true;
     }
 
     /**
      * @inheritdoc
      * @since 0.8
      */
-    public function find_one_by_id(Shop_Template_Id $shop_template_id)
+    public function find(Shop_Template_Id $shop_template_id)
     {
         $term = get_term($shop_template_id->get_value(), Shop_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -87,23 +112,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      * @inheritdoc
      * @since 0.8
      */
-    public function find_one_by_name(Name $name)
-    {
-        $term = get_term_by('name', $name->get_value(), Shop_Template::TAXONOMY);
-        if (empty($term) || $term instanceof \WP_Error) {
-            return null;
-        }
-
-        $shop_template = $this->build($term);
-
-        return $shop_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_one_by_slug(Slug $slug)
+    public function find_by_slug(Slug $slug)
     {
         $term = get_term_by('slug', $slug->get_value(), Shop_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -128,12 +137,13 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             'hide_empty' => false
         ));
 
+        /** @var \WP_Term[] $terms */
         $terms = get_terms($args);
         if(empty($terms) || $terms instanceof \WP_Error) {
             return array();
         }
 
-        $shop_templates = array();
+        $shop_templates = [];
         foreach ($terms as $term) {
             $shop_template = $this->build($term);
             if($shop_template !== null) {
@@ -142,40 +152,6 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         }
 
         return $shop_templates;
-    }
-
-	/**
-	 * @inheritdoc
-	 * @since 0.9.4
-	 */
-    public function find_all_by_provider_id(Provider_Id $provider_id)
-    {
-    	$args = [
-    		'taxonomy' => Shop_Template::TAXONOMY,
-		    'hide_empty' => false,
-		    'meta_query' => [
-			    [
-				    'key'       => self::PROVIDER,
-				    'value'     => $provider_id->get_value(),
-				    'compare'   => '='
-			    ]
-		    ]
-	    ];
-
-	    $terms = get_terms($args);
-	    if(empty($terms) || $terms instanceof \WP_Error) {
-		    return array();
-	    }
-
-	    $shop_templates = array();
-	    foreach ($terms as $term) {
-		    $shop_template = $this->build($term);
-		    if($shop_template !== null) {
-			    $shop_templates[] = $shop_template;
-		    }
-	    }
-
-	    return $shop_templates;
     }
 
     /**
@@ -338,5 +314,64 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 	    do_action('aff_shop_template_repository_after_update', $shop_template, $term);
 
         return $shop_template->get_id();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9.4
+     */
+    public function find_all_by_provider_id(Provider_Id $provider_id)
+    {
+        $shop_templates = $this->find_all([
+            'taxonomy' => Shop_Template::TAXONOMY,
+            'hide_empty' => false,
+            'meta_query' => [
+                [
+                    'key'       => self::PROVIDER,
+                    'value'     => $provider_id->get_value(),
+                    'compare'   => '='
+                ]
+            ]
+        ]);
+
+        return $shop_templates;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_id(Shop_Template_Id $shop_template_id)
+    {
+        $shop_template = $this->find($shop_template_id);
+
+        return $shop_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_name(Name $name)
+    {
+        $term = get_term_by('name', $name->get_value(), Shop_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $shop_template = $this->build($term);
+
+        return $shop_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $shop_template = $this->find_by_slug($slug);
+
+        return $shop_template;
     }
 }

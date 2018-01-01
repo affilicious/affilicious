@@ -3,6 +3,10 @@ let SearchForm = Backbone.Model.extend({
         'term': '',
         'type': 'keywords',
         'category': 'All',
+        'minPrice': null,
+        'maxPrice': null,
+        'condition': 'New',
+        'sort': '-price',
         'withVariants': 'no',
         'loading': false,
         'error': false,
@@ -28,6 +32,14 @@ let SearchForm = Backbone.Model.extend({
         });
 
         this.trigger('aff:amazon-import:search:search-form:submit', this);
+    },
+
+    parse() {
+        return {
+            'term': this.get('term'),
+            'type': this.get('type'),
+            'category': this.get('type'),
+        };
     },
 
     /**

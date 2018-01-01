@@ -21,6 +21,10 @@
     }
 
     &-form {
+      &-error {
+        margin-bottom: 25px;
+      }
+
       &-main {
         display: flex;
         flex-flow: row;
@@ -80,6 +84,7 @@
 
           @media (max-width: 575px) {
             margin-right: 0;
+            width: 100% !important;
           }
 
           &-select,
@@ -136,7 +141,7 @@
           }
 
           &-media {
-            width: 200px;
+            width: 150px;
             display: inline-block;
 
             @media (max-width: 767px) {
@@ -147,7 +152,7 @@
           }
 
           &-main {
-            width: calc(100% - 220px);
+            width: calc(100% - 170px);
             display: inline-block;
 
             @media (max-width: 767px) {
@@ -162,8 +167,8 @@
           justify-content: center;
           align-items: center;
           border: 1px solid #eee;
-          width: 200px;
-          height: 200px;
+          width: 150px;
+          height: 150px;
 
           @media (max-width: 767px) {
             margin: 0 auto;
@@ -183,6 +188,16 @@
           margin-top: 0;
           padding: 0 !important;
           margin-bottom: 10px !important;
+        }
+
+        &-already-imported {
+          display: inline-block;
+          margin-bottom: 10px !important;
+
+          &-icon,
+          &-text {
+            vertical-align: middle;
+          }
         }
 
         &-affiliate-link {
@@ -308,8 +323,10 @@
         }
 
         &-actions {
-          height: 60px;
+          min-height: 60px;
           display: flex;
+          padding: 10px;
+          flex-flow: column nowrap;
           justify-content: center;
           align-items: center;
 
@@ -338,12 +355,18 @@
             }
           }
 
+          &-reimport {
+            text-decoration: none;
+          }
+
           &-done {
+            text-align: center;
             margin: 0;
             color: #179c2e;
           }
 
           &-error {
+            text-align: center;
             margin: 0;
             color: #dd372e;
           }
@@ -441,8 +464,18 @@
         }
       }
 
+      select {
+        width: 100%;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
       &-option-replace-product-id,
-      &-option-merge-product-id {
+      &-option-merge-product-id,
+      .regular-text {
         width: 100%;
 
         .selectize-input {

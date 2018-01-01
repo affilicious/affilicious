@@ -27,6 +27,8 @@
     @media (min-width: 768px) and (max-width: 1199px) {
       .aff-import-search {
         width: calc(70% - 10px); } }
+    .aff-import-search-form-error {
+      margin-bottom: 25px; }
     .aff-import-search-form-main {
       display: -webkit-box;
       display: -ms-flexbox;
@@ -93,7 +95,8 @@
         vertical-align: middle; }
         @media (max-width: 575px) {
           .aff-import-search-form-filters-item {
-            margin-right: 0; } }
+            margin-right: 0;
+            width: 100% !important; } }
         .aff-import-search-form-filters-item-select, .aff-import-search-form-filters-item-input {
           width: 150px; }
         .aff-import-search-form-filters-item-input {
@@ -140,7 +143,7 @@
               -ms-flex-direction: column;
                   flex-direction: column; } }
       .aff-import-search-results-item-content-media {
-        width: 200px;
+        width: 150px;
         display: inline-block; }
         @media (max-width: 767px) {
           .aff-import-search-results-item-content-media {
@@ -148,7 +151,7 @@
             display: block;
             margin-bottom: 10px; } }
       .aff-import-search-results-item-content-main {
-        width: calc(100% - 220px);
+        width: calc(100% - 170px);
         display: inline-block; }
         @media (max-width: 767px) {
           .aff-import-search-results-item-content-main {
@@ -165,8 +168,8 @@
           -ms-flex-align: center;
               align-items: center;
       border: 1px solid #eee;
-      width: 200px;
-      height: 200px; }
+      width: 150px;
+      height: 150px; }
       @media (max-width: 767px) {
         .aff-import-search-results-item-thumbnail {
           margin: 0 auto; } }
@@ -181,6 +184,11 @@
       margin-top: 0;
       padding: 0 !important;
       margin-bottom: 10px !important; }
+    .aff-import-search-results-item-already-imported {
+      display: inline-block;
+      margin-bottom: 10px !important; }
+      .aff-import-search-results-item-already-imported-icon, .aff-import-search-results-item-already-imported-text {
+        vertical-align: middle; }
     .aff-import-search-results-item-affiliate-link {
       line-height: inherit; }
     .aff-import-search-results-item-price {
@@ -271,10 +279,15 @@
           .aff-import-search-results-item-variants-item-attributes-item-value {
             background-color: white; }
     .aff-import-search-results-item-actions {
-      height: 60px;
+      min-height: 60px;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      padding: 10px;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: column nowrap;
+              flex-flow: column nowrap;
       -webkit-box-pack: center;
           -ms-flex-pack: center;
               justify-content: center;
@@ -302,10 +315,14 @@
           background-color: #ff9736;
           color: #fff !important;
           text-decoration: none; }
+      .aff-import-search-results-item-actions-reimport {
+        text-decoration: none; }
       .aff-import-search-results-item-actions-done {
+        text-align: center;
         margin: 0;
         color: #179c2e; }
       .aff-import-search-results-item-actions-error {
+        text-align: center;
         margin: 0;
         color: #dd372e; }
     .aff-import-search-load-more {
@@ -373,10 +390,18 @@
           border: 1px solid #ddd;
           -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07); }
-      .aff-import-config-group-option-replace-product-id, .aff-import-config-group-option-merge-product-id {
+      .aff-import-config-group select {
+        width: 100%;
+        margin-bottom: 10px; }
+        .aff-import-config-group select:last-child {
+          margin-bottom: 0; }
+      .aff-import-config-group-option-replace-product-id, .aff-import-config-group-option-merge-product-id,
+      .aff-import-config-group .regular-text {
         width: 100%; }
-        .aff-import-config-group-option-replace-product-id .selectize-input, .aff-import-config-group-option-merge-product-id .selectize-input {
+        .aff-import-config-group-option-replace-product-id .selectize-input, .aff-import-config-group-option-merge-product-id .selectize-input,
+        .aff-import-config-group .regular-text .selectize-input {
           padding: 6px 8px; }
-          .aff-import-config-group-option-replace-product-id .selectize-input .item, .aff-import-config-group-option-merge-product-id .selectize-input .item {
+          .aff-import-config-group-option-replace-product-id .selectize-input .item, .aff-import-config-group-option-merge-product-id .selectize-input .item,
+          .aff-import-config-group .regular-text .selectize-input .item {
             font-size: 14px;
             line-height: 1.4; }

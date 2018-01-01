@@ -17,9 +17,9 @@ let SearchResults = Backbone.Collection.extend({
      * Parse the Wordpress json Ajax response.
      *
      * @since 0.9
+     * @public
      * @param {Array} response
      * @returns {Array}
-     * @public
      */
     parse: function(response) {
         return response && response.success ? response.data : [];
@@ -29,11 +29,11 @@ let SearchResults = Backbone.Collection.extend({
      * Import the given item.
      *
      * @since 0.9
-     * @param {Object} model
      * @public
+     * @param {SearchResultsItem} searchResultsItem
      */
-    importItem(model) {
-        this.trigger('aff:amazon-import:search:results:import-item', model);
+    importItem(searchResultsItem) {
+        this.trigger('aff:amazon-import:search:results:import-item', searchResultsItem);
     },
 
     /**
@@ -51,9 +51,10 @@ let SearchResults = Backbone.Collection.extend({
      *
      * @since 0.9
      * @private
+     * @param {SearchResultsItem} searchResultsItem
      */
-    _initImportListener(model) {
-        model.on('aff:amazon-import:search:results:item:import', this.importItem, this);
+    _initImportListener(searchResultsItem) {
+        searchResultsItem.on('aff:amazon-import:search:results:item:import', this.importItem, this);
     }
 });
 

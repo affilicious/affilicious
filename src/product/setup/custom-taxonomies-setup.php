@@ -28,6 +28,7 @@ class Custom_Taxonomies_Setup
                         'query_var'         => true,
                         'rewrite'           => array('slug' => $taxonomy['slug']),
                         'public'            => true,
+                        'show_in_rest'      => true,
                     );
 
                     $args = apply_filters('aff_custom_taxonomies_init_args', $args, $taxonomy['taxonomy']);
