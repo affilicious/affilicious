@@ -259,6 +259,10 @@ if(!class_exists('Affilicious')) {
 			// Install the semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->install();
+
+			// Reset the download recommendation
+            $download_recommendation_setup = $this->container['affilicious.common.admin.setup.download_recommendation'];
+            $download_recommendation_setup->init();
 		}
 
 		/**
@@ -484,6 +488,10 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.common.admin.setup.assets'] = function() {
 				return new \Affilicious\Common\Admin\Setup\Assets_Setup();
+			};
+
+			$this->container['affilicious.common.admin.setup.download_recommendation'] = function() {
+				return new \Affilicious\Common\Admin\Setup\Download_Recommendation_Setup();
 			};
 
 			$this->container['affilicious.common.admin.notice.download_recommendation'] = function() {
