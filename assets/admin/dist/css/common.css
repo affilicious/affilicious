@@ -78,6 +78,9 @@
     .aff-addons-item-soon-more-text {
       color: #a5a5a5; }
 
+.aff-admin-notice-info {
+  border-left: 4px solid #5aa4f0; }
+
 #aff-footer-thank-you {
   font-style: italic; }
 

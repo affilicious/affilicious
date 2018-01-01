@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2017-12-27 17:22+0100\n"
+"POT-Creation-Date: 2018-01-01 22:43+0200\n"
 "PO-Revision-Date: 2017-08-11 17:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -179,6 +179,15 @@ msgctxt "Attribute Template"
 msgid "Filter %s"
 msgstr ""
 
+#: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:22
+msgid "The dismissible ID for the currently dismissed notice is missing."
+msgstr ""
+
+#: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:30
+#, php-format
+msgid "Failed to update the dismissed notice \"%s\"."
+msgstr ""
+
 #: src/common/admin/filter/footer-text-filter.php:21
 #, php-format
 msgid "Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
@@ -225,6 +234,18 @@ msgstr ""
 msgid "Failed to deactivate the license."
 msgstr ""
 
+#: src/common/admin/notice/download-recommendation-notice.php:35
+#, php-format
+msgid ""
+"Download recommendation: %s Visit <a href=\"%s\" target=\"_blank\" rel=\"nofollow\">"
+"%s</a> now."
+msgstr ""
+
+#: src/common/admin/notice/download-recommendation-notice.php:95
+#: src/common/admin/page/addons-page.php:77
+msgid "Extensions"
+msgstr ""
+
 #: src/common/admin/options/affilicious-options.php:56
 msgid "Licenses"
 msgstr ""
@@ -234,41 +255,55 @@ msgid "Scripts"
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:58
+msgid "Notices"
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:59
 msgid "System"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:75
+#: src/common/admin/options/affilicious-options.php:76
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
 "\">Affilicious Theme</a>."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:76
+#: src/common/admin/options/affilicious-options.php:77
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official website of "
 "<a href=\"%s\">Affilicious Theme</a> to see what you can start with."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:99
+#: src/common/admin/options/affilicious-options.php:100
 msgid "Custom Header Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:100
+#: src/common/admin/options/affilicious-options.php:101
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt or &lt;"
 "script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:101
+#: src/common/admin/options/affilicious-options.php:102
 msgid "Custom Footer Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:102
+#: src/common/admin/options/affilicious-options.php:103
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or JS with "
 "the proper &lt;style&gt or &lt;script&gt tags."
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:118
+msgid "Disable download recommendations"
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:119
+msgid ""
+"If you enable this option, download recommendation notices won't be shown after "
+"activation anymore."
 msgstr ""
 
 #: src/common/admin/page/addons-page.php:25 src/common/admin/page/addons-page.php:26
@@ -276,35 +311,31 @@ msgstr ""
 msgid "Add-ons"
 msgstr ""
 
-#: src/common/admin/page/addons-page.php:77
-msgid "Extensions"
-msgstr ""
-
-#: src/common/admin/setup/assets-setup.php:63
+#: src/common/admin/setup/assets-setup.php:66
 #: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:64
+#: src/common/admin/setup/assets-setup.php:67
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
-#: templates/admin/page/imports/amazon/search-results-item-template.php:52
+#: templates/admin/page/imports/amazon/search-results-item-template.php:45
 msgid "Variants"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:65
+#: src/common/admin/setup/assets-setup.php:68
 #: src/product/admin/meta-box/product-meta-box.php:87
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
 #: src/product/customizer/universal-box-customizer.php:578
 #: src/shop/setup/shop-template-setup.php:27 src/shop/setup/shop-template-setup.php:31
-#: templates/admin/page/imports/amazon/config-template.php:8
+#: templates/admin/page/imports/amazon/config-shop-template.php:10
 msgid "Shops"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:71
+#: src/common/admin/setup/assets-setup.php:74
 msgid "Add"
 msgstr ""
 
@@ -438,30 +469,30 @@ msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:129
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:136
 msgid "The Amazon import request is not valid."
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:151
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:160
 msgid "Specify a shop name if you want to create a new shop."
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:156
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:166
 msgid "Failed to find the Amazon provider."
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:166
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:178
 #, php-format
 msgid ""
 "Failed to import the product because the shop \"%s\" couldn't be created. It's "
 "already existing."
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:193
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:205
 msgid "Failed to find the ASIN for product."
 msgstr ""
 
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:279
+#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:298
 #, php-format
 msgid ""
 "Failed to merge different product types. Got \"%s\", but the important product is \"%s"
@@ -470,7 +501,7 @@ msgstr ""
 
 #: src/product/admin/filter/menu-order-filter.php:27
 #: src/product/admin/setup/import-page-setup.php:44 templates/admin/page/imports.php:8
-#: templates/admin/page/imports/amazon/search-results-item-template.php:95
+#: templates/admin/page/imports/amazon/search-results-item-template.php:100
 msgid "Import"
 msgstr ""
 
@@ -750,6 +781,8 @@ msgid "Taxonomies"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:88
+#: templates/admin/page/imports/amazon/config-taxonomy-template.php:10
+#: templates/admin/page/imports/amazon/config-taxonomy-template.php:14
 msgid "Taxonomy"
 msgstr ""
 
@@ -1005,7 +1038,12 @@ msgstr ""
 msgid "Item Border Color"
 msgstr ""
 
-#: src/product/import/amazon/amazon-import.php:129
+#: src/product/import/amazon/amazon-import.php:84
+#, php-format
+msgid "The Amazon provider with the slug \"%s\" hasn't been found."
+msgstr ""
+
+#: src/product/import/amazon/amazon-import.php:137
 msgid "Amazon has throttled your import speed for a short time."
 msgstr ""
 
@@ -1055,49 +1093,49 @@ msgstr ""
 msgid "Amazon has throttled your search speed for a short time."
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:56
 #: src/product/setup/custom-taxonomies-setup.php:57
-#: src/product/setup/custom-taxonomies-setup.php:66
+#: src/product/setup/custom-taxonomies-setup.php:58
+#: src/product/setup/custom-taxonomies-setup.php:67
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:58
+#: src/product/setup/custom-taxonomies-setup.php:59
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:59
+#: src/product/setup/custom-taxonomies-setup.php:60
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:60
+#: src/product/setup/custom-taxonomies-setup.php:61
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:61
+#: src/product/setup/custom-taxonomies-setup.php:62
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:62
+#: src/product/setup/custom-taxonomies-setup.php:63
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:63
+#: src/product/setup/custom-taxonomies-setup.php:64
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:64
+#: src/product/setup/custom-taxonomies-setup.php:65
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: src/product/setup/custom-taxonomies-setup.php:65
+#: src/product/setup/custom-taxonomies-setup.php:66
 #, php-format
 msgid "New %s"
 msgstr ""
@@ -1456,17 +1494,12 @@ msgstr ""
 msgid "Out of stock"
 msgstr ""
 
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:44
-#, php-format
-msgid "Shop template #%s was not found in the database."
-msgstr ""
-
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:56
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:48
 msgid "It's not allowed to delete a default Wordpress category"
 msgstr ""
 
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:241
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:303
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:217
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:279
 #, php-format
 msgid "Failed to store the shop template #%s (%s) into the database."
 msgstr ""
@@ -1590,56 +1623,59 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: templates/admin/page/imports/amazon.php:13
+#: templates/admin/page/imports/amazon.php:14
 msgid "Amazon provider not configured."
 msgstr ""
 
-#: templates/admin/page/imports/amazon.php:15
+#: templates/admin/page/imports/amazon.php:16
 #, php-format
 msgid ""
 "Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the Amazon "
 "import."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/config-template.php:21
-msgid "Create new shop"
-msgstr ""
-
-#: templates/admin/page/imports/amazon/config-template.php:25
-msgid "Enter shop name..."
-msgstr ""
-
-#: templates/admin/page/imports/amazon/config-template.php:32
-msgid "Status"
-msgstr ""
-
-#: templates/admin/page/imports/amazon/config-template.php:38
-msgid "Publish product directly"
-msgstr ""
-
-#: templates/admin/page/imports/amazon/config-template.php:43
-msgid "Save product as draft"
-msgstr ""
-
-#: templates/admin/page/imports/amazon/config-template.php:50
+#: templates/admin/page/imports/amazon/config-action-template.php:4
 msgid "Actions"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/config-template.php:56
+#: templates/admin/page/imports/amazon/config-action-template.php:10
 msgid "Create new product"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/config-template.php:61
+#: templates/admin/page/imports/amazon/config-action-template.php:15
 msgid "Merge with existing product"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/config-template.php:65
-#: templates/admin/page/imports/amazon/config-template.php:74
+#: templates/admin/page/imports/amazon/config-action-template.php:19
 msgid "Enter product name..."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/config-template.php:70
-msgid "Replace with existing product"
+#: templates/admin/page/imports/amazon/config-shop-template.php:30
+msgid "Create new shop"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/config-shop-template.php:34
+msgid "Enter shop name..."
+msgstr ""
+
+#: templates/admin/page/imports/amazon/config-status-template.php:4
+msgid "Status"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/config-status-template.php:10
+msgid "Publish product directly"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/config-status-template.php:15
+msgid "Save product as draft"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/config-taxonomy-template.php:16
+msgid "No taxonomy"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/config-taxonomy-template.php:23
+msgid "Enter terms..."
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:8
@@ -1667,7 +1703,7 @@ msgid "Keywords"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:18
-#: templates/admin/page/imports/amazon/search-results-item-template.php:45
+#: templates/admin/page/imports/amazon/search-results-item-template.php:38
 msgid "ASIN"
 msgstr ""
 
@@ -1767,28 +1803,21 @@ msgstr ""
 msgid "No more results"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:25
-msgid "Already imported"
-msgstr ""
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:56
+#: templates/admin/page/imports/amazon/search-results-item-template.php:49
 msgid "Show all"
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:97
-msgid "Reimport"
-msgstr ""
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:99
-msgid "Successfully imported the product."
-msgstr ""
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:101
+#: templates/admin/page/imports/amazon/search-results-item-template.php:89
 msgid "Failed to import the product."
 msgstr ""
 
-#: templates/admin/page/imports/amazon/search-results-item-template.php:102
-msgid "Retry"
+#: templates/admin/page/imports/amazon/search-results-item-template.php:90
+#: templates/admin/page/imports/amazon/search-results-item-template.php:95
+msgid "Reimport"
+msgstr ""
+
+#: templates/admin/page/imports/amazon/search-results-item-template.php:94
+msgid "Successfully imported the product."
 msgstr ""
 
 #: templates/product/footer/relations/accessory.php:1
