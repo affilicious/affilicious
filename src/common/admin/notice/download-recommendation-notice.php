@@ -67,14 +67,35 @@ class Download_Recommendation_Notice
 	    });
 
 	    $download = $downloads[rand(0, count($downloads) - 1)];
+	    $title = !empty($download['info']['title']) ? $download['info']['title'] : null;
+	    $message = !empty($download['info']['excerpt']) ? $download['info']['excerpt'] : null;
+	    $link = $this->build_link($download);
 
 	    $result = [
-            'title' => !empty($download['info']['title']) ? $download['info']['title'] : null,
-            'message' => !empty($download['info']['excerpt']) ? $download['info']['excerpt'] : null,
-            'link' => !empty($download['info']['link']) ? $download['info']['link'] : null,
+            'title' => $title,
+            'message' => $message,
+            'link' => $link,
         ];
 
 	    return $result;
+    }
+
+    /**
+     * @since 0.9.16
+     * @param array $download
+     * @return null|string
+     */
+    protected function build_link($download)
+    {
+        $slug = !empty($download['info']['slug']) ? $download['info']['slug'] : null;
+        $link = !empty($download['info']['link']) ? $download['info']['link'] : null;
+        if(empty($slug) || empty($link)) {
+            return null;
+        }
+
+        $link .= '&utm_source=wordpress-installation&utm_medium=click&utm_campaign=addons&utm_content=download-recommendation&utm_term=' . $slug;
+
+        return $link;
     }
 
 	/**
