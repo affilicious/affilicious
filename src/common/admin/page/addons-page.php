@@ -54,10 +54,33 @@ class Addons_Page
             return $this->is_addon($product) && ($this->is_paid($product) || $this->is_basic($product));
         });
 
+        $products = array_map(function($product) {
+            return $this->append_utm_params_to_link($product);
+        }, $products);
+
 	    Template_Helper::render('admin/page/addons', [
 	        'products' => $products
         ]);
 	}
+
+    /**
+     * @since 0.9.16
+     * @param array $download
+     * @return array
+     */
+    protected function append_utm_params_to_link($download)
+    {
+        $slug = !empty($download['info']['slug']) ? $download['info']['slug'] : null;
+        $link = !empty($download['info']['link']) ? $download['info']['link'] : null;
+        if(empty($slug) || empty($link)) {
+            return $download;
+        }
+
+        $link .= '&utm_source=wordpress-installation&utm_medium=click&utm_content=addons-page&utm_campaign=addons&utm_term=' . $slug;
+        $download['info']['link'] = $link;
+
+        return $download;
+    }
 
     /**
      * Check if the product from the API is an add-on.
