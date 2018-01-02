@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-02 16:04+0200\n"
+"POT-Creation-Date: 2018-01-02 16:17+0200\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1201,36 +1201,49 @@ msgid "Update %s"
 msgstr ""
 
 #: src/product/setup/product-setup.php:35
+#: src/product/setup/product-setup.php:36
 #, php-format
 msgctxt "Product"
 msgid "View %s"
 msgstr ""
 
-#: src/product/setup/product-setup.php:36
+#: src/product/setup/product-setup.php:37
 #, php-format
 msgctxt "Product"
 msgid "Search %s"
 msgstr ""
 
-#: src/product/setup/product-setup.php:37
-#, php-format
-msgctxt "Product"
-msgid "Insert Into %s"
-msgstr ""
-
 #: src/product/setup/product-setup.php:38
 #, php-format
 msgctxt "Product"
-msgid "Uploaded to this %s"
+msgid "No %s found"
+msgstr ""
+
+#: src/product/setup/product-setup.php:39
+#, php-format
+msgctxt "Product"
+msgid "No %s found in trash"
 msgstr ""
 
 #: src/product/setup/product-setup.php:40
 #, php-format
 msgctxt "Product"
-msgid "%s Navigation"
+msgid "Insert Into %s"
 msgstr ""
 
 #: src/product/setup/product-setup.php:41
+#, php-format
+msgctxt "Product"
+msgid "Uploaded to this %s"
+msgstr ""
+
+#: src/product/setup/product-setup.php:43
+#, php-format
+msgctxt "Product"
+msgid "%s Navigation"
+msgstr ""
+
+#: src/product/setup/product-setup.php:44
 #, php-format
 msgctxt "Product"
 msgid "Filter %s"

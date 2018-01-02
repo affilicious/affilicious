@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2018-01-02 16:04+0200\n"
+"POT-Creation-Date: 2018-01-02 16:17+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -1257,36 +1257,49 @@ msgid "Update %s"
 msgstr "%s aktualisieren"
 
 #: src/product/setup/product-setup.php:35
+#: src/product/setup/product-setup.php:36
 #, php-format
 msgctxt "Product"
 msgid "View %s"
 msgstr "%s ansehen"
 
-#: src/product/setup/product-setup.php:36
+#: src/product/setup/product-setup.php:37
 #, php-format
 msgctxt "Product"
 msgid "Search %s"
 msgstr "%s suchen"
 
-#: src/product/setup/product-setup.php:37
+#: src/product/setup/product-setup.php:38
+#, php-format
+msgctxt "Product"
+msgid "No %s found"
+msgstr "Keine %s gefunden"
+
+#: src/product/setup/product-setup.php:39
+#, php-format
+msgctxt "Product"
+msgid "No %s found in trash"
+msgstr "Keine %s gefunden im Papierkorb"
+
+#: src/product/setup/product-setup.php:40
 #, php-format
 msgctxt "Product"
 msgid "Insert Into %s"
 msgstr "In das %s einfügen"
 
-#: src/product/setup/product-setup.php:38
+#: src/product/setup/product-setup.php:41
 #, php-format
 msgctxt "Product"
 msgid "Uploaded to this %s"
 msgstr "Zum %s hochladen"
 
-#: src/product/setup/product-setup.php:40
+#: src/product/setup/product-setup.php:43
 #, php-format
 msgctxt "Product"
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
-#: src/product/setup/product-setup.php:41
+#: src/product/setup/product-setup.php:44
 #, php-format
 msgctxt "Product"
 msgid "Filter %s"
@@ -6567,11 +6580,6 @@ msgstr "https://affilicioustheme.de/"
 
 #, fuzzy
 #~| msgid "Not found in Trash"
-#~ msgid "No posts found in Trash."
-#~ msgstr "Nicht gefunden im Papierkorb"
-
-#, fuzzy
-#~| msgid "Not found in Trash"
 #~ msgid "No pages found in Trash."
 #~ msgstr "Nicht gefunden im Papierkorb"
 
@@ -7101,11 +7109,6 @@ msgstr "https://affilicioustheme.de/"
 #~| msgid "New category name"
 #~ msgid "New Category Name"
 #~ msgstr "Neuer Kategoriename"
-
-#, fuzzy
-#~| msgid "Not found"
-#~ msgid "No tags found."
-#~ msgstr "Nicht gefunden"
 
 #, fuzzy
 #~| msgid "Not found"
