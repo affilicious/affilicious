@@ -94,7 +94,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
     public function find(Shop_Template_Id $shop_template_id)
     {
@@ -110,7 +110,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
     public function find_by_slug(Slug $slug)
     {

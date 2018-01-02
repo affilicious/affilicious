@@ -29,7 +29,7 @@ interface Shop_Template_Repository_Interface
      *
      * @since 0.9.16
      * @param Shop_Template_Id $shop_template_id The shop template ID of the shop template which will be deleted.
-     * @return true|\WP_Error Always true on success or an error on failure.
+     * @return bool|\WP_Error Always true on success or an error on failure.
      */
     public function delete(Shop_Template_Id $shop_template_id);
 

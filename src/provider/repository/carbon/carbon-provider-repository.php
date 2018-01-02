@@ -20,17 +20,17 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
     /**
      * @var int
      */
-    private $current_id;
+    protected $current_id;
 
     /**
      * @var Provider[]
      */
-    private $providers;
+    protected $providers;
 
     /**
      * @var Key_Generator_Interface
      */
-    private $key_generator;
+    protected $key_generator;
 
     /**
      * @since 0.8
@@ -79,14 +79,32 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
         unset($this->providers[$provider->get_name()->get_value()]);
         $provider->set_id(null);
 
-        return $provider;
+        return true;
     }
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
-    public function find_one_by_id(Provider_Id $provider_id)
+    public function delete_all()
+    {
+        $providers = $this->find_all();
+
+        foreach ($providers as $provider) {
+            $result = $this->delete($provider->get_id());
+            if($result instanceof \WP_Error) {
+                return $result;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9.16
+     */
+    public function find(Provider_Id $provider_id)
     {
         foreach ($this->providers as $provider) {
             if($provider->get_id()->is_equal_to($provider_id)) {
@@ -99,9 +117,9 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
-    public function find_one_by_slug(Slug $slug)
+    public function find_by_slug(Slug $slug)
     {
         return isset($this->providers[$slug->get_value()]) ? $this->providers[$slug->get_value()] : null;
     }
@@ -143,7 +161,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @param Slug $slug
      * @return Provider_Id|null
      */
-    private function find_provider_id(Slug $slug)
+    protected function find_provider_id(Slug $slug)
     {
         $key = $this->key_generator->generate_from_slug($slug);
         $option = sprintf(self::ID_TEMPLATE, $key->get_value());
@@ -159,7 +177,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @param Provider_Id $id
      * @param Slug $slug
      */
-    private function store_provider_id(Provider_Id $id, Slug $slug)
+    protected function store_provider_id(Provider_Id $id, Slug $slug)
     {
         $key = $this->key_generator->generate_from_slug($slug);
         $option = sprintf(self::ID_TEMPLATE, $key->get_value());
@@ -172,7 +190,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @since 0.8
      * @return Provider_Id
      */
-    private function get_next_provider_id()
+    protected function get_next_provider_id()
     {
         $id = new Provider_Id($this->current_id);
 
@@ -189,7 +207,7 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
      * @param Provider $provider
      * @return Provider_Id
      */
-    private function prepare_provider_id(Provider $provider)
+    protected function prepare_provider_id(Provider $provider)
     {
         $id = $this->find_provider_id($provider->get_slug());
         if($id === null) {
@@ -200,5 +218,27 @@ class Carbon_Provider_Repository implements Provider_Repository_Interface
         $provider->set_id($id);
 
         return $id;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_id(Provider_Id $provider_id)
+    {
+        $provider = $this->find($provider_id);
+
+        return $provider;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $provider = $this->find_by_slug($slug);
+
+        return $provider;
     }
 }

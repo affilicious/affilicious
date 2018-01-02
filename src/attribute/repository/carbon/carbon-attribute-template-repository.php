@@ -38,14 +38,6 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      */
     public function delete(Attribute_Template_Id $attribute_template_id)
     {
-        $attribute_template = $this->find_one_by_id($attribute_template_id);
-        if($attribute_template === null) {
-            return new \WP_Error('aff_attribute_template_not_found', sprintf(
-                'Attribute template #%s not found in the database.',
-                $attribute_template_id->get_value()
-            ));
-        }
-
         $result = wp_delete_term(
             $attribute_template_id->get_value(),
             Attribute_Template::TAXONOMY
@@ -62,16 +54,49 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
             return $result;
         }
 
-        $attribute_template->set_id(null);
-
-        return $attribute_template;
+        return true;
     }
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
-    public function find_one_by_id(Attribute_Template_Id $attribute_template_id)
+    public function delete_all($args = [])
+    {
+        // Its not allowed to use other taxonomies.
+        $args['taxonomy'] = Attribute_Template::TAXONOMY;
+
+        $args = wp_parse_args($args, array(
+            'hide_empty' => false
+        ));
+
+        /** @var \WP_Term[] $terms */
+        $terms = get_terms($args);
+        if($terms instanceof \WP_Error) {
+            return $terms;
+        }
+
+        // If there are no terms, than there was nothing to delete.
+        if(empty($terms)) {
+            return true;
+        }
+
+        // Delete each term and check for any errors.
+        foreach ($terms as $term) {
+            $result = $this->delete(new Attribute_Template_Id($term->term_id));
+            if($result instanceof \WP_Error) {
+                return $result;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9.16
+     */
+    public function find(Attribute_Template_Id $attribute_template_id)
     {
         $term = get_term($attribute_template_id->get_value(), Attribute_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -85,25 +110,9 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
-    public function find_one_by_name(Name $name)
-    {
-        $term = get_term_by('name', $name->get_value(), Attribute_Template::TAXONOMY);
-        if (empty($term) || $term instanceof \WP_Error) {
-            return null;
-        }
-
-        $attribute_template = $this->build($term);
-
-        return $attribute_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_one_by_slug(Slug $slug)
+    public function find_by_slug(Slug $slug)
     {
         $term = get_term_by('slug', $slug->get_value(), Attribute_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -119,7 +128,7 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
      * @inheritdoc
      * @since 0.8
      */
-    public function find_all($args = array())
+    public function find_all($args = [])
     {
         $args['taxonomy'] = Attribute_Template::TAXONOMY;
         $args = wp_parse_args($args, array(
@@ -278,5 +287,43 @@ class Carbon_Attribute_Template_Repository extends Abstract_Carbon_Repository im
         }
 
         return $attribute_template->get_id();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_id(Attribute_Template_Id $attribute_template_id)
+    {
+        $attribute_template = $this->find($attribute_template_id);
+
+        return $attribute_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_name(Name $name)
+    {
+        $term = get_term_by('name', $name->get_value(), Attribute_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $attribute_template = $this->build($term);
+
+        return $attribute_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $attribute_template = $this->find_by_slug($slug);
+
+        return $attribute_template;
     }
 }

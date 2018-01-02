@@ -38,14 +38,6 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
      */
     public function delete(Detail_Template_Id $detail_template_id)
     {
-        $detail_template = $this->find_one_by_id($detail_template_id);
-        if($detail_template === null) {
-            return new \WP_Error('aff_detail_template_not_found', sprintf(
-                'Detail template #%s not found in the database.',
-                $detail_template_id->get_value()
-            ));
-        }
-
         $result = wp_delete_term(
             $detail_template_id->get_value(),
             Detail_Template::TAXONOMY
@@ -62,16 +54,49 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
             return $result;
         }
 
-        $detail_template->set_id(null);
-
-        return $detail_template;
+        return true;
     }
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
-    public function find_one_by_id(Detail_Template_Id $detail_template_id)
+    public function delete_all($args = [])
+    {
+        // Its not allowed to use other taxonomies.
+        $args['taxonomy'] = Detail_Template::TAXONOMY;
+
+        $args = wp_parse_args($args, array(
+            'hide_empty' => false
+        ));
+
+        /** @var \WP_Term[] $terms */
+        $terms = get_terms($args);
+        if($terms instanceof \WP_Error) {
+            return $terms;
+        }
+
+        // If there are no terms, than there was nothing to delete.
+        if(empty($terms)) {
+            return true;
+        }
+
+        // Delete each term and check for any errors.
+        foreach ($terms as $term) {
+            $result = $this->delete(new Detail_Template_Id($term->term_id));
+            if($result instanceof \WP_Error) {
+                return $result;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.9.16
+     */
+    public function find(Detail_Template_Id $detail_template_id)
     {
         $term = get_term($detail_template_id->get_value(), Detail_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -85,25 +110,9 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
-    public function find_one_by_name(Name $name)
-    {
-        $term = get_term_by('name', $name->get_value(), Detail_Template::TAXONOMY);
-        if (empty($term) || $term instanceof \WP_Error) {
-            return null;
-        }
-
-        $detail_template = $this->build($term);
-
-        return $detail_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_one_by_slug(Slug $slug)
+    public function find_by_slug(Slug $slug)
     {
         $term = get_term_by('slug', $slug->get_value(), Detail_Template::TAXONOMY);
         if (empty($term) || $term instanceof \WP_Error) {
@@ -117,7 +126,7 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
 
     /**
      * @inheritdoc
-     * @since 0.8
+     * @since 0.9.16
      */
     public function find_all($args = array())
     {
@@ -277,5 +286,43 @@ class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository imple
         }
 
         return $detail_template->get_id();
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_id(Detail_Template_Id $detail_template_id)
+    {
+        $detail_template = $this->find($detail_template_id);
+
+        return $detail_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_name(Name $name)
+    {
+        $term = get_term_by('name', $name->get_value(), Detail_Template::TAXONOMY);
+        if (empty($term) || $term instanceof \WP_Error) {
+            return null;
+        }
+
+        $detail_template = $this->build($term);
+
+        return $detail_template;
+    }
+
+    /**
+     * @inheritdoc
+     * @since 0.8
+     */
+    public function find_one_by_slug(Slug $slug)
+    {
+        $detail_template = $this->find_by_slug($slug);
+
+        return $detail_template;
     }
 }

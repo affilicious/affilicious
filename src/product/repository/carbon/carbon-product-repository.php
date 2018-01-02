@@ -896,10 +896,10 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
             }
 
             foreach ($terms as $term) {
-                $taxonomy = new Taxonomy(new Slug($taxonomy->name));
-                $term = new Term(new Slug($term->slug), $taxonomy);
+                $_taxonomy = new Taxonomy(new Slug($taxonomy->name));
+                $_term = new Term(new Slug($term->slug), $_taxonomy);
 
-                $product->add_term($term);
+                $product->add_term($_term);
             }
         }
     }
