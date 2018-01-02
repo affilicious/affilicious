@@ -13,7 +13,7 @@ class Addons_Page
 	const PRODUCTS_URL = 'https://affilicioustheme.com/edd-api/products';
 
 	/**
-     * Init the extensions page which lists all available Affilicious Theme premium extensions.
+     * Init the addons page which lists all available premium addons.
      *
 	 * @hook admin_menu
 	 * @since 0.9
@@ -31,44 +31,123 @@ class Addons_Page
 	}
 
 	/**
-     * Render the extensions page which lists all available Affilicious Theme premium extensions.
+     * Render the addons page which lists all available premium addons.
      *
 	 * @since 0.9
 	 */
 	public function render()
 	{
-	    $response = wp_remote_get(self::PRODUCTS_URL);
-	    if(is_wp_error($response)) {
-	        return;
+	    // Find all available downloads
+        $downloads = $this->find_downloads();
+        if(empty($downloads)) {
+            return;
+        }
+
+        // Filter the unproper downloads.
+        $downloads = array_filter($downloads, function($download) {
+            return $this->is_addon($download) && ($this->is_paid($download) || $this->is_basic($download));
+        });
+
+        // Append the UTM parameters to all downloads.
+        $downloads = array_map(function($download) {
+            return $this->append_utm_parameters_to_link($download);
+        }, $downloads);
+
+        // Render the addons page.
+	    Template_Helper::render('admin/page/addons', [
+	        'downloads' => $downloads
+        ]);
+	}
+
+    /**
+     * Find the download per API call.
+     *
+     * @since 0.9.16
+     * @return array The found downloads.
+     */
+	protected function find_downloads()
+    {
+        $response = wp_remote_get(self::PRODUCTS_URL);
+        if(is_wp_error($response)) {
+            return [];
         }
 
         $body = wp_remote_retrieve_body($response);
         $body = json_decode($body, true);
 
-        $products = isset($body['products']) ? $body['products'] : [];
-        if(empty($products)) {
-            return;
+        $downloads = isset($body['products']) ? $body['products'] : [];
+        if(empty($downloads)) {
+            return [];
         }
 
-        $products = array_filter($products, function($product) {
-            return $this->is_addon($product) && ($this->is_paid($product) || $this->is_basic($product));
-        });
-
-        $products = array_map(function($product) {
-            return $this->append_utm_params_to_link($product);
-        }, $products);
-
-	    Template_Helper::render('admin/page/addons', [
-	        'products' => $products
-        ]);
-	}
+        return $downloads;
+    }
 
     /**
-     * @since 0.9.16
-     * @param array $download
-     * @return array
+     * Check if the download from the API is an add-on.
+     *
+     * @since 0.9
+     * @param array $download The download from the API call.
+     * @return bool Whether the download is an addon or not.
      */
-    protected function append_utm_params_to_link($download)
+	protected function is_addon(array $download)
+    {
+        if(empty($download['info']['category'])) {
+            return false;
+        }
+
+        $categories = $download['info']['category'];
+        foreach ($categories as $category) {
+            if($category['name'] == __('Extensions', 'affilicious')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the download from the API belongs to the basics.
+     *
+     * @since 0.9
+     * @param array $download The download from the API call.
+     * @return bool Whether the download is basic or not.
+     */
+    protected function is_basic(array $download)
+    {
+        if(empty($download['info']['tags'])) {
+            return false;
+        }
+
+        $tags = $download['info']['tags'];
+        foreach ($tags as $tag) {
+            if($tag['slug'] == 'basics') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the download from the API is paid.
+     *
+     * @param array $download The download from the API call.
+     * @return bool Whether the download is paid or not.
+     */
+    protected function is_paid(array $download)
+    {
+        return !isset($download['pricing']['amount']) || floatval($download['pricing']['amount']) > 0;
+    }
+
+    /**
+     * Append the UTM parameters to the download link.
+     *
+     * @since 0.9.16
+     * @param array $download The download which the UTM parameters are appended to.
+     * @return array The download with appended UTM parameters.
+     */
+    protected function append_utm_parameters_to_link(array $download)
     {
         $slug = !empty($download['info']['slug']) ? $download['info']['slug'] : null;
         $link = !empty($download['info']['link']) ? $download['info']['link'] : null;
@@ -80,62 +159,5 @@ class Addons_Page
         $download['info']['link'] = $link;
 
         return $download;
-    }
-
-    /**
-     * Check if the product from the API is an add-on.
-     *
-     * @since 0.9
-     * @param array $product
-     * @return bool
-     */
-	private function is_addon($product)
-    {
-        if(empty($product['info']['category'])) {
-            return false;
-        }
-
-        $categories = $product['info']['category'];
-        foreach ($categories as $category) {
-            if($category['name'] == __('Extensions', 'affilicious')) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Check if the product from the API belongs to the basics.
-     *
-     * @since 0.9
-     * @param array $product
-     * @return bool
-     */
-    private function is_basic($product)
-    {
-        if(empty($product['info']['tags'])) {
-            return false;
-        }
-
-        $tags = $product['info']['tags'];
-        foreach ($tags as $tag) {
-            if($tag['slug'] == 'basics') {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Check if the product from the API is paid.
-     *
-     * @param array $product
-     * @return bool
-     */
-    private function is_paid($product)
-    {
-        return !isset($product['pricing']['amount']) || floatval($product['pricing']['amount']) > 0;
     }
 }

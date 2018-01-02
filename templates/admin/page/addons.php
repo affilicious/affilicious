@@ -1,4 +1,4 @@
-<?php /** @var array $products */ ?>
+<?php /** @var array $downloads */ ?>
 
 <div class="wrap">
     <h1><?php _e('Add-ons', 'affilicious'); ?></h1>
@@ -7,8 +7,8 @@
         <div id="post-body" class="metabox-holder columns-2">
             <div id="post-body-content">
                 <div class="aff-addons-container">
-                    <?php foreach ($products as $product): ?>
-	                    <?php aff_render_template('admin/page/addons/item', ['product' => $product]); ?>
+                    <?php foreach ($downloads as $download): ?>
+	                    <?php aff_render_template('admin/page/addons/item', ['download' => $download]); ?>
                     <?php endforeach; ?>
 
 	                <?php aff_render_template('admin/page/addons/item-soon-more'); ?>

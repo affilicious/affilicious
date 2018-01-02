@@ -11,7 +11,7 @@ class Download_Recommendation_Notice
 	const PRODUCTS_API_URL = 'https://affilicioustheme.com/edd-api/products';
 
 	/**
-     * Render the notice if the license is invalid.
+     * Render the download recommendation notice.
      *
      * @since 0.9.16
      */
@@ -25,7 +25,7 @@ class Download_Recommendation_Notice
 
         // Find a random download per API call and check if we have enough data to display the recommendation.
     	$download = $this->find_random_download();
-        if(empty($download['title']) || empty($download['message']) || empty($download['link'])) {
+        if(empty($download['info']['title']) || empty($download['info']['excerpt']) || empty($download['info']['link'])) {
             return;
         }
 
@@ -33,9 +33,9 @@ class Download_Recommendation_Notice
 	    aff_render_template('admin/notice/info-notice', [
 		    'message' => sprintf(
 		        __('Download recommendation: %s Visit <a href="%s" target="_blank" rel="nofollow">%s</a> now.', 'affilicious'),
-                $download['message'],
-                $download['link'],
-                $download['title']
+                $download['info']['excerpt'],
+                $download['info']['link'],
+                $download['info']['title']
             ),
             'dismissible_id' => self::DISMISSIBLE_ID,
 	    ]);
@@ -67,35 +67,9 @@ class Download_Recommendation_Notice
 	    });
 
 	    $download = $downloads[rand(0, count($downloads) - 1)];
-	    $title = !empty($download['info']['title']) ? $download['info']['title'] : null;
-	    $message = !empty($download['info']['excerpt']) ? $download['info']['excerpt'] : null;
-	    $link = $this->build_link($download);
+	    $download = $this->append_utm_parameters_to_link($download);
 
-	    $result = [
-            'title' => $title,
-            'message' => $message,
-            'link' => $link,
-        ];
-
-	    return $result;
-    }
-
-    /**
-     * @since 0.9.16
-     * @param array $download
-     * @return null|string
-     */
-    protected function build_link($download)
-    {
-        $slug = !empty($download['info']['slug']) ? $download['info']['slug'] : null;
-        $link = !empty($download['info']['link']) ? $download['info']['link'] : null;
-        if(empty($slug) || empty($link)) {
-            return null;
-        }
-
-        $link .= '&utm_source=wordpress-installation&utm_medium=click&utm_campaign=addons&utm_content=download-recommendation&utm_term=' . $slug;
-
-        return $link;
+	    return $download;
     }
 
 	/**
@@ -105,7 +79,7 @@ class Download_Recommendation_Notice
 	 * @param array $download The download from the API call.
 	 * @return bool Whether the download is an addon or not.
 	 */
-	protected function is_addon($download)
+	protected function is_addon(array $download)
 	{
 		if(empty($download['info']['category'])) {
 			return false;
@@ -128,7 +102,7 @@ class Download_Recommendation_Notice
 	 * @param array $download The download from the API call.
 	 * @return bool Whether the download is basic or not
 	 */
-	protected function is_basic($download)
+	protected function is_basic(array $download)
 	{
 		if(empty($download['info']['tags'])) {
 			return false;
@@ -151,8 +125,29 @@ class Download_Recommendation_Notice
 	 * @param array $download The download from the API call.
 	 * @return bool Whether the download is paid or not.
 	 */
-	protected function is_paid($download)
+	protected function is_paid(array $download)
 	{
 		return !isset($download['pricing']['amount']) || floatval($download['pricing']['amount']) > 0;
 	}
+
+    /**
+     * Append the UTM parameters to the download link.
+     *
+     * @since 0.9.16
+     * @param array $download The download which the UTM parameters are appended to.
+     * @return array The download with appended UTM parameters.
+     */
+    protected function append_utm_parameters_to_link(array $download)
+    {
+        $slug = !empty($download['info']['slug']) ? $download['info']['slug'] : null;
+        $link = !empty($download['info']['link']) ? $download['info']['link'] : null;
+        if(empty($slug) || empty($link)) {
+            return $download;
+        }
+
+        $link .= '&utm_source=wordpress-installation&utm_medium=click&utm_content=addons-page&utm_campaign=addons&utm_term=' . $slug;
+        $download['info']['link'] = $link;
+
+        return $download;
+    }
 }
