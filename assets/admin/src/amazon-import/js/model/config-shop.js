@@ -13,11 +13,11 @@ let ConfigShop = Backbone.Model.extend({
      * @param {Object} shop
      */
     addShop(shop) {
-        let addedShops = this.model.get('addedShops');
+        let addedShops = this.get('addedShops');
 
         addedShops.push(shop);
 
-        this.model.set({
+        this.set({
             'shop': shop.slug,
             'newShopName': null,
             'addedShops': addedShops,

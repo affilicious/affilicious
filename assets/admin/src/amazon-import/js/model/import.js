@@ -45,7 +45,7 @@ let Import = Backbone.Model.extend({
             let shopTemplate = ((result || {}).data || {}).shop_template || null;
 
             if(shopTemplate) {
-                this.config.trigger('aff:amazon-import:config:add-shop', shopTemplate);
+                this.config.shop.addShop(shopTemplate);
             }
 
             searchResultsItem.showSuccessMessage();
