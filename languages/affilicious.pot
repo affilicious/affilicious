@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-01 23:02+0200\n"
-"PO-Revision-Date: 2017-08-11 17:46+0200\n"
+"POT-Creation-Date: 2018-01-02 16:04+0200\n"
+"PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,21 +15,22 @@ msgstr ""
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: affilicious.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;"
-"esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: node_modules\n"
-"X-Poedit-SearchPathExcluded-1: vendor\n"
-"X-Poedit-SearchPathExcluded-2: tests\n"
-"X-Poedit-SearchPathExcluded-3: tmp\n"
-"X-Poedit-SearchPathExcluded-4: *.js\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: tmp\n"
+"X-Poedit-SearchPathExcluded-2: vendor\n"
+"X-Poedit-SearchPathExcluded-3: node_modules\n"
+"X-Poedit-SearchPathExcluded-4: bin\n"
+"X-Poedit-SearchPathExcluded-5: tests\n"
 
 #: affilicious.php:232
 #, php-format
 msgid ""
-"The Affilicious Plugin requires at least the PHP Version %s to reveal the full "
-"potential. Please switch the PHP version in your hosting provider."
+"The Affilicious Plugin requires at least the PHP Version %s to reveal the "
+"full potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
 #: affilicious.php:242
@@ -190,7 +191,8 @@ msgstr ""
 
 #: src/common/admin/filter/footer-text-filter.php:21
 #, php-format
-msgid "Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
+msgid ""
+"Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 
 #: src/common/admin/license/license-manager.php:81
@@ -237,11 +239,11 @@ msgstr ""
 #: src/common/admin/notice/download-recommendation-notice.php:35
 #, php-format
 msgid ""
-"Download recommendation: %s Visit <a href=\"%s\" target=\"_blank\" rel=\"nofollow\">"
-"%s</a> now."
+"Download recommendation: %s Visit <a href=\"%s\" target=\"_blank\" rel="
+"\"nofollow\">%s</a> now."
 msgstr ""
 
-#: src/common/admin/notice/download-recommendation-notice.php:95
+#: src/common/admin/notice/download-recommendation-notice.php:116
 #: src/common/admin/page/addons-page.php:77
 msgid "Extensions"
 msgstr ""
@@ -272,8 +274,9 @@ msgstr ""
 #: src/common/admin/options/affilicious-options.php:77
 #, php-format
 msgid ""
-"It looks like you haven't got any add-on or theme yet. Visit our official website of "
-"<a href=\"%s\">Affilicious Theme</a> to see what you can start with."
+"It looks like you haven't got any add-on or theme yet. Visit our official "
+"website of <a href=\"%s\">Affilicious Theme</a> to see what you can start "
+"with."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:100
@@ -282,8 +285,8 @@ msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:101
 msgid ""
-"Add your custom header scripts like CSS or JS with the proper &lt;style&gt or &lt;"
-"script&gt tags."
+"Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
+"or &lt;script&gt tags."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:102
@@ -292,8 +295,8 @@ msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:103
 msgid ""
-"Add your custom footer scripts like Google Analytics tracking code, CSS or JS with "
-"the proper &lt;style&gt or &lt;script&gt tags."
+"Add your custom footer scripts like Google Analytics tracking code, CSS or "
+"JS with the proper &lt;style&gt or &lt;script&gt tags."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:118
@@ -302,12 +305,13 @@ msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:119
 msgid ""
-"If you enable this option, download recommendation notices won't be shown after "
-"activation anymore."
+"If you enable this option, download recommendation notices won't be shown "
+"after activation anymore."
 msgstr ""
 
-#: src/common/admin/page/addons-page.php:25 src/common/admin/page/addons-page.php:26
-#: templates/admin/page/addons.php:4 templates/admin/page/addons/resources.php:7
+#: src/common/admin/page/addons-page.php:25
+#: src/common/admin/page/addons-page.php:26 templates/admin/page/addons.php:4
+#: templates/admin/page/addons/resources.php:7
 msgid "Add-ons"
 msgstr ""
 
@@ -330,7 +334,8 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:309
 #: src/product/admin/meta-box/product-meta-box.php:350
 #: src/product/customizer/universal-box-customizer.php:578
-#: src/shop/setup/shop-template-setup.php:27 src/shop/setup/shop-template-setup.php:31
+#: src/shop/setup/shop-template-setup.php:27
+#: src/shop/setup/shop-template-setup.php:31
 #: templates/admin/page/imports/amazon/config-shop-template.php:10
 msgid "Shops"
 msgstr ""
@@ -492,8 +497,8 @@ msgstr ""
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:178
 #, php-format
 msgid ""
-"Failed to import the product because the shop \"%s\" couldn't be created. It's "
-"already existing."
+"Failed to import the product because the shop \"%s\" couldn't be created. "
+"It's already existing."
 msgstr ""
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:205
@@ -503,12 +508,13 @@ msgstr ""
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:298
 #, php-format
 msgid ""
-"Failed to merge different product types. Got \"%s\", but the important product is \"%s"
-"\"."
+"Failed to merge different product types. Got \"%s\", but the important "
+"product is \"%s\"."
 msgstr ""
 
 #: src/product/admin/filter/menu-order-filter.php:27
-#: src/product/admin/setup/import-page-setup.php:44 templates/admin/page/imports.php:8
+#: src/product/admin/setup/import-page-setup.php:44
+#: templates/admin/page/imports.php:8
 #: templates/admin/page/imports/amazon/search-results-item-template.php:100
 msgid "Import"
 msgstr ""
@@ -533,11 +539,13 @@ msgstr ""
 msgid "Relations"
 msgstr ""
 
-#: src/product/admin/meta-box/product-meta-box.php:108 src/product/model/type.php:104
+#: src/product/admin/meta-box/product-meta-box.php:108
+#: src/product/model/type.php:104
 msgid "Simple"
 msgstr ""
 
-#: src/product/admin/meta-box/product-meta-box.php:109 src/product/model/type.php:110
+#: src/product/admin/meta-box/product-meta-box.php:109
+#: src/product/model/type.php:110
 msgid "Complex"
 msgstr ""
 
@@ -559,11 +567,12 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:165
 #, php-format
 msgid ""
-"Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</a> to "
-"attach them to the product variants."
+"Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
+"a> to attach them to the product variants."
 msgstr ""
 
-#: src/product/admin/meta-box/product-meta-box.php:173 src/product/model/type.php:107
+#: src/product/admin/meta-box/product-meta-box.php:173
+#: src/product/model/type.php:107
 msgid "Variant"
 msgstr ""
 
@@ -587,15 +596,15 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:282
 #, php-format
 msgid ""
-"<b>No attribute templates available!</b> Please create one <a href=\"%s\" target="
-"\"_blank\">here</a>."
+"<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
+"target=\"_blank\">here</a>."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:324
 #, php-format
 msgid ""
-"<b>No shop templates available!</b> Please create one <a href=\"%s\" target=\"_blank"
-"\">here</a>."
+"<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
+"\"_blank\">here</a>."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:351
@@ -644,11 +653,13 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: src/product/admin/meta-box/product-meta-box.php:376 src/shop/model/currency.php:107
+#: src/product/admin/meta-box/product-meta-box.php:376
+#: src/shop/model/currency.php:107
 msgid "Euro"
 msgstr ""
 
-#: src/product/admin/meta-box/product-meta-box.php:377 src/shop/model/currency.php:110
+#: src/product/admin/meta-box/product-meta-box.php:377
+#: src/shop/model/currency.php:110
 msgid "US-Dollar"
 msgstr ""
 
@@ -663,8 +674,8 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:419
 #, php-format
 msgid ""
-"Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> to attach "
-"them to the product."
+"Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
+"to attach them to the product."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:462
@@ -678,8 +689,8 @@ msgstr ""
 #: src/product/admin/meta-box/product-meta-box.php:480
 #, php-format
 msgid ""
-"<b>No detail templates available!</b> Please create one <a href=\"%s\" target=\"_blank"
-"\">here</a>."
+"<b>No detail templates available!</b> Please create one <a href=\"%s\" "
+"target=\"_blank\">here</a>."
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:499
@@ -747,10 +758,10 @@ msgstr ""
 
 #: src/product/admin/options/product-options.php:42
 msgid ""
-"Used as the slug for a nicer product URL (eg \"http://example.com/products/xyz\"), "
-"where \"products\" in the middle part of the product URL is the default. If you want "
-"to translate the slug into your language instead of \"products\", you have to write "
-"the new slug into this input field."
+"Used as the slug for a nicer product URL (eg \"http://example.com/products/"
+"xyz\"), where \"products\" in the middle part of the product URL is the "
+"default. If you want to translate the slug into your language instead of "
+"\"products\", you have to write the new slug into this input field."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:61
@@ -766,7 +777,8 @@ msgid "Position"
 msgstr ""
 
 #: src/product/admin/options/product-options.php:64
-msgid "Whether the position of the universal box is above or below the content."
+msgid ""
+"Whether the position of the universal box is above or below the content."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:66
@@ -780,8 +792,8 @@ msgstr ""
 #: src/product/admin/options/product-options.php:85
 #, php-format
 msgid ""
-"Create custom taxonomies to group products together. See this <a href=\"%s\">link</a> "
-"for a better description."
+"Create custom taxonomies to group products together. See this <a href=\"%s"
+"\">link</a> for a better description."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:86
@@ -797,18 +809,18 @@ msgstr ""
 #: src/product/admin/options/product-options.php:90
 #, php-format
 msgid ""
-"The database name of the taxonomy like \"your_category\". Name should only contain "
-"lowercase letters and the underscore character, and not be more than 32 characters "
-"long. Care should be used in selecting a taxonomy name so that it does not conflict "
-"with other taxonomies, post types, and reserved Wordpress public and protected query "
-"variables. A complete list of those is described in the <a href=\"%s\">Reserved "
-"Terms</a> section."
+"The database name of the taxonomy like \"your_category\". Name should only "
+"contain lowercase letters and the underscore character, and not be more than "
+"32 characters long. Care should be used in selecting a taxonomy name so that "
+"it does not conflict with other taxonomies, post types, and reserved "
+"Wordpress public and protected query variables. A complete list of those is "
+"described in the <a href=\"%s\">Reserved Terms</a> section."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:95
 msgid ""
-"Used as pretty permalink text for your URL like \"http://example.com/your-categories/"
-"product-name\"."
+"Used as pretty permalink text for your URL like \"http://example.com/your-"
+"categories/product-name\"."
 msgstr ""
 
 #: src/product/admin/options/product-options.php:97
@@ -1231,7 +1243,9 @@ msgstr ""
 
 #: src/product/update/configuration/configuration-context.php:132
 #, php-format
-msgid "Invalid configuration context. The value for the key \"%s\" must implement %s."
+msgid ""
+"Invalid configuration context. The value for the key \"%s\" must implement "
+"%s."
 msgstr ""
 
 #: src/product/update/configuration/configuration-context.php:140
@@ -1269,8 +1283,8 @@ msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:73
 msgid ""
-"The access key is used to identify you as an API user. It's not your private Amazon "
-"username."
+"The access key is used to identify you as an API user. It's not your private "
+"Amazon username."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:74
@@ -1279,8 +1293,8 @@ msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:75
 msgid ""
-"The secret key is used like a password to sign your API requests. It's not your "
-"private Amazon password."
+"The secret key is used like a password to sign your API requests. It's not "
+"your private Amazon password."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:76
@@ -1421,7 +1435,8 @@ msgid "Affiliate Link Update Interval"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:132
-msgid "The automatic update interval for the shop affiliate links in the products."
+msgid ""
+"The automatic update interval for the shop affiliate links in the products."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:133
@@ -1445,13 +1460,14 @@ msgid "Availability Update Interval"
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:156
-msgid "The automatic update interval for the shop availabilities in the products."
+msgid ""
+"The automatic update interval for the shop availabilities in the products."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:174
 msgid ""
-"<b>The credentials are valid!</b> A connection to the Amazon Product Advertising API "
-"was successfully established."
+"<b>The credentials are valid!</b> A connection to the Amazon Product "
+"Advertising API was successfully established."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:178
@@ -1487,7 +1503,8 @@ msgid "Shop Template"
 msgstr ""
 
 #: src/shop/admin/meta-box/shop-template-meta-box.php:61
-msgid "The provider is used for the automatic updates for products using this shop."
+msgid ""
+"The provider is used for the automatic updates for products using this shop."
 msgstr ""
 
 #: src/shop/admin/meta-box/shop-template-meta-box.php:62
@@ -1603,8 +1620,9 @@ msgstr ""
 #: templates/admin/page/addons/about.php:5
 #, php-format
 msgid ""
-"We offer a collection of amazing affiliate plugins and themes for Wordpress. Visit "
-"our <a href=\"%s\" target=\"_blank\">official website</a> for more information."
+"We offer a collection of amazing affiliate plugins and themes for Wordpress. "
+"Visit our <a href=\"%s\" target=\"_blank\">official website</a> for more "
+"information."
 msgstr ""
 
 #: templates/admin/page/addons/item-soon-more.php:4
@@ -1638,8 +1656,8 @@ msgstr ""
 #: templates/admin/page/imports/amazon.php:16
 #, php-format
 msgid ""
-"Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the Amazon "
-"import."
+"Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the "
+"Amazon import."
 msgstr ""
 
 #: templates/admin/page/imports/amazon/config-action-template.php:4
@@ -1782,12 +1800,15 @@ msgid "With variants"
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:64
-msgid "Search with product variants doesn't work if the category \"All\" is selected."
+msgid ""
+"Search with product variants doesn't work if the category \"All\" is "
+"selected."
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:66
 msgid ""
-"Due to limitations, not all products with variants are found in the keyword search."
+"Due to limitations, not all products with variants are found in the keyword "
+"search."
 msgstr ""
 
 #: templates/admin/page/imports/amazon/search-form-template.php:68
@@ -1852,8 +1873,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"The best affiliate solution in Wordpress with products & variants, shops, price "
-"comparisons, Amazon import & update and much more."
+"The best affiliate solution in Wordpress with products & variants, shops, "
+"price comparisons, Amazon import & update and much more."
 msgstr ""
 
 #. Author of the plugin/theme
