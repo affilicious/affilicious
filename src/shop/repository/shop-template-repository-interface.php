@@ -72,7 +72,6 @@ interface Shop_Template_Repository_Interface
 	/**
 	 * Find all shop templates by the provider ID.
 	 *
-     * @deprecated 1.3 Don't use anymore.
 	 * @since 0.9.4
 	 * @param Provider_Id $provider_id The ID of the provider.
 	 * @return Shop_Template[] The found shop templates.

@@ -2,8 +2,11 @@
 namespace Affilicious\Product\Admin\Page\Amazon;
 
 use Affilicious\Common\Helper\Template_Helper;
+use Affilicious\Provider\Helper\Provider_Helper;
 use Affilicious\Provider\Model\Amazon\Amazon_Provider;
 use Affilicious\Provider\Model\Amazon\Category;
+use Affilicious\Provider\Model\Provider;
+use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
 use Affilicious\Shop\Helper\Shop_Template_Helper;
 use Affilicious\Shop\Model\Shop_Template;
@@ -64,32 +67,58 @@ class Amazon_Import_Page
 	 */
 	public function render()
 	{
-        $shop_templates = [];
-
-	    $amazon_provider = $this->provider_repository->find_one_by_slug(Amazon_Provider::slug());
-	    if($amazon_provider !== null) {
-            $shop_templates = $this->shop_template_repository->find_all();
-
-            if (!empty($shop_templates)) {
-                $shop_templates = array_filter($shop_templates, function(Shop_Template $shop_template) use ($amazon_provider) {
-                     return $amazon_provider->get_id()->is_equal_to($shop_template->get_provider_id());
-                });
-
-                $shop_templates = array_map(function (Shop_Template $shop_template) {
-                    return Shop_Template_Helper::to_array($shop_template);
-                }, $shop_templates);
-            }
-        }
-
+	    $provider = $this->find_provider();
+	    $shop_templates = $this->find_all_shop_templates($provider);
         $taxonomies = $this->find_taxonomies_with_terms();
 
 	    Template_Helper::render('admin/page/imports/amazon', [
-	        'shop_templates' => $shop_templates,
-            'amazon_provider_configured' => $amazon_provider !== null,
-		    'categories' => Category::$germany,
+            'provider' => $provider,
+            'shop_templates' => $shop_templates,
             'taxonomies' => $taxonomies,
+            'categories' => Category::$germany,
         ]);
 	}
+
+    /**
+     * Find the Amazon provider.
+     *
+     * @since 0.9.16
+     * @return array|null
+     */
+	protected function find_provider()
+    {
+        $provider = $this->provider_repository->find_by_slug(Amazon_Provider::slug());
+        if(empty($provider)) {
+            return null;
+        }
+
+        $provider = Provider_Helper::to_array($provider);
+
+        return $provider;
+    }
+
+    /**
+     * Find all shop templates by the providers.
+     *
+     * @since 0.9.16
+     * @param array|null $provider
+     * @return array
+     */
+    protected function find_all_shop_templates($provider)
+    {
+        if(empty($provider['id'])) {
+            return [];
+        }
+
+        $shop_templates = $this->shop_template_repository->find_all_by_provider_id(new Provider_Id($provider['id']));
+
+        // Map all shop templates to plain arrays which can be used in the view more easily.
+        $shop_templates = array_map(function (Shop_Template $shop_template) {
+            return Shop_Template_Helper::to_array($shop_template);
+        }, $shop_templates);
+
+        return $shop_templates;
+    }
 
     /**
      * Find all product taxonomies with the related terms.

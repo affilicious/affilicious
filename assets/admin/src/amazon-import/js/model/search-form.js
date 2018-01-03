@@ -17,6 +17,22 @@ let SearchForm = Backbone.Model.extend({
     },
 
     /**
+     * @since 0.9.16
+     */
+    parse() {
+        return {
+            'term': this.get('term'),
+            'type': this.get('type'),
+            'category': this.get('category'),
+            'minPrice': this.get('minPrice'),
+            'maxPrice': this.get('maxPrice'),
+            'sort': this.get('sort'),
+            'condition': this.get('condition'),
+            'withVariants': this.get('withVariants'),
+        };
+    },
+
+    /**
      * Submit the form the form and trigger the loading animation.
      *
      * @since 0.9
@@ -32,14 +48,6 @@ let SearchForm = Backbone.Model.extend({
         });
 
         this.trigger('aff:amazon-import:search:search-form:submit', this);
-    },
-
-    parse() {
-        return {
-            'term': this.get('term'),
-            'type': this.get('type'),
-            'category': this.get('type'),
-        };
     },
 
     /**
@@ -68,7 +76,7 @@ let SearchForm = Backbone.Model.extend({
             'noResultsMessage': message,
         });
 
-        this.trigger('affebayiu:ebay-import:search:search-form:no-results', this);
+        this.trigger('aff:amazon-import:search:search-form:no-results', this);
     },
 
     /**

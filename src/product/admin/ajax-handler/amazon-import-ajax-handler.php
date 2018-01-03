@@ -309,10 +309,6 @@ class Amazon_Import_Ajax_Handler
             foreach ($imported_shops as $imported_shop) {
                 $with_product->add_shop($imported_shop);
             }
-
-            $imported_images = $imported_product->get_image_gallery();
-            $images = $with_product->get_image_gallery();
-            $with_product->set_image_gallery(array_merge($imported_images, $images));
         }
 
         // Merge the complex products
@@ -321,11 +317,19 @@ class Amazon_Import_Ajax_Handler
             foreach ($imported_variants as $imported_variant) {
                 $with_product->add_variant($imported_variant);
             }
-
-            $imported_images = $imported_product->get_image_gallery();
-            $images = $with_product->get_image_gallery();
-            $with_product->set_image_gallery(array_merge($imported_images, $images));
         }
+
+        // Merge the remaining values
+        $imported_status = $imported_product->get_status();
+        $with_product->set_status($imported_status);
+
+        $imported_images = $imported_product->get_image_gallery();
+        $images = $with_product->get_image_gallery();
+        $with_product->set_image_gallery(array_merge($imported_images, $images));
+
+        $imported_terms = $imported_product->get_terms();
+        $terms = $with_product->get_terms();
+        $with_product->set_terms(array_merge($imported_terms, $terms));
 
 	    $with_product = apply_filters('aff_product_amazon_import_after_merge_products', $with_product, $imported_product);
 
