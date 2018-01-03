@@ -18,7 +18,7 @@ class Canonical_Setup
     public function init()
     {
         $post = get_post();
-        if(empty($post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
+        if(empty($post) || !($post instanceof \WP_Post) || $post->post_type !== Product::POST_TYPE || $post->post_parent == 0) {
             return;
         }
 
