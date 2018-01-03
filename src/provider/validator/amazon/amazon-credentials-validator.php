@@ -56,7 +56,9 @@ class Amazon_Credentials_Validator implements Credentials_Validator_Interface
 
             $apaiIO->runOperation($search);
         } catch (\Exception $e) {
-            return new \WP_Error('aff_provider_validator_amazon_error', $e->getMessage());
+            if($e->getCode() != 503) {
+                return new \WP_Error('aff_provider_validator_amazon_error', $e->getMessage());
+            }
         }
 
         return true;

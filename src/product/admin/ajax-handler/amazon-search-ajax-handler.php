@@ -41,8 +41,13 @@ class Amazon_Search_Ajax_Handler
      */
     public function handle()
     {
-        // Search for the Amazon products based on the GET parameters.
+        // Search for the Amazon products and retry after 3 seconds, if the request has been throttled.
         $products = $this->search();
+        if($products instanceof \WP_Error && $products->get_error_code() == 'aff_product_amazon_search_throttled') {
+            sleep(3);
+            $products = $this->search();
+        }
+
         if($products instanceof \WP_Error) {
             wp_send_json_error($products, 500);
         }
