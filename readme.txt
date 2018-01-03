@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.1
-Stable tag: 0.9.15
+Stable tag: 0.9.16
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -59,6 +59,19 @@ Here is why developing with the Affilicious Plugin is really fun:
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.16 =
+* New: Added possibility to add product term in the import.
+* New: Custom product taxonomies have REST support now.
+* New: Added possibility to add multiple terms in the Amazon import.
+* New: Added download recommendation notices.
+* New: Added plugin actions.
+* Improvement: Added better import success and error highlighting.
+* Improvement: Reduced the Amazon error rate caused by throttling.
+* Improvement: Improved translations
+* Improvement: Some marketing related links are tracked with UTM parameters now.
+* Improvement: Refactored repository methods.
+* Fix: Fixed the canonical setup on empty product archives.
+
 = 0.9.15 =
 * New: Added Amazon search fields like min price, max price, order and condition.
 * New: Added retry button for Amazon import.

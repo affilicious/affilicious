@@ -5,7 +5,7 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: The best affiliate solution in Wordpress with products & variants, shops, price comparisons, Amazon import & update and much more.
- * Version: 0.9.15
+ * Version: 0.9.16
  * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.9.1
