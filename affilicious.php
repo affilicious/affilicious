@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-define('AFFILICIOUS_VERSION', '0.9.15');
+define('AFFILICIOUS_VERSION', '0.9.16');
 define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
@@ -44,7 +44,7 @@ if(!class_exists('Affilicious')) {
 	class Affilicious
 	{
 		const NAME = 'affilicious';
-		const VERSION = '0.9.15';
+		const VERSION = '0.9.16';
 		const MIN_PHP_VERSION = '5.6';
 
 		/**
