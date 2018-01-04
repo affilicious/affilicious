@@ -377,7 +377,7 @@ class Amazon_Search implements Search_Interface
             $response = $apaiIO->runOperation($operation);
         } catch (\Exception $e) {
 	        if($e->getCode() == 503) {
-		        $response = new \WP_Error('aff_product_amazon_search_throttled', __('Amazon has throttled your search speed for a short time.', 'affilicious'));
+		        $response = new \WP_Error('aff_product_amazon_request_throttled', __('Amazon has throttled your request speed for a short time.', 'affilicious'));
 	        } else {
 		        $response = new \WP_Error('aff_product_amazon_search_error', $e->getMessage());
 	        }

@@ -96,7 +96,7 @@ class Amazon_Import_Ajax_Handler
 
         // Import the Amazon product and retry after 3 seconds, if the request has been throttled.
         $product = $this->import($data, $shop_template);
-        if($product instanceof \WP_Error && $product->get_error_code() == 'aff_product_amazon_search_throttled') {
+        if($product instanceof \WP_Error && $product->get_error_code() == 'aff_product_amazon_request_throttled') {
             sleep(3);
             $product = $this->import($data, $shop_template);
         }

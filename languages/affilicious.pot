@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-02 16:17+0200\n"
+"POT-Creation-Date: 2018-01-04 18:51+0200\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -243,8 +243,8 @@ msgid ""
 "\"nofollow\">%s</a> now."
 msgstr ""
 
-#: src/common/admin/notice/download-recommendation-notice.php:116
-#: src/common/admin/page/addons-page.php:77
+#: src/common/admin/notice/download-recommendation-notice.php:90
+#: src/common/admin/page/addons-page.php:101
 msgid "Extensions"
 msgstr ""
 
@@ -1064,7 +1064,9 @@ msgid "The Amazon provider with the slug \"%s\" hasn't been found."
 msgstr ""
 
 #: src/product/import/amazon/amazon-import.php:137
-msgid "Amazon has throttled your import speed for a short time."
+#: src/product/search/amazon/amazon-search.php:380
+#: src/product/update/worker/amazon/amazon-update-worker.php:230
+msgid "Amazon has throttled your request speed for a short time."
 msgstr ""
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:53
@@ -1107,10 +1109,6 @@ msgstr ""
 
 #: src/product/search/amazon/amazon-search.php:234
 msgid "The Amazon search max price is invalid."
-msgstr ""
-
-#: src/product/search/amazon/amazon-search.php:380
-msgid "Amazon has throttled your search speed for a short time."
 msgstr ""
 
 #: src/product/setup/custom-taxonomies-setup.php:57

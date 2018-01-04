@@ -134,7 +134,7 @@ class Amazon_Import implements Import_Interface
             }
         } catch (\Exception $e) {
         	if($e->getCode() == 503) {
-        		return new \WP_Error('aff_product_amazon_search_throttled', __('Amazon has throttled your import speed for a short time.', 'affilicious'));
+        		return new \WP_Error('aff_product_amazon_request_throttled', __('Amazon has throttled your request speed for a short time.', 'affilicious'));
 	        } else {
 		        return new \WP_Error('aff_product_amazon_import_error', $e->getMessage());
 	        }

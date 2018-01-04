@@ -111,9 +111,14 @@ class Amazon_Update_Worker implements Update_Worker_Interface
             return;
         }
 
-        // Make a Amazon API batch item lookup based on the affiliate IDs.
+        // Make a Amazon API batch item lookup based on the affiliate IDs. Try again after 3 seconds, if the request has been throttled.
         $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
-        if(empty($items)) {
+        if($items instanceof \WP_Error && $items->get_error_code() == 'aff_product_amazon_request_throttled') {
+            sleep(3);
+            $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
+        }
+
+        if(empty($items) || $items instanceof \WP_Error) {
             return;
         }
 
@@ -152,7 +157,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                $shop_template = $this->shop_template_repository->find_one_by_id($shop->get_template_id());
+                $shop_template = $this->shop_template_repository->find($shop->get_template_id());
                 if($shop_template === null) {
                     continue;
                 }
@@ -161,7 +166,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
                     continue;
                 }
 
-                $provider = $this->provider_repository->find_one_by_id($shop_template->get_provider_id());
+                $provider = $this->provider_repository->find($shop_template->get_provider_id());
                 if($provider === null) {
                     continue;
                 }
@@ -187,7 +192,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
      * @since 0.9.8
      * @param Amazon_Provider $provider The Amazon provider which holds the credentials.
      * @param Affiliate_Product_Id[] $affiliate_product_ids The affiliate IDs for the batch item lookup.
-     * @return null|array The Amazon API response as an array.
+     * @return array|\WP_Error The Amazon API response as an array.
      */
     protected function batch_item_lookup(Amazon_Provider $provider, array $affiliate_product_ids)
     {
@@ -216,17 +221,22 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         $lookup->setItemId($items_ids);
         $lookup->setResponseGroup(['Large']);
 
-        // Do the Amazon batch item lookup request.
-        $apaiIO = new ApaiIO($conf);
-        $response = $apaiIO->runOperation($lookup);
-        if(empty($response)) {
-            return null;
+        try {
+            // Do the Amazon batch item lookup request.
+            $apaiIO = new ApaiIO($conf);
+            $response = $apaiIO->runOperation($lookup);
+        } catch (\Exception $e) {
+            if($e->getCode() == 503) {
+                return new \WP_Error('aff_product_amazon_request_throttled', __('Amazon has throttled your request speed for a short time.', 'affilicious'));
+            } else {
+                return new \WP_Error('aff_product_amazon_update_error', $e->getMessage());
+            }
         }
 
         // Map the items to the related product IDs.
 	    $results = [];
+        $items = $this->find_items($response);
 	    foreach ($affiliate_product_ids as $product_id => $affiliate_product_id) {
-	    	$items = $this->find_items($response);
 		    foreach ($items as $item) {
 			    if($affiliate_product_id->is_equal_to(Amazon_Helper::find_affiliate_product_id($item))) {
 				    $results[$product_id] = $item;
