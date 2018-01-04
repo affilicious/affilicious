@@ -13,31 +13,43 @@ Create and manage affiliate websites in Wordpress with products & variants, auto
 
 == Description ==
 
-Affilicious is an affiliate platform build on top of Wordpress. It allows affiliate marketers to easily maintain websites with support for
-product & variants, automatic product updates, price comparisons, details, attributes and more. Everything for free.
+Affilicious is a free and complete Wordpress affiliate solution that allows you to sell affiliate products without effort. Learn more at [https://affilicioustheme.de](https://affilicioustheme.de/?utm_campaign=starter-packet&utm_source=wordpress&utm_medium=description&utm_content=description-introduction) (Homepage is currently only available in German).
 
-= Does this affect me as an affiliate marketer? =
-Yes, it does. We are affiliate marketers ourselves and we know that this business can be challenging and expensive at the beginning.
-The competition gets bigger and bigger. Having a great foundation for your websites is just essential!
+= Sell anything effortlessly =
 
-= Why should I care as a developer? =
-Really, there are many reasons! You as a developer can benefit from extending Affilicious by building custom plugins and themes.
-Additionally, the affiliate marketing community is growing fast and needs many individual plugins to manage their websites. I'm sure that there are
-many customers who can't wait to use your plugins and/or themes!
+Affilicious was build to make the life of affiliate marketers much easier. It allows you to sell any product from various platforms. Whether it's from Amazon, Ebay or from a custom source: Everything is possible!
 
-Maybe you are asking how complex it can be to develop something with Affilicious. Well, the answer is: Easy compared to other similar solutions.
-You have to know that Affilicious is developed thinking about third party developers and theme authors needs from the beginning.
-Here is why developing with the Affilicious Plugin is really fun:
+= By far the easiest solution =
 
-1. Build on top of the [Wordpress](https://wordpress.com) platform.
-2. Real [Object-Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) with classes, interfaces and namespaces.
-3. [Carbon Fields](https://carbonfields.net) and [Backbone](http://backbonejs.org) for building complex forms with ease.
-4. [Pimple](http://pimple.sensiolabs.org) as a small Dependency Injection Container.
-5. [NodeJS](https://nodejs.org) with [Gulp](http://gulpjs.com) for building assets.
-6. [Sass](http://sass-lang.com) and [ECMAscript 6](https://babeljs.io/docs/learn-es2015/) Support.
-7. Lots of build-in Wordpress [Hooks](https://codex.wordpress.org/Plugin_API/Hooks) and [Filters](https://codex.wordpress.org/Plugin_API/Filter_Reference).
-8. [Composer](https://getcomposer.org) for easy vendor usage.
-9. Automated tests with [PHPUnit](https://phpunit.de).
+It took a lot of time and feedback for Affilicious to be the simplest solution on the market. Now, we can assure you that the simple interface with well structured options will ensure that you never want to use anything other than Affilicious. Just try it!
+
+= The full control remains with you =
+
+No matter if affiliate links, shops with prices or more: Affilicious gives you the full control about your affiliate store. Add and remove products or change the design as you like. Nobody will stop you!
+
+= Localized in English and German =
+
+Affilicious comes with support for two languages: English and German. However, you can always add your own language like any other Wordpress plugin or contribute to this project!
+
+= Define your style with themes =
+
+Choose from beautiful [affiliate themes](https://affilicioustheme.de/downloads/category/themes/?utm_campaign=themes&utm_source=wordpress&utm_medium=description&utm_content=description-themes) which seamlessly integrate Affilicious into their core:
+
+- [Affilivice](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) The free starter theme will give your Wordpress affiliate site a new lease of life.
+- [Eleganz](https://affilicioustheme.de/downloads/eleganz/?utm_campaign=eleganz&utm_source=wordpress&utm_medium=description&utm_content=description-themes-eleganz) The fashion-adapted affiliate shop theme offers your visitors a suitable atmosphere to buy.
+
+= Reach the next level with addons =
+
+You can supercharge your affiliate store with [addons](https://affilicioustheme.de/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=description&utm_content=description-addons) for Affilicious like:
+
+- [Alerts](https://affilicioustheme.de/downloads/alerts/?utm_campaign=alerts&utm_source=wordpress&utm_medium=description&utm_content=description-addons-alerts) Create meaningful alerts in just a few clicks that will help your visitors find what they are looking for.
+- [Product Comparison](https://affilicioustheme.de/downloads/produktvergleich/?utm_campaign=product-comparison&utm_source=wordpress&utm_medium=description&utm_content=description-addons-product-comparison) Help your visitors make their purchasing decisions by including a clear comparison of products.
+- [eBay Import And Update](https://affilicioustheme.de/downloads/ebay-import-und-update/?utm_campaign=ebay-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-ebay-import-and-update) Import and update your affiliate products easily from eBay.
+- [Affilinet Import And Update](https://affilicioustheme.de/downloads/affilinet-import-und-update/?utm_campaign=affilinet-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-affilinet-import-and-update) Import and update your affiliate products with all shops directly from Affilinet.
+
+= Build with developers in mind =
+
+With Affilicious you will have a lot of fun as a developer. Flexible, extensible and Open Source - Affilicious is created with developers in mind right from the beginning. Contribute to [Github](https://github.com/affilicious-theme/affilicious)!
 
 == Installation ==
 
@@ -51,6 +63,36 @@ Here is why developing with the Affilicious Plugin is really fun:
 1. Upload the `affilicious` folder to the `/wp-content/plugins/` directory
 1. Activate the Affilicious plugin through the 'Plugins' menu in WordPress
 1. You're done!
+
+== Frequently Asked Questions ==
+
+= Where can I find the documentation? =
+
+The full documentation for Affilicious and all themes and plugin can be found at [here](https://affilicioustheme.zendesk.com/hc/de).
+
+= Is there any free theme available? =
+
+Yes, you can start with our free [Affilivice Theme](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=faq&utm_content=faq-free-theme-available) which belongs to our starter packet.
+
+= Does Affilicious work with my existing theme? =
+
+Affilicious contains a feature called "Universal Mode" which allows you to run it on every Wordpress theme.
+
+= What is the starter packet? =
+
+The starter packet just bundles the free Affilicious plugin and Affilivice theme into a downloadable ZIP file.
+
+= Can I import existing products from Amazon, eBay and co.? =
+
+No problem! The Amazon importer is already included in Affilicious. Other importers can be found as [addons](https://affilicioustheme.de/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=faq&utm_content=faq-import-existing-products) in our store.
+
+= Do my products automatically stay up to date? =
+
+Affilicious has a build-in updater which checks and applies product updates. You can choose the updates to recur once hourly, twice daily or daily.
+
+= Where can I get support? =
+
+If you want to get support, check out this [page](https://affilicioustheme.de/support?utm_campaign=support&utm_source=wordpress&utm_medium=faq&utm_content=faq-get-support).
 
 == Screenshots ==
 1. This is the general Affilicious meta box. You can choose between simple products and complex products with variants.
