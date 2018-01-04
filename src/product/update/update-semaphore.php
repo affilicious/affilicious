@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * The binary semaphore protects the update process to be called multiple times in parallel.
+ * The binary semaphore protects the update process to be called multiple times in parallel causing race conditions.
  */
 final class Update_Semaphore
 {
@@ -131,12 +131,8 @@ final class Update_Semaphore
 		global $wpdb;
 
 		// Attempt to set the lock
-		$result = $wpdb->query("
-			 UPDATE $wpdb->options
-			 SET option_value = '1'
-			 WHERE option_name = '" . self::LOCK_OPTION . "'
-			 AND option_value = '0'
-		");
+		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s AND option_value = '0'", self::LOCK_OPTION);
+		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if ($result != 1) {
@@ -162,12 +158,8 @@ final class Update_Semaphore
 		global $wpdb;
 
 		// Attempt to set the lock
-		$result = $wpdb->query("
-			 UPDATE $wpdb->options
-			 SET option_value = '0'
-			 WHERE option_name = '" . self::LOCK_OPTION . "'
-			 AND option_value = '1'
-		");
+		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '0' WHERE option_name = %s AND option_value = '1'", self::LOCK_OPTION);
+		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if ($result != 1) {
@@ -201,12 +193,8 @@ final class Update_Semaphore
 		$current_time = current_time('mysql', 1);
 		$unlock_time = gmdate('Y-m-d H:i:s', time() - 30 * 60);
 
-		$result = $wpdb->query($wpdb->prepare("
-		    UPDATE $wpdb->options
-		    SET option_value = %s
-			WHERE option_name = '" . self::LAST_ACQUIRE_TIME_OPTION . "'
-			AND option_value <= %s
-		", $current_time, $unlock_time));
+		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND option_value <= %s", $current_time, self::LAST_ACQUIRE_TIME_OPTION, $unlock_time);
+		$result = $wpdb->query($query);
 
 		// The last acquire time was reseted successfully.
 		if ($result != 1) {
@@ -236,11 +224,9 @@ final class Update_Semaphore
 
 		// Set the last acquire time to now.
 		$current_time = current_time('mysql', 1);
-		$result = $wpdb->query($wpdb->prepare("
-			UPDATE $wpdb->options
-			SET option_value = %s
-			WHERE option_name = '" . self::LAST_ACQUIRE_TIME_OPTION . "'
-		", $current_time));
+
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s", $current_time, self::LAST_ACQUIRE_TIME_OPTION);
+		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
@@ -265,12 +251,9 @@ final class Update_Semaphore
 	{
 		global $wpdb;
 
-		// Reset the semaphore counter.
-		$result = $wpdb->query("
-			UPDATE $wpdb->options
-			SET option_value = '1'
-			WHERE option_name = '" . self::COUNTER_OPTION . "'
-		");
+        // Reset the semaphore counter.
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s", self::COUNTER_OPTION);
+		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
@@ -296,12 +279,8 @@ final class Update_Semaphore
 		global $wpdb;
 
 		// Try to increment the semaphore.
-		$result = $wpdb->query("
-			 UPDATE $wpdb->options
-			 SET option_value = '1'
-			 WHERE option_name = '" . self::COUNTER_OPTION . "'
-			 AND option_value = '0'
-		");
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s AND option_value = '0'", self::COUNTER_OPTION);
+		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
@@ -327,12 +306,8 @@ final class Update_Semaphore
 		global $wpdb;
 
 		// Try to decrement the semaphore.
-		$result = $wpdb->query("
-		   	 UPDATE $wpdb->options
-			 SET option_value = '0'
-			 WHERE option_name = '" . self::COUNTER_OPTION . "'
-			 AND option_value = '1'
-		");
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '0' WHERE option_name = %s AND option_value = '1'", self::COUNTER_OPTION);
+		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
