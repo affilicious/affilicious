@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.1
-Stable tag: 0.9.16
+Stable tag: 0.9.17
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -101,6 +101,13 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.17 =
+* Improvement: readme.txt has been rewritten.
+* Improvement: Optimized the Amazon update worker for throttled API requests.
+* Improvement: Made the UTM parameters for download recommendation and addons page more dynamic.
+* Improvement: Changed UTM parameters for plugin actions.
+* Fix: Fixed the broken product updates in some Wordpress installations.
+
 = 0.9.16 =
 * New: Added possibility to add product term in the import.
 * New: Custom product taxonomies have REST support now.
