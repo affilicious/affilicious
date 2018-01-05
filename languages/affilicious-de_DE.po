@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2018-01-04 18:51+0200\n"
+"POT-Creation-Date: 2018-01-05 13:21+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -45,6 +45,13 @@ msgid ""
 msgstr ""
 "Das Affilicious Plugin erfordert die PHP Erweiterung %s. Bitte installiere "
 "die PHP Erweiterung bei deinem Hosting Provider."
+
+#: functions.php:534
+#, php-format
+msgid "based on %s review"
+msgid_plural "based on %s reviews"
+msgstr[0] "anhand von %s Bewertung"
+msgstr[1] "anhand von %s Bewertungen"
 
 #: functions.php:2165
 msgid "Incl. 19 % VAT and excl. shipping costs."
@@ -106,6 +113,78 @@ msgstr "Attribut-Vorlagen"
 #: src/attribute/setup/attribute-template-setup.php:31
 msgid "Attributes"
 msgstr "Attribute"
+
+#: src/attribute/setup/attribute-template-setup.php:29
+#, php-format
+msgctxt "Attribute Template"
+msgid "%s Archives"
+msgstr "%s Archiv"
+
+#: src/attribute/setup/attribute-template-setup.php:30
+#, php-format
+msgctxt "Attribute Template"
+msgid "Parent %s:"
+msgstr "Eltern %s:"
+
+#: src/attribute/setup/attribute-template-setup.php:32
+#, php-format
+msgctxt "Attribute Template"
+msgid "Add New %s"
+msgstr "%s erstellen"
+
+#: src/attribute/setup/attribute-template-setup.php:33
+#, php-format
+msgctxt "Attribute Template"
+msgid "New %s"
+msgstr "Neue %s"
+
+#: src/attribute/setup/attribute-template-setup.php:34
+#, php-format
+msgctxt "Attribute Template"
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#: src/attribute/setup/attribute-template-setup.php:35
+#, php-format
+msgctxt "Attribute Template"
+msgid "Update %s"
+msgstr "%s aktualieren"
+
+#: src/attribute/setup/attribute-template-setup.php:36
+#, php-format
+msgctxt "Attribute Template"
+msgid "View %s"
+msgstr "%s ansehen"
+
+#: src/attribute/setup/attribute-template-setup.php:37
+#, php-format
+msgctxt "Attribute Template"
+msgid "Search %s"
+msgstr "%s suchen"
+
+#: src/attribute/setup/attribute-template-setup.php:38
+#, php-format
+msgctxt "Attribute Template"
+msgid "Insert Into %s"
+msgstr "In die %s einfügen"
+
+#: src/attribute/setup/attribute-template-setup.php:39
+#, php-format
+msgctxt "Attribute Template"
+msgid "Uploaded to this %s"
+msgstr "Zur %s hochladen"
+
+#: src/attribute/setup/attribute-template-setup.php:41
+#, php-format
+msgctxt "Attribute Template"
+msgid "%s Navigation"
+msgstr "%s Navigation"
+
+#: src/attribute/setup/attribute-template-setup.php:42
+#, php-format
+msgctxt "Attribute Template"
+msgid "Filter %s"
+msgstr "%s filtern"
 
 #: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:22
 msgid "The dismissible ID for the currently dismissed notice is missing."
@@ -350,6 +429,78 @@ msgstr "Detail-Vorlagen"
 #: src/product/customizer/universal-box-customizer.php:436
 msgid "Details"
 msgstr "Details"
+
+#: src/detail/setup/detail-template-setup.php:29
+#, php-format
+msgctxt "Detail Template"
+msgid "%s Archives"
+msgstr "%s Archive"
+
+#: src/detail/setup/detail-template-setup.php:30
+#, php-format
+msgctxt "Detail Template"
+msgid "Parent %s:"
+msgstr "Eltern %s:"
+
+#: src/detail/setup/detail-template-setup.php:32
+#, php-format
+msgctxt "Detail Template"
+msgid "Add New %s"
+msgstr "%s erstellen"
+
+#: src/detail/setup/detail-template-setup.php:33
+#, php-format
+msgctxt "Detail Template"
+msgid "New %s"
+msgstr "Neue %s"
+
+#: src/detail/setup/detail-template-setup.php:34
+#, php-format
+msgctxt "Detail Template"
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#: src/detail/setup/detail-template-setup.php:35
+#, php-format
+msgctxt "Detail Template"
+msgid "Update %s"
+msgstr "%s aktualisieren"
+
+#: src/detail/setup/detail-template-setup.php:36
+#, php-format
+msgctxt "Detail Template"
+msgid "View %s"
+msgstr "%s ansehen"
+
+#: src/detail/setup/detail-template-setup.php:37
+#, php-format
+msgctxt "Detail Template"
+msgid "Search %s"
+msgstr "%s suchen"
+
+#: src/detail/setup/detail-template-setup.php:38
+#, php-format
+msgctxt "Detail Template"
+msgid "Insert Into %s"
+msgstr "In die %s einfügen"
+
+#: src/detail/setup/detail-template-setup.php:39
+#, php-format
+msgctxt "Detail Template"
+msgid "Uploaded to this %s"
+msgstr "Zur %s hochladen"
+
+#: src/detail/setup/detail-template-setup.php:41
+#, php-format
+msgctxt "Detail Template"
+msgid "%s Navigation"
+msgstr "%s Navigation"
+
+#: src/detail/setup/detail-template-setup.php:42
+#, php-format
+msgctxt "Detail Template"
+msgid "Filter %s"
+msgstr "%s filtern"
 
 #: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:136
 msgid "The Amazon import request is not valid."
@@ -975,6 +1126,12 @@ msgid "Amazon has throttled your request speed for a short time."
 msgstr ""
 "Amazon hat deine Anfragegeschwindigkeit für eine kurze Zeit gedrosselt."
 
+#: src/product/meta-box/product-image-gallery-meta-box.php:53
+#: src/product/meta-box/product-image-gallery-meta-box.php:79
+#: src/product/meta-box/product-image-gallery-meta-box.php:80
+msgid "Delete Image"
+msgstr "Bild löschen"
+
 #: src/product/meta-box/product-image-gallery-meta-box.php:54
 msgid "Delete"
 msgstr "Löschen"
@@ -986,11 +1143,6 @@ msgstr "Bilder hinzufügen"
 #: src/product/meta-box/product-image-gallery-meta-box.php:78
 msgid "Add Image"
 msgstr "Bild hinzufügen"
-
-#: src/product/meta-box/product-image-gallery-meta-box.php:79
-#: src/product/meta-box/product-image-gallery-meta-box.php:80
-msgid "Delete Image"
-msgstr "Bild löschen"
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
@@ -1066,6 +1218,91 @@ msgstr "Neue %s"
 #: src/product/setup/product-setup.php:20
 msgid "Product"
 msgstr "Produkt"
+
+#: src/product/setup/product-setup.php:28
+#, php-format
+msgctxt "Product"
+msgid "%s Archives"
+msgstr "%s Archiv"
+
+#: src/product/setup/product-setup.php:29
+#, php-format
+msgctxt "Product"
+msgid "Parent %s:"
+msgstr "Eltern %s:"
+
+#: src/product/setup/product-setup.php:31
+#, php-format
+msgctxt "Product"
+msgid "Add New %s"
+msgstr "%s erstellen"
+
+#: src/product/setup/product-setup.php:32
+#, php-format
+msgctxt "Product"
+msgid "New %s"
+msgstr "%s erstellen"
+
+#: src/product/setup/product-setup.php:33
+#, php-format
+msgctxt "Product"
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#: src/product/setup/product-setup.php:34
+#, php-format
+msgctxt "Product"
+msgid "Update %s"
+msgstr "%s aktualisieren"
+
+#: src/product/setup/product-setup.php:35
+#: src/product/setup/product-setup.php:36
+#, php-format
+msgctxt "Product"
+msgid "View %s"
+msgstr "%s ansehen"
+
+#: src/product/setup/product-setup.php:37
+#, php-format
+msgctxt "Product"
+msgid "Search %s"
+msgstr "%s suchen"
+
+#: src/product/setup/product-setup.php:38
+#, php-format
+msgctxt "Product"
+msgid "No %s found"
+msgstr "Keine %s gefunden"
+
+#: src/product/setup/product-setup.php:39
+#, php-format
+msgctxt "Product"
+msgid "No %s found in trash"
+msgstr "Keine %s gefunden im Papierkorb"
+
+#: src/product/setup/product-setup.php:40
+#, php-format
+msgctxt "Product"
+msgid "Insert Into %s"
+msgstr "In das %s einfügen"
+
+#: src/product/setup/product-setup.php:41
+#, php-format
+msgctxt "Product"
+msgid "Uploaded to this %s"
+msgstr "Zum %s hochladen"
+
+#: src/product/setup/product-setup.php:43
+#, php-format
+msgctxt "Product"
+msgid "%s Navigation"
+msgstr "%s Navigation"
+
+#: src/product/setup/product-setup.php:44
+#, php-format
+msgctxt "Product"
+msgid "Filter %s"
+msgstr "%s filtern"
 
 #: src/product/update/configuration/configuration-context.php:124
 #, php-format
@@ -1387,6 +1624,78 @@ msgstr ""
 msgid "Shop Templates"
 msgstr "Shop-Vorlagen"
 
+#: src/shop/setup/shop-template-setup.php:29
+#, php-format
+msgctxt "Shop Template"
+msgid "%s Archives"
+msgstr "%s Archiv"
+
+#: src/shop/setup/shop-template-setup.php:30
+#, php-format
+msgctxt "Shop Template"
+msgid "Parent %s:"
+msgstr "Eltern %s:"
+
+#: src/shop/setup/shop-template-setup.php:32
+#, php-format
+msgctxt "Shop Template"
+msgid "Add New %s"
+msgstr "%s erstellen"
+
+#: src/shop/setup/shop-template-setup.php:33
+#, php-format
+msgctxt "Shop Template"
+msgid "New %s"
+msgstr "%s erstellen"
+
+#: src/shop/setup/shop-template-setup.php:34
+#, php-format
+msgctxt "Shop Template"
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#: src/shop/setup/shop-template-setup.php:35
+#, php-format
+msgctxt "Shop Template"
+msgid "Update %s"
+msgstr "%s aktualisieren"
+
+#: src/shop/setup/shop-template-setup.php:36
+#, php-format
+msgctxt "Shop Template"
+msgid "View %s"
+msgstr "%s ansehen"
+
+#: src/shop/setup/shop-template-setup.php:37
+#, php-format
+msgctxt "Shop Template"
+msgid "Search %s"
+msgstr "%s suchen"
+
+#: src/shop/setup/shop-template-setup.php:38
+#, php-format
+msgctxt "Shop Template"
+msgid "Insert Into %s"
+msgstr "In die %s einfügen"
+
+#: src/shop/setup/shop-template-setup.php:39
+#, php-format
+msgctxt "Shop Template"
+msgid "Uploaded to this %s"
+msgstr "Zur %s hochladen"
+
+#: src/shop/setup/shop-template-setup.php:41
+#, php-format
+msgctxt "Shop Template"
+msgid "%s Navigation"
+msgstr "%s Navigation"
+
+#: src/shop/setup/shop-template-setup.php:42
+#, php-format
+msgctxt "Shop Template"
+msgid "Filter %s"
+msgstr "%s filtern"
+
 #: templates/admin/licenses/licenses.php:14
 msgid "Enter license code here..."
 msgstr "Gebe hier deinen Lizenzcode ein..."
@@ -1654,233 +1963,33 @@ msgstr "Ähnliche Produkte"
 msgid "Download"
 msgstr "Herunterladen"
 
-#~ msgid "based on %s review"
-#~ msgid_plural "based on %s reviews"
-#~ msgstr[0] "anhand von %s Bewertung"
-#~ msgstr[1] "anhand von %s Bewertungen"
+#. Plugin Name of the plugin/theme
+msgid "Affilicious"
+msgstr "Affilicious"
 
-#~ msgctxt "Attribute Template"
-#~ msgid "%s Archives"
-#~ msgstr "%s Archiv"
+#. Plugin URI of the plugin/theme
+msgid "https://affilicioustheme.com/downloads/affilicious/"
+msgstr "https://affilicioustheme.de/downloads/affilicious/"
 
-#~ msgctxt "Attribute Template"
-#~ msgid "Parent %s:"
-#~ msgstr "Eltern %s:"
+#. Description of the plugin/theme
+msgid ""
+"The best affiliate solution in Wordpress with products & variants, shops, "
+"price comparisons, Amazon import & update and much more."
+msgstr ""
+"Die beste Affiliate-Lösung für Wordpress mit Produkten & Varianten, Shops, "
+"Preisvergleichen, Amazon Import & Update und vielem mehr."
 
-#~ msgctxt "Attribute Template"
-#~ msgid "Add New %s"
-#~ msgstr "%s erstellen"
+#. Author of the plugin/theme
+msgid "Affilicious Theme"
+msgstr "Affilicious Theme"
 
-#~ msgctxt "Attribute Template"
-#~ msgid "New %s"
-#~ msgstr "Neue %s"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "Edit %s"
-#~ msgstr "%s bearbeiten"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "Update %s"
-#~ msgstr "%s aktualieren"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "View %s"
-#~ msgstr "%s ansehen"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "Search %s"
-#~ msgstr "%s suchen"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "Insert Into %s"
-#~ msgstr "In die %s einfügen"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "Uploaded to this %s"
-#~ msgstr "Zur %s hochladen"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "%s Navigation"
-#~ msgstr "%s Navigation"
-
-#~ msgctxt "Attribute Template"
-#~ msgid "Filter %s"
-#~ msgstr "%s filtern"
-
-#~ msgctxt "Detail Template"
-#~ msgid "%s Archives"
-#~ msgstr "%s Archive"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Parent %s:"
-#~ msgstr "Eltern %s:"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Add New %s"
-#~ msgstr "%s erstellen"
-
-#~ msgctxt "Detail Template"
-#~ msgid "New %s"
-#~ msgstr "Neue %s"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Edit %s"
-#~ msgstr "%s bearbeiten"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Update %s"
-#~ msgstr "%s aktualisieren"
-
-#~ msgctxt "Detail Template"
-#~ msgid "View %s"
-#~ msgstr "%s ansehen"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Search %s"
-#~ msgstr "%s suchen"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Insert Into %s"
-#~ msgstr "In die %s einfügen"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Uploaded to this %s"
-#~ msgstr "Zur %s hochladen"
-
-#~ msgctxt "Detail Template"
-#~ msgid "%s Navigation"
-#~ msgstr "%s Navigation"
-
-#~ msgctxt "Detail Template"
-#~ msgid "Filter %s"
-#~ msgstr "%s filtern"
+#. Author URI of the plugin/theme
+msgid "https://affilicioustheme.com/"
+msgstr "https://affilicioustheme.de/"
 
 #~ msgid "Amazon has throttled your search speed for a short time."
 #~ msgstr ""
 #~ "Amazon hat deine Suchgeschwindigkeit für eine kurze Zeit gedrosselt."
-
-#~ msgctxt "Product"
-#~ msgid "%s Archives"
-#~ msgstr "%s Archiv"
-
-#~ msgctxt "Product"
-#~ msgid "Parent %s:"
-#~ msgstr "Eltern %s:"
-
-#~ msgctxt "Product"
-#~ msgid "Add New %s"
-#~ msgstr "%s erstellen"
-
-#~ msgctxt "Product"
-#~ msgid "New %s"
-#~ msgstr "%s erstellen"
-
-#~ msgctxt "Product"
-#~ msgid "Edit %s"
-#~ msgstr "%s bearbeiten"
-
-#~ msgctxt "Product"
-#~ msgid "Update %s"
-#~ msgstr "%s aktualisieren"
-
-#~ msgctxt "Product"
-#~ msgid "View %s"
-#~ msgstr "%s ansehen"
-
-#~ msgctxt "Product"
-#~ msgid "Search %s"
-#~ msgstr "%s suchen"
-
-#~ msgctxt "Product"
-#~ msgid "No %s found"
-#~ msgstr "Keine %s gefunden"
-
-#~ msgctxt "Product"
-#~ msgid "No %s found in trash"
-#~ msgstr "Keine %s gefunden im Papierkorb"
-
-#~ msgctxt "Product"
-#~ msgid "Insert Into %s"
-#~ msgstr "In das %s einfügen"
-
-#~ msgctxt "Product"
-#~ msgid "Uploaded to this %s"
-#~ msgstr "Zum %s hochladen"
-
-#~ msgctxt "Product"
-#~ msgid "%s Navigation"
-#~ msgstr "%s Navigation"
-
-#~ msgctxt "Product"
-#~ msgid "Filter %s"
-#~ msgstr "%s filtern"
-
-#~ msgctxt "Shop Template"
-#~ msgid "%s Archives"
-#~ msgstr "%s Archiv"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Parent %s:"
-#~ msgstr "Eltern %s:"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Add New %s"
-#~ msgstr "%s erstellen"
-
-#~ msgctxt "Shop Template"
-#~ msgid "New %s"
-#~ msgstr "%s erstellen"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Edit %s"
-#~ msgstr "%s bearbeiten"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Update %s"
-#~ msgstr "%s aktualisieren"
-
-#~ msgctxt "Shop Template"
-#~ msgid "View %s"
-#~ msgstr "%s ansehen"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Search %s"
-#~ msgstr "%s suchen"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Insert Into %s"
-#~ msgstr "In die %s einfügen"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Uploaded to this %s"
-#~ msgstr "Zur %s hochladen"
-
-#~ msgctxt "Shop Template"
-#~ msgid "%s Navigation"
-#~ msgstr "%s Navigation"
-
-#~ msgctxt "Shop Template"
-#~ msgid "Filter %s"
-#~ msgstr "%s filtern"
-
-#~ msgid "Affilicious"
-#~ msgstr "Affilicious"
-
-#~ msgid "https://affilicioustheme.com/downloads/affilicious/"
-#~ msgstr "https://affilicioustheme.de/downloads/affilicious/"
-
-#~ msgid ""
-#~ "The best affiliate solution in Wordpress with products & variants, shops, "
-#~ "price comparisons, Amazon import & update and much more."
-#~ msgstr ""
-#~ "Die beste Affiliate-Lösung für Wordpress mit Produkten & Varianten, "
-#~ "Shops, Preisvergleichen, Amazon Import & Update und vielem mehr."
-
-#~ msgid "Affilicious Theme"
-#~ msgstr "Affilicious Theme"
-
-#~ msgid "https://affilicioustheme.com/"
-#~ msgstr "https://affilicioustheme.de/"
 
 #~ msgid "Shop template #%s was not found in the database."
 #~ msgstr "Shop-Vorlage #%s wurde nicht in der Datenbank gefunden."
