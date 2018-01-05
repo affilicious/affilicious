@@ -149,13 +149,21 @@ class Addons_Page
      */
     protected function append_utm_parameters_to_link(array $download)
     {
-        $slug = !empty($download['info']['slug']) ? $download['info']['slug'] : null;
         $link = !empty($download['info']['link']) ? $download['info']['link'] : null;
-        if(empty($slug) || empty($link)) {
+        $utm_parameters = !empty($download['utm_parameters']['addons_page']) ? $download['utm_parameters']['addons_page'] : [];
+        if(empty($link) || empty($utm_parameters['utm_campaign']) || empty($utm_parameters['utm_source']) || empty($utm_parameters['utm_medium'])) {
             return $download;
         }
 
-        $link .= '&utm_source=wordpress-installation&utm_medium=click&utm_content=addons-page&utm_campaign=addons&utm_term=' . $slug;
+        $link .= "&utm_campaign={$utm_parameters['utm_campaign']}&utm_source={$utm_parameters['utm_source']}&utm_medium={$utm_parameters['utm_medium']}";
+        if(!empty($utm_parameters['utm_content'])) {
+            $link .= "&utm_content={$utm_parameters['utm_content']}";
+        }
+
+        if(!empty($utm_parameters['utm_term'])) {
+            $link .= "&utm_term={$utm_parameters['utm_term']}";
+        }
+
         $download['info']['link'] = $link;
 
         return $download;
