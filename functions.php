@@ -452,12 +452,12 @@ function aff_get_product_review_rating($product_or_id = null, $output = 'scalar'
 function aff_the_product_review_rating($product_or_id = null, $output = 'scalar', $escape = true, $full_star = null, $half_star = null, $no_star = null)
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 5) {
+    if(strpos(trim($product_or_id), '<') === 0) {
         $args = func_get_args();
         $full_star = $args[0];
         $half_star = $args[1];
         $no_star = $args[2];
-        $product_or_id = $args[3];
+        $product_or_id = isset($args[3]) ? $args[3] : null;
         $output  = 'html';
         $escape = true;
     }
