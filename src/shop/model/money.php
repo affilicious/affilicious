@@ -57,7 +57,7 @@ class Money
      * Get the money value.
      *
      * @since 0.8
-     * @return int
+     * @return string
      */
     public function get_value()
     {

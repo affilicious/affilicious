@@ -43,6 +43,8 @@ use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Common\Helper\Template_Helper;
+use Affilicious\Shop\Model\Currency;
+use Affilicious\Shop\Model\Affiliate_Product_Id;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -351,9 +353,8 @@ function aff_the_product_name($product_or_id = null, $escape = true)
 function aff_has_product_review($product_or_id = null)
 {
     $review = aff_get_product_review($product_or_id, 'object');
-    $result = $review !== null;
 
-    return $result;
+    return $review !== null;
 }
 
 /**
@@ -401,9 +402,8 @@ function aff_get_product_review($product_or_id = null, $output = 'array')
 function aff_has_product_review_rating($product_or_id = null)
 {
     $rating = aff_get_product_review_rating($product_or_id);
-    $result = !empty($rating) || $rating === 0;
 
-    return $result;
+    return !empty($rating) || $rating === 0;
 }
 
 /**
@@ -442,25 +442,42 @@ function aff_get_product_review_rating($product_or_id = null, $output = 'scalar'
  * Print the product review rating from 0 to 5 as stars.
  *
  * @since 0.8.9
- * @param string $full_star
- * @param string $half_star
- * @param string $no_star
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output Either "scalar" or "html". Default: "scalar".
+ * @param bool $escape Whether to escape the output or not. The output won't be escaped, if the output is "html".
+ * @param string $full_star If the output is "html", you can provide some HTML used to render a "full star".
+ * @param string $half_star If the output is "html", you can provide some HTML used to render a "half star".
+ * @param string $no_star If the output is "html", you can provide some HTML used to render a "no star".
  */
-function aff_the_product_review_rating($full_star, $half_star, $no_star, $product_or_id = null)
+function aff_the_product_review_rating($product_or_id = null, $output = 'scalar', $escape = true, $full_star = null, $half_star = null, $no_star = null)
 {
-    $rating = aff_get_product_review_rating($product_or_id);
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 5) {
+        $args = func_get_args();
+        $full_star = $args[0];
+        $half_star = $args[1];
+        $no_star = $args[2];
+        $product_or_id = $args[3];
+        $output  = 'html';
+        $escape = true;
+    }
+
+    $rating = aff_get_product_review_rating($product_or_id, 'scalar');
     if(empty($rating) && $rating !== 0) {
         return;
     }
 
-    for($i = 0; $i < 5; $i++) {
-        if ($rating >= ($i + 1)) {
-            echo $full_star;
-        } elseif ($rating >= ($i + 0.5)) {
-            echo $half_star;
-        } else {
-            echo $no_star;
+    if($output == 'scalar') {
+        echo $escape ? esc_html($rating) : $rating;
+    } else {
+        for ($i = 0; $i < 5; $i++) {
+            if ($rating >= ($i + 1)) {
+                echo $full_star;
+            } elseif ($rating >= ($i + 0.5)) {
+                echo $half_star;
+            } else {
+                echo $no_star;
+            }
         }
     }
 }
@@ -475,9 +492,8 @@ function aff_the_product_review_rating($full_star, $half_star, $no_star, $produc
 function aff_has_product_review_votes($product_or_id = null)
 {
     $votes = aff_get_product_review_votes($product_or_id, 'object');
-    $result = $votes !== null;
 
-    return $result;
+    return $votes !== null;
 }
 
 /**
@@ -584,11 +600,8 @@ function aff_get_product_details($product_or_id = null, $output = 'array')
 function aff_has_product_details($product_or_id = null)
 {
 	$details = aff_get_product_details($product_or_id, 'array');
-	if(empty($details)) {
-		return false;
-	}
 
-	return true;
+	return !empty($details);
 }
 
 /**
@@ -600,9 +613,8 @@ function aff_has_product_details($product_or_id = null)
 function aff_has_product_thumbnail($product_or_id = null)
 {
     $thumbnail = aff_get_product_thumbnail($product_or_id, 'object');
-    $result = !empty($thumbnail);
 
-    return $result;
+    return !empty($thumbnail);
 }
 
 /**
@@ -668,9 +680,8 @@ function aff_the_product_thumbnail($product_or_id = null, $size = 'post-thumbnai
 function aff_has_product_image_gallery($product_or_id = null)
 {
     $image_gallery = aff_get_product_image_gallery($product_or_id);
-    $result = !empty($image_gallery);
 
-    return $result;
+    return !empty($image_gallery);
 }
 
 /**
@@ -722,9 +733,8 @@ function aff_get_product_image_gallery($product_or_id = null, $output = 'scalar'
 function aff_has_product_shops($product_or_id = null)
 {
     $shops = aff_get_product_shops($product_or_id);
-    $result = !empty($shops);
 
-    return $result;
+    return !empty($shops);
 }
 
 /**
@@ -1003,9 +1013,8 @@ function aff_the_product_link($product_or_id = null, $escape = true)
 function aff_has_product_tags($product_or_id = null)
 {
     $tags = aff_get_product_tags($product_or_id, 'object');
-    $result = !empty($tags);
 
-    return $result;
+    return !empty($tags);
 }
 
 /**
@@ -1120,321 +1129,401 @@ function aff_get_product_shop($product_or_id = null, $affiliate_link = null, $ou
 }
 
 /**
- * Get the cheapest shop of the given product.
- *
- * @deprecated 1.1 Use 'aff_get_product_shop' instead.
- * @since 0.5.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string $output The required return type. Either "array" or "object". Default: "array".
- * @return null|array|Shop The shop in the given output format.
- */
-function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
-{
-    return aff_get_product_shop($product_or_id, null, $output);
-}
-
-/**
- * Check if the product has any discounted price.
+ * Check if the product's cheapest shop has a price.
  *
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @return bool Whether the product has a price or not.
  */
-function aff_has_product_price($product_or_id = null, $affiliate_link = null)
+function aff_has_product_price($product_or_id = null)
 {
-    $price = aff_get_product_price($product_or_id, $affiliate_link, 'object');
-    $result = $price !== null;
+    $price = aff_get_product_price($product_or_id, 'object');
 
-    return $result;
+    return $price !== null;
 }
 
 /**
- * Get the discounted price with the currency of the product.
+ * Get the product's cheapest shop price.
  *
  * @since 0.3
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
  * @return null|string|Money The price in the given output format.
  */
-function aff_get_product_price($product_or_id = null, $affiliate_link = null, $output = 'scalar')
+function aff_get_product_price($product_or_id = null, $output = 'scalar')
 {
-    $product = aff_get_product($product_or_id, 'object');
-    if($product === null) {
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 3) {
+        $args = func_get_args();
+        $product_or_id = $args[0];
+        $output = $args[2];
+    }
+
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
         return null;
     }
 
-    if($product instanceof Complex_Product) {
-        $product = $product->get_default_variant();
-    }
-
-    if(!($product instanceof Shop_Aware_Interface)) {
-        return null;
-    }
-
-    $shop = aff_get_product_shop($product, $affiliate_link, 'object');
-    if($shop === null) {
-        return $shop;
-    }
-
-    $price = $shop->get_pricing()->get_price();
-    if($price === null) {
-        return null;
-    }
-
-    $price = apply_filters('aff_product_price', $price, $product, $shop);
-
-    if($output == 'scalar') {
-        $price = Money_Helper::to_string($price);
-    } elseif ($output == 'array') {
-        $price = Money_Helper::to_array($price);
-    }
-
-    $price = apply_filters('aff_product_formatted_price', $price, $product, $shop, $output);
+    // Get the shop's price.
+    $price = aff_get_shop_price($shop, $output);
 
     return $price;
 }
 
 /**
- * Print the price with the currency of the product.
+ * Print the product's cheapest shop price.
  *
  * @since 0.7.1
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
  * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_price($product_or_id = null, $affiliate_link = null, $escape = true)
+function aff_the_product_price($product_or_id = null, $escape = true)
 {
-    $price = aff_get_product_price($product_or_id, $affiliate_link, 'scalar');
-    if(empty($price)) {
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 3) {
+        $args = func_get_args();
+        $product_or_id = $args[0];
+        $escape = $args[2];
+    }
+
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
         return;
-    };
-
-    if($escape) {
-        $price = esc_html($price);
     }
 
-    echo $price;
+    // Print the shop's price.
+    aff_the_shop_price($shop, $escape);
 }
 
 /**
- * Check if the product has any old price.
+ * Get the product's cheapest shop price value.
  *
- * @since 0.8.9
+ * @since 0.9.18
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
- * @return bool Whether the product has an old price or not.
+ * @return string|null The price value in the given output format.
  */
-function aff_has_product_old_price($product_or_id = null, $affiliate_link = null)
+function aff_get_product_price_value($product_or_id = null)
 {
-    $price = aff_get_product_old_price($product_or_id, $affiliate_link, 'object');
-    $result = $price !== null;
-
-    return $result;
-}
-
-/**
- * Get the old price with the currency of the product.
- *
- * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
- * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money The old price in the given output format.
- */
-function aff_get_product_old_price($product_or_id = null, $affiliate_link = null, $output = 'scalar')
-{
-    $product = aff_get_product($product_or_id, 'object');
-    if($product === null) {
-        return null;
-    }
-
-    if($product instanceof Complex_Product) {
-        $product = $product->get_default_variant();
-    }
-
-    if(!($product instanceof Shop_Aware_Interface)) {
-        return null;
-    }
-
-    $shop = aff_get_product_shop($product, $affiliate_link, 'object');
-    if($shop === null) {
-        return $shop;
-    }
-
-    $old_price = $shop->get_pricing()->get_old_price();
-    if($old_price === null) {
-        return null;
-    }
-
-    $old_price = apply_filters('aff_product_old_price', $old_price, $product, $shop);
-
-    if($output == 'scalar') {
-        $old_price = Money_Helper::to_string($old_price);
-    } elseif ($output == 'array') {
-        $old_price = Money_Helper::to_array($old_price);
-    }
-
-    $old_price = apply_filters('aff_product_formatted_old_price', $old_price, $product, $shop, $output);
-
-    return $old_price;
-}
-
-/**
- * Print the old price with the currency of the product.
- *
- * @since 0.8.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string|Affiliate_Link|null $affiliate_link If you pass in nothing as an affiliate link, the cheapest shop will be used.
- * @param bool $escape Whether to escape the output or not.
- */
-function aff_the_product_old_price($product_or_id = null, $affiliate_link = null, $escape = true)
-{
-    $old_price = aff_get_product_old_price($product_or_id, $affiliate_link, 'scalar');
-    if($old_price === null) {
-        return;
-    };
-
-    if($escape) {
-        $old_price = esc_html($old_price);
-    }
-
-    echo $old_price;
-}
-
-/**
- * Get the cheapest price with the currency of the product.
- *
- * @deprecated 1.1 Use 'aff_get_product_price' instead.
- * @since 0.5.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money The cheapest price in the given output format.
- */
-function aff_get_product_cheapest_price($product_or_id = null, $output = 'scalar')
-{
-    return aff_get_product_price($product_or_id, null, $output);
-}
-
-/**
- * Get the cheapest old price with the currency of the product.
- *
- * @deprecated 1.1 Use 'aff_get_product_old_price' instead.
- * @since 0.9
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|Money The cheapest old price in the given output format.
- */
-function aff_get_product_cheapest_old_price($product_or_id = null, $output = 'scalar')
-{
-    return aff_get_product_old_price($product_or_id, null, $output);
-}
-
-/**
- * Get the affiliate link by the product and shop
- *
- * @since 0.3
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id If you pass in nothing as a shop, the cheapest shop will be used.
- * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|string|Affiliate_Link The product affiliate link in the given output format.
- */
-function aff_get_product_affiliate_link($product_or_id = null, $shop_or_id = null, $output = 'scalar')
-{
-    $product = aff_get_product($product_or_id, 'object');
-    if($product instanceof Complex_Product) {
-        $product = $product->get_default_variant();
-    }
-
-    if(!($product instanceof Shop_Aware_Interface)) {
-        return null;
-    }
-
-    $shop = aff_get_product_shop($product, $shop_or_id, 'object');
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
     if(empty($shop)) {
         return null;
     }
 
-    $affiliate_link = $shop->get_tracking()->get_affiliate_link();
-    $affiliate_link = apply_filters('aff_product_affiliate_link', $affiliate_link, $product, $shop);
+    // Get the shop's price value.
+    $value = aff_get_shop_price_value($shop);
 
-    if($output == 'scalar') {
-        $affiliate_link = $affiliate_link->get_value();
-    }
-
-    $affiliate_link = apply_filters('aff_product_formatted_affiliate_link', $affiliate_link, $product, $shop, $output);
-
-    return $affiliate_link;
+    return $value;
 }
 
 /**
- * Print the affiliate link by the product and shop.
+ * Print the product's cheapest shop price value.
  *
- * @since 0.8.8
+ * @since 0.9.18
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param int|string|array|\WP_Term|Shop_Template|Shop_Template_Id|null $shop_or_id If you pass in nothing as a shop, the cheapest shop will be used.
  * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_affiliate_link($product_or_id = null, $shop_or_id = null, $escape = true)
+function aff_the_product_price_value($product_or_id = null, $escape = true)
 {
-    $affiliate_link = aff_get_product_affiliate_link($product_or_id, $shop_or_id, 'scalar');
-    if($affiliate_link === null) {
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
         return;
     }
 
-    if($escape) {
-        $affiliate_link = esc_url($affiliate_link);
-    }
-
-    echo $affiliate_link;
+    // Print the shop's price value.
+    aff_the_shop_price_value($shop, $escape);
 }
 
 /**
- * Get the affiliate link by the product and shop.
+ * Get the product's cheapest shop price currency.
  *
- * @deprecated 1.1 Use 'aff_the_product_affiliate_link' instead.
- * @since 0.5.1
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. One of "symbol", "scalar" or "object". Default: "symbol".
+ * @return string|Currency|null The price currency in the given output format or null.
+ */
+function aff_get_product_price_currency($product_or_id = null, $output = 'symbol')
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's price currency.
+    $currency = aff_get_shop_price_currency($shop, $output);
+
+    return $currency;
+}
+
+/**
+ * Print the product's cheapest shop price currency.
+ *
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The printed currency type. Either "symbol" or "scalar". Default: symbol
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_price_currency($product_or_id = null, $output = 'symbol', $escape = true)
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return;
+    }
+
+    // Print the shop's price currency.
+    aff_the_shop_price_currency($shop, $output, $escape);
+}
+
+/**
+ * Check if the product's cheapest shop has an old price.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product has an old price or not.
+ */
+function aff_has_product_old_price($product_or_id = null)
+{
+    $price = aff_get_product_old_price($product_or_id, 'object');
+
+    return $price !== null;
+}
+
+/**
+ * Get the product's cheapest shop old price.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
+ * @return null|string|Money The old price in the given output format.
+ */
+function aff_get_product_old_price($product_or_id = null, $output = 'scalar')
+{
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 3) {
+        $args = func_get_args();
+        $product_or_id = $args[0];
+        $output = $args[2];
+    }
+
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's old price.
+    $price = aff_get_shop_price($shop, $output);
+
+    return $price;
+}
+
+/**
+ * Print the product's cheapest shop old price.
+ *
+ * @since 0.8.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_old_price($product_or_id = null, $escape = true)
+{
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 3) {
+        $args = func_get_args();
+        $product_or_id = $args[0];
+        $escape = $args[2];
+    }
+
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return;
+    }
+
+    // Print the shop's old price.
+    aff_the_shop_old_price($shop, $escape);
+}
+
+/**
+ * Get the product's cheapest shop old price value.
+ *
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return string|null The old price value in the given output format.
+ */
+function aff_get_product_old_price_value($product_or_id = null)
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's old price value.
+    $value = aff_get_shop_old_price_value($shop);
+
+    return $value;
+}
+
+/**
+ * Print the product's cheapest shop old price value.
+ *
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_old_price_value($product_or_id = null, $escape = true)
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return;
+    }
+
+    // Print the shop's old price value.
+    aff_the_shop_old_price_value($shop, $escape);
+}
+
+/**
+ * Get the product's cheapest shop old price currency.
+ *
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. One of "symbol", "scalar" or "object". Default: "symbol".
+ * @return string|Currency|null The old price currency in the given output format or null.
+ */
+function aff_get_product_old_price_currency($product_or_id = null, $output = 'symbol')
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's old price currency.
+    $currency = aff_get_shop_old_price_currency($shop, $output);
+
+    return $currency;
+}
+
+/**
+ * Print the product's cheapest shop old price currency.
+ *
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The printed currency type. Either "symbol" or "scalar". Default: symbol
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_old_price_currency($product_or_id = null, $output = 'symbol', $escape = true)
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return;
+    }
+
+    // Print the shop's old price currency.
+    aff_the_shop_old_price_currency($shop, $output, $escape);
+}
+
+/**
+ * Get the product's cheapest shop affiliate product ID.
+ *
+ * @since 0.9.18
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
- * @return null|string|Affiliate_Link The cheapest affiliate link in the given output format.
+ * @return string|Affiliate_Product_Id|null The product affiliate link in the given output format.
  */
-function aff_get_product_cheapest_affiliate_link($product_or_id = null, $output = 'scalar')
+function aff_get_product_affiliate_product_id($product_or_id = null, $output = 'scalar')
 {
-    $product = aff_get_product($product_or_id, 'object');
-    if($product === null) {
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
         return null;
     }
 
-    $shop = aff_get_product_cheapest_shop($product, 'object');
-    if($shop === null) {
+    // Get the shop's affiliate product ID.
+    $affiliate_product_id = aff_get_shop_affiliate_product_id($shop, $output);
+
+    return $affiliate_product_id;
+}
+
+/**
+ * Print the product's cheapest shop affiliate product ID.
+ *
+ * @since 0.9.18
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_product_affiliate_product_id($product_or_id = null, $escape = true)
+{
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return;
+    }
+
+    // Get the shop's affiliate product ID.
+    aff_the_shop_affiliate_product_id($shop, $escape);
+}
+
+/**
+ * Get the product's cheapest shop affiliate link.
+ *
+ * @since 0.3
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return string|Affiliate_Link|null The product affiliate link in the given output format.
+ */
+function aff_get_product_affiliate_link($product_or_id = null, $output = 'scalar')
+{
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 3) {
+        $args = func_get_args();
+        $product_or_id = $args[0];
+        $output = $args[2];
+    }
+
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
         return null;
     }
 
-    $affiliate_link = aff_get_product_affiliate_link($product, 'object');
-    if($affiliate_link === null) {
-        return null;
-    }
-
-    if($output == 'scalar') {
-        $affiliate_link = $affiliate_link->get_value();
-    }
+    // Get the shop's affiliate link.
+    $affiliate_link = aff_get_shop_affiliate_link($shop, $output);
 
     return $affiliate_link;
 }
 
 /**
- * Check if the product is of the given type.
+ * Print the product's cheapest shop affiliate link.
  *
- * @deprecated 1.1 Use 'aff_is_product_type' instead.
- * @since 0.6
- * @param string|Type $type
+ * @since 0.8.8
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @return bool Whether the product is of the type or not.
+ * @param bool $escape Whether to escape the output or not.
  */
-function aff_product_is_type($type, $product_or_id = null)
+function aff_the_product_affiliate_link($product_or_id = null, $escape = true)
 {
-    return aff_is_product_type($type, $product_or_id);
+    // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
+    if(func_num_args() == 3) {
+        $args = func_get_args();
+        $product_or_id = $args[0];
+        $escape = $args[2];
+    }
+
+    // Get the product's shop.
+    $shop = aff_get_product_shop($product_or_id, null, 'object');
+    if(empty($shop)) {
+        return;
+    }
+
+    // Get the shop's affiliate link.
+    aff_the_shop_affiliate_link($shop, $escape);
 }
 
 /**
@@ -1465,19 +1554,6 @@ function aff_is_product_type($type, $product_or_id = null)
 /**
  * Check if the product is a simple product.
  *
- * @deprecated 1.1 Use 'aff_is_product_simple' instead.
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @return bool Whether the product is of simple type or not.
- */
-function aff_product_is_simple($product_or_id = null)
-{
-    return aff_is_product_simple($product_or_id);
-}
-
-/**
- * Check if the product is a simple product.
- *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of simple type or not.
@@ -1487,19 +1563,6 @@ function aff_is_product_simple($product_or_id = null)
     $result = aff_is_product_type(Type::simple(), $product_or_id);
 
     return $result;
-}
-
-/**
- * Check if the product is a complex product.
- *
- * @deprecated 1.1 Use 'aff_is_product_complex' instead.
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @return bool Whether the product is of complex type or not.
- */
-function aff_product_is_complex($product_or_id = null)
-{
-    return aff_is_product_complex($product_or_id);
 }
 
 /**
@@ -1519,19 +1582,6 @@ function aff_is_product_complex($product_or_id = null)
 /**
  * Check if the product is a product variant.
  *
- * @deprecated 1.1 Use 'aff_is_product_variant' instead
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @return bool Whether the product is of variant type or not.
- */
-function aff_product_is_variant($product_or_id = null)
-{
-    return aff_is_product_variant($product_or_id);
-}
-
-/**
- * Check if the product is a product variant.
- *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @return bool Whether the product is of variant type or not.
@@ -1541,20 +1591,6 @@ function aff_is_product_variant($product_or_id = null)
     $result = aff_is_product_type(Type::variant(), $product_or_id);
 
     return $result;
-}
-
-/**
- * Get the parent of the product variant.
- * If the given product is already the parent, it will be returned instead.
- *
- * @deprecated 1.1 Use 'aff_get_product_variant_parent' instead
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @return null|Product The complex parent product of the given product variant.
- */
-function aff_product_get_parent($product_or_id = null)
-{
-    return aff_get_product_variant_parent($product_or_id, 'object');
 }
 
 /**
@@ -1591,20 +1627,6 @@ function aff_get_product_variant_parent($product_or_id = null, $output = 'array'
 /**
  * Check if the given parent complex product contains the variants
  *
- * @deprecated 1.1 Use 'aff_has_product_variant' instead
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
- * @return bool Whether the complex parent product has the variant or not.
- */
-function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
-{
-    return aff_has_product_variant($complex_or_id, $variant_or_id);
-}
-
-/**
- * Check if the given parent complex product contains the variants
- *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
@@ -1616,20 +1638,6 @@ function aff_has_product_variant($complex_or_id = null, $variant_or_id = null)
     $result = $product_variant !== null;
 
     return $result;
-}
-
-/**
- * Get the product variant by the complex parent product.
- *
- * @deprecated 1.1 Use 'aff_get_product_variant' instead
- * @since 0.8
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
- * @return null|Product_Variant The product variant as an object.
- */
-function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
-{
-    return aff_get_product_variant($complex_or_id, $variant_or_id, 'object');
 }
 
 /**
@@ -1672,19 +1680,6 @@ function aff_get_product_variant($complex_or_id = null, $variant_or_id = null, $
 /**
  * Check if the given product has any variants.
  *
- * @deprecated 1.1 Use 'aff_has_product_variants' instead
- * @since 0.7.1
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id  If you pass in nothing as a complex product, the current post will be used.
- * @return bool Whether the complex parent product has some variants or not.
- */
-function aff_product_has_variants($complex_or_id = null)
-{
-    return aff_has_product_variants($complex_or_id);
-}
-
-/**
- * Check if the given product has any variants.
- *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @return bool Whether the complex parent product has some variants or not.
@@ -1695,19 +1690,6 @@ function aff_has_product_variants($complex_or_id = null)
     $result = !empty($product_variants);
 
     return $result;
-}
-
-/**
- * Get the product variants of the given product.
- *
- * @deprecated 1.1 Use 'aff_get_product_variants' instead.
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
- * @return Product_Variant[] All product variants of the given complex parent product.
- */
-function aff_product_get_variants($complex_or_id = null)
-{
-    return aff_get_product_variants($complex_or_id, 'object');
 }
 
 /**
@@ -1746,19 +1728,6 @@ function aff_get_product_variants($complex_or_id = null, $output = 'array')
 /**
  * Get the default variant of the given product.
  *
- * @deprecated 1.1 Use 'aff_get_product_default_variant' instead
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
- * @return null|Product_Variant The product variant or null,
- */
-function aff_product_get_default_variant($complex_or_id = null)
-{
-    return aff_get_product_default_variant($complex_or_id, 'object');
-}
-
-/**
- * Get the default variant of the given product.
- *
  * @since 0.9
  * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
  * @param string $output The required return type. Either "array" or "object". Default: "array".
@@ -1788,22 +1757,6 @@ function aff_get_product_default_variant($complex_or_id = null, $output = 'array
 }
 
 /**
- * Check if the given variant is the default one
- *
- * @deprecated 1.1 Use 'aff_is_product_default_variant' instead
- * @since 0.6
- * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
- * @return bool Whether the product variant is the default variant of the complex parent product or not.
- */
-function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = null)
-{
-    $result = aff_is_product_default_variant($complex_or_id, $variant_or_id);
-
-    return $result;
-}
-
-/**
  * Check if the given variant is the default one of the complex parent product.
  *
  * @since 0.9
@@ -1829,20 +1782,6 @@ function aff_is_product_default_variant($complex_or_id = null, $variant_or_id = 
     $result = apply_filters('aff_is_product_default_variant', $result, $complex_product, $product_variant);
 
     return $result;
-}
-
-/**
- * Get the attributes of the product variant
- *
- * @deprecated 1.1 Use 'aff_get_product_variant_attributes' instead
- * @since 0.8
- * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
- * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
- * @return array The attributes.
- */
-function aff_product_get_variant_attributes($product_or_id = null, $variant_or_id = null)
-{
-    return aff_get_product_variant_attributes($product_or_id, $variant_or_id, 'array');
 }
 
 /**
@@ -2330,18 +2269,6 @@ function aff_is_shop_out_of_stock($shop)
 }
 
 /**
- * Check if the shop should display the old price.
- *
- * @deprecated 1.1 Don't use it anymore.
- * @since 0.8
- * @return bool
- */
-function aff_should_shop_display_old_price()
-{
-    return true;
-}
-
-/**
  * Check if the shop contains a price.
  *
  * @since 0.9
@@ -2359,26 +2286,34 @@ function aff_has_shop_price($shop)
  * @since 0.8.9
  * @param array|Shop $shop The shop from which the price is taken.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|array|Shop The shop in the given output format.
+ * @return null|string|array|Money The price in the given output format.
  */
 function aff_get_shop_price($shop, $output = 'scalar')
 {
+    // Convert to an object to standardize the filter arguments, if it's an array.
     if(is_array($shop)) {
         $shop = Shop_Helper::from_array($shop);
     }
 
+    // Check if there is a shop.
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's price.
     $price = $shop->get_pricing()->get_price();
+
+    $price = apply_filters('aff_shop_price', $price, $shop);
+
+    // Check if there is a price.
     if($price === null) {
         return null;
     }
 
-    $price = apply_filters('aff_shop_price', $price, $shop);
-
+    // Convert the price into the desired output format.
     if($output == 'scalar') {
         $price = Money_Helper::to_string($price);
-    }
-
-    if($output == 'array') {
+    } elseif ($output == 'array') {
         $price = Money_Helper::to_array($price);
     }
 
@@ -2409,6 +2344,106 @@ function aff_the_shop_price($shop, $escape = true)
 }
 
 /**
+ * Get the shop's price value.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price value is taken.
+ * @return string|null The price value in the given output format.
+ */
+function aff_get_shop_price_value($shop)
+{
+    // Get the shop's price.
+    $price = aff_get_shop_price($shop, 'object');
+    if(empty($price)) {
+        return null;
+    }
+
+    $value = $price->get_value();
+
+    $value= apply_filters('aff_shop_price_value', $value, $shop, $price);
+
+    $value = apply_filters('aff_shop_price_formatted_value', $value, $shop, $price);
+
+    return $value;
+}
+
+/**
+ * Print the shop's price value.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price value is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_price_value($shop, $escape = true)
+{
+    $value = aff_get_shop_price_value($shop);
+    if(empty($value) && floatval($value) !== 0) {
+        return;
+    }
+
+    if($escape) {
+        $value = esc_html($value);
+    }
+
+    echo $value;
+}
+
+/**
+ * Get the shop's price currency.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price currency is taken.
+ * @param string $output The required return type. One of "symbol", "scalar" or "object". Default: "symbol".
+ * @return string|Currency|null The price currency in the given output format or null.
+ */
+function aff_get_shop_price_currency($shop, $output = 'symbol')
+{
+    // Get the shop's price.
+    $price = aff_get_shop_price($shop, 'object');
+    if(empty($price)) {
+        return null;
+    }
+
+    // Get the price's currency.
+    $currency = $price->get_currency();
+
+    $currency = apply_filters('aff_shop_price_currency', $currency, $shop, $price);
+
+    // Convert the currency into the desired output format.
+    if($output == 'scalar') {
+        $currency = $currency->get_value();
+    } elseif ($output == 'symbol') {
+        $currency = $currency->get_symbol();
+    }
+
+    $currency = apply_filters('aff_shop_price_formatted_currency', $currency, $shop, $price, $output);
+
+    return $currency;
+}
+
+/**
+ * Print the shop's price currency.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price currency is taken.
+ * @param string $output The printed currency type. Either "symbol" or "scalar". Default: symbol
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_price_currency($shop, $output = 'symbol', $escape = true)
+{
+    $currency = aff_get_shop_price_currency($shop, $output);
+    if(empty($currency)) {
+        return;
+    }
+
+    if($escape) {
+        $currency = esc_html($currency);
+    }
+
+    echo $currency;
+}
+
+/**
  * Check if the shop contains an old price.
  *
  * @since 0.9
@@ -2426,32 +2461,140 @@ function aff_has_shop_old_price($shop)
  * @since 0.8.9
  * @param array|Shop $shop The shop from which the old price is taken.
  * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
- * @return null|string|array|Shop The old price in the given output format.
+ * @return null|string|array|Money The old price in the given output format.
  */
 function aff_get_shop_old_price($shop, $output = 'scalar')
 {
+    // Convert to an object to standardize the filter arguments, if it's an array.
     if(is_array($shop)) {
         $shop = Shop_Helper::from_array($shop);
     }
 
+    // Check if there is a shop.
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's old price.
     $old_price = $shop->get_pricing()->get_old_price();
+
+    $old_price = apply_filters('aff_shop_old_price', $old_price, $shop);
+
+    // Check if there is an old price.
     if($old_price === null) {
         return null;
     }
 
-    $old_price = apply_filters('aff_shop_old_price', $old_price, $shop);
-
+    // Convert the old price into the desired output format.
     if($output == 'scalar') {
         $old_price = Money_Helper::to_string($old_price);
-    }
-
-    if($output == 'array') {
+    } elseif($output == 'array') {
         $old_price = Money_Helper::to_array($old_price);
     }
 
     $old_price = apply_filters('aff_shop_formatted_old_price', $old_price, $shop, $output);
 
     return $old_price;
+}
+
+/**
+ * Get the shop's old price value.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the old price value is taken.
+ * @return string|null The price value in the given output format.
+ */
+function aff_get_shop_old_price_value($shop)
+{
+    // Get the shop's old price.
+    $old_price = aff_get_shop_old_price($shop, 'object');
+    if(empty($old_price)) {
+        return null;
+    }
+
+    $value = $old_price->get_value();
+
+    $value = apply_filters('aff_shop_old_price_value', $value, $shop, $old_price);
+
+    $value = apply_filters('aff_shop_old_price_formatted_value', $value, $shop, $old_price);
+
+    return $value;
+}
+
+/**
+ * Print the shop's price value.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price value is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_old_price_value($shop, $escape = true)
+{
+    $value = aff_get_shop_old_price_value($shop);
+    if(empty($value) && floatval($value) !== 0) {
+        return;
+    }
+
+    if($escape) {
+        $value = esc_html($value);
+    }
+
+    echo $value;
+}
+
+/**
+ * Get the shop's price currency.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price currency is taken.
+ * @param string $output The required return type. One of "symbol", "scalar" or "object". Default: "symbol".
+ * @return string|Currency|null The price currency in the given output format or null.
+ */
+function aff_get_shop_old_price_currency($shop, $output = 'symbol')
+{
+    // Get the shop's old price.
+    $old_price = aff_get_shop_old_price($shop, 'object');
+    if(empty($old_price)) {
+        return null;
+    }
+
+    // Get the old price's currency.
+    $currency = $old_price->get_currency();
+
+    $currency = apply_filters('aff_shop_old_price_currency', $currency, $shop, $old_price);
+
+    // Convert the currency into the desired output format.
+    if($output == 'scalar') {
+        $currency = $currency->get_value();
+    } elseif ($output == 'symbol') {
+        $currency = $currency->get_symbol();
+    }
+
+    $currency = apply_filters('aff_shop_old_price_formatted_currency', $currency, $shop, $old_price, $output);
+
+    return $currency;
+}
+
+/**
+ * Print the shop's price currency.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the price currency is taken.
+ * @param string $output The printed currency type. Either "symbol" or "scalar". Default: symbol
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_old_price_currency($shop, $output = 'symbol', $escape = true)
+{
+    $currency = aff_get_shop_old_price_currency($shop, $output);
+    if(empty($currency)) {
+        return;
+    }
+
+    if($escape) {
+        $currency = esc_html($currency);
+    }
+
+    echo $currency;
 }
 
 /**
@@ -2464,14 +2607,22 @@ function aff_get_shop_old_price($shop, $output = 'scalar')
  */
 function aff_get_shop_affiliate_link($shop, $output = 'scalar')
 {
+    // Convert to an object to standardize the filter arguments, if it's an array.
     if(is_array($shop)) {
         $shop = Shop_Helper::from_array($shop);
     }
 
+    // Check if there is a shop.
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's affiliate link.
     $affiliate_link = $shop->get_tracking()->get_affiliate_link();
 
     $affiliate_link = apply_filters('aff_shop_affiliate_link', $affiliate_link, $shop);
 
+    // Convert the affiliate link into the desired output format.
     if($output == 'scalar') {
         $affiliate_link = $affiliate_link->get_value();
     }
@@ -2500,6 +2651,67 @@ function aff_the_shop_affiliate_link($shop, $escape = true)
     }
 
     echo $affiliate_link;
+}
+
+/**
+ * Get the shop's affiliate product ID.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the affiliate product ID is taken.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return string|Affiliate_Product_Id|null The affiliate product ID in the given output format or null.
+ */
+function aff_get_shop_affiliate_product_id($shop, $output = 'scalar')
+{
+    // Convert to an object to standardize the filter arguments, if it's an array.
+    if(is_array($shop)) {
+        $shop = Shop_Helper::from_array($shop);
+    }
+
+    // Check if there is a shop.
+    if(empty($shop)) {
+        return null;
+    }
+
+    // Get the shop's affiliate product ID.
+    $affiliate_product_id = $shop->get_tracking()->get_affiliate_product_id();
+
+    $affiliate_product_id = apply_filters('aff_shop_affiliate_product_id', $affiliate_product_id, $shop);
+
+    // Check if there is an affiliate product ID.
+    if($affiliate_product_id === null) {
+        return null;
+    }
+
+    // Convert the affiliate product ID into the desired output format.
+    if($output == 'scalar') {
+        $affiliate_product_id = $affiliate_product_id->get_value();
+    }
+
+    $affiliate_product_id = apply_filters('aff_shop_formatted_affiliate_product_id', $affiliate_product_id, $shop, $output);
+
+    return $affiliate_product_id;
+}
+
+/**
+ * Print the shop's affiliate product ID.
+ *
+ * @since 0.9.18
+ * @param array|Shop $shop The shop from which the affiliate product ID is taken.
+ * @param bool $escape Whether to escape the output or not.
+ */
+function aff_the_shop_affiliate_product_id($shop, $escape = true)
+{
+    $affiliate_product_id = aff_get_shop_affiliate_product_id($shop, 'scalar');
+    if(empty($affiliate_product_id)) {
+        return;
+    }
+
+    if($escape) {
+        $affiliate_product_id = esc_html($affiliate_product_id);
+    }
+
+    echo $affiliate_product_id;
 }
 
 /**
@@ -2793,4 +3005,259 @@ function aff_is_notice_dismissed($dismissible_id)
     $is_dismissed = $option == 'yes';
 
     return $is_dismissed;
+}
+
+// ========== DEPRECATED - Don't use anymore ==========
+
+/**
+ * Get the affiliate link by the product and shop.
+ *
+ * @deprecated 1.1 Use 'aff_the_product_affiliate_link' instead.
+ * @since 0.5.1
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return null|string|Affiliate_Link The cheapest affiliate link in the given output format.
+ */
+function aff_get_product_cheapest_affiliate_link($product_or_id = null, $output = 'scalar')
+{
+    $product = aff_get_product($product_or_id, 'object');
+    if($product === null) {
+        return null;
+    }
+
+    $shop = aff_get_product_cheapest_shop($product, 'object');
+    if($shop === null) {
+        return null;
+    }
+
+    $affiliate_link = aff_get_product_affiliate_link($product, 'object');
+    if($affiliate_link === null) {
+        return null;
+    }
+
+    if($output == 'scalar') {
+        $affiliate_link = $affiliate_link->get_value();
+    }
+
+    return $affiliate_link;
+}
+
+/**
+ * Check if the product is of the given type.
+ *
+ * @deprecated 1.1 Use 'aff_is_product_type' instead.
+ * @since 0.6
+ * @param string|Type $type
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product is of the type or not.
+ */
+function aff_product_is_type($type, $product_or_id = null)
+{
+    return aff_is_product_type($type, $product_or_id);
+}
+
+/**
+ * Check if the product is a simple product.
+ *
+ * @deprecated 1.1 Use 'aff_is_product_simple' instead.
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product is of simple type or not.
+ */
+function aff_product_is_simple($product_or_id = null)
+{
+    return aff_is_product_simple($product_or_id);
+}
+
+/**
+ * Check if the product is a complex product.
+ *
+ * @deprecated 1.1 Use 'aff_is_product_complex' instead.
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product is of complex type or not.
+ */
+function aff_product_is_complex($product_or_id = null)
+{
+    return aff_is_product_complex($product_or_id);
+}
+
+/**
+ * Check if the product is a product variant.
+ *
+ * @deprecated 1.1 Use 'aff_is_product_variant' instead
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product is of variant type or not.
+ */
+function aff_product_is_variant($product_or_id = null)
+{
+    return aff_is_product_variant($product_or_id);
+}
+
+/**
+ * Get the parent of the product variant.
+ * If the given product is already the parent, it will be returned instead.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_variant_parent' instead
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return null|Product The complex parent product of the given product variant.
+ */
+function aff_product_get_parent($product_or_id = null)
+{
+    return aff_get_product_variant_parent($product_or_id, 'object');
+}
+
+/**
+ * Get the cheapest price with the currency of the product.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_price' instead.
+ * @since 0.5.1
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
+ * @return null|string|Money The cheapest price in the given output format.
+ */
+function aff_get_product_cheapest_price($product_or_id = null, $output = 'scalar')
+{
+    return aff_get_product_price($product_or_id, $output);
+}
+
+/**
+ * Check if the given parent complex product contains the variants
+ *
+ * @deprecated 1.1 Use 'aff_has_product_variant' instead
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
+ * @return bool Whether the complex parent product has the variant or not.
+ */
+function aff_product_has_variant($complex_or_id = null, $variant_or_id = null)
+{
+    return aff_has_product_variant($complex_or_id, $variant_or_id);
+}
+
+
+/**
+ * Get the product variant by the complex parent product.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_variant' instead
+ * @since 0.8
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
+ * @return null|Product_Variant The product variant as an object.
+ */
+function aff_product_get_variant($complex_or_id = null, $variant_or_id = null)
+{
+    return aff_get_product_variant($complex_or_id, $variant_or_id, 'object');
+}
+
+
+/**
+ * Check if the given product has any variants.
+ *
+ * @deprecated 1.1 Use 'aff_has_product_variants' instead
+ * @since 0.7.1
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id  If you pass in nothing as a complex product, the current post will be used.
+ * @return bool Whether the complex parent product has some variants or not.
+ */
+function aff_product_has_variants($complex_or_id = null)
+{
+    return aff_has_product_variants($complex_or_id);
+}
+
+/**
+ * Get the product variants of the given product.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_variants' instead.
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @return Product_Variant[] All product variants of the given complex parent product.
+ */
+function aff_product_get_variants($complex_or_id = null)
+{
+    return aff_get_product_variants($complex_or_id, 'object');
+}
+
+/**
+ * Get the cheapest old price with the currency of the product.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_old_price' instead.
+ * @since 0.9
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. One of "scalar", "array" or "object". Default: "scalar".
+ * @return null|string|Money The cheapest old price in the given output format.
+ */
+function aff_get_product_cheapest_old_price($product_or_id = null, $output = 'scalar')
+{
+    return aff_get_product_old_price($product_or_id, $output);
+}
+
+/**
+ * Get the default variant of the given product.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_default_variant' instead
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @return null|Product_Variant The product variant or null,
+ */
+function aff_product_get_default_variant($complex_or_id = null)
+{
+    return aff_get_product_default_variant($complex_or_id, 'object');
+}
+
+/**
+ * Check if the given variant is the default one
+ *
+ * @deprecated 1.1 Use 'aff_is_product_default_variant' instead
+ * @since 0.6
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $complex_or_id If you pass in nothing as a complex product, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
+ * @return bool Whether the product variant is the default variant of the complex parent product or not.
+ */
+function aff_product_is_default_variant($complex_or_id = null, $variant_or_id = null)
+{
+    $result = aff_is_product_default_variant($complex_or_id, $variant_or_id);
+
+    return $result;
+}
+
+/**
+ * Get the attributes of the product variant
+ *
+ * @deprecated 1.1 Use 'aff_get_product_variant_attributes' instead
+ * @since 0.8
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $variant_or_id If you pass in nothing as a product variant, the default variant will be used.
+ * @return array The attributes.
+ */
+function aff_product_get_variant_attributes($product_or_id = null, $variant_or_id = null)
+{
+    return aff_get_product_variant_attributes($product_or_id, $variant_or_id, 'array');
+}
+
+/**
+ * Check if the shop should display the old price.
+ *
+ * @deprecated 1.1 Don't use it anymore.
+ * @since 0.8
+ * @return bool
+ */
+function aff_should_shop_display_old_price()
+{
+    return true;
+}
+
+/**
+ * Get the cheapest shop of the given product.
+ *
+ * @deprecated 1.1 Use 'aff_get_product_shop' instead.
+ * @since 0.5.1
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. Either "array" or "object". Default: "array".
+ * @return null|array|Shop The shop in the given output format.
+ */
+function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
+{
+    return aff_get_product_shop($product_or_id, null, $output);
 }
