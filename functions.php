@@ -452,7 +452,10 @@ function aff_get_product_review_rating($product_or_id = null, $output = 'scalar'
 function aff_the_product_review_rating($product_or_id = null, $output = 'scalar', $escape = true, $full_star = null, $half_star = null, $no_star = null)
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(strpos(trim($product_or_id), '<') === 0) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    $allowed_outputs = ['scalar', 'array', 'object'];
+    if(($num_args >= 2 && !in_array($args[1], $allowed_outputs))) {
         $args = func_get_args();
         $full_star = $args[0];
         $half_star = $args[1];
@@ -1153,10 +1156,13 @@ function aff_has_product_price($product_or_id = null)
 function aff_get_product_price($product_or_id = null, $output = 'scalar')
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 3) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    $allowed_outputs = ['scalar', 'array', 'object'];
+    if(($num_args == 2 && !in_array($args[1], $allowed_outputs))) {
         $args = func_get_args();
         $product_or_id = $args[0];
-        $output = $args[2];
+        $output = isset($args[2]) ? $args[2] : 'scalar';
     }
 
     // Get the product's shop.
@@ -1181,10 +1187,12 @@ function aff_get_product_price($product_or_id = null, $output = 'scalar')
 function aff_the_product_price($product_or_id = null, $escape = true)
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 3) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    if(($num_args == 2 && !is_bool($args[1]))) {
         $args = func_get_args();
         $product_or_id = $args[0];
-        $escape = $args[2];
+        $escape = isset($args[2]) ? $args[2] : true;
     }
 
     // Get the product's shop.
@@ -1304,10 +1312,13 @@ function aff_has_product_old_price($product_or_id = null)
 function aff_get_product_old_price($product_or_id = null, $output = 'scalar')
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 3) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    $allowed_outputs = ['scalar', 'array', 'object'];
+    if(($num_args == 2 && !in_array($args[1], $allowed_outputs))) {
         $args = func_get_args();
         $product_or_id = $args[0];
-        $output = $args[2];
+        $output = isset($args[2]) ? $args[2] : 'scalar';
     }
 
     // Get the product's shop.
@@ -1332,10 +1343,12 @@ function aff_get_product_old_price($product_or_id = null, $output = 'scalar')
 function aff_the_product_old_price($product_or_id = null, $escape = true)
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 3) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    if(($num_args == 2 && !is_bool($args[1]))) {
         $args = func_get_args();
         $product_or_id = $args[0];
-        $escape = $args[2];
+        $escape = isset($args[2]) ? $args[2] : true;
     }
 
     // Get the product's shop.
@@ -1482,10 +1495,13 @@ function aff_the_product_affiliate_product_id($product_or_id = null, $escape = t
 function aff_get_product_affiliate_link($product_or_id = null, $output = 'scalar')
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 3) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    $allowed_outputs = ['scalar', 'array', 'object'];
+    if(($num_args == 2 && !in_array($args[1], $allowed_outputs))) {
         $args = func_get_args();
         $product_or_id = $args[0];
-        $output = $args[2];
+        $output = isset($args[2]) ? $args[2] : 'scalar';
     }
 
     // Get the product's shop.
@@ -1510,10 +1526,12 @@ function aff_get_product_affiliate_link($product_or_id = null, $output = 'scalar
 function aff_the_product_affiliate_link($product_or_id = null, $escape = true)
 {
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
-    if(func_num_args() == 3) {
+    $num_args = func_num_args();
+    $args = func_get_args();
+    if(($num_args == 2 && !is_bool($args[1]))) {
         $args = func_get_args();
         $product_or_id = $args[0];
-        $escape = $args[2];
+        $escape = isset($args[2]) ? $args[2] : true;
     }
 
     // Get the product's shop.
