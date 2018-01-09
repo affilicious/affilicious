@@ -486,9 +486,16 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Admin\Options\Affilicious_Options(
 					$c['affilicious.common.admin.license.manager'],
 					$c['affilicious.common.admin.license.processor'],
-					$c['affilicious.common.admin.system.info']
+					$c['affilicious.common.admin.system.info'],
+					$c['affilicious.common.template.renderer']
 				);
 			};
+
+            $this->container['affilicious.common.admin.action.download_system_info'] = function ($c) {
+                return new \Affilicious\Common\Admin\Action\Download_System_Info_Action(
+                    $c['affilicious.common.admin.system.info']
+                );
+            };
 
 			$this->container['affilicious.common.admin.setup.assets'] = function() {
 				return new \Affilicious\Common\Admin\Setup\Assets_Setup();
@@ -1135,6 +1142,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the plugin actions
             $plugin_actions_setup = $this->container['affilicious.common.admin.setup.plugin_actions'];
             add_filter('plugin_action_links_' . AFFILICIOUS_BASE_NAME, array($plugin_actions_setup, 'init'));
+
+            // Hook the actions
+            $download_system_info_action = $this->container['affilicious.common.admin.action.download_system_info'];
+            add_action('admin_action_aff_download_system_info', array($download_system_info_action, 'handle'));
 
 			// Hook the product admin table filters.
 			$product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];

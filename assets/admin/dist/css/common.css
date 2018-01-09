@@ -249,6 +249,9 @@
 .aff-plugin-actions-addons {
   color: #46b450; }
 
+.aff-system-info-download {
+  margin-bottom: 15px  !important; }
+
 .taxonomy-aff_shop_tmpl .wp-editor-tools,
 .taxonomy-aff_shop_tmpl .wp-editor-container,
 .taxonomy-aff_shop_tmpl .term-description-wrap,
