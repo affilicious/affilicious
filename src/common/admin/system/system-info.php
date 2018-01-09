@@ -3,6 +3,7 @@ namespace Affilicious\Common\Admin\System;
 
 use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Product\Model\Product;
+use Affilicious\Product\Update\Update_Semaphore;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -91,47 +92,6 @@ class System_Info
 	}
 
 	/**
-	 * Get the PHP and MySQL section for the system info.
-	 *
-	 * @since 0.9.9
-	 * @return array
-	 */
-	protected function get_php_and_mysql_section()
-	{
-		global $wpdb;
-
-		$section = [
-			'PHP Version' => PHP_VERSION,
-			'MySQL Version' => $wpdb->db_version(),
-			'Web Server Info' => !empty($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : '-',
-			'PHP Safe Mode' => ini_get('safe_mode') ? 'Yes' : 'No',
-			'PHP Memory Limit' => ini_get('memory_limit'),
-			'PHP Upload Max Size' => ini_get('upload_max_filesize'),
-			'PHP Post Max Size' => ini_get('post_max_size'),
-			'PHP Upload Max Filesize' => ini_get('upload_max_filesize'),
-			'PHP Time Limit' => ini_get('max_execution_time'),
-			'PHP Max Input Vars' => ini_get('max_input_vars'),
-			'PHP Arg Separator' => ini_get('arg_separator.output'),
-			'PHP Allow URL File Open' => ini_get('allow_url_fopen') ? 'Yes' : 'No',
-			'Session' => isset($_SESSION) ? 'Enabled' : 'Disabled',
-			'Session Name' => ini_get('session.name'),
-			'Cookie Path' => ini_get('session.cookie_path'),
-			'Save Path' => ini_get('session.save_path'),
-			'Use Cookies' => ini_get('session.use_cookies') ? 'On' : 'Off',
-			'Use Only Cookies' => ini_get('session.use_only_cookies') ? 'On' : 'Off',
-			'Display Errors' => ini_get('display_errors') ? 'On' : 'Off',
-			'FSOCKOPEN' => function_exists('fsockopen') ? 'Your server supports fsockopen.' : 'Your server does not support fsockopen.',
-			'cURL' => function_exists('curl_init') ? 'Your server supports cURL.' : 'Your server does not support cURL.',
-			'SOAP Client' => class_exists('SoapClient') ? 'Your server has the SOAP Client enabled.' : 'Your server does not have the SOAP Client enabled.',
-		];
-
-		$section = apply_filters('aff_common_admin_system_info_generate_php_and_mysql', $section);
-		Assert_Helper::is_array($section, __METHOD__, 'Expected the "PHP and MySQL" section to be an array. Got: %s', '0.9.9');
-
-		return $section;
-	}
-
-	/**
 	 * Get the Affilicious section for the system info.
 	 *
 	 * @since 0.9.9
@@ -142,6 +102,11 @@ class System_Info
 		$section = [
 			'Affilicious Version' => \Affilicious::VERSION,
 			'Product Slug' => carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field') ? carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field') : Product::SLUG,
+			'Product Count' => $this->count_all_products(),
+			'Orphaned Product Variant Count' => $this->count_orphaned_product_variants(),
+			'Update Semaphore Locked' => intval(get_option(Update_Semaphore::LOCK_OPTION)) == 1 ? 'Yes' : 'No',
+			'Update Semaphore Counter' => get_option(Update_Semaphore::COUNTER_OPTION),
+			'Update Semaphore Last Acquire Time' => get_option(Update_Semaphore::LAST_ACQUIRE_TIME_OPTION),
 		];
 
 		$section = apply_filters('aff_common_admin_system_info_generate_affilicious', $section);
@@ -150,35 +115,76 @@ class System_Info
 		return $section;
 	}
 
-	/**
-	 * Get the Wordpress section for the system info.
-	 *
-	 * @since 0.9.9
-	 * @return array
-	 */
-	protected function get_wordpress_section()
-	{
-		global $wpdb;
+    /**
+     * Get the Wordpress section for the system info.
+     *
+     * @since 0.9.9
+     * @return array
+     */
+    protected function get_wordpress_section()
+    {
+        global $wpdb;
 
-		$section = [
-			'Multisite' => is_multisite() ? 'Yes' : 'No',
-			'Site URL' => site_url(),
-			'Home URL' => home_url(),
-			'Wordpress Version' => get_bloginfo('version'),
-			'Permalink Structure' => get_option('permalink_structure'),
-			'Active Theme' =>  wp_get_theme(),
-			'WP_DEBUG' => defined('WP_DEBUG') ? WP_DEBUG ? 'Enabled' : 'Disabled' : 'Not set',
-			'WP Table Prefix' => 'Length: '. strlen($wpdb->prefix) . ' Status: ' . (strlen($wpdb->prefix ) > 16 ? 'ERROR: Too Long' : 'Acceptable'),
-			'Show On Front' => get_option('show_on_front'),
-			'Page For Front' => get_the_title(get_option('page_on_front')),
-			'Page For Blog' => get_the_title(get_option('page_for_posts')),
-		];
+        $section = [
+            'Multisite' => is_multisite() ? 'Yes' : 'No',
+            'Site URL' => site_url(),
+            'Home URL' => home_url(),
+            'Wordpress Version' => get_bloginfo('version'),
+            'Permalink Structure' => get_option('permalink_structure'),
+            'Active Theme' =>  wp_get_theme(),
+            'WP_DEBUG' => defined('WP_DEBUG') ? WP_DEBUG ? 'Enabled' : 'Disabled' : 'Not set',
+            'WP Table Prefix' => 'Length: '. strlen($wpdb->prefix) . ' Status: ' . (strlen($wpdb->prefix ) > 16 ? 'ERROR: Too Long' : 'Acceptable'),
+            'Show On Front' => get_option('show_on_front'),
+            'Page For Front' => get_the_title(get_option('page_on_front')),
+            'Page For Blog' => get_the_title(get_option('page_for_posts')),
+        ];
 
-		$section = apply_filters('aff_common_admin_system_info_generate_wordpress', $section);
-		Assert_Helper::is_array($section, __METHOD__, 'Expected the "Wordpress" section to be an array. Got: %s', '0.9.9');
+        $section = apply_filters('aff_common_admin_system_info_generate_wordpress', $section);
+        Assert_Helper::is_array($section, __METHOD__, 'Expected the "Wordpress" section to be an array. Got: %s', '0.9.9');
 
-		return $section;
-	}
+        return $section;
+    }
+
+    /**
+     * Get the PHP and MySQL section for the system info.
+     *
+     * @since 0.9.9
+     * @return array
+     */
+    protected function get_php_and_mysql_section()
+    {
+        global $wpdb;
+
+        $section = [
+            'PHP Version' => PHP_VERSION,
+            'MySQL Version' => $wpdb->db_version(),
+            'Web Server Info' => !empty($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : '-',
+            'PHP Safe Mode' => ini_get('safe_mode') ? 'Yes' : 'No',
+            'PHP Memory Limit' => ini_get('memory_limit'),
+            'PHP Upload Max Size' => ini_get('upload_max_filesize'),
+            'PHP Post Max Size' => ini_get('post_max_size'),
+            'PHP Upload Max Filesize' => ini_get('upload_max_filesize'),
+            'PHP Time Limit' => ini_get('max_execution_time'),
+            'PHP Max Input Vars' => ini_get('max_input_vars'),
+            'PHP Arg Separator' => ini_get('arg_separator.output'),
+            'PHP Allow URL File Open' => ini_get('allow_url_fopen') ? 'Yes' : 'No',
+            'Session' => isset($_SESSION) ? 'Enabled' : 'Disabled',
+            'Session Name' => ini_get('session.name'),
+            'Cookie Path' => ini_get('session.cookie_path'),
+            'Save Path' => ini_get('session.save_path'),
+            'Use Cookies' => ini_get('session.use_cookies') ? 'On' : 'Off',
+            'Use Only Cookies' => ini_get('session.use_only_cookies') ? 'On' : 'Off',
+            'Display Errors' => ini_get('display_errors') ? 'On' : 'Off',
+            'FSOCKOPEN' => function_exists('fsockopen') ? 'Your server supports fsockopen.' : 'Your server does not support fsockopen.',
+            'cURL' => function_exists('curl_init') ? 'Your server supports cURL.' : 'Your server does not support cURL.',
+            'SOAP Client' => class_exists('SoapClient') ? 'Your server has the SOAP Client enabled.' : 'Your server does not have the SOAP Client enabled.',
+        ];
+
+        $section = apply_filters('aff_common_admin_system_info_generate_php_and_mysql', $section);
+        Assert_Helper::is_array($section, __METHOD__, 'Expected the "PHP and MySQL" section to be an array. Got: %s', '0.9.9');
+
+        return $section;
+    }
 
 	/**
 	 * Get the active plugins section for the system info.
@@ -245,4 +251,36 @@ class System_Info
 
 		return $section;
 	}
+
+    /**
+     * Count all available products.
+     *
+     * @since 0.9.18
+     * @return int
+     */
+	protected function count_all_products()
+    {
+        global $wpdb;
+
+        $query = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s", Product::POST_TYPE);
+        $result = $wpdb->get_row($query, ARRAY_N);
+
+        return !empty($result[0]) ? intval($result[0]) : 0;
+    }
+
+    /**
+     * Count all orphaned product variants.
+     *
+     * @since 0.9.18
+     * @return int
+     */
+    protected function count_orphaned_product_variants()
+    {
+        global $wpdb;
+
+        $query = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} product_variants LEFT JOIN {$wpdb->posts} parent_products ON parent_products.id = product_variants.post_parent WHERE product_variants.post_type = %s AND product_variants.post_parent > 0 AND parent_products.id IS NULL", Product::POST_TYPE);
+        $result = $wpdb->get_row($query, ARRAY_N);
+
+        return !empty($result[0]) ? intval($result[0]) : 0;
+    }
 }
