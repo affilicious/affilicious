@@ -1,5 +1,4 @@
 let gulp = require('gulp'),
-    sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     uglifycss = require('gulp-uglifycss'),
     rename = require('gulp-rename'),

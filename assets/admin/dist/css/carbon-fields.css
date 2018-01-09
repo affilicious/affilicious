@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .carbon-box .carbon-Hidden {
   display: none !important;
   visibility: hidden !important; }
@@ -130,8 +131,6 @@
   line-height: inherit !important;
   width: auto !important; }
 
-
-@charset "UTF-8";
 .add_product_images {
   padding: 0 12px 12px; }
 
