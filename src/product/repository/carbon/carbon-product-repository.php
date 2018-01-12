@@ -766,7 +766,7 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 			$review = new Review(new Rating($rating));
 
 			$votes = carbon_get_post_meta($post->ID, self::REVIEW_VOTES);
-			if (!empty($votes) || intval($votes) === 0) {
+			if (!empty($votes) || is_int($votes) && intval($votes) === 0) {
 				$review->set_votes(new Votes($votes));
 			}
 
