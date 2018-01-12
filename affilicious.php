@@ -260,6 +260,10 @@ if(!class_exists('Affilicious')) {
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->install();
 
+			// Install the logs table
+            $logs_table_setup = $this->container['affilicious.common.setup.logs_table'];
+            $logs_table_setup->init();
+
 			// Reset the download recommendation
             $download_recommendation_setup = $this->container['affilicious.common.admin.setup.download_recommendation'];
             $download_recommendation_setup->init();
@@ -434,6 +438,10 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Setup\Logger_Handler_Setup(
 					$c['affilicious.common.logger']
 				);
+			};
+
+			$this->container['affilicious.common.setup.logs_table'] = function() {
+				return new \Affilicious\Common\Setup\Logs_Table_Setup();
 			};
 
             $this->container['affilicious.common.admin.setup.plugin_actions'] = function() {
