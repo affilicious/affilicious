@@ -1,35 +1,35 @@
 <?php
 namespace Affilicious\Common\Admin\Action;
 
-use Affilicious\Common\Admin\System\System_Info;
+use Affilicious\Common\Admin\Logs\Logs;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Download_System_Info_Action
+class Download_Logs_Action
 {
-    const ACTION = 'aff_download_system_info';
-    const FILENAME = 'affilicious-system-info.txt';
+    const ACTION = 'aff_download_logs';
+    const FILENAME = 'affilicious-logs.txt';
 
     /**
-     * @var System_Info
+     * @var Logs
      */
-    protected $system_info;
+    protected $logs;
 
     /**
      * @since 0.9.18
-     * @param System_Info $system_info
+     * @param Logs $logs
      */
-    public function __construct(System_Info $system_info)
+    public function __construct(Logs $logs)
     {
-        $this->system_info = $system_info;
+        $this->logs = $logs;
     }
 
     /**
-     * Handle the system info download.
+     * Handle the logs download.
      *
-     * @hook admin_action_aff_download_system_info
+     * @hook admin_action_aff_download_logs
      * @since 0.9.18
      */
     public function handle()
@@ -38,23 +38,23 @@ class Download_System_Info_Action
         $nonce  = filter_input(INPUT_GET, 'nonce');
 
         if ($action === self::ACTION && wp_verify_nonce($nonce, self::ACTION)) {
-            $this->download_system_info();
+            $this->download_logs();
         }
 
         die();
     }
 
     /**
-     * Create the download system info txt.
+     * Create the logs txt.
      *
      * @since 0.9.18
      */
-    protected function download_system_info()
+    protected function download_logs()
     {
         header('Content-type: text/plain');
         header(sprintf('Content-Disposition: attachment; filename="%s"', self::FILENAME));
 
-        $system_info = $this->system_info->stringify();
-        echo $system_info;
+        $logs = $this->logs->stringify();
+        echo $logs;
     }
 }

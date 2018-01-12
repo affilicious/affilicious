@@ -1,6 +1,6 @@
 <?php
 /**
- * @var string $system_info Already escaped system info.
+ * @var string $system_info The system info.
  * @var string $download_url The URL to the system info download.
  */
 ?>

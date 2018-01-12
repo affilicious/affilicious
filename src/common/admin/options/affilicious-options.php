@@ -1,9 +1,11 @@
 <?php
 namespace Affilicious\Common\Admin\Options;
 
+use Affilicious\Common\Admin\Action\Download_Logs_Action;
 use Affilicious\Common\Admin\Action\Download_System_Info_Action;
 use Affilicious\Common\Admin\License\License_Manager;
 use Affilicious\Common\Admin\License\License_Processor;
+use Affilicious\Common\Admin\Logs\Logs;
 use Affilicious\Common\Admin\System\System_Info;
 use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Common\Template\Template_Renderer;
@@ -28,6 +30,11 @@ class Affilicious_Options
 	protected $system_info;
 
     /**
+     * @var Logs
+     */
+    protected $logs;
+
+    /**
      * @var Template_Renderer
      */
     protected $template_renderer;
@@ -37,17 +44,20 @@ class Affilicious_Options
      * @param License_Manager $license_manager
      * @param License_Processor $license_processor
      * @param System_Info $system_info
+     * @param Logs $logs
      * @param Template_Renderer $template_renderer
      */
     public function __construct(
     	License_Manager $license_manager,
 	    License_Processor $license_processor,
 	    System_Info $system_info,
+        Logs $logs,
         Template_Renderer $template_renderer
     ) {
         $this->license_manager = $license_manager;
         $this->license_processor = $license_processor;
 	    $this->system_info = $system_info;
+        $this->logs = $logs;
         $this->template_renderer = $template_renderer;
     }
 
@@ -67,6 +77,7 @@ class Affilicious_Options
 			->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields())
             ->add_tab(__('Notices', 'affilicious'), $this->get_notices_fields())
             ->add_tab(__('System', 'affilicious'), $this->get_system_fields())
+            ->add_tab(__('Logs', 'affilicious'), $this->get_logs_fields())
 		;
 
         $container = apply_filters('aff_admin_options_render_affilicious_container', $container);
@@ -155,4 +166,27 @@ class Affilicious_Options
 
 		return apply_filters('aff_admin_options_render_affilicious_container_system_fields', $fields);
 	}
+
+    /**
+     * Get the logs fields.
+     *
+     * @since 0.9.18
+     * @return Carbon_Field[]
+     */
+	protected function get_logs_fields()
+    {
+        $fields = [
+            Carbon_Field::make('html', 'affilicious_options_affilicious_container_logs_tab_logs_field')
+                ->set_html($this->template_renderer->stringify('admin/options/affilicious/logs/logs', [
+                    'logs' => $this->logs->stringify(true),
+                    'download_url' => sprintf(
+                        admin_url('index.php?action=%1$s&nonce=%2$s'),
+                        Download_Logs_Action::ACTION,
+                        wp_create_nonce(Download_Logs_Action::ACTION)
+                    ),
+                ])),
+        ];
+
+        return apply_filters('aff_admin_options_render_affilicious_container_logs_fields', $fields);
+    }
 }

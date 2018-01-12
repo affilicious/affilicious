@@ -54,12 +54,9 @@ class System_Info
 		$result = '';
 
 		foreach ($info as $section => $options) {
-			$section = esc_html($section);
 			$result .= "========== {$section} ==========\n";
 
 			foreach ($options as $name => $value) {
-				$name = esc_html($name);
-				$value = esc_html($value);
 				$result .= "{$name}: {$value}\n";
 			}
 
@@ -76,19 +73,24 @@ class System_Info
 		return $result;
 	}
 
-	/**
-	 * Render the system info to make the support easier.
-	 *
-	 * @since 0.9.9
-	 */
-	public function render()
+    /**
+     * Render the system info to make the support easier.
+     *
+     * @since 0.9.9
+     * @param bool $escape Whether to escape the output or not.
+     */
+	public function render($escape = true)
 	{
 		$info = $this->stringify(true);
 
 		$info = apply_filters('aff_common_admin_system_info_render', $info);
 		Assert_Helper::is_string_not_empty($info, __METHOD__, 'Expected the system info to be a string. Got: %s', '0.9.9');
 
-		echo esc_html($info);
+        if($escape) {
+            $info = esc_html($info);
+        }
+
+        echo $info;
 	}
 
 	/**

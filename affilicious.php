@@ -480,6 +480,10 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Common\Admin\System\System_Info();
 			};
 
+            $this->container['affilicious.common.admin.logs.logs'] = function () {
+                return new Affilicious\Common\Admin\Logs\logs();
+            };
+
             $this->container['affilicious.common.admin.ajax_handler.dismissed_notice'] = function () {
                 return new \Affilicious\Common\Admin\Ajax_Handler\Dismissed_Notice_Ajax_Handler();
             };
@@ -495,6 +499,7 @@ if(!class_exists('Affilicious')) {
 					$c['affilicious.common.admin.license.manager'],
 					$c['affilicious.common.admin.license.processor'],
 					$c['affilicious.common.admin.system.info'],
+                    $c['affilicious.common.admin.logs.logs'],
 					$c['affilicious.common.template.renderer']
 				);
 			};
@@ -502,6 +507,12 @@ if(!class_exists('Affilicious')) {
             $this->container['affilicious.common.admin.action.download_system_info'] = function ($c) {
                 return new \Affilicious\Common\Admin\Action\Download_System_Info_Action(
                     $c['affilicious.common.admin.system.info']
+                );
+            };
+
+            $this->container['affilicious.common.admin.action.download_logs'] = function ($c) {
+                return new \Affilicious\Common\Admin\Action\Download_Logs_Action(
+                    $c['affilicious.common.admin.logs.logs']
                 );
             };
 
@@ -1153,7 +1164,9 @@ if(!class_exists('Affilicious')) {
 
             // Hook the actions
             $download_system_info_action = $this->container['affilicious.common.admin.action.download_system_info'];
+            $download_logs_action = $this->container['affilicious.common.admin.action.download_logs'];
             add_action('admin_action_aff_download_system_info', array($download_system_info_action, 'handle'));
+            add_action('admin_action_aff_download_logs', array($download_logs_action, 'handle'));
 
 			// Hook the product admin table filters.
 			$product_admin_table_content_filter = $this->container['affilicious.product.admin.filter.table_content'];

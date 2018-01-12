@@ -38,6 +38,25 @@ final class Logger
 	 */
 	private $handlers = [];
 
+    /**
+     * Create the log record.
+     *
+     * @since 0.9.18
+     * @param string $message The message for the log.
+     * @param string|int $level The level of the log message as in RFC 5424 or the level code directly.
+     * @param string $context The context of the log message e.g. your plugin or theme name. Default: Affilicious
+     * @param null $created_at The creation date of the log.
+     * @return string The record is an entry containing the message, level, $context and creation date in a standardized way.
+     */
+	public static function create_record($message, $level = self::LEVEL_DEBUG, $context = 'Affilicious', $created_at = null)
+    {
+        $created_at = !empty($created_at) ? $created_at : current_time('mysql', 1);
+        $key = is_int($level) ? array_search($level, self::$levels, true) : $level;
+        $record = '[' . $created_at . '] ' . $context . '.' . $key . ': ' . $message;
+
+        return $record;
+    }
+
 	/**
 	 * Add a message to the log.
 	 *
@@ -53,11 +72,8 @@ final class Logger
 		Assert_Helper::is_string_not_empty($context, __METHOD__, 'Expected context to be a non empty string. Got: %s', '0.9.11');
 
 		$created_at = current_time('mysql', 1);
-		$key = array_search($level, self::$levels, true);
-		$record = '[' . $created_at . '] ' . $context . '.' . $key . ': ' . $message;
-
 		foreach($this->handlers as $handler) {
-			$handler->handle($record, $message, $level, $context, $created_at);
+			$handler->handle($message, $level, $context, $created_at);
 		}
 	}
 

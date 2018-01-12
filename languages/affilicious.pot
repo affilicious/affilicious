@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-05 13:21+0200\n"
+"POT-Creation-Date: 2018-01-12 14:36+0100\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,28 +40,28 @@ msgid ""
 "extension in your hosting provider."
 msgstr ""
 
-#: functions.php:534
+#: functions.php:553
 #, php-format
 msgid "based on %s review"
 msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:2165
+#: functions.php:2122
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr ""
 
-#: functions.php:2225
+#: functions.php:2182
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:2716 src/product/customizer/universal-box-customizer.php:623
+#: functions.php:2946 src/product/customizer/universal-box-customizer.php:623
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
 
-#: functions.php:2755
+#: functions.php:2985
 msgid "Unfortunately not available"
 msgstr ""
 
@@ -248,30 +248,34 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:56
+#: src/common/admin/options/affilicious-options.php:76
 msgid "Licenses"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:57
+#: src/common/admin/options/affilicious-options.php:77
 msgid "Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:58
+#: src/common/admin/options/affilicious-options.php:78
 msgid "Notices"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:59
+#: src/common/admin/options/affilicious-options.php:79
 msgid "System"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:76
+#: src/common/admin/options/affilicious-options.php:80
+msgid "Logs"
+msgstr ""
+
+#: src/common/admin/options/affilicious-options.php:97
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
 "\">Affilicious Theme</a>."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:77
+#: src/common/admin/options/affilicious-options.php:98
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
@@ -279,31 +283,31 @@ msgid ""
 "with."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:100
+#: src/common/admin/options/affilicious-options.php:121
 msgid "Custom Header Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:101
+#: src/common/admin/options/affilicious-options.php:122
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
 "or &lt;script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:102
+#: src/common/admin/options/affilicious-options.php:123
 msgid "Custom Footer Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:103
+#: src/common/admin/options/affilicious-options.php:124
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or "
 "JS with the proper &lt;style&gt or &lt;script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:118
+#: src/common/admin/options/affilicious-options.php:139
 msgid "Disable download recommendations"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:119
+#: src/common/admin/options/affilicious-options.php:140
 msgid ""
 "If you enable this option, download recommendation notices won't be shown "
 "after activation anymore."
@@ -1622,6 +1626,14 @@ msgstr ""
 
 #: templates/admin/licenses/licenses.php:23
 msgid "Save"
+msgstr ""
+
+#: templates/admin/options/affilicious/logs/logs.php:9
+msgid "Download Logs"
+msgstr ""
+
+#: templates/admin/options/affilicious/system/info.php:9
+msgid "Download System Info"
 msgstr ""
 
 #: templates/admin/page/addons/about.php:2

@@ -23,11 +23,10 @@ class Table_Log_Handler extends Abstract_Log_Handler
 	 * @inheritdoc
 	 * @since 0.9.18
 	 */
-	public function handle($record, $message, $level, $context, $created_at)
+	public function handle($message, $level, $context, $created_at)
 	{
 	    global $wpdb;
 
-		Assert_Helper::is_string_not_empty($record, __METHOD__, 'Expected the record to be a non empty string. Got: %s', '0.9.18');
 		Assert_Helper::is_string_not_empty($message, __METHOD__, 'Expected the message to be a non empty string. Got: %s', '0.9.18');
 		Assert_Helper::is_integer($level, __METHOD__, 'Expected the level to be an integer indication the log level as in RFC 5424. Got: %s', '0.9.18');
 		Assert_Helper::is_string_not_empty($context, __METHOD__, 'Expected the context to be a non empty string. Got: %s', '0.9.18');
