@@ -2,6 +2,7 @@
 namespace Affilicious\Common\Logger\Handler;
 
 use Affilicious\Common\Helper\Assert_Helper;
+use Affilicious\Common\Setup\Logs_Table_Setup;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -32,10 +33,16 @@ class Table_Log_Handler extends Abstract_Log_Handler
 		Assert_Helper::is_string_not_empty($context, __METHOD__, 'Expected the context to be a non empty string. Got: %s', '0.9.18');
 		Assert_Helper::is_string_not_empty($created_at, __METHOD__, 'Expected the creation date to be a non empty string. Got: %s', '0.9.18');
 
-		$level = $this->get_log_level_key($level);
+		// Check if there is a table for the logs.
+		$table_name = Logs_Table_Setup::get_table_name();
+		if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
+            return;
+        }
 
-		$wpdb->insert($wpdb->prefix . 'aff_logs', [
-		    'message' => $message,
+        // Store the log record into the table.
+        $level = $this->get_log_level_key($level);
+        $wpdb->insert($table_name, [
+            'message' => $message,
             'level' => $level,
             'context' => $context,
             'created_at' => $created_at,
