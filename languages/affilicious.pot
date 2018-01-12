@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-12 15:06+0100\n"
+"POT-Creation-Date: 2018-01-12 15:09+0100\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -272,15 +272,15 @@ msgstr ""
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
-"\">Affilicious Theme</a>."
+"\" target=\"_blank\">Affilicious Theme</a>."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:98
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
-"website of <a href=\"%s\">Affilicious Theme</a> to see what you can start "
-"with."
+"website of <a href=\"%s\" target=\"_blank\">Affilicious Theme</a> to see "
+"what you can start with."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:121
