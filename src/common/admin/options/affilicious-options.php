@@ -94,8 +94,8 @@ class Affilicious_Options
 	protected function get_licenses_fields()
     {
         $help_text = count($this->license_manager->get_license_handlers()) > 0
-            ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de')
-            : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicioustheme.de');
+            ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=more-addons-and-themes')
+            : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicioustheme.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=no-addons-and-themes');
 
         $fields = array(
             Carbon_Field::make('html', 'affilicious_options_affilicious_container_licenses_tab_licences_field')
