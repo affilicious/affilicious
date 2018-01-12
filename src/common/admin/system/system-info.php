@@ -159,6 +159,8 @@ class System_Info
             'PHP Version' => PHP_VERSION,
             'MySQL Version' => $wpdb->db_version(),
             'Web Server Info' => !empty($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : '-',
+            'Time' => current_time('mysql', 0),
+            'Time (GMT)' => current_time('mysql', 1),
             'PHP Safe Mode' => ini_get('safe_mode') ? 'Yes' : 'No',
             'PHP Memory Limit' => ini_get('memory_limit'),
             'PHP Upload Max Size' => ini_get('upload_max_filesize'),
