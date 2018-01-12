@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-12 14:36+0100\n"
+"POT-Creation-Date: 2018-01-12 15:06+0100\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1628,12 +1628,12 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/admin/options/affilicious/logs/logs.php:9
+#: templates/admin/logs/logs.php:10
 msgid "Download Logs"
 msgstr ""
 
-#: templates/admin/options/affilicious/system/info.php:9
-msgid "Download System Info"
+#: templates/admin/logs/logs.php:13
+msgid "No logs have been found."
 msgstr ""
 
 #: templates/admin/page/addons/about.php:2
@@ -1870,6 +1870,10 @@ msgstr ""
 
 #: templates/admin/page/imports/amazon/search-results-item-template.php:94
 msgid "Successfully imported the product."
+msgstr ""
+
+#: templates/admin/system/info.php:9
+msgid "Download System Info"
 msgstr ""
 
 #: templates/product/footer/relations/accessory.php:1

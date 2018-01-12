@@ -39,6 +39,38 @@ class Assert_Helper
 		}
 	}
 
+    /**
+     * Check if the value is a string.
+     *
+     * @since 0.9.18
+     * @param mixed $value
+     * @param string $method
+     * @param string $message
+     * @param string $version
+     */
+	public static function is_string($value, $method, $message, $version)
+    {
+        if(WP_DEBUG && !is_string($value)) {
+            _doing_it_wrong($method, sprintf($message, self::type_to_string($value)), $version);
+        }
+    }
+
+    /**
+     * Check if the value is a string or null.
+     *
+     * @since 0.9.18
+     * @param $value
+     * @param $method
+     * @param $message
+     * @param $version
+     */
+    public static function is_string_or_null($value, $method, $message, $version)
+    {
+        if(WP_DEBUG && (is_string($value) || !is_null($value))) {
+            _doing_it_wrong($method, sprintf($message, self::type_to_string($value)), $version);
+        }
+    }
+
 	/**
 	 * Check if the value is a non empty string.
 	 *

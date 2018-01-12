@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: affilicious\n"
 "Report-Msgid-Bugs-To: Translator Slug <translations@example.com>\n"
-"POT-Creation-Date: 2018-01-12 14:36+0100\n"
+"POT-Creation-Date: 2018-01-12 15:06+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Affilicious Team <team@affilicioustheme.de>\n"
@@ -275,7 +275,7 @@ msgstr "System"
 
 #: src/common/admin/options/affilicious-options.php:80
 msgid "Logs"
-msgstr ""
+msgstr "Logs"
 
 #: src/common/admin/options/affilicious-options.php:97
 #, php-format
@@ -1708,13 +1708,13 @@ msgstr "Gebe hier deinen Lizenzcode ein..."
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/admin/options/affilicious/logs/logs.php:9
+#: templates/admin/logs/logs.php:10
 msgid "Download Logs"
 msgstr "Logs herunterladen"
 
-#: templates/admin/options/affilicious/system/info.php:9
-msgid "Download System Info"
-msgstr "System Info herunterladen"
+#: templates/admin/logs/logs.php:13
+msgid "No logs have been found."
+msgstr "Es wurden keine Logs gefunden."
 
 #: templates/admin/page/addons/about.php:2
 msgid "About Affilicious Theme"
@@ -1960,6 +1960,10 @@ msgstr "Nochmal importieren"
 #: templates/admin/page/imports/amazon/search-results-item-template.php:94
 msgid "Successfully imported the product."
 msgstr "Das Produkt wurde erfolgreich importiert."
+
+#: templates/admin/system/info.php:9
+msgid "Download System Info"
+msgstr "System Info herunterladen"
 
 #: templates/product/footer/relations/accessory.php:1
 #: templates/product/universal-box/footer/related/accessories.php:10
@@ -7509,9 +7513,6 @@ msgstr "https://affilicioustheme.de/"
 
 #~ msgid "Please install Gravity Forms plugin"
 #~ msgstr "Bitte installiere das Gravity Forms Plugins"
-
-#~ msgid "No Gravity Forms have been found."
-#~ msgstr "Es wurden keine Gravity Formulare gefunden."
 
 #~ msgid ""
 #~ "If you need to add scripts to your header, you should enter them here."

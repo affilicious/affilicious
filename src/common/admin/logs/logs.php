@@ -63,7 +63,7 @@ class Logs
         }
 
         $result = apply_filters('aff_common_admin_logs_stringify', $result);
-        Assert_Helper::is_string_not_empty($result, __METHOD__, 'Expected the logs to be a string. Got: %s', '0.9.18');
+        Assert_Helper::is_string($result, __METHOD__, 'Expected the logs to be a string. Got: %s', '0.9.18');
 
         return $result;
     }
@@ -79,7 +79,7 @@ class Logs
         $logs = $this->stringify(true);
 
         $logs = apply_filters('aff_common_admin_logs_render', $logs);
-        Assert_Helper::is_string_not_empty($logs, __METHOD__, 'Expected the logs to be a string. Got: %s', '0.9.18');
+        Assert_Helper::is_string($logs, __METHOD__, 'Expected the logs to be a string. Got: %s', '0.9.18');
 
         if($escape) {
             $logs = esc_html($logs);
