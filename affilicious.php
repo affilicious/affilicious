@@ -826,7 +826,8 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup(
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.shop.repository.shop_template'],
-					$c['affilicious.provider.repository.provider']
+					$c['affilicious.provider.repository.provider'],
+                    $c['affilicious.common.logger']
 				);
 			};
 

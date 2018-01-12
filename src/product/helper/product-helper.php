@@ -19,6 +19,7 @@ use Affilicious\Product\Model\Review_Aware_Interface;
 use Affilicious\Product\Model\Shop_Aware_Interface;
 use Affilicious\Product\Model\Tag;
 use Affilicious\Product\Model\Tag_Aware_Interface;
+use Affilicious\Provider\Model\Provider_Id;
 use Affilicious\Shop\Helper\Shop_Helper;
 use Affilicious\Shop\Model\Shop;
 
@@ -195,5 +196,22 @@ class Product_Helper
         $result = apply_filters('aff_product_to_array', $result, $product);
 
         return $result;
+    }
+
+    /**
+     * Get all product IDs from the given products.
+     *
+     * @since 0.9.18
+     * @param Product[] $products
+     * @param string $output
+     * @return Provider_Id[]
+     */
+    public static function get_all_product_ids(array $products, $output = 'object')
+    {
+        $product_ids = array_map(function(Product $product) use ($output) {
+            return $output == 'object' ? $product->get_id() : $product->get_id()->get_value();
+        }, $products);
+
+        return $product_ids;
     }
 }

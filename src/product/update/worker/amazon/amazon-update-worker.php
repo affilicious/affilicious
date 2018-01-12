@@ -2,7 +2,10 @@
 namespace Affilicious\Product\Update\Worker\Amazon;
 
 use Affilicious\Common\Helper\Image_Helper;
+use Affilicious\Common\Helper\Value_Helper;
+use Affilicious\Common\Logger\Logger;
 use Affilicious\Product\Helper\Amazon_Helper;
+use Affilicious\Product\Helper\Product_Helper;
 use Affilicious\Product\Model\Complex_Product;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Model\Product_Id;
@@ -51,19 +54,27 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     protected $provider_repository;
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * @since 0.8
      * @param Product_Repository_Interface $product_repository
      * @param Shop_Template_Repository_Interface $shop_template_repository
      * @param Provider_Repository_Interface $provider_repository
+     * @param Logger $logger
      */
     public function __construct(
         Product_Repository_Interface $product_repository,
         Shop_Template_Repository_Interface $shop_template_repository,
-        Provider_Repository_Interface $provider_repository
+        Provider_Repository_Interface $provider_repository,
+        Logger $logger
     ) {
         $this->product_repository = $product_repository;
         $this->shop_template_repository = $shop_template_repository;
         $this->provider_repository = $provider_repository;
+        $this->logger = $logger;
     }
 
     /**
@@ -106,19 +117,26 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Find the affiliate product IDs for the Amazon API batch item lookups.
+        $this->logger->debug(sprintf('Trying to find Amazon ASINs for products with IDs: %s', Value_Helper::implode(', ', Product_Helper::get_all_product_ids($products))));
+
         $affiliate_product_ids = $this->find_affiliate_product_ids($products, self::MAX_UPDATES);
         if(empty($affiliate_product_ids)) {
             return;
         }
 
         // Make a Amazon API batch item lookup based on the affiliate IDs. Try again after 3 seconds, if the request has been throttled.
+        $this->logger->debug(sprintf('Doing Amazon batch item lookup for products with ASINs: %s', Value_Helper::implode(', ', $affiliate_product_ids)));
+
         $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
         if($items instanceof \WP_Error && $items->get_error_code() == 'aff_product_amazon_request_throttled') {
+            $this->logger->alert('Amazon has throttled the batch item lookup. Retry after 3 seconds...');
+
             sleep(3);
             $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
         }
 
         if(empty($items) || $items instanceof \WP_Error) {
+            $this->logger->error(sprintf('Failed to do the batch item lookup. Error: [%s] %s', $items->get_error_code(), $items->get_error_message()));
             return;
         }
 
@@ -265,6 +283,8 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 			        continue;
 		        }
 
+                $this->logger->debug(sprintf('Applying the new data from the Amazon batch item lookup to the product #%s (%s).', $product_id, $product->get_name()));
+
 		        if($this->should_update_thumbnail($update_interval, $product)) {
 			        $this->update_thumbnail($item, $product);
 		        }
@@ -300,13 +320,13 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 				        }
 			        }
 		        }
+
+		        // Store the updated product.
+                $this->logger->debug(sprintf('Storing the updated product #%s (%s).', $product_id, $product->get_name()));
+
+		        $this->product_repository->store($product);
 	        }
         }
-
-	    // Store all updated products.
-	    foreach ($products as $product) {
-		    $this->product_repository->store($product);
-	    }
     }
 
     /**

@@ -46,7 +46,7 @@ final class Update_Semaphore
 		// Lock the acquire operation.
 		$result = $this->lock() || $this->check_stuck();
 		if(!$result) {
-			$this->logger->info('Skipped to acquire the semaphore.');
+			$this->logger->debug('Skipped to acquire the semaphore.');
 
 			return false;
 		}
@@ -54,7 +54,7 @@ final class Update_Semaphore
 		// Check if the semaphore is available.
 		$result = $this->decrement() || $this->check_stuck();
 		if(!$result) {
-			$this->logger->info('Skipped to acquire the semaphore.');
+			$this->logger->debug('Skipped to acquire the semaphore.');
 
 			return false;
 		}
@@ -69,7 +69,7 @@ final class Update_Semaphore
 		$this->unlock();
 
 		// Everything is ok.
-		$this->logger->info('Successfully acquired the semaphore.');
+		$this->logger->debug('Successfully acquired the semaphore.');
 
 		return true;
 	}
@@ -91,7 +91,7 @@ final class Update_Semaphore
 		}
 
 		// Everything is ok.
-		$this->logger->info('Successfully released the semaphore.');
+		$this->logger->debug('Successfully released the semaphore.');
 
 		return true;
 	}
