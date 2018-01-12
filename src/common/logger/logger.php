@@ -52,11 +52,12 @@ final class Logger
 		Assert_Helper::one_of($level, self::$levels, __METHOD__, 'Expected level to be one of %s. Got: %s', '0.9.11');
 		Assert_Helper::is_string_not_empty($context, __METHOD__, 'Expected context to be a non empty string. Got: %s', '0.9.11');
 
+		$created_at = current_time('mysql', 1);
 		$key = array_search($level, self::$levels, true);
-		$record = '[' . current_time('mysql', 1) . '] ' . $context . '.' . $key . ': ' . $message;
+		$record = '[' . $created_at . '] ' . $context . '.' . $key . ': ' . $message;
 
 		foreach($this->handlers as $handler) {
-			$handler->handle($record);
+			$handler->handle($record, $message, $level, $context, $created_at);
 		}
 	}
 

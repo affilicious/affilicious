@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-class Error_Log_Handler implements Handler_Interface
+class Error_Log_Handler extends Abstract_Log_Handler
 {
 	/**
 	 * @var string|null
@@ -17,6 +17,7 @@ class Error_Log_Handler implements Handler_Interface
 	/**
 	 * Sets the log pile path.
 	 *
+     * @since 0.9.11
 	 * @param string|null $file_path
 	 */
 	public function __construct($file_path = null)
@@ -39,7 +40,7 @@ class Error_Log_Handler implements Handler_Interface
 	 * @inheritdoc
 	 * @since 0.9.11
 	 */
-	public function handle($record)
+	public function handle($record, $message, $level, $context, $created_at)
 	{
 		Assert_Helper::is_string_not_empty($record, __METHOD__, 'Expected the record to be a non empty string. Got: %s', '0.9.11');
 
@@ -51,6 +52,8 @@ class Error_Log_Handler implements Handler_Interface
 	}
 
 	/**
+     * Create a writable logs file.
+     *
 	 * @since 0.9.11
 	 * @param string $file_path
 	 * @return bool

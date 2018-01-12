@@ -2,8 +2,8 @@
 namespace Affilicious\Common\Setup;
 
 use Affilicious\Common\Helper\Assert_Helper;
-use Affilicious\Common\Logger\Handler\Error_Log_Handler;
 use Affilicious\Common\Logger\Handler\Handler_Interface;
+use Affilicious\Common\Logger\Handler\Table_Log_Handler;
 use Affilicious\Common\Logger\Logger;
 
 if (!defined('ABSPATH')) {
@@ -55,7 +55,7 @@ final class Logger_Handler_Setup
     private function get_default_handlers()
     {
     	return [
-    		new Error_Log_Handler(AFFILICIOUS_ROOT_PATH . 'tmp/system.log')
+    		new Table_Log_Handler()
 	    ];
     }
 }
