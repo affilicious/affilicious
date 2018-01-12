@@ -83,7 +83,7 @@ class System_Info
 	 */
 	public function render()
 	{
-		$info = $this->stringify(true, true);
+		$info = $this->stringify(true);
 
 		$info = apply_filters('aff_common_admin_system_info_render', $info);
 		Assert_Helper::is_string_not_empty($info, __METHOD__, 'Expected the system info to be a string. Got: %s', '0.9.9');
