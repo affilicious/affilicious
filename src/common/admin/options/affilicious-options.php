@@ -154,7 +154,7 @@ class Affilicious_Options
 	{
 		$fields = [
 			Carbon_Field::make('html', 'affilicious_options_affilicious_container_system_tab_info_field')
-                ->set_html($this->template_renderer->stringify('admin/options/affilicious/system/info', [
+                ->set_html($this->template_renderer->stringify('admin/system/info', [
                     'system_info' => $this->system_info->stringify(true),
                     'download_url' => sprintf(
                         admin_url('index.php?action=%1$s&nonce=%2$s'),
@@ -177,7 +177,7 @@ class Affilicious_Options
     {
         $fields = [
             Carbon_Field::make('html', 'affilicious_options_affilicious_container_logs_tab_logs_field')
-                ->set_html($this->template_renderer->stringify('admin/options/affilicious/logs/logs', [
+                ->set_html($this->template_renderer->stringify('admin/logs/logs', [
                     'logs' => $this->logs->stringify(true),
                     'download_url' => sprintf(
                         admin_url('index.php?action=%1$s&nonce=%2$s'),
