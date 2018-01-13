@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.1
-Stable tag: 0.9.17
+Stable tag: 0.9.18
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -101,6 +101,20 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.18 =
+* New: Added possibility to download system info as txt.
+* New: Added possibility to logs as txt.
+* New: Added a new logs table to store the logs.
+* New: Added a new tab in the preferences to show the logs.
+* Improvement: Added some logging for the Amazon updates.
+* Improvement: Added some more info to the system info.
+* Improvement: Refactored and cleaned up some functions.
+* Improvement: Added some more system info.
+* Improvement: Moved some template like system info and logs into a different location.
+* Improvement: Added UTM parameters to the link below the licenses.
+* Fix: Fixed the product tags creation in the admin in some cases.
+* Fix: Fixed the votes showing "0" on empty value.
+
 = 0.9.17 =
 * Improvement: readme.txt has been rewritten.
 * Improvement: Optimized the Amazon update worker for throttled API requests.
