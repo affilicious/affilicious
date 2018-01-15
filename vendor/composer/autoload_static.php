@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
 {
     public static $files = array (
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '74704c95e6224e3a13dba163dbbb87fa' => __DIR__ . '/..' . '/htmlburger/carbon-fields/carbon-fields.php',
         '1c3af1f7c867149c2eb8dfa733be2e98' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/functions.php',
@@ -150,6 +150,7 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Common\\License\\License_Manager' => __DIR__ . '/../..' . '/src/common/license/license-manager.php',
         'Affilicious\\Common\\License\\License_Processor' => __DIR__ . '/../..' . '/src/common/license/license-processor.php',
         'Affilicious\\Common\\License\\License_Status' => __DIR__ . '/../..' . '/src/common/license/license-status.php',
+        'Affilicious\\Common\\Listener\\Create_Blog_Listener' => __DIR__ . '/../..' . '/src/common/listener/create-blog-listener.php',
         'Affilicious\\Common\\Logger\\Handler\\Abstract_Log_Handler' => __DIR__ . '/../..' . '/src/common/logger/handler/abstract-log-handler.php',
         'Affilicious\\Common\\Logger\\Handler\\Error_Log_Handler' => __DIR__ . '/../..' . '/src/common/logger/handler/error-log-handler.php',
         'Affilicious\\Common\\Logger\\Handler\\Handler_Interface' => __DIR__ . '/../..' . '/src/common/logger/handler/handler-interface.php',
@@ -180,6 +181,7 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Common\\Setup\\Image_Size_Setup' => __DIR__ . '/../..' . '/src/common/setup/image-size-setup.php',
         'Affilicious\\Common\\Setup\\Logger_Handler_Setup' => __DIR__ . '/../..' . '/src/common/setup/logger-handler-setup.php',
         'Affilicious\\Common\\Setup\\Logs_Table_Setup' => __DIR__ . '/../..' . '/src/common/setup/logs-table-setup.php',
+        'Affilicious\\Common\\Table_Creator\\Logs_Table_Creator' => __DIR__ . '/../..' . '/src/common/table-creator/logs-table-creator.php',
         'Affilicious\\Common\\Template\\Template_Locator' => __DIR__ . '/../..' . '/src/common/template/template-locator.php',
         'Affilicious\\Common\\Template\\Template_Renderer' => __DIR__ . '/../..' . '/src/common/template/template-renderer.php',
         'Affilicious\\Common\\Timer\\Abstract_Timer' => __DIR__ . '/../..' . '/src/common/timer/abstract-timer.php',

@@ -3,7 +3,7 @@ namespace Affilicious\Common\Admin\Logs;
 
 use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Logger\Logger;
-use Affilicious\Common\Setup\Logs_Table_Setup;
+use Affilicious\Common\Table_Creator\Logs_Table_Creator;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -21,7 +21,7 @@ class Logs
     {
         global $wpdb;
 
-        $table_name = Logs_Table_Setup::get_table_name();
+        $table_name = Logs_Table_Creator::get_table_name();
 
         $query = "SELECT * FROM (SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT 50) sub ORDER BY created_at ASC";
         $logs = $wpdb->get_results($query, ARRAY_A);

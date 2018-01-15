@@ -220,8 +220,9 @@ if(!class_exists('Affilicious')) {
 		 * The code that runs during plugin activation.
 		 *
 		 * @since 0.3
+		 * @param bool $network_wide
 		 */
-		public function activate()
+		public function activate($network_wide)
 		{
 			// Check the PHP version requirement
 			if (!version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
@@ -262,7 +263,7 @@ if(!class_exists('Affilicious')) {
 
 			// Install the logs table
             $logs_table_setup = $this->container['affilicious.common.setup.logs_table'];
-            $logs_table_setup->init();
+            $logs_table_setup->init($network_wide);
 
 			// Reset the download recommendation
             $download_recommendation_setup = $this->container['affilicious.common.admin.setup.download_recommendation'];
@@ -440,8 +441,20 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
-			$this->container['affilicious.common.setup.logs_table'] = function() {
-				return new \Affilicious\Common\Setup\Logs_Table_Setup();
+			$this->container['affilicious.common.setup.logs_table'] = function($c) {
+				return new \Affilicious\Common\Setup\Logs_Table_Setup(
+					$c['affilicious.common.table_creator.logs']
+				);
+			};
+
+			$this->container['affilicious.common.table_creator.logs'] = function() {
+				return new \Affilicious\Common\Table_Creator\Logs_Table_Creator();
+			};
+
+			$this->container['affilicious.common.listener.create_blog'] = function($c) {
+				return new \Affilicious\Common\Listener\Create_Blog_Listener(
+					$c['affilicious.common.table_creator.logs']
+				);
 			};
 
             $this->container['affilicious.common.admin.setup.plugin_actions'] = function() {
@@ -1042,6 +1055,10 @@ if(!class_exists('Affilicious')) {
 			add_action('aff_product_update_run_tasks_hourly', array($update_timer, 'run_tasks_hourly'));
 			add_action('aff_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
 			add_action('aff_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
+
+			// Hook the common listeners.
+			$create_blog_listener = $this->container['affilicious.common.listener.create_blog'];
+			add_action('wpmu_new_blog', array($create_blog_listener, 'listen'), 10, 6);
 
 			// Hook the product listeners.
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];

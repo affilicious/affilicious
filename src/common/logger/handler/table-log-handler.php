@@ -2,7 +2,7 @@
 namespace Affilicious\Common\Logger\Handler;
 
 use Affilicious\Common\Helper\Assert_Helper;
-use Affilicious\Common\Setup\Logs_Table_Setup;
+use Affilicious\Common\Table_Creator\Logs_Table_Creator;
 
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
@@ -33,7 +33,7 @@ class Table_Log_Handler extends Abstract_Log_Handler
 		Assert_Helper::is_string_not_empty($created_at, __METHOD__, 'Expected the creation date to be a non empty string. Got: %s', '0.9.18');
 
 		// Check if there is a table for the logs.
-		$table_name = Logs_Table_Setup::get_table_name();
+		$table_name = Logs_Table_Creator::get_table_name();
 		if($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
             return;
         }
