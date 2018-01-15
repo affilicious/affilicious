@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.1
-Stable tag: 0.9.18
+Stable tag: 0.9.19
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -101,6 +101,9 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.19 =
+* Fix: Added support for logs table creation for multisites.
+
 = 0.9.18 =
 * New: Added possibility to download system info as txt.
 * New: Added possibility to logs as txt.
