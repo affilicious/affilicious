@@ -23,7 +23,7 @@ class Logs
 
         $table_name = Logs_Table_Creator::get_table_name();
 
-        $query = "SELECT * FROM (SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT 50) sub ORDER BY created_at ASC";
+        $query = "SELECT * FROM (SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT 100) sub ORDER BY created_at ASC";
         $logs = $wpdb->get_results($query, ARRAY_A);
         if(empty($logs)) {
             return [];
