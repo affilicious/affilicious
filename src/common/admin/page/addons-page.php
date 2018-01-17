@@ -98,7 +98,7 @@ class Addons_Page
 
         $categories = $download['info']['category'];
         foreach ($categories as $category) {
-            if($category['name'] == __('Extensions', 'affilicious')) {
+            if($category['slug'] == 'erweiterungen') {
                 return true;
             }
         }

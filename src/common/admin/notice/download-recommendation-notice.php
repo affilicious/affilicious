@@ -66,6 +66,10 @@ class Download_Recommendation_Notice
 		    return $this->is_addon($download) && ($this->is_paid($download) || $this->is_basic($download));
 	    });
 
+	    if(empty($downloads)) {
+	    	return null;
+	    }
+
 	    $download = $downloads[rand(0, count($downloads) - 1)];
 	    $download = $this->append_utm_parameters_to_link($download);
 
@@ -87,7 +91,7 @@ class Download_Recommendation_Notice
 
 		$categories = $download['info']['category'];
 		foreach ($categories as $category) {
-			if($category['name'] == __('Extensions', 'affilicious')) {
+			if($category['slug'] == 'erweiterungen') {
 				return true;
 			}
 		}
