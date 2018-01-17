@@ -9,10 +9,6 @@ if (!defined('ABSPATH')) {
 
 final class Update_Timer extends Abstract_Timer
 {
-    const HOURLY = 'hourly';
-    const TWICE_DAILY = 'twicedaily';
-    const DAILY = 'daily';
-
     /**
      * @var Update_Manager
      */
@@ -38,22 +34,22 @@ final class Update_Timer extends Abstract_Timer
      * @inheritdoc
      * @since 0.7
      */
-    public function activate()
+    public function activate($network_wide = false)
     {
-        $this->add_scheduled_action('aff_product_update_run_tasks_hourly', 'hourly');
-        $this->add_scheduled_action('aff_product_update_run_tasks_twice_daily', 'twicedaily');
-        $this->add_scheduled_action('aff_product_update_run_tasks_daily', 'daily');
+        $this->add_scheduled_action('aff_product_update_run_tasks_hourly', 'hourly', $network_wide);
+        $this->add_scheduled_action('aff_product_update_run_tasks_twice_daily', 'twicedaily', $network_wide);
+        $this->add_scheduled_action('aff_product_update_run_tasks_daily', 'daily', $network_wide);
     }
 
     /**
      * @inheritdoc
      * @since 0.7
      */
-    public function deactivate()
+    public function deactivate($network_wide = false)
     {
-        $this->remove_scheduled_action('aff_product_update_run_tasks_hourly');
-        $this->remove_scheduled_action('aff_product_update_run_tasks_twice_daily');
-        $this->remove_scheduled_action('aff_product_update_run_tasks_daily');
+        $this->remove_scheduled_action('aff_product_update_run_tasks_hourly', $network_wide);
+        $this->remove_scheduled_action('aff_product_update_run_tasks_twice_daily', $network_wide);
+        $this->remove_scheduled_action('aff_product_update_run_tasks_daily', $network_wide);
     }
 
     /**

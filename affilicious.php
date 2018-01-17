@@ -220,9 +220,9 @@ if(!class_exists('Affilicious')) {
 		 * The code that runs during plugin activation.
 		 *
 		 * @since 0.3
-		 * @param bool $network_wide
+		 * @param bool $network_wide Optional. Whether this plugin is activated network wide or not. Default: false.
 		 */
-		public function activate($network_wide)
+		public function activate($network_wide = false)
 		{
 			// Check the PHP version requirement
 			if (!version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
@@ -245,19 +245,19 @@ if(!class_exists('Affilicious')) {
 				));
 			}
 
-			// Activate the automatic license checks.
-			$license_timer = $this->container['affilicious.common.admin.license.timer'];
-			$license_timer->activate();
-
 			// Activate the product slug rewrites.
 			$product_slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
 			$product_slug_rewrite_setup->activate();
 
-			// Activate the product update cron jobs.
-			$product_update_timer = $this->container['affilicious.product.update.timer'];
-			$product_update_timer->activate();
+			// Activate the automatic license checks.
+			$license_timer = $this->container['affilicious.common.admin.license.timer'];
+			$license_timer->activate($network_wide);
 
-			// Install the semaphore.
+			// Activate the product updates.
+			$product_update_timer = $this->container['affilicious.product.update.timer'];
+			$product_update_timer->activate($network_wide);
+
+			// Install the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->install();
 
@@ -274,22 +274,23 @@ if(!class_exists('Affilicious')) {
 		 * The code that runs during plugin deactivation.
 		 *
 		 * @since 0.3
+		 * @param bool $network_wide Optional. Whether this plugin is deactivated network wide or not. Default: false.
 		 */
-		public function deactivate()
+		public function deactivate($network_wide = false)
 		{
-			// Deactivate the automatic license checks.
-			$license_timer = $this->container['affilicious.common.admin.license.timer'];
-			$license_timer->deactivate();
-
 			// Deactivate the product slug rewrites.
 			$product_slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
 			$product_slug_rewrite_setup->deactivate();
 
-			// Deactivate the product update cron jobs.
-			$product_update_timer = $this->container['affilicious.product.update.timer'];
-			$product_update_timer->deactivate();
+			// Deactivate the automatic license checks.
+			$license_timer = $this->container['affilicious.common.admin.license.timer'];
+			$license_timer->deactivate($network_wide);
 
-			// Uninstall the semaphore.
+			// Deactivate the product updates.
+			$product_update_timer = $this->container['affilicious.product.update.timer'];
+			$product_update_timer->deactivate($network_wide);
+
+			// Uninstall the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->uninstall();
 		}

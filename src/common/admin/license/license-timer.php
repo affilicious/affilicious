@@ -24,23 +24,21 @@ final class License_Timer extends Abstract_Timer
     }
 
     /**
-     * Activate all scheduled cron jobs for the license timer.
-     *
+     * @inheritdoc
      * @since 0.9.9
      */
-    public function activate()
+    public function activate($network_wide = false)
     {
-        $this->add_scheduled_action('aff_common_admin_license_run_checks_daily', 'daily');
+        $this->add_scheduled_action('aff_common_admin_license_run_checks_daily', 'daily', $network_wide);
     }
 
     /**
-     * Deactivate all existing scheduled cron jobs for the license timer.
-     *
+     * @inheritdoc
      * @since 0.9.9
      */
-    public function deactivate()
+    public function deactivate($network_wide = false)
     {
-        $this->remove_scheduled_action('aff_common_admin_license_run_checks_daily');
+        $this->remove_scheduled_action('aff_common_admin_license_run_checks_daily', $network_wide);
     }
 
     /**
