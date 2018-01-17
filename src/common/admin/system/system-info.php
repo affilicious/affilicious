@@ -269,7 +269,7 @@ class System_Info
 		global $wpdb;
 
 		$table_name = Logs_Table_Creator::get_table_name();
-		$exists = $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name;
+		$exists = $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name;
 
 		return $exists;
 	}
