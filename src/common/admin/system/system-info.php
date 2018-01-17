@@ -2,6 +2,7 @@
 namespace Affilicious\Common\Admin\System;
 
 use Affilicious\Common\Helper\Assert_Helper;
+use Affilicious\Common\Table_Creator\Logs_Table_Creator;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Update\Update_Semaphore;
 
@@ -109,6 +110,7 @@ class System_Info
 			'Update Semaphore Locked' => intval(get_option(Update_Semaphore::LOCK_OPTION)) == 1 ? 'Yes' : 'No',
 			'Update Semaphore Counter' => get_option(Update_Semaphore::COUNTER_OPTION),
 			'Update Semaphore Last Acquire Time' => get_option(Update_Semaphore::LAST_ACQUIRE_TIME_OPTION),
+			'Log Table Installed' => $this->is_log_table_installed() ? 'Yes' : 'No',
 		];
 
 		$section = apply_filters('aff_common_admin_system_info_generate_affilicious', $section);
@@ -254,6 +256,22 @@ class System_Info
 		Assert_Helper::is_array($section, __METHOD__, 'Expected the "Network Active Plugins" section to be an array. Got: %s', '0.9.9');
 
 		return $section;
+	}
+
+	/**
+	 * Check if the log table is installed.
+	 *
+	 * @since 0.9.20
+	 * @return bool
+	 */
+	protected function is_log_table_installed()
+	{
+		global $wpdb;
+
+		$table_name = Logs_Table_Creator::get_table_name();
+		$exists = $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name;
+
+		return $exists;
 	}
 
     /**
