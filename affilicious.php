@@ -259,7 +259,7 @@ if(!class_exists('Affilicious')) {
 
 			// Install the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
-			$product_update_semaphore->install();
+			$product_update_semaphore->install($network_wide);
 
 			// Install the logs table
             $logs_table_setup = $this->container['affilicious.common.setup.logs_table'];
@@ -292,7 +292,7 @@ if(!class_exists('Affilicious')) {
 
 			// Uninstall the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
-			$product_update_semaphore->uninstall();
+			$product_update_semaphore->uninstall($network_wide);
 		}
 
 		/**
@@ -1059,7 +1059,7 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the common listeners.
 			$create_blog_listener = $this->container['affilicious.common.listener.create_blog'];
-			add_action('wpmu_new_blog', array($create_blog_listener, 'listen'), 10, 6);
+			add_action('wpmu_new_blog', array($create_blog_listener, 'listen'), 10, 1);
 
 			// Hook the product listeners.
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];

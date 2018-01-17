@@ -44,37 +44,4 @@ class Logs_Table_Creator
 		$sql = "CREATE TABLE {$table_name} (id mediumint(9) NOT NULL AUTO_INCREMENT, `level` varchar(255) default NULL, `message` text default NULL, `context` varchar(255) default NULL, `created_at` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL, UNIQUE KEY id (id)) {$charset_collate};";
 		dbDelta($sql);
 	}
-
-	/**
-	 * Create the logs table for the multisite.
-	 *
-	 * @since 0.9.19
-	 * @param int|null $blog_id
-	 */
-	public function create_for_multisite($blog_id = null)
-	{
-		global $wpdb;
-
-		// Check if we are really on a multisite...
-		if(!is_multisite()) {
-			return;
-		}
-
-		if($blog_id !== null) {
-			switch_to_blog($blog_id);
-
-			$this->create();
-
-			restore_current_blog();
-		} else {
-			$blog_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
-			foreach ($blog_ids as $blog_id) {
-				switch_to_blog($blog_id);
-
-				$this->create();
-
-				restore_current_blog();
-			}
-		}
-	}
 }

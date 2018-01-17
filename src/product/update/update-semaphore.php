@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Product\Update;
 
+use Affilicious\Common\Helper\Network_Helper;
 use Affilicious\Common\Logger\Logger;
 
 if (!defined('ABSPATH')) {
@@ -100,24 +101,30 @@ final class Update_Semaphore
 	 * Install the semaphore with all options to make the future operations more atomic.
 	 *
 	 * @since 0.9.11
+	 * @param bool $network_wide Optional. Install the semaphore for the complete multisite. Default: false.
 	 */
-	public function install()
+	public function install($network_wide = false)
 	{
-		update_option(self::LOCK_OPTION, '0', false);
-		update_option(self::COUNTER_OPTION, '1', false);
-		update_option(self::LAST_ACQUIRE_TIME_OPTION, current_time('mysql', 1), false);
+		Network_Helper::for_each_blog(function() {
+			update_option(self::LOCK_OPTION, '0', false);
+			update_option(self::COUNTER_OPTION, '1', false);
+			update_option(self::LAST_ACQUIRE_TIME_OPTION, current_time('mysql', 1), false);
+		}, $network_wide);
 	}
 
 	/**
 	 * Uninstall the semaphore with all options in the database.
 	 *
 	 * @since 0.9.11
+	 * @param bool $network_wide bool $network_wide Optional. Install the semaphore for the complete multisite. Default: false.
 	 */
-	public function uninstall()
+	public function uninstall($network_wide = false)
 	{
-		delete_option(self::LOCK_OPTION);
-		delete_option(self::COUNTER_OPTION);
-		delete_option(self::LAST_ACQUIRE_TIME_OPTION);
+		Network_Helper::for_each_blog(function() {
+			delete_option(self::LOCK_OPTION);
+			delete_option(self::COUNTER_OPTION);
+			delete_option(self::LAST_ACQUIRE_TIME_OPTION);
+		}, $network_wide);
 	}
 
 	/**

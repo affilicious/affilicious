@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Common\Listener;
 
+use Affilicious\Common\Helper\Network_Helper;
 use Affilicious\Common\Table_Creator\Logs_Table_Creator;
 
 if (!defined('ABSPATH')) {
@@ -28,14 +29,9 @@ class Create_Blog_Listener
 	 *
 	 * @since 0.9.19
 	 * @hook wpmu_new_blog
-	 * @param $blog_id
-	 * @param $user_id
-	 * @param $domain
-	 * @param $path
-	 * @param $site_id
-	 * @param $meta
+	 * @param int $blog_id The newly created ID of the blog in the network.
 	 */
-	public function listen($blog_id, $user_id, $domain, $path, $site_id, $meta)
+	public function listen($blog_id)
 	{
 		$this->create_logs_table($blog_id);
 	}
@@ -43,13 +39,15 @@ class Create_Blog_Listener
 	/**
 	 * Create the logs table for the newly created blog.
 	 *
-	 * @since 0.9.18
-	 * @param int $blog_id
+	 * @since 0.9.19
+	 * @param int $blog_id The newly created ID of the blog in the network.
 	 */
 	protected function create_logs_table($blog_id)
 	{
 		if (is_plugin_active_for_network('affilicious/affilicious.php')) {
-			$this->logs_table_creator->create_for_multisite($blog_id);
+			Network_Helper::for_blog($blog_id, function() {
+				$this->logs_table_creator->create();
+			});
 		}
 	}
 }

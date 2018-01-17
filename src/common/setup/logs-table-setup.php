@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Common\Setup;
 
+use Affilicious\Common\Helper\Network_Helper;
 use Affilicious\Common\Table_Creator\Logs_Table_Creator;
 
 if (!defined('ABSPATH')) {
@@ -31,10 +32,8 @@ class Logs_Table_Setup
 	 */
     public function init($network_wide = false)
     {
-	    if (is_multisite() && $network_wide) {
-		    $this->logs_table_creator->create_for_multisite();
-	    } else {
+	    Network_Helper::for_each_blog(function() {
 		    $this->logs_table_creator->create();
-	    }
+	    }, $network_wide);
     }
 }
