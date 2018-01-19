@@ -459,6 +459,10 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.common.listener.drop_tables'] = function() {
+				return new \Affilicious\Common\Listener\Drop_Tables_Listener();
+			};
+
             $this->container['affilicious.common.admin.setup.plugin_actions'] = function() {
                 return new \Affilicious\Common\Admin\Setup\Plugin_Actions_Setup();
             };
@@ -1067,6 +1071,7 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the listeners.
 			$create_blog_listener = $this->container['affilicious.common.listener.create_blog'];
+			$drop_tables_listener = $this->container['affilicious.common.listener.drop_tables'];
 			$product_create_blog_listener = $this->container['affilicious.product.listener.create_blog'];
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
 			$deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
@@ -1078,6 +1083,7 @@ if(!class_exists('Affilicious')) {
 			$deleted_attribute_template_listener = $this->container['affilicious.product.listener.deleted_attribute_template'];
 			$deleted_detail_template_listener = $this->container['affilicious.product.listener.deleted_detail_template'];
 			add_action('wpmu_new_blog', array($create_blog_listener, 'listen'), 10, 1);
+			add_action('wpmu_drop_tables', array($drop_tables_listener, 'listen'), 10, 2);
 			add_action('wpmu_new_blog', array($product_create_blog_listener, 'listen'), 10, 1);
 			add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
 			add_action('delete_post', array($deleted_complex_product_listener, 'listen'));

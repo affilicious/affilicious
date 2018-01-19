@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Common\Table_Creator;
 
+use Affilicious\Common\Helper\Network_Helper;
+
 if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
@@ -13,15 +15,25 @@ class Logs_Table_Creator
 	 * Get the full table name of the logs table with prefix.
 	 *
 	 * @since 0.9.19
+	 *
 	 * @param bool $with_prefix Whether to use the Wordpress table prefix or not.
+	 * @param null|int $blog_id The ID of the blog to get the table from.
 	 * @return string The table name for the logs table.
 	 */
-	public static function get_table_name($with_prefix = true)
+	public static function get_table_name($with_prefix = true, $blog_id = null)
 	{
-		global $wpdb;
+		if($blog_id === null) {
+			$blog_id = get_current_blog_id();
+		}
 
-		$table_name = $with_prefix ? $wpdb->prefix : '';
-		$table_name .= self::TABLE_NAME;
+		$table_name = null;
+
+		Network_Helper::for_blog($blog_id, function() use ($with_prefix, &$table_name) {
+			global $wpdb;
+
+			$table_name = $with_prefix ? $wpdb->prefix : '';
+			$table_name .= self::TABLE_NAME;
+		});
 
 		return $table_name;
 	}
