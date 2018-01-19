@@ -267,10 +267,10 @@ final class Update_Manager
                     continue;
                 }
 
-                // Mediate the complex product (take the shops from the default variant)
+                // Mediate the complex product (take the first shop from the default variant)
                 $shops = $default_variant->get_shops();
-                foreach ($shops as $shop) {
-                    $this->mediate_product($product, $shop);
+                if(!empty($shops[0])) {
+	                $this->mediate_product($product, $shops[0]);
                 }
 
 	            // Mediate the product variants
