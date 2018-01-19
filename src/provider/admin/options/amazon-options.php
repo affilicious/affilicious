@@ -27,7 +27,7 @@ class Amazon_Options
     /**
      * @var Credentials_Validator_Interface
      */
-    private $amazon_credentials_validator;
+    protected $amazon_credentials_validator;
 
     /**
      * @since 0.9
@@ -64,15 +64,15 @@ class Amazon_Options
      * @since 0.9
      * @return array
      */
-    private function get_credentials_fields()
+    protected function get_credentials_fields()
     {
         $fields = array(
             Carbon_Field::make('html', self::VALIDATION_STATUS)
                 ->set_html($this->get_validation_notice()),
             Carbon_Field::make('text', self::ACCESS_KEY, __('Access Key', 'affilicious'))
-                ->set_help_text(__('The access key is used to identify you as an API user. It\'s not your private Amazon username.', 'affilicious')),
+                ->set_help_text(__('The access key is used to identify you as an API user. It\'s not your protected Amazon username.', 'affilicious')),
             Carbon_Field::make('password', self::SECRET_KEY, __('Secret Key', 'affilicious'))
-                ->set_help_text(__('The secret key is used like a password to sign your API requests. It\'s not your private Amazon password.', 'affilicious')),
+                ->set_help_text(__('The secret key is used like a password to sign your API requests. It\'s not your protected Amazon password.', 'affilicious')),
             Carbon_Field::make('select', self::COUNTRY, __('Country', 'affilicious'))
                 ->add_options(array(
                     'de' => __('Germany', 'affilicious'),
@@ -103,7 +103,7 @@ class Amazon_Options
      * @since 0.9
      * @return array
      */
-    private function get_updates_fields()
+    protected function get_updates_fields()
     {
         $fields = array(
             Carbon_Field::make('select', self::THUMBNAIL_UPDATE_INTERVAL, __('Thumbnail Update Interval', 'affilicious'))

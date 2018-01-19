@@ -7,10 +7,10 @@ use Affilicious\Common\Admin\License\License_Manager;
 use Affilicious\Common\Admin\License\License_Processor;
 use Affilicious\Common\Admin\Logs\Logs;
 use Affilicious\Common\Admin\System\System_Info;
-use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Common\Template\Template_Renderer;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
+use Pimple\Container;
 
 class Affilicious_Options
 {
@@ -71,13 +71,14 @@ class Affilicious_Options
 	{
 		do_action('aff_admin_options_before_render_affilicious_container');
 
+		/** @var Container $container */
 		$container = Carbon_Container::make('theme_options', 'Affilicious')
 	        ->set_icon('dashicons-admin-generic')
-            ->add_tab(__('Licenses', 'affilicious'), $this->get_licenses_fields())
+			->add_tab(__('Licenses', 'affilicious'), $this->get_licenses_fields())
 			->add_tab(__('Scripts', 'affilicious'), $this->get_scripts_fields())
-            ->add_tab(__('Notices', 'affilicious'), $this->get_notices_fields())
-            ->add_tab(__('System', 'affilicious'), $this->get_system_fields())
-            ->add_tab(__('Logs', 'affilicious'), $this->get_logs_fields())
+			->add_tab(__('Notices', 'affilicious'), $this->get_notices_fields())
+			->add_tab(__('System', 'affilicious'), $this->get_system_fields())
+			->add_tab(__('Logs', 'affilicious'), $this->get_logs_fields())
 		;
 
         $container = apply_filters('aff_admin_options_render_affilicious_container', $container);
@@ -93,18 +94,23 @@ class Affilicious_Options
      */
 	protected function get_licenses_fields()
     {
+	    $html = '';
+	    if(isset($_GET['page']) && $_GET['page'] === 'crbn-affilicious.php') {
+		    $html = $this->template_renderer->stringify('admin/licenses/licenses', [
+			    'license_manager' => $this->license_manager,
+			    'license_processor' => $this->license_processor,
+		    ]);
+	    }
+
         $help_text = count($this->license_manager->get_license_handlers()) > 0
             ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s" target="_blank">Affilicious Theme</a>.', 'affilicious'), 'https://affilicioustheme.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=more-addons-and-themes')
             : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s" target="_blank">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicioustheme.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=no-addons-and-themes');
 
-        $fields = array(
+        $fields = [
             Carbon_Field::make('html', 'affilicious_options_affilicious_container_licenses_tab_licences_field')
-                ->set_html(Template_Helper::stringify('admin/licenses/licenses', array(
-                    'license_manager' => $this->license_manager,
-                    'license_processor' => $this->license_processor,
-                )))
+                ->set_html($html)
                 ->set_help_text($help_text)
-        );
+        ];
 
         return apply_filters('aff_admin_options_render_affilicious_container_licenses_fields', $fields);
     }
@@ -152,16 +158,21 @@ class Affilicious_Options
 	 */
 	protected function get_system_fields()
 	{
+		$html = '';
+		if(isset($_GET['page']) && $_GET['page'] === 'crbn-affilicious.php') {
+			$html = $this->template_renderer->stringify('admin/system/info', [
+				'system_info' => $this->system_info->stringify(true),
+				'download_url' => sprintf(
+					admin_url('index.php?action=%1$s&nonce=%2$s'),
+					Download_System_Info_Action::ACTION,
+					wp_create_nonce(Download_System_Info_Action::ACTION)
+				),
+			]);
+		}
+
 		$fields = [
 			Carbon_Field::make('html', 'affilicious_options_affilicious_container_system_tab_info_field')
-                ->set_html($this->template_renderer->stringify('admin/system/info', [
-                    'system_info' => $this->system_info->stringify(true),
-                    'download_url' => sprintf(
-                        admin_url('index.php?action=%1$s&nonce=%2$s'),
-                        Download_System_Info_Action::ACTION,
-                        wp_create_nonce(Download_System_Info_Action::ACTION)
-                    ),
-                ])),
+                ->set_html($html),
 		];
 
 		return apply_filters('aff_admin_options_render_affilicious_container_system_fields', $fields);
@@ -175,16 +186,21 @@ class Affilicious_Options
      */
 	protected function get_logs_fields()
     {
+	    $html = '';
+	    if(isset($_GET['page']) && $_GET['page'] === 'crbn-affilicious.php') {
+		    $html = $this->template_renderer->stringify('admin/logs/logs', [
+			    'logs' => $this->logs->stringify(true),
+			    'download_url' => sprintf(
+				    admin_url('index.php?action=%1$s&nonce=%2$s'),
+				    Download_Logs_Action::ACTION,
+				    wp_create_nonce(Download_Logs_Action::ACTION)
+			    ),
+		    ]);
+	    }
+
         $fields = [
             Carbon_Field::make('html', 'affilicious_options_affilicious_container_logs_tab_logs_field')
-                ->set_html($this->template_renderer->stringify('admin/logs/logs', [
-                    'logs' => $this->logs->stringify(true),
-                    'download_url' => sprintf(
-                        admin_url('index.php?action=%1$s&nonce=%2$s'),
-                        Download_Logs_Action::ACTION,
-                        wp_create_nonce(Download_Logs_Action::ACTION)
-                    ),
-                ])),
+                ->set_html($html),
         ];
 
         return apply_filters('aff_admin_options_render_affilicious_container_logs_fields', $fields);

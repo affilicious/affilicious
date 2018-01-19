@@ -1,6 +1,7 @@
 <?php
 namespace Affilicious\Common\Listener;
 
+use Affilicious\Common\Admin\License\License_Timer;
 use Affilicious\Common\Helper\Network_Helper;
 use Affilicious\Common\Table_Creator\Logs_Table_Creator;
 
@@ -16,12 +17,19 @@ class Create_Blog_Listener
 	protected $logs_table_creator;
 
 	/**
+	 * @var License_Timer
+	 */
+	protected $license_timer;
+
+	/**
 	 * @since 0.9.19
 	 * @param Logs_Table_Creator $logs_table_creator
+	 * @param License_Timer $license_timer
 	 */
-	public function __construct(Logs_Table_Creator $logs_table_creator)
+	public function __construct(Logs_Table_Creator $logs_table_creator, License_Timer $license_timer)
 	{
 		$this->logs_table_creator = $logs_table_creator;
+		$this->license_timer = $license_timer;
 	}
 
 	/**
@@ -33,20 +41,10 @@ class Create_Blog_Listener
 	 */
 	public function listen($blog_id)
 	{
-		$this->create_logs_table($blog_id);
-	}
-
-	/**
-	 * Create the logs table for the newly created blog.
-	 *
-	 * @since 0.9.19
-	 * @param int $blog_id The newly created ID of the blog in the network.
-	 */
-	protected function create_logs_table($blog_id)
-	{
 		if (is_plugin_active_for_network('affilicious/affilicious.php')) {
 			Network_Helper::for_blog($blog_id, function() {
 				$this->logs_table_creator->create();
+				$this->license_timer->activate();
 			});
 		}
 	}

@@ -247,7 +247,7 @@ if(!class_exists('Affilicious')) {
 
 			// Activate the product slug rewrites.
 			$product_slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
-			$product_slug_rewrite_setup->activate();
+			$product_slug_rewrite_setup->activate($network_wide);
 
 			// Activate the automatic license checks.
 			$license_timer = $this->container['affilicious.common.admin.license.timer'];
@@ -280,7 +280,7 @@ if(!class_exists('Affilicious')) {
 		{
 			// Deactivate the product slug rewrites.
 			$product_slug_rewrite_setup = $this->container['affilicious.product.setup.slug_rewrite'];
-			$product_slug_rewrite_setup->deactivate();
+			$product_slug_rewrite_setup->deactivate($network_wide);
 
 			// Deactivate the automatic license checks.
 			$license_timer = $this->container['affilicious.common.admin.license.timer'];
@@ -454,7 +454,8 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.common.listener.create_blog'] = function($c) {
 				return new \Affilicious\Common\Listener\Create_Blog_Listener(
-					$c['affilicious.common.table_creator.logs']
+					$c['affilicious.common.table_creator.logs'],
+					$c['affilicious.common.admin.license.timer']
 				);
 			};
 
@@ -741,6 +742,13 @@ if(!class_exists('Affilicious')) {
 			$this->container['affilicious.product.listener.saved_complex_product'] = function ($c) {
 				return new \Affilicious\Product\Listener\Saved_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
+				);
+			};
+
+			$this->container['affilicious.product.listener.create_blog'] = function($c) {
+				return new \Affilicious\Product\Listener\Create_Blog_Listener(
+					$c['affilicious.product.update.semaphore'],
+					$c['affilicious.product.update.timer']
 				);
 			};
 
@@ -1057,11 +1065,9 @@ if(!class_exists('Affilicious')) {
 			add_action('aff_product_update_run_tasks_twice_daily', array($update_timer, 'run_tasks_twice_daily'));
 			add_action('aff_product_update_run_tasks_daily', array($update_timer, 'run_tasks_daily'));
 
-			// Hook the common listeners.
+			// Hook the listeners.
 			$create_blog_listener = $this->container['affilicious.common.listener.create_blog'];
-			add_action('wpmu_new_blog', array($create_blog_listener, 'listen'), 10, 1);
-
-			// Hook the product listeners.
+			$product_create_blog_listener = $this->container['affilicious.product.listener.create_blog'];
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
 			$deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
 			$changed_status_complex_product_listener = $this->container['affilicious.product.listener.changed_status_complex_product'];
@@ -1071,6 +1077,8 @@ if(!class_exists('Affilicious')) {
 			$deleted_shop_template_listener = $this->container['affilicious.product.listener.deleted_shop_template'];
 			$deleted_attribute_template_listener = $this->container['affilicious.product.listener.deleted_attribute_template'];
 			$deleted_detail_template_listener = $this->container['affilicious.product.listener.deleted_detail_template'];
+			add_action('wpmu_new_blog', array($create_blog_listener, 'listen'), 10, 1);
+			add_action('wpmu_new_blog', array($product_create_blog_listener, 'listen'), 10, 1);
 			add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
 			add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
 			add_action('transition_post_status', array($changed_status_complex_product_listener, 'listen'), 10, 3);

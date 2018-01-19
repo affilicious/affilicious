@@ -33,15 +33,17 @@ class Logs_Table_Creator
 	 */
 	public function create()
 	{
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-
 		global $wpdb;
 
 		// Find the charset the build the table name
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name = self::get_table_name();
 
-		$sql = "CREATE TABLE {$table_name} (id mediumint(9) NOT NULL AUTO_INCREMENT, `level` varchar(255) default NULL, `message` text default NULL, `context` varchar(255) default NULL, `created_at` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL, UNIQUE KEY id (id)) {$charset_collate};";
-		dbDelta($sql);
+		if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+			$sql = "CREATE TABLE {$table_name} (id mediumint(9) NOT NULL AUTO_INCREMENT, `level` varchar(255) NOT NULL, `message` text NOT NULL, `context` varchar(255) NOT NULL, `created_at` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL, PRIMARY KEY (id)) {$charset_collate};";
+
+			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			dbDelta($sql);
+		}
 	}
 }

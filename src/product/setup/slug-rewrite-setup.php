@@ -1,6 +1,8 @@
 <?php
 namespace Affilicious\Product\Setup;
 
+use Affilicious\Common\Helper\Network_Helper;
+
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
@@ -35,22 +37,29 @@ class Slug_Rewrite_Setup
      * Apply the rewrite rules on activation
      *
      * @since 0.6
+     * @param bool $network_wide Optional. Activate the slug rewrite for the whole multisite. Default: false.
      */
-    public function activate()
+    public function activate($network_wide = false)
     {
-        $this->product_setup->init();
-        $this->custom_taxonomies_setup->init();
-        flush_rewrite_rules();
+    	Network_Helper::for_each_blog(function() {
+		    $this->product_setup->init();
+		    $this->custom_taxonomies_setup->init();
+
+		    flush_rewrite_rules();
+	    }, $network_wide);
     }
 
     /**
      * Apply the rewrite rules on deactivation
      *
      * @since 0.6
+     * @param bool $network_wide Optional. Deactivate the slug rewrite for the whole multisite. Default: false.
      */
-    public function deactivate()
+    public function deactivate($network_wide = false)
     {
-        flush_rewrite_rules();
+	    Network_Helper::for_each_blog(function() {
+		    flush_rewrite_rules($network_wide = false);
+	    }, $network_wide);
     }
 
     /**
