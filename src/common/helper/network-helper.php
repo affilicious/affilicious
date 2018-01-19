@@ -46,6 +46,8 @@ class Network_Helper
 	{
 		// Check if we are really on a multisite...
 		if(!is_multisite()) {
+			$callback($blog_id);
+
 			return;
 		}
 
