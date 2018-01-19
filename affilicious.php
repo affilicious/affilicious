@@ -267,7 +267,7 @@ if(!class_exists('Affilicious')) {
 
 			// Reset the download recommendation
             $download_recommendation_setup = $this->container['affilicious.common.admin.setup.download_recommendation'];
-            $download_recommendation_setup->init();
+            $download_recommendation_setup->init($network_wide);
 		}
 
 		/**
