@@ -157,7 +157,7 @@ final class Update_Semaphore
 
 		// Something went wrong...
 		if($result != 1) {
-			$this->logger->error(sprintf('Failed to update the update semaphore last acquire time to %s.', $current_time));
+			$this->logger->alert(sprintf('Failed to update the update semaphore last acquire time to %s.', $current_time));
 
 			return false;
 		}
