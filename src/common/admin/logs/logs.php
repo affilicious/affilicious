@@ -26,9 +26,12 @@ class Logs
 
         $table_name = Logs_Table_Creator::get_table_name();
 
-	    $limit_query = $limit != self::NO_LIMIT ? " LIMIT {$limit}" : '';
-        $sub_query = "SELECT * FROM {$table_name} ORDER BY created_at DESC" . $limit_query;
-        $query = "SELECT * FROM ({$sub_query}) sub ORDER BY created_at ASC";
+        if($limit != self::NO_LIMIT) {
+	        $query = "SELECT * FROM (SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT {$limit}) sub ORDER BY created_at ASC";
+        } else {
+	        $query = "SELECT * FROM (SELECT * FROM {$table_name} ORDER BY created_at DESC) sub ORDER BY created_at ASC";
+        }
+
         $logs = $wpdb->get_results($query, ARRAY_A);
         if(empty($logs)) {
             return [];
