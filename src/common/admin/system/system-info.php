@@ -109,8 +109,10 @@ class System_Info
 			'Trashed Product Count' => $this->count_all_trashed_products(),
 			'Orphaned Product Variant Count' => $this->count_orphaned_product_variants(),
 			'Update Semaphore Counter' => get_option(Update_Semaphore::COUNTER_OPTION),
-			'Update Semaphore Last Acquire Time' => get_option(Update_Semaphore::LAST_ACQUIRE_TIME_OPTION),
+			'Update Semaphore Last Acquire Time' => $this->get_update_semaphore_last_acquire_time(true),
+			'Update Semaphore Last Acquire Time (GMT)' => $this->get_update_semaphore_last_acquire_time(),
 			'Log Table Installed' => $this->is_log_table_installed() ? 'Yes' : 'No',
+			'Log Table Records Count' => $this->count_log_table_records(),
 		];
 
 		$section = apply_filters('aff_common_admin_system_info_generate_affilicious', $section);
@@ -290,6 +292,22 @@ class System_Info
         return !empty($result[0]) ? intval($result[0]) : 0;
     }
 
+	/**
+	 * Count all trashed products.
+	 *
+	 * @since 0.9.20
+	 * @return int
+	 */
+    protected function count_all_trashed_products()
+    {
+	    global $wpdb;
+
+	    $query = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND post_status = 'trash'", Product::POST_TYPE);
+	    $result = $wpdb->get_row($query, ARRAY_N);
+
+	    return !empty($result[0]) ? intval($result[0]) : 0;
+    }
+
     /**
      * Count all orphaned product variants.
      *
@@ -304,5 +322,44 @@ class System_Info
         $result = $wpdb->get_row($query, ARRAY_N);
 
         return !empty($result[0]) ? intval($result[0]) : 0;
+    }
+
+	/**
+	 * Get the last acquire time of the update semaphore.
+	 *
+	 * @since 0.9.20
+	 * @param bool $to_local_time
+	 * @return string|null
+	 */
+    protected function get_update_semaphore_last_acquire_time($to_local_time = false)
+    {
+    	$last_acquire_time = get_option(Update_Semaphore::LAST_ACQUIRE_TIME_OPTION);
+    	if(empty($last_acquire_time)) {
+    		return null;
+	    }
+
+	    // Convert to the current timezone.
+	    if ($to_local_time) {
+		    $last_acquire_time = get_date_from_gmt($last_acquire_time, 'Y-m-d H:i:s');
+	    }
+
+	    return $last_acquire_time;
+    }
+
+	/**
+	 * Count all records (rows) in the log table.
+	 *
+	 * @since 0.9.20
+	 * @return int
+	 */
+    protected function count_log_table_records()
+    {
+	    global $wpdb;
+
+	    $table = Logs_Table_Creator::get_table_name();
+	    $query = "SELECT COUNT(*) FROM {$table}";
+	    $result = $wpdb->get_row($query, ARRAY_N);
+
+	    return !empty($result[0]) ? intval($result[0]) : 0;
     }
 }
