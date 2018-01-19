@@ -67,6 +67,7 @@ return array(
     'Affilicious\\Common\\License\\License_Processor' => $baseDir . '/src/common/license/license-processor.php',
     'Affilicious\\Common\\License\\License_Status' => $baseDir . '/src/common/license/license-status.php',
     'Affilicious\\Common\\Listener\\Create_Blog_Listener' => $baseDir . '/src/common/listener/create-blog-listener.php',
+    'Affilicious\\Common\\Listener\\Drop_Tables_Listener' => $baseDir . '/src/common/listener/drop-tables-listener.php',
     'Affilicious\\Common\\Logger\\Handler\\Abstract_Log_Handler' => $baseDir . '/src/common/logger/handler/abstract-log-handler.php',
     'Affilicious\\Common\\Logger\\Handler\\Error_Log_Handler' => $baseDir . '/src/common/logger/handler/error-log-handler.php',
     'Affilicious\\Common\\Logger\\Handler\\Handler_Interface' => $baseDir . '/src/common/logger/handler/handler-interface.php',

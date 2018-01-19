@@ -152,6 +152,7 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Common\\License\\License_Processor' => __DIR__ . '/../..' . '/src/common/license/license-processor.php',
         'Affilicious\\Common\\License\\License_Status' => __DIR__ . '/../..' . '/src/common/license/license-status.php',
         'Affilicious\\Common\\Listener\\Create_Blog_Listener' => __DIR__ . '/../..' . '/src/common/listener/create-blog-listener.php',
+        'Affilicious\\Common\\Listener\\Drop_Tables_Listener' => __DIR__ . '/../..' . '/src/common/listener/drop-tables-listener.php',
         'Affilicious\\Common\\Logger\\Handler\\Abstract_Log_Handler' => __DIR__ . '/../..' . '/src/common/logger/handler/abstract-log-handler.php',
         'Affilicious\\Common\\Logger\\Handler\\Error_Log_Handler' => __DIR__ . '/../..' . '/src/common/logger/handler/error-log-handler.php',
         'Affilicious\\Common\\Logger\\Handler\\Handler_Interface' => __DIR__ . '/../..' . '/src/common/logger/handler/handler-interface.php',
