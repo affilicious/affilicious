@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) {
  */
 final class Update_Semaphore
 {
-	const LOCK_OPTION = 'affilicious_update_semaphore_lock';
 	const COUNTER_OPTION = 'affilicious_update_semaphore_counter';
 	const LAST_ACQUIRE_TIME_OPTION = 'affilicious_update_semaphore_last_acquire_time';
 
@@ -21,11 +20,6 @@ final class Update_Semaphore
 	 * @var Logger
 	 */
 	private $logger;
-
-	/**
-	 * @var bool
-	 */
-	private $stuck_broke = false;
 
 	/**
 	 * @since 0.9.11
@@ -44,18 +38,10 @@ final class Update_Semaphore
 	 */
 	public function acquire()
 	{
-		// Lock the acquire operation.
-		$result = $this->lock() || $this->check_stuck();
-		if(!$result) {
-			$this->logger->debug('Skipped to acquire the semaphore.');
-
-			return false;
-		}
-
 		// Check if the semaphore is available.
 		$result = $this->decrement() || $this->check_stuck();
 		if(!$result) {
-			$this->logger->debug('Skipped to acquire the semaphore.');
+			$this->logger->debug('Skipped to acquire update semaphore.');
 
 			return false;
 		}
@@ -66,11 +52,8 @@ final class Update_Semaphore
 			return false;
 		}
 
-		// Unlock the acquire operation.
-		$this->unlock();
-
 		// Everything is ok.
-		$this->logger->debug('Successfully acquired the semaphore.');
+		$this->logger->debug('Successfully acquired the update semaphore.');
 
 		return true;
 	}
@@ -86,13 +69,13 @@ final class Update_Semaphore
 		// The semaphore is available again.
 		$result = $this->increment();
 		if(!$result) {
-			$this->logger->error('Failed to release the semaphore.');
+			$this->logger->error('Failed to release the update semaphore.');
 
 			return false;
 		}
 
 		// Everything is ok.
-		$this->logger->debug('Successfully released the semaphore.');
+		$this->logger->debug('Successfully released the update semaphore.');
 
 		return true;
 	}
@@ -106,7 +89,6 @@ final class Update_Semaphore
 	public function install($network_wide = false)
 	{
 		Network_Helper::for_each_blog(function() {
-			update_option(self::LOCK_OPTION, '0', false);
 			update_option(self::COUNTER_OPTION, '1', false);
 			update_option(self::LAST_ACQUIRE_TIME_OPTION, current_time('mysql', 1), false);
 		}, $network_wide);
@@ -121,64 +103,9 @@ final class Update_Semaphore
 	public function uninstall($network_wide = false)
 	{
 		Network_Helper::for_each_blog(function() {
-			delete_option(self::LOCK_OPTION);
 			delete_option(self::COUNTER_OPTION);
 			delete_option(self::LAST_ACQUIRE_TIME_OPTION);
 		}, $network_wide);
-	}
-
-	/**
-	 * Lock the semaphore to make the acquire operation atomic.
-	 *
-	 * @since 0.9.11
-	 * @return bool Whether the operation was successful or not.
-	 */
-	private function lock()
-	{
-		global $wpdb;
-
-		// Attempt to set the lock
-		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s AND option_value = '0'", self::LOCK_OPTION);
-		$result = $wpdb->query($query);
-
-		// Something went wrong...
-		if ($result != 1) {
-			$this->logger->error('Failed to lock the update semaphore.');
-
-			return false;
-		}
-
-		// Everything is ok.
-		$this->logger->debug('Successfully locked the update semaphore.');
-
-		return true;
-	}
-
-	/**
-	 * Unlock the semaphore to make the acquire operation atomic.
-	 *
-	 * @since 0.9.11
-	 * @return bool Whether the operation was successful or not.
-	 */
-	private function unlock()
-	{
-		global $wpdb;
-
-		// Attempt to set the lock
-		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '0' WHERE option_name = %s AND option_value = '1'", self::LOCK_OPTION);
-		$result = $wpdb->query($query);
-
-		// Something went wrong...
-		if ($result != 1) {
-			$this->logger->error('Failed to unlock the update semaphore.');
-
-			return false;
-		}
-
-		// Everything is ok.
-		$this->logger->debug('Successfully unlocked the update semaphore.');
-
-		return true;
 	}
 
 	/**
@@ -191,30 +118,23 @@ final class Update_Semaphore
 	{
 		global $wpdb;
 
-		// Check to see if the stuck is already broken.
-		if ($this->stuck_broke) {
-			return true;
-		}
-
-		// Try to reset the last acquire time.
+		// Check if the semaphore is stuck. Try to reset the last acquire time if 3 hours have passed already.
 		$current_time = current_time('mysql', 1);
-		$unlock_time = gmdate('Y-m-d H:i:s', time() - 30 * 60);
+		$unlock_time = gmdate('Y-m-d H:i:s', time() - 60 * 60 * 3); // 3 hours
 
 		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND option_value <= %s", $current_time, self::LAST_ACQUIRE_TIME_OPTION, $unlock_time);
 		$result = $wpdb->query($query);
 
-		// The last acquire time was reseted successfully.
+		// Something went wrong...
 		if ($result != 1) {
-			$this->logger->error(sprintf('Update semaphore is still stuck. Failed to set lock time to %s', $current_time));
+			$this->logger->error(sprintf('Failed to update the update semaphore last acquire time to %s. It\'s still stuck.', $current_time));
 
 			return false;
 		}
 
 		// Everything is ok.
 		$this->reset();
-		$this->unlock();
-		$this->stuck_broke = true;
-		$this->logger->debug(sprintf('Update semaphore was stuck. Set lock time to %s', $current_time));
+		$this->logger->debug(sprintf('The update semaphore was stuck. Set lock time to %s', $current_time));
 
 		return true;
 	}
@@ -237,13 +157,13 @@ final class Update_Semaphore
 
 		// Something went wrong...
 		if($result != 1) {
-			$this->logger->error(sprintf('Failed to update the update semaphore last acquire time to %s', $current_time));
+			$this->logger->error(sprintf('Failed to update the update semaphore last acquire time to %s.', $current_time));
 
 			return false;
 		}
 
 		// Everything is ok.
-		$this->logger->debug(sprintf('Updated the update semaphore last acquire time to %s', $current_time));
+		$this->logger->debug(sprintf('Updated the update semaphore last acquire time to %s.', $current_time));
 
 		return true;
 	}
@@ -258,7 +178,7 @@ final class Update_Semaphore
 	{
 		global $wpdb;
 
-        // Reset the semaphore counter.
+        // Reset the semaphore counter (Test And Set operation)...
         $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s", self::COUNTER_OPTION);
 		$result = $wpdb->query($query);
 
@@ -285,14 +205,12 @@ final class Update_Semaphore
 	{
 		global $wpdb;
 
-		// Try to increment the semaphore.
+		// Try to increment the semaphore (Test And Set operation)...
         $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s AND option_value = '0'", self::COUNTER_OPTION);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
-			$this->logger->error('Failed to incremented the update semaphore counter to 1.');
-
 			return false;
 		}
 
@@ -312,14 +230,12 @@ final class Update_Semaphore
 	{
 		global $wpdb;
 
-		// Try to decrement the semaphore.
+		// Try to decrement the semaphore (Test And Set operation)...
         $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '0' WHERE option_name = %s AND option_value = '1'", self::COUNTER_OPTION);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
-			$this->logger->error('Failed to decremented the update semaphore counter to 0.');
-
 			return false;
 		}
 
