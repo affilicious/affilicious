@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 
 class Download_Logs_Action
 {
+	const LOGS_LIMIT = 1000;
     const ACTION = 'aff_download_logs';
     const FILENAME = 'affilicious-logs.txt';
 
@@ -54,7 +55,7 @@ class Download_Logs_Action
         header('Content-type: text/plain');
         header(sprintf('Content-Disposition: attachment; filename="%s"', self::FILENAME));
 
-        $logs = $this->logs->stringify();
+        $logs = $this->logs->stringify(self::LOGS_LIMIT);
         echo $logs;
     }
 }

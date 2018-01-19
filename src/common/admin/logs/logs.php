@@ -11,19 +11,24 @@ if (!defined('ABSPATH')) {
 
 class Logs
 {
-    /**
-     * Generate the logs to make the support easier.
-     *
-     * @since 0.9.18
-     * @return array
-     */
-    public function generate()
+	const NO_LIMIT = -1;
+
+	/**
+	 * Generate the logs to make the support easier.
+	 *
+	 * @since 0.9.18
+	 * @param int $limit Optional. The limit of log records to show. Default: -1 for limitless.
+	 * @return array
+	 */
+    public function generate($limit = self::NO_LIMIT)
     {
         global $wpdb;
 
         $table_name = Logs_Table_Creator::get_table_name();
 
-        $query = "SELECT * FROM (SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT 100) sub ORDER BY created_at ASC";
+	    $limit_query = $limit != self::NO_LIMIT ? " LIMIT {$limit}" : '';
+        $sub_query = "SELECT * FROM {$table_name} ORDER BY created_at DESC" . $limit_query;
+        $query = "SELECT * FROM ({$sub_query}) sub ORDER BY created_at ASC";
         $logs = $wpdb->get_results($query, ARRAY_A);
         if(empty($logs)) {
             return [];
@@ -40,16 +45,17 @@ class Logs
         return $logs;
     }
 
-    /**
-     * Stringify the logs to make the support easier.
-     *
-     * @since 0.9.18
-     * @param bool $nl2br Convert the new line into <br>.
-     * @return string
-     */
-    public function stringify($nl2br = false)
+	/**
+	 * Stringify the logs to make the support easier.
+	 *
+	 * @since 0.9.18
+	 * @param int $limit Optional. The limit of log records to show. Default: -1 for limitless.
+	 * @param bool $nl2br Convert the new line into <br>.
+	 * @return string
+	 */
+    public function stringify($limit = self::NO_LIMIT, $nl2br = false)
     {
-        $logs = $this->generate();
+        $logs = $this->generate($limit);
 
         $result = '';
 
@@ -68,15 +74,16 @@ class Logs
         return $result;
     }
 
-    /**
-     * Render the logs to make the support easier.
-     *
-     * @since 0.9.9
-     * @param bool $escape Whether to escape the output or not.
-     */
-    public function render($escape = true)
+	/**
+	 * Render the logs to make the support easier.
+	 *
+	 * @since 0.9.9
+	 * @param int $limit Optional. The limit of log records to show. Default: -1 for limitless.
+	 * @param bool $escape Whether to escape the output or not.
+	 */
+    public function render($limit = self::NO_LIMIT, $escape = true)
     {
-        $logs = $this->stringify(true);
+        $logs = $this->stringify($limit, true);
 
         $logs = apply_filters('aff_common_admin_logs_render', $logs);
         Assert_Helper::is_string($logs, __METHOD__, 'Expected the logs to be a string. Got: %s', '0.9.18');

@@ -189,7 +189,7 @@ class Affilicious_Options
 	    $html = '';
 	    if(isset($_GET['page']) && $_GET['page'] === 'crbn-affilicious.php') {
 		    $html = $this->template_renderer->stringify('admin/logs/logs', [
-			    'logs' => $this->logs->stringify(true),
+			    'logs' => $this->logs->stringify(1, true),
 			    'download_url' => sprintf(
 				    admin_url('index.php?action=%1$s&nonce=%2$s'),
 				    Download_Logs_Action::ACTION,
