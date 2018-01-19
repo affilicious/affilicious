@@ -53,7 +53,7 @@ final class Update_Semaphore
 		}
 
 		// Everything is ok.
-		$this->logger->debug('Successfully acquired the update semaphore.');
+		$this->logger->info('Successfully acquired the update semaphore.');
 
 		return true;
 	}
@@ -75,7 +75,7 @@ final class Update_Semaphore
 		}
 
 		// Everything is ok.
-		$this->logger->debug('Successfully released the update semaphore.');
+		$this->logger->info('Successfully released the update semaphore.');
 
 		return true;
 	}
