@@ -60,9 +60,9 @@ final class Update_Timer extends Abstract_Timer
      */
     public function run_tasks_hourly()
     {
-    	if($this->update_semaphore->acquire()) {
+    	if($this->update_semaphore->acquire(self::HOURLY)) {
 		    $this->update_manager->run_tasks(self::HOURLY);
-		    $this->update_semaphore->release();
+		    $this->update_semaphore->release(self::HOURLY);
 	    }
     }
 
@@ -74,9 +74,9 @@ final class Update_Timer extends Abstract_Timer
      */
     public function run_tasks_twice_daily()
     {
-	    if($this->update_semaphore->acquire()) {
+	    if($this->update_semaphore->acquire(self::TWICE_DAILY)) {
             $this->update_manager->run_tasks(self::TWICE_DAILY);
-		    $this->update_semaphore->release();
+		    $this->update_semaphore->release(self::TWICE_DAILY);
 	    }
     }
 
@@ -88,9 +88,9 @@ final class Update_Timer extends Abstract_Timer
      */
     public function run_tasks_daily()
     {
-	    if($this->update_semaphore->acquire()) {
+	    if($this->update_semaphore->acquire(self::DAILY)) {
             $this->update_manager->run_tasks(self::DAILY);
-		    $this->update_semaphore->release();
+		    $this->update_semaphore->release(self::DAILY);
         }
     }
 }

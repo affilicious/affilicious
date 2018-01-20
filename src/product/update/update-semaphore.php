@@ -13,8 +13,26 @@ if (!defined('ABSPATH')) {
  */
 final class Update_Semaphore
 {
-	const COUNTER_OPTION = 'affilicious_update_semaphore_counter';
-	const LAST_ACQUIRE_TIME_OPTION = 'affilicious_update_semaphore_last_acquire_time';
+	const COUNTER_HOURLY_OPTION = 'affilicious_update_semaphore_counter_hourly';
+	const LAST_ACQUIRE_TIME_HOURLY_OPTION = 'affilicious_update_semaphore_last_acquire_time_hourly';
+
+	const COUNTER_TWICE_DAILY_OPTION = 'affilicious_update_semaphore_counter_twicedaily';
+	const LAST_ACQUIRE_TIME_TWICE_DAILY_OPTION = 'affilicious_update_semaphore_last_acquire_time_twicedaily';
+
+	const COUNTER_DAILY_OPTION = 'affilicious_update_semaphore_counter_daily';
+	const LAST_ACQUIRE_TIME_DAILY_OPTION = 'affilicious_update_semaphore_last_acquire_time_daily';
+
+	public static $counter_options = [
+		'hourly' => self::COUNTER_HOURLY_OPTION,
+		'twicedaily' => self::COUNTER_TWICE_DAILY_OPTION,
+		'daily' => self::COUNTER_DAILY_OPTION,
+	];
+
+	public static $last_acquire_time_options = [
+		'hourly' => self::LAST_ACQUIRE_TIME_HOURLY_OPTION,
+		'twicedaily' => self::LAST_ACQUIRE_TIME_TWICE_DAILY_OPTION,
+		'daily' => self::LAST_ACQUIRE_TIME_DAILY_OPTION,
+	];
 
 	/**
 	 * @var Logger
@@ -34,26 +52,27 @@ final class Update_Semaphore
 	 * Acquire the binary semaphore, which is nearly the same as locking.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the operation was successful or not.
 	 */
-	public function acquire()
+	public function acquire($update_interval)
 	{
 		// Check if the semaphore is available.
-		$result = $this->decrement() || $this->check_stuck();
+		$result = $this->decrement($update_interval) || $this->check_stuck($update_interval);
 		if(!$result) {
-			$this->logger->debug('Skipped to acquire update semaphore.');
+			$this->logger->debug(sprintf('Skipped to acquire update semaphore. (%s)', $update_interval));
 
 			return false;
 		}
 
 		// Set the last acquire time to now.
-		$result = $this->update_last_acquire_time();
+		$result = $this->update_last_acquire_time($update_interval);
 		if(!$result) {
 			return false;
 		}
 
 		// Everything is ok.
-		$this->logger->info('Successfully acquired the update semaphore.');
+		$this->logger->info(sprintf('Successfully acquired the update semaphore. (%s)', $update_interval));
 
 		return true;
 	}
@@ -62,20 +81,21 @@ final class Update_Semaphore
 	 * Release the binary semaphore, which is nearly the same as unlocking.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the operation was successful or not.
 	 */
-	public function release()
+	public function release($update_interval)
 	{
 		// The semaphore is available again.
-		$result = $this->increment();
+		$result = $this->increment($update_interval);
 		if(!$result) {
-			$this->logger->error('Failed to release the update semaphore.');
+			$this->logger->error(sprintf('Failed to release the update semaphore. (%s)', $update_interval));
 
 			return false;
 		}
 
 		// Everything is ok.
-		$this->logger->info('Successfully released the update semaphore.');
+		$this->logger->info(sprintf('Successfully released the update semaphore. (%s)', $update_interval));
 
 		return true;
 	}
@@ -89,8 +109,14 @@ final class Update_Semaphore
 	public function install($network_wide = false)
 	{
 		Network_Helper::for_each_blog(function() {
-			update_option(self::COUNTER_OPTION, '1', false);
-			update_option(self::LAST_ACQUIRE_TIME_OPTION, current_time('mysql', 1), false);
+			update_option(self::COUNTER_HOURLY_OPTION, '1', false);
+			update_option(self::LAST_ACQUIRE_TIME_HOURLY_OPTION, current_time('mysql', 1), false);
+
+			update_option(self::COUNTER_TWICE_DAILY_OPTION, '1', false);
+			update_option(self::LAST_ACQUIRE_TIME_TWICE_DAILY_OPTION, current_time('mysql', 1), false);
+
+			update_option(self::COUNTER_DAILY_OPTION, '1', false);
+			update_option(self::LAST_ACQUIRE_TIME_DAILY_OPTION, current_time('mysql', 1), false);
 		}, $network_wide);
 	}
 
@@ -103,8 +129,14 @@ final class Update_Semaphore
 	public function uninstall($network_wide = false)
 	{
 		Network_Helper::for_each_blog(function() {
-			delete_option(self::COUNTER_OPTION);
-			delete_option(self::LAST_ACQUIRE_TIME_OPTION);
+			delete_option(self::COUNTER_HOURLY_OPTION);
+			delete_option(self::LAST_ACQUIRE_TIME_HOURLY_OPTION);
+
+			delete_option(self::COUNTER_TWICE_DAILY_OPTION);
+			delete_option(self::LAST_ACQUIRE_TIME_TWICE_DAILY_OPTION);
+
+			delete_option(self::COUNTER_DAILY_OPTION);
+			delete_option(self::LAST_ACQUIRE_TIME_DAILY_OPTION);
 		}, $network_wide);
 	}
 
@@ -112,29 +144,30 @@ final class Update_Semaphore
 	 * Attempts to jiggle the stuck lock loose.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the stuck was removed or not.
 	 */
-	private function check_stuck()
+	private function check_stuck($update_interval)
 	{
 		global $wpdb;
 
-		// Check if the semaphore is stuck. Try to reset the last acquire time if 3 hours have passed already.
+		// Check if the semaphore is stuck. Try to reset the last acquire time if 1 hour has passed already.
 		$current_time = current_time('mysql', 1);
-		$unlock_time = gmdate('Y-m-d H:i:s', time() - 60 * 60 * 3); // 3 hours
-
-		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND option_value <= %s", $current_time, self::LAST_ACQUIRE_TIME_OPTION, $unlock_time);
+		$unlock_time = gmdate('Y-m-d H:i:s', time() - 60 * 60); // 1 hour
+		$last_acquire_time_option = self::$last_acquire_time_options[$update_interval];
+		$query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND option_value <= %s", $current_time, $last_acquire_time_option, $unlock_time);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if ($result != 1) {
-			$this->logger->error(sprintf('Failed to update the update semaphore last acquire time to %s. It\'s still stuck.', $current_time));
+			$this->logger->error(sprintf("Failed to update the update semaphore last acquire time to %s. It's still stuck. (%s)", $current_time, $update_interval));
 
 			return false;
 		}
 
 		// Everything is ok.
-		$this->reset();
-		$this->logger->debug(sprintf('The update semaphore was stuck. Set lock time to %s', $current_time));
+		$this->reset($update_interval);
+		$this->logger->debug(sprintf('The update semaphore was stuck. Set lock time to %s. (%s)', $current_time, $update_interval));
 
 		return true;
 	}
@@ -143,27 +176,28 @@ final class Update_Semaphore
 	 * Update the last acquire time to now.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the operation was successful or not.
 	 */
-	private function update_last_acquire_time()
+	private function update_last_acquire_time($update_interval)
 	{
 		global $wpdb;
 
 		// Set the last acquire time to now.
 		$current_time = current_time('mysql', 1);
-
-        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s", $current_time, self::LAST_ACQUIRE_TIME_OPTION);
+		$last_acquire_time_option = self::$last_acquire_time_options[$update_interval];
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s", $current_time, $last_acquire_time_option);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
-			$this->logger->alert(sprintf('Failed to update the update semaphore last acquire time to %s.', $current_time));
+			$this->logger->alert(sprintf('Failed to update the update semaphore last acquire time to %s. (%s)', $current_time, $update_interval));
 
 			return false;
 		}
 
 		// Everything is ok.
-		$this->logger->debug(sprintf('Updated the update semaphore last acquire time to %s.', $current_time));
+		$this->logger->debug(sprintf('Updated the update semaphore last acquire time to %s. (%s)', $current_time, $update_interval));
 
 		return true;
 	}
@@ -172,25 +206,27 @@ final class Update_Semaphore
 	 * Reset the binary semaphore.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the operation was successful or not.
 	 */
-	private function reset()
+	private function reset($update_interval)
 	{
 		global $wpdb;
 
         // Reset the semaphore counter (Test And Set operation)...
-        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s", self::COUNTER_OPTION);
+		$counter_option = self::$counter_options[$update_interval];
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s", $counter_option);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
 		if($result != 1) {
-			$this->logger->error('Failed to reset the update semaphore counter to 1.');
+			$this->logger->error(sprintf('Failed to reset the update semaphore counter to 1. (%s)', $update_interval));
 
 			return false;
 		}
 
 		// Everything is ok.
-		$this->logger->debug('Reset the update semaphore counter to 1.');
+		$this->logger->debug(sprintf('Reset the update semaphore counter to 1. (%s)', $update_interval));
 
 		return true;
 	}
@@ -199,14 +235,16 @@ final class Update_Semaphore
 	 * Increment the binary semaphore.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the operation was successful or not.
 	 */
-	private function increment()
+	private function increment($update_interval)
 	{
 		global $wpdb;
 
 		// Try to increment the semaphore (Test And Set operation)...
-        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s AND option_value = '0'", self::COUNTER_OPTION);
+		$counter_option = self::$counter_options[$update_interval];
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '1' WHERE option_name = %s AND option_value = '0'", $counter_option);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
@@ -215,7 +253,7 @@ final class Update_Semaphore
 		}
 
 		// Everything is ok.
-		$this->logger->debug('Incremented the update semaphore counter to 1.');
+		$this->logger->debug(sprintf('Incremented the update semaphore counter to 1. (%s)', $update_interval));
 
 		return true;
 	}
@@ -224,14 +262,16 @@ final class Update_Semaphore
 	 * Decrement the binary semaphore.
 	 *
 	 * @since 0.9.11
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @return bool Whether the operation was successful or not.
 	 */
-	private function decrement()
+	private function decrement($update_interval)
 	{
 		global $wpdb;
 
 		// Try to decrement the semaphore (Test And Set operation)...
-        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '0' WHERE option_name = %s AND option_value = '1'", self::COUNTER_OPTION);
+		$counter_option = self::$counter_options[$update_interval];
+        $query = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value = '0' WHERE option_name = %s AND option_value = '1'", $counter_option);
 		$result = $wpdb->query($query);
 
 		// Something went wrong...
@@ -240,7 +280,7 @@ final class Update_Semaphore
 		}
 
 		// Everything is ok.
-		$this->logger->debug('Decremented the update semaphore counter to 0.');
+		$this->logger->debug(sprintf('Decremented the update semaphore counter to 0. (%s)', $update_interval));
 
 		return true;
 	}

@@ -45,7 +45,6 @@ class System_Info
 	 * Stringify the system info to make the support easier.
 	 *
 	 * @since 0.9.9
-	 *
 	 * @param bool $nl2br Convert the new line into <br>.
 	 * @return string
 	 */
@@ -104,13 +103,19 @@ class System_Info
 	{
 		$section = [
 			'Affilicious Version' => \Affilicious::VERSION,
-			'Product Slug' => carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field') ? carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field') : Product::SLUG,
+			'Product Slug' => $this->get_product_slug(),
 			'Product Count' => $this->count_all_products(),
 			'Trashed Product Count' => $this->count_all_trashed_products(),
 			'Orphaned Product Variant Count' => $this->count_orphaned_product_variants(),
-			'Update Semaphore Counter' => get_option(Update_Semaphore::COUNTER_OPTION),
-			'Update Semaphore Last Acquire Time' => $this->get_update_semaphore_last_acquire_time(true),
-			'Update Semaphore Last Acquire Time (GMT)' => $this->get_update_semaphore_last_acquire_time(),
+			'Update Semaphore Counter (Hourly)' => $this->get_update_semaphore_counter('hourly'),
+			'Update Semaphore Last Acquire Time (Hourly)' => $this->get_update_semaphore_last_acquire_time('hourly', true),
+			'Update Semaphore Last Acquire Time (Hourly) (GMT)' => $this->get_update_semaphore_last_acquire_time('hourly'),
+			'Update Semaphore Counter (Twice Daily)' => $this->get_update_semaphore_counter('twicedaily'),
+			'Update Semaphore Last Acquire Time (Twice Daily)' => $this->get_update_semaphore_last_acquire_time('twicedaily', true),
+			'Update Semaphore Last Acquire Time (Twice Daily) (GMT)' => $this->get_update_semaphore_last_acquire_time('twicedaily'),
+			'Update Semaphore Counter (Daily)' => $this->get_update_semaphore_counter('daily'),
+			'Update Semaphore Last Acquire Time (Daily)' => $this->get_update_semaphore_last_acquire_time('daily', true),
+			'Update Semaphore Last Acquire Time (Daily) (GMT)' => $this->get_update_semaphore_last_acquire_time('daily'),
 			'Log Table Installed' => $this->is_log_table_installed() ? 'Yes' : 'No',
 			'Log Table Records Count' => $this->count_log_table_records(),
 		];
@@ -261,6 +266,22 @@ class System_Info
 	}
 
 	/**
+	 * Get the product slug used to build the product URLs.
+	 *
+	 * @since 0.9.20
+	 * @return string
+	 */
+	protected function get_product_slug()
+	{
+		$product_slug = carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field');
+		if(empty($product_slug)) {
+			$product_slug = Product::SLUG;
+		}
+
+		return $product_slug;
+	}
+
+	/**
 	 * Check if the log table is installed.
 	 *
 	 * @since 0.9.20
@@ -325,15 +346,35 @@ class System_Info
     }
 
 	/**
-	 * Get the last acquire time of the update semaphore.
+	 * Get the counter of the update semaphore based on the update interval.
 	 *
 	 * @since 0.9.20
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
+	 * @return string|null
+	 */
+    protected function get_update_semaphore_counter($update_interval)
+    {
+	    $counter_option = Update_Semaphore::$counter_options[$update_interval];
+    	$counter = get_option($counter_option);
+    	if(empty($counter)) {
+    		return null;
+	    }
+
+	    return $counter;
+    }
+
+    /**
+	 * Get the last acquire time of the update semaphore based on the update interval.
+	 *
+	 * @since 0.9.20
+     * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
 	 * @param bool $to_local_time
 	 * @return string|null
 	 */
-    protected function get_update_semaphore_last_acquire_time($to_local_time = false)
+    protected function get_update_semaphore_last_acquire_time($update_interval, $to_local_time = false)
     {
-    	$last_acquire_time = get_option(Update_Semaphore::LAST_ACQUIRE_TIME_OPTION);
+	    $last_acquire_time_option = Update_Semaphore::$last_acquire_time_options[$update_interval];
+    	$last_acquire_time = get_option($last_acquire_time_option);
     	if(empty($last_acquire_time)) {
     		return null;
 	    }

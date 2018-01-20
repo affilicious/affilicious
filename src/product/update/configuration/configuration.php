@@ -9,10 +9,8 @@ final class Configuration
 {
 	const PROVIDER_SLUG = 'provider_slug';
 	const PROVIDER_TYPE = 'provider_type';
-    const UPDATE_INTERVAL = 'update_interval';
     const MIN_TASKS = 'min_tasks';
     const MAX_TASKS = 'max_tasks';
-    const DEFAULT_UPDATE_INTERVAL = 'hourly';
     const DEFAULT_MIN_TASKS = 1;
     const DEFAULT_MAX_TASKS = 10;
 
@@ -33,7 +31,6 @@ final class Configuration
     public function __construct(array $defaults = array())
     {
         $this->values = wp_parse_args($defaults, array(
-            self::UPDATE_INTERVAL => self::DEFAULT_UPDATE_INTERVAL,
             self::MIN_TASKS => self::DEFAULT_MIN_TASKS,
             self::MAX_TASKS => self::DEFAULT_MAX_TASKS,
         ));
@@ -132,13 +129,6 @@ final class Configuration
 	            __('Invalid configuration. Neither "%s" nor "%s" has been found.', 'affilicious'),
                 self::PROVIDER_SLUG,
 	            self::PROVIDER_TYPE
-            ));
-        }
-
-        if(!$this->has(self::UPDATE_INTERVAL)) {
-            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-	            __('Invalid configuration. The value for the key "%s" is missing.', 'affilicious'),
-                self::UPDATE_INTERVAL
             ));
         }
 

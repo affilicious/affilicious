@@ -20,20 +20,20 @@ final class Configuration_Resolver
      */
     public function resolve(Configuration $configuration, Configuration_Context $configuration_context)
     {
+    	// Check if the configuration is valid.
         $is_valid = $configuration->validate();
         if($is_valid instanceof \WP_Error) {
             return $is_valid;
         }
 
+        // Check if the configuration context is valid.
         $is_valid = $configuration_context->validate();
         if($is_valid instanceof \WP_Error) {
             return $is_valid;
         }
 
-        $resolved =
-            $this->resolve_update_interval($configuration, $configuration_context) &&
-            $this->resolve_min_tasks($configuration, $configuration_context);
-
+        // Check if all conditions are resolved.
+        $resolved = $this->resolve_min_tasks($configuration, $configuration_context);
         if(!$resolved) {
             return null;
         }
@@ -44,22 +44,6 @@ final class Configuration_Resolver
         $batch_update_tasks = $queue->get_batched($max_tasks);
 
         return $batch_update_tasks;
-    }
-
-    /**
-     * @since 0.7
-     * @param Configuration $configuration
-     * @param Configuration_Context $configuration_context
-     * @return bool
-     */
-    private function resolve_update_interval(Configuration $configuration, Configuration_Context $configuration_context)
-    {
-        $context_update_interval = $configuration_context->get('update_interval');
-        $update_interval = $configuration->get('update_interval');
-
-        $resolved = $context_update_interval == $update_interval;
-
-        return $resolved;
     }
 
     /**
