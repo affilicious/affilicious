@@ -3,8 +3,8 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.9.1
-Stable tag: 0.9.19
+Tested up to: 4.9.2
+Stable tag: 0.9.20
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -101,6 +101,14 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.20 =
+* Improvement: Added multisite support.
+* Improvement: Added more info the system info.
+* Improvement: Increased the logs preview to 100 entries.
+* Improvement: Only the first shop of the default variant will be used for complex product updates now.
+* Improvement: Improved Wordpress admin speed in some cases.
+* Improvement: Changed the update semaphore counter behavior for hourly, twice daily and daily updates.
+
 = 0.9.19 =
 * Fix: Added support for logs table creation for multisites.
 
