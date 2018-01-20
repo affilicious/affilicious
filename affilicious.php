@@ -365,6 +365,12 @@ if(!class_exists('Affilicious')) {
 
 				$product_slugs_to_0818_migration = $this->container['affilicious.product.migration.product_slugs_to_0818'];
 				$product_slugs_to_0818_migration->migrate();
+
+				$product_updates_to_0920_migration = $this->container['affilicious.product.migration.product_updates_to_0920'];
+				$product_updates_to_0920_migration->migrate();
+
+				$non_existing_logs_table_to_0920_migration = $this->container['affilicious.common.migration.non_existing_logs_table_to_0920'];
+				$non_existing_logs_table_to_0920_migration->migrate();
 			}, 9999);
 		}
 
@@ -461,6 +467,12 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.common.listener.drop_tables'] = function() {
 				return new \Affilicious\Common\Listener\Drop_Tables_Listener();
+			};
+
+			$this->container['affilicious.common.migration.non_existing_logs_table_to_0920'] = function ($c) {
+				return new \Affilicious\Common\Migration\Non_Existing_Logs_Table_To_0920_Migration(
+					$c['affilicious.common.table_creator.logs']
+				);
 			};
 
             $this->container['affilicious.common.admin.setup.plugin_actions'] = function() {
@@ -896,6 +908,12 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.migration.affiliate_product_id_to_090'] = function () {
 				return new \Affilicious\Product\Migration\Affiliate_Product_Id_To_090_Migration();
+			};
+
+			$this->container['affilicious.product.migration.product_updates_to_0920'] = function ($c) {
+				return new \Affilicious\Product\Migration\Product_Updates_To_0920_Migration(
+					$c['affilicious.product.update.semaphore']
+				);
 			};
 
 			$this->container['affilicious.product.migration.variants'] = function ($c) {
