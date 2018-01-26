@@ -840,10 +840,17 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.product.update.task.broker'] = function($c) {
+				return new \Affilicious\Product\Update\Task\Broker\Update_Task_Broker(
+					$c['affilicious.shop.repository.shop_template'],
+					$c['affilicious.provider.repository.provider']
+				);
+			};
+
 			$this->container['affilicious.product.update.manager'] = function ($c) {
 				return new \Affilicious\Product\Update\Update_Manager(
+					$c['affilicious.product.update.task.broker'],
 					$c['affilicious.product.repository.product'],
-					$c['affilicious.shop.repository.shop_template'],
 					$c['affilicious.provider.repository.provider']
 				);
 			};
@@ -871,7 +878,7 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.setup.update_queue'] = function ($c) {
 				return new \Affilicious\Product\Setup\Update_Queue_Setup(
-					$c['affilicious.product.update.manager']
+					$c['affilicious.product.update.task.broker']
 				);
 			};
 

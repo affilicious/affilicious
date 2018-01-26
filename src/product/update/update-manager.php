@@ -1,69 +1,63 @@
 <?php
 namespace Affilicious\Product\Update;
 
-use Affilicious\Product\Model\Complex_Product;
-use Affilicious\Product\Model\Product;
-use Affilicious\Product\Model\Simple_Product;
+use Affilicious\Common\Model\Slug;
 use Affilicious\Product\Repository\Product_Repository_Interface;
 use Affilicious\Product\Update\Configuration\Configuration;
-use Affilicious\Product\Update\Configuration\Configuration_Context;
-use Affilicious\Product\Update\Configuration\Configuration_Resolver;
-use Affilicious\Product\Update\Queue\Update_Queue_Interface;
 use Affilicious\Product\Update\Task\Batch_Update_Task;
-use Affilicious\Product\Update\Task\Update_Task;
+use Affilicious\Product\Update\Task\Broker\Update_Task_Broker;
 use Affilicious\Product\Update\Worker\Update_Worker_Interface;
+use Affilicious\Provider\Model\Provider;
+use Affilicious\Provider\Model\Type;
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
-use Affilicious\Shop\Model\Shop;
-use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.7
+ */
 final class Update_Manager
 {
-    /**
-     * @var Update_Worker_Interface[]
-     */
-    private $workers;
+	/**
+	 * @since 0.9
+	 * @var Update_Worker_Interface[]
+	 */
+	private $workers = [];
+
+	/**
+	 * @since 0.9.21
+	 * @var Update_Task_Broker
+	 */
+	private $update_task_broker;
 
     /**
-     * @var Update_Queue_Interface[]
-     */
-    private $queues;
-
-    /**
+     * @since 0.9
      * @var Product_Repository_Interface
      */
     private $product_repository;
 
     /**
-     * @var Shop_Template_Repository_Interface
-     */
-    private $shop_template_repository;
-
-    /**
+     * @since 0.9
      * @var Provider_Repository_Interface
      */
     private $provider_repository;
 
-    /**
-     * @since 0.9
-     * @param Product_Repository_Interface $product_repository
-     * @param Shop_Template_Repository_Interface $shop_template_repository
-     * @param Provider_Repository_Interface $provider_repository
-     */
+	/**
+	 * @since 0.9.21
+	 * @param Update_Task_Broker $update_task_broker
+	 * @param Product_Repository_Interface $product_repository
+	 * @param Provider_Repository_Interface $provider_repository
+	 */
     public function __construct(
+    	Update_Task_Broker $update_task_broker,
         Product_Repository_Interface $product_repository,
-        Shop_Template_Repository_Interface $shop_template_repository,
         Provider_Repository_Interface $provider_repository
-    )
-    {
-        $this->product_repository = $product_repository;
-        $this->shop_template_repository = $shop_template_repository;
-        $this->provider_repository = $provider_repository;
-        $this->workers = [];
-        $this->queues = [];
+    ) {
+	    $this->update_task_broker = $update_task_broker;
+	    $this->product_repository = $product_repository;
+	    $this->provider_repository = $provider_repository;
     }
 
     /**
@@ -74,31 +68,28 @@ final class Update_Manager
      */
     public function run_tasks($update_interval)
     {
-        do_action('aff_product_update_manager_before_run_tasks', $this);
+        do_action('aff_product_update_manager_before_run_tasks', $update_interval);
 
-        $this->prepare_tasks();
+        // Prepare the update tasks.
+        $this->prepare_update_tasks();
 
-        foreach ($this->queues as $queue) {
-            $worker = $this->find_worker_for_queue($queue);
-            if($worker === null) {
-                continue;
-            }
+        // Loop through the providers to update all related shops.
+        $providers = $this->provider_repository->find_all();
+        foreach ($providers as $provider) {
+        	// Find the update worker which is responsible for the provider.
+        	$worker = $this->find_update_worker($provider);
+        	if($worker === null) {
+        		continue;
+	        }
 
-            $batch_update_task = $this->get_batch_update_task($worker, $queue, $update_interval);
-            if($batch_update_task === null) {
-                continue;
-            }
-
-            do_action("aff_product_{$worker->get_name()}_update_worker_before_execute", $worker, $batch_update_task, $update_interval);
-            do_action("aff_product_update_worker_before_execute", $worker, $batch_update_task, $update_interval);
-
-            $worker->execute($batch_update_task, $update_interval);
-
-            do_action("aff_product_{$worker->get_name()}_update_worker_after_execute", $worker, $batch_update_task, $update_interval);
-            do_action("aff_product_update_worker_after_execute", $worker, $batch_update_task, $update_interval);
+	        // Find and execute the batch update tasks for the worker.
+	        $batch_update_tasks = $this->find_batch_update_tasks($worker, $provider);
+	        foreach ($batch_update_tasks as $batch_update_task) {
+				$this->execute_batch_update_task($batch_update_task, $worker, $provider, $update_interval);
+	        }
         }
 
-        do_action('aff_product_update_manager_after_run_tasks', $this);
+	    do_action('aff_product_update_manager_after_run_tasks', $update_interval);
     }
 
     /**
@@ -176,211 +167,85 @@ final class Update_Manager
         return $workers;
     }
 
-    /**
-     * Check if the update queue with the name already exists in the manager.
-     *
-     * @sine 0.9
-     * @param string $name The name of the update queue.
-     * @return bool Whether the update queue is existing or not.
-     */
-    public function has_queue($name)
+	/**
+	 * Prepare the update tasks for the workers.
+	 *
+	 * @since 0.9.21
+	 */
+    private function prepare_update_tasks()
     {
-        return isset($this->queues[$name]);
+    	$products = $this->product_repository->find_all();
+    	foreach ($products as $product) {
+    		$this->update_task_broker->produce_tasks($product);
+	    }
     }
 
-    /**
-     * Add a update queue to the manager.
-     *
-     * @since 0.9
-     * @param Update_Queue_Interface $queue The update queue to add.
-     */
-    public function add_queue(Update_Queue_Interface $queue)
+	/**
+	 * Find the update worker which is responsible for the provider.
+	 *
+	 * @since 0.9.21
+	 * @param Provider $provider
+	 * @return Update_Worker_Interface|null
+	 */
+    private function find_update_worker(Provider $provider)
     {
-        do_action('aff_product_update_manager_before_add_queue', $queue, $this);
+    	foreach ($this->workers as $worker) {
+		    // Get the worker configuration
+		    $configuration = new Configuration();
+		    $worker->configure($configuration);
 
-        $queue = apply_filters('aff_product_update_manager_add_queue', $queue, $this);
-        $this->queues[$queue->get_name()] = $queue;
+		    // Find the provider slug and type from the configuration.
+		    $provider_slug = $configuration->has('provider_slug') ? new Slug($configuration->get('provider_slug')) : null;
+		    $provider_type = $configuration->has('provider_type') ? new Type($configuration->get('provider_type')) : null;
 
-        do_action('aff_product_update_manager_after_add_queue', $queue, $this);
+		    // @deprecated 1.1 The config "provider" is deprecated. Use "provider_slug" instead.
+		    $provider_slug = $provider_slug === null && $configuration->has('provider') ? new Slug($configuration->get('provider')) : $provider_slug;
+
+		    // Check if the worker belongs to the provider.
+		    $matches_provider_slug = $provider_slug !== null ? $provider_slug->is_equal_to($provider->get_slug()) : false;
+		    $matches_provider_type = $provider_type !== null ? $provider_type->is_equal_to($provider->get_type()) : false;
+		    if($matches_provider_slug || $matches_provider_type) {
+		    	return $worker;
+		    }
+	    }
+
+	    return null;
     }
 
-    /**
-     * Remove the update queue by the name from the manager.
-     *
-     * @since 0.9
-     * @param string $name The name of the update queue.
-     */
-    public function remove_queue($name)
-    {
-        do_action('aff_product_update_manager_before_remove_queue', $name, $this);
+	/**
+	 * Find the batch update tasks for the worker and provider.
+	 *
+	 * @since 0.9.21
+	 * @param Update_Worker_Interface $worker
+	 * @param Provider $provider
+	 * @return Batch_Update_Task[]
+	 */
+	private function find_batch_update_tasks(Update_Worker_Interface $worker, Provider $provider)
+	{
+		// Get the worker configuration
+		$configuration = new Configuration();
+		$worker->configure($configuration);
 
-        $name = apply_filters('aff_product_update_manager_remove_queue', $name, $this);
-        unset($this->queues[$name]);
+		$batch_updates = $this->update_task_broker->consume_batched_tasks($provider, 10, 10);
 
-        do_action('aff_product_update_manager_after_remove_queue', $name, $this);
-    }
+		return $batch_updates;
+	}
 
-    /**
-     * Get the queue by the name from the manager.
-     *
-     * @since 0.9
-     * @param string $name The name of the update queue.
-     * @return null|Update_Queue_Interface
-     */
-    public function get_queue($name)
-    {
-        if(!$this->has_queue($name)) {
-            return null;
-        }
+	/**
+	 * @since 0.9.21
+	 * @param Batch_Update_Task $batch_update_task
+	 * @param Update_Worker_Interface $update_worker
+	 * @param Provider $provider
+	 * @param string $update_interval The current cron job update interval like "hourly", "twicedaily" or "daily".
+	 */
+	private function execute_batch_update_task(Batch_Update_Task $batch_update_task, Update_Worker_Interface $update_worker, Provider $provider, $update_interval)
+	{
+		do_action("aff_product_{$update_worker->get_name()}_update_worker_before_execute", $update_worker, $batch_update_task, $provider, $update_interval);
+		do_action("aff_product_update_worker_before_execute", $update_worker, $batch_update_task, $provider, $update_interval);
 
-        $queue = $this->queues[$name];
+		$update_worker->execute($batch_update_task, $update_interval);
 
-        return $queue;
-    }
-
-    /**
-     * Get all queues from the manager.
-     *
-     * @since 0.9
-     * @return Update_Queue_Interface[]
-     */
-    public function get_queues()
-    {
-        $queues = array_values($this->queues);
-
-        return $queues;
-    }
-
-    /**
-     * Create and mediate the tasks into the right queues.
-     *
-     * @since 0.7
-     */
-    private function prepare_tasks()
-    {
-        $products = $this->product_repository->find_all();
-
-        foreach ($products as $product) {
-            if ($product instanceof Complex_Product) {
-                $default_variant = $product->get_default_variant();
-                if($default_variant === null) {
-                    continue;
-                }
-
-                // Mediate the complex product (take the first shop from the default variant)
-                $shops = $default_variant->get_shops();
-                if(!empty($shops[0])) {
-	                $this->mediate_product($product, $shops[0]);
-                }
-
-	            // Mediate the product variants
-	            $variants = $product->get_variants();
-	            foreach ($variants as $variant) {
-		            $shops = $variant->get_shops();
-		            foreach ($shops as $shop) {
-			            $this->mediate_product($variant, $shop);
-		            }
-	            }
-            } elseif($product instanceof Simple_Product) {
-	            $shops = $product->get_shops();
-	            foreach ($shops as $shop) {
-		            $this->mediate_product($product, $shop);
-	            }
-            }
-        }
-    }
-
-    /**
-     * Mediate the product by the shop.
-     *
-     * @since 0.7
-     * @param Product $product
-     * @param Shop $shop
-     */
-    private function mediate_product(Product $product, Shop $shop)
-    {
-        if(!$shop->has_template_id()) {
-            return;
-        }
-
-        $template = $this->shop_template_repository->find_one_by_id($shop->get_template_id());
-        if($template === null) {
-            return;
-        }
-
-        if(!$template->has_provider_id()) {
-            return;
-        }
-
-        $provider = $this->provider_repository->find_one_by_id($template->get_provider_id());
-        if($provider === null) {
-            return;
-        }
-
-        $update_task = new Update_Task($provider, $product);
-
-        $provider = $update_task->get_provider();
-        $slug = $provider->get_slug()->get_value();
-
-        foreach ($this->queues as $queue_slug => $queue){
-            if($queue_slug === $slug) {
-                $queue->put($update_task);
-                break;
-            }
-        }
-    }
-
-    /**
-     * Find the worker for the queue.
-     *
-     * @since 0.7
-     * @param Update_Queue_Interface $queue
-     * @return null|Update_Worker_Interface
-     */
-    private function find_worker_for_queue(Update_Queue_Interface $queue)
-    {
-        foreach ($this->workers as $worker) {
-            $config = new Configuration();
-            $worker->configure($config);
-
-            // @deprecated 1.1 The config "provider" is deprecated. Use "provider_slug" instead.
-            if($config->get('provider') === $queue->get_provider_slug() ||
-               $config->get('provider_slug') === $queue->get_provider_slug() ||
-               ($config->get('provider_type') !== null && $config->get('provider_type') === $queue->get_provider_type())) {
-                return $worker;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Find the update tasks for the worker and queue.
-     *
-     * @since 0.7
-     * @param Update_Worker_Interface $worker
-     * @param Update_Queue_Interface $queue
-     * @param string $update_interval
-     * @return null|Batch_Update_Task
-     */
-    private function get_batch_update_task(Update_Worker_Interface $worker, Update_Queue_Interface $queue, $update_interval)
-    {
-        $config = new Configuration();
-        $worker->configure($config);
-
-        $config_context = new Configuration_Context(array(
-            'queue' => $queue,
-            'update_interval' => $update_interval
-        ));
-
-        $config_resolver = new Configuration_Resolver();
-
-        /** @var Update_Task[] $update_tasks */
-        $batch_update_task = $config_resolver->resolve($config, $config_context);
-        if(empty($batch_update_task) || $batch_update_task instanceof \WP_Error) {
-            return null;
-        }
-
-        return $batch_update_task;
-    }
+		do_action("aff_product_{$update_worker->get_name()}_update_worker_after_execute", $update_worker, $batch_update_task, $provider, $update_interval);
+		do_action("aff_product_update_worker_after_execute", $update_worker, $batch_update_task, $provider, $update_interval);
+	}
 }

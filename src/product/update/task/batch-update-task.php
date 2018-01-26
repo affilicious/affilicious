@@ -11,6 +11,11 @@ if (!defined('ABSPATH')) {
 
 final class Batch_Update_Task
 {
+	/**
+	 * Null stands for "no limit"
+	 */
+	const NO_LIMIT = null;
+
     /**
      * The provider with the correct credentials.
      *
@@ -38,11 +43,11 @@ final class Batch_Update_Task
      * @param Provider $provider The provider with the correct credentials.
      * @param null|int $limit The product limit for the batch update.
      */
-    public function __construct(Provider $provider, $limit = null)
+    public function __construct(Provider $provider, $limit = self::NO_LIMIT)
     {
         $this->provider = $provider;
         $this->limit = $limit;
-        $this->products = array();
+        $this->products = [];
     }
 
     /**

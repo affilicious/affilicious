@@ -7,12 +7,16 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.7
+ */
 class Update_Worker_Setup
 {
     /**
+     * @since 0.9
      * @var Update_Manager
      */
-    private $update_manager;
+    protected $update_manager;
 
     /**
      * @since 0.9

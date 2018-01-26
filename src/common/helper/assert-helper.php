@@ -334,6 +334,40 @@ class Assert_Helper
 	}
 
 	/**
+	 * Check if the value is instance of the given class.
+	 *
+	 * @since 0.9.20
+	 * @param mixed $value
+	 * @param string $class
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function instance_of($value, $class, $method, $message, $version)
+	{
+		if(WP_DEBUG && !($value instanceof $class)) {
+			_doing_it_wrong($method, sprintf($message, $class, self::type_to_string($value)), $version);
+		}
+	}
+
+	/**
+	 * Check if the value is instance of the given class or null.
+	 *
+	 * @since 0.9.20
+	 * @param mixed $value
+	 * @param string $class
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function instance_of_or_null($value, $class, $method, $message, $version)
+	{
+		if(WP_DEBUG && !($value instanceof $class) && !is_null($value)) {
+			_doing_it_wrong($method, sprintf($message, $class, self::type_to_string($value)), $version);
+		}
+	}
+
+	/**
 	 * Check if the values are all instance of the class.
 	 *
 	 * @since 0.9.2
