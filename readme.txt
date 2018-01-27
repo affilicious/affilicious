@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.2
-Stable tag: 0.9.20
+Stable tag: 0.9.21
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -101,6 +101,13 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.21 =
+* Improvement: Changed the product update flow to allow up to 100 product updates per provider.
+* Improvement: Changed some log messages.
+* Improvement: Added Amazon update worker as a service.
+* Improvement: Removed some hooks.
+* Improvement: Changed some Amazon worker configuration.
+
 = 0.9.20 =
 * Improvement: Added multisite support.
 * Improvement: Added more info the system info.
