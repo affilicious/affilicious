@@ -112,12 +112,7 @@ final class Update_Manager
      */
     public function add_worker(Update_Worker_Interface $worker)
     {
-        do_action('aff_product_update_manager_before_add_worker', $worker, $this);
-
-        $worker = apply_filters('aff_product_update_manager_add_worker', $worker, $this);
         $this->workers[$worker->get_name()] = $worker;
-
-        do_action('aff_product_update_manager_after_add_worker', $worker, $this);
     }
 
     /**
@@ -128,12 +123,7 @@ final class Update_Manager
      */
     public function remove_worker($name)
     {
-        do_action('aff_product_update_manager_before_remove_worker', $name, $this);
-
-        $name = apply_filters('aff_product_update_manager_remove_worker', $name, $this);
         unset($this->workers[$name]);
-
-        do_action('aff_product_update_manager_after_remove_worker', $name, $this);
     }
 
     /**
