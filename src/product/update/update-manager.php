@@ -216,9 +216,12 @@ final class Update_Manager
 		$configuration = new Configuration();
 		$worker->configure($configuration);
 
-		$batch_updates = $this->update_task_broker->consume_batched_tasks($provider, 10, 10);
+		// Consume the batch update tasks.
+		$batch_size = $configuration->has('max_batch_size') ? $configuration->get('max_batch_size') : 10;
+		$max_updates = $configuration->has('max_updates') ? $configuration->get('max_updates') : 10;
+		$batch_update_tasks = $this->update_task_broker->consume_batched_tasks($provider, $batch_size, $max_updates);
 
-		return $batch_updates;
+		return $batch_update_tasks;
 	}
 
 	/**

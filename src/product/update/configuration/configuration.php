@@ -11,6 +11,7 @@ final class Configuration
 	const PROVIDER_TYPE = 'provider_type';
     const MIN_TASKS = 'min_tasks';
     const MAX_TASKS = 'max_tasks';
+    const MAX_UPDATES = 'max_updates';
     const DEFAULT_MIN_TASKS = 1;
     const DEFAULT_MAX_TASKS = 10;
 
@@ -114,38 +115,5 @@ final class Configuration
     public function get_all()
     {
         return $this->values;
-    }
-
-    /**
-     * Validate the configuration.
-     *
-     * @since 0.9
-     * @return true|\WP_Error True if the configuration is valid. Otherwise WP_Error if it's invalid.
-     */
-    public function validate()
-    {
-        if(!$this->has(self::PROVIDER_SLUG) && !$this->has(self::PROVIDER_TYPE) && !$this->has(self::PROVIDER)) {
-            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-	            __('Invalid configuration. Neither "%s" nor "%s" has been found.', 'affilicious'),
-                self::PROVIDER_SLUG,
-	            self::PROVIDER_TYPE
-            ));
-        }
-
-        if(!$this->has(self::MIN_TASKS)) {
-            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-	            __('Invalid configuration. The value for the key "%s" is missing.', 'affilicious'),
-                self::MIN_TASKS
-            ));
-        }
-
-        if(!$this->has(self::MAX_TASKS)) {
-            return new \WP_Error('aff_invalid_product_update_configuration', sprintf(
-	            __('Invalid configuration. The value for the key "%s" is missing.', 'affilicious'),
-                self::MAX_TASKS
-            ));
-        }
-
-        return true;
     }
 }

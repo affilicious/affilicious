@@ -36,6 +36,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 {
     const NAME = 'amazon';
     const PROVIDER = 'amazon';
+    const MAX_BATCH_SIZE = 10;
     const MAX_UPDATES = 10;
 
     /**
@@ -94,6 +95,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
     {
         $configuration->set_all([
             'provider_slug' => self::PROVIDER,
+            'max_batch_size' => self::MAX_BATCH_SIZE,
             'max_updates' => self::MAX_UPDATES,
         ]);
     }
@@ -117,7 +119,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Find the affiliate product IDs for the Amazon API batch item lookups.
-        $this->logger->debug(sprintf('Trying to find Amazon ASINs for products with IDs: %s', Value_Helper::implode(', ', Product_Helper::get_all_product_ids($products))));
+        $this->logger->debug(sprintf('Trying to find Amazon ASINs for products with IDs: %s (%s)', Value_Helper::implode(', ', Product_Helper::get_all_product_ids($products)), $update_interval));
 
         $affiliate_product_ids = $this->find_affiliate_product_ids($products, self::MAX_UPDATES);
         if(empty($affiliate_product_ids)) {
@@ -125,7 +127,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Make a Amazon API batch item lookup based on the affiliate IDs. Try again after 3 seconds, if the request has been throttled.
-        $this->logger->debug(sprintf('Doing Amazon update request for products with ASINs: %s', Value_Helper::implode(', ', $affiliate_product_ids)));
+        $this->logger->debug(sprintf('Doing Amazon update request for products with ASINs: %s (%s)', Value_Helper::implode(', ', $affiliate_product_ids), $update_interval));
 
         $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
         if($items instanceof \WP_Error && $items->get_error_code() == 'aff_product_amazon_request_throttled') {
@@ -136,7 +138,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         if(empty($items) || $items instanceof \WP_Error) {
-            $this->logger->error(sprintf('Failed to do the Amazon update request. Error: [%s] %s', $items->get_error_code(), $items->get_error_message()));
+            $this->logger->error(sprintf('Failed to do the Amazon update request (%s). Error: [%s] %s', $update_interval, $items->get_error_code(), $items->get_error_message()));
             return;
         }
 
@@ -283,7 +285,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 			        continue;
 		        }
 
-                $this->logger->debug(sprintf('Applying the new data from the Amazon update request to the product #%s (%s).', $product_id, $product->get_name()));
+                $this->logger->debug(sprintf('Applying the new data from the Amazon update request to the product #%s (%s) (%s).', $product_id, $product->get_name(), $update_interval));
 
 		        if($this->should_update_thumbnail($update_interval, $product)) {
 			        $this->update_thumbnail($item, $product);
@@ -322,7 +324,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 		        }
 
 		        // Store the updated product.
-                $this->logger->debug(sprintf('Storing the updated product #%s (%s).', $product_id, $product->get_name()));
+                $this->logger->debug(sprintf('Storing the updated product #%s (%s) (%s).', $product_id, $product->get_name(), $update_interval));
 
 		        $this->product_repository->store($product);
 	        }
