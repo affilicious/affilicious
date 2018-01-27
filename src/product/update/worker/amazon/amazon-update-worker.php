@@ -125,18 +125,18 @@ class Amazon_Update_Worker implements Update_Worker_Interface
         }
 
         // Make a Amazon API batch item lookup based on the affiliate IDs. Try again after 3 seconds, if the request has been throttled.
-        $this->logger->debug(sprintf('Doing Amazon batch item lookup for products with ASINs: %s', Value_Helper::implode(', ', $affiliate_product_ids)));
+        $this->logger->debug(sprintf('Doing Amazon update request for products with ASINs: %s', Value_Helper::implode(', ', $affiliate_product_ids)));
 
         $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
         if($items instanceof \WP_Error && $items->get_error_code() == 'aff_product_amazon_request_throttled') {
-            $this->logger->alert('Amazon has throttled the batch item lookup. Retry after 3 seconds...');
+            $this->logger->alert('Amazon has throttled the update request. Retry after 3 seconds...');
 
             sleep(3);
             $items = $this->batch_item_lookup($provider, $affiliate_product_ids);
         }
 
         if(empty($items) || $items instanceof \WP_Error) {
-            $this->logger->error(sprintf('Failed to do the batch item lookup. Error: [%s] %s', $items->get_error_code(), $items->get_error_message()));
+            $this->logger->error(sprintf('Failed to do the Amazon update request. Error: [%s] %s', $items->get_error_code(), $items->get_error_message()));
             return;
         }
 
@@ -283,7 +283,7 @@ class Amazon_Update_Worker implements Update_Worker_Interface
 			        continue;
 		        }
 
-                $this->logger->debug(sprintf('Applying the new data from the Amazon batch item lookup to the product #%s (%s).', $product_id, $product->get_name()));
+                $this->logger->debug(sprintf('Applying the new data from the Amazon update request to the product #%s (%s).', $product_id, $product->get_name()));
 
 		        if($this->should_update_thumbnail($update_interval, $product)) {
 			        $this->update_thumbnail($item, $product);
