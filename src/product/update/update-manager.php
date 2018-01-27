@@ -203,7 +203,7 @@ final class Update_Manager
 
 		    // Check if the worker belongs to the provider.
 		    $matches_provider_slug = $provider_slug !== null ? $provider_slug->is_equal_to($provider->get_slug()) : false;
-		    $matches_provider_type = $provider_type !== null ? $provider_type->is_equal_to($provider->get_type()) : false;
+		    $matches_provider_type = $provider_slug === null && $provider_type !== null ? $provider_type->is_equal_to($provider->get_type()) : false;
 		    if($matches_provider_slug || $matches_provider_type) {
 		    	return $worker;
 		    }

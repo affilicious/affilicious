@@ -141,6 +141,7 @@ final class Update_Task_Broker
 		foreach ($this->queues as $queue) {
 			if($this->is_queue_responsible_for_provider($queue, $provider)) {
 				$batch_update_tasks = $queue->get_batched($batch_size, $limit);
+				break;
 			}
 		}
 
@@ -282,7 +283,7 @@ final class Update_Task_Broker
 	private function is_queue_responsible_for_provider(Update_Task_Queue $queue, Provider $provider)
 	{
 		$matches_provider_slug = $provider->get_slug()->is_equal_to($queue->get_provider_slug());
-		$matches_provider_type = $provider->get_type() !== null ? $provider->get_type()->is_equal_to($queue->get_provider_type()) : false;
+		$matches_provider_type = $provider->get_slug() === null && $provider->get_type() !== null ? $provider->get_type()->is_equal_to($queue->get_provider_type()) : false;
 		$is_responsible = $matches_provider_slug || $matches_provider_type;
 
 		return $is_responsible;
