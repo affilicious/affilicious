@@ -869,10 +869,16 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.setup.amazon_update_worker'] = function ($c) {
 				return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup(
+					$c['affilicious.product.update.worker.amazon']
+				);
+			};
+
+			$this->container['affilicious.product.update.worker.amazon'] = function ($c) {
+				return new \Affilicious\Product\Update\Worker\Amazon\Amazon_Update_Worker(
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.shop.repository.shop_template'],
 					$c['affilicious.provider.repository.provider'],
-                    $c['affilicious.common.logger']
+					$c['affilicious.common.logger']
 				);
 			};
 
