@@ -33,7 +33,6 @@ class Amazon_Update_Worker_Setup
      */
     public function init($update_workers)
     {
-    	return $update_workers;
         $update_workers[$this->amazon_update_worker->get_name()] = $this->amazon_update_worker;
 
         return $update_workers;
