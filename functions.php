@@ -441,7 +441,7 @@ function aff_get_product_review_rating($product_or_id = null, $output = 'scalar'
 /**
  * Print the product review rating from 0 to 5 as stars.
  *
- * @since 0.8.9
+ * @since 0.9.18
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
  * @param string $output Either "scalar" or "html". Default: "scalar".
  * @param bool $escape Whether to escape the output or not. The output won't be escaped, if the output is "html".
@@ -454,7 +454,7 @@ function aff_the_product_review_rating($product_or_id = null, $output = 'scalar'
     // Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.18.
     $num_args = func_num_args();
     $args = func_get_args();
-    $allowed_outputs = ['scalar', 'array', 'object'];
+    $allowed_outputs = ['scalar', 'html'];
     if(($num_args >= 2 && !in_array($args[1], $allowed_outputs))) {
         $args = func_get_args();
         $full_star = $args[0];
@@ -538,23 +538,39 @@ function aff_get_product_review_votes($product_or_id = null, $output = 'scalar')
 /**
  * Print the product review votes.
  *
- * @since 0.8.9
+ * @since 0.9.22
  * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output Either "scalar" or "html". Default: "scalar".
  * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_product_review_votes($product_or_id = null, $escape = true)
+function aff_the_product_review_votes($product_or_id = null, $output = 'scalar', $escape = true)
 {
+	// Deprecated 1.3: Make the function compatible with the equivalent before version 0.9.22.
+	$num_args = func_num_args();
+	$args = func_get_args();
+	$allowed_outputs = ['scalar', 'html'];
+	if(($num_args == 2 && !in_array($args[1], $allowed_outputs))) {
+		$args = func_get_args();
+		$product_or_id = isset($args[0]) ? $args[0] : null;
+		$output  = 'html';
+		$escape = isset($args[1]) ? $args[1] : null;
+	}
+
     $votes = aff_get_product_review_votes($product_or_id, 'scalar');
     if($votes === null) {
         return;
     }
 
-    echo sprintf(_n(
-        'based on %s review',
-        'based on %s reviews',
-        $votes, 'affilicious'),
-        $escape ? esc_html($votes) : $votes
-    );
+    if($output == 'scalar') {
+	    echo $escape ? esc_html($votes) : $votes;
+    } else {
+	    echo sprintf(_n(
+		    'based on %s review',
+		    'based on %s reviews',
+		    $votes, 'affilicious'),
+		    $escape ? esc_html($votes) : $votes
+	    );
+    }
 }
 
 /**
