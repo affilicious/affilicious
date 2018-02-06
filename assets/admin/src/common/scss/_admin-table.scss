@@ -1,0 +1,32 @@
+@import "variables";
+
+.aff-admin-table {
+  &-thumbnail {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+  }
+
+  &-product {
+    &-availability {
+      &-available {
+        color: $color-success;
+      }
+
+      &-out-of-stock {
+        color: $color-error;
+      }
+    }
+  }
+}
+
+.wp-list-table {
+  .column {
+    &-aff_thumbnail,
+    &-aff_product_id,
+    &-aff_price,
+    &-aff_availability {
+      width: 100px;
+    }
+  }
+}

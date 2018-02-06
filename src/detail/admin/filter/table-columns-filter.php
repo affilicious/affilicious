@@ -12,23 +12,80 @@ class Table_Columns_Filter
      *
      * @filter manage_edit-aff_detail_tmpl_columns
      * @since 0.9
-     * @param array $columns
-     * @return array
+     * @param array $columns The columns to filter.
+     * @return array The filtered columns.
      */
     public function filter($columns)
     {
-        // Add the new columns
-        $temp_columns = $columns;
-        array_splice($temp_columns, 5);
-
-        $temp_columns['type'] = __('Type', 'affilicious');
-        $temp_columns['unit'] = __('Unit', 'affilicious');
-
-        $columns = array_merge($temp_columns, $columns);
-
-        // Remove some existing columns
-        unset($columns['description'], $columns['posts']);
+	    $columns = $this->add_type_column($columns);
+	    $columns = $this->add_unit_column($columns);
+	    $columns = $this->remove_description_column($columns);
+	    $columns = $this->remove_posts_column($columns);
 
         return $columns;
     }
+
+	/**
+	 * Add the type column to the detail template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function add_type_column(array $columns)
+	{
+		$temp_columns = $columns;
+		array_splice($temp_columns, 4);
+
+		$temp_columns['aff_type'] = __('Type', 'affilicious');
+		$columns = array_merge($temp_columns, $columns);
+
+		return $columns;
+	}
+
+	/**
+	 * Add the unit column to the detail template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function add_unit_column(array $columns)
+	{
+		$temp_columns = $columns;
+		array_splice($temp_columns, 5);
+
+		$temp_columns['aff_unit'] = __('Unit', 'affilicious');
+		$columns = array_merge($temp_columns, $columns);
+
+		return $columns;
+	}
+
+	/**
+	 * Remove the description column to the detail template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function remove_description_column(array $columns)
+	{
+		unset($columns['description']);
+
+		return $columns;
+	}
+
+	/**
+	 * Remove the posts column to the detail template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function remove_posts_column(array $columns)
+	{
+		unset($columns['posts']);
+
+		return $columns;
+	}
 }

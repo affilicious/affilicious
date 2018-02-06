@@ -45,6 +45,7 @@ use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
+use Affilicious\Product\Model\Simple_Product;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -1441,6 +1442,78 @@ function aff_the_product_old_price_currency($product_or_id = null, $output = 'sy
 
     // Print the shop's old price currency.
     aff_the_shop_old_price_currency($shop, $output, $escape);
+}
+
+/**
+ * Get the product's availability based on the underlying shops.
+ *
+ * @since 0.9.22
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @param string $output The required return type. Either "scalar" or "object". Default: "scalar".
+ * @return string|Availability
+ */
+function aff_get_product_availability($product_or_id = null, $output = 'scalar')
+{
+	$product = aff_get_product($product_or_id, 'object');
+	$availability = Availability::out_of_stock();
+
+	if($product instanceof Simple_Product || $product instanceof Product_Variant) {
+		$shops = $product->get_shops();
+		foreach ($shops as $shop) {
+			$availability = aff_get_shop_availability($shop, 'object');
+			if($availability->is_available()) {
+				$availability = Availability::available();
+				break;
+			}
+		}
+	}
+
+	if ($product instanceof Complex_Product) {
+		$product_variants = $product->get_variants();
+		foreach ($product_variants as $product_variant) {
+			$availability = aff_get_product_availability($product_variant, 'object');
+			if($availability->is_available()) {
+				$availability = Availability::available();
+				break;
+			}
+		}
+	}
+
+	if($output == 'scalar') {
+		$availability = $availability->get_value();
+	}
+
+	return $availability;
+}
+
+/**
+ * Check if the product is available based on the underlying shops.
+ *
+ * @since 0.9.22
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product is available or not.
+ */
+function aff_is_product_available($product_or_id = null)
+{
+	$availability = aff_get_product_availability($product_or_id, 'object');
+	$is_available = $availability->is_available();
+
+	return $is_available;
+}
+
+/**
+ * Check if the product is out of stock based on the underlying shops.
+ *
+ * @since 0.9.22
+ * @param int|string|array|\WP_Post|Product|Product_Id|null $product_or_id If you pass in nothing as a parameter, the current post will be used.
+ * @return bool Whether the product is out of stock or not.
+ */
+function aff_is_product_out_of_stock($product_or_id = null)
+{
+	$availability = aff_get_product_availability($product_or_id, 'object');
+	$is_out_of_stock = $availability->is_out_of_stock();
+
+	return $is_out_of_stock;
 }
 
 /**

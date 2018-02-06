@@ -15,26 +15,77 @@ class Table_Columns_Filter
      * @param array $columns The columns to filter.
      * @return array The filtered columns.
      */
-    public function filter($columns)
+    public function filter(array $columns)
     {
-        // Add the new columns
-        $temp_columns = $columns;
-        array_splice($temp_columns, 1);
-
-        $temp_columns['thumbnail'] = __('Thumbnail', 'affilicious');
-
-        $columns = array_merge($temp_columns, $columns);
-
-	    $temp_columns = $columns;
-	    array_splice($temp_columns, 5);
-
-	    $temp_columns['provider'] = __('Provider', 'affilicious');
-
-	    $columns = array_merge($temp_columns, $columns);
-
-        // Remove some existing columns
-        unset($columns['description'], $columns['posts']);
+        $columns = $this->add_thumbnail_column($columns);
+        $columns = $this->add_provider_column($columns);
+        $columns = $this->remove_description_column($columns);
+        $columns = $this->remove_posts_column($columns);
 
         return $columns;
     }
+
+	/**
+	 * Add the thumbnail column to the shop template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function add_thumbnail_column(array $columns)
+	{
+		$temp_columns = $columns;
+		array_splice($temp_columns, 1);
+
+		$temp_columns['aff_thumbnail'] = __('Thumbnail', 'affilicious');
+		$columns = array_merge($temp_columns, $columns);
+
+		return $columns;
+	}
+
+	/**
+	 * Add the provider column to the shop template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function add_provider_column(array $columns)
+	{
+		$temp_columns = $columns;
+		array_splice($temp_columns, 5);
+
+		$temp_columns['aff_provider'] = __('Provider', 'affilicious');
+		$columns = array_merge($temp_columns, $columns);
+
+		return $columns;
+	}
+
+	/**
+	 * Remove the description column to the shop template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function remove_description_column(array $columns)
+	{
+		unset($columns['description']);
+
+		return $columns;
+	}
+
+	/**
+	 * Remove the posts column to the shop template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param array $columns The columns to filter.
+	 * @return array The filtered columns.
+	 */
+	protected function remove_posts_column(array $columns)
+	{
+		unset($columns['posts']);
+
+		return $columns;
+	}
 }
