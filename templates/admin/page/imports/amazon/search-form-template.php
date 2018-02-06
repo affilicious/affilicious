@@ -52,7 +52,7 @@
                 </select>
             <% } %>
 
-            <% if(category != 'All') { %>
+            <% if(type == 'asin' || category != 'All') { %>
                 <label class="screen-reader-text" for="aff-amazon-import-search-with-variants"><?php _e('Search with variants', 'affilicious'); ?></label>
                 <select id="aff-amazon-import-search-with-variants" class="aff-import-search-form-filters-item aff-import-search-form-filters-item-select" name="with-variants">
                     <option value="no"><?php _e('Without variants', 'affilicious'); ?></option>
