@@ -60,7 +60,7 @@ final class Logs_Cleaner
 		}
 
 		// Try to clean up the given amount of log records and check for errors.
-		do_action('aff_common_cleaner_logs_before_clean', $limit, $logs_table);
+		do_action('aff_common_cleaner_logs_before_clean_up', $limit, $logs_table);
 
 		$number_of_records = $wpdb->query("DELETE FROM {$logs_table} WHERE id NOT IN (SELECT id FROM (SELECT id FROM {$logs_table} ORDER BY id DESC LIMIT {$limit}) temp);");
 		if($number_of_records === false) {
@@ -68,7 +68,7 @@ final class Logs_Cleaner
 			return;
 		}
 
-		do_action('aff_common_cleaner_logs_after_clean', $limit, $logs_table);
+		do_action('aff_common_cleaner_logs_after_clean_up', $limit, $logs_table);
 
 		// Everything is ok.
 		if($number_of_records > 0) {

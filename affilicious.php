@@ -261,6 +261,10 @@ if(!class_exists('Affilicious')) {
 			$logs_cleaner_timer = $this->container['affilicious.common.cleaner.logs_timer'];
 			$logs_cleaner_timer->activate($network_wide);
 
+			// Activate the orphaned product variants cleaner.
+			$orphaned_product_variants_cleaner_timer = $this->container['affilicious.product.cleaner.orphaned_product_variants_timer'];
+			$orphaned_product_variants_cleaner_timer->activate($network_wide);
+
 			// Install the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->install($network_wide);
@@ -297,6 +301,10 @@ if(!class_exists('Affilicious')) {
 			// Deactivate the logs cleaner.
 			$logs_cleaner_timer = $this->container['affilicious.common.cleaner.logs_timer'];
 			$logs_cleaner_timer->deactivate($network_wide);
+
+			// Deactivate the orphaned product variants cleaner.
+			$orphaned_product_variants_cleaner_timer = $this->container['affilicious.product.cleaner.orphaned_product_variants_timer'];
+			$orphaned_product_variants_cleaner_timer->deactivate($network_wide);
 
 			// Uninstall the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
@@ -382,6 +390,9 @@ if(!class_exists('Affilicious')) {
 
 				$logs_cleaner_timer_to_0922_migration = $this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'];
 				$logs_cleaner_timer_to_0922_migration->migrate();
+
+				$orphaned_product_variants_timer_migration = $this->container['affilicious.product.migration.orphaned_product_variants_timer_to_0922'];
+				$orphaned_product_variants_timer_migration->migrate();
 			}, 9999);
 		}
 
@@ -803,6 +814,18 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.product.cleaner.orphaned_product_variants'] = function ($c) {
+				return new \Affilicious\Product\Cleaner\Orphaned_Product_Variants_Cleaner(
+					$c['affilicious.common.logger']
+				);
+			};
+
+			$this->container['affilicious.product.cleaner.orphaned_product_variants_timer'] = function ($c) {
+				return new \Affilicious\Product\Cleaner\Orphaned_Product_Variants_Cleaner_Timer(
+					$c['affilicious.product.cleaner.orphaned_product_variants']
+				);
+			};
+
 			$this->container['affilicious.product.setup.custom_taxonomies'] = function () {
 				return new \Affilicious\Product\Setup\Custom_Taxonomies_Setup();
 			};
@@ -1000,6 +1023,12 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
+			$this->container['affilicious.product.migration.orphaned_product_variants_timer_to_0922'] = function($c) {
+				return new \Affilicious\Product\Migration\Orphaned_Product_Variants_Cleaner_Timer_to_0922_Migration(
+					$c['affilicious.product.cleaner.orphaned_product_variants_timer']
+				);
+			};
+
 			$this->container['affilicious.product.admin.setup.import_page'] = function () {
 				return new \Affilicious\Product\Admin\Setup\Import_Page_Setup();
 			};
@@ -1101,6 +1130,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the logs cleaner timer.
 			$logs_cleaner_timer = $this->container['affilicious.common.cleaner.logs_timer'];
 			add_action('aff_common_cleaner_logs_clean_up_daily', array($logs_cleaner_timer, 'clean_up_daily'));
+
+			// Hook the orphaned product variants timer.
+			$orphaned_product_variants_timer = $this->container['affilicious.product.cleaner.orphaned_product_variants_timer'];
+			add_action('aff_product_cleaner_orphaned_product_variants_clean_up_daily', array($orphaned_product_variants_timer, 'clean_up_daily'));
 
 			// Hook the providers.
 			$provider_setup = $this->container['affilicious.provider.setup.provider'];
