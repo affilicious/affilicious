@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Common\Logs;
+namespace Affilicious\Common\Cleaner;
 
 use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Logger\Logger;
@@ -49,10 +49,10 @@ final class Logs_Cleaner
 		$logs_table = Logs_Table_Creator::get_table_name();
 		$limit = self::DEFAULT_LIMIT;
 
-		$limit = apply_filters('aff_common_logs_cleaner_limit', $limit, $logs_table);
+		$limit = apply_filters('aff_common_cleaner_logs_limit', $limit, $logs_table);
 		Assert_Helper::is_integer($limit, __METHOD__, 'The logs cleaner limit must be an integer. Got: %s', '0.9.22');
 
-		$this->logger->debug(sprintf('Try to clean up %d log records from the database table %s.', $limit, $logs_table));
+		$this->logger->debug(sprintf('Try to clean up to the limit %d of log records in the database table "%s".', $limit, $logs_table));
 
 		// We need to subtract 1 logs to finally keep the exact amount of log records in the database
 		if($limit > 0) {
@@ -60,7 +60,7 @@ final class Logs_Cleaner
 		}
 
 		// Try to clean up the given amount of log records and check for errors.
-		do_action('aff_common_logs_cleaner_before_clean', $limit, $logs_table);
+		do_action('aff_common_cleaner_logs_before_clean', $limit, $logs_table);
 
 		$number_of_records = $wpdb->query("DELETE FROM {$logs_table} WHERE id NOT IN (SELECT id FROM (SELECT id FROM {$logs_table} ORDER BY id DESC LIMIT {$limit}) temp);");
 		if($number_of_records === false) {
@@ -68,9 +68,13 @@ final class Logs_Cleaner
 			return;
 		}
 
-		do_action('aff_common_logs_cleaner_after_clean', $limit, $logs_table);
+		do_action('aff_common_cleaner_logs_after_clean', $limit, $logs_table);
 
 		// Everything is ok.
-		$this->logger->debug(sprintf('Successfully cleaned up %d log records from the database table %s.', $number_of_records, $logs_table));
+		if($number_of_records > 0) {
+			$this->logger->debug(sprintf('Successfully cleaned up %d log records from the database table "%s".', $number_of_records, $logs_table));
+		} else {
+			$this->logger->debug(sprintf('No log records have been cleaned up from the database table "%s".', $logs_table));
+		}
 	}
 }

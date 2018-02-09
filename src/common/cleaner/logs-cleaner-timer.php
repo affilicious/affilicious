@@ -1,5 +1,5 @@
 <?php
-namespace Affilicious\Common\Logs;
+namespace Affilicious\Common\Cleaner;
 
 use Affilicious\Common\Timer\Abstract_Timer;
 
@@ -33,7 +33,7 @@ final class Logs_Cleaner_Timer extends Abstract_Timer
 	 */
 	public function activate($network_wide = false)
 	{
-		$this->add_scheduled_action('aff_common_logs_clean_up_daily', 'daily', $network_wide);
+		$this->add_scheduled_action('aff_common_cleaner_logs_clean_up_daily', 'daily', $network_wide);
 	}
 
 	/**
@@ -42,13 +42,13 @@ final class Logs_Cleaner_Timer extends Abstract_Timer
 	 */
 	public function deactivate($network_wide = false)
 	{
-		$this->remove_scheduled_action('aff_common_logs_clean_up_daily', $network_wide);
+		$this->remove_scheduled_action('aff_common_cleaner_logs_clean_up_daily', $network_wide);
 	}
 
 	/**
 	 * Run the logs cleaner daily as cron jobs.
 	 *
-	 * @hook aff_common_logs_clean_up_daily
+	 * @hook aff_common_cleaner_logs_clean_up_daily
 	 * @since 0.9.22
 	 */
 	public function clean_up_daily()

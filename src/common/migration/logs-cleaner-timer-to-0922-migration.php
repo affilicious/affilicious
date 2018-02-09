@@ -1,7 +1,7 @@
 <?php
 namespace Affilicious\Common\Migration;
 
-use Affilicious\Common\Logs\Logs_Cleaner_Timer;
+use Affilicious\Common\Cleaner\Logs_Cleaner_Timer;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');

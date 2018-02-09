@@ -258,7 +258,7 @@ if(!class_exists('Affilicious')) {
 			$product_update_timer->activate($network_wide);
 
 			// Activate the logs cleaner.
-			$logs_cleaner_timer = $this->container['affilicious.common.logs.cleaner_timer'];
+			$logs_cleaner_timer = $this->container['affilicious.common.cleaner.logs_timer'];
 			$logs_cleaner_timer->activate($network_wide);
 
 			// Install the update semaphore.
@@ -295,7 +295,7 @@ if(!class_exists('Affilicious')) {
 			$product_update_timer->deactivate($network_wide);
 
 			// Deactivate the logs cleaner.
-			$logs_cleaner_timer = $this->container['affilicious.common.logs.cleaner_timer'];
+			$logs_cleaner_timer = $this->container['affilicious.common.cleaner.logs_timer'];
 			$logs_cleaner_timer->deactivate($network_wide);
 
 			// Uninstall the update semaphore.
@@ -419,15 +419,15 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Common\Logger\Logger();
 			};
 
-			$this->container['affilicious.common.logs.cleaner'] = function ($c) {
-				return new \Affilicious\Common\Logs\Logs_Cleaner(
+			$this->container['affilicious.common.cleaner.logs'] = function ($c) {
+				return new \Affilicious\Common\Cleaner\Logs_Cleaner(
 					$c['affilicious.common.logger']
 				);
 			};
 
-			$this->container['affilicious.common.logs.cleaner_timer'] = function ($c) {
-				return new \Affilicious\Common\Logs\Logs_Cleaner_Timer(
-					$c['affilicious.common.logs.cleaner']
+			$this->container['affilicious.common.cleaner.logs_timer'] = function ($c) {
+				return new \Affilicious\Common\Cleaner\Logs_Cleaner_Timer(
+					$c['affilicious.common.cleaner.logs']
 				);
 			};
 
@@ -500,7 +500,7 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'] = function ($c) {
 				return new \Affilicious\Common\Migration\Logs_Cleaner_Timer_to_0922_Migration(
-					$c['affilicious.common.logs.cleaner_timer']
+					$c['affilicious.common.cleaner.logs_timer']
 				);
 			};
 
@@ -1099,8 +1099,8 @@ if(!class_exists('Affilicious')) {
 			add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
 
 			// Hook the logs cleaner timer.
-			$logs_cleaner_timer = $this->container['affilicious.common.logs.cleaner_timer'];
-			add_action('aff_common_logs_clean_up_daily', array($logs_cleaner_timer, 'clean_up_daily'));
+			$logs_cleaner_timer = $this->container['affilicious.common.cleaner.logs_timer'];
+			add_action('aff_common_cleaner_logs_clean_up_daily', array($logs_cleaner_timer, 'clean_up_daily'));
 
 			// Hook the providers.
 			$provider_setup = $this->container['affilicious.provider.setup.provider'];
