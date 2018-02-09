@@ -7,15 +7,21 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.20
+ */
 final class Non_Existing_Logs_Table_To_0920_Migration
 {
+	/**
+	 * @since 0.9.20
+	 */
     const OPTION = 'aff_migrated_non_existing_logs_table_to_0.9.20';
 
 	/**
 	 * @since 0.9.20
 	 * @var Logs_Table_Creator
 	 */
-	protected $logs_table_creator;
+	private $logs_table_creator;
 
 	/**
 	 * @since 0.9.20

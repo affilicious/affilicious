@@ -257,6 +257,10 @@ if(!class_exists('Affilicious')) {
 			$product_update_timer = $this->container['affilicious.product.update.timer'];
 			$product_update_timer->activate($network_wide);
 
+			// Activate the logs cleaner.
+			$logs_cleaner_timer = $this->container['affilicious.common.logs.cleaner_timer'];
+			$logs_cleaner_timer->activate($network_wide);
+
 			// Install the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->install($network_wide);
@@ -289,6 +293,10 @@ if(!class_exists('Affilicious')) {
 			// Deactivate the product updates.
 			$product_update_timer = $this->container['affilicious.product.update.timer'];
 			$product_update_timer->deactivate($network_wide);
+
+			// Deactivate the logs cleaner.
+			$logs_cleaner_timer = $this->container['affilicious.common.logs.cleaner_timer'];
+			$logs_cleaner_timer->deactivate($network_wide);
 
 			// Uninstall the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
@@ -371,6 +379,9 @@ if(!class_exists('Affilicious')) {
 
 				$non_existing_logs_table_to_0920_migration = $this->container['affilicious.common.migration.non_existing_logs_table_to_0920'];
 				$non_existing_logs_table_to_0920_migration->migrate();
+
+				$logs_cleaner_timer_to_0922_migration = $this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'];
+				$logs_cleaner_timer_to_0922_migration->migrate();
 			}, 9999);
 		}
 
@@ -406,6 +417,18 @@ if(!class_exists('Affilicious')) {
 			// Common services
 			$this->container['affilicious.common.logger'] = function () {
 				return new \Affilicious\Common\Logger\Logger();
+			};
+
+			$this->container['affilicious.common.logs.cleaner'] = function ($c) {
+				return new \Affilicious\Common\Logs\Logs_Cleaner(
+					$c['affilicious.common.logger']
+				);
+			};
+
+			$this->container['affilicious.common.logs.cleaner_timer'] = function ($c) {
+				return new \Affilicious\Common\Logs\Logs_Cleaner_Timer(
+					$c['affilicious.common.logs.cleaner']
+				);
 			};
 
 			$this->container['affilicious.common.generator.slug'] = function () {
@@ -472,6 +495,12 @@ if(!class_exists('Affilicious')) {
 			$this->container['affilicious.common.migration.non_existing_logs_table_to_0920'] = function ($c) {
 				return new \Affilicious\Common\Migration\Non_Existing_Logs_Table_To_0920_Migration(
 					$c['affilicious.common.table_creator.logs']
+				);
+			};
+
+			$this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'] = function ($c) {
+				return new \Affilicious\Common\Migration\Logs_Cleaner_Timer_to_0922_Migration(
+					$c['affilicious.common.logs.cleaner_timer']
 				);
 			};
 
@@ -1068,6 +1097,10 @@ if(!class_exists('Affilicious')) {
 			add_action('init', array($slug_rewrite_setup, 'run'), 1);
 			add_action('added_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
 			add_action('updated_option', array($slug_rewrite_setup, 'prepare'), 80, 1);
+
+			// Hook the logs cleaner timer.
+			$logs_cleaner_timer = $this->container['affilicious.common.logs.cleaner_timer'];
+			add_action('aff_common_logs_clean_up_daily', array($logs_cleaner_timer, 'clean_up_daily'));
 
 			// Hook the providers.
 			$provider_setup = $this->container['affilicious.provider.setup.provider'];
