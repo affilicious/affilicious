@@ -14,7 +14,7 @@ class Table_Rows_Filter
     /**
      * @var Provider_Repository_Interface
      */
-    private $provider_repository;
+    protected $provider_repository;
 
     /**
      * @since 0.9
@@ -37,23 +37,61 @@ class Table_Rows_Filter
      */
     public function filter($row, $column_name, $term_id)
     {
-        $value = '';
-
-        if ($column_name == 'thumbnail') {
-            $thumbnail_id = carbon_get_term_meta($term_id, Carbon_Shop_Template_Repository::THUMBNAIL_ID);
-            if(!empty($thumbnail_id)) {
-                $value = wp_get_attachment_image($thumbnail_id, 'featured_preview');
-            }
+        if ($column_name == 'aff_thumbnail') {
+            $row = $this->render_thumbnail_row($row, $term_id);
         }
 
-        if ($column_name == 'provider') {
-            $provider_id = carbon_get_term_meta($term_id, Carbon_Shop_Template_Repository::PROVIDER);
-            if(!empty($provider_id) && $provider_id != 'none') {
-                $provider = $this->provider_repository->find_one_by_id(new Provider_Id($provider_id));
-                $value = $provider === null ?: $provider->get_name()->get_value();
-            }
+        if ($column_name == 'aff_provider') {
+			$row = $this->render_provider_row($row, $term_id);
         }
 
-        return $row . $value;
+        return $row;
     }
+
+	/**
+	 * Render the thumbnail row into the shop template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param string $row The admin table column row content.
+	 * @param int $term_id The term of the current row.
+	 * @return string The filtered row content.
+	 */
+    protected function render_thumbnail_row($row, $term_id)
+    {
+	    $thumbnail_id = carbon_get_term_meta($term_id, Carbon_Shop_Template_Repository::THUMBNAIL_ID);
+	    if(!empty($thumbnail_id)) {
+		    $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'featured_preview');
+
+		    $row .= sprintf(
+			    '<img class="aff-admin-table-shop-template-thumbnail aff-admin-table-thumbnail" src="%s" />',
+			    esc_url($thumbnail_url)
+		    );
+	    }
+
+	    return $row;
+    }
+
+	/**
+	 * Render the provider row into the shop template admin table.
+	 *
+	 * @since 0.9.22
+	 * @param string $row The admin table column row content.
+	 * @param int $term_id The term of the current row.
+	 * @return string The filtered row content.
+	 */
+	protected function render_provider_row($row, $term_id)
+	{
+		$provider_id = carbon_get_term_meta($term_id, Carbon_Shop_Template_Repository::PROVIDER);
+		if(!empty($provider_id) && $provider_id != 'none') {
+			$provider = $this->provider_repository->find(new Provider_Id($provider_id));
+			$name = $provider->get_name()->get_value();
+
+			$row .= sprintf(
+				'<span class="aff-admin-table-shop-template-provider">%s</span>',
+				esc_html($name)
+			);
+		}
+
+		return $row;
+	}
 }

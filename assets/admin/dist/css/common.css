@@ -81,6 +81,20 @@
 .aff-admin-notice-info {
   border-left: 4px solid #5aa4f0; }
 
+.aff-admin-table-thumbnail {
+  width: 100%;
+  max-width: 100px;
+  height: auto; }
+
+.aff-admin-table-product-availability-available {
+  color: #2fa32f; }
+
+.aff-admin-table-product-availability-out-of-stock {
+  color: #ff2320; }
+
+.wp-list-table .column-aff_thumbnail, .wp-list-table .column-aff_product_id, .wp-list-table .column-aff_price, .wp-list-table .column-aff_availability {
+  width: 100px; }
+
 #aff-footer-thank-you {
   font-style: italic; }
 
@@ -254,24 +268,3 @@
 
 .aff-logs-download {
   margin-bottom: 15px  !important; }
-
-.taxonomy-aff_shop_tmpl .wp-editor-tools,
-.taxonomy-aff_shop_tmpl .wp-editor-container,
-.taxonomy-aff_shop_tmpl .term-description-wrap,
-.taxonomy-aff_attribute_tmpl .wp-editor-tools,
-.taxonomy-aff_attribute_tmpl .wp-editor-container,
-.taxonomy-aff_attribute_tmpl .term-description-wrap,
-.taxonomy-aff_detail_tmpl .wp-editor-tools,
-.taxonomy-aff_detail_tmpl .wp-editor-container,
-.taxonomy-aff_detail_tmpl .term-description-wrap {
-  display: none;
-  visibility: hidden; }
-
-.taxonomy-aff_shop_tmpl .wp-list-table .column-thumbnail,
-.post-type-aff_product .wp-list-table .column-thumbnail {
-  width: 100px; }
-  .taxonomy-aff_shop_tmpl .wp-list-table .column-thumbnail img,
-  .post-type-aff_product .wp-list-table .column-thumbnail img {
-    width: 100%;
-    max-width: 100px;
-    height: auto; }

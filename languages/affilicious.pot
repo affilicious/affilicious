@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-01-12 15:09+0100\n"
+"POT-Creation-Date: 2018-02-10 13:19+0100\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: Affilicious\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.5\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: affilicious.php\n"
@@ -26,56 +26,56 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: bin\n"
 "X-Poedit-SearchPathExcluded-5: tests\n"
 
-#: affilicious.php:232
+#: affilicious.php:233
 #, php-format
 msgid ""
 "The Affilicious Plugin requires at least the PHP Version %s to reveal the "
 "full potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
-#: affilicious.php:242
+#: affilicious.php:243
 #, php-format
 msgid ""
 "The Affilicious Plugin requires the PHP extension %s. Please install the PHP "
 "extension in your hosting provider."
 msgstr ""
 
-#: functions.php:553
+#: functions.php:554
 #, php-format
 msgid "based on %s review"
 msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:2122
+#: functions.php:2195
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr ""
 
-#: functions.php:2182
+#: functions.php:2255
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:2946 src/product/customizer/universal-box-customizer.php:623
+#: functions.php:3019 src/product/customizer/universal-box-customizer.php:623
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
 
-#: functions.php:2985
+#: functions.php:3058
 msgid "Unfortunately not available"
 msgstr ""
 
-#: src/attribute/admin/filter/table-columns-filter.php:24
+#: src/attribute/admin/filter/table-columns-filter.php:40
 #: src/attribute/admin/meta-box/attribute-template-meta-box.php:27
-#: src/detail/admin/filter/table-columns-filter.php:24
+#: src/detail/admin/filter/table-columns-filter.php:40
 #: src/detail/admin/meta-box/detail-template-meta-box.php:27
 #: src/product/admin/meta-box/product-meta-box.php:106
 msgid "Type"
 msgstr ""
 
-#: src/attribute/admin/filter/table-columns-filter.php:25
+#: src/attribute/admin/filter/table-columns-filter.php:58
 #: src/attribute/admin/meta-box/attribute-template-meta-box.php:33
-#: src/detail/admin/filter/table-columns-filter.php:25
+#: src/detail/admin/filter/table-columns-filter.php:58
 #: src/detail/admin/meta-box/detail-template-meta-box.php:35
 msgid "Unit"
 msgstr ""
@@ -243,39 +243,34 @@ msgid ""
 "\"nofollow\">%s</a> now."
 msgstr ""
 
-#: src/common/admin/notice/download-recommendation-notice.php:90
-#: src/common/admin/page/addons-page.php:101
-msgid "Extensions"
-msgstr ""
-
-#: src/common/admin/options/affilicious-options.php:76
+#: src/common/admin/options/affilicious-options.php:79
 msgid "Licenses"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:77
+#: src/common/admin/options/affilicious-options.php:80
 msgid "Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:78
+#: src/common/admin/options/affilicious-options.php:81
 msgid "Notices"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:79
+#: src/common/admin/options/affilicious-options.php:82
 msgid "System"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:80
+#: src/common/admin/options/affilicious-options.php:83
 msgid "Logs"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:97
+#: src/common/admin/options/affilicious-options.php:108
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
 "\" target=\"_blank\">Affilicious Theme</a>."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:98
+#: src/common/admin/options/affilicious-options.php:109
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
@@ -283,31 +278,31 @@ msgid ""
 "what you can start with."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:121
+#: src/common/admin/options/affilicious-options.php:129
 msgid "Custom Header Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:122
+#: src/common/admin/options/affilicious-options.php:130
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
 "or &lt;script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:123
+#: src/common/admin/options/affilicious-options.php:131
 msgid "Custom Footer Scripts"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:124
+#: src/common/admin/options/affilicious-options.php:132
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or "
 "JS with the proper &lt;style&gt or &lt;script&gt tags."
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:139
+#: src/common/admin/options/affilicious-options.php:147
 msgid "Disable download recommendations"
 msgstr ""
 
-#: src/common/admin/options/affilicious-options.php:140
+#: src/common/admin/options/affilicious-options.php:148
 msgid ""
 "If you enable this option, download recommendation notices won't be shown "
 "after activation anymore."
@@ -523,10 +518,36 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: src/product/admin/filter/table-columns-filter.php:24
+#: src/product/admin/filter/table-columns-filter.php:40
 #: src/product/admin/meta-box/product-meta-box.php:212
-#: src/shop/admin/filter/table-columns-filter.php:24
+#: src/shop/admin/filter/table-columns-filter.php:40
 msgid "Thumbnail"
+msgstr ""
+
+#: src/product/admin/filter/table-columns-filter.php:58
+msgid "Product ID"
+msgstr ""
+
+#: src/product/admin/filter/table-columns-filter.php:76
+#: src/product/admin/meta-box/product-meta-box.php:369
+#: src/product/customizer/universal-box-customizer.php:296
+msgid "Price"
+msgstr ""
+
+#: src/product/admin/filter/table-columns-filter.php:94
+#: src/product/admin/meta-box/product-meta-box.php:363
+msgid "Availability"
+msgstr ""
+
+#: src/product/admin/filter/table-rows-filter.php:100
+#: src/product/admin/meta-box/product-meta-box.php:366
+#: src/shop/model/availability.php:107
+msgid "Available"
+msgstr ""
+
+#: src/product/admin/filter/table-rows-filter.php:105
+#: src/shop/model/availability.php:110
+msgid "Out of stock"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:85
@@ -631,22 +652,8 @@ msgstr ""
 msgid "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID and etc."
 msgstr ""
 
-#: src/product/admin/meta-box/product-meta-box.php:363
-msgid "Availability"
-msgstr ""
-
-#: src/product/admin/meta-box/product-meta-box.php:366
-#: src/shop/model/availability.php:107
-msgid "Available"
-msgstr ""
-
 #: src/product/admin/meta-box/product-meta-box.php:367
 msgid "Out Of Stock"
-msgstr ""
-
-#: src/product/admin/meta-box/product-meta-box.php:369
-#: src/product/customizer/universal-box-customizer.php:296
-msgid "Price"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:371
@@ -1069,7 +1076,7 @@ msgstr ""
 
 #: src/product/import/amazon/amazon-import.php:137
 #: src/product/search/amazon/amazon-search.php:380
-#: src/product/update/worker/amazon/amazon-update-worker.php:230
+#: src/product/update/worker/amazon/amazon-update-worker.php:250
 msgid "Amazon has throttled your request speed for a short time."
 msgstr ""
 
@@ -1251,35 +1258,6 @@ msgctxt "Product"
 msgid "Filter %s"
 msgstr ""
 
-#: src/product/update/configuration/configuration-context.php:124
-#, php-format
-msgid "Invalid configuration context. The value for the key \"%s\" is missing."
-msgstr ""
-
-#: src/product/update/configuration/configuration-context.php:132
-#, php-format
-msgid ""
-"Invalid configuration context. The value for the key \"%s\" must implement "
-"%s."
-msgstr ""
-
-#: src/product/update/configuration/configuration-context.php:140
-#, php-format
-msgid "Invalid configuration context. The value for the key %s is missing."
-msgstr ""
-
-#: src/product/update/configuration/configuration.php:132
-#, php-format
-msgid "Invalid configuration. Neither \"%s\" nor \"%s\" has been found."
-msgstr ""
-
-#: src/product/update/configuration/configuration.php:140
-#: src/product/update/configuration/configuration.php:147
-#: src/product/update/configuration/configuration.php:154
-#, php-format
-msgid "Invalid configuration. The value for the key \"%s\" is missing."
-msgstr ""
-
 #: src/provider/admin/options/amazon-options.php:51
 msgid "Amazon"
 msgstr ""
@@ -1298,8 +1276,8 @@ msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:73
 msgid ""
-"The access key is used to identify you as an API user. It's not your private "
-"Amazon username."
+"The access key is used to identify you as an API user. It's not your "
+"protected Amazon username."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:74
@@ -1309,7 +1287,7 @@ msgstr ""
 #: src/provider/admin/options/amazon-options.php:75
 msgid ""
 "The secret key is used like a password to sign your API requests. It's not "
-"your private Amazon password."
+"your protected Amazon password."
 msgstr ""
 
 #: src/provider/admin/options/amazon-options.php:76
@@ -1507,7 +1485,7 @@ msgstr ""
 msgid "The associate tag for the Amazon provider is missing."
 msgstr ""
 
-#: src/shop/admin/filter/table-columns-filter.php:31
+#: src/shop/admin/filter/table-columns-filter.php:58
 #: src/shop/admin/meta-box/shop-template-meta-box.php:58
 msgid "Provider"
 msgstr ""
@@ -1528,10 +1506,6 @@ msgstr ""
 
 #: src/shop/admin/meta-box/shop-template-meta-box.php:63
 msgid "The logo is used to show an image near the shop prices in products."
-msgstr ""
-
-#: src/shop/model/availability.php:110
-msgid "Out of stock"
 msgstr ""
 
 #: src/shop/repository/carbon/carbon-shop-template-repository.php:48
@@ -1900,8 +1874,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"The best affiliate solution in Wordpress with products & variants, shops, "
-"price comparisons, Amazon import & update and much more."
+"The simplest and most flexible Wordpress affiliate solution with products & "
+"variants, shops, price comparisons and much more."
 msgstr ""
 
 #. Author of the plugin/theme

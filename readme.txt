@@ -3,8 +3,8 @@ Contributors: affilicioustheme
 Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.9.2
-Stable tag: 0.9.21
+Tested up to: 4.9.4
+Stable tag: 0.9.22
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -101,6 +101,14 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.22 =
+* New: Added product ID, price and availability column to product admin tables.
+* New: Added daily logs cleaner to reduce logs records down to 10.000.
+* New: Added daily orphaned product variants cleaner to clean up product variants without parent products.
+* Improvement: Added Amazon ASIN search with variants.
+* Improvement: Changed some translations.
+* Fix: Fixed some translations.
+
 = 0.9.21 =
 * Improvement: Changed the product update flow to allow up to 100 product updates per provider.
 * Improvement: Changed some log messages.
