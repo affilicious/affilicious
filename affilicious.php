@@ -33,20 +33,21 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-define('AFFILICIOUS_VERSION', '0.9.22');
-define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
-define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
+define('AFFILICIOUS_VERSION', '0.9.22');
+define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
+define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 
 if(!class_exists('Affilicious')) {
 
 	final class Affilicious
 	{
 		const NAME = 'affilicious';
-		const VERSION = '0.9.22';
-		const MIN_PHP_VERSION = '5.6';
+		const VERSION = AFFILICIOUS_VERSION;
+		const MIN_PHP_VERSION = AFFILICIOUS_MIN_PHP_VERSION;
+		const MIN_WORDPRESS_VERSION = AFFILICIOUS_MIN_WORDPRESS_VERSION;
 
 		/**
 		 * Stores the singleton instance
@@ -92,6 +93,17 @@ if(!class_exists('Affilicious')) {
 			$service = $container[$service_id];
 
 			return $service;
+		}
+
+		/**
+		 * Get the base name of the plugin.
+		 *
+		 * @since 0.9.23
+		 * @return string
+		 */
+		public static function get_base_name()
+		{
+			return AFFILICIOUS_AFFILINET_IMPORT_AND_UPDATE_BASE_NAME;
 		}
 
 		/**
@@ -225,24 +237,42 @@ if(!class_exists('Affilicious')) {
 		 */
 		public function activate($network_wide = false)
 		{
+			global $wp_version;
+
+			$this->load_textdomain();
+
 			// Check the PHP version requirement
 			if (!version_compare(phpversion(), self::MIN_PHP_VERSION, '>=')) {
-				deactivate_plugins(AFFILICIOUS_BASE_NAME);
-
-				$this->load_textdomain();
-				wp_die(sprintf(
-					__('The Affilicious Plugin requires at least the PHP Version %s to reveal the full potential. Please switch the PHP version in your hosting provider.', 'affilicious'),
+				$error = sprintf(
+					__('Affilicious requires at least the PHP Version %s to reveal the full potential. Please switch the PHP version in your hosting provider.', 'affilicious'),
 					self::MIN_PHP_VERSION
-				));
+				);
 			}
 
-			if (!extension_loaded('mbstring')) {
-				deactivate_plugins(AFFILICIOUS_BASE_NAME);
+			// Check the Wordpress version requirement.
+			elseif(!version_compare($wp_version, self::MIN_WORDPRESS_VERSION, '>=')) {
+				$error = sprintf(
+					__('Affilicious requires at least the Wordpress Version %s. Please update Wordpress in the <a href="%s">updates area</a>.', 'affilicious'),
+					self::MIN_WORDPRESS_VERSION,
+					admin_url('update-core.php')
+				);
+			}
 
-				$this->load_textdomain();
-				wp_die(sprintf(
+			// Check the mbstring extension requirement.
+			elseif(!extension_loaded('mbstring')) {
+				$error = sprintf(
 					__('The Affilicious Plugin requires the PHP extension %s. Please install the PHP extension in your hosting provider.', 'affilicious'),
-					'mdstring'
+					'mbstring'
+				);
+			}
+
+			// Trigger the error message.
+			if(isset($error)) {
+				deactivate_plugins(self::get_base_name());
+
+				wp_die($error . '<br><br>' . sprintf(
+					__('Go back to the <a href="%s">plugins area</a>', 'affilicious'),
+					admin_url('plugins.php')
 				));
 			}
 

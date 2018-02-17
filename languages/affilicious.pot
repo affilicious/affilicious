@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-02-10 13:19+0100\n"
+"POT-Creation-Date: 2018-02-17 11:19+0100\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
@@ -26,42 +26,54 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: bin\n"
 "X-Poedit-SearchPathExcluded-5: tests\n"
 
-#: affilicious.php:233
+#: affilicious.php:247
 #, php-format
 msgid ""
-"The Affilicious Plugin requires at least the PHP Version %s to reveal the "
-"full potential. Please switch the PHP version in your hosting provider."
+"Affilicious requires at least the PHP Version %s to reveal the full "
+"potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
-#: affilicious.php:243
+#: affilicious.php:255
+#, php-format
+msgid ""
+"Affilicious requires at least the Wordpress Version %s. Please update "
+"Wordpress in the <a href=\"%s\">updates area</a>."
+msgstr ""
+
+#: affilicious.php:264
 #, php-format
 msgid ""
 "The Affilicious Plugin requires the PHP extension %s. Please install the PHP "
 "extension in your hosting provider."
 msgstr ""
 
-#: functions.php:554
+#: affilicious.php:274
+#, php-format
+msgid "Go back to the <a href=\"%s\">plugins area</a>"
+msgstr ""
+
+#: functions.php:569
 #, php-format
 msgid "based on %s review"
 msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:2195
+#: functions.php:2211
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr ""
 
-#: functions.php:2255
+#: functions.php:2271
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:3019 src/product/customizer/universal-box-customizer.php:623
+#: functions.php:3035 src/product/customizer/universal-box-customizer.php:623
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
 
-#: functions.php:3058
+#: functions.php:3074
 msgid "Unfortunately not available"
 msgstr ""
 
