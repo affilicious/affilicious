@@ -103,7 +103,7 @@ if(!class_exists('Affilicious')) {
 		 */
 		public static function get_base_name()
 		{
-			return AFFILICIOUS_AFFILINET_IMPORT_AND_UPDATE_BASE_NAME;
+			return AFFILICIOUS_BASE_NAME;
 		}
 
 		/**
