@@ -17,7 +17,7 @@ $product = !empty($product) ? $product : aff_get_product();
 		</div>
 
         <?php if(aff_has_product_review_votes($product)): ?>
-            <div class="aff-product-review-votes"><?php aff_the_product_review_votes($product); ?></div>
+            <div class="aff-product-review-votes"><?php aff_the_product_review_votes($product, 'html'); ?></div>
         <?php endif; ?>
     </div>
 <?php endif; ?>
