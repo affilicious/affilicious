@@ -13,7 +13,7 @@
  * Domain Path: languages/
  *
  * Affilicious
- * Copyright (C) 2016-2017, Affilicious - support@affilicioustheme.de
+ * Copyright (C) 2016-2018, Affilicious - support@affilicioustheme.de
  *
  * Affilicious is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
