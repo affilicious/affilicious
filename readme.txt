@@ -4,7 +4,7 @@ Author URI: https://affilicioustheme.com
 Plugin URI: https://affilicioustheme.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.4
-Stable tag: 0.9.22
+Stable tag: 0.9.23
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -97,6 +97,11 @@ If you want to get support, check out this [page](https://affilicioustheme.de/su
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.9.23 =
+* Improvement: Added Wordpress version check on plugin activation.
+* Improvement: Updated copyright year.
+* Improvement: Removed starter package from readme.txt.
+
 = 0.9.22 =
 * New: Added product ID, price and availability column to product admin tables.
 * New: Added daily logs cleaner to reduce logs records down to 10.000.

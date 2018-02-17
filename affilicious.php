@@ -5,7 +5,7 @@
  * Author: Affilicious Theme
  * Author URI: https://affilicioustheme.com/
  * Description: The simplest and most flexible Wordpress affiliate solution with products & variants, shops, price comparisons and much more.
- * Version: 0.9.22
+ * Version: 0.9.23
  * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.9.4
@@ -36,7 +36,7 @@ if (!defined('ABSPATH')) {
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
-define('AFFILICIOUS_VERSION', '0.9.22');
+define('AFFILICIOUS_VERSION', '0.9.23');
 define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
 define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 
