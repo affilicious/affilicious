@@ -42,7 +42,7 @@ define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
 
 if(!class_exists('Affilicious')) {
 
-	class Affilicious
+	final class Affilicious
 	{
 		const NAME = 'affilicious';
 		const VERSION = '0.9.22';
