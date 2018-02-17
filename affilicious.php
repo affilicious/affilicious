@@ -42,7 +42,7 @@ define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 
 if(!class_exists('Affilicious')) {
 
-	final class Affilicious
+	class Affilicious
 	{
 		const NAME = 'affilicious';
 		const VERSION = AFFILICIOUS_VERSION;
