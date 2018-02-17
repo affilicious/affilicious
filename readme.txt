@@ -13,7 +13,7 @@ Create and manage affiliate websites in Wordpress with products & variants, auto
 
 == Description ==
 
-Affilicious is a free and complete Wordpress affiliate solution that allows you to sell affiliate products without effort. Learn more at [https://affilicioustheme.de](https://affilicioustheme.de/?utm_campaign=starter-packet&utm_source=wordpress&utm_medium=description&utm_content=description-introduction) (Homepage is currently only available in German).
+Affilicious is a free and complete Wordpress affiliate solution that allows you to sell affiliate products without effort. Learn more at [https://affilicioustheme.de](https://affilicioustheme.de/?utm_campaign=affilicious&utm_source=wordpress&utm_medium=description&utm_content=description-introduction) (Homepage is currently only available in German).
 
 = Sell anything effortlessly =
 
@@ -35,7 +35,7 @@ Affilicious comes with support for two languages: English and German. However, y
 
 Choose from beautiful [affiliate themes](https://affilicioustheme.de/downloads/category/themes/?utm_campaign=themes&utm_source=wordpress&utm_medium=description&utm_content=description-themes) which seamlessly integrate Affilicious into their core:
 
-- [Affilivice](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) The free starter theme will give your Wordpress affiliate site a new lease of life.
+- [Affilivice](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) This free theme will give your Wordpress affiliate site a new lease of life.
 - [Eleganz](https://affilicioustheme.de/downloads/eleganz/?utm_campaign=eleganz&utm_source=wordpress&utm_medium=description&utm_content=description-themes-eleganz) The fashion-adapted affiliate shop theme offers your visitors a suitable atmosphere to buy.
 
 = Reach the next level with addons =
@@ -72,15 +72,11 @@ The full documentation for Affilicious and all themes and plugin can be found at
 
 = Is there any free theme available? =
 
-Yes, you can start with our free [Affilivice Theme](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=faq&utm_content=faq-free-theme-available) which belongs to our starter packet.
+Yes, you can start with our free [Affilivice Theme](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=faq&utm_content=faq-free-theme-available).
 
 = Does Affilicious work with my existing theme? =
 
 Affilicious contains a feature called "Universal Mode" which allows you to run it on every Wordpress theme.
-
-= What is the starter packet? =
-
-The starter packet just bundles the free Affilicious plugin and Affilivice theme into a downloadable ZIP file.
 
 = Can I import existing products from Amazon, eBay and co.? =
 
