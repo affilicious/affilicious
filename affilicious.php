@@ -637,34 +637,12 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
-			$this->container['affilicious.provider.setup.amazon_provider'] = function ($c) {
-				return new \Affilicious\Provider\Setup\Amazon_Provider_Setup(
-					$c['affilicious.provider.factory.provider.amazon']
-				);
-			};
-
 			$this->container['affilicious.provider.repository.provider'] = function ($c) {
 				return new \Affilicious\Provider\Repository\Carbon\Carbon_Provider_Repository(
 					$c['affilicious.common.generator.key']
 				);
 			};
-
-			$this->container['affilicious.provider.factory.provider.amazon'] = function ($c) {
-				return new \Affilicious\Provider\Factory\In_Memory\In_Memory_Amazon_Provider_Factory(
-					$c['affilicious.common.generator.slug']
-				);
-			};
-
-			$this->container['affilicious.provider.validator.amazon_credentials'] = function () {
-				return new \Affilicious\Provider\Validator\Amazon\Amazon_Credentials_Validator();
-			};
-
-			$this->container['affilicious.provider.admin.options.amazon'] = function ($c) {
-				return new \Affilicious\Provider\Admin\Options\Amazon_Options(
-					$c['affilicious.provider.validator.amazon_credentials']
-				);
-			};
-
+			
 			// Shop services
 			$this->container['affilicious.shop.setup.shop_template'] = function () {
 				return new \Affilicious\Shop\Setup\Shop_Template_Setup();
@@ -949,38 +927,10 @@ if(!class_exists('Affilicious')) {
 					$c['affilicious.product.update.manager']
 				);
 			};
-
-			$this->container['affilicious.product.setup.amazon_update_worker'] = function ($c) {
-				return new \Affilicious\Product\Setup\Amazon_Update_Worker_Setup(
-					$c['affilicious.product.update.worker.amazon']
-				);
-			};
-
-			$this->container['affilicious.product.update.worker.amazon'] = function ($c) {
-				return new \Affilicious\Product\Update\Worker\Amazon\Amazon_Update_Worker(
-					$c['affilicious.product.repository.product'],
-					$c['affilicious.shop.repository.shop_template'],
-					$c['affilicious.provider.repository.provider'],
-					$c['affilicious.common.logger']
-				);
-			};
-
+			
 			$this->container['affilicious.product.setup.update_queue'] = function ($c) {
 				return new \Affilicious\Product\Setup\Update_Queue_Setup(
 					$c['affilicious.product.update.task.broker']
-				);
-			};
-
-			$this->container['affilicious.product.import.amazon'] = function($c) {
-				return new \Affilicious\Product\Import\Amazon\Amazon_Import(
-					$c['affilicious.provider.repository.provider']
-				);
-			};
-
-			$this->container['affilicious.product.search.amazon'] = function($c) {
-				return new \Affilicious\Product\Search\Amazon\Amazon_Search(
-					$c['affilicious.product.repository.product'],
-					$c['affilicious.provider.repository.provider']
 				);
 			};
 
@@ -1072,13 +1022,6 @@ if(!class_exists('Affilicious')) {
 				return new \Affilicious\Product\Admin\Filter\Table_Rows_Filter();
 			};
 
-			$this->container['affilicious.product.admin.page.amazon_import'] = function ($c) {
-				return new \Affilicious\Product\Admin\Page\Amazon\Amazon_Import_Page(
-					$c['affilicious.shop.repository.shop_template'],
-					$c['affilicious.provider.repository.provider']
-				);
-			};
-
 			$this->container['affilicious.product.admin.meta_box.product'] = function($c) {
 				return new \Affilicious\Product\Admin\Meta_Box\Product_Meta_Box(
 					$c['affilicious.shop.repository.shop_template'],
@@ -1090,23 +1033,6 @@ if(!class_exists('Affilicious')) {
 
 			$this->container['affilicious.product.admin.options.product'] = function () {
 				return new \Affilicious\Product\Admin\Options\Product_Options();
-			};
-
-			$this->container['affilicious.product.admin.ajax_handler.amazon_search'] = function ($c) {
-				return new \Affilicious\Product\Admin\Ajax_Handler\Amazon_Search_Ajax_Handler(
-					$c['affilicious.product.search.amazon'],
-					$c['affilicious.product.repository.product']
-				);
-			};
-
-			$this->container['affilicious.product.admin.ajax_handler.amazon_import'] = function ($c) {
-				return new \Affilicious\Product\Admin\Ajax_Handler\Amazon_Import_Ajax_Handler(
-					$c['affilicious.product.import.amazon'],
-					$c['affilicious.product.repository.product'],
-					$c['affilicious.shop.factory.shop_template'],
-					$c['affilicious.shop.repository.shop_template'],
-					$c['affilicious.provider.repository.provider']
-				);
 			};
 
 			$this->container['affilicious.product.admin.filter.table_content'] = function () {
@@ -1168,9 +1094,7 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the providers.
 			$provider_setup = $this->container['affilicious.provider.setup.provider'];
-			$amazon_provider_setup = $this->container['affilicious.provider.setup.amazon_provider'];
 			add_action('init', array($provider_setup, 'init'), 5);
-			add_filter('aff_provider_init', array($amazon_provider_setup, 'init'), 5);
 
 			// Hook the logger handlers
 			$logger_handler_setup = $this->container['affilicious.common.setup.logger_handler'];
@@ -1182,9 +1106,7 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the product update workers.
 			$update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
-			$amazon_update_worker_setup = $this->container['affilicious.product.setup.amazon_update_worker'];
 			add_action('init', array($update_worker_setup, 'init'), 5);
-			add_filter('aff_product_update_worker_init', array($amazon_update_worker_setup, 'init'), 5);
 
 			// Hook the public assets.
 			$assets_setup = $this->container['affilicious.common.setup.assets'];
@@ -1360,17 +1282,13 @@ if(!class_exists('Affilicious')) {
 			// Hook the option pages.
 			$affilicious_options = $this->container['affilicious.common.admin.options.affilicious'];
 			$product_options = $this->container['affilicious.product.admin.options.product'];
-			$provider_options = $this->container['affilicious.provider.admin.options.amazon'];
 			add_action('init', array($affilicious_options, 'render'), 15);
 			add_action('init', array($product_options, 'render'), 20);
-			add_action('init', array($provider_options, 'render'), 20);
 
 			// Hook the import pages
 			$import_page_setup = $this->container['affilicious.product.admin.setup.import_page'];
-			$amazon_import_page = $this->container['affilicious.product.admin.page.amazon_import'];
 			add_action('admin_menu', array($import_page_setup, 'init'));
 			add_filter('parent_file', array($import_page_setup, 'highlighted_url'));
-			add_filter('aff_product_admin_import_pages', array($amazon_import_page, 'init'));
 
 			// Hook the add-ons page.
 			$addons_page = $this->container['affilicious.common.admin.page.addons'];
@@ -1386,11 +1304,7 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the ajax handlers.
             $dismissed_notice_ajax_handler = $this->container['affilicious.common.admin.ajax_handler.dismissed_notice'];
-			$amazon_search_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_search'];
-			$amazon_import_ajax_handler = $this->container['affilicious.product.admin.ajax_handler.amazon_import'];
 			add_action('wp_ajax_aff_dismissed_notice', array($dismissed_notice_ajax_handler , 'handle'));
-			add_action('wp_ajax_aff_product_admin_amazon_search', array($amazon_search_ajax_handler, 'handle'));
-			add_action('wp_ajax_aff_product_admin_amazon_import', array($amazon_import_ajax_handler, 'handle'));
 
 			// Hook into this action if you want to create custom extensions or themes with the dependency injection container.
 			do_action('aff_admin_hooks');

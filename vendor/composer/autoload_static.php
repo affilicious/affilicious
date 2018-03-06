@@ -4,12 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
+class ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13
 {
     public static $files = array (
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '74704c95e6224e3a13dba163dbbb87fa' => __DIR__ . '/..' . '/htmlburger/carbon-fields/carbon-fields.php',
         '1c3af1f7c867149c2eb8dfa733be2e98' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/functions.php',
     );
@@ -21,14 +18,7 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         ),
         'P' => 
         array (
-            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
         ),
         'C' => 
         array (
@@ -36,7 +26,6 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         ),
         'A' => 
         array (
-            'ApaiIO\\' => 7,
             'Affilicious\\' => 12,
         ),
     );
@@ -46,33 +35,13 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'GuzzleHttp\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
-        ),
-        'GuzzleHttp\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
         'Carbon_Fields\\' => 
         array (
             0 => __DIR__ . '/..' . '/htmlburger/carbon-fields/core',
-        ),
-        'ApaiIO\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO',
         ),
         'Affilicious\\' => 
         array (
@@ -211,8 +180,6 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Detail\\Repository\\Carbon\\Carbon_Detail_Template_Repository' => __DIR__ . '/../..' . '/src/detail/repository/carbon/carbon-detail-template-repository.php',
         'Affilicious\\Detail\\Repository\\Detail_Template_Repository_Interface' => __DIR__ . '/../..' . '/src/detail/repository/detail-template-repository-interface.php',
         'Affilicious\\Detail\\Setup\\Detail_Template_Setup' => __DIR__ . '/../..' . '/src/detail/setup/detail-template-setup.php',
-        'Affilicious\\Product\\Admin\\Ajax_Handler\\Amazon_Import_Ajax_Handler' => __DIR__ . '/../..' . '/src/product/admin/ajax-handler/amazon-import-ajax-handler.php',
-        'Affilicious\\Product\\Admin\\Ajax_Handler\\Amazon_Search_Ajax_Handler' => __DIR__ . '/../..' . '/src/product/admin/ajax-handler/amazon-search-ajax-handler.php',
         'Affilicious\\Product\\Admin\\Filter\\Menu_Order_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/menu-order-filter.php',
         'Affilicious\\Product\\Admin\\Filter\\Table_Columns_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/table-columns-filter.php',
         'Affilicious\\Product\\Admin\\Filter\\Table_Content_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/table-content-filter.php',
@@ -220,7 +187,6 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Product\\Admin\\Filter\\Table_Rows_Filter' => __DIR__ . '/../..' . '/src/product/admin/filter/table-rows-filter.php',
         'Affilicious\\Product\\Admin\\Meta_Box\\Product_Meta_Box' => __DIR__ . '/../..' . '/src/product/admin/meta-box/product-meta-box.php',
         'Affilicious\\Product\\Admin\\Options\\Product_Options' => __DIR__ . '/../..' . '/src/product/admin/options/product-options.php',
-        'Affilicious\\Product\\Admin\\Page\\Amazon\\Amazon_Import_Page' => __DIR__ . '/../..' . '/src/product/admin/page/amazon/amazon-import-page.php',
         'Affilicious\\Product\\Admin\\Setup\\Import_Page_Setup' => __DIR__ . '/../..' . '/src/product/admin/setup/import-page-setup.php',
         'Affilicious\\Product\\Cleaner\\Orphaned_Product_Variants_Cleaner' => __DIR__ . '/../..' . '/src/product/cleaner/orphaned-product-variants-cleaner.php',
         'Affilicious\\Product\\Cleaner\\Orphaned_Product_Variants_Cleaner_Timer' => __DIR__ . '/../..' . '/src/product/cleaner/orphaned-product-variants-cleaner-timer.php',
@@ -234,11 +200,9 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Product\\Filter\\Complex_Product_Filter' => __DIR__ . '/../..' . '/src/product/filter/complex-product-filter.php',
         'Affilicious\\Product\\Filter\\Product_Shops_Meta_Like_Query_Filter' => __DIR__ . '/../..' . '/src/product/filter/product-shops-meta-like-query-filter.php',
         'Affilicious\\Product\\Filter\\Universal_Box_Filter' => __DIR__ . '/../..' . '/src/product/filter/universal-box-filter.php',
-        'Affilicious\\Product\\Helper\\Amazon_Helper' => __DIR__ . '/../..' . '/src/product/helper/amazon-helper.php',
         'Affilicious\\Product\\Helper\\Product_Helper' => __DIR__ . '/../..' . '/src/product/helper/product-helper.php',
         'Affilicious\\Product\\Helper\\Review_Helper' => __DIR__ . '/../..' . '/src/product/helper/review-helper.php',
         'Affilicious\\Product\\Helper\\Universal_Mode_Helper' => __DIR__ . '/../..' . '/src/product/helper/universal-mode-helper.php',
-        'Affilicious\\Product\\Import\\Amazon\\Amazon_Import' => __DIR__ . '/../..' . '/src/product/import/amazon/amazon-import.php',
         'Affilicious\\Product\\Import\\Import_Interface' => __DIR__ . '/../..' . '/src/product/import/import-interface.php',
         'Affilicious\\Product\\Listener\\Changed_Status_Complex_Product_Listener' => __DIR__ . '/../..' . '/src/product/listener/changed-status-complex-product-listener.php',
         'Affilicious\\Product\\Listener\\Create_Blog_Listener' => __DIR__ . '/../..' . '/src/product/listener/create-blog-listener.php',
@@ -294,7 +258,6 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Product\\Model\\Votes' => __DIR__ . '/../..' . '/src/product/model/votes.php',
         'Affilicious\\Product\\Repository\\Carbon\\Carbon_Product_Repository' => __DIR__ . '/../..' . '/src/product/repository/carbon/carbon-product-repository.php',
         'Affilicious\\Product\\Repository\\Product_Repository_Interface' => __DIR__ . '/../..' . '/src/product/repository/product-repository-interface.php',
-        'Affilicious\\Product\\Search\\Amazon\\Amazon_Search' => __DIR__ . '/../..' . '/src/product/search/amazon/amazon-search.php',
         'Affilicious\\Product\\Search\\Search_Interface' => __DIR__ . '/../..' . '/src/product/search/search-interface.php',
         'Affilicious\\Product\\Setup\\Admin_Bar_Setup' => __DIR__ . '/../..' . '/src/product/setup/admin-bar-setup.php',
         'Affilicious\\Product\\Setup\\Amazon_Update_Worker_Setup' => __DIR__ . '/../..' . '/src/product/setup/amazon-update-worker-setup.php',
@@ -312,29 +275,17 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Product\\Update\\Update_Manager' => __DIR__ . '/../..' . '/src/product/update/update-manager.php',
         'Affilicious\\Product\\Update\\Update_Semaphore' => __DIR__ . '/../..' . '/src/product/update/update-semaphore.php',
         'Affilicious\\Product\\Update\\Update_Timer' => __DIR__ . '/../..' . '/src/product/update/update-timer.php',
-        'Affilicious\\Product\\Update\\Worker\\Amazon\\Amazon_Update_Worker' => __DIR__ . '/../..' . '/src/product/update/worker/amazon/amazon-update-worker.php',
         'Affilicious\\Product\\Update\\Worker\\Update_Worker_Interface' => __DIR__ . '/../..' . '/src/product/update/worker/update-worker-interface.php',
-        'Affilicious\\Provider\\Admin\\Options\\Amazon_Options' => __DIR__ . '/../..' . '/src/provider/admin/options/amazon-options.php',
-        'Affilicious\\Provider\\Factory\\Amazon_Provider_Factory_Interface' => __DIR__ . '/../..' . '/src/provider/factory/amazon-provider-factory-interface.php',
-        'Affilicious\\Provider\\Factory\\In_Memory\\In_Memory_Amazon_Provider_Factory' => __DIR__ . '/../..' . '/src/provider/factory/in-memory/in-memory-amazon-provider-factory.php',
         'Affilicious\\Provider\\Factory\\In_Memory\\In_Memory_Provider_Factory' => __DIR__ . '/../..' . '/src/provider/factory/in-memory/in-memory-provider-factory.php',
         'Affilicious\\Provider\\Factory\\Provider_Factory_Interface' => __DIR__ . '/../..' . '/src/provider/factory/provider-factory-interface.php',
         'Affilicious\\Provider\\Helper\\Provider_Helper' => __DIR__ . '/../..' . '/src/provider/helper/provider-helper.php',
-        'Affilicious\\Provider\\Model\\Amazon\\Access_Key' => __DIR__ . '/../..' . '/src/provider/model/amazon/access-key.php',
-        'Affilicious\\Provider\\Model\\Amazon\\Amazon_Provider' => __DIR__ . '/../..' . '/src/provider/model/amazon/amazon-provider.php',
-        'Affilicious\\Provider\\Model\\Amazon\\Associate_Tag' => __DIR__ . '/../..' . '/src/provider/model/amazon/associate-tag.php',
-        'Affilicious\\Provider\\Model\\Amazon\\Category' => __DIR__ . '/../..' . '/src/provider/model/amazon/category.php',
-        'Affilicious\\Provider\\Model\\Amazon\\Country' => __DIR__ . '/../..' . '/src/provider/model/amazon/country.php',
-        'Affilicious\\Provider\\Model\\Amazon\\Secret_Key' => __DIR__ . '/../..' . '/src/provider/model/amazon/secret-key.php',
         'Affilicious\\Provider\\Model\\Credentials' => __DIR__ . '/../..' . '/src/provider/model/credentials.php',
         'Affilicious\\Provider\\Model\\Provider' => __DIR__ . '/../..' . '/src/provider/model/provider.php',
         'Affilicious\\Provider\\Model\\Provider_Id' => __DIR__ . '/../..' . '/src/provider/model/provider-id.php',
         'Affilicious\\Provider\\Model\\Type' => __DIR__ . '/../..' . '/src/provider/model/type.php',
         'Affilicious\\Provider\\Repository\\Carbon\\Carbon_Provider_Repository' => __DIR__ . '/../..' . '/src/provider/repository/carbon/carbon-provider-repository.php',
         'Affilicious\\Provider\\Repository\\Provider_Repository_Interface' => __DIR__ . '/../..' . '/src/provider/repository/provider-repository-interface.php',
-        'Affilicious\\Provider\\Setup\\Amazon_Provider_Setup' => __DIR__ . '/../..' . '/src/provider/setup/amazon-provider-setup.php',
         'Affilicious\\Provider\\Setup\\Provider_Setup' => __DIR__ . '/../..' . '/src/provider/setup/provider-setup.php',
-        'Affilicious\\Provider\\Validator\\Amazon\\Amazon_Credentials_Validator' => __DIR__ . '/../..' . '/src/provider/validator/amazon/amazon-credentials-validator.php',
         'Affilicious\\Provider\\Validator\\Credentials_Validator_Interface' => __DIR__ . '/../..' . '/src/provider/validator/credentials-validator-interface.php',
         'Affilicious\\Shop\\Admin\\Filter\\Table_Columns_Filter' => __DIR__ . '/../..' . '/src/shop/admin/filter/table-columns-filter.php',
         'Affilicious\\Shop\\Admin\\Filter\\Table_Rows_Filter' => __DIR__ . '/../..' . '/src/shop/admin/filter/table-rows-filter.php',
@@ -363,30 +314,6 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Affilicious\\Shop\\Repository\\Carbon\\Carbon_Shop_Template_Repository' => __DIR__ . '/../..' . '/src/shop/repository/carbon/carbon-shop-template-repository.php',
         'Affilicious\\Shop\\Repository\\Shop_Template_Repository_Interface' => __DIR__ . '/../..' . '/src/shop/repository/shop-template-repository-interface.php',
         'Affilicious\\Shop\\Setup\\Shop_Template_Setup' => __DIR__ . '/../..' . '/src/shop/setup/shop-template-setup.php',
-        'ApaiIO\\ApaiIO' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/ApaiIO.php',
-        'ApaiIO\\Common\\OperationTrait' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Common/OperationTrait.php',
-        'ApaiIO\\Configuration\\ConfigurationInterface' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Configuration/ConfigurationInterface.php',
-        'ApaiIO\\Configuration\\Country' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Configuration/Country.php',
-        'ApaiIO\\Configuration\\GenericConfiguration' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Configuration/GenericConfiguration.php',
-        'ApaiIO\\Operations\\AbstractOperation' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/AbstractOperation.php',
-        'ApaiIO\\Operations\\Batch' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/Batch.php',
-        'ApaiIO\\Operations\\BrowseNodeLookup' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/BrowseNodeLookup.php',
-        'ApaiIO\\Operations\\CartAdd' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/CartAdd.php',
-        'ApaiIO\\Operations\\CartClear' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/CartClear.php',
-        'ApaiIO\\Operations\\CartCreate' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/CartCreate.php',
-        'ApaiIO\\Operations\\CartModify' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/CartModify.php',
-        'ApaiIO\\Operations\\Lookup' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/Lookup.php',
-        'ApaiIO\\Operations\\OperationInterface' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/OperationInterface.php',
-        'ApaiIO\\Operations\\Search' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/Search.php',
-        'ApaiIO\\Operations\\SimilarityLookup' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Operations/SimilarityLookup.php',
-        'ApaiIO\\Request\\GuzzleRequest' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Request/GuzzleRequest.php',
-        'ApaiIO\\Request\\RequestInterface' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Request/RequestInterface.php',
-        'ApaiIO\\Request\\Util' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/Request/Util.php',
-        'ApaiIO\\ResponseTransformer\\ResponseTransformerInterface' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/ResponseTransformer/ResponseTransformerInterface.php',
-        'ApaiIO\\ResponseTransformer\\XmlToArray' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/ResponseTransformer/XmlToArray.php',
-        'ApaiIO\\ResponseTransformer\\XmlToDomDocument' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/ResponseTransformer/XmlToDomDocument.php',
-        'ApaiIO\\ResponseTransformer\\XmlToSimpleXmlObject' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/ResponseTransformer/XmlToSimpleXmlObject.php',
-        'ApaiIO\\ResponseTransformer\\Xslt' => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO/ResponseTransformer/Xslt.php',
         'Carbon_Fields\\Container' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Container.php',
         'Carbon_Fields\\Container\\Broken_Container' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Container/Broken_Container.php',
         'Carbon_Fields\\Container\\Comment_Meta_Container' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Container/Comment_Meta_Container.php',
@@ -444,74 +371,6 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Carbon_Fields\\Walker\\Nav_Menu_Edit_Walker' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Walker/Nav_Menu_Edit_Walker.php',
         'Carbon_Fields\\Widget' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Widget.php',
         'Carbon_Fields\\Widget\\Widget' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Widget/Widget.php',
-        'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
-        'GuzzleHttp\\ClientInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientInterface.php',
-        'GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php',
-        'GuzzleHttp\\Cookie\\CookieJarInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJarInterface.php',
-        'GuzzleHttp\\Cookie\\FileCookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/FileCookieJar.php',
-        'GuzzleHttp\\Cookie\\SessionCookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/SessionCookieJar.php',
-        'GuzzleHttp\\Cookie\\SetCookie' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/SetCookie.php',
-        'GuzzleHttp\\Exception\\BadResponseException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/BadResponseException.php',
-        'GuzzleHttp\\Exception\\ClientException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/ClientException.php',
-        'GuzzleHttp\\Exception\\ConnectException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/ConnectException.php',
-        'GuzzleHttp\\Exception\\GuzzleException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/GuzzleException.php',
-        'GuzzleHttp\\Exception\\RequestException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/RequestException.php',
-        'GuzzleHttp\\Exception\\SeekException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/SeekException.php',
-        'GuzzleHttp\\Exception\\ServerException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/ServerException.php',
-        'GuzzleHttp\\Exception\\TooManyRedirectsException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/TooManyRedirectsException.php',
-        'GuzzleHttp\\Exception\\TransferException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/TransferException.php',
-        'GuzzleHttp\\HandlerStack' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/HandlerStack.php',
-        'GuzzleHttp\\Handler\\CurlFactory' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/CurlFactory.php',
-        'GuzzleHttp\\Handler\\CurlFactoryInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/CurlFactoryInterface.php',
-        'GuzzleHttp\\Handler\\CurlHandler' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/CurlHandler.php',
-        'GuzzleHttp\\Handler\\CurlMultiHandler' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/CurlMultiHandler.php',
-        'GuzzleHttp\\Handler\\EasyHandle' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/EasyHandle.php',
-        'GuzzleHttp\\Handler\\MockHandler' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/MockHandler.php',
-        'GuzzleHttp\\Handler\\Proxy' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/Proxy.php',
-        'GuzzleHttp\\Handler\\StreamHandler' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/StreamHandler.php',
-        'GuzzleHttp\\MessageFormatter' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/MessageFormatter.php',
-        'GuzzleHttp\\Middleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Middleware.php',
-        'GuzzleHttp\\Pool' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Pool.php',
-        'GuzzleHttp\\PrepareBodyMiddleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/PrepareBodyMiddleware.php',
-        'GuzzleHttp\\Promise\\AggregateException' => __DIR__ . '/..' . '/guzzlehttp/promises/src/AggregateException.php',
-        'GuzzleHttp\\Promise\\CancellationException' => __DIR__ . '/..' . '/guzzlehttp/promises/src/CancellationException.php',
-        'GuzzleHttp\\Promise\\Coroutine' => __DIR__ . '/..' . '/guzzlehttp/promises/src/Coroutine.php',
-        'GuzzleHttp\\Promise\\EachPromise' => __DIR__ . '/..' . '/guzzlehttp/promises/src/EachPromise.php',
-        'GuzzleHttp\\Promise\\FulfilledPromise' => __DIR__ . '/..' . '/guzzlehttp/promises/src/FulfilledPromise.php',
-        'GuzzleHttp\\Promise\\Promise' => __DIR__ . '/..' . '/guzzlehttp/promises/src/Promise.php',
-        'GuzzleHttp\\Promise\\PromiseInterface' => __DIR__ . '/..' . '/guzzlehttp/promises/src/PromiseInterface.php',
-        'GuzzleHttp\\Promise\\PromisorInterface' => __DIR__ . '/..' . '/guzzlehttp/promises/src/PromisorInterface.php',
-        'GuzzleHttp\\Promise\\RejectedPromise' => __DIR__ . '/..' . '/guzzlehttp/promises/src/RejectedPromise.php',
-        'GuzzleHttp\\Promise\\RejectionException' => __DIR__ . '/..' . '/guzzlehttp/promises/src/RejectionException.php',
-        'GuzzleHttp\\Promise\\TaskQueue' => __DIR__ . '/..' . '/guzzlehttp/promises/src/TaskQueue.php',
-        'GuzzleHttp\\Promise\\TaskQueueInterface' => __DIR__ . '/..' . '/guzzlehttp/promises/src/TaskQueueInterface.php',
-        'GuzzleHttp\\Psr7\\AppendStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/AppendStream.php',
-        'GuzzleHttp\\Psr7\\BufferStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/BufferStream.php',
-        'GuzzleHttp\\Psr7\\CachingStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/CachingStream.php',
-        'GuzzleHttp\\Psr7\\DroppingStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/DroppingStream.php',
-        'GuzzleHttp\\Psr7\\FnStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/FnStream.php',
-        'GuzzleHttp\\Psr7\\InflateStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/InflateStream.php',
-        'GuzzleHttp\\Psr7\\LazyOpenStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/LazyOpenStream.php',
-        'GuzzleHttp\\Psr7\\LimitStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/LimitStream.php',
-        'GuzzleHttp\\Psr7\\MessageTrait' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/MessageTrait.php',
-        'GuzzleHttp\\Psr7\\MultipartStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/MultipartStream.php',
-        'GuzzleHttp\\Psr7\\NoSeekStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/NoSeekStream.php',
-        'GuzzleHttp\\Psr7\\PumpStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/PumpStream.php',
-        'GuzzleHttp\\Psr7\\Request' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Request.php',
-        'GuzzleHttp\\Psr7\\Response' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Response.php',
-        'GuzzleHttp\\Psr7\\ServerRequest' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/ServerRequest.php',
-        'GuzzleHttp\\Psr7\\Stream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Stream.php',
-        'GuzzleHttp\\Psr7\\StreamDecoratorTrait' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/StreamDecoratorTrait.php',
-        'GuzzleHttp\\Psr7\\StreamWrapper' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/StreamWrapper.php',
-        'GuzzleHttp\\Psr7\\UploadedFile' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UploadedFile.php',
-        'GuzzleHttp\\Psr7\\Uri' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Uri.php',
-        'GuzzleHttp\\Psr7\\UriNormalizer' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UriNormalizer.php',
-        'GuzzleHttp\\Psr7\\UriResolver' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UriResolver.php',
-        'GuzzleHttp\\RedirectMiddleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RedirectMiddleware.php',
-        'GuzzleHttp\\RequestOptions' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RequestOptions.php',
-        'GuzzleHttp\\RetryMiddleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RetryMiddleware.php',
-        'GuzzleHttp\\TransferStats' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/TransferStats.php',
-        'GuzzleHttp\\UriTemplate' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/UriTemplate.php',
         'Pimple\\Container' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Container.php',
         'Pimple\\Exception\\ExpectedInvokableException' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Exception/ExpectedInvokableException.php',
         'Pimple\\Exception\\FrozenServiceException' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Exception/FrozenServiceException.php',
@@ -533,23 +392,16 @@ class ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
-        'Psr\\Http\\Message\\MessageInterface' => __DIR__ . '/..' . '/psr/http-message/src/MessageInterface.php',
-        'Psr\\Http\\Message\\RequestInterface' => __DIR__ . '/..' . '/psr/http-message/src/RequestInterface.php',
-        'Psr\\Http\\Message\\ResponseInterface' => __DIR__ . '/..' . '/psr/http-message/src/ResponseInterface.php',
-        'Psr\\Http\\Message\\ServerRequestInterface' => __DIR__ . '/..' . '/psr/http-message/src/ServerRequestInterface.php',
-        'Psr\\Http\\Message\\StreamInterface' => __DIR__ . '/..' . '/psr/http-message/src/StreamInterface.php',
-        'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
-        'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit3ab4a440f03322b2eb3b5712adc894ec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$classMap;
 
         }, null, ClassLoader::class);
     }

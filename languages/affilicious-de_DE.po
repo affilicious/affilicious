@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-02-17 11:19+0100\n"
-"PO-Revision-Date: 2018-02-17 11:20+0100\n"
+"POT-Creation-Date: 2018-03-06 19:55+0100\n"
+"PO-Revision-Date: 2018-03-06 19:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
 "Language: de_DE\n"
@@ -346,12 +346,12 @@ msgstr ""
 msgid "Add-ons"
 msgstr "Erweiterungen"
 
-#: src/common/admin/setup/assets-setup.php:66
+#: src/common/admin/setup/assets-setup.php:64
 #: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
-#: src/common/admin/setup/assets-setup.php:67
+#: src/common/admin/setup/assets-setup.php:65
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
@@ -359,7 +359,7 @@ msgstr "Affilicious Produkt"
 msgid "Variants"
 msgstr "Varianten"
 
-#: src/common/admin/setup/assets-setup.php:68
+#: src/common/admin/setup/assets-setup.php:66
 #: src/product/admin/meta-box/product-meta-box.php:87
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
@@ -371,7 +371,7 @@ msgstr "Varianten"
 msgid "Shops"
 msgstr "Shops"
 
-#: src/common/admin/setup/assets-setup.php:74
+#: src/common/admin/setup/assets-setup.php:72
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -512,40 +512,6 @@ msgstr "%s Navigation"
 msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr "%s filtern"
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:136
-msgid "The Amazon import request is not valid."
-msgstr "Die Amazon Import Anfrage ist nicht valide."
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:160
-msgid "Specify a shop name if you want to create a new shop."
-msgstr "Gebe einen Shop-Namen an, damit du einen neuen Shop erstellen kannst."
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:166
-msgid "Failed to find the Amazon provider."
-msgstr "Der Amazon Provider wurde nicht gefunden."
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:178
-#, php-format
-msgid ""
-"Failed to import the product because the shop \"%s\" couldn't be created. "
-"It's already existing."
-msgstr ""
-"Der Produktimport ist fehlgeschlagen, da der Shop „%s“ nicht erstellt werden "
-"konnte. Der Name existiert bereits."
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:205
-msgid "Failed to find the ASIN for product."
-msgstr "Das Produkt ASIN wurde nicht gefunden."
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:298
-#, php-format
-msgid ""
-"Failed to merge different product types. Got \"%s\", but the important "
-"product is \"%s\"."
-msgstr ""
-"Das Vereinen von Produkten mit unterschiedlichen Typen ist nicht möglich. "
-"Der Typ ist „%s“, aber das importierte Produkt ist „%s“."
 
 #: src/product/admin/filter/menu-order-filter.php:27
 #: src/product/admin/setup/import-page-setup.php:44
@@ -1137,18 +1103,6 @@ msgstr "Titelfarbe"
 msgid "Item Border Color"
 msgstr "Item Rahmenfarbe"
 
-#: src/product/import/amazon/amazon-import.php:84
-#, php-format
-msgid "The Amazon provider with the slug \"%s\" hasn't been found."
-msgstr "Der Amazon Provider mit der Titelform \"%s\" wurde nicht gefunden."
-
-#: src/product/import/amazon/amazon-import.php:137
-#: src/product/search/amazon/amazon-search.php:380
-#: src/product/update/worker/amazon/amazon-update-worker.php:250
-msgid "Amazon has throttled your request speed for a short time."
-msgstr ""
-"Amazon hat deine Anfragegeschwindigkeit für eine kurze Zeit gedrosselt."
-
 #: src/product/meta-box/product-image-gallery-meta-box.php:53
 #: src/product/meta-box/product-image-gallery-meta-box.php:79
 #: src/product/meta-box/product-image-gallery-meta-box.php:80
@@ -1170,26 +1124,6 @@ msgstr "Bild hinzufügen"
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
-
-#: src/product/search/amazon/amazon-search.php:136
-msgid "The Amazon search term is missing."
-msgstr "Das Amazon Suchbegriff fehlt."
-
-#: src/product/search/amazon/amazon-search.php:153
-msgid "The Amazon search type is missing"
-msgstr "Der Amazon Suchtyp fehlt"
-
-#: src/product/search/amazon/amazon-search.php:170
-msgid "The Amazon search category is missing."
-msgstr "Die Amazon Suchkategorie fehlt."
-
-#: src/product/search/amazon/amazon-search.php:211
-msgid "The Amazon search min price is invalid."
-msgstr "Der Amazon minimale Preis fehlt."
-
-#: src/product/search/amazon/amazon-search.php:234
-msgid "The Amazon search max price is invalid."
-msgstr "Der Amazon maximale Preis fehlt."
 
 #: src/product/setup/custom-taxonomies-setup.php:57
 #: src/product/setup/custom-taxonomies-setup.php:58
@@ -1326,247 +1260,6 @@ msgstr "%s Navigation"
 msgctxt "Product"
 msgid "Filter %s"
 msgstr "%s filtern"
-
-#: src/provider/admin/options/amazon-options.php:51
-msgid "Amazon"
-msgstr "Amazon"
-
-#: src/provider/admin/options/amazon-options.php:53
-msgid "Credentials"
-msgstr "Zugangsdaten"
-
-#: src/provider/admin/options/amazon-options.php:54
-msgid "Updates"
-msgstr "Aktualisierungen"
-
-#: src/provider/admin/options/amazon-options.php:72
-msgid "Access Key"
-msgstr "Access Key"
-
-#: src/provider/admin/options/amazon-options.php:73
-msgid ""
-"The access key is used to identify you as an API user. It's not your "
-"protected Amazon username."
-msgstr ""
-"Der Access Key identifiziert dich als einen API Benutzer. Es ist nicht dein "
-"privater Amazon Benutzername."
-
-#: src/provider/admin/options/amazon-options.php:74
-msgid "Secret Key"
-msgstr "Secret Key"
-
-#: src/provider/admin/options/amazon-options.php:75
-msgid ""
-"The secret key is used like a password to sign your API requests. It's not "
-"your protected Amazon password."
-msgstr ""
-"Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
-"authentifizieren. Es ist nicht dein privates Amazon Passwort."
-
-#: src/provider/admin/options/amazon-options.php:76
-msgid "Country"
-msgstr "Land"
-
-#: src/provider/admin/options/amazon-options.php:78
-#: src/provider/model/amazon/country.php:211
-msgid "Germany"
-msgstr "Deutschland"
-
-#: src/provider/admin/options/amazon-options.php:79
-#: src/provider/model/amazon/country.php:214
-msgid "America"
-msgstr "Amerika"
-
-#: src/provider/admin/options/amazon-options.php:80
-#: src/provider/model/amazon/country.php:217
-msgid "England"
-msgstr "England"
-
-#: src/provider/admin/options/amazon-options.php:81
-#: src/provider/model/amazon/country.php:220
-msgid "Canada"
-msgstr "Kanada"
-
-#: src/provider/admin/options/amazon-options.php:82
-#: src/provider/model/amazon/country.php:223
-msgid "France"
-msgstr "Frankreich"
-
-#: src/provider/admin/options/amazon-options.php:83
-#: src/provider/model/amazon/country.php:226
-msgid "Japan"
-msgstr "Japan"
-
-#: src/provider/admin/options/amazon-options.php:84
-#: src/provider/model/amazon/country.php:229
-msgid "Italy"
-msgstr "Italien"
-
-#: src/provider/admin/options/amazon-options.php:85
-#: src/provider/model/amazon/country.php:232
-msgid "China"
-msgstr "China"
-
-#: src/provider/admin/options/amazon-options.php:86
-#: src/provider/model/amazon/country.php:235
-msgid "Spain"
-msgstr "Spanien"
-
-#: src/provider/admin/options/amazon-options.php:87
-#: src/provider/model/amazon/country.php:238
-msgid "India"
-msgstr "Indien"
-
-#: src/provider/admin/options/amazon-options.php:88
-#: src/provider/model/amazon/country.php:241
-msgid "Brazil"
-msgstr "Brasilien"
-
-#: src/provider/admin/options/amazon-options.php:89
-#: src/provider/model/amazon/country.php:244
-msgid "Mexico"
-msgstr "Mexiko"
-
-#: src/provider/admin/options/amazon-options.php:90
-#: src/provider/model/amazon/country.php:247
-msgid "Australia"
-msgstr "Australien"
-
-#: src/provider/admin/options/amazon-options.php:92
-msgid "The country has to match the locale of your Amazon account. "
-msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen. "
-
-#: src/provider/admin/options/amazon-options.php:93
-msgid "Associate Tag"
-msgstr "Associate Tag"
-
-#: src/provider/admin/options/amazon-options.php:94
-msgid "Amazon uses this ID to credit an associate for a sale."
-msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
-
-#: src/provider/admin/options/amazon-options.php:109
-msgid "Thumbnail Update Interval"
-msgstr "Thumbnail Aktualisierungsintervall"
-
-#: src/provider/admin/options/amazon-options.php:111
-#: src/provider/admin/options/amazon-options.php:119
-#: src/provider/admin/options/amazon-options.php:127
-#: src/provider/admin/options/amazon-options.php:135
-#: src/provider/admin/options/amazon-options.php:143
-#: src/provider/admin/options/amazon-options.php:151
-msgid "Hourly"
-msgstr "Stündlich"
-
-#: src/provider/admin/options/amazon-options.php:112
-#: src/provider/admin/options/amazon-options.php:120
-#: src/provider/admin/options/amazon-options.php:128
-#: src/provider/admin/options/amazon-options.php:136
-#: src/provider/admin/options/amazon-options.php:144
-#: src/provider/admin/options/amazon-options.php:152
-msgid "Twice Daily"
-msgstr "2x Täglich"
-
-#: src/provider/admin/options/amazon-options.php:113
-#: src/provider/admin/options/amazon-options.php:121
-#: src/provider/admin/options/amazon-options.php:129
-#: src/provider/admin/options/amazon-options.php:137
-#: src/provider/admin/options/amazon-options.php:145
-#: src/provider/admin/options/amazon-options.php:153
-msgid "Daily"
-msgstr "Täglich"
-
-#: src/provider/admin/options/amazon-options.php:114
-#: src/provider/admin/options/amazon-options.php:122
-#: src/provider/admin/options/amazon-options.php:130
-#: src/provider/admin/options/amazon-options.php:138
-#: src/provider/admin/options/amazon-options.php:146
-#: src/provider/admin/options/amazon-options.php:154
-msgid "No Updates"
-msgstr "Keine Aktualisierungen"
-
-#: src/provider/admin/options/amazon-options.php:116
-msgid "The automatic update interval for the product thumbnails."
-msgstr "Das automatische Aktualisierungsintervall für die Produkt-Thumbnails."
-
-#: src/provider/admin/options/amazon-options.php:117
-msgid "Image Gallery Update Interval"
-msgstr "Bildergalerie Aktualisierungsintervall"
-
-#: src/provider/admin/options/amazon-options.php:124
-msgid "The automatic update interval for the product image galleries."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die Produkt-Bildergalerien."
-
-#: src/provider/admin/options/amazon-options.php:125
-msgid "Affiliate Link Update Interval"
-msgstr "Affiliate Link Aktualisierungsintervall"
-
-#: src/provider/admin/options/amazon-options.php:132
-msgid ""
-"The automatic update interval for the shop affiliate links in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für den Affiliate Link in den "
-"Produkten."
-
-#: src/provider/admin/options/amazon-options.php:133
-msgid "Price Update Interval"
-msgstr "Preis Aktualisierungsintervall"
-
-#: src/provider/admin/options/amazon-options.php:140
-msgid "The automatic update interval for the shop prices in the products."
-msgstr "Das automatische Aktualisierungsintervall für die Preise in den Shops."
-
-#: src/provider/admin/options/amazon-options.php:141
-msgid "Old Price Update Interval"
-msgstr "Alter Preis Aktualisierungsintervall"
-
-#: src/provider/admin/options/amazon-options.php:148
-msgid "The automatic update interval for the old shop prices in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die alten Preise in den Shops."
-
-#: src/provider/admin/options/amazon-options.php:149
-msgid "Availability Update Interval"
-msgstr "Verfügbarkeits Aktualisierungsintervall"
-
-#: src/provider/admin/options/amazon-options.php:156
-msgid ""
-"The automatic update interval for the shop availabilities in the products."
-msgstr ""
-"Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
-"Produkten."
-
-#: src/provider/admin/options/amazon-options.php:174
-msgid ""
-"<b>The credentials are valid!</b> A connection to the Amazon Product "
-"Advertising API was successfully established."
-msgstr ""
-"<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
-"Advertising API wurde erfolgreich aufgebaut."
-
-#: src/provider/admin/options/amazon-options.php:178
-msgid ""
-"<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
-"Advertising API."
-msgstr ""
-"<b>Die Zugangsdaten sind ungültig!</b> Leider konnte keine Verbindung zur "
-"Amazon Product Advertising API aufgebaut werden."
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:23
-msgid "The access key ID for the Amazon provider is missing."
-msgstr "Die Access Key ID für den Amazon Provider fehlt."
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:28
-msgid "The secret access key for the Amazon provider is missing."
-msgstr "Der Secret Key für den Amazon Provider fehlt."
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:33
-msgid "The country for the Amazon provider is missing."
-msgstr "Das Land für den Amazon Provider fehlt."
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:38
-msgid "The associate tag for the Amazon provider is missing."
-msgstr "Der Associate Tag für den Amazon Provider fehlt."
 
 #: src/shop/admin/filter/table-columns-filter.php:58
 #: src/shop/admin/meta-box/shop-template-meta-box.php:58
@@ -1984,6 +1677,222 @@ msgstr "Affilicious Theme"
 #. Author URI of the plugin/theme
 msgid "https://affilicioustheme.com/"
 msgstr "https://affilicioustheme.de/"
+
+#~ msgid "The Amazon import request is not valid."
+#~ msgstr "Die Amazon Import Anfrage ist nicht valide."
+
+#~ msgid "Specify a shop name if you want to create a new shop."
+#~ msgstr ""
+#~ "Gebe einen Shop-Namen an, damit du einen neuen Shop erstellen kannst."
+
+#~ msgid "Failed to find the Amazon provider."
+#~ msgstr "Der Amazon Provider wurde nicht gefunden."
+
+#~ msgid ""
+#~ "Failed to import the product because the shop \"%s\" couldn't be created. "
+#~ "It's already existing."
+#~ msgstr ""
+#~ "Der Produktimport ist fehlgeschlagen, da der Shop „%s“ nicht erstellt "
+#~ "werden konnte. Der Name existiert bereits."
+
+#~ msgid "Failed to find the ASIN for product."
+#~ msgstr "Das Produkt ASIN wurde nicht gefunden."
+
+#~ msgid ""
+#~ "Failed to merge different product types. Got \"%s\", but the important "
+#~ "product is \"%s\"."
+#~ msgstr ""
+#~ "Das Vereinen von Produkten mit unterschiedlichen Typen ist nicht möglich. "
+#~ "Der Typ ist „%s“, aber das importierte Produkt ist „%s“."
+
+#~ msgid "The Amazon provider with the slug \"%s\" hasn't been found."
+#~ msgstr "Der Amazon Provider mit der Titelform \"%s\" wurde nicht gefunden."
+
+#~ msgid "Amazon has throttled your request speed for a short time."
+#~ msgstr ""
+#~ "Amazon hat deine Anfragegeschwindigkeit für eine kurze Zeit gedrosselt."
+
+#~ msgid "The Amazon search term is missing."
+#~ msgstr "Das Amazon Suchbegriff fehlt."
+
+#~ msgid "The Amazon search type is missing"
+#~ msgstr "Der Amazon Suchtyp fehlt"
+
+#~ msgid "The Amazon search category is missing."
+#~ msgstr "Die Amazon Suchkategorie fehlt."
+
+#~ msgid "The Amazon search min price is invalid."
+#~ msgstr "Der Amazon minimale Preis fehlt."
+
+#~ msgid "The Amazon search max price is invalid."
+#~ msgstr "Der Amazon maximale Preis fehlt."
+
+#~ msgid "Amazon"
+#~ msgstr "Amazon"
+
+#~ msgid "Credentials"
+#~ msgstr "Zugangsdaten"
+
+#~ msgid "Updates"
+#~ msgstr "Aktualisierungen"
+
+#~ msgid "Access Key"
+#~ msgstr "Access Key"
+
+#~ msgid ""
+#~ "The access key is used to identify you as an API user. It's not your "
+#~ "protected Amazon username."
+#~ msgstr ""
+#~ "Der Access Key identifiziert dich als einen API Benutzer. Es ist nicht "
+#~ "dein privater Amazon Benutzername."
+
+#~ msgid "Secret Key"
+#~ msgstr "Secret Key"
+
+#~ msgid ""
+#~ "The secret key is used like a password to sign your API requests. It's "
+#~ "not your protected Amazon password."
+#~ msgstr ""
+#~ "Der Secret Key wird wie ein Password benutzt, um deine API Aufrufe zu "
+#~ "authentifizieren. Es ist nicht dein privates Amazon Passwort."
+
+#~ msgid "Country"
+#~ msgstr "Land"
+
+#~ msgid "Germany"
+#~ msgstr "Deutschland"
+
+#~ msgid "America"
+#~ msgstr "Amerika"
+
+#~ msgid "England"
+#~ msgstr "England"
+
+#~ msgid "Canada"
+#~ msgstr "Kanada"
+
+#~ msgid "France"
+#~ msgstr "Frankreich"
+
+#~ msgid "Japan"
+#~ msgstr "Japan"
+
+#~ msgid "Italy"
+#~ msgstr "Italien"
+
+#~ msgid "China"
+#~ msgstr "China"
+
+#~ msgid "Spain"
+#~ msgstr "Spanien"
+
+#~ msgid "India"
+#~ msgstr "Indien"
+
+#~ msgid "Brazil"
+#~ msgstr "Brasilien"
+
+#~ msgid "Mexico"
+#~ msgstr "Mexiko"
+
+#~ msgid "Australia"
+#~ msgstr "Australien"
+
+#~ msgid "The country has to match the locale of your Amazon account. "
+#~ msgstr "Das Land muss zur deiner Sprache in deinem Amazon Account passen. "
+
+#~ msgid "Associate Tag"
+#~ msgstr "Associate Tag"
+
+#~ msgid "Amazon uses this ID to credit an associate for a sale."
+#~ msgstr "Amazon benutzt diese ID, um dich für einen Verkauf zu vergüten."
+
+#~ msgid "Thumbnail Update Interval"
+#~ msgstr "Thumbnail Aktualisierungsintervall"
+
+#~ msgid "Hourly"
+#~ msgstr "Stündlich"
+
+#~ msgid "Twice Daily"
+#~ msgstr "2x Täglich"
+
+#~ msgid "Daily"
+#~ msgstr "Täglich"
+
+#~ msgid "No Updates"
+#~ msgstr "Keine Aktualisierungen"
+
+#~ msgid "The automatic update interval for the product thumbnails."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für die Produkt-Thumbnails."
+
+#~ msgid "Image Gallery Update Interval"
+#~ msgstr "Bildergalerie Aktualisierungsintervall"
+
+#~ msgid "The automatic update interval for the product image galleries."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für die Produkt-Bildergalerien."
+
+#~ msgid "Affiliate Link Update Interval"
+#~ msgstr "Affiliate Link Aktualisierungsintervall"
+
+#~ msgid ""
+#~ "The automatic update interval for the shop affiliate links in the "
+#~ "products."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für den Affiliate Link in den "
+#~ "Produkten."
+
+#~ msgid "Price Update Interval"
+#~ msgstr "Preis Aktualisierungsintervall"
+
+#~ msgid "The automatic update interval for the shop prices in the products."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für die Preise in den Shops."
+
+#~ msgid "Old Price Update Interval"
+#~ msgstr "Alter Preis Aktualisierungsintervall"
+
+#~ msgid ""
+#~ "The automatic update interval for the old shop prices in the products."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für die alten Preise in den "
+#~ "Shops."
+
+#~ msgid "Availability Update Interval"
+#~ msgstr "Verfügbarkeits Aktualisierungsintervall"
+
+#~ msgid ""
+#~ "The automatic update interval for the shop availabilities in the products."
+#~ msgstr ""
+#~ "Das automatische Aktualisierungsintervall für die Verfügbarkeit in den "
+#~ "Produkten."
+
+#~ msgid ""
+#~ "<b>The credentials are valid!</b> A connection to the Amazon Product "
+#~ "Advertising API was successfully established."
+#~ msgstr ""
+#~ "<b>Die Zugangsdaten sind korrekt!</b> Eine Verbindung zur Amazon Product "
+#~ "Advertising API wurde erfolgreich aufgebaut."
+
+#~ msgid ""
+#~ "<b>The credentials are invalid!</b> Failed to connect to the Amazon "
+#~ "Product Advertising API."
+#~ msgstr ""
+#~ "<b>Die Zugangsdaten sind ungültig!</b> Leider konnte keine Verbindung zur "
+#~ "Amazon Product Advertising API aufgebaut werden."
+
+#~ msgid "The access key ID for the Amazon provider is missing."
+#~ msgstr "Die Access Key ID für den Amazon Provider fehlt."
+
+#~ msgid "The secret access key for the Amazon provider is missing."
+#~ msgstr "Der Secret Key für den Amazon Provider fehlt."
+
+#~ msgid "The country for the Amazon provider is missing."
+#~ msgstr "Das Land für den Amazon Provider fehlt."
+
+#~ msgid "The associate tag for the Amazon provider is missing."
+#~ msgstr "Der Associate Tag für den Amazon Provider fehlt."
 
 #~ msgid "Extensions"
 #~ msgstr "Erweiterungen"

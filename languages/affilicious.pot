@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-02-17 11:19+0100\n"
+"POT-Creation-Date: 2018-03-06 19:55+0100\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
@@ -326,12 +326,12 @@ msgstr ""
 msgid "Add-ons"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:66
+#: src/common/admin/setup/assets-setup.php:64
 #: src/product/admin/meta-box/product-meta-box.php:82
 msgid "Affilicious Product"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:67
+#: src/common/admin/setup/assets-setup.php:65
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
@@ -339,7 +339,7 @@ msgstr ""
 msgid "Variants"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:68
+#: src/common/admin/setup/assets-setup.php:66
 #: src/product/admin/meta-box/product-meta-box.php:87
 #: src/product/admin/meta-box/product-meta-box.php:214
 #: src/product/admin/meta-box/product-meta-box.php:309
@@ -351,7 +351,7 @@ msgstr ""
 msgid "Shops"
 msgstr ""
 
-#: src/common/admin/setup/assets-setup.php:74
+#: src/common/admin/setup/assets-setup.php:72
 msgid "Add"
 msgstr ""
 
@@ -491,36 +491,6 @@ msgstr ""
 #, php-format
 msgctxt "Detail Template"
 msgid "Filter %s"
-msgstr ""
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:136
-msgid "The Amazon import request is not valid."
-msgstr ""
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:160
-msgid "Specify a shop name if you want to create a new shop."
-msgstr ""
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:166
-msgid "Failed to find the Amazon provider."
-msgstr ""
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:178
-#, php-format
-msgid ""
-"Failed to import the product because the shop \"%s\" couldn't be created. "
-"It's already existing."
-msgstr ""
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:205
-msgid "Failed to find the ASIN for product."
-msgstr ""
-
-#: src/product/admin/ajax-handler/amazon-import-ajax-handler.php:298
-#, php-format
-msgid ""
-"Failed to merge different product types. Got \"%s\", but the important "
-"product is \"%s\"."
 msgstr ""
 
 #: src/product/admin/filter/menu-order-filter.php:27
@@ -1081,17 +1051,6 @@ msgstr ""
 msgid "Item Border Color"
 msgstr ""
 
-#: src/product/import/amazon/amazon-import.php:84
-#, php-format
-msgid "The Amazon provider with the slug \"%s\" hasn't been found."
-msgstr ""
-
-#: src/product/import/amazon/amazon-import.php:137
-#: src/product/search/amazon/amazon-search.php:380
-#: src/product/update/worker/amazon/amazon-update-worker.php:250
-msgid "Amazon has throttled your request speed for a short time."
-msgstr ""
-
 #: src/product/meta-box/product-image-gallery-meta-box.php:53
 #: src/product/meta-box/product-image-gallery-meta-box.php:79
 #: src/product/meta-box/product-image-gallery-meta-box.php:80
@@ -1112,26 +1071,6 @@ msgstr ""
 
 #: src/product/meta-box/product-image-gallery-meta-box.php:81
 msgid "Add Images To Image Gallery"
-msgstr ""
-
-#: src/product/search/amazon/amazon-search.php:136
-msgid "The Amazon search term is missing."
-msgstr ""
-
-#: src/product/search/amazon/amazon-search.php:153
-msgid "The Amazon search type is missing"
-msgstr ""
-
-#: src/product/search/amazon/amazon-search.php:170
-msgid "The Amazon search category is missing."
-msgstr ""
-
-#: src/product/search/amazon/amazon-search.php:211
-msgid "The Amazon search min price is invalid."
-msgstr ""
-
-#: src/product/search/amazon/amazon-search.php:234
-msgid "The Amazon search max price is invalid."
 msgstr ""
 
 #: src/product/setup/custom-taxonomies-setup.php:57
@@ -1268,233 +1207,6 @@ msgstr ""
 #, php-format
 msgctxt "Product"
 msgid "Filter %s"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:51
-msgid "Amazon"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:53
-msgid "Credentials"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:54
-msgid "Updates"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:72
-msgid "Access Key"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:73
-msgid ""
-"The access key is used to identify you as an API user. It's not your "
-"protected Amazon username."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:74
-msgid "Secret Key"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:75
-msgid ""
-"The secret key is used like a password to sign your API requests. It's not "
-"your protected Amazon password."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:76
-msgid "Country"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:78
-#: src/provider/model/amazon/country.php:211
-msgid "Germany"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:79
-#: src/provider/model/amazon/country.php:214
-msgid "America"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:80
-#: src/provider/model/amazon/country.php:217
-msgid "England"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:81
-#: src/provider/model/amazon/country.php:220
-msgid "Canada"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:82
-#: src/provider/model/amazon/country.php:223
-msgid "France"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:83
-#: src/provider/model/amazon/country.php:226
-msgid "Japan"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:84
-#: src/provider/model/amazon/country.php:229
-msgid "Italy"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:85
-#: src/provider/model/amazon/country.php:232
-msgid "China"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:86
-#: src/provider/model/amazon/country.php:235
-msgid "Spain"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:87
-#: src/provider/model/amazon/country.php:238
-msgid "India"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:88
-#: src/provider/model/amazon/country.php:241
-msgid "Brazil"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:89
-#: src/provider/model/amazon/country.php:244
-msgid "Mexico"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:90
-#: src/provider/model/amazon/country.php:247
-msgid "Australia"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:92
-msgid "The country has to match the locale of your Amazon account. "
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:93
-msgid "Associate Tag"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:94
-msgid "Amazon uses this ID to credit an associate for a sale."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:109
-msgid "Thumbnail Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:111
-#: src/provider/admin/options/amazon-options.php:119
-#: src/provider/admin/options/amazon-options.php:127
-#: src/provider/admin/options/amazon-options.php:135
-#: src/provider/admin/options/amazon-options.php:143
-#: src/provider/admin/options/amazon-options.php:151
-msgid "Hourly"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:112
-#: src/provider/admin/options/amazon-options.php:120
-#: src/provider/admin/options/amazon-options.php:128
-#: src/provider/admin/options/amazon-options.php:136
-#: src/provider/admin/options/amazon-options.php:144
-#: src/provider/admin/options/amazon-options.php:152
-msgid "Twice Daily"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:113
-#: src/provider/admin/options/amazon-options.php:121
-#: src/provider/admin/options/amazon-options.php:129
-#: src/provider/admin/options/amazon-options.php:137
-#: src/provider/admin/options/amazon-options.php:145
-#: src/provider/admin/options/amazon-options.php:153
-msgid "Daily"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:114
-#: src/provider/admin/options/amazon-options.php:122
-#: src/provider/admin/options/amazon-options.php:130
-#: src/provider/admin/options/amazon-options.php:138
-#: src/provider/admin/options/amazon-options.php:146
-#: src/provider/admin/options/amazon-options.php:154
-msgid "No Updates"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:116
-msgid "The automatic update interval for the product thumbnails."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:117
-msgid "Image Gallery Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:124
-msgid "The automatic update interval for the product image galleries."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:125
-msgid "Affiliate Link Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:132
-msgid ""
-"The automatic update interval for the shop affiliate links in the products."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:133
-msgid "Price Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:140
-msgid "The automatic update interval for the shop prices in the products."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:141
-msgid "Old Price Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:148
-msgid "The automatic update interval for the old shop prices in the products."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:149
-msgid "Availability Update Interval"
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:156
-msgid ""
-"The automatic update interval for the shop availabilities in the products."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:174
-msgid ""
-"<b>The credentials are valid!</b> A connection to the Amazon Product "
-"Advertising API was successfully established."
-msgstr ""
-
-#: src/provider/admin/options/amazon-options.php:178
-msgid ""
-"<b>The credentials are invalid!</b> Failed to connect to the Amazon Product "
-"Advertising API."
-msgstr ""
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:23
-msgid "The access key ID for the Amazon provider is missing."
-msgstr ""
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:28
-msgid "The secret access key for the Amazon provider is missing."
-msgstr ""
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:33
-msgid "The country for the Amazon provider is missing."
-msgstr ""
-
-#: src/provider/validator/amazon/amazon-credentials-validator.php:38
-msgid "The associate tag for the Amazon provider is missing."
 msgstr ""
 
 #: src/shop/admin/filter/table-columns-filter.php:58

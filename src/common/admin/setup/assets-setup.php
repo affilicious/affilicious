@@ -49,8 +49,6 @@ class Assets_Setup
      */
     public function add_scripts()
     {
-        $screen = get_current_screen();
-
         $base_vendor_url = \Affilicious::get_root_url() . '/assets/vendor/';
         $base_admin_url = \Affilicious::get_root_url() . '/assets/admin/dist/js/';
 
@@ -74,24 +72,11 @@ class Assets_Setup
             'addTag' => __('Add', 'affilicious'),
         ]);
 
-        // Register Amazon import scripts
-		if(isset($_GET['page']) && $_GET['page'] == 'aff-import-amazon') {
-            wp_register_script('aff-admin-amazon-import', $base_admin_url . 'amazon-import.min.js', ['jquery', 'backbone'], \Affilicious::VERSION, true);
-            wp_localize_script('aff-admin-amazon-import', 'affAdminAmazonImportUrls', [
-                'ajax' => admin_url('admin-ajax.php'),
-                'apiRoot' => esc_url_raw(rest_url()),
-                'nonce' => wp_create_nonce('wp_rest')
-            ]);
-        }
 
         // Enqueue the scripts
         wp_enqueue_script('selectize');
         wp_enqueue_script('aff-admin-common');
         wp_enqueue_script('aff-admin-products');
         wp_enqueue_script('aff-admin-carbon-fields');
-
-        if($screen->id == 'aff_product_page_aff-import-amazon') {
-            wp_enqueue_script('aff-admin-amazon-import');
-        }
     }
 }
