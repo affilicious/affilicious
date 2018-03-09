@@ -8,11 +8,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @deprecated 1.2 Don't use it anymore
+ */
 interface Import_Interface
 {
     /**
      * Import the product from the provider by the ID and optional configuration.
      *
+     * @deprecated 1.2 Don't use it anymore
      * @since 0.9
      * @param Affiliate_Product_Id $affiliate_product_id The product ID like ASIN, Ebay ID and etc.
      * @param array $config Additional configuration options for the import.

@@ -7,11 +7,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @deprecated 1.2 Don't use it anymore
+ */
 interface Search_Interface
 {
     /**
      * Search the products by making an provider API call.
      *
+     * @deprecated 1.2 Don't use it anymore
      * @since 0.9
      * @param array $params Configuration options for the search
      * @return Product[]|\WP_Error The found simple product, complex product, product variant or any other type. It might be an error too.
