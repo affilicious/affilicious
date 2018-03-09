@@ -19,7 +19,7 @@ class Footer_Text_Filter
     {
         $thank_you = sprintf(
             __('Thank you for creating with <a href="%s" target="_blank">Affilicious</a>.', 'affilicious'),
-            'https://affilicioustheme.com'
+            'https://affilicious.com'
         );
 
         $text .= sprintf(' | <span id="aff-footer-thank-you">%s</span>', $thank_you);
