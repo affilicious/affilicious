@@ -4,16 +4,16 @@
 	<div class="inside">
 		<ul>
 			<li>
-				<a href="https://affilicioustheme.de/downloads/category/erweiterungen/" target="_blank"><?php _e('Add-ons', 'affilicious'); ?></a>
+				<a href="https://affilicious.de/downloads/category/erweiterungen/" target="_blank"><?php _e('Add-ons', 'affilicious'); ?></a>
 			</li>
 			<li>
-				<a href="https://affilicioustheme.de/downloads/category/themes/" target="_blank"><?php _e('Themes', 'affilicious'); ?></a>
+				<a href="https://affilicious.de/downloads/category/themes/" target="_blank"><?php _e('Themes', 'affilicious'); ?></a>
 			</li>
 			<li>
-				<a href="http://docs.affilicioustheme.de" target="_blank"><?php _e('Documentation', 'affilicious'); ?></a>
+				<a href="http://docs.affilicious.de" target="_blank"><?php _e('Documentation', 'affilicious'); ?></a>
 			</li>
 			<li>
-				<a href="https://affilicioustheme.de/support/" target="_blank"><?php _e('Support', 'affilicious'); ?></a>
+				<a href="https://affilicious.de/support/" target="_blank"><?php _e('Support', 'affilicious'); ?></a>
 			</li>
 		</ul>
 	</div>

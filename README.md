@@ -1,4 +1,4 @@
-# [Affilicious](https://affilicioustheme.com) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicioustheme.com) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/affilicious-theme/affilicious/blob/master/LICENSE) #
+# [Affilicious](https://affilicious.com) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicious.com) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/affilicious-theme/affilicious/blob/master/LICENSE) #
 Affilicious is an Affiliate platform build on top of Wordpress. It allows affiliate marketers to easily maintain websites with support for
 product & variants, automatic product updates, price comparisons, details, attributes and more. Everything for free.
 
@@ -9,7 +9,7 @@ Yes, it does. We are affiliate marketers ourselves and we know that this busines
 The competition gets bigger and bigger. Having a great foundation for your websites is just essential!
 
 That's exactly where we want to help you. We are providing the foundation with many useful features. The times searching for the 
-right plugins and themes are over. If you want to get great plugins and themes, you just have to visit our [official website](https://affilicioustheme.com).
+right plugins and themes are over. If you want to get great plugins and themes, you just have to visit our [official website](https://affilicious.com).
 
 ### Why should I care as a developer? ###
 Really, there are many reasons! You as a developer can benefit from extending Affilicious by building custom plugins and themes. 

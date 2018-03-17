@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 class Plugin_Actions_Setup
 {
-    const ADDONS_URL = 'https://affilicioustheme.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress-installation&utm_medium=plugin-actions';
+    const ADDONS_URL = 'https://affilicious.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress-installation&utm_medium=plugin-actions';
 
     /**
      * @since 0.9.16

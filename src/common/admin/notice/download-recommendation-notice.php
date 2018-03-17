@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 class Download_Recommendation_Notice
 {
     const DISMISSIBLE_ID = 'download-recommendation';
-	const PRODUCTS_API_URL = 'https://affilicioustheme.com/edd-api/products';
+	const PRODUCTS_API_URL = 'https://affilicious.com/edd-api/products';
 
 	/**
      * Render the download recommendation notice.

@@ -1,7 +1,7 @@
 === Affilicious ===
 Contributors: affilicioustheme
-Author URI: https://affilicioustheme.com
-Plugin URI: https://affilicioustheme.com/downloads/affilicious
+Author URI: https://affilicious.com
+Plugin URI: https://affilicious.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.4
 Stable tag: 0.9.23
@@ -13,7 +13,7 @@ Create and manage affiliate websites in Wordpress with products & variants, auto
 
 == Description ==
 
-Affilicious is a free and complete Wordpress affiliate solution that allows you to sell affiliate products without effort. Learn more at [https://affilicioustheme.de](https://affilicioustheme.de/?utm_campaign=affilicious&utm_source=wordpress&utm_medium=description&utm_content=description-introduction) (Homepage is currently only available in German).
+Affilicious is a free and complete Wordpress affiliate solution that allows you to sell affiliate products without effort. Learn more at [https://affilicious.com](https://affilicious.com/?utm_campaign=affilicious&utm_source=wordpress&utm_medium=description&utm_content=description-introduction) (Homepage is currently only available in German).
 
 = Sell anything effortlessly =
 
@@ -33,19 +33,19 @@ Affilicious comes with support for two languages: English and German. However, y
 
 = Define your style with themes =
 
-Choose from beautiful [affiliate themes](https://affilicioustheme.de/downloads/category/themes/?utm_campaign=themes&utm_source=wordpress&utm_medium=description&utm_content=description-themes) which seamlessly integrate Affilicious into their core:
+Choose from beautiful [affiliate themes](https://affilicious.com/downloads/category/themes/?utm_campaign=themes&utm_source=wordpress&utm_medium=description&utm_content=description-themes) which seamlessly integrate Affilicious into their core:
 
-- [Affilivice](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) This free theme will give your Wordpress affiliate site a new lease of life.
-- [Eleganz](https://affilicioustheme.de/downloads/eleganz/?utm_campaign=eleganz&utm_source=wordpress&utm_medium=description&utm_content=description-themes-eleganz) The fashion-adapted affiliate shop theme offers your visitors a suitable atmosphere to buy.
+- [Affilivice](https://affilicious.com/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) This free theme will give your Wordpress affiliate site a new lease of life.
+- [Eleganz](https://affilicious.com/downloads/eleganz/?utm_campaign=eleganz&utm_source=wordpress&utm_medium=description&utm_content=description-themes-eleganz) The fashion-adapted affiliate shop theme offers your visitors a suitable atmosphere to buy.
 
 = Reach the next level with addons =
 
-You can supercharge your affiliate store with [addons](https://affilicioustheme.de/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=description&utm_content=description-addons) for Affilicious like:
+You can supercharge your affiliate store with [addons](https://affilicious.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=description&utm_content=description-addons) for Affilicious like:
 
-- [Alerts](https://affilicioustheme.de/downloads/alerts/?utm_campaign=alerts&utm_source=wordpress&utm_medium=description&utm_content=description-addons-alerts) Create meaningful alerts in just a few clicks that will help your visitors find what they are looking for.
-- [Product Comparison](https://affilicioustheme.de/downloads/produktvergleich/?utm_campaign=product-comparison&utm_source=wordpress&utm_medium=description&utm_content=description-addons-product-comparison) Help your visitors make their purchasing decisions by including a clear comparison of products.
-- [eBay Import And Update](https://affilicioustheme.de/downloads/ebay-import-und-update/?utm_campaign=ebay-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-ebay-import-and-update) Import and update your affiliate products easily from eBay.
-- [Affilinet Import And Update](https://affilicioustheme.de/downloads/affilinet-import-und-update/?utm_campaign=affilinet-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-affilinet-import-and-update) Import and update your affiliate products with all shops directly from Affilinet.
+- [Alerts](https://affilicious.com/downloads/alerts/?utm_campaign=alerts&utm_source=wordpress&utm_medium=description&utm_content=description-addons-alerts) Create meaningful alerts in just a few clicks that will help your visitors find what they are looking for.
+- [Product Comparison](https://affilicious.com/downloads/produktvergleich/?utm_campaign=product-comparison&utm_source=wordpress&utm_medium=description&utm_content=description-addons-product-comparison) Help your visitors make their purchasing decisions by including a clear comparison of products.
+- [eBay Import And Update](https://affilicious.com/downloads/ebay-import-und-update/?utm_campaign=ebay-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-ebay-import-and-update) Import and update your affiliate products easily from eBay.
+- [Affilinet Import And Update](https://affilicious.com/downloads/affilinet-import-und-update/?utm_campaign=affilinet-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-affilinet-import-and-update) Import and update your affiliate products with all shops directly from Affilinet.
 
 = Build with developers in mind =
 
@@ -72,7 +72,7 @@ The full documentation for Affilicious and all themes and plugin can be found at
 
 = Is there any free theme available? =
 
-Yes, you can start with our free [Affilivice Theme](https://affilicioustheme.de/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=faq&utm_content=faq-free-theme-available).
+Yes, you can start with our free [Affilivice Theme](https://affilicious.com/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=faq&utm_content=faq-free-theme-available).
 
 = Does Affilicious work with my existing theme? =
 
@@ -80,7 +80,7 @@ Affilicious contains a feature called "Universal Mode" which allows you to run i
 
 = Can I import existing products from Amazon, eBay and co.? =
 
-No problem! The Amazon importer is already included in Affilicious. Other importers can be found as [addons](https://affilicioustheme.de/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=faq&utm_content=faq-import-existing-products) in our store.
+No problem! You can check out our existing importer as [addons](https://affilicious.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=faq&utm_content=faq-import-existing-products) in our store.
 
 = Do my products automatically stay up to date? =
 
@@ -88,7 +88,7 @@ Affilicious has a build-in updater which checks and applies product updates. You
 
 = Where can I get support? =
 
-If you want to get support, check out this [page](https://affilicioustheme.de/support?utm_campaign=support&utm_source=wordpress&utm_medium=faq&utm_content=faq-get-support).
+If you want to get support, check out this [page](https://affilicious.com/support?utm_campaign=support&utm_source=wordpress&utm_medium=faq&utm_content=faq-get-support).
 
 == Screenshots ==
 1. This is the general Affilicious meta box. You can choose between simple products and complex products with variants.

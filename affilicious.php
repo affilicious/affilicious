@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Affilicious
- * Plugin URI: https://affilicioustheme.com/downloads/affilicious/
- * Author: Affilicious Theme
- * Author URI: https://affilicioustheme.com/
  * Description: The simplest and most flexible Wordpress affiliate solution with products & variants, shops, price comparisons and much more.
  * Version: 0.9.23
+ * Author: Affilicious
+ * Plugin URI: https://affilicious.com/downloads/affilicious/
+ * Author URI: https://affilicious.com/
  * License: GPL-2.0 or later
  * Requires at least: 4.5
  * Tested up to: 4.9.4
@@ -13,7 +13,7 @@
  * Domain Path: languages/
  *
  * Affilicious
- * Copyright (C) 2016-2018, Affilicious - support@affilicioustheme.de
+ * Copyright (C) 2016-2018, Affilicious - support@affilicious.com
  *
  * Affilicious is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -10,7 +10,7 @@ if(!defined('ABSPATH')) {
 class Addons_Page
 {
 	const MENU_SLUG = 'addons';
-	const PRODUCTS_URL = 'https://affilicioustheme.com/edd-api/products';
+	const PRODUCTS_URL = 'https://affilicious.com/edd-api/products';
 
 	/**
      * Init the addons page which lists all available premium addons.

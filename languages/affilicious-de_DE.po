@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-03-06 19:55+0100\n"
-"PO-Revision-Date: 2018-03-06 19:55+0100\n"
+"POT-Creation-Date: 2018-03-17 15:45+0100\n"
+"PO-Revision-Date: 2018-03-17 15:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
 "Language: de_DE\n"
@@ -355,7 +355,6 @@ msgstr "Affilicious Produkt"
 #: src/product/admin/meta-box/product-meta-box.php:86
 #: src/product/admin/meta-box/product-meta-box.php:169
 #: src/product/admin/meta-box/product-meta-box.php:172
-#: templates/admin/page/imports/amazon/search-results-item-template.php:45
 msgid "Variants"
 msgstr "Varianten"
 
@@ -367,7 +366,6 @@ msgstr "Varianten"
 #: src/product/customizer/universal-box-customizer.php:578
 #: src/shop/setup/shop-template-setup.php:27
 #: src/shop/setup/shop-template-setup.php:31
-#: templates/admin/page/imports/amazon/config-shop-template.php:10
 msgid "Shops"
 msgstr "Shops"
 
@@ -516,7 +514,6 @@ msgstr "%s filtern"
 #: src/product/admin/filter/menu-order-filter.php:27
 #: src/product/admin/setup/import-page-setup.php:44
 #: templates/admin/page/imports.php:8
-#: templates/admin/page/imports/amazon/search-results-item-template.php:100
 msgid "Import"
 msgstr "Importieren"
 
@@ -836,8 +833,6 @@ msgid "Taxonomies"
 msgstr "Taxonomien"
 
 #: src/product/admin/options/product-options.php:88
-#: templates/admin/page/imports/amazon/config-taxonomy-template.php:10
-#: templates/admin/page/imports/amazon/config-taxonomy-template.php:14
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
@@ -926,7 +921,6 @@ msgid "Tag Background Color (Hover)"
 msgstr "Schlagwort Hintergrundfarbe (Hover)"
 
 #: src/product/customizer/universal-box-customizer.php:254
-#: templates/admin/page/imports/amazon/search-form-template.php:42
 msgid "Reviews"
 msgstr "Bewertungen"
 
@@ -1430,212 +1424,6 @@ msgstr "Dokumentation"
 msgid "Support"
 msgstr "Support"
 
-#: templates/admin/page/imports/amazon.php:14
-msgid "Amazon provider not configured."
-msgstr "Amazon Provider wurde nicht konfiguriert."
-
-#: templates/admin/page/imports/amazon.php:16
-#, php-format
-msgid ""
-"Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the "
-"Amazon import."
-msgstr ""
-"Füge die Zugangsdaten <a href=\"%s\" target=\"_blank\">hier</a> hinzu um den "
-"Amazon-Import zu nutzen."
-
-#: templates/admin/page/imports/amazon/config-action-template.php:4
-msgid "Actions"
-msgstr "Aktionen"
-
-#: templates/admin/page/imports/amazon/config-action-template.php:10
-msgid "Create new product"
-msgstr "Erstelle neues Produkt"
-
-#: templates/admin/page/imports/amazon/config-action-template.php:15
-msgid "Merge with existing product"
-msgstr "Vereine mit bestehendem Produkt"
-
-#: templates/admin/page/imports/amazon/config-action-template.php:19
-msgid "Enter product name..."
-msgstr "Produktnamen eingeben…"
-
-#: templates/admin/page/imports/amazon/config-shop-template.php:30
-msgid "Create new shop"
-msgstr "Erstelle neuen Shop"
-
-#: templates/admin/page/imports/amazon/config-shop-template.php:34
-msgid "Enter shop name..."
-msgstr "Shop-Namen eingeben..."
-
-#: templates/admin/page/imports/amazon/config-status-template.php:4
-msgid "Status"
-msgstr "Status"
-
-#: templates/admin/page/imports/amazon/config-status-template.php:10
-msgid "Publish product directly"
-msgstr "Produkt sofort veröffentlichen"
-
-#: templates/admin/page/imports/amazon/config-status-template.php:15
-msgid "Save product as draft"
-msgstr "Produkt als Entwurf speichern"
-
-#: templates/admin/page/imports/amazon/config-taxonomy-template.php:16
-msgid "No taxonomy"
-msgstr "Keine Taxonomie"
-
-#: templates/admin/page/imports/amazon/config-taxonomy-template.php:23
-msgid "Enter terms..."
-msgstr "Begriffe eingeben…"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:8
-msgid "Search term"
-msgstr "Suchbegriff"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:9
-msgid "Enter your search term..."
-msgstr "Suchbegriff eingeben…"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:9
-msgid "Enter your ASIN..."
-msgstr "ASIN eingeben…"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:11
-msgid "Search"
-msgstr "Suchen"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:15
-msgid "Search type"
-msgstr "Suchtyp"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:17
-msgid "Keywords"
-msgstr "Schlüsselwörter"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:18
-#: templates/admin/page/imports/amazon/search-results-item-template.php:38
-msgid "ASIN"
-msgstr "ASIN"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:22
-msgid "Search category"
-msgstr "Suchkategorie"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:29
-#: templates/admin/page/imports/amazon/search-form-template.php:30
-msgid "Min price"
-msgstr "Min. Preis"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:32
-#: templates/admin/page/imports/amazon/search-form-template.php:33
-msgid "Max price"
-msgstr "Max. Preis"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:36
-msgid "Sort order"
-msgstr "Sortierreihenfolge"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:38
-msgid "Price: high to low"
-msgstr "Preis: Hoch zu niedrig"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:39
-msgid "Price: low to high"
-msgstr "Preis: Niedrig zu hoch"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:40
-msgid "Bestselling"
-msgstr "Meistverkauft"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:41
-msgid "Relevance"
-msgstr "Relevanz"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:46
-msgid "Condition"
-msgstr "Zustand"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:48
-msgid "New"
-msgstr "Neu"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:49
-msgid "Used"
-msgstr "Gebraucht"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:50
-msgid "Refurbished"
-msgstr "Renoviert"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:51
-msgid "Collectible"
-msgstr "Sammlerstück"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:56
-msgid "Search with variants"
-msgstr "Suche mit Varianten"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:58
-msgid "Without variants"
-msgstr "Ohne Varianten"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:59
-msgid "With variants"
-msgstr "Mit Varianten"
-
-#: templates/admin/page/imports/amazon/search-form-template.php:64
-msgid ""
-"Search with product variants doesn't work if the category \"All\" is "
-"selected."
-msgstr ""
-"Suche mit Produktvarianten funktioniert nicht, wenn die Kategorie \"Alle\" "
-"ausgewählt ist."
-
-#: templates/admin/page/imports/amazon/search-form-template.php:66
-msgid ""
-"Due to limitations, not all products with variants are found in the keyword "
-"search."
-msgstr ""
-"Aufgrund von Limitierungen werden nicht alle Produkte mit Varianten bei der "
-"Schlüsselwort-Suche angezeigt."
-
-#: templates/admin/page/imports/amazon/search-form-template.php:68
-msgid "Note that not all products with variants contain an image."
-msgstr "Nicht alle Produkte mit Varianten enthalten ein Bild."
-
-#: templates/admin/page/imports/amazon/search-form-template.php:82
-msgid "No results have been found for the search term."
-msgstr "Es wurden keine Suchergebnisse für diesen Suchbegriff gefunden."
-
-#: templates/admin/page/imports/amazon/search-form-template.php:90
-#: templates/admin/page/imports/amazon/search-load-more-template.php:20
-msgid "The search has failed because an error has occurred."
-msgstr "Die Suche ist fehlgeschlagen, da ein Fehler aufgetaucht ist."
-
-#: templates/admin/page/imports/amazon/search-load-more-template.php:5
-msgid "Load more"
-msgstr "Mehr laden"
-
-#: templates/admin/page/imports/amazon/search-load-more-template.php:13
-msgid "No more results"
-msgstr "Keine weiteren Ergebnisse"
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:49
-msgid "Show all"
-msgstr "Alle anzeigen"
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:89
-msgid "Failed to import the product."
-msgstr "Importieren des Produkts ist fehlgeschlagen."
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:90
-#: templates/admin/page/imports/amazon/search-results-item-template.php:95
-msgid "Reimport"
-msgstr "Nochmal importieren"
-
-#: templates/admin/page/imports/amazon/search-results-item-template.php:94
-msgid "Successfully imported the product."
-msgstr "Das Produkt wurde erfolgreich importiert."
-
 #: templates/admin/system/info.php:9
 msgid "Download System Info"
 msgstr "System Info herunterladen"
@@ -1655,12 +1443,13 @@ msgid "Download"
 msgstr "Herunterladen"
 
 #. Plugin Name of the plugin/theme
+#. Author of the plugin/theme
 msgid "Affilicious"
 msgstr "Affilicious"
 
 #. Plugin URI of the plugin/theme
-msgid "https://affilicioustheme.com/downloads/affilicious/"
-msgstr "https://affilicioustheme.de/downloads/affilicious/"
+msgid "https://affilicious.com/downloads/affilicious/"
+msgstr "https://affilicious.de/downloads/affilicious/"
 
 #. Description of the plugin/theme
 msgid ""
@@ -1670,13 +1459,165 @@ msgstr ""
 "Die einfachste und flexibelste Affiliate Lösung für Wordpress mit Produkten "
 "& Varianten, Shops, Preisvergleichen und vielem mehr."
 
-#. Author of the plugin/theme
-msgid "Affilicious Theme"
-msgstr "Affilicious Theme"
-
 #. Author URI of the plugin/theme
-msgid "https://affilicioustheme.com/"
-msgstr "https://affilicioustheme.de/"
+msgid "https://affilicious.com/"
+msgstr "https://affilicious.de/"
+
+#~ msgid "Affilicious Theme"
+#~ msgstr "Affilicious Theme"
+
+#~ msgid "Amazon provider not configured."
+#~ msgstr "Amazon Provider wurde nicht konfiguriert."
+
+#~ msgid ""
+#~ "Add your credentials <a href=\"%s\" target=\"_blank\">here</a> to use the "
+#~ "Amazon import."
+#~ msgstr ""
+#~ "Füge die Zugangsdaten <a href=\"%s\" target=\"_blank\">hier</a> hinzu um "
+#~ "den Amazon-Import zu nutzen."
+
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
+
+#~ msgid "Create new product"
+#~ msgstr "Erstelle neues Produkt"
+
+#~ msgid "Merge with existing product"
+#~ msgstr "Vereine mit bestehendem Produkt"
+
+#~ msgid "Enter product name..."
+#~ msgstr "Produktnamen eingeben…"
+
+#~ msgid "Create new shop"
+#~ msgstr "Erstelle neuen Shop"
+
+#~ msgid "Enter shop name..."
+#~ msgstr "Shop-Namen eingeben..."
+
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid "Publish product directly"
+#~ msgstr "Produkt sofort veröffentlichen"
+
+#~ msgid "Save product as draft"
+#~ msgstr "Produkt als Entwurf speichern"
+
+#~ msgid "No taxonomy"
+#~ msgstr "Keine Taxonomie"
+
+#~ msgid "Enter terms..."
+#~ msgstr "Begriffe eingeben…"
+
+#~ msgid "Search term"
+#~ msgstr "Suchbegriff"
+
+#~ msgid "Enter your search term..."
+#~ msgstr "Suchbegriff eingeben…"
+
+#~ msgid "Enter your ASIN..."
+#~ msgstr "ASIN eingeben…"
+
+#~ msgid "Search"
+#~ msgstr "Suchen"
+
+#~ msgid "Search type"
+#~ msgstr "Suchtyp"
+
+#~ msgid "Keywords"
+#~ msgstr "Schlüsselwörter"
+
+#~ msgid "ASIN"
+#~ msgstr "ASIN"
+
+#~ msgid "Search category"
+#~ msgstr "Suchkategorie"
+
+#~ msgid "Min price"
+#~ msgstr "Min. Preis"
+
+#~ msgid "Max price"
+#~ msgstr "Max. Preis"
+
+#~ msgid "Sort order"
+#~ msgstr "Sortierreihenfolge"
+
+#~ msgid "Price: high to low"
+#~ msgstr "Preis: Hoch zu niedrig"
+
+#~ msgid "Price: low to high"
+#~ msgstr "Preis: Niedrig zu hoch"
+
+#~ msgid "Bestselling"
+#~ msgstr "Meistverkauft"
+
+#~ msgid "Relevance"
+#~ msgstr "Relevanz"
+
+#~ msgid "Condition"
+#~ msgstr "Zustand"
+
+#~ msgid "New"
+#~ msgstr "Neu"
+
+#~ msgid "Used"
+#~ msgstr "Gebraucht"
+
+#~ msgid "Refurbished"
+#~ msgstr "Renoviert"
+
+#~ msgid "Collectible"
+#~ msgstr "Sammlerstück"
+
+#~ msgid "Search with variants"
+#~ msgstr "Suche mit Varianten"
+
+#~ msgid "Without variants"
+#~ msgstr "Ohne Varianten"
+
+#~ msgid "With variants"
+#~ msgstr "Mit Varianten"
+
+#~ msgid ""
+#~ "Search with product variants doesn't work if the category \"All\" is "
+#~ "selected."
+#~ msgstr ""
+#~ "Suche mit Produktvarianten funktioniert nicht, wenn die Kategorie \"Alle"
+#~ "\" ausgewählt ist."
+
+#~ msgid ""
+#~ "Due to limitations, not all products with variants are found in the "
+#~ "keyword search."
+#~ msgstr ""
+#~ "Aufgrund von Limitierungen werden nicht alle Produkte mit Varianten bei "
+#~ "der Schlüsselwort-Suche angezeigt."
+
+#~ msgid "Note that not all products with variants contain an image."
+#~ msgstr "Nicht alle Produkte mit Varianten enthalten ein Bild."
+
+#~ msgid "No results have been found for the search term."
+#~ msgstr "Es wurden keine Suchergebnisse für diesen Suchbegriff gefunden."
+
+#~ msgid "The search has failed because an error has occurred."
+#~ msgstr "Die Suche ist fehlgeschlagen, da ein Fehler aufgetaucht ist."
+
+#~ msgid "Load more"
+#~ msgstr "Mehr laden"
+
+#~ msgid "No more results"
+#~ msgstr "Keine weiteren Ergebnisse"
+
+#~ msgid "Show all"
+#~ msgstr "Alle anzeigen"
+
+#~ msgid "Failed to import the product."
+#~ msgstr "Importieren des Produkts ist fehlgeschlagen."
+
+#~ msgid "Reimport"
+#~ msgstr "Nochmal importieren"
+
+#~ msgid "Successfully imported the product."
+#~ msgstr "Das Produkt wurde erfolgreich importiert."
 
 #~ msgid "The Amazon import request is not valid."
 #~ msgstr "Die Amazon Import Anfrage ist nicht valide."
