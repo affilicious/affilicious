@@ -88,12 +88,17 @@ if(!class_exists('Affilicious')) {
 		 *
 		 * @since 0.8
 		 * @param string $service_id
-		 * @return mixed
+		 * @return mixed|null
 		 */
 		public static function get($service_id)
 		{
 			$container = self::get_instance()->get_container();
-			$service = $container[$service_id];
+
+			try {
+				$service = $container[$service_id];
+			} catch (UnknownIdentifierException $e) {
+				return null;
+			}
 
 			return $service;
 		}
