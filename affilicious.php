@@ -42,6 +42,9 @@ define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 
 if(!class_exists('Affilicious')) {
 
+	/**
+	 * @since 0.3
+	 */
 	class Affilicious
 	{
 		const NAME = 'affilicious';
@@ -146,7 +149,7 @@ if(!class_exists('Affilicious')) {
 
 			spl_autoload_register(array($this, 'autoload'));
 
-			$this->container = new \Pimple\Container();
+			$this->container = new Pimple\Container();
 		}
 
 		/**
@@ -154,7 +157,7 @@ if(!class_exists('Affilicious')) {
 		 *
 		 * @see http://pimple.sensiolabs.org
 		 * @since 0.3
-		 * @return \Pimple\Container
+		 * @return Pimple\Container
 		 */
 		public function get_container()
 		{
@@ -168,6 +171,7 @@ if(!class_exists('Affilicious')) {
 		 */
 		public function run()
 		{
+			// Hook the plugin activation and deactivation.
 			register_activation_hook(__FILE__, array($this, 'activate'));
 			register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 
@@ -176,14 +180,13 @@ if(!class_exists('Affilicious')) {
 				return;
 			}
 
+			// Load the functions, includes, services, hooks and etc.
 			$this->load_functions();
 			$this->load_services();
+			$this->load_legacy();
+			$this->migrate();
 			$this->register_public_hooks();
 			$this->register_admin_hooks();
-			$this->migrate();
-
-			// TODO: This old legacy class will be removed later
-			new \Affilicious\Product\Meta_Box\Meta_Box_Manager();
 		}
 
 		/**
@@ -440,6 +443,16 @@ if(!class_exists('Affilicious')) {
 		}
 
 		/**
+		 * Load some legacy code which will be removed in the future.
+		 *
+		 * @since 0.9.24
+		 */
+		public function load_legacy()
+		{
+			new Affilicious\Product\Meta_Box\Meta_Box_Manager();
+		}
+
+		/**
 		 * Load the simple functions for an easier usage in templates.
 		 *
 		 * @since 0.5.1
@@ -458,122 +471,122 @@ if(!class_exists('Affilicious')) {
 		{
 			// Common services
 			$this->container['affilicious.common.logger'] = function () {
-				return new \Affilicious\Common\Logger\Logger();
+				return new Affilicious\Common\Logger\Logger();
 			};
 
 			$this->container['affilicious.common.cleaner.logs'] = function ($c) {
-				return new \Affilicious\Common\Cleaner\Logs_Cleaner(
+				return new Affilicious\Common\Cleaner\Logs_Cleaner(
 					$c['affilicious.common.logger']
 				);
 			};
 
 			$this->container['affilicious.common.cleaner.logs_timer'] = function ($c) {
-				return new \Affilicious\Common\Cleaner\Logs_Cleaner_Timer(
+				return new Affilicious\Common\Cleaner\Logs_Cleaner_Timer(
 					$c['affilicious.common.cleaner.logs']
 				);
 			};
 
 			$this->container['affilicious.common.generator.slug'] = function () {
-				return new \Affilicious\Common\Generator\Wordpress\Wordpress_Slug_Generator();
+				return new Affilicious\Common\Generator\Wordpress\Wordpress_Slug_Generator();
 			};
 
 			$this->container['affilicious.common.generator.key'] = function () {
-				return new \Affilicious\Common\Generator\Carbon\Carbon_Key_Generator();
+				return new Affilicious\Common\Generator\Carbon\Carbon_Key_Generator();
 			};
 
 			$this->container['affilicious.common.template.locator'] = function () {
-				return new \Affilicious\Common\Template\Template_Locator();
+				return new Affilicious\Common\Template\Template_Locator();
 			};
 
 			$this->container['affilicious.common.template.renderer'] = function ($c) {
-				return new \Affilicious\Common\Template\Template_Renderer(
+				return new Affilicious\Common\Template\Template_Renderer(
 					$c['affilicious.common.template.locator']
 				);
 			};
 
 			$this->container['affilicious.common.filter.link_target'] = function () {
-				return new \Affilicious\Common\Filter\Link_Target_Filter();
+				return new Affilicious\Common\Filter\Link_Target_Filter();
 			};
 
 			$this->container['affilicious.common.filter.taxonomy_templates'] = function () {
-				return new \Affilicious\Common\Filter\Taxonomy_Templates_Filter();
+				return new Affilicious\Common\Filter\Taxonomy_Templates_Filter();
 			};
 
 			$this->container['affilicious.common.setup.assets'] = function() {
-				return new \Affilicious\Common\Setup\Assets_Setup();
+				return new Affilicious\Common\Setup\Assets_Setup();
 			};
 
 			$this->container['affilicious.common.setup.image_size'] = function() {
-				return new \Affilicious\Common\Setup\Image_Size_Setup();
+				return new Affilicious\Common\Setup\Image_Size_Setup();
 			};
 
 			$this->container['affilicious.common.setup.logger_handler'] = function($c) {
-				return new \Affilicious\Common\Setup\Logger_Handler_Setup(
+				return new Affilicious\Common\Setup\Logger_Handler_Setup(
 					$c['affilicious.common.logger']
 				);
 			};
 
 			$this->container['affilicious.common.setup.logs_table'] = function($c) {
-				return new \Affilicious\Common\Setup\Logs_Table_Setup(
+				return new Affilicious\Common\Setup\Logs_Table_Setup(
 					$c['affilicious.common.table_creator.logs']
 				);
 			};
 
 			$this->container['affilicious.common.table_creator.logs'] = function() {
-				return new \Affilicious\Common\Table_Creator\Logs_Table_Creator();
+				return new Affilicious\Common\Table_Creator\Logs_Table_Creator();
 			};
 
 			$this->container['affilicious.common.listener.create_blog'] = function($c) {
-				return new \Affilicious\Common\Listener\Create_Blog_Listener(
+				return new Affilicious\Common\Listener\Create_Blog_Listener(
 					$c['affilicious.common.table_creator.logs'],
 					$c['affilicious.common.admin.license.timer']
 				);
 			};
 
 			$this->container['affilicious.common.listener.drop_tables'] = function() {
-				return new \Affilicious\Common\Listener\Drop_Tables_Listener();
+				return new Affilicious\Common\Listener\Drop_Tables_Listener();
 			};
 
 			$this->container['affilicious.common.migration.non_existing_logs_table_to_0920'] = function ($c) {
-				return new \Affilicious\Common\Migration\Non_Existing_Logs_Table_To_0920_Migration(
+				return new Affilicious\Common\Migration\Non_Existing_Logs_Table_To_0920_Migration(
 					$c['affilicious.common.table_creator.logs']
 				);
 			};
 
 			$this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'] = function ($c) {
-				return new \Affilicious\Common\Migration\Logs_Cleaner_Timer_to_0922_Migration(
+				return new Affilicious\Common\Migration\Logs_Cleaner_Timer_to_0922_Migration(
 					$c['affilicious.common.cleaner.logs_timer']
 				);
 			};
 
             $this->container['affilicious.common.admin.setup.plugin_actions'] = function() {
-                return new \Affilicious\Common\Admin\Setup\Plugin_Actions_Setup();
+                return new Affilicious\Common\Admin\Setup\Plugin_Actions_Setup();
             };
 
 			$this->container['affilicious.common.admin.filter.footer_text'] = function () {
-				return new \Affilicious\Common\Admin\Filter\Footer_Text_Filter();
+				return new Affilicious\Common\Admin\Filter\Footer_Text_Filter();
 			};
 
 			$this->container['affilicious.common.admin.setup.carbon'] = function () {
-				return new \Affilicious\Common\Admin\Setup\Carbon_Setup();
+				return new Affilicious\Common\Admin\Setup\Carbon_Setup();
 			};
 
 			$this->container['affilicious.common.admin.page.addons'] = function () {
-				return new \Affilicious\Common\Admin\Page\Addons_Page();
+				return new Affilicious\Common\Admin\Page\Addons_Page();
 			};
 
 			$this->container['affilicious.common.admin.license.processor'] = function ($c) {
-				return new \Affilicious\Common\Admin\License\License_Processor(
+				return new Affilicious\Common\Admin\License\License_Processor(
 					$c['affilicious.common.admin.license.manager']
 				);
 			};
 
 			$this->container['affilicious.common.admin.license.manager'] = function () {
-				return new \Affilicious\Common\Admin\License\License_Manager();
+				return new Affilicious\Common\Admin\License\License_Manager();
 			};
 
 			$this->container['affilicious.common.admin.license.timer'] = function ($c) {
-				return new \Affilicious\Common\Admin\License\License_Timer(
+				return new Affilicious\Common\Admin\License\License_Timer(
 					$c['affilicious.common.admin.license.manager']
 				);
 			};
@@ -587,17 +600,17 @@ if(!class_exists('Affilicious')) {
             };
 
             $this->container['affilicious.common.admin.ajax_handler.dismissed_notice'] = function () {
-                return new \Affilicious\Common\Admin\Ajax_Handler\Dismissed_Notice_Ajax_Handler();
+                return new Affilicious\Common\Admin\Ajax_Handler\Dismissed_Notice_Ajax_Handler();
             };
 
 			$this->container['affilicious.common.admin.setup.license_handler'] = function ($c) {
-				return new \Affilicious\Common\Admin\Setup\License_Handler_Setup(
+				return new Affilicious\Common\Admin\Setup\License_Handler_Setup(
 					$c['affilicious.common.admin.license.manager']
 				);
 			};
 
 			$this->container['affilicious.common.admin.options.affilicious'] = function ($c) {
-				return new \Affilicious\Common\Admin\Options\Affilicious_Options(
+				return new Affilicious\Common\Admin\Options\Affilicious_Options(
 					$c['affilicious.common.admin.license.manager'],
 					$c['affilicious.common.admin.license.processor'],
 					$c['affilicious.common.admin.system.info'],
@@ -607,163 +620,163 @@ if(!class_exists('Affilicious')) {
 			};
 
             $this->container['affilicious.common.admin.action.download_system_info'] = function ($c) {
-                return new \Affilicious\Common\Admin\Action\Download_System_Info_Action(
+                return new Affilicious\Common\Admin\Action\Download_System_Info_Action(
                     $c['affilicious.common.admin.system.info']
                 );
             };
 
             $this->container['affilicious.common.admin.action.download_logs'] = function ($c) {
-                return new \Affilicious\Common\Admin\Action\Download_Logs_Action(
+                return new Affilicious\Common\Admin\Action\Download_Logs_Action(
                     $c['affilicious.common.admin.logs.logs']
                 );
             };
 
 			$this->container['affilicious.common.admin.setup.assets'] = function() {
-				return new \Affilicious\Common\Admin\Setup\Assets_Setup();
+				return new Affilicious\Common\Admin\Setup\Assets_Setup();
 			};
 
 			$this->container['affilicious.common.admin.setup.download_recommendation'] = function() {
-				return new \Affilicious\Common\Admin\Setup\Download_Recommendation_Setup();
+				return new Affilicious\Common\Admin\Setup\Download_Recommendation_Setup();
 			};
 
 			$this->container['affilicious.common.admin.notice.download_recommendation'] = function() {
-				return new \Affilicious\Common\Admin\Notice\Download_Recommendation_Notice();
+				return new Affilicious\Common\Admin\Notice\Download_Recommendation_Notice();
 			};
 
 			// Provider services
 			$this->container['affilicious.provider.setup.provider'] = function ($c) {
-				return new \Affilicious\Provider\Setup\Provider_Setup(
+				return new Affilicious\Provider\Setup\Provider_Setup(
 					$c['affilicious.provider.repository.provider']
 				);
 			};
 
 			$this->container['affilicious.provider.repository.provider'] = function ($c) {
-				return new \Affilicious\Provider\Repository\Carbon\Carbon_Provider_Repository(
+				return new Affilicious\Provider\Repository\Carbon\Carbon_Provider_Repository(
 					$c['affilicious.common.generator.key']
 				);
 			};
 			
 			// Shop services
 			$this->container['affilicious.shop.setup.shop_template'] = function () {
-				return new \Affilicious\Shop\Setup\Shop_Template_Setup();
+				return new Affilicious\Shop\Setup\Shop_Template_Setup();
 			};
 
 			$this->container['affilicious.shop.repository.shop_template'] = function () {
-				return new \Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository();
+				return new Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository();
 			};
 
 			$this->container['affilicious.shop.factory.shop_template'] = function ($c) {
-				return new \Affilicious\Shop\Factory\In_Memory\In_Memory_Shop_Template_Factory(
+				return new Affilicious\Shop\Factory\In_Memory\In_Memory_Shop_Template_Factory(
 					$c['affilicious.common.generator.slug']
 				);
 			};
 
 			$this->container['affilicious.shop.migration.post_to_term'] = function ($c) {
-				return new \Affilicious\Shop\Migration\Post_To_Term_Migration(
+				return new Affilicious\Shop\Migration\Post_To_Term_Migration(
 					$c['affilicious.shop.factory.shop_template'],
 					$c['affilicious.shop.repository.shop_template']
 				);
 			};
 
 			$this->container['affilicious.shop.migration.post_type'] = function () {
-				return new \Affilicious\Shop\Migration\Post_Type_Migration();
+				return new Affilicious\Shop\Migration\Post_Type_Migration();
 			};
 
 			$this->container['affilicious.shop.migration.currency_code'] = function () {
-				return new \Affilicious\Shop\Migration\Currency_Code_Migration();
+				return new Affilicious\Shop\Migration\Currency_Code_Migration();
 			};
 
 			$this->container['affilicious.shop.admin.meta_box.shop_template'] = function($c) {
-				return new \Affilicious\Shop\Admin\Meta_Box\Shop_Template_Meta_Box(
+				return new Affilicious\Shop\Admin\Meta_Box\Shop_Template_Meta_Box(
 					$c['affilicious.provider.repository.provider']
 				);
 			};
 
 			$this->container['affilicious.shop.admin.filter.table_columns'] = function() {
-				return new \Affilicious\Shop\Admin\Filter\Table_Columns_Filter();
+				return new Affilicious\Shop\Admin\Filter\Table_Columns_Filter();
 			};
 
 			$this->container['affilicious.shop.admin.filter.table_rows'] = function($c) {
-				return new \Affilicious\Shop\Admin\Filter\Table_Rows_Filter(
+				return new Affilicious\Shop\Admin\Filter\Table_Rows_Filter(
 					$c['affilicious.provider.repository.provider']
 				);
 			};
 
 			// Detail services
 			$this->container['affilicious.detail.setup.detail_template'] = function () {
-				return new \Affilicious\Detail\Setup\Detail_Template_Setup();
+				return new Affilicious\Detail\Setup\Detail_Template_Setup();
 			};
 
 			$this->container['affilicious.detail.factory.detail_template'] = function ($c) {
-				return new \Affilicious\Detail\Factory\In_Memory\In_Memory_Detail_Template_Factory(
+				return new Affilicious\Detail\Factory\In_Memory\In_Memory_Detail_Template_Factory(
 					$c['affilicious.common.generator.slug']
 				);
 			};
 
 			$this->container['affilicious.detail.repository.detail_template'] = function () {
-				return new \Affilicious\Detail\Repository\Carbon\Carbon_Detail_Template_Repository();
+				return new Affilicious\Detail\Repository\Carbon\Carbon_Detail_Template_Repository();
 			};
 
 			$this->container['affilicious.detail.migration.post_to_term'] = function ($c) {
-				return new \Affilicious\Detail\Migration\Post_To_Term_Migration(
+				return new Affilicious\Detail\Migration\Post_To_Term_Migration(
 					$c['affilicious.detail.factory.detail_template'],
 					$c['affilicious.detail.repository.detail_template']
 				);
 			};
 
 			$this->container['affilicious.detail.admin.meta_box.detail_template'] = function() {
-				return new \Affilicious\Detail\Admin\Meta_Box\Detail_Template_Meta_Box();
+				return new Affilicious\Detail\Admin\Meta_Box\Detail_Template_Meta_Box();
 			};
 
 			$this->container['affilicious.detail.admin.filter.table_columns'] = function() {
-				return new \Affilicious\Detail\Admin\Filter\Table_Columns_Filter();
+				return new Affilicious\Detail\Admin\Filter\Table_Columns_Filter();
 			};
 
 			$this->container['affilicious.detail.admin.filter.table_rows'] = function() {
-				return new \Affilicious\Detail\Admin\Filter\Table_Rows_Filter();
+				return new Affilicious\Detail\Admin\Filter\Table_Rows_Filter();
 			};
 
 			// Attribute services
 			$this->container['affilicious.attribute.setup.attribute_template'] = function () {
-				return new \Affilicious\Attribute\Setup\Attribute_Template_Setup();
+				return new Affilicious\Attribute\Setup\Attribute_Template_Setup();
 			};
 
 			$this->container['affilicious.attribute.repository.attribute_template'] = function () {
-				return new \Affilicious\Attribute\Repository\Carbon\Carbon_Attribute_Template_Repository();
+				return new Affilicious\Attribute\Repository\Carbon\Carbon_Attribute_Template_Repository();
 			};
 
 			$this->container['affilicious.attribute.factory.attribute_template'] = function ($c) {
-				return new \Affilicious\Attribute\Factory\In_Memory\In_Memory_Attribute_Template_Factory(
+				return new Affilicious\Attribute\Factory\In_Memory\In_Memory_Attribute_Template_Factory(
 					$c['affilicious.common.generator.slug']
 				);
 			};
 
 			$this->container['affilicious.attribute.migration.post_to_term'] = function ($c) {
-				return new \Affilicious\Attribute\Migration\Post_To_Term_Migration(
+				return new Affilicious\Attribute\Migration\Post_To_Term_Migration(
 					$c['affilicious.attribute.factory.attribute_template'],
 					$c['affilicious.attribute.repository.attribute_template']
 				);
 			};
 
 			$this->container['affilicious.attribute.admin.meta_box.attribute_template'] = function() {
-				return new \Affilicious\Attribute\Admin\Meta_Box\Attribute_Template_Meta_Box();
+				return new Affilicious\Attribute\Admin\Meta_Box\Attribute_Template_Meta_Box();
 			};
 
 			$this->container['affilicious.attribute.admin.filter.table_columns'] = function() {
-				return new \Affilicious\Attribute\Admin\Filter\Table_Columns_Filter();
+				return new Affilicious\Attribute\Admin\Filter\Table_Columns_Filter();
 			};
 
 			$this->container['affilicious.attribute.admin.filter.table_rows'] = function() {
-				return new \Affilicious\Attribute\Admin\Filter\Table_Rows_Filter();
+				return new Affilicious\Attribute\Admin\Filter\Table_Rows_Filter();
 			};
 
 			// Product services
 			$this->container['affilicious.product.setup.product'] = function () {
-				return new \Affilicious\Product\Setup\Product_Setup();
+				return new Affilicious\Product\Setup\Product_Setup();
 			};
 
 			$this->container['affilicious.product.repository.product'] = function ($c) {
-				return new \Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
+				return new Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
 					$c['affilicious.common.generator.slug'],
 					$c['affilicious.common.generator.key'],
 					$c['affilicious.shop.repository.shop_template'],
@@ -773,143 +786,143 @@ if(!class_exists('Affilicious')) {
 			};
 
 			$this->container['affilicious.product.factory.simple_product'] = function ($c) {
-				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Simple_Product_Factory(
+				return new Affilicious\Product\Factory\In_Memory\In_Memory_Simple_Product_Factory(
 					$c['affilicious.common.generator.slug']
 				);
 			};
 
 			$this->container['affilicious.product.factory.complex_product'] = function ($c) {
-				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Complex_Product_Factory(
+				return new Affilicious\Product\Factory\In_Memory\In_Memory_Complex_Product_Factory(
 					$c['affilicious.common.generator.slug']
 				);
 			};
 
 			$this->container['affilicious.product.factory.product_variant'] = function ($c) {
-				return new \Affilicious\Product\Factory\In_Memory\In_Memory_Product_Variant_Factory(
+				return new Affilicious\Product\Factory\In_Memory\In_Memory_Product_Variant_Factory(
 					$c['affilicious.common.generator.slug']
 				);
 			};
 
 			$this->container['affilicious.product.filter.universal_box'] = function () {
-				return new \Affilicious\Product\Filter\Universal_Box_Filter();
+				return new Affilicious\Product\Filter\Universal_Box_Filter();
 			};
 
 			$this->container['affilicious.product.filter.product_shops_meta_like_query'] = function () {
-				return new \Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
+				return new Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
 			};
 
 			$this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
-				return new \Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
+				return new Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
 				);
 			};
 
 			$this->container['affilicious.product.listener.saved_complex_product'] = function ($c) {
-				return new \Affilicious\Product\Listener\Saved_Complex_Product_Listener(
+				return new Affilicious\Product\Listener\Saved_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
 				);
 			};
 
 			$this->container['affilicious.product.listener.create_blog'] = function($c) {
-				return new \Affilicious\Product\Listener\Create_Blog_Listener(
+				return new Affilicious\Product\Listener\Create_Blog_Listener(
 					$c['affilicious.product.update.semaphore'],
 					$c['affilicious.product.update.timer']
 				);
 			};
 
 			$this->container['affilicious.product.listener.deleted_complex_product'] = function ($c) {
-				return new \Affilicious\Product\Listener\Deleted_Complex_Product_Listener(
+				return new Affilicious\Product\Listener\Deleted_Complex_Product_Listener(
 					$c['affilicious.product.repository.product']
 				);
 			};
 
 			$this->container['affilicious.product.cleaner.orphaned_product_variants'] = function ($c) {
-				return new \Affilicious\Product\Cleaner\Orphaned_Product_Variants_Cleaner(
+				return new Affilicious\Product\Cleaner\Orphaned_Product_Variants_Cleaner(
 					$c['affilicious.common.logger']
 				);
 			};
 
 			$this->container['affilicious.product.cleaner.orphaned_product_variants_timer'] = function ($c) {
-				return new \Affilicious\Product\Cleaner\Orphaned_Product_Variants_Cleaner_Timer(
+				return new Affilicious\Product\Cleaner\Orphaned_Product_Variants_Cleaner_Timer(
 					$c['affilicious.product.cleaner.orphaned_product_variants']
 				);
 			};
 
 			$this->container['affilicious.product.setup.custom_taxonomies'] = function () {
-				return new \Affilicious\Product\Setup\Custom_Taxonomies_Setup();
+				return new Affilicious\Product\Setup\Custom_Taxonomies_Setup();
 			};
 
 			$this->container['affilicious.product.setup.canonical'] = function () {
-				return new \Affilicious\Product\Setup\Canonical_Setup();
+				return new Affilicious\Product\Setup\Canonical_Setup();
 			};
 
 			$this->container['affilicious.product.setup.admin_bar'] = function () {
-				return new \Affilicious\Product\Setup\Admin_Bar_Setup();
+				return new Affilicious\Product\Setup\Admin_Bar_Setup();
 			};
 
 			$this->container['affilicious.product.filter.complex_product'] = function () {
-				return new \Affilicious\Product\Filter\Complex_Product_Filter();
+				return new Affilicious\Product\Filter\Complex_Product_Filter();
 			};
 
 			$this->container['affilicious.product.listener.edited_shop_template'] = function ($c) {
-				return new \Affilicious\Product\Listener\Edited_Shop_Template_Listener(
+				return new Affilicious\Product\Listener\Edited_Shop_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
 
 			$this->container['affilicious.product.listener.edited_attribute_template'] = function ($c) {
-				return new \Affilicious\Product\Listener\Edited_Attribute_Template_Listener(
+				return new Affilicious\Product\Listener\Edited_Attribute_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
 
 			$this->container['affilicious.product.listener.edited_detail_template'] = function ($c) {
-				return new \Affilicious\Product\Listener\Edited_Detail_Template_Listener(
+				return new Affilicious\Product\Listener\Edited_Detail_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
 
 			$this->container['affilicious.product.listener.deleted_shop_template'] = function ($c) {
-				return new \Affilicious\Product\Listener\Deleted_Shop_Template_Listener(
+				return new Affilicious\Product\Listener\Deleted_Shop_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
 
 			$this->container['affilicious.product.listener.deleted_attribute_template'] = function ($c) {
-				return new \Affilicious\Product\Listener\Deleted_Attribute_Template_Listener(
+				return new Affilicious\Product\Listener\Deleted_Attribute_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
 
 			$this->container['affilicious.product.listener.deleted_detail_template'] = function ($c) {
-				return new \Affilicious\Product\Listener\Deleted_Detail_Template_Listener(
+				return new Affilicious\Product\Listener\Deleted_Detail_Template_Listener(
 					$c['affilicious.common.generator.key']
 				);
 			};
 
 			$this->container['affilicious.product.setup.slug_rewrite'] = function ($c) {
-				return new \Affilicious\Product\Setup\Slug_Rewrite_Setup(
+				return new Affilicious\Product\Setup\Slug_Rewrite_Setup(
 					$c['affilicious.product.setup.product'],
 					$c['affilicious.product.setup.custom_taxonomies']
 				);
 			};
 
 			$this->container['affilicious.product.update.timer'] = function ($c) {
-				return new \Affilicious\Product\Update\Update_Timer(
+				return new Affilicious\Product\Update\Update_Timer(
 					$c['affilicious.product.update.manager'],
 					$c['affilicious.product.update.semaphore']
 				);
 			};
 
 			$this->container['affilicious.product.update.task.broker'] = function($c) {
-				return new \Affilicious\Product\Update\Task\Broker\Update_Task_Broker(
+				return new Affilicious\Product\Update\Task\Broker\Update_Task_Broker(
 					$c['affilicious.shop.repository.shop_template'],
 					$c['affilicious.provider.repository.provider']
 				);
 			};
 
 			$this->container['affilicious.product.update.manager'] = function ($c) {
-				return new \Affilicious\Product\Update\Update_Manager(
+				return new Affilicious\Product\Update\Update_Manager(
 					$c['affilicious.product.update.task.broker'],
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.provider.repository.provider']
@@ -917,19 +930,19 @@ if(!class_exists('Affilicious')) {
 			};
 
 			$this->container['affilicious.product.update.semaphore'] = function ($c) {
-				return new \Affilicious\Product\Update\Update_Semaphore(
+				return new Affilicious\Product\Update\Update_Semaphore(
 					$c['affilicious.common.logger']
 				);
 			};
 
 			$this->container['affilicious.product.setup.update_worker'] = function ($c) {
-				return new \Affilicious\Product\Setup\Update_Worker_Setup(
+				return new Affilicious\Product\Setup\Update_Worker_Setup(
 					$c['affilicious.product.update.manager']
 				);
 			};
 			
 			$this->container['affilicious.product.setup.update_queue'] = function ($c) {
-				return new \Affilicious\Product\Setup\Update_Queue_Setup(
+				return new Affilicious\Product\Setup\Update_Queue_Setup(
 					$c['affilicious.product.update.task.broker']
 				);
 			};
@@ -939,31 +952,31 @@ if(!class_exists('Affilicious')) {
 			};
 
 			$this->container['affilicious.product.migration.post_type'] = function () {
-				return new \Affilicious\Product\Migration\Post_Type_Migration();
+				return new Affilicious\Product\Migration\Post_Type_Migration();
 			};
 
 			$this->container['affilicious.product.migration.product_slugs_to_0818'] = function () {
-				return new \Affilicious\Product\Migration\Product_Slugs_To_0818_Migration();
+				return new Affilicious\Product\Migration\Product_Slugs_To_0818_Migration();
 			};
 
 			$this->container['affilicious.product.migration.product_variant_terms_to_0820'] = function ($c) {
-				return new \Affilicious\Product\Migration\Product_Variant_Terms_To_0820_Migration(
+				return new Affilicious\Product\Migration\Product_Variant_Terms_To_0820_Migration(
 					$c['affilicious.product.repository.product']
 				);
 			};
 
 			$this->container['affilicious.product.migration.affiliate_product_id_to_090'] = function () {
-				return new \Affilicious\Product\Migration\Affiliate_Product_Id_To_090_Migration();
+				return new Affilicious\Product\Migration\Affiliate_Product_Id_To_090_Migration();
 			};
 
 			$this->container['affilicious.product.migration.product_updates_to_0920'] = function ($c) {
-				return new \Affilicious\Product\Migration\Product_Updates_To_0920_Migration(
+				return new Affilicious\Product\Migration\Product_Updates_To_0920_Migration(
 					$c['affilicious.product.update.semaphore']
 				);
 			};
 
 			$this->container['affilicious.product.migration.variants'] = function ($c) {
-				return new \Affilicious\Product\Migration\Variants_Migration(
+				return new Affilicious\Product\Migration\Variants_Migration(
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.attribute.repository.attribute_template'],
 					$c['affilicious.shop.repository.shop_template'],
@@ -972,58 +985,58 @@ if(!class_exists('Affilicious')) {
 			};
 
 			$this->container['affilicious.product.migration.shops'] = function ($c) {
-				return new \Affilicious\Product\Migration\Shops_Migration(
+				return new Affilicious\Product\Migration\Shops_Migration(
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.shop.repository.shop_template']
 				);
 			};
 
 			$this->container['affilicious.product.migration.clean_variants'] = function () {
-				return new \Affilicious\Product\Migration\Clean_Variants_Migration();
+				return new Affilicious\Product\Migration\Clean_Variants_Migration();
 			};
 
 			$this->container['affilicious.product.migration.variant_inherit_status'] = function () {
-				return new \Affilicious\Product\Migration\Variant_Inherit_Status_Migration();
+				return new Affilicious\Product\Migration\Variant_Inherit_Status_Migration();
 			};
 
 			$this->container['affilicious.product.migration.product_slug'] = function () {
-				return new \Affilicious\Product\Migration\Product_Slug_Migration();
+				return new Affilicious\Product\Migration\Product_Slug_Migration();
 			};
 
 			$this->container['affilicious.product.migration.details'] = function ($c) {
-				return new \Affilicious\Product\Migration\Details_Migration(
+				return new Affilicious\Product\Migration\Details_Migration(
 					$c['affilicious.product.repository.product'],
 					$c['affilicious.detail.repository.detail_template']
 				);
 			};
 
 			$this->container['affilicious.product.migration.tags_to_090'] = function($c) {
-				return new \Affilicious\Product\Migration\Tags_To_090_Migration(
+				return new Affilicious\Product\Migration\Tags_To_090_Migration(
 					$c['affilicious.detail.repository.detail_template'],
 					$c['affilicious.attribute.repository.attribute_template']
 				);
 			};
 
 			$this->container['affilicious.product.migration.orphaned_product_variants_timer_to_0922'] = function($c) {
-				return new \Affilicious\Product\Migration\Orphaned_Product_Variants_Cleaner_Timer_to_0922_Migration(
+				return new Affilicious\Product\Migration\Orphaned_Product_Variants_Cleaner_Timer_to_0922_Migration(
 					$c['affilicious.product.cleaner.orphaned_product_variants_timer']
 				);
 			};
 
 			$this->container['affilicious.product.admin.setup.import_page'] = function () {
-				return new \Affilicious\Product\Admin\Setup\Import_Page_Setup();
+				return new Affilicious\Product\Admin\Setup\Import_Page_Setup();
 			};
 
 			$this->container['affilicious.product.admin.filter.table_columns'] = function () {
-				return new \Affilicious\Product\Admin\Filter\Table_Columns_Filter();
+				return new Affilicious\Product\Admin\Filter\Table_Columns_Filter();
 			};
 
 			$this->container['affilicious.product.admin.filter.table_rows'] = function () {
-				return new \Affilicious\Product\Admin\Filter\Table_Rows_Filter();
+				return new Affilicious\Product\Admin\Filter\Table_Rows_Filter();
 			};
 
 			$this->container['affilicious.product.admin.meta_box.product'] = function($c) {
-				return new \Affilicious\Product\Admin\Meta_Box\Product_Meta_Box(
+				return new Affilicious\Product\Admin\Meta_Box\Product_Meta_Box(
 					$c['affilicious.shop.repository.shop_template'],
 					$c['affilicious.attribute.repository.attribute_template'],
 					$c['affilicious.detail.repository.detail_template'],
@@ -1032,19 +1045,19 @@ if(!class_exists('Affilicious')) {
 			};
 
 			$this->container['affilicious.product.admin.options.product'] = function () {
-				return new \Affilicious\Product\Admin\Options\Product_Options();
+				return new Affilicious\Product\Admin\Options\Product_Options();
 			};
 
 			$this->container['affilicious.product.admin.filter.table_content'] = function () {
-				return new \Affilicious\Product\Admin\Filter\Table_Content_Filter();
+				return new Affilicious\Product\Admin\Filter\Table_Content_Filter();
 			};
 
 			$this->container['affilicious.product.admin.filter.table_count'] = function () {
-				return new \Affilicious\Product\Admin\Filter\Table_Count_Filter();
+				return new Affilicious\Product\Admin\Filter\Table_Count_Filter();
 			};
 
 			$this->container['affilicious.product.admin.filter.menu_order'] = function() {
-				return new \Affilicious\Product\Admin\Filter\Menu_Order_Filter();
+				return new Affilicious\Product\Admin\Filter\Menu_Order_Filter();
 			};
 		}
 
@@ -1328,8 +1341,8 @@ if(!class_exists('Affilicious')) {
  */
 function aff_run_plugin()
 {
-	$aff_plugin = Affilicious::get_instance();
-	$aff_plugin->run();
+	$affilicious = Affilicious::get_instance();
+	$affilicious->run();
 }
 
 aff_run_plugin();
