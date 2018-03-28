@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-03-17 15:45+0100\n"
+"POT-Creation-Date: 2018-03-28 21:23+0200\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
@@ -26,28 +26,28 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: bin\n"
 "X-Poedit-SearchPathExcluded-5: tests\n"
 
-#: affilicious.php:247
+#: affilicious.php:255
 #, php-format
 msgid ""
 "Affilicious requires at least the PHP Version %s to reveal the full "
 "potential. Please switch the PHP version in your hosting provider."
 msgstr ""
 
-#: affilicious.php:255
+#: affilicious.php:263
 #, php-format
 msgid ""
 "Affilicious requires at least the Wordpress Version %s. Please update "
 "Wordpress in the <a href=\"%s\">updates area</a>."
 msgstr ""
 
-#: affilicious.php:264
+#: affilicious.php:272
 #, php-format
 msgid ""
 "The Affilicious Plugin requires the PHP extension %s. Please install the PHP "
 "extension in your hosting provider."
 msgstr ""
 
-#: affilicious.php:274
+#: affilicious.php:282
 #, php-format
 msgid "Go back to the <a href=\"%s\">plugins area</a>"
 msgstr ""
@@ -1201,6 +1201,15 @@ msgstr ""
 #, php-format
 msgctxt "Product"
 msgid "Filter %s"
+msgstr ""
+
+#: src/provider/admin/notice/amazon-not-included-anymore-notice.php:31
+msgid ""
+"\"Amazon Import And Update\" is not included in Affilicious by default "
+"anymore and was outsourced into a <a href=\"https://affilicious.de/downloads/"
+"amazon-import-und-update/\" target=\"_blank\">separate addon</a>. Contact "
+"the support to check if you can get a multi license for FREE. If you have "
+"already got a license, you can ignore this notice."
 msgstr ""
 
 #: src/shop/admin/filter/table-columns-filter.php:58

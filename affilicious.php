@@ -660,6 +660,10 @@ if(!class_exists('Affilicious')) {
 					$c['affilicious.common.generator.key']
 				);
 			};
+
+			$this->container['affilicious.provider.admin.notice.amazon_not_included_anymore'] = function () {
+				return new Affilicious\Provider\Admin\Notice\Amazon_Not_Included_Anymore_Notice();
+			};
 			
 			// Shop services
 			$this->container['affilicious.shop.setup.shop_template'] = function () {
@@ -1252,7 +1256,9 @@ if(!class_exists('Affilicious')) {
 
 			// Hook the admin notices
 			$download_recommendation_notice = $this->container['affilicious.common.admin.notice.download_recommendation'];
+			$amazon_not_included_anymore = $this->container['affilicious.provider.admin.notice.amazon_not_included_anymore'];
 			add_action('admin_notices', array($download_recommendation_notice, 'render'));
+			add_action('admin_notices', array($amazon_not_included_anymore, 'render'));
 
 			// Hook the admin assets.
 			$assets_setup = $this->container['affilicious.common.admin.setup.assets'];

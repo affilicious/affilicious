@@ -276,6 +276,7 @@ class ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13
         'Affilicious\\Product\\Update\\Update_Semaphore' => __DIR__ . '/../..' . '/src/product/update/update-semaphore.php',
         'Affilicious\\Product\\Update\\Update_Timer' => __DIR__ . '/../..' . '/src/product/update/update-timer.php',
         'Affilicious\\Product\\Update\\Worker\\Update_Worker_Interface' => __DIR__ . '/../..' . '/src/product/update/worker/update-worker-interface.php',
+        'Affilicious\\Provider\\Admin\\Notice\\Amazon_Not_Included_Anymore_Notice' => __DIR__ . '/../..' . '/src/provider/admin/notice/amazon-not-included-anymore-notice.php',
         'Affilicious\\Provider\\Factory\\In_Memory\\In_Memory_Provider_Factory' => __DIR__ . '/../..' . '/src/provider/factory/in-memory/in-memory-provider-factory.php',
         'Affilicious\\Provider\\Factory\\Provider_Factory_Interface' => __DIR__ . '/../..' . '/src/provider/factory/provider-factory-interface.php',
         'Affilicious\\Provider\\Helper\\Provider_Helper' => __DIR__ . '/../..' . '/src/provider/helper/provider-helper.php',
