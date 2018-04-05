@@ -869,8 +869,8 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Product\Setup\Admin_Bar_Setup();
 			};
 
-			$this->container['affilicious.product.filter.complex_product'] = function () {
-				return new Affilicious\Product\Filter\Complex_Product_Filter();
+			$this->container['affilicious.product.filter.disable_complex_products_for_query'] = function () {
+				return new Affilicious\Product\Filter\Disable_Complex_Products_For_Query_Filter();
 			};
 
 			$this->container['affilicious.product.listener.edited_shop_template'] = function ($c) {
@@ -1187,8 +1187,8 @@ if(!class_exists('Affilicious')) {
 			add_action('admin_bar_menu', array($admin_bar_setup, 'init'), 99);
 
 			// Filter the complex products from the front end search.
-			$complex_product_filter = $this->container['affilicious.product.filter.complex_product'];
-			add_action('pre_get_posts', array($complex_product_filter, 'filter'));
+			$disable_complex_products_for_query_filter = $this->container['affilicious.product.filter.disable_complex_products_for_query'];
+			add_action('pre_get_posts', array($disable_complex_products_for_query_filter, 'filter'));
 
 			// Hook the license handlers for the extensions and themes.
 			$license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
