@@ -39,7 +39,7 @@ class Saved_Complex_Product_Listener
             return;
         }
 
-        $complex_product = $this->product_repository->find_one_by_id(new Product_Id($post_id));
+        $complex_product = $this->product_repository->find(new Product_Id($post_id));
         if(!($complex_product instanceof Complex_Product)) {
             return;
         }
