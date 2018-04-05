@@ -820,10 +820,8 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
 			};
 
-			$this->container['affilicious.product.listener.changed_status_complex_product'] = function ($c) {
-				return new Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener(
-					$c['affilicious.product.repository.product']
-				);
+			$this->container['affilicious.product.listener.changed_status_complex_product'] = function () {
+				return new Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener();
 			};
 
 			$this->container['affilicious.product.listener.saved_complex_product'] = function ($c) {
