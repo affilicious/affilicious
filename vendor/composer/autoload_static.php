@@ -204,7 +204,7 @@ class ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13
         'Affilicious\\Product\\Helper\\Review_Helper' => __DIR__ . '/../..' . '/src/product/helper/review-helper.php',
         'Affilicious\\Product\\Helper\\Universal_Mode_Helper' => __DIR__ . '/../..' . '/src/product/helper/universal-mode-helper.php',
         'Affilicious\\Product\\Import\\Import_Interface' => __DIR__ . '/../..' . '/src/product/import/import-interface.php',
-        'Affilicious\\Product\\Listener\\Changed_Status_Complex_Product_Listener' => __DIR__ . '/../..' . '/src/product/listener/changed-status-complex-product-listener.php',
+        'Affilicious\\Product\\Listener\\Changed_Product_Status_Listener' => __DIR__ . '/../..' . '/src/product/listener/changed-product-status-listener.php',
         'Affilicious\\Product\\Listener\\Create_Blog_Listener' => __DIR__ . '/../..' . '/src/product/listener/create-blog-listener.php',
         'Affilicious\\Product\\Listener\\Deleted_Attribute_Template_Listener' => __DIR__ . '/../..' . '/src/product/listener/deleted-attribute-template-listener.php',
         'Affilicious\\Product\\Listener\\Deleted_Complex_Product_Listener' => __DIR__ . '/../..' . '/src/product/listener/deleted-complex-product-listener.php',

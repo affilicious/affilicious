@@ -96,7 +96,7 @@ if(!class_exists('Affilicious')) {
 
 			try {
 				$service = $container[$service_id];
-			} catch (UnknownIdentifierException $e) {
+			} catch (Pimple\Exception\UnknownIdentifierException $e) {
 				return null;
 			}
 
@@ -820,8 +820,8 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
 			};
 
-			$this->container['affilicious.product.listener.changed_status_complex_product'] = function () {
-				return new Affilicious\Product\Listener\Changed_Status_Complex_Product_Listener();
+			$this->container['affilicious.product.listener.changed_product_status'] = function () {
+				return new Affilicious\Product\Listener\Changed_Product_Status_Listener();
 			};
 
 			$this->container['affilicious.product.listener.saved_complex_product'] = function ($c) {
@@ -1145,7 +1145,7 @@ if(!class_exists('Affilicious')) {
 			$product_create_blog_listener = $this->container['affilicious.product.listener.create_blog'];
 			$saved_complex_product_listener = $this->container['affilicious.product.listener.saved_complex_product'];
 			$deleted_complex_product_listener = $this->container['affilicious.product.listener.deleted_complex_product'];
-			$changed_status_complex_product_listener = $this->container['affilicious.product.listener.changed_status_complex_product'];
+			$changed_product_status_listener = $this->container['affilicious.product.listener.changed_product_status'];
 			$edited_shop_template_listener = $this->container['affilicious.product.listener.edited_shop_template'];
 			$edited_attribute_template_listener = $this->container['affilicious.product.listener.edited_attribute_template'];
 			$edited_detail_template_listener = $this->container['affilicious.product.listener.edited_detail_template'];
@@ -1157,7 +1157,7 @@ if(!class_exists('Affilicious')) {
 			add_action('wpmu_new_blog', array($product_create_blog_listener, 'listen'), 10, 1);
 			add_action('carbon_after_save_post_meta', array($saved_complex_product_listener, 'listen'), 10, 3);
 			add_action('delete_post', array($deleted_complex_product_listener, 'listen'));
-			add_action('transition_post_status', array($changed_status_complex_product_listener, 'listen'), 10, 3);
+			add_action('save_post', array($changed_product_status_listener, 'listen'), 10, 3);
 			add_action('edit_aff_shop_tmpl', array($edited_shop_template_listener, 'before_edit'), 10, 1);
 			add_action('edit_aff_attribute_tmpl', array($edited_attribute_template_listener, 'before_edit'), 10, 1);
 			add_action('edit_aff_detail_tmpl', array($edited_detail_template_listener, 'before_edit'), 10, 1);

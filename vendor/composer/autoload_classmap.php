@@ -150,7 +150,7 @@ return array(
     'Affilicious\\Product\\Helper\\Review_Helper' => $baseDir . '/src/product/helper/review-helper.php',
     'Affilicious\\Product\\Helper\\Universal_Mode_Helper' => $baseDir . '/src/product/helper/universal-mode-helper.php',
     'Affilicious\\Product\\Import\\Import_Interface' => $baseDir . '/src/product/import/import-interface.php',
-    'Affilicious\\Product\\Listener\\Changed_Status_Complex_Product_Listener' => $baseDir . '/src/product/listener/changed-status-complex-product-listener.php',
+    'Affilicious\\Product\\Listener\\Changed_Product_Status_Listener' => $baseDir . '/src/product/listener/changed-product-status-listener.php',
     'Affilicious\\Product\\Listener\\Create_Blog_Listener' => $baseDir . '/src/product/listener/create-blog-listener.php',
     'Affilicious\\Product\\Listener\\Deleted_Attribute_Template_Listener' => $baseDir . '/src/product/listener/deleted-attribute-template-listener.php',
     'Affilicious\\Product\\Listener\\Deleted_Complex_Product_Listener' => $baseDir . '/src/product/listener/deleted-complex-product-listener.php',

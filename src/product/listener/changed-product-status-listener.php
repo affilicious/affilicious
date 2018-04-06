@@ -8,25 +8,27 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @since 0.8.4
+ * @since 0.9.24
  */
-class Changed_Status_Complex_Product_Listener
+class Changed_Product_Status_Listener
 {
     /**
-     * Change the status of the variants if the parent complex product status changes.
+     * Change the status of the variants if the parent product status is changing.
      *
-     * @filter transition_post_status
-     * @since 0.8.20
-     * @param string $new_status
-     * @param string $old_status
-     * @param \WP_Post $post
+     * @action save_post
+     * @since 0.9.24
+     * @param int $post_id
      */
-    public function listen($new_status, $old_status, \WP_Post $post)
+    public function listen($post_id)
     {
-        static $changed_posts = [];
+	    static $changed_posts = [];
 
-        // Check if the post is a product and not included in the recursion prevention.
-        if(!aff_is_product($post) || in_array($post->ID, $changed_posts)) {
+		// Get the post from the ID.
+	    $post = get_post($post_id);
+	    $new_status = $post->post_status;
+
+        // Check if we really have a unhandled product here...
+        if(!$post->post_type == Product::POST_TYPE || wp_is_post_revision($post) || in_array($post->ID, $changed_posts)) {
             return;
         }
 
@@ -35,7 +37,7 @@ class Changed_Status_Complex_Product_Listener
 
         // If it's a simple product with variants, then set the status of the variants
 	    // to "draft" to hide them in the front end.
-	    if(aff_is_product_simple($post)) {
+	    if(isset($_POST['_affilicious_product_type']) && $_POST['_affilicious_product_type'] == 'simple') {
 	    	$new_status = 'draft';
 	    }
 
