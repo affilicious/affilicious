@@ -51,7 +51,7 @@ Für die letzte stabile Entwickler Version über ZIP:
 2. Lade das Plugin auf deine Wordpress Seite hoch.
 3. Aktiviere das Plugin im Adminbereich.
 
-Eine ausführliche Anleitung für die Installation und viele weitere hilfreiche Tipps im Umgang mit dem Affilicious Theme, findest du auf unserer offiziellen [Dokumentation](http://docs.affilicious.de).
+Eine ausführliche Anleitung für die Installation und viele weitere hilfreiche Tipps im Umgang mit dem Affilicious, findest du auf unserer offiziellen [Dokumentation](http://docs.affilicious.de).
 
 ## Bugs ##
 Solltest du einen Bug finden, kannst du diesen gerne [hier](https://github.com/affilicious-theme/affilicious/issues?state=open) melden!

@@ -105,8 +105,8 @@ class Affilicious_Options
 	    }
 
         $help_text = count($this->license_manager->get_license_handlers()) > 0
-            ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s" target="_blank">Affilicious Theme</a>.', 'affilicious'), 'https://affilicious.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=more-addons-and-themes')
-            : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s" target="_blank">Affilicious Theme</a> to see what you can start with.', 'affilicious'), 'https://affilicious.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=no-addons-and-themes');
+            ? sprintf(__('More add-ons and themes can be found on the official website of <a href="%s" target="_blank">Affilicious</a>.', 'affilicious'), 'https://affilicious.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=more-addons-and-themes')
+            : sprintf(__('It looks like you haven\'t got any add-on or theme yet. Visit our official website of <a href="%s" target="_blank">Affilicious</a> to see what you can start with.', 'affilicious'), 'https://affilicious.de?utm_campaign=addons-and-themes&utm_source=wordpress-installation&utm_medium=licenses&utm_content=no-addons-and-themes');
 
         $fields = [
             Carbon_Field::make('html', 'affilicious_options_affilicious_container_licenses_tab_licences_field')

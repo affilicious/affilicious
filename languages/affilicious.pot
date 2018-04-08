@@ -279,14 +279,14 @@ msgstr ""
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
-"\" target=\"_blank\">Affilicious Theme</a>."
+"\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 
 #: src/common/admin/options/affilicious-options.php:109
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
-"website of <a href=\"%s\" target=\"_blank\">Affilicious Theme</a> to see "
+"website of <a href=\"%s\" target=\"_blank\">Affilicious</a> to see "
 "what you can start with."
 msgstr ""
 
@@ -1338,7 +1338,7 @@ msgid "No logs have been found."
 msgstr ""
 
 #: templates/admin/page/addons/about.php:2
-msgid "About Affilicious Theme"
+msgid "About Affilicious"
 msgstr ""
 
 #: templates/admin/page/addons/about.php:5

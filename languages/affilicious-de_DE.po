@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-03-28 21:23+0200\n"
-"PO-Revision-Date: 2018-03-28 21:25+0200\n"
+"POT-Creation-Date: 2018-04-08 08:35+0200\n"
+"PO-Revision-Date: 2018-04-08 08:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
 "Language: de_DE\n"
@@ -285,20 +285,27 @@ msgid "Logs"
 msgstr "Logs"
 
 #: src/common/admin/options/affilicious-options.php:108
-#, php-format
+#, fuzzy, php-format
+#| msgid ""
+#| "More add-ons and themes can be found on the official website of <a href="
+#| "\"%s\" target=\"_blank\">Affilicious Theme</a>."
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
-"\" target=\"_blank\">Affilicious Theme</a>."
+"\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 "Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a "
 "href=\"%s\"  target=\"_blank\">Affilicious Theme</a>."
 
 #: src/common/admin/options/affilicious-options.php:109
-#, php-format
+#, fuzzy, php-format
+#| msgid ""
+#| "It looks like you haven't got any add-on or theme yet. Visit our official "
+#| "website of <a href=\"%s\" target=\"_blank\">Affilicious Theme</a> to see "
+#| "what you can start with."
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
-"website of <a href=\"%s\" target=\"_blank\">Affilicious Theme</a> to see "
-"what you can start with."
+"website of <a href=\"%s\" target=\"_blank\">Affilicious</a> to see what you "
+"can start with."
 msgstr ""
 "Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben "
 "hast. Schaue auf der offiziellen Webseite von <a href=\"%s\"  target=\"_blank"
@@ -1401,7 +1408,9 @@ msgid "No logs have been found."
 msgstr "Es wurden keine Logs gefunden."
 
 #: templates/admin/page/addons/about.php:2
-msgid "About Affilicious Theme"
+#, fuzzy
+#| msgid "About Affilicious Theme"
+msgid "About Affilicious"
 msgstr "Über Affilicious Theme"
 
 #: templates/admin/page/addons/about.php:5
