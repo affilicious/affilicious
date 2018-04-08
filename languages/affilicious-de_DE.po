@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-04-08 08:35+0200\n"
-"PO-Revision-Date: 2018-04-08 08:35+0200\n"
+"POT-Creation-Date: 2018-04-08 08:39+0200\n"
+"PO-Revision-Date: 2018-04-08 08:40+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
 "Language: de_DE\n"
@@ -285,23 +285,16 @@ msgid "Logs"
 msgstr "Logs"
 
 #: src/common/admin/options/affilicious-options.php:108
-#, fuzzy, php-format
-#| msgid ""
-#| "More add-ons and themes can be found on the official website of <a href="
-#| "\"%s\" target=\"_blank\">Affilicious Theme</a>."
+#, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
 "\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 "Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a "
-"href=\"%s\"  target=\"_blank\">Affilicious Theme</a>."
+"href=\"%s\"  target=\"_blank\">Affilicious</a>."
 
 #: src/common/admin/options/affilicious-options.php:109
-#, fuzzy, php-format
-#| msgid ""
-#| "It looks like you haven't got any add-on or theme yet. Visit our official "
-#| "website of <a href=\"%s\" target=\"_blank\">Affilicious Theme</a> to see "
-#| "what you can start with."
+#, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
 "website of <a href=\"%s\" target=\"_blank\">Affilicious</a> to see what you "
@@ -309,7 +302,7 @@ msgid ""
 msgstr ""
 "Es scheint so, dass du keine Erweiterungen oder Themes bis jetzt erworben "
 "hast. Schaue auf der offiziellen Webseite von <a href=\"%s\"  target=\"_blank"
-"\">Affilicious Theme</a> nach, was du alles erwerben kannst."
+"\">Affilicious</a> nach, was du alles erwerben kannst."
 
 #: src/common/admin/options/affilicious-options.php:129
 msgid "Custom Header Scripts"
@@ -1408,10 +1401,8 @@ msgid "No logs have been found."
 msgstr "Es wurden keine Logs gefunden."
 
 #: templates/admin/page/addons/about.php:2
-#, fuzzy
-#| msgid "About Affilicious Theme"
 msgid "About Affilicious"
-msgstr "Über Affilicious Theme"
+msgstr "Über Affilicious"
 
 #: templates/admin/page/addons/about.php:5
 #, php-format
