@@ -28,7 +28,7 @@ class Changed_Product_Status_Listener
 	    $new_status = $post->post_status;
 
         // Check if we really have a unhandled product here...
-        if(!$post->post_type == Product::POST_TYPE || wp_is_post_revision($post) || in_array($post->ID, $changed_posts)) {
+        if(!$this->is_real_save($post_id) || in_array($post->ID, $changed_posts)) {
             return;
         }
 
@@ -58,4 +58,39 @@ class Changed_Product_Status_Listener
 	    // Remove the post from the recursion prevention.
 	    unset($changed_posts[$post->ID]);
     }
+
+	/**
+	 * Check if the save is a real one, not a revision or etc.
+	 *
+	 * @since 0.9.24
+	 * @param int $post_id
+	 * @return bool
+	 */
+	protected function is_real_save($post_id)
+	{
+		// Autosave, do nothing
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return false;
+		}
+
+		// Check user permissions
+		if (!current_user_can('edit_post', $post_id)) {
+			return false;
+		}
+
+		// Return if it's a post revision
+		if (false !== wp_is_post_revision($post_id)) {
+			return false;
+		}
+
+		if(false !== wp_is_post_autosave($post_id)) {
+			return false;
+		}
+
+		if(!isset($_POST['post_type']) || $_POST['post_type'] !== Product::POST_TYPE) {
+			return false;
+		}
+
+		return true;
+	}
 }
