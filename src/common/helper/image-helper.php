@@ -18,8 +18,19 @@ class Image_Helper
      */
     public static function download($file)
     {
-        $file_content = file_get_contents($file);
-        if($file_content === false) {
+    	// Not all servers handle "file_get_contents" correctly. Try to use curl first.
+    	if(extension_loaded('curl')) {
+		    $ch = curl_init();
+		    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		    curl_setopt($ch, CURLOPT_URL, $file);
+		    $file_content = curl_exec($ch);
+		    curl_close($ch);
+	    } else {
+    		$file_content = file_get_contents($file);
+	    }
+
+        if($file_content === false || $file_content === '') {
         	return null;
         }
 
