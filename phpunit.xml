@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <phpunit
 	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"
@@ -7,28 +8,8 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="Common Module Tests">
-			<directory suffix="test.php">./tests/common/</directory>
-		</testsuite>
-
-		<testsuite name="Provider Module Tests">
-			<directory suffix="test.php">./tests/provider/</directory>
-		</testsuite>
-
-		<testsuite name="Shop Module Tests">
-			<directory suffix="test.php">./tests/shop/</directory>
-		</testsuite>
-
-		<testsuite name="Detail Module Tests">
-			<directory suffix="test.php">./tests/detail/</directory>
-		</testsuite>
-
-		<testsuite name="Attribute Module Tests">
-			<directory suffix="test.php">./tests/attribute/</directory>
-		</testsuite>
-
-		<testsuite name="Product Module Tests">
-			<directory suffix="test.php">./tests/product/</directory>
+		<testsuite name="Unit tests">
+			<directory suffix="test.php">./tests/unit/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

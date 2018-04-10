@@ -1,9 +1,7 @@
 <?php
-namespace Affilicious_Tests\Detail\Model;
-
 use Affilicious\Shop\Model\Availability;
 
-class Availability_Test extends \PHPUnit_Framework_TestCase
+class Availability_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.2

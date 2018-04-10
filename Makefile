@@ -1,16 +1,7 @@
-# Default configuration for Mamp
-DB_HOST := 127.0.0.1:8889
-DB_NAME := affilicious_test
-DB_USER := root
-DB_PASSWORD := root
-WP_VERSION := latest
-
-prod:
-	@composer install --no-dev --optimize-autoloader
+prod: install
 
 ready: dev
-dev: test-install
-	@composer install
+dev: prod
 	@npm install
 
 asset:
@@ -20,16 +11,10 @@ watch:
 	@gulp watch
 
 install:
-	@composer install
+	@composer install --no-dev --optimize-autoloader
 
 update:
-	@composer update
-
-test-install:
-	@bin/install-wp-tests.sh $(DB_NAME) $(DB_USER) $(DB_PASSWORD) $(DB_HOST) $(WP_VERSION)
-
-test-uninstall:
-	@rm -rf tmp
+	@composer update --no-dev --optimize-autoloader
 
 test:
-	@bin/phpunit
+	@phpunit -c phpunit.xml

@@ -1,12 +1,10 @@
 <?php
-namespace Affilicious_Tests\Shop\Model;
-
 use Affilicious\Shop\Model\Availability;
 use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Money;
 use Affilicious\Shop\Model\Pricing;
 
-class Pricing_Test extends \PHPUnit_Framework_TestCase
+class Pricing_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.2

@@ -5,12 +5,12 @@
         "version_normalized": "1.4.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/affilicious-theme/carbon-fields.git",
+            "url": "https://github.com/affilicious/carbon-fields.git",
             "reference": "d0ac953d73aa8998052033a273de1311d1b41c53"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/affilicious-theme/carbon-fields/zipball/d0ac953d73aa8998052033a273de1311d1b41c53",
+            "url": "https://api.github.com/repos/affilicious/carbon-fields/zipball/d0ac953d73aa8998052033a273de1311d1b41c53",
             "reference": "d0ac953d73aa8998052033a273de1311d1b41c53",
             "shasum": ""
         },

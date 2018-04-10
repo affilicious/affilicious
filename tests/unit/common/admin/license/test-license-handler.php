@@ -1,6 +1,4 @@
 <?php
-namespace Affilicious_Tests\Common\Admin\License;
-
 use Affilicious\Common\Admin\License\License_Handler_Interface;
 use Affilicious\Common\Admin\License\License_Status;
 

@@ -1,4 +1,4 @@
-# Miscellanea
+# Miscellaneous
 .DS_Store
 .idea
 
@@ -7,12 +7,3 @@ node_modules/
 
 # Temp
 tmp/
-
-# Vendor
-vendor/doctrine
-vendor/phpdocumentor
-vendor/phpspec
-vendor/phpunit
-vendor/sebastian
-vendor/myclabs
-vendor/symfony

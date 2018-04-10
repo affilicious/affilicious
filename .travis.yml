@@ -1,3 +1,6 @@
+sudo: false
+dist: trusty
+
 language: php
 
 notifications:
@@ -9,32 +12,53 @@ branches:
   only:
     - master
     - develop
+    - feature/tests
 
 cache:
-  apt: true
   directories:
     - $HOME/.composer/cache
-    - tmp/wordpress
-    - tmp/wordpress-tests-lib
-
-php:
-  - 5.6
-  - 7.0
-  - 7.1
-
-env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=4.8 WP_MULTISITE=0
-  - WP_VERSION=4.6 WP_MULTISITE=0
-  - WP_VERSION=4.5 WP_MULTISITE=0
 
 matrix:
   include:
+    - php: 7.2
+      env: WP_VERSION=latest
+    - php: 7.1
+      env: WP_VERSION=latest
+    - php: 7.0
+      env: WP_VERSION=latest
     - php: 5.6
-      env: WP_VERSION=latest WP_MULTISITE=1
+      env: WP_VERSION=4.5
+    - php: 5.6
+      env: WP_VERSION=latest
+    - php: 5.6
+      env: WP_VERSION=trunk
 
 before_script:
-  - composer install
-  - bash bin/install-wp-tests.sh affilicious_test root '' localhost $WP_VERSION true
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - |
+    if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
+      phpenv config-rm xdebug.ini
+    else
+      echo "xdebug.ini does not exist"
+    fi
+  - |
+    if [[ ! -z "$WP_VERSION" ]] ; then
+      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+      composer global require "phpunit/phpunit=4.8.*|5.7.*"
+    fi
+  - |
+    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
+      composer global require wp-coding-standards/wpcs
+      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+    fi
 
-script: vendor/bin/phpunit
+script:
+  - |
+    if [[ ! -z "$WP_VERSION" ]] ; then
+      phpunit
+      WP_MULTISITE=1 phpunit
+    fi
+  - |
+    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
+      phpcs
+    fi

@@ -1,9 +1,7 @@
 <?php
-namespace Affilicious_Tests\Common\Admin\License;
-
 use Affilicious\Common\Admin\License\License_Status;
 
-class License_Status_Test extends \WP_UnitTestCase
+class License_Status_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.9

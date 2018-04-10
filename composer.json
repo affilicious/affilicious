@@ -19,11 +19,6 @@
       "Affilicious\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Affilicious_Tests\\": "tests/"
-    }
-  },
   "repositories": [
     {
       "type": "vcs",
@@ -36,12 +31,11 @@
     "htmlburger/carbon-fields": "1.4.3",
     "webmozart/assert": "^1.2"
   },
-  "require-dev": {
-    "phpunit/phpunit": "^5.7"
-  },
   "extra": {
     "installer-paths": {
-      "./vendor/htmlburger/carbon-fields": ["htmlburger/carbon-fields"]
+      "./vendor/htmlburger/carbon-fields": [
+        "htmlburger/carbon-fields"
+      ]
     }
   },
   "minimum-stability": "dev",

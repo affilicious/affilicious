@@ -1,11 +1,9 @@
 <?php
-namespace Affilicious_Tests\Detail\Model;
-
 use Affilicious\Shop\Model\Affiliate_Link;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
 use Affilicious\Shop\Model\Tracking;
 
-class Tracking_Test extends \PHPUnit_Framework_TestCase
+class Tracking_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.2

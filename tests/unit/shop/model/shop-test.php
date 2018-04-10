@@ -1,6 +1,4 @@
 <?php
-namespace Affilicious_Tests\Detail\Model;
-
 use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Shop\Model\Affiliate_Link;
@@ -11,7 +9,7 @@ use Affilicious\Shop\Model\Pricing;
 use Affilicious\Shop\Model\Shop;
 use Affilicious\Shop\Model\Tracking;
 
-class Shop_Test extends \PHPUnit_Framework_TestCase
+class Shop_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.2

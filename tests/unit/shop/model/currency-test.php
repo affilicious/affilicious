@@ -1,9 +1,7 @@
 <?php
-namespace Affilicious_Tests\Shop\Model;
-
 use Affilicious\Shop\Model\Currency;
 
-class Currency_Test extends \PHPUnit_Framework_TestCase
+class Currency_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.2

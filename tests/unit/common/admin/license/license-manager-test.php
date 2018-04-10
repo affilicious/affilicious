@@ -1,10 +1,10 @@
 <?php
-namespace Affilicious_Tests\Common\Admin\License;
+require_once 'test-license-handler.php';
 
 use Affilicious\Common\Admin\License\License_Manager;
 use Affilicious\Common\Admin\License\License_Status;
 
-class License_Manager_Test extends \WP_UnitTestCase
+class License_Manager_Test extends WP_UnitTestCase
 {
 	/**
 	 * @since 0.9.9

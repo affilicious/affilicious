@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13
+class ComposerStaticInita8e2e259656945bd783170b4fff1f94b
 {
     public static $files = array (
         '74704c95e6224e3a13dba163dbbb87fa' => __DIR__ . '/..' . '/htmlburger/carbon-fields/carbon-fields.php',
@@ -399,10 +399,10 @@ class ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita76f11be9d2f52c3e0f1ebb51fa1cc13::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$classMap;
 
         }, null, ClassLoader::class);
     }
