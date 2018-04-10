@@ -13,18 +13,8 @@ Mit dem Affilicious Plugin bieten wir dir eine gute Möglichkeit, deine Webseite
 ### Warum betrifft es mich als Entwickler? ###
 Dafür gibt es unzählige Gründe! Als Entwickler kannst du beim Ausbau von Affilicious helfen, indem du eigene Themes oder Plugins entwickelst. Hinzu kommt, dass die Affiliate Marketing Community ständig weiterwächst und eine hohe Nachfrage für ausgezeichnete Themes und Plugins besteht. Viele potenzielle Kunden sind schon gespannt darauf, was du ihnen so alles bieten kannst!
 
-Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu entwickeln“? Und die Antwort ist: „Einfach im Vergleich zu anderen Lösungen!“. Bei der Entwicklung von Affilicious haben wir uns von Anfang an sehr stark um die Drittanbieterunterstützung gekümmert. Nun einige Gründe, warum die Entwickelung mit dem Affilicious Plugin dir viel Freude bereiten wird:
+Wahrscheinschlich fragst du dich jetzt: „Wie schwer ist es mit Affilicious zu entwickeln“? Und die Antwort ist: „Einfach im Vergleich zu anderen Lösungen!“. Bei der Entwicklung von Affilicious haben wir uns von Anfang an sehr stark um die Drittanbieterunterstützung gekümmert.
 
-1. [Wordpress](https://wordpress.com) als bekannte Platform.
-2. Echte [Objekt-Orientierte Programmierung](https://en.wikipedia.org/wiki/Object-oriented_programming) mit Klassen, Interfaces and Namespaces.
-3. [Carbon Fields](https://carbonfields.net) und [Backbone](http://backbonejs.org) um komplexe Formulare mit Leichtigkeit zu erstellen.
-4. [Pimple](http://pimple.sensiolabs.org) als kleiner Dependency Injection Container.
-5. [NodeJS](https://nodejs.org) und [Gulp](http://gulpjs.com) für ein einfaches Verwalten der Designs und Skripte.
-6. [Sass](http://sass-lang.com) and [ECMAscript 6](https://babeljs.io/docs/learn-es2015/) Support.
-7. Viele eingebaute Wordpress [Hooks](https://codex.wordpress.org/Plugin_API/Hooks) und [Filter](https://codex.wordpress.org/Plugin_API/Filter_Reference).
-8. [Composer](https://getcomposer.org) für einfache Inklusion von anderen Hilfsprogrammen. 
-9. Automatisierte Tests mit [PHPUnit](https://phpunit.de).
- 
 ### Über die Git-Versionsverwaltung ###
 Für die letzte stabile Master Version:
 
