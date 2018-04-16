@@ -474,6 +474,55 @@ class Assert_Helper
 	}
 
 	/**
+	 * Check if counting the value gives the number.
+	 *
+	 * @since 0.9.24
+	 * @param mixed $value
+	 * @param int $number
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function count($value, $number, $method, $message, $version)
+	{
+		if(WP_DEBUG && count($value) != $number) {
+			_doing_it_wrong($method, sprintf($message, $number), $version);
+		}
+	}
+
+	/**
+	 * Check if the value is true.
+	 *
+	 * @since 0.9.24
+	 * @param mixed $value
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function true($value, $method, $message, $version)
+	{
+		if(WP_DEBUG && !$value) {
+			_doing_it_wrong($method, $message, $version);
+		}
+	}
+
+	/**
+	 * Check if the value is false.
+	 *
+	 * @since 0.9.24
+	 * @param mixed $value
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function false($value, $method, $message, $version)
+	{
+		if(WP_DEBUG && $value) {
+			_doing_it_wrong($method, $message, $version);
+		}
+	}
+
+	/**
 	 * Check if the key exists in the array.
 	 *
 	 * @since 0.9.2
