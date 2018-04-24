@@ -35,17 +35,18 @@ Affilicious comes with support for two languages: English and German. However, y
 
 Choose from beautiful [affiliate themes](https://affilicious.com/downloads/category/themes/?utm_campaign=themes&utm_source=wordpress&utm_medium=description&utm_content=description-themes) which seamlessly integrate Affilicious into their core:
 
-- [Affilivice](https://affilicious.com/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) This free theme will give your Wordpress affiliate site a new lease of life.
+- [Affilivice](https://affilicious.com/downloads/affilivice/?utm_campaign=affilivice&utm_source=wordpress&utm_medium=description&utm_content=description-themes-affilivice) This theme will give your Wordpress affiliate site a new lease of life.
 - [Eleganz](https://affilicious.com/downloads/eleganz/?utm_campaign=eleganz&utm_source=wordpress&utm_medium=description&utm_content=description-themes-eleganz) The fashion-adapted affiliate shop theme offers your visitors a suitable atmosphere to buy.
 
 = Reach the next level with addons =
 
 You can supercharge your affiliate store with [addons](https://affilicious.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress&utm_medium=description&utm_content=description-addons) for Affilicious like:
 
-- [Alerts](https://affilicious.com/downloads/alerts/?utm_campaign=alerts&utm_source=wordpress&utm_medium=description&utm_content=description-addons-alerts) Create meaningful alerts in just a few clicks that will help your visitors find what they are looking for.
-- [Product Comparison](https://affilicious.com/downloads/produktvergleich/?utm_campaign=product-comparison&utm_source=wordpress&utm_medium=description&utm_content=description-addons-product-comparison) Help your visitors make their purchasing decisions by including a clear comparison of products.
+- [Amazon Import And Update](https://affilicious.com/downloads/amazon-import-und-update/?utm_campaign=amazon-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-amazon-import-and-update) Import and update your affiliate products easily from Amazon.
 - [eBay Import And Update](https://affilicious.com/downloads/ebay-import-und-update/?utm_campaign=ebay-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-ebay-import-and-update) Import and update your affiliate products easily from eBay.
-- [Affilinet Import And Update](https://affilicious.com/downloads/affilinet-import-und-update/?utm_campaign=affilinet-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-affilinet-import-and-update) Import and update your affiliate products with all shops directly from Affilinet.
+- [Affilinet Import And Update](https://affilicious.com/downloads/affilinet-import-und-update/?utm_campaign=affilinet-import-and-update&utm_source=wordpress&utm_medium=description&utm_content=description-addons-affilinet-import-and-update) Import and update your affiliate products easily from Affilinet.
+- [Product Comparison](https://affilicious.com/downloads/produktvergleich/?utm_campaign=product-comparison&utm_source=wordpress&utm_medium=description&utm_content=description-addons-product-comparison) Help your visitors make their purchasing decisions by including a clear comparison of products.
+- [Alerts](https://affilicious.com/downloads/alerts/?utm_campaign=alerts&utm_source=wordpress&utm_medium=description&utm_content=description-addons-alerts) Create meaningful alerts in just a few clicks that will help your visitors find what they are looking for.
 
 = Build with developers in mind =
 
