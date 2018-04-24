@@ -168,7 +168,7 @@
       min-width: 100px;
       display: block; }
     .aff-license-item-content p {
-      margin-top: 5px !important; }
+      margin: 5px 0 !important; }
   .aff-license-item:nth-child(odd) {
     margin-right: 10px; }
   @media screen and (max-width: 500px) {
