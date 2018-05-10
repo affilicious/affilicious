@@ -3,8 +3,8 @@ Contributors: affilicioustheme
 Author URI: https://affilicious.com
 Plugin URI: https://affilicious.com/downloads/affilicious
 Requires at least: 4.5
-Tested up to: 4.9.4
-Stable tag: 0.9.23
+Tested up to: 4.9.5
+Stable tag: 0.10
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -98,6 +98,24 @@ If you want to get support, check out this [page](https://affilicious.com/suppor
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.10 =
+* New: Outsourced Amazon into a separate addon.
+* New: Added new currencies.
+* New: Added admin notice for the outsourced Amazon import and update addon.
+* New: Marked the search, import and credentials validator as deprecated.
+* New: Added some assertions.
+* Improvement: Changed some URLs in links.
+* Improvement: Optimized the shop table row filter.
+* Improvement: Changed some descriptions and URLs.
+* Improvement: Unknown services returns null now instead an exception.
+* Improvement: Improved tests for Wordpress.
+* Improvement: Changed readme.md.
+* Fix: Fixed image download for some servers.
+* Fix: Fixed the missing addons in the addons page.
+* Fix: Fixed disabled complex products in the front page.
+* Fix: Fixed the wrong status of product variants.
+* Fix: Fixed some styling.
+
 = 0.9.23 =
 * Improvement: Added Wordpress version check on plugin activation.
 * Improvement: Updated copyright year.
