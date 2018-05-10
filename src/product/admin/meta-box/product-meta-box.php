@@ -9,6 +9,7 @@ use Affilicious\Detail\Model\Detail_Template;
 use Affilicious\Detail\Repository\Detail_Template_Repository_Interface;
 use Affilicious\Product\Model\Product;
 use Affilicious\Product\Repository\Carbon\Carbon_Product_Repository;
+use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
 use Carbon_Fields\Container as Carbon_Container;
@@ -372,10 +373,7 @@ class Product_Meta_Box
                     ->set_width(50),
                 Carbon_Field::make('select', Carbon_Product_Repository::SHOP_CURRENCY, __('Currency', 'affilicious'))
                     ->set_required(true)
-                    ->add_options(array(
-                        'EUR' => __('Euro', 'affilicious'),
-                        'USD' => __('US-Dollar', 'affilicious'),
-                    )),
+                    ->add_options(Currency::labels()),
                 Carbon_Field::make('hidden', Carbon_Product_Repository::SHOP_UPDATED_AT, __('Updated At', 'affilicious'))
                     ->set_default_value(current_time('timestamp'))
                     ->set_required(true)
