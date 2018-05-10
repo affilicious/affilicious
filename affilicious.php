@@ -450,7 +450,7 @@ if(!class_exists('Affilicious')) {
 		/**
 		 * Load some legacy code which will be removed in the future.
 		 *
-		 * @since 0.9.24
+		 * @since 0.10
 		 */
 		public function load_legacy()
 		{

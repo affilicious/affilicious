@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @since 0.9.24
+ * @since 0.10
  */
 class Disable_Complex_Products_For_Query_Filter
 {
@@ -14,7 +14,7 @@ class Disable_Complex_Products_For_Query_Filter
      * Filter the complex products in the front end. Just show the variants.
      *
      * @filter pre_get_posts
-     * @since 0.9.24
+     * @since 0.10
      * @param \WP_Query $query
      */
     public function filter(\WP_Query $query)
@@ -36,7 +36,7 @@ class Disable_Complex_Products_For_Query_Filter
     }
 
 	/**
-	 * @since 0.9.24
+	 * @since 0.10
 	 * @see https://core.trac.wordpress.org/ticket/21790
 	 * @param \WP_Query $query
 	 * @return bool
@@ -57,7 +57,7 @@ class Disable_Complex_Products_For_Query_Filter
 	    /**
 	     * Filter whether the complex products are disabled for the query or not.
 	     *
-	     * @since 0.9.24
+	     * @since 0.10
 	     * @var bool $disabled Whether the complex products are disabled or not.
 	     * @var \WP_Query $query The query for the posts.
 	     */

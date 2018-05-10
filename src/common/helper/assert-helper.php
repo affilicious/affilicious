@@ -476,7 +476,7 @@ class Assert_Helper
 	/**
 	 * Check if counting the value gives the number.
 	 *
-	 * @since 0.9.24
+	 * @since 0.10
 	 * @param mixed $value
 	 * @param int $number
 	 * @param string $method
@@ -493,7 +493,7 @@ class Assert_Helper
 	/**
 	 * Check if the value is true.
 	 *
-	 * @since 0.9.24
+	 * @since 0.10
 	 * @param mixed $value
 	 * @param string $method
 	 * @param string $message
@@ -509,7 +509,7 @@ class Assert_Helper
 	/**
 	 * Check if the value is false.
 	 *
-	 * @since 0.9.24
+	 * @since 0.10
 	 * @param mixed $value
 	 * @param string $method
 	 * @param string $message

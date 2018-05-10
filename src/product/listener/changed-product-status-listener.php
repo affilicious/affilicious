@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @since 0.9.24
+ * @since 0.10
  */
 class Changed_Product_Status_Listener
 {
@@ -16,7 +16,7 @@ class Changed_Product_Status_Listener
      * Change the status of the variants if the parent product status is changing.
      *
      * @action save_post
-     * @since 0.9.24
+     * @since 0.10
      * @param int $post_id
      */
     public function listen($post_id)
@@ -62,7 +62,7 @@ class Changed_Product_Status_Listener
 	/**
 	 * Check if the save is a real one, not a revision or etc.
 	 *
-	 * @since 0.9.24
+	 * @since 0.10
 	 * @param int $post_id
 	 * @return bool
 	 */

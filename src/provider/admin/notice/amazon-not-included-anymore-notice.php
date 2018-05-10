@@ -6,19 +6,17 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @since 0.9.24
+ * @since 0.10
  */
 class Amazon_Not_Included_Anymore_Notice
 {
 	/**
-	 * @since 0.9.24
+	 * @since 0.10
 	 */
 	const DISMISSIBLE_ID = 'amazon_not_included_anymore';
 
 	/**
-	 * Render the notice to let the user upgrade Alerts to paid license.
-	 *
-	 * @since 0.9.24
+	 * @since 0.10
 	 */
 	public function render()
 	{
