@@ -36,7 +36,7 @@ if (!defined('ABSPATH')) {
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
 define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
-define('AFFILICIOUS_VERSION', '0.9.23');
+define('AFFILICIOUS_VERSION', '0.10');
 define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
 define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 
