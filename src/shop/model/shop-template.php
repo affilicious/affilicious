@@ -45,6 +45,14 @@ class Shop_Template
      */
     protected $provider_id;
 
+	/**
+	 * The price indication for the shops.
+	 *
+	 * @since 0.10.1
+	 * @var null|Price_Indication
+	 */
+	protected $price_indication;
+
     /**
      * @since 0.8
      * @param Name $name
@@ -194,6 +202,39 @@ class Shop_Template
         $this->provider_id = $provider_id;
     }
 
+	/**
+	 * Check of the shop template has an optional price indication.
+	 *
+	 * @since 0.10.1
+	 * @return bool
+	 */
+    public function has_price_indication()
+    {
+    	return $this->price_indication !== null;
+    }
+
+	/**
+	 * Get the optional price indication of the shop template.
+	 *
+	 * @since 0.10.1
+	 * @return Price_Indication|null
+	 */
+	public function get_price_indication()
+	{
+		return $this->price_indication;
+	}
+
+	/**
+	 * Set the optional price indication of the shop template.
+	 *
+	 * @since 0.10.1
+	 * @param Price_Indication|null $price_indication
+	 */
+	public function set_price_indication(Price_Indication $price_indication = null)
+	{
+		$this->price_indication = $price_indication;
+	}
+
     /**
      * Build a new shop from the template.
      *
@@ -207,6 +248,7 @@ class Shop_Template
         $shop = new Shop($this->name, $this->slug, $tracking, $pricing);
         $shop->set_template_id($this->id);
         $shop->set_thumbnail($this->thumbnail);
+        $shop->set_price_indication($this->price_indication);
 
         return $shop;
     }

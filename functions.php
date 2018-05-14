@@ -46,6 +46,7 @@ use Affilicious\Common\Helper\Template_Helper;
 use Affilicious\Shop\Model\Currency;
 use Affilicious\Shop\Model\Affiliate_Product_Id;
 use Affilicious\Product\Model\Simple_Product;
+use Affilicious\Shop\Model\Price_Indication;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
@@ -2198,17 +2199,16 @@ function aff_the_shop_thumbnail($shop, $size = 'thumbnail', $attr = '')
  *
  * @since 0.7
  * @param null|array|Shop $shop The shop from which the price indication is taken.
- * @param null|string $custom_text Custom text to show instead the default indication.
  * @return string The shop price indication containing the VAT and shipping costs.
  */
-function aff_get_shop_price_indication($shop = null, $custom_text = null)
+function aff_get_shop_price_indication($shop = null)
 {
     // Normalize the shop.
     if(is_array($shop)) {
         $shop = Shop_Helper::from_array($shop);
     }
 
-    $text = !empty($custom_text) ? $custom_text : __('Incl. 19 % VAT and excl. shipping costs.', 'affilicious');
+    $text = $shop !== null && $shop->has_price_indication() ? $shop->get_price_indication()->get_value() : Price_Indication::standard();
     $text = apply_filters('aff_shop_price_indication', $text, $shop);
 
     return $text;
@@ -2219,12 +2219,11 @@ function aff_get_shop_price_indication($shop = null, $custom_text = null)
  *
  * @since 0.7
  * @param array|Shop $shop The shop from which the price indication is taken.
- * @param null|string $custom_text Custom text to show instead the default indication.
  * @param bool $escape Whether to escape the output or not.
  */
-function aff_the_shop_price_indication($shop = null, $custom_text = null, $escape = true)
+function aff_the_shop_price_indication($shop = null, $escape = true)
 {
-    $indication = aff_get_shop_price_indication($shop, $custom_text);
+    $indication = aff_get_shop_price_indication($shop);
     if($indication === null) {
         return;
     }

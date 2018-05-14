@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-05-10 14:15+0200\n"
+"POT-Creation-Date: 2018-05-14 18:34+0200\n"
 "PO-Revision-Date: 2018-01-02 16:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
@@ -52,28 +52,24 @@ msgstr ""
 msgid "Go back to the <a href=\"%s\">plugins area</a>"
 msgstr ""
 
-#: functions.php:569
+#: functions.php:570
 #, php-format
 msgid "based on %s review"
 msgid_plural "based on %s reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:2211
-msgid "Incl. 19 % VAT and excl. shipping costs."
-msgstr ""
-
-#: functions.php:2271
+#: functions.php:2273
 #, php-format
 msgid "Last updated: %s."
 msgstr ""
 
-#: functions.php:3035 src/product/customizer/universal-box-customizer.php:623
+#: functions.php:3037 src/product/customizer/universal-box-customizer.php:623
 #, php-format
 msgid "Buy now at %s"
 msgstr ""
 
-#: functions.php:3074
+#: functions.php:3076
 msgid "Unfortunately not available"
 msgstr ""
 
@@ -678,7 +674,7 @@ msgid "Rating"
 msgstr ""
 
 #: src/product/admin/meta-box/product-meta-box.php:499
-#: src/shop/admin/meta-box/shop-template-meta-box.php:81
+#: src/shop/admin/meta-box/shop-template-meta-box.php:85
 msgid "None"
 msgstr ""
 
@@ -1193,7 +1189,7 @@ msgctxt "Product"
 msgid "Filter %s"
 msgstr ""
 
-#: src/provider/admin/notice/amazon-not-included-anymore-notice.php:31
+#: src/provider/admin/notice/amazon-not-included-anymore-notice.php:29
 msgid ""
 "\"Amazon Import And Update\" is not included in Affilicious by default "
 "anymore and was outsourced into a <a href=\"https://affilicious.de/downloads/"
@@ -1203,26 +1199,34 @@ msgid ""
 msgstr ""
 
 #: src/shop/admin/filter/table-columns-filter.php:58
-#: src/shop/admin/meta-box/shop-template-meta-box.php:58
+#: src/shop/admin/meta-box/shop-template-meta-box.php:59
 msgid "Provider"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:40
+#: src/shop/admin/meta-box/shop-template-meta-box.php:41
 #: src/shop/setup/shop-template-setup.php:21
 msgid "Shop Template"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:61
+#: src/shop/admin/meta-box/shop-template-meta-box.php:62
 msgid ""
 "The provider is used for the automatic updates for products using this shop."
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:62
+#: src/shop/admin/meta-box/shop-template-meta-box.php:63
 msgid "Logo"
 msgstr ""
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:63
+#: src/shop/admin/meta-box/shop-template-meta-box.php:64
 msgid "The logo is used to show an image near the shop prices in products."
+msgstr ""
+
+#: src/shop/admin/meta-box/shop-template-meta-box.php:65
+msgid "Price indication"
+msgstr ""
+
+#: src/shop/admin/meta-box/shop-template-meta-box.php:67
+msgid "The price indication is used with the price."
 msgstr ""
 
 #: src/shop/model/currency.php:305
@@ -1265,12 +1269,17 @@ msgstr ""
 msgid "Rand"
 msgstr ""
 
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:48
+#: src/shop/model/price-indication.php:28
+msgctxt "Default price indication"
+msgid "Incl. 19 % VAT and excl. shipping costs."
+msgstr ""
+
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:50
 msgid "It's not allowed to delete a default Wordpress category"
 msgstr ""
 
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:217
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:279
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:227
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:298
 #, php-format
 msgid "Failed to store the shop template #%s (%s) into the database."
 msgstr ""

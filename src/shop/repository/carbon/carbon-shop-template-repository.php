@@ -6,6 +6,7 @@ use Affilicious\Common\Model\Name;
 use Affilicious\Common\Model\Slug;
 use Affilicious\Common\Repository\Carbon\Abstract_Carbon_Repository;
 use Affilicious\Provider\Model\Provider_Id;
+use Affilicious\Shop\Model\Price_Indication;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Model\Shop_Template_Id;
 use Affilicious\Shop\Repository\Shop_Template_Repository_Interface;
@@ -18,6 +19,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 {
     const PROVIDER = '_affilicious_shop_template_provider';
     const THUMBNAIL_ID = '_affilicious_shop_template_thumbnail_id';
+    const PRICE_INDICATION = '_affilicious_shop_template_price_indication';
 
     /**
      * @inheritdoc
@@ -174,15 +176,23 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         $shop_template = new Shop_Template($name, $slug);
         $shop_template->set_id($id);
 
+	    // Get the thumbnail ID.
         if($raw_thumbnail_id = carbon_get_term_meta($id->get_value(), self::THUMBNAIL_ID)) {
             $thumbnail_id = new Image($raw_thumbnail_id);
             $shop_template->set_thumbnail($thumbnail_id);
         }
 
+	    // Get the provider ID.
         if($raw_provider_id = carbon_get_term_meta($id->get_value(), self::PROVIDER)) {
             $provider_id = new Provider_Id($raw_provider_id);
             $shop_template->set_provider_id($provider_id);
         }
+
+	    // Get the price indication.
+	    if($raw_price_indication = carbon_get_term_meta($id->get_value(), self::PRICE_INDICATION)) {
+		    $price_indication = new Price_Indication($raw_price_indication);
+		    $shop_template->set_price_indication($price_indication);
+	    }
 
         $shop_template = apply_filters('aff_shop_template_repository_build', $shop_template, $term);
 
@@ -227,7 +237,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
 	    // Refresh the ID.
         $shop_template->set_id(new Shop_Template_Id($term['term_id']));
 
-        // Insert the thumbnail.
+        // Insert the thumbnail ID.
         if($shop_template->has_thumbnail() && $shop_template->get_thumbnail()->get_id()) {
             add_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -236,7 +246,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             );
         }
 
-        // Insert the provider.
+        // Insert the provider ID.
         if($shop_template->has_provider_id()) {
             add_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -244,6 +254,15 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
                 $shop_template->get_provider_id()->get_value()
             );
         }
+
+	    // Insert the price indication.
+	    if($shop_template->has_price_indication()) {
+		    add_term_meta(
+			    $shop_template->get_id()->get_value(),
+			    self::PRICE_INDICATION,
+			    $shop_template->get_price_indication()->get_value()
+		    );
+	    }
 
 	    $shop_template = apply_filters('aff_shop_template_repository_insert', $shop_template, $term);
 
@@ -291,7 +310,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             $shop_template->set_slug(new Slug($term['slug']));
         }
 
-        // Update the thumbnail.
+        // Update the thumbnail ID.
         if($shop_template->has_thumbnail() && $shop_template->get_thumbnail()->get_id()) {
             update_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -300,7 +319,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
             );
         }
 
-        // Update the provider.
+        // Update the provider ID.
         if($shop_template->has_provider_id()) {
             update_term_meta(
                 $shop_template->get_id()->get_value(),
@@ -308,6 +327,15 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
                 $shop_template->get_provider_id()->get_value()
             );
         }
+
+	    // Update the price indication.
+	    if($shop_template->has_provider_id()) {
+		    update_term_meta(
+			    $shop_template->get_id()->get_value(),
+			    self::PRICE_INDICATION,
+			    $shop_template->get_price_indication()->get_value()
+		    );
+	    }
 
 	    $shop_template = apply_filters('aff_shop_template_repository_update', $shop_template, $term);
 

@@ -2,6 +2,7 @@
 namespace Affilicious\Shop\Admin\Meta_Box;
 
 use Affilicious\Provider\Repository\Provider_Repository_Interface;
+use Affilicious\Shop\Model\Price_Indication;
 use Affilicious\Shop\Model\Shop_Template;
 use Affilicious\Shop\Repository\Carbon\Carbon_Shop_Template_Repository;
 use Carbon_Fields\Container as Carbon_Container;
@@ -56,11 +57,15 @@ class Shop_Template_Meta_Box
 	{
 		$fields = array(
 			Carbon_Field::make('select', Carbon_Shop_Template_Repository::PROVIDER, __('Provider', 'affilicious'))
-			            ->set_required(true)
-			            ->add_options($this->get_provider_options())
-			            ->set_help_text(__('The provider is used for the automatic updates for products using this shop.', 'affilicious')),
+	            ->set_required(true)
+	            ->add_options($this->get_provider_options())
+	            ->set_help_text(__('The provider is used for the automatic updates for products using this shop.', 'affilicious')),
 			Carbon_Field::make('image', Carbon_Shop_Template_Repository::THUMBNAIL_ID, __('Logo', 'affilicious'))
-			            ->set_help_text(__('The logo is used to show an image near the shop prices in products.', 'affilicious')),
+	            ->set_help_text(__('The logo is used to show an image near the shop prices in products.', 'affilicious')),
+			Carbon_Field::make('text', Carbon_Shop_Template_Repository::PRICE_INDICATION, __('Price indication', 'affilicious'))
+				->set_required(true)
+				->set_default_value(Price_Indication::standard()->get_value())
+	            ->set_help_text(__('The price indication is used with the price.', 'affilicious')),
 		);
 
 		$fields = apply_filters('aff_admin_meta_box_before_shop_template_container_fields', $fields);

@@ -48,6 +48,14 @@ class Shop
      */
     protected $template_id;
 
+	/**
+	 * The price indication for the shops.
+	 *
+	 * @since 0.10.1
+	 * @var null|Price_Indication
+	 */
+	protected $price_indication;
+
     /**
      * The date and time of the last update.
      *
@@ -198,6 +206,39 @@ class Shop
     {
         $this->template_id = $template_id;
     }
+
+	/**
+	 * Check of the shop has an optional price indication.
+	 *
+	 * @since 0.10.1
+	 * @return bool
+	 */
+	public function has_price_indication()
+	{
+		return $this->price_indication !== null;
+	}
+
+	/**
+	 * Get the optional price indication of the shop.
+	 *
+	 * @since 0.10.1
+	 * @return Price_Indication|null
+	 */
+	public function get_price_indication()
+	{
+		return $this->price_indication;
+	}
+
+	/**
+	 * Set the optional price indication of the shop.
+	 *
+	 * @since 0.10.1
+	 * @param Price_Indication|null $price_indication
+	 */
+	public function set_price_indication(Price_Indication $price_indication = null)
+	{
+		$this->price_indication = $price_indication;
+	}
 
     /**
      * Get the date and time of the last update.

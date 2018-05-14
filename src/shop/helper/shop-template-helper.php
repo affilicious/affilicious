@@ -114,9 +114,10 @@ class Shop_Template_Helper
             'slug' => $shop_template->get_slug()->get_value(),
             'thumbnail' => $shop_template->has_thumbnail() ? Image_Helper::to_array($shop_template->get_thumbnail()) : null,
             'provider_id' => $shop_template->has_provider_id() ? $shop_template->get_provider_id()->get_value() : null,
+            'price_indication' => $shop_template->has_price_indication() ? $shop_template->get_price_indication()->get_value() : null,
             'custom_values' => $shop_template->has_custom_values() ? $shop_template->get_custom_values() : null,
 
-            // Deprecated 1.0. It's just used for legacy purpose. Use 'thumbnail' instead.
+            // Deprecated 1.1. It's just used for legacy purpose. Use 'thumbnail' instead.
             'thumbnail_id' => $shop_template->has_thumbnail_id() ? $shop_template->get_thumbnail_id()->get_value() : null,
         );
 

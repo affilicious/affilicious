@@ -307,6 +307,7 @@ class ComposerStaticInita8e2e259656945bd783170b4fff1f94b
         'Affilicious\\Shop\\Model\\Availability' => __DIR__ . '/../..' . '/src/shop/model/availability.php',
         'Affilicious\\Shop\\Model\\Currency' => __DIR__ . '/../..' . '/src/shop/model/currency.php',
         'Affilicious\\Shop\\Model\\Money' => __DIR__ . '/../..' . '/src/shop/model/money.php',
+        'Affilicious\\Shop\\Model\\Price_Indication' => __DIR__ . '/../..' . '/src/shop/model/price-indication.php',
         'Affilicious\\Shop\\Model\\Pricing' => __DIR__ . '/../..' . '/src/shop/model/pricing.php',
         'Affilicious\\Shop\\Model\\Shop' => __DIR__ . '/../..' . '/src/shop/model/shop.php',
         'Affilicious\\Shop\\Model\\Shop_Template' => __DIR__ . '/../..' . '/src/shop/model/shop-template.php',

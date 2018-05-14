@@ -253,6 +253,7 @@ return array(
     'Affilicious\\Shop\\Model\\Availability' => $baseDir . '/src/shop/model/availability.php',
     'Affilicious\\Shop\\Model\\Currency' => $baseDir . '/src/shop/model/currency.php',
     'Affilicious\\Shop\\Model\\Money' => $baseDir . '/src/shop/model/money.php',
+    'Affilicious\\Shop\\Model\\Price_Indication' => $baseDir . '/src/shop/model/price-indication.php',
     'Affilicious\\Shop\\Model\\Pricing' => $baseDir . '/src/shop/model/pricing.php',
     'Affilicious\\Shop\\Model\\Shop' => $baseDir . '/src/shop/model/shop.php',
     'Affilicious\\Shop\\Model\\Shop_Template' => $baseDir . '/src/shop/model/shop-template.php',
