@@ -15,15 +15,17 @@ if (!defined('ABSPATH')) {
 /**
  * @since 0.9.21
  */
-final class Update_Task_Queue
+class Update_Task_Queue
 {
 	/**
 	 * @since 0.9.21
+	 * @var int
 	 */
 	const DEFAULT_BATCH_SIZE = 10;
 
 	/**
 	 * @since 0.9.21
+	 * @var int
 	 */
 	const DEFAULT_LIMIT = 1;
 
@@ -31,19 +33,19 @@ final class Update_Task_Queue
 	 * @since 0.9.21
 	 * @var Min_Priority_Queue
 	 */
-	private $min_priority_queue;
+	protected $min_priority_queue;
 
 	/**
 	 * @since 0.9.21
 	 * @var Slug
 	 */
-	private $provider_slug;
+	protected $provider_slug;
 
 	/**
 	 * @since 0.9.21
 	 * @var Type
 	 */
-	private $provider_type;
+	protected $provider_type;
 
 	/**
 	 * @since 0.9.21

@@ -5,11 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Type_Trait
 {
     /**
      * The unique type like text or numeric.
      *
+     * @since 0.8
      * @var Type
      */
 	protected $type;

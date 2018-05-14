@@ -11,17 +11,22 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Post_To_Term_Migration
 {
     /**
+     * @since 0.8
      * @var Detail_Template_Factory_Interface
      */
-    private $detail_template_factory;
+    protected $detail_template_factory;
 
     /**
+     * @since 0.8
      * @var Detail_Template_Repository_Interface
      */
-    private $detail_template_repository;
+    protected $detail_template_repository;
 
     /**
      * @since 0.8

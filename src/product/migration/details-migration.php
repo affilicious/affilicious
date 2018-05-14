@@ -12,17 +12,23 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Details_Migration
+/**
+ * @since 0.8
+ * @var string
+ */
+final class Details_Migration
 {
     /**
+     * @since 0.8
      * @var Product_Repository_Interface
      */
-    private $product_repository;
+    protected $product_repository;
 
     /**
+     * @since 0.8
      * @var Detail_Template_Repository_Interface
      */
-    private $detail_template_repository;
+    protected $detail_template_repository;
 
     /**
      * @since 0.8

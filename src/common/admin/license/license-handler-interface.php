@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 interface License_Handler_Interface
 {
     /**
@@ -20,7 +23,7 @@ interface License_Handler_Interface
      * Get the unique item key used for creating an option in the database.
      * An item might be an extension or theme for instance.
      *
-     * @return 0.9
+     * @since 0.9
      * @return string The item key e.g. "affilicious_product_comparison"
      */
     public function get_item_key();

@@ -33,11 +33,40 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ * @var string
+ */
 define('AFFILICIOUS_BASE_NAME', plugin_basename(__FILE__));
+
+/**
+ * @since 0.8
+ * @var string
+ */
 define('AFFILICIOUS_ROOT_PATH', plugin_dir_path(__FILE__));
+
+/**
+ * @since 0.8
+ * @var string
+ */
 define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
+
+/**
+ * @since 0.8
+ * @var string
+ */
 define('AFFILICIOUS_VERSION', '0.10');
+
+/**
+ * @since 0.8
+ * @var string
+ */
 define('AFFILICIOUS_MIN_PHP_VERSION', '5.6');
+
+/**
+ * @since 0.8
+ * @var string
+ */
 define('AFFILICIOUS_MIN_WORDPRESS_VERSION', '4.5');
 
 if(!class_exists('Affilicious')) {
@@ -47,9 +76,28 @@ if(!class_exists('Affilicious')) {
 	 */
 	class Affilicious
 	{
+		/**
+		 * @since 0.8
+		 * @var string
+		 */
 		const NAME = 'affilicious';
+
+		/**
+		 * @since 0.8
+		 * @var string
+		 */
 		const VERSION = AFFILICIOUS_VERSION;
+
+		/**
+		 * @since 0.8
+		 * @var string
+		 */
 		const MIN_PHP_VERSION = AFFILICIOUS_MIN_PHP_VERSION;
+
+		/**
+		 * @since 0.8
+		 * @var string
+		 */
 		const MIN_WORDPRESS_VERSION = AFFILICIOUS_MIN_WORDPRESS_VERSION;
 
 		/**

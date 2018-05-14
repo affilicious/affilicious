@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.9
+ */
 abstract class Abstract_Timer implements Timer_Interface
 {
 	/**

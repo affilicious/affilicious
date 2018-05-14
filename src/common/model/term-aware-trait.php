@@ -7,9 +7,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.16
+ */
 trait Term_Aware_Trait
 {
     /**
+     * @since 0.9.16
      * @var Term[] All object terms.
      */
     protected $terms = [];

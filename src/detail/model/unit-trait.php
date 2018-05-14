@@ -5,11 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Unit_Trait
 {
     /**
      * The optional unit like kg, cm or m².
      *
+     * @since 0.8
      * @var null|Unit
      */
 	protected $unit;

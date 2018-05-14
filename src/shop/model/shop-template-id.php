@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.6
+ */
 class Shop_Template_Id
 {
     use Simple_Value_Trait {

@@ -9,9 +9,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Shop_Aware_Trait
 {
     /**
+     * @since 0.8
      * @var Shop[]
      */
 	protected $shops;

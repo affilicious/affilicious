@@ -8,12 +8,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Votes
 {
     use Simple_Value_Trait {
         Simple_Value_Trait::__construct as private set_value;
     }
 
+	/**
+	 * @since 0.8
+	 * @var int
+	 */
     const MIN = 0;
 
     /**

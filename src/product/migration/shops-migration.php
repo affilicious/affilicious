@@ -10,17 +10,22 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Shops_Migration
+/**
+ * @since 0.8
+ */
+final class Shops_Migration
 {
     /**
+     * @since 0.8
      * @var Product_Repository_Interface
      */
-    private $product_repository;
+    protected $product_repository;
 
     /**
+     * @since 0.8
      * @var Shop_Template_Repository_Interface
      */
-    private $shop_template_repository;
+    protected $shop_template_repository;
 
     /**
      * @since 0.8
@@ -42,8 +47,6 @@ class Shops_Migration
      */
     public function migrate()
     {
-        global $wpdb;
-
         $products = $this->product_repository->find_all();
         foreach ($products as $product) {
             if(!($product instanceof Simple_Product)) {

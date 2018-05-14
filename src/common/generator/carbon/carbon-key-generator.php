@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Carbon_Key_Generator implements Key_Generator_Interface
 {
     /**

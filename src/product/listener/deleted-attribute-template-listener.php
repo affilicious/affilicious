@@ -9,16 +9,21 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.2
+ */
 class Deleted_Attribute_Template_Listener
 {
 	/**
 	 * An array of changed term IDs and slugs
 	 *
+	 * @since 0.9.2
 	 * @var array
 	 */
 	protected $changed_terms = [];
 
 	/**
+	 * @since 0.9.2
 	 * @var Key_Generator_Interface
 	 */
 	protected $key_generator;

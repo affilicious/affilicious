@@ -4,16 +4,37 @@ namespace Affilicious\Product\Model;
 use Affilicious\Common\Helper\Assert_Helper;
 use Affilicious\Common\Model\Simple_Value_Trait;
 
+/**
+ * @since 0.6
+ */
 class Type
 {
     use Simple_Value_Trait {
         Simple_Value_Trait::__construct as private set_value;
     }
 
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
 	const SIMPLE = 'simple';
+
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
 	const COMPLEX = 'complex';
+
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
 	const VARIANT = 'variant';
 
+	/**
+	 * @since 0.6
+	 * @var array
+	 */
 	public static $all = [
 		self::SIMPLE,
 		self::COMPLEX,

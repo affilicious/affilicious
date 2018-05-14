@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Product_Variant extends Product implements Shop_Aware_Interface, Tag_Aware_Interface
 {
     use Tag_Aware_Trait, Shop_Aware_Trait {
@@ -18,6 +21,7 @@ class Product_Variant extends Product implements Shop_Aware_Interface, Tag_Aware
     }
 
     /**
+     * @since 0.8
      * @var Complex_Product
      */
     protected $parent;
@@ -25,11 +29,13 @@ class Product_Variant extends Product implements Shop_Aware_Interface, Tag_Aware
     /**
      * Indicates if the variant is the default one for the parent complex product.
      *
+     * @since 0.8
      * @var bool
      */
     protected $default;
 
     /**
+     * @since 0.8
      * @var Attribute[]
      */
     protected $attributes;

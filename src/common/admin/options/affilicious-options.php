@@ -12,31 +12,43 @@ use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 use Pimple\Container;
 
+/**
+ * @since 0.9
+ */
 class Affilicious_Options
 {
+	/**
+	 * @since 0.9
+	 * @var int
+	 */
 	const LOGS_LIMIT = 1000;
 
     /**
+     * @since 0.9
      * @var License_Manager
      */
     protected $license_manager;
 
     /**
+     * @since 0.9
      * @var License_Processor
      */
     protected $license_processor;
 
 	/**
+	 * @since 0.9
 	 * @var System_Info
 	 */
 	protected $system_info;
 
     /**
+     * @since 0.9
      * @var Logs
      */
     protected $logs;
 
     /**
+     * @since 0.9
      * @var Template_Renderer
      */
     protected $template_renderer;

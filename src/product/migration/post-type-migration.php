@@ -5,7 +5,10 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Post_Type_Migration
+/**
+ * @since 0.7
+ */
+final class Post_Type_Migration
 {
     /**
      * Migrate the old product post type from "product" to "aff_product"

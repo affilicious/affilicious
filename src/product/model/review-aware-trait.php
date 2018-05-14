@@ -5,9 +5,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Review_Aware_Trait
 {
     /**
+     * @since 0.8
      * @var null|Review
      */
 	protected $review;

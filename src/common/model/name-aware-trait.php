@@ -5,14 +5,18 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Name_Aware_Trait
 {
     /**
      * The unique name for display usage.
      *
+     * @since 0.8
      * @var Name
      */
-    private $name;
+    protected $name;
 
     /**
      * Set the unique name for display usage.

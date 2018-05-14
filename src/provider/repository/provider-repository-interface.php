@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 interface Provider_Repository_Interface
 {
     /**

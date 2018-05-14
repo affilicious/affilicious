@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://css-tricks.com/getting-started-wordpress-customizer/
+ * @since 0.9.10
  */
 abstract class Abstract_Customizer implements Customizer_Interface
 {

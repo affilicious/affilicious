@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.10
+ */
 class Table_Columns_Filter
 {
     /**

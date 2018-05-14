@@ -5,10 +5,27 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.9
+ */
 interface Timer_Interface
 {
+	/**
+	 * @since 0.9.9
+	 * @var string
+	 */
 	const HOURLY = 'hourly';
+
+	/**
+	 * @since 0.9.9
+	 * @var string
+	 */
 	const TWICE_DAILY = 'twicedaily';
+
+	/**
+	 * @since 0.9.9
+	 * @var string
+	 */
 	const DAILY = 'daily';
 
 	/**

@@ -7,15 +7,21 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.19
+ */
 class Logs_Table_Creator
 {
+	/**
+	 * @since 0.9.19
+	 * @var string
+	 */
 	const TABLE_NAME = 'aff_logs';
 
 	/**
 	 * Get the full table name of the logs table with prefix.
 	 *
 	 * @since 0.9.19
-	 *
 	 * @param bool $with_prefix Whether to use the Wordpress table prefix or not.
 	 * @param null|int $blog_id The ID of the blog to get the table from.
 	 * @return string The table name for the logs table.

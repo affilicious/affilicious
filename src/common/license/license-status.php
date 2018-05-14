@@ -8,7 +8,8 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @deprecated 1.0 Use Affilicious\Common\Admin\License\License_Status
+ * @deprecated 1.0 Use 'Affilicious\Common\Admin\License\License_Status' instead
+ * @since 0.9
  */
 class License_Status extends Base_License_Status
 {

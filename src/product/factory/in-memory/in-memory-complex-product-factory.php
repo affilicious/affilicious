@@ -11,9 +11,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class In_Memory_Complex_Product_Factory implements Complex_Product_Factory_Interface
 {
 	/**
+	 * @since 0.8
 	 * @var Slug_Generator_Interface
 	 */
 	protected $slug_generator;

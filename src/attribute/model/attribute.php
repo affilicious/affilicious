@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Attribute
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Type_Trait, Unit_Trait, Custom_Value_Aware_Trait {
@@ -23,16 +26,18 @@ class Attribute
     /**
      * The concrete value for the attribute.
      *
+     * @since 0.8
      * @var Value
      */
-    private $value;
+    protected $value;
 
     /**
      * The optional attribute template ID.
      *
+     * @since 0.8
      * @var Attribute_Template_Id
      */
-    private $template_id;
+    protected $template_id;
 
     /**
      * Create a new text attribute from the name and value.

@@ -16,7 +16,7 @@ final class Orphaned_Product_Variants_Cleaner_Timer extends Abstract_Timer
 	 * @since 0.9.22
 	 * @var Orphaned_Product_Variants_Cleaner
 	 */
-	private $orphaned_product_variants_cleaner;
+	protected $orphaned_product_variants_cleaner;
 
 	/**
 	 * @since 0.9.22

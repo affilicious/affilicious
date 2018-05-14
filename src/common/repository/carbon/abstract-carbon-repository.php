@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 abstract class Abstract_Carbon_Repository extends Abstract_Wordpress_Repository
 {
     /**

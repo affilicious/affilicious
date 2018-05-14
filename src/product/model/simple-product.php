@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Simple_Product extends Product implements Excerpt_Aware_Interface, Content_Aware_Interface, Tag_Aware_Interface, Shop_Aware_Interface, Detail_Aware_Interface, Relation_Aware_Interface, Review_Aware_Interface
 {
     use Excerpt_Aware_Trait, Content_Aware_Trait, Tag_Aware_Trait, Shop_Aware_Trait, Detail_Aware_Trait, Relation_Aware_Trait, Review_Aware_Trait {

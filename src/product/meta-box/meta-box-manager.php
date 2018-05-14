@@ -7,13 +7,15 @@ if (!defined('ABSPATH')) {
 
 /**
  * @deprecated 1.0
+ * @since 0.6
  */
 final class Meta_Box_Manager
 {
     /**
+     * @since 0.6
      * @var bool
      */
-    private $updated_meta_boxes;
+    protected $updated_meta_boxes;
 
     /**
      * Construct this object and hook into the required Wordpress actions

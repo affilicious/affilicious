@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.18
+ */
 abstract class Abstract_Log_Handler implements Handler_Interface
 {
     /**

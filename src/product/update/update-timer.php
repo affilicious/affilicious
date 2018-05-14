@@ -7,14 +7,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.7
+ */
 final class Update_Timer extends Abstract_Timer
 {
     /**
+     * @since 0.7
      * @var Update_Manager
      */
     private $update_manager;
 
 	/**
+	 * @since 0.7
 	 * @var Update_Semaphore
 	 */
 	private $update_semaphore;

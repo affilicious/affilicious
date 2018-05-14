@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.6
+ */
 class Product_Setup
 {
     /**

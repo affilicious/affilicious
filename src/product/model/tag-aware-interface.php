@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 interface Tag_Aware_Interface
 {
     /**

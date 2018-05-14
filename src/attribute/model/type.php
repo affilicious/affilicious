@@ -8,15 +8,31 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Type
 {
     use Simple_Value_Trait {
         Simple_Value_Trait::__construct as private set_value;
     }
 
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
 	const TEXT = 'text';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
 	const NUMBER = 'number';
 
+	/**
+	 * @since 0.8
+	 * @var array
+	 */
 	public static $all = [
 		self::TEXT,
 		self::NUMBER

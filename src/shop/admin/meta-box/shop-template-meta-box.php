@@ -12,12 +12,16 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Shop_Template_Meta_Box
 {
     /**
+     * @since 0.9
      * @var Provider_Repository_Interface
      */
-    private $provider_repository;
+    protected $provider_repository;
 
     /**
      * @since 0.9

@@ -7,12 +7,16 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Provider_Setup
 {
     /**
+     * @since 0.8
      * @var Provider_Repository_Interface
      */
-    private $provider_repository;
+    protected $provider_repository;
 
     /**
      * @since 0.8

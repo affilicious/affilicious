@@ -7,12 +7,16 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Simple_Value_Trait
 {
     /**
+     * @since 0.8
      * @var mixed
      */
-    private $value;
+    protected $value;
 
     /**
      * @since 0.8

@@ -5,9 +5,21 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.16
+ */
 class Download_Recommendation_Notice
 {
+	/**
+	 * @since 0.9.16
+	 * @var string
+	 */
     const DISMISSIBLE_ID = 'download_recommendation';
+
+	/**
+	 * @since 0.9.16
+	 * @var string
+	 */
 	const PRODUCTS_API_URL = 'https://affilicious.com/edd-api/products';
 
 	/**

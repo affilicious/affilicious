@@ -12,12 +12,13 @@ if (!defined('ABSPATH')) {
 /**
  * @since 0.9.22
  */
-final class Logs_Cleaner
+class Logs_Cleaner
 {
 	/**
 	 * By default, only 10.000 log records are allowed.
 	 *
 	 * @since 0.9.22
+	 * @var int
 	 */
 	const DEFAULT_LIMIT = 10000;
 
@@ -25,7 +26,7 @@ final class Logs_Cleaner
 	 * @since 0.9.22
 	 * @var Logger
 	 */
-	private $logger;
+	protected $logger;
 
 	/**
 	 * @since 0.9.22

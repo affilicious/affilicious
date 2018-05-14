@@ -7,14 +7,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Image extends Image_Id
 {
     /**
+     * @since 0.9
      * @var null|int
      */
     protected $id;
 
     /**
+     * @since 0.9
      * @var null|string
      */
     protected $src;

@@ -7,9 +7,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 7
+ */
 class Amazon_Update_Worker_Setup
 {
 	/**
+	 * @since 0.9.21
 	 * @var Update_Worker_Interface
 	 */
 	protected $amazon_update_worker;

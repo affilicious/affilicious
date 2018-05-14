@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.9
+ */
 class Assets_Setup
 {
     /**

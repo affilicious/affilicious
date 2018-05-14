@@ -14,6 +14,7 @@ final class Non_Existing_Logs_Table_To_0920_Migration
 {
 	/**
 	 * @since 0.9.20
+	 * @var string
 	 */
     const OPTION = 'aff_migrated_non_existing_logs_table_to_0.9.20';
 

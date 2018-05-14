@@ -20,33 +20,64 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Product_Meta_Box
 {
+	/**
+	 * @since 0.9
+	 * @var int
+	 */
     const TAGS_LIMIT = 10;
+
+	/**
+	 * @since 0.9
+	 * @var int
+	 */
     const ENABLED_ATTRIBUTES_LIMIT = 3;
+
+	/**
+	 * @since 0.9
+	 * @var int
+	 */
     const ENABLED_DETAILS_LIMIT = 25;
+
+	/**
+	 * @since 0.9
+	 * @var int
+	 */
     const VARIANTS_LIMIT = 100;
+
+	/**
+	 * @since 0.9
+	 * @var int
+	 */
     const SHOP_LIMIT = 50;
 
     /**
+     * @since 0.9
      * @var Shop_Template_Repository_Interface
      */
-    private $shop_template_repository;
+    protected $shop_template_repository;
 
     /**
+     * @since 0.9
      * @var Detail_Template_Repository_Interface
      */
-    private $detail_template_repository;
+    protected $detail_template_repository;
 
     /**
+     * @since 0.9
      * @var Attribute_Template_Repository_Interface
      */
-    private $attribute_template_repository;
+    protected $attribute_template_repository;
 
     /**
+     * @since 0.9
      * @var Key_Generator_Interface
      */
-    private $key_generator;
+    protected $key_generator;
 
     /**
      * @since 0.9
@@ -101,7 +132,7 @@ class Product_Meta_Box
      * @since 0.9
      * @return array
      */
-    private function get_general_fields()
+    protected function get_general_fields()
     {
         $fields = array(
             Carbon_Field::make('select', Carbon_Product_Repository::TYPE, __('Type', 'affilicious'))
@@ -133,7 +164,7 @@ class Product_Meta_Box
      * @param Shop_Template[] $shop_templates
      * @return array
      */
-    private function get_variants_fields($attribute_templates, $shop_templates)
+    protected function get_variants_fields($attribute_templates, $shop_templates)
     {
         $fields = array();
 
@@ -297,7 +328,7 @@ class Product_Meta_Box
      * @param Shop_Template[] $shop_templates
      * @return array
      */
-    private function get_shops_fields($shop_templates)
+    protected function get_shops_fields($shop_templates)
     {
         $fields = array();
 
@@ -318,7 +349,7 @@ class Product_Meta_Box
      * @since 0.9
      * @return Carbon_Field
      */
-    private function get_shops_empty_notice_field()
+    protected function get_shops_empty_notice_field()
     {
         $notice = $notice = Template_Helper::stringify('notices/warning-notice', array(
             'message' => sprintf(
@@ -341,7 +372,7 @@ class Product_Meta_Box
      * @param Shop_Template[] $shop_templates
      * @return Carbon_Complex_Field
      */
-    private function get_shop_tabs($name, $label = null, $shop_templates)
+    protected function get_shop_tabs($name, $label = null, $shop_templates)
     {
         /** @var Carbon_Complex_Field $tabs */
         $tabs = Carbon_Field::make('complex', $name, $label)
@@ -392,7 +423,7 @@ class Product_Meta_Box
      * @param Detail_Template[] $detail_templates
      * @return array
      */
-    private function get_details_fields($detail_templates)
+    protected function get_details_fields($detail_templates)
     {
         $fields = array();
 
@@ -432,7 +463,7 @@ class Product_Meta_Box
      * @param Detail_Template $detail_template
      * @return Carbon_Field\
      */
-    private function get_detail_field(Detail_Template $detail_template)
+    protected function get_detail_field(Detail_Template $detail_template)
     {
         // Build the key
         $detail_key = $this->key_generator->generate_from_slug($detail_template->get_slug());
@@ -471,7 +502,7 @@ class Product_Meta_Box
      * @since 0.9
      * @return Carbon_Field
      */
-    private function get_details_empty_notice_field()
+    protected function get_details_empty_notice_field()
     {
         $notice =  Template_Helper::stringify('notices/warning-notice', [
             'message' => sprintf(
@@ -491,7 +522,7 @@ class Product_Meta_Box
      * @since 0.9
      * @return array
      */
-    private function get_review_fields()
+    protected function get_review_fields()
     {
         $fields = array(
             Carbon_Field::make('select', Carbon_Product_Repository::REVIEW_RATING, __('Rating', 'affilicious'))
@@ -530,7 +561,7 @@ class Product_Meta_Box
      * @since 0.9
      * @return array
      */
-    private function get_relations_fields()
+    protected function get_relations_fields()
     {
         $fields = array(
             Carbon_Field::make('relationship', Carbon_Product_Repository::RELATED_PRODUCTS, __('Related Products', 'affilicious'))

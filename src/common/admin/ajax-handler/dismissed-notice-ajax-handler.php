@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.16
+ */
 class Dismissed_Notice_Ajax_Handler
 {
     /**

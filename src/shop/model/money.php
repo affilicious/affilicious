@@ -7,14 +7,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Money
 {
     /**
+     * @since 0.8
      * @var string
      */
     protected $value;
 
     /**
+     * @since 0.8
      * @var Currency
      */
     protected $currency;

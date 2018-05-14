@@ -17,17 +17,26 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Product implements Custom_Value_Aware_Interface
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Status_Aware_Trait, Term_Aware_Trait, Custom_Value_Aware_Trait;
 
     /**
      * There is a limit of 20 characters for post types in Wordpress.
+     *
+     * @since 0.8
+     * @var string
      */
     const POST_TYPE = 'aff_product';
 
     /**
      * The default slug is in English but can be translated into any language in the options.
+     *
+     * @since 0.8
+     * @var string
      */
     const SLUG = 'products';
 
@@ -35,6 +44,7 @@ class Product implements Custom_Value_Aware_Interface
      * The unique ID of the product.
      * Note that you just get the ID in Wordpress, if you store a post.
      *
+     * @since 0.8
      * @var null|Product_Id
      */
     protected $id;
@@ -42,6 +52,7 @@ class Product implements Custom_Value_Aware_Interface
     /**
      * The type of the product like simple, complex or variants.
      *
+     * @since 0.8
      * @var Type
      */
     protected $type;
@@ -49,6 +60,7 @@ class Product implements Custom_Value_Aware_Interface
     /**
      * The thumbnail of the product.
      *
+     * @since 0.9
      * @var null|Image
      */
     protected $thumbnail;
@@ -56,6 +68,7 @@ class Product implements Custom_Value_Aware_Interface
     /**
      * The images of the product gallery.
      *
+     * @since 0.8
      * @var Image[]
      */
     protected $image_gallery;
@@ -63,6 +76,7 @@ class Product implements Custom_Value_Aware_Interface
     /**
      * The date and time of the last update.
      *
+     * @since 0.8
      * @var \DateTimeImmutable
      */
     protected $updated_at;

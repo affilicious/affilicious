@@ -10,12 +10,16 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-final class Logger_Handler_Setup
+/**
+ * @since 0.9.11
+ */
+class Logger_Handler_Setup
 {
 	/**
+	 * @since 0.9.11
 	 * @var Logger
 	 */
-	private $logger;
+	protected $logger;
 
 	/**
 	 * @since 0.9.11
@@ -52,7 +56,7 @@ final class Logger_Handler_Setup
 	 * @since 0.9.11
 	 * @return Handler_Interface[]
 	 */
-    private function get_default_handlers()
+    protected function get_default_handlers()
     {
     	return [
     		new Table_Log_Handler()

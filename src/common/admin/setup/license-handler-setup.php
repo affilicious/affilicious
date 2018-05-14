@@ -8,12 +8,16 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8.12
+ */
 class License_Handler_Setup
 {
     /**
+     * @since 0.8.12
      * @var License_Manager
      */
-    private $license_manager;
+    protected $license_manager;
 
     /**
      * @since 0.8.12

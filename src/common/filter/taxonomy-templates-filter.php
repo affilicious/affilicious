@@ -7,8 +7,15 @@ if(!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.8
+ */
 class Taxonomy_Templates_Filter
 {
+	/**
+	 * @since 0.9.8
+	 * @var string
+	 */
 	const PRODUCT_ARCHIVE_TEMPLATE = 'archive-aff_product.php';
 
 	/**

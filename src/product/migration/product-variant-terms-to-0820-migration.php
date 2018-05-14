@@ -8,14 +8,22 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8.20
+ */
 final class Product_Variant_Terms_To_0820_Migration
 {
+	/**
+	 * @since 0.8.20
+	 * @var string
+	 */
     const OPTION = 'aff_migrated_product_variant_terms_to_0.8.20';
 
     /**
+     * @since 0.8.20
      * @var Product_Repository_Interface
      */
-    private $product_repository;
+    protected $product_repository;
 
     /**
      * @since 0.8.20

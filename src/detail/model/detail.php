@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Detail
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Type_Trait, Unit_Trait, Custom_Value_Aware_Trait {
@@ -23,6 +26,7 @@ class Detail
     /**
      * The concrete value for the attribute.
      *
+     * @since 0.8
      * @var Value
      */
     protected $value;
@@ -30,6 +34,7 @@ class Detail
     /**
      * The optional detail template ID.
      *
+     * @since 0.8
      * @var Detail_Template_Id
      */
     protected $template_id;

@@ -7,13 +7,31 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.18
+ */
 class Download_Logs_Action
 {
+	/**
+	 * @since 0.9.18
+	 * @var string
+	 */
 	const LOGS_LIMIT = 1000;
+
+	/**
+	 * @since 0.9.18
+	 * @var string
+	 */
     const ACTION = 'aff_download_logs';
+
+	/**
+	 * @since 0.9.18
+	 * @var string
+	 */
     const FILENAME = 'affilicious-logs.txt';
 
     /**
+     * @since 0.9.18
      * @var Logs
      */
     protected $logs;

@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Provider
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Custom_Value_Aware_Trait;
@@ -18,6 +21,7 @@ class Provider
     /**
      * The unique and optional ID of the provider.
      *
+     * @since 0.8
      * @var Provider_Id
      */
     protected $id;
@@ -27,6 +31,7 @@ class Provider
 	 * Very useful, if you have multiple providers of the same type.
 	 * It's optional now, but will be required in feature versions.
 	 *
+	 * @since 0.8
 	 * @var Type
 	 */
 	protected $type;
@@ -34,12 +39,13 @@ class Provider
     /**
      * The credentials contains all necessary information to build an API request
      *
+     * @since 0.8
      * @var Credentials
      */
     protected $credentials;
 
 	/**
-	 * @since 0.7
+	 * @since 0.8
 	 * @param Name $name The provider name.
 	 * @param Slug $slug The provider slug.
 	 * @param Type|Credentials|null $type The type like "amazon", "ebay" or "affilinet". Very useful, if you have multiple providers of the same type. The signature will be more strict in future versions.

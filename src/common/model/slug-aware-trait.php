@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Slug_Aware_Trait
 {
     /**
@@ -12,7 +15,7 @@ trait Slug_Aware_Trait
      *
      * @var Slug
      */
-    private $slug;
+    protected $slug;
 
     /**
      * Set the unique slug for url usage.

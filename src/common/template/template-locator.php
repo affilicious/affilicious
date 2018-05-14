@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.5
+ */
 class Template_Locator
 {
 	/**

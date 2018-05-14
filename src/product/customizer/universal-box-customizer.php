@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.10
+ */
 class Universal_Box_Customizer extends Abstract_Customizer
 {
 	/**

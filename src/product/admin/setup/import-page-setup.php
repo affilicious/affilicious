@@ -9,6 +9,9 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.4
+ */
 class Import_Page_Setup
 {
 	const PAGE_SLUG = 'aff-import-%s';
@@ -117,7 +120,7 @@ class Import_Page_Setup
 	 * @since 1.0
 	 * @return array
 	 */
-	private function find_import_pages()
+	protected function find_import_pages()
 	{
 		// Collect all import pages
 		$import_pages = apply_filters('aff_product_admin_import_pages', []);
@@ -141,7 +144,7 @@ class Import_Page_Setup
 	 * @param array $import_page
 	 * @return string
 	 */
-	private function build_url(array $import_page)
+	protected function build_url(array $import_page)
 	{
 		return 'edit.php?post_type=' . Product::POST_TYPE .'&page=' . sprintf(self::PAGE_SLUG, $import_page['slug']);
 	}
@@ -153,7 +156,7 @@ class Import_Page_Setup
 	 * @param array $import_page
 	 * @return bool
 	 */
-	private function is_current_page(array $import_page)
+	protected function is_current_page(array $import_page)
 	{
 		// Get the current import page to render it.
 		$screen = get_current_screen();
@@ -171,7 +174,7 @@ class Import_Page_Setup
 	 * @param array $import_page
 	 * @return string
 	 */
-	private function build_import_page_slug(array $import_page)
+	protected function build_import_page_slug(array $import_page)
 	{
 		return sprintf(self::PAGE_SLUG, $import_page['slug']);
 	}

@@ -9,19 +9,25 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-final class Batch_Update_Task
+/**
+ * @since 0.7
+ */
+class Batch_Update_Task
 {
 	/**
-	 * Null stands for "no limit"
+	 * Null stands for "no limit".
+	 *
+	 * @since 0.7
 	 */
 	const NO_LIMIT = null;
 
     /**
      * The provider with the correct credentials.
      *
+     * @since 0.7
      * @var Provider
      */
-    private $provider;
+    protected $provider;
 
     /**
      * The product limit for the batch update.
@@ -29,14 +35,14 @@ final class Batch_Update_Task
      *
      * @var null|int
      */
-    private $limit;
+    protected $limit;
 
     /**
      * The products for the batch update which have the same provider.
      *
      * @var Product[]
      */
-    private $products;
+    protected $products;
 
     /**
      * @since 0.7

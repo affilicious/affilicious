@@ -9,6 +9,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Attribute_Template_Helper
 {
     /**

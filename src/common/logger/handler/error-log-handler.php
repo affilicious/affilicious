@@ -8,9 +8,13 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.11
+ */
 class Error_Log_Handler extends Abstract_Log_Handler
 {
 	/**
+	 * @since 0.9.11
 	 * @var string|null
 	 */
 	protected $file_path;

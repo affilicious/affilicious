@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.7
+ */
 class Type
 {
     use Simple_Value_Trait {

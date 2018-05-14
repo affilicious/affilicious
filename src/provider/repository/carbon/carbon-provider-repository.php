@@ -12,22 +12,37 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Carbon_Provider_Repository implements Provider_Repository_Interface
 {
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const CURRENT_ID = '_affilicious_provider_current_id';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const ID_TEMPLATE = '_affilicious_provider_%s_id';
 
     /**
+     * @since 0.8
      * @var int
      */
     protected $current_id;
 
     /**
+     * @since 0.8
      * @var Provider[]
      */
     protected $providers;
 
     /**
+     * @since 0.8
      * @var Key_Generator_Interface
      */
     protected $key_generator;

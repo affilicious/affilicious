@@ -5,14 +5,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Review
 {
     /**
+     * @since 0.8
      * @var Rating
      */
     protected $rating;
 
     /**
+     * @since 0.8
      * @var null|Votes
      */
     protected $votes;

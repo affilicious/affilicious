@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.16
+ */
 class Download_Recommendation_Setup
 {
 	/**

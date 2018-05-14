@@ -11,13 +11,20 @@ if (!defined('ABSPATH')) {
  * Inspired by the Woocommerce aquivalent:
  * https://github.com/woothemes/woocommerce/blob/master/includes/admin/meta-boxes/class-wc-meta-box-product-images.php
  * @deprecated 1.0
+ * @since 0.6
  */
 class Product_Image_Gallery_Meta_Box implements Meta_Box_Interface
 {
     /**
-     * The stored meta key in the database
+     * @since 0.6
+     * @var string
      */
     const META_KEY = 'product_image_gallery';
+
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
     const STORE_KEY = 'affilicious_product_image_gallery';
 
     /**

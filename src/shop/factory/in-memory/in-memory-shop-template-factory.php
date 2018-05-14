@@ -12,6 +12,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.6
+ */
 class In_Memory_Shop_Template_Factory implements Shop_Template_Factory_Interface
 {
     /**
@@ -20,7 +23,7 @@ class In_Memory_Shop_Template_Factory implements Shop_Template_Factory_Interface
     protected $slug_generator;
 
     /**
-     * @since 1.0
+     * @since 0.6
      * @param Slug_Generator_Interface $slug_generator
      */
     public function __construct(Slug_Generator_Interface $slug_generator)

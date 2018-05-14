@@ -7,7 +7,10 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Clean_Variants_Migration
+/**
+ * @since 0.8.4
+ */
+final class Clean_Variants_Migration
 {
     /**
      * Delete the old variants without a valid parent product.

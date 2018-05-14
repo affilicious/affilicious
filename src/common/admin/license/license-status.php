@@ -7,15 +7,51 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class License_Status
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const UNKNOWN = 'unknown';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const MISSING = 'missing';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const VALID = 'valid';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const INVALID = 'invalid';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const SUCCESS = 'success';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const ERROR = 'error';
 
+	/**
+	 * @since 0.9
+	 * @var array
+	 */
     public static $all = [
     	self::UNKNOWN,
 	    self::MISSING,
@@ -26,14 +62,16 @@ class License_Status
     ];
 
     /**
+     * @since 0.9
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
+     * @since 0.9
      * @var null|string
      */
-    private $message;
+    protected $message;
 
     /**
      * Get a license status indicating a success.

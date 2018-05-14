@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Attribute_Template_Meta_Box
 {
     /**

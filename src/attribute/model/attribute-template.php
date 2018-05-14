@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Attribute_Template
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Type_Trait, Unit_Trait, Custom_Value_Aware_Trait {
@@ -20,12 +23,16 @@ class Attribute_Template
 
     /**
      * There is a limit of 20 characters for taxonomies in Wordpress.
+     *
+     * @since 0.8
+     * @var string
      */
     const TAXONOMY = 'aff_attribute_tmpl';
 
     /**
      * The optional and unique ID of the attribute template.
      *
+     * @since 0.8
      * @var null|Attribute_Template_Id
      */
 	protected $id;

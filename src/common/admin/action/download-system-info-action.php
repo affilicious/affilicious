@@ -7,12 +7,25 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.18
+ */
 class Download_System_Info_Action
 {
+	/**
+	 * @since 0.9.18
+	 * @var string
+	 */
     const ACTION = 'aff_download_system_info';
+
+	/**
+	 * @since 0.9.18
+	 * @var string
+	 */
     const FILENAME = 'affilicious-system-info.txt';
 
     /**
+     * @since 0.9.18
      * @var System_Info
      */
     protected $system_info;

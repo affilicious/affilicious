@@ -3,6 +3,9 @@ namespace Affilicious\Product\Setup;
 
 use Affilicious\Product\Model\Product;
 
+/**
+ * @since 0.9
+ */
 class Custom_Taxonomies_Setup
 {
     /**
@@ -47,7 +50,7 @@ class Custom_Taxonomies_Setup
      * @param array $taxonomy
      * @return array|null
      */
-    private function get_labels($taxonomy)
+    protected function get_labels($taxonomy)
     {
         if(empty($taxonomy['singular_name']) || empty($taxonomy['plural_name'])) {
             return null;

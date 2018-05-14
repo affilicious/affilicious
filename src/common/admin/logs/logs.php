@@ -9,8 +9,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.18
+ */
 class Logs
 {
+	/**
+	 * @since 0.9.18
+	 * @var string
+	 */
 	const NO_LIMIT = -1;
 
 	/**

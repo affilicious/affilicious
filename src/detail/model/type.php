@@ -8,13 +8,39 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Type
 {
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
 	const TEXT = 'text';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
 	const NUMBER = 'number';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
 	const BOOLEAN = 'boolean';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
 	const FILE = 'file';
 
+	/**
+	 * @since 0.8
+	 * @var array
+	 */
 	public static $all = [
 		self::TEXT,
 		self::NUMBER,

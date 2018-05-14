@@ -12,17 +12,22 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Post_To_Term_Migration
 {
     /**
+     * @since 0.8
      * @var Shop_Template_Factory_Interface
      */
-    private $shop_template_factory;
+    protected $shop_template_factory;
 
     /**
+     * @since 0.8
      * @var Shop_Template_Repository_Interface
      */
-    private $shop_template_repository;
+    protected $shop_template_repository;
 
     /**
      * @since 0.8
@@ -32,8 +37,7 @@ class Post_To_Term_Migration
     public function __construct(
         Shop_Template_Factory_Interface $shop_template_factory,
         Shop_Template_Repository_Interface $shop_template_repository
-    )
-    {
+    ) {
         $this->shop_template_factory = $shop_template_factory;
         $this->shop_template_repository = $shop_template_repository;
     }

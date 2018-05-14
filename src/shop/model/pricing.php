@@ -5,9 +5,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Pricing
 {
     /**
+     * @since 0.8
      * @var Availability
      */
     protected $availability;
@@ -15,6 +19,7 @@ class Pricing
     /**
      * The discounted price (sometimes called current price).
      *
+     * @since 0.8
      * @var null|Money
      */
     protected $price;
@@ -22,6 +27,7 @@ class Pricing
     /**
      * The regular stock price (sometimes called old price).
      *
+     * @since 0.8
      * @var null|Money
      */
     protected $old_price;

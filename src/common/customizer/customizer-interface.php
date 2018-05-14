@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.10
+ */
 interface Customizer_Interface
 {
 	/**
@@ -15,6 +18,10 @@ interface Customizer_Interface
 	 */
 	public function get_name();
 
+	/**
+	 * @since 0.9.10
+	 * @return mixed
+	 */
 	public function get_stylesheet_handle();
 
     /**

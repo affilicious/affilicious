@@ -9,9 +9,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Detail_Aware_Trait
 {
     /**
+     * @since 0.8
      * @var Detail[]
      */
 	protected $details;

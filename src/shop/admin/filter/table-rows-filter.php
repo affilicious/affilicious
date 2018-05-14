@@ -9,9 +9,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Table_Rows_Filter
 {
     /**
+     * @since 0.9
      * @var Provider_Repository_Interface
      */
     protected $provider_repository;

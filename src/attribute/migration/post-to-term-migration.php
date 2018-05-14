@@ -6,24 +6,27 @@ use Affilicious\Attribute\Factory\Attribute_Template_Factory_Interface;
 use Affilicious\Attribute\Model\Type;
 use Affilicious\Attribute\Model\Unit;
 use Affilicious\Attribute\Repository\Attribute_Template_Repository_Interface;
-use Carbon_Fields\Container as Carbon_Container;
-use Carbon_Fields\Field as Carbon_Field;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Post_To_Term_Migration
 {
     /**
+     * @since 0.8
      * @var Attribute_Template_Factory_Interface
      */
-    private $attribute_template_factory;
+    protected $attribute_template_factory;
 
     /**
+     * @since 0.8
      * @var Attribute_Template_Repository_Interface
      */
-    private $attribute_template_repository;
+    protected $attribute_template_repository;
 
     /**
      * @since 0.8

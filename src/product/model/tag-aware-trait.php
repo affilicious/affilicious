@@ -7,11 +7,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Tag_Aware_Trait
 {
     /**
      * The product tags like "Test winner" or "Best price"
      *
+     * @since 0.8
      * @var Tag[]
      */
 	protected $tags;

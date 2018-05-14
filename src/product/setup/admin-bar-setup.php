@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.1
+ */
 class Admin_Bar_Setup
 {
     /**

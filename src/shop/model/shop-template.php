@@ -14,12 +14,18 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Shop_Template
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Custom_Value_Aware_Trait;
 
     /**
-     * There is a limit of 20 characters for post types in Wordpress
+     * There is a limit of 20 characters for post types in Wordpress.
+     *
+     * @since 0.8
+     * @var string
      */
     const TAXONOMY = 'aff_shop_tmpl';
 
@@ -27,6 +33,7 @@ class Shop_Template
      * The unique ID of the shop template.
      * Note that you just get the ID in Wordpress, if you store a post.
      *
+     * @since 0.8
      * @var null|Shop_Template_Id
      */
     protected $id;
@@ -34,6 +41,7 @@ class Shop_Template
 	/**
      * The thumbnail of the shop template.
      *
+	 * @since 0.8
 	 * @var null|Image
 	 */
 	protected $thumbnail;
@@ -41,6 +49,7 @@ class Shop_Template
     /**
      * The provider ID for the shop updates.
      *
+     * @since 0.8
      * @var null|Provider_Id
      */
     protected $provider_id;

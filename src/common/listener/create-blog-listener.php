@@ -9,14 +9,19 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.19
+ */
 class Create_Blog_Listener
 {
 	/**
+	 * @since 0.9.19
 	 * @var Logs_Table_Creator
 	 */
 	protected $logs_table_creator;
 
 	/**
+	 * @since 0.9.19
 	 * @var License_Timer
 	 */
 	protected $license_timer;

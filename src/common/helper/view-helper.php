@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @deprecated 1.2 Use 'Affilicious\Common\Helper\Template_Helper' instead.
+ * @since 0.7
  */
 class View_Helper
 {

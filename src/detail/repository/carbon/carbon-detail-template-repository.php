@@ -14,9 +14,21 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Carbon_Detail_Template_Repository extends Abstract_Carbon_Repository implements Detail_Template_Repository_Interface
 {
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const TYPE = '_affilicious_detail_template_type';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const UNIT = '_affilicious_detail_template_unit';
 
     /**

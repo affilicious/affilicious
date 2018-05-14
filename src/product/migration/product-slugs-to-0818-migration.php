@@ -5,8 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8.18
+ */
 final class Product_Slugs_To_0818_Migration
 {
+	/**
+	 * @since 0.8.18
+	 * @var string
+	 */
     const OPTION = 'aff_migrated_product_slugs_to_0.8.18';
 
     /**

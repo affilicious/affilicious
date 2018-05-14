@@ -8,17 +8,20 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-final class Update_Task
+/**
+ * @since 0.7
+ */
+class Update_Task
 {
     /**
      * @var Provider
      */
-    private $provider;
+    protected $provider;
 
     /**
      * @var Product
      */
-    private $product;
+    protected $product;
 
     /**
      * @since 0.7

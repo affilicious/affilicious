@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.7.1
+ */
 class Tag
 {
     use Simple_Value_Trait {

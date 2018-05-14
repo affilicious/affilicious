@@ -10,12 +10,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 interface Provider_Factory_Interface
 {
 	/**
 	 * Create a new provider.
 	 *
-	 * @since 1.0
+	 * @since 0.8
 	 * @param Name $name The provider name.
 	 * @param Slug $slug The provider slug.
 	 * @param Credentials $credentials The credentials containing all necessary information to build an API request.
@@ -27,7 +30,7 @@ interface Provider_Factory_Interface
 	 * Create a new provider.
 	 * The slug is auto-generated from the name.
 	 *
-	 * @since 1.0
+	 * @since 0.8
 	 * @param Name $name The provider name.
 	 * @param Credentials $credentials The credentials containing all necessary information to build an API request.
 	 * @return Provider The provider acting like a gateway.

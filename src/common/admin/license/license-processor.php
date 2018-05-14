@@ -5,16 +5,49 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-final class License_Processor
+/**
+ * @since 0.9
+ */
+class License_Processor
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const LICENSE_ACTIVE = 'license_active';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const LICENSE_MISSING = 'license_missing';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const LICENSE_ACTIVATION_SUCCESS = 'license_activation_success';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const LICENSE_ACTIVATION_ERROR = 'license_activation_error';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const LICENSE_DEACTIVATION_SUCCESS = 'license_deactivation_success';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const LICENSE_DEACTIVATION_ERROR = 'license_deactivation_error';
 
     /**
+     * @since 0.9
      * @var License_Manager
      */
     protected $license_manager;

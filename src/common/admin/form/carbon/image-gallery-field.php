@@ -4,12 +4,15 @@ namespace Carbon_Fields\Field;
 /**
  * Allows selecting and saving multiple media attachment files,
  * where the image IDs are saved into the database.
+ *
+ * @since 0.8
  */
 class Image_Gallery_Field extends Image_Field
 {
     /**
      * Filter the shown attachment type of the media frame in the front end
      *
+     * @since 0.8
      * @var string
      */
     public $field_type = 'image';
@@ -17,6 +20,7 @@ class Image_Gallery_Field extends Image_Field
     /**
      * Retrieve the current image IDs of the field
      *
+     * @since 0.8
      * @return array
      */
     public function get_images()
@@ -33,6 +37,7 @@ class Image_Gallery_Field extends Image_Field
      * Returns an array that holds the field data, suitable for JSON representation.
      * This data will be available in the Underscore template and the Backbone Model.
      *
+     * @since 0.8
      * @param bool $load Should the value be loaded from the database or use the value from the current instance.
      * @return array
      */
@@ -73,6 +78,8 @@ class Image_Gallery_Field extends Image_Field
 
     /**
      * Underscore template of the image gallery section.
+     *
+     * @since 0.8
      */
     public function template()
     {
@@ -91,6 +98,8 @@ class Image_Gallery_Field extends Image_Field
 
     /**
      * Underscore template of the file description section.
+     *
+     * @since 0.8
      */
     public function template_description()
     {

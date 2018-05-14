@@ -5,17 +5,22 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.7.1
+ */
 class Tags_Field extends Field
 {
     /**
      * @var string[]
+     * @since 0.9
      */
-    private $options;
+    protected $options;
 
     /**
      * @var int
+     * @since 0.9
      */
-    private $max_items = 100;
+    protected $max_items = 100;
 
     /**
      * @inheritdoc
@@ -32,6 +37,7 @@ class Tags_Field extends Field
     }
 
     /**
+     * @since 0.9
      * @param int $max_items
      * @return $this
      */

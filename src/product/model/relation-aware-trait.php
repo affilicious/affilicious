@@ -7,11 +7,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Relation_Aware_Trait
 {
     /**
      * The IDs of all related products.
      *
+     * @since 0.8
      * @var Product_Id[]
      */
     protected $related_products;
@@ -19,6 +23,7 @@ trait Relation_Aware_Trait
     /**
      * The IDs of all related accessories.
      *
+     * @since 0.8
      * @var Product_Id[]
      */
     protected $related_accessories;

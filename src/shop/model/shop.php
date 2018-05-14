@@ -13,6 +13,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Shop
 {
     use Name_Aware_Trait, Slug_Aware_Trait, Custom_Value_Aware_Trait {
@@ -23,6 +26,7 @@ class Shop
     /**
      * The tracking contains all information to have the sale paid for the affiliate.
      *
+     * @since 0.8
      * @var Tracking
      */
     protected $tracking;
@@ -30,6 +34,7 @@ class Shop
     /**
      * The pricing contains all information to show prices and availability.
      *
+     * @since 0.8
      * @var Pricing
      */
     protected $pricing;
@@ -37,6 +42,7 @@ class Shop
     /**
      * The optional thumbnail of the shop.
      *
+     * @since 0.8
      * @var null|Image
      */
     protected $thumbnail;
@@ -44,6 +50,7 @@ class Shop
     /**
      * The optional shop template ID.
      *
+     * @since 0.8
      * @var Shop_Template_Id
      */
     protected $template_id;
@@ -76,7 +83,7 @@ class Shop
         $this->set_slug($slug);
         $this->tracking = $tracking;
         $this->pricing = $pricing;
-        $this->updated_at = (new \DateTimeImmutable())->setTimestamp(current_time('timestamp'));
+	    $this->updated_at = (new \DateTimeImmutable())->setTimestamp(current_time('timestamp'));
     }
 
     /**

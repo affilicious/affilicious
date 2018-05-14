@@ -5,11 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 trait Content_Aware_Trait
 {
     /**
      * The optional product content.
      *
+     * @since 0.8
      * @var null|Content
      */
 	protected $content;

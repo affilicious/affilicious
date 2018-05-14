@@ -5,14 +5,18 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 trait Status_Aware_Trait
 {
     /**
      * The post status.
      *
+     * @since 0.9
      * @var Status
      */
-    private $status;
+    protected $status;
 
     /**
      * Set the post status.

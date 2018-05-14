@@ -7,9 +7,21 @@ if(!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Addons_Page
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const MENU_SLUG = 'addons';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const PRODUCTS_URL = 'https://affilicioustheme.com/edd-api/products';
 
 	/**
@@ -132,6 +144,7 @@ class Addons_Page
     /**
      * Check if the download from the API is paid.
      *
+     * @since 0.9
      * @param array $download The download from the API call.
      * @return bool Whether the download is paid or not.
      */

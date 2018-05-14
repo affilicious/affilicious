@@ -7,9 +7,13 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.5
+ */
 class Template_Renderer
 {
 	/**
+	 * @since 0.9.5
 	 * @var Template_Locator
 	 */
 	protected $template_locator;

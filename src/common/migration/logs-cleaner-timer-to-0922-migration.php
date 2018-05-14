@@ -14,6 +14,7 @@ final class Logs_Cleaner_Timer_to_0922_Migration
 {
 	/**
 	 * @since 0.9.22
+	 * @var string
 	 */
     const OPTION = 'aff_migrated_logs_cleaner_timer_to_0.9.22';
 

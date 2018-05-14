@@ -5,9 +5,21 @@ use Affilicious\Product\Helper\Universal_Mode_Helper;
 use Carbon_Fields\Container as Carbon_Container;
 use Carbon_Fields\Field as Carbon_Field;
 
+/**
+ * @since 0.9
+ */
 class Product_Options
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const LINK_WHAT_IS_TAXONOMY = 'https://codex.wordpress.org/Taxonomies';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const LINK_RESERVED_TERMS = 'https://codex.wordpress.org/Function_Reference/register_taxonomy#Reserved_Terms';
 
 	/**

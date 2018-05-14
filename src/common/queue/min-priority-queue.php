@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.7
+ */
 class Min_Priority_Queue extends \SplPriorityQueue
 {
     /**

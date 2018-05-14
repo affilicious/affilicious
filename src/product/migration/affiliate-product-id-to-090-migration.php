@@ -5,8 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 final class Affiliate_Product_Id_To_090_Migration
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const OPTION = 'aff_migrated_product_affiliate_product_id_to_0.9.0';
 
     /**

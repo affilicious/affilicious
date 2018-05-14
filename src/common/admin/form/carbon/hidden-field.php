@@ -5,10 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Hidden_Field extends Field
 {
     /**
      * Underscore template of this field.
+     *
+     * @since 0.8
      */
     public function template() {
         ?>
@@ -18,6 +23,7 @@ class Hidden_Field extends Field
 
     /**
      * @inheritdoc
+     * @since 0.8
      * @return Hidden_Field
      */
     public function set_value($value)

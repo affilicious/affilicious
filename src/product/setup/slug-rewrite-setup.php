@@ -7,17 +7,31 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.6
+ */
 class Slug_Rewrite_Setup
 {
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
     const OPTION_SETTINGS_PRODUCT_GENERAL_SLUG = 'affilicious_options_product_container_general_tab_slug_field';
+
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
     const PRODUCT_SLUG_HAS_CHANGED = 'affilicious_product_slug_has_changed';
 
     /**
+     * @since 0.6
      * @var Product_Setup
      */
     protected $product_setup;
 
 	/**
+	 * @since 0.6
 	 * @var Custom_Taxonomies_Setup
 	 */
     protected $custom_taxonomies_setup;

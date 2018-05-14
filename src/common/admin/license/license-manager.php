@@ -7,9 +7,22 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ * @var string
+ */
 class License_Manager
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const LICENSE_KEY_OPTION = 'affilicious_license_key_%s';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const LICENSE_VALID_OPTION = 'affilicious_license_valid_%s';
 
     /**
@@ -17,9 +30,10 @@ class License_Manager
      * for the specific items in a convenient way.
      * An item might be an extension or theme for instance.
      *
+     * @since 0.9
      * @var License_Handler_Interface[]
      */
-    private $license_handlers = [];
+    protected $license_handlers = [];
 
     /**
      * Find the item by the key and activate the related license.

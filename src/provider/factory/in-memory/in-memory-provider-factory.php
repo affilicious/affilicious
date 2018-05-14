@@ -12,11 +12,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class In_Memory_Provider_Factory implements Provider_Factory_Interface
 {
     /**
      * The slug generator is responsible to auto-generating slugs.
      *
+     * @since 0.8
      * @var Slug_Generator_Interface
      */
     protected $slug_generator;

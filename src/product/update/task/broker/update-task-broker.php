@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 /**
  * @since 0.9.21
  */
-final class Update_Task_Broker
+class Update_Task_Broker
 {
 	/**
 	 * @since 0.9.21
@@ -38,19 +38,19 @@ final class Update_Task_Broker
 	 * @since 0.9.21
 	 * @var Update_Task_Queue[]
 	 */
-	private $queues;
+	protected $queues;
 
 	/**
 	 * @since 0.9.21
 	 * @var Shop_Template_Repository_Interface
 	 */
-	private $shop_template_repository;
+	protected $shop_template_repository;
 
 	/**
 	 * @since 0.9.21
 	 * @var Provider_Repository_Interface
 	 */
-	private $provider_repository;
+	protected $provider_repository;
 
 	/**
 	 * @since 0.9.21
@@ -212,7 +212,7 @@ final class Update_Task_Broker
 	 * @param Shop $shop
 	 * @return Provider|null
 	 */
-	private function find_provider_by_shop(Shop $shop)
+	protected function find_provider_by_shop(Shop $shop)
 	{
 		// Get the shop template ID from the shop.
 		$shop_template_id = $shop->get_template_id();
@@ -249,7 +249,7 @@ final class Update_Task_Broker
 	 * @param Shop $shop
 	 * @return Update_Task|null
 	 */
-	private function put_as_task_into_queue(Product $product, Shop $shop)
+	protected function put_as_task_into_queue(Product $product, Shop $shop)
 	{
 		// Find the provider for the update task.
 		$provider = $this->find_provider_by_shop($shop);
@@ -280,7 +280,7 @@ final class Update_Task_Broker
 	 * @param Provider $provider
 	 * @return bool
 	 */
-	private function is_queue_responsible_for_provider(Update_Task_Queue $queue, Provider $provider)
+	protected function is_queue_responsible_for_provider(Update_Task_Queue $queue, Provider $provider)
 	{
 		$matches_provider_slug = $provider->get_slug()->is_equal_to($queue->get_provider_slug());
 		$matches_provider_type = $provider->get_slug() === null && $provider->get_type() !== null ? $provider->get_type()->is_equal_to($queue->get_provider_type()) : false;

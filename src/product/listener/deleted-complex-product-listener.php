@@ -10,9 +10,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8.4
+ */
 class Deleted_Complex_Product_Listener
 {
     /**
+     * @since 0.8.4
      * @var Product_Repository_Interface
      */
     protected $product_repository;

@@ -15,10 +15,27 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository implements Shop_Template_Repository_Interface
 {
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const PROVIDER = '_affilicious_shop_template_provider';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const THUMBNAIL_ID = '_affilicious_shop_template_thumbnail_id';
+
+	/**
+	 * @since 0.10.1
+	 * @var string
+	 */
     const PRICE_INDICATION = '_affilicious_shop_template_price_indication';
 
     /**

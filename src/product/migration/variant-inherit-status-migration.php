@@ -7,7 +7,10 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Variant_Inherit_Status_Migration
+/**
+ * @since 0.8.4
+ */
+final class Variant_Inherit_Status_Migration
 {
     /**
      * Delete the old variants without a valid parent product.

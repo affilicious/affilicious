@@ -5,8 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.6
+ */
 abstract class Abstract_Wordpress_Repository
 {
+	/**
+	 * @since 0.6
+	 * @var string
+	 */
     const THUMBNAIL_ID = '_thumbnail_id';
 
     /**

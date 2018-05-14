@@ -12,6 +12,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 interface Attribute_Template_Factory_Interface
 {
     /**

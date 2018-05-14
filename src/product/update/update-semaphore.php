@@ -10,24 +10,61 @@ if (!defined('ABSPATH')) {
 
 /**
  * The binary semaphore protects the update process to be called multiple times in parallel causing race conditions.
+ *
+ * @since 0.9.11
  */
 final class Update_Semaphore
 {
+	/**
+	 * @since 0.9.11
+	 * @var string
+	 */
 	const COUNTER_HOURLY_OPTION = 'affilicious_update_semaphore_counter_hourly';
+
+	/**
+	 * @since 0.9.11
+	 * @var string
+	 */
 	const LAST_ACQUIRE_TIME_HOURLY_OPTION = 'affilicious_update_semaphore_last_acquire_time_hourly';
 
+	/**
+	 * @since 0.9.11
+	 * @var string
+	 */
 	const COUNTER_TWICE_DAILY_OPTION = 'affilicious_update_semaphore_counter_twicedaily';
+
+	/**
+	 * @since 0.9.11
+	 * @var string
+	 */
 	const LAST_ACQUIRE_TIME_TWICE_DAILY_OPTION = 'affilicious_update_semaphore_last_acquire_time_twicedaily';
 
+	/**
+	 * @since 0.9.11
+	 * @var string
+	 */
 	const COUNTER_DAILY_OPTION = 'affilicious_update_semaphore_counter_daily';
+
+	/**
+	 * @since 0.9.11
+	 * @var string
+	 */
 	const LAST_ACQUIRE_TIME_DAILY_OPTION = 'affilicious_update_semaphore_last_acquire_time_daily';
 
+	/**
+	 * @since 0.9.11
+	 * @var array
+	 */
 	public static $counter_options = [
 		'hourly' => self::COUNTER_HOURLY_OPTION,
 		'twicedaily' => self::COUNTER_TWICE_DAILY_OPTION,
 		'daily' => self::COUNTER_DAILY_OPTION,
 	];
 
+	/**
+	 * @since 0.9.11
+	 * @var array
+	 */
 	public static $last_acquire_time_options = [
 		'hourly' => self::LAST_ACQUIRE_TIME_HOURLY_OPTION,
 		'twicedaily' => self::LAST_ACQUIRE_TIME_TWICE_DAILY_OPTION,
@@ -35,6 +72,7 @@ final class Update_Semaphore
 	];
 
 	/**
+	 * @since 0.9.11
 	 * @var Logger
 	 */
 	private $logger;

@@ -8,9 +8,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.18
+ */
 class Logs_Table_Setup
 {
 	/**
+	 * @since 0.9.19
 	 * @var Logs_Table_Creator
 	 */
 	protected $logs_table_creator;

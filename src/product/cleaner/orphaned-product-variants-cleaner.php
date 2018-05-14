@@ -16,7 +16,7 @@ final class Orphaned_Product_Variants_Cleaner
 	 * @since 0.9.22
 	 * @var Logger
 	 */
-	private $logger;
+	protected $logger;
 
 	/**
 	 * @since 0.9.22

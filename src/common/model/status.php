@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @see https://codex.wordpress.org/Post_Status
+ * @since 0.9
  */
 class Status
 {
@@ -16,15 +17,58 @@ class Status
         Simple_Value_Trait::__construct as private set_value;
     }
 
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const PUBLISH = 'publish';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const FUTURE = 'future';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const DRAFT = 'draft';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const PENDING = 'pending';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const _PRIVATE = 'private';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const TRASH = 'trash';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const AUTO_DRAFT = 'auto-draft';
+
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
     const INHERIT = 'inherit';
 
+	/**
+	 * @since 0.9
+	 * @var array
+	 */
     public static $all = [
         self::PUBLISH,
 	    self::FUTURE,

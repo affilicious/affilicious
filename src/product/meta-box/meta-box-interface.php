@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @deprecated 1.0
+ * @since 0.6
  */
 interface Meta_Box_Interface
 {

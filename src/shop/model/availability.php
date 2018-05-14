@@ -8,15 +8,31 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Availability
 {
 	use Simple_Value_Trait {
 		Simple_Value_Trait::__construct as private set_value;
 	}
 
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const AVAILABLE = 'available';
+
+	/**
+	 * @since 0.8
+	 * @var string
+	 */
     const OUT_OF_STOCK = 'out-of-stock';
 
+	/**
+	 * @since 0.8
+	 * @var array
+	 */
     public static $all = [
         self::AVAILABLE,
 	    self::OUT_OF_STOCK

@@ -5,14 +5,19 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Tracking
 {
     /**
+     * @since 0.8
      * @var Affiliate_Link
      */
     protected $affiliate_link;
 
     /**
+     * @since 0.8
      * @var null|Affiliate_Product_Id
      */
     protected $affiliate_product_id;

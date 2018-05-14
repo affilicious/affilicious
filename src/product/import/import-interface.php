@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @deprecated 1.2 Don't use it anymore
+ * @since 0.9
  */
 interface Import_Interface
 {

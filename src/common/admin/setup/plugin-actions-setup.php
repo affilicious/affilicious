@@ -5,8 +5,15 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.16
+ */
 class Plugin_Actions_Setup
 {
+	/**
+	 * @since 0.9.16
+	 * @var string
+	 */
     const ADDONS_URL = 'https://affilicious.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress-installation&utm_medium=plugin-actions';
 
     /**

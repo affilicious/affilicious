@@ -9,19 +9,28 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 final class Tags_To_090_Migration
 {
+	/**
+	 * @since 0.9
+	 * @var string
+	 */
 	const OPTION = 'aff_migrated_tags_to_0.9.0';
 
 	/**
+	 * @since 0.9
 	 * @var Detail_Template_Repository_Interface
 	 */
-	private $detail_template_repository;
+	protected $detail_template_repository;
 
 	/**
+	 * @since 0.9
 	 * @var Attribute_Template_Repository_Interface
 	 */
-	private $attribute_template_repository;
+	protected $attribute_template_repository;
 
 	/**
 	 * @since 0.9
@@ -57,7 +66,7 @@ final class Tags_To_090_Migration
 	 *
 	 * @since 0.9
 	 */
-	private function migrate_product_tags()
+	protected function migrate_product_tags()
 	{
 		global $wpdb;
 
@@ -90,7 +99,7 @@ final class Tags_To_090_Migration
 	 *
 	 * @since 0.9
 	 */
-	private function migrate_enabled_details_tags()
+	protected function migrate_enabled_details_tags()
 	{
 		global $wpdb;
 
@@ -148,7 +157,7 @@ final class Tags_To_090_Migration
 	 *
 	 * @since 0.9
 	 */
-	private function migrate_enabled_attributes_tags()
+	protected function migrate_enabled_attributes_tags()
 	{
 		global $wpdb;
 

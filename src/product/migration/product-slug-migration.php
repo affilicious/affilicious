@@ -5,7 +5,10 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
-class Product_Slug_Migration
+/**
+ * @since 0.8.12
+ */
+final class Product_Slug_Migration
 {
     /**
      * Migrate the old slug from "product" to "products" to make it more rest conform.

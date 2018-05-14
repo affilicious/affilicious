@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9
+ */
 class Image_Helper
 {
     /**
@@ -98,6 +101,7 @@ class Image_Helper
     /**
      * Convert the array into an image.
      *
+     * @since 0.9
      * @param array $image
      * @return Image|null
      */

@@ -8,20 +8,64 @@ if (!defined('ABSPATH')) {
 	exit('Not allowed to access pages directly.');
 }
 
-final class Logger
+/**
+ * Support RFC 5424 as described in http://tools.ietf.org/html/rfc5424.
+ * @since 0.9.11
+ */
+class Logger
 {
 	/**
-	 * Support RFC 5424 as described in http://tools.ietf.org/html/rfc5424.
+	 * @since 0.9.11
+	 * @var int
 	 */
 	const LEVEL_DEBUG = 100;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_INFO = 200;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_NOTICE = 250;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_WARNING = 300;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_ERROR = 400;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_CRITICAL = 500;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_ALERT = 550;
+
+	/**
+	 * @since 0.9.11
+	 * @var int
+	 */
 	const LEVEL_EMERGENCY = 600;
 
+	/**
+	 * @since 0.9.11
+	 * @var array
+	 */
 	public static $levels = [
 		'DEBUG' => self::LEVEL_DEBUG,
 		'INFO' => self::LEVEL_INFO,
@@ -35,8 +79,9 @@ final class Logger
 
 	/**
 	 * @var Handler_Interface[]
+	 * @since 0.9.11
 	 */
-	private $handlers = [];
+	protected $handlers = [];
 
     /**
      * Create the log record.

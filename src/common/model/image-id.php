@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 
 /**
  * @deprecated 1.1
- * @package Affilicious\Common\Model
+ * @since 0.8
  */
 class Image_Id
 {

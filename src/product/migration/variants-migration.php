@@ -24,27 +24,34 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.8
+ */
 class Variants_Migration
 {
     /**
+     * @since 0.8
      * @var Product_Repository_Interface
      */
-    private $product_repository;
+    protected $product_repository;
 
     /**
+     * @since 0.8
      * @var Attribute_Template_Repository_Interface
      */
-    private $attribute_template_repository;
+    protected $attribute_template_repository;
 
     /**
+     * @since 0.8
      * @var Shop_Template_Repository_Interface
      */
-    private $shop_template_repository;
+    protected $shop_template_repository;
 
     /**
+     * @since 0.8
      * @var Product_Variant_Factory_Interface
      */
-    private $product_variant_factory;
+    protected $product_variant_factory;
 
     /**
      * @since 0.8

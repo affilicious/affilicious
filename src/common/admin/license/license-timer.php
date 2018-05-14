@@ -7,9 +7,13 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.9
+ */
 final class License_Timer extends Abstract_Timer
 {
 	/**
+	 * @since 0.9.9
 	 * @var License_Manager
 	 */
 	private $license_manager;

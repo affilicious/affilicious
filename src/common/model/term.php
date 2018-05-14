@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
+/**
+ * @since 0.9.16
+ */
 class Term
 {
     use Slug_Aware_Trait {
@@ -12,6 +15,7 @@ class Term
     }
 
     /**
+     * @since 0.9.16
      * @var Taxonomy
      */
     protected $taxonomy;
