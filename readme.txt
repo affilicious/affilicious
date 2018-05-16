@@ -4,7 +4,7 @@ Author URI: https://affilicious.com
 Plugin URI: https://affilicious.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.5
-Stable tag: 0.10
+Stable tag: 0.10.1
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -98,6 +98,10 @@ If you want to get support, check out this [page](https://affilicious.com/suppor
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.10.1 =
+* New: Added possibility to add custom shop price indications.
+* Improvement: Added versions and changed some class properties.
+
 = 0.10 =
 * New: Outsourced Amazon into a separate addon.
 * New: Added new currencies.

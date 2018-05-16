@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Affilicious
  * Description: The simplest and most flexible Wordpress affiliate solution with products & variants, shops, price comparisons and much more.
- * Version: 0.10
+ * Version: 0.10.1
  * Author: Affilicious
  * Plugin URI: https://affilicious.com/downloads/affilicious/
  * Author URI: https://affilicious.com/
@@ -55,7 +55,7 @@ define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
  * @since 0.8
  * @var string
  */
-define('AFFILICIOUS_VERSION', '0.10');
+define('AFFILICIOUS_VERSION', '0.10.1');
 
 /**
  * @since 0.8
