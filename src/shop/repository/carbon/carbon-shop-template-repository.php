@@ -143,6 +143,22 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         return $shop_template;
     }
 
+	/**
+	 * @inheritdoc
+	 * @since 0.10.3
+	 */
+	public function find_by_name(Name $name)
+	{
+		$term = get_term_by('name', $name->get_value(), Shop_Template::TAXONOMY);
+		if (empty($term) || $term instanceof \WP_Error) {
+			return null;
+		}
+
+		$shop_template = $this->build($term);
+
+		return $shop_template;
+	}
+
     /**
      * @inheritdoc
      * @since 0.8
@@ -393,29 +409,24 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
         return $shop_template;
     }
 
+	/**
+	 * @inheritdoc
+	 * @since 0.8
+	 */
+	public function find_one_by_slug(Slug $slug)
+	{
+		$shop_template = $this->find_by_slug($slug);
+
+		return $shop_template;
+	}
+
     /**
      * @inheritdoc
      * @since 0.8
      */
     public function find_one_by_name(Name $name)
     {
-        $term = get_term_by('name', $name->get_value(), Shop_Template::TAXONOMY);
-        if (empty($term) || $term instanceof \WP_Error) {
-            return null;
-        }
-
-        $shop_template = $this->build($term);
-
-        return $shop_template;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 0.8
-     */
-    public function find_one_by_slug(Slug $slug)
-    {
-        $shop_template = $this->find_by_slug($slug);
+        $shop_template = $this->find_one_by_name($name);
 
         return $shop_template;
     }

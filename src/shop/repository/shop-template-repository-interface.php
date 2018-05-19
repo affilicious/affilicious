@@ -63,6 +63,15 @@ interface Shop_Template_Repository_Interface
      */
     public function find_by_slug(Slug $slug);
 
+	/**
+	 * Find one shop template by the name.
+	 *
+	 * @since 0.10.3
+	 * @param Name $name The name for the search.
+	 * @return null|Shop_Template Either the shop template or no result.
+	 */
+	public function find_by_name(Name $name);
+
     /**
      * Find all shop templates.
      *
@@ -104,7 +113,7 @@ interface Shop_Template_Repository_Interface
     /**
      * Find one shop template by the name.
      *
-     * @deprecated 1.3 Don't use anymore.
+     * @deprecated 1.3 Use 'find_by_name' instead.
      * @since 0.8
      * @param Name $name The name for the search.
      * @return null|Shop_Template Either the shop template or no result.
