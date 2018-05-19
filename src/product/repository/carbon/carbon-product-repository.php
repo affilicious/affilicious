@@ -1239,13 +1239,14 @@ class Carbon_Product_Repository extends Abstract_Carbon_Repository implements Pr
 				self::SHOP_AVAILABILITY => $shop->get_pricing()->get_availability()->get_value(),
 				self::SHOP_PRICE => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_value() : null,
 				self::SHOP_OLD_PRICE => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_value() : null,
-				self::SHOP_CURRENCY => $shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_currency()->get_value() : Currency::EURO,
+				self::SHOP_CURRENCY => $shop->get_pricing()->has_price() ? $shop->get_pricing()->get_price()->get_currency()->get_value() : ($shop->get_pricing()->has_old_price() ? $shop->get_pricing()->get_old_price()->get_currency()->get_value() : Currency::EUR),
 				self::SHOP_UPDATED_AT => $shop->get_updated_at()->getTimestamp(),
 			);
 		}
 
 		$carbon_meta_keys = $this->build_complex_carbon_meta_key($carbon_shops, $meta_key);
 		foreach ($carbon_meta_keys as $carbon_meta_key => $carbon_meta_value) {
+
 			if($carbon_meta_value !== null) {
 				$this->store_post_meta($product->get_id()->get_value(), $carbon_meta_key, $carbon_meta_value);
 			} elseif ($carbon_meta_value === null) {
