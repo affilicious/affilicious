@@ -55,7 +55,7 @@ define('AFFILICIOUS_ROOT_URL', plugin_dir_url(__FILE__));
  * @since 0.8
  * @var string
  */
-define('AFFILICIOUS_VERSION', '0.10.2');
+define('AFFILICIOUS_VERSION', '0.10.3');
 
 /**
  * @since 0.8

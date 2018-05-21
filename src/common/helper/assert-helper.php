@@ -123,6 +123,38 @@ class Assert_Helper
 	}
 
 	/**
+	 * Check if the value is empty.
+	 *
+	 * @since 0.10.3
+	 * @param mixed $value
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function is_empty($value, $method, $message, $version)
+	{
+		if(WP_DEBUG && !empty($value)) {
+			_doing_it_wrong($method, $message, $version);
+		}
+	}
+
+	/**
+	 * Check if the value is not empty.
+	 *
+	 * @since 0.10.3
+	 * @param mixed $value
+	 * @param string $method
+	 * @param string $message
+	 * @param string $version
+	 */
+	public static function is_not_empty($value, $method, $message, $version)
+	{
+		if(WP_DEBUG && empty($value)) {
+			_doing_it_wrong($method, $message, $version);
+		}
+	}
+
+	/**
 	 * Check if the value is an array or null.
 	 *
 	 * @since 0.9.2
