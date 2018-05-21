@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Affilicious\n"
-"POT-Creation-Date: 2018-05-14 18:35+0200\n"
-"PO-Revision-Date: 2018-05-14 18:35+0200\n"
+"POT-Creation-Date: 2018-05-21 12:47+0200\n"
+"PO-Revision-Date: 2018-05-21 12:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: Affilicious\n"
 "Language: de_DE\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: bin\n"
 "X-Poedit-SearchPathExcluded-5: tests\n"
 
-#: affilicious.php:255
+#: affilicious.php:303
 #, php-format
 msgid ""
 "Affilicious requires at least the PHP Version %s to reveal the full "
@@ -35,7 +35,7 @@ msgstr ""
 "Affilicious benötigt mindestens die PHP Version %s. Bitte ändere deine PHP "
 "Version bei deinem Hosting Anbieter."
 
-#: affilicious.php:263
+#: affilicious.php:311
 #, php-format
 msgid ""
 "Affilicious requires at least the Wordpress Version %s. Please update "
@@ -44,7 +44,7 @@ msgstr ""
 "Affilicious benötigt mindestens die Wordpress Version %s. Bitte aktualisiere "
 "Wordpress in deinem <a href=\"%s\">Update Bereich</a>."
 
-#: affilicious.php:272
+#: affilicious.php:320
 #, php-format
 msgid ""
 "The Affilicious Plugin requires the PHP extension %s. Please install the PHP "
@@ -53,7 +53,7 @@ msgstr ""
 "Das Affilicious Plugin erfordert die PHP Erweiterung %s. Bitte installiere "
 "die PHP Erweiterung bei deinem Hosting Provider."
 
-#: affilicious.php:282
+#: affilicious.php:330
 #, php-format
 msgid "Go back to the <a href=\"%s\">plugins area</a>"
 msgstr "Gehe zurück zum <a href=\"%s\">Plugin Bereich</a>"
@@ -65,193 +65,193 @@ msgid_plural "based on %s reviews"
 msgstr[0] "anhand von %s Bewertung"
 msgstr[1] "anhand von %s Bewertungen"
 
-#: functions.php:2273
+#: functions.php:2270
 #, php-format
 msgid "Last updated: %s."
 msgstr "Zuletzt aktualisiert:  %s."
 
-#: functions.php:3037 src/product/customizer/universal-box-customizer.php:623
+#: functions.php:3034 src/product/customizer/universal-box-customizer.php:626
 #, php-format
 msgid "Buy now at %s"
 msgstr "Jetzt bei %s kaufen"
 
-#: functions.php:3076
+#: functions.php:3073
 msgid "Unfortunately not available"
 msgstr "Leider nicht verfügbar"
 
-#: src/attribute/admin/filter/table-columns-filter.php:40
-#: src/attribute/admin/meta-box/attribute-template-meta-box.php:27
-#: src/detail/admin/filter/table-columns-filter.php:40
-#: src/detail/admin/meta-box/detail-template-meta-box.php:27
-#: src/product/admin/meta-box/product-meta-box.php:107
+#: src/attribute/admin/filter/table-columns-filter.php:43
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:30
+#: src/detail/admin/filter/table-columns-filter.php:43
+#: src/detail/admin/meta-box/detail-template-meta-box.php:30
+#: src/product/admin/meta-box/product-meta-box.php:138
 msgid "Type"
 msgstr "Typ"
 
-#: src/attribute/admin/filter/table-columns-filter.php:58
-#: src/attribute/admin/meta-box/attribute-template-meta-box.php:33
-#: src/detail/admin/filter/table-columns-filter.php:58
-#: src/detail/admin/meta-box/detail-template-meta-box.php:35
+#: src/attribute/admin/filter/table-columns-filter.php:61
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:36
+#: src/detail/admin/filter/table-columns-filter.php:61
+#: src/detail/admin/meta-box/detail-template-meta-box.php:38
 msgid "Unit"
 msgstr "Einheit"
 
-#: src/attribute/admin/meta-box/attribute-template-meta-box.php:24
-#: src/attribute/setup/attribute-template-setup.php:21
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:27
+#: src/attribute/setup/attribute-template-setup.php:24
 msgid "Attribute Template"
 msgstr "Attribut-Vorlage"
 
-#: src/attribute/admin/meta-box/attribute-template-meta-box.php:30
-#: src/attribute/model/type.php:90
-#: src/detail/admin/meta-box/detail-template-meta-box.php:30
-#: src/detail/model/type.php:155
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:33
+#: src/attribute/model/type.php:106
+#: src/detail/admin/meta-box/detail-template-meta-box.php:33
+#: src/detail/model/type.php:181
 msgid "Text"
 msgstr "Text"
 
-#: src/attribute/admin/meta-box/attribute-template-meta-box.php:31
-#: src/attribute/model/type.php:93
-#: src/detail/admin/meta-box/detail-template-meta-box.php:31
-#: src/detail/model/type.php:158
+#: src/attribute/admin/meta-box/attribute-template-meta-box.php:34
+#: src/attribute/model/type.php:109
+#: src/detail/admin/meta-box/detail-template-meta-box.php:34
+#: src/detail/model/type.php:184
 msgid "Number"
 msgstr "Numerisch"
 
-#: src/attribute/setup/attribute-template-setup.php:22
+#: src/attribute/setup/attribute-template-setup.php:25
 msgid "Attribute Templates"
 msgstr "Attribut-Vorlagen"
 
-#: src/attribute/setup/attribute-template-setup.php:27
-#: src/attribute/setup/attribute-template-setup.php:31
+#: src/attribute/setup/attribute-template-setup.php:30
+#: src/attribute/setup/attribute-template-setup.php:34
 msgid "Attributes"
 msgstr "Attribute"
 
-#: src/attribute/setup/attribute-template-setup.php:29
+#: src/attribute/setup/attribute-template-setup.php:32
 #, php-format
 msgctxt "Attribute Template"
 msgid "%s Archives"
 msgstr "%s Archiv"
 
-#: src/attribute/setup/attribute-template-setup.php:30
+#: src/attribute/setup/attribute-template-setup.php:33
 #, php-format
 msgctxt "Attribute Template"
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/attribute/setup/attribute-template-setup.php:32
+#: src/attribute/setup/attribute-template-setup.php:35
 #, php-format
 msgctxt "Attribute Template"
 msgid "Add New %s"
 msgstr "%s erstellen"
 
-#: src/attribute/setup/attribute-template-setup.php:33
+#: src/attribute/setup/attribute-template-setup.php:36
 #, php-format
 msgctxt "Attribute Template"
 msgid "New %s"
 msgstr "Neue %s"
 
-#: src/attribute/setup/attribute-template-setup.php:34
+#: src/attribute/setup/attribute-template-setup.php:37
 #, php-format
 msgctxt "Attribute Template"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: src/attribute/setup/attribute-template-setup.php:35
+#: src/attribute/setup/attribute-template-setup.php:38
 #, php-format
 msgctxt "Attribute Template"
 msgid "Update %s"
 msgstr "%s aktualieren"
 
-#: src/attribute/setup/attribute-template-setup.php:36
+#: src/attribute/setup/attribute-template-setup.php:39
 #, php-format
 msgctxt "Attribute Template"
 msgid "View %s"
 msgstr "%s ansehen"
 
-#: src/attribute/setup/attribute-template-setup.php:37
+#: src/attribute/setup/attribute-template-setup.php:40
 #, php-format
 msgctxt "Attribute Template"
 msgid "Search %s"
 msgstr "%s suchen"
 
-#: src/attribute/setup/attribute-template-setup.php:38
+#: src/attribute/setup/attribute-template-setup.php:41
 #, php-format
 msgctxt "Attribute Template"
 msgid "Insert Into %s"
 msgstr "In die %s einfügen"
 
-#: src/attribute/setup/attribute-template-setup.php:39
+#: src/attribute/setup/attribute-template-setup.php:42
 #, php-format
 msgctxt "Attribute Template"
 msgid "Uploaded to this %s"
 msgstr "Zur %s hochladen"
 
-#: src/attribute/setup/attribute-template-setup.php:41
+#: src/attribute/setup/attribute-template-setup.php:44
 #, php-format
 msgctxt "Attribute Template"
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
-#: src/attribute/setup/attribute-template-setup.php:42
+#: src/attribute/setup/attribute-template-setup.php:45
 #, php-format
 msgctxt "Attribute Template"
 msgid "Filter %s"
 msgstr "%s filtern"
 
-#: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:22
+#: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:25
 msgid "The dismissible ID for the currently dismissed notice is missing."
 msgstr "Die „Dismissible ID“ für die kürzlich deaktivierte Mitteilung fehlt."
 
-#: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:30
+#: src/common/admin/ajax-handler/dismissed-notice-ajax-handler.php:33
 #, php-format
 msgid "Failed to update the dismissed notice \"%s\"."
 msgstr "Die Aktualisierung der deaktivierten Mitteilung \"%s\" fehlt."
 
-#: src/common/admin/filter/footer-text-filter.php:21
+#: src/common/admin/filter/footer-text-filter.php:24
 #, php-format
 msgid ""
 "Thank you for creating with <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 msgstr ""
 "Danke für dein Vertrauen in <a href=\"%s\" target=\"_blank\">Affilicious</a>."
 
-#: src/common/admin/license/license-manager.php:81
-#: src/common/admin/license/license-manager.php:119
+#: src/common/admin/license/license-manager.php:95
+#: src/common/admin/license/license-manager.php:133
 msgid "Failed to find the license key."
 msgstr "Die Lizenz konnte nicht gefunden werden."
 
-#: src/common/admin/license/license-status.php:48
+#: src/common/admin/license/license-status.php:86
 msgid "The action was successful."
 msgstr "Die Handlung war erfolgreich."
 
-#: src/common/admin/license/license-status.php:64
+#: src/common/admin/license/license-status.php:102
 msgid "An error has occurred. Please try again."
 msgstr "Ein Fehler ist aufgetreten. Bitte versuche es nochmal."
 
-#: src/common/admin/license/license-status.php:89
+#: src/common/admin/license/license-status.php:127
 msgid "The license is missing."
 msgstr "Die Lizenz ist nicht vorhanden."
 
-#: src/common/admin/license/license-status.php:100
+#: src/common/admin/license/license-status.php:138
 msgid "The license is valid"
 msgstr "Die Lizenz ist gültig"
 
-#: src/common/admin/license/license-status.php:111
+#: src/common/admin/license/license-status.php:149
 msgid "The license is invalid"
 msgstr "Die Lizenz ist ungültig"
 
-#: src/common/admin/license/license-status.php:122
+#: src/common/admin/license/license-status.php:160
 msgid "Succeeded to activate the license."
 msgstr "Die Aktivierung der Lizenz war erfolgreich."
 
-#: src/common/admin/license/license-status.php:133
+#: src/common/admin/license/license-status.php:171
 msgid "Failed to activate the license."
 msgstr "Die Aktivierung der Lizenz ist fehlgeschlagen."
 
-#: src/common/admin/license/license-status.php:144
+#: src/common/admin/license/license-status.php:182
 msgid "Succeeded to deactivate the license."
 msgstr "Die Deaktivierung der Lizenz war erfolgreich."
 
-#: src/common/admin/license/license-status.php:155
+#: src/common/admin/license/license-status.php:193
 msgid "Failed to deactivate the license."
 msgstr "Die Deaktivierung der Lizenz ist fehlgeschlagen."
 
-#: src/common/admin/notice/download-recommendation-notice.php:35
+#: src/common/admin/notice/download-recommendation-notice.php:47
 #, php-format
 msgid ""
 "Download recommendation: %s Visit <a href=\"%s\" target=\"_blank\" rel="
@@ -260,27 +260,27 @@ msgstr ""
 "Download Empfehlung: %s Jetzt <a href=\"%s\" target=\"_blank\" rel=\"nofollow"
 "\">%s</a> anschauen."
 
-#: src/common/admin/options/affilicious-options.php:79
+#: src/common/admin/options/affilicious-options.php:91
 msgid "Licenses"
 msgstr "Lizenzen"
 
-#: src/common/admin/options/affilicious-options.php:80
+#: src/common/admin/options/affilicious-options.php:92
 msgid "Scripts"
 msgstr "Skripte"
 
-#: src/common/admin/options/affilicious-options.php:81
+#: src/common/admin/options/affilicious-options.php:93
 msgid "Notices"
 msgstr "Mitteilungen"
 
-#: src/common/admin/options/affilicious-options.php:82
+#: src/common/admin/options/affilicious-options.php:94
 msgid "System"
 msgstr "System"
 
-#: src/common/admin/options/affilicious-options.php:83
+#: src/common/admin/options/affilicious-options.php:95
 msgid "Logs"
 msgstr "Logs"
 
-#: src/common/admin/options/affilicious-options.php:108
+#: src/common/admin/options/affilicious-options.php:120
 #, php-format
 msgid ""
 "More add-ons and themes can be found on the official website of <a href=\"%s"
@@ -289,7 +289,7 @@ msgstr ""
 "Mehr Erweiterungen und Themes findest du auf der offiziellen Webseite von <a "
 "href=\"%s\"  target=\"_blank\">Affilicious</a>."
 
-#: src/common/admin/options/affilicious-options.php:109
+#: src/common/admin/options/affilicious-options.php:121
 #, php-format
 msgid ""
 "It looks like you haven't got any add-on or theme yet. Visit our official "
@@ -300,11 +300,11 @@ msgstr ""
 "hast. Schaue auf der offiziellen Webseite von <a href=\"%s\"  target=\"_blank"
 "\">Affilicious</a> nach, was du alles erwerben kannst."
 
-#: src/common/admin/options/affilicious-options.php:129
+#: src/common/admin/options/affilicious-options.php:141
 msgid "Custom Header Scripts"
 msgstr "Eigene Header Skripte"
 
-#: src/common/admin/options/affilicious-options.php:130
+#: src/common/admin/options/affilicious-options.php:142
 msgid ""
 "Add your custom header scripts like CSS or JS with the proper &lt;style&gt "
 "or &lt;script&gt tags."
@@ -312,11 +312,11 @@ msgstr ""
 "Füge deine eigenen Header Skripte wie CSS or JS mit den entprechenden &lt;"
 "style&gt oder &lt;script&gt Tags hinzu."
 
-#: src/common/admin/options/affilicious-options.php:131
+#: src/common/admin/options/affilicious-options.php:143
 msgid "Custom Footer Scripts"
 msgstr "Eigene Footer Skripte"
 
-#: src/common/admin/options/affilicious-options.php:132
+#: src/common/admin/options/affilicious-options.php:144
 msgid ""
 "Add your custom footer scripts like Google Analytics tracking code, CSS or "
 "JS with the proper &lt;style&gt or &lt;script&gt tags."
@@ -324,11 +324,11 @@ msgstr ""
 "Füge deine eigenen Footer Skripte wie den Google Analytics Tracking Code, "
 "CSS or JS mit den entprechenden &lt;style&gt oder &lt;script&gt Tags hinzu."
 
-#: src/common/admin/options/affilicious-options.php:147
+#: src/common/admin/options/affilicious-options.php:159
 msgid "Disable download recommendations"
 msgstr "Deaktiviere Download Empfehlungen"
 
-#: src/common/admin/options/affilicious-options.php:148
+#: src/common/admin/options/affilicious-options.php:160
 msgid ""
 "If you enable this option, download recommendation notices won't be shown "
 "after activation anymore."
@@ -336,255 +336,255 @@ msgstr ""
 "Wenn du diese Option aktivierst, dann werden keine Download Empfehlungen "
 "mehr nach der Aktivierung angezeigt."
 
-#: src/common/admin/page/addons-page.php:25
-#: src/common/admin/page/addons-page.php:26 templates/admin/page/addons.php:4
+#: src/common/admin/page/addons-page.php:37
+#: src/common/admin/page/addons-page.php:38 templates/admin/page/addons.php:4
 #: templates/admin/page/addons/resources.php:7
 msgid "Add-ons"
 msgstr "Erweiterungen"
 
-#: src/common/admin/setup/assets-setup.php:64
-#: src/product/admin/meta-box/product-meta-box.php:83
+#: src/common/admin/setup/assets-setup.php:67
+#: src/product/admin/meta-box/product-meta-box.php:114
 msgid "Affilicious Product"
 msgstr "Affilicious Produkt"
 
-#: src/common/admin/setup/assets-setup.php:65
-#: src/product/admin/meta-box/product-meta-box.php:87
-#: src/product/admin/meta-box/product-meta-box.php:170
-#: src/product/admin/meta-box/product-meta-box.php:173
+#: src/common/admin/setup/assets-setup.php:68
+#: src/product/admin/meta-box/product-meta-box.php:118
+#: src/product/admin/meta-box/product-meta-box.php:201
+#: src/product/admin/meta-box/product-meta-box.php:204
 msgid "Variants"
 msgstr "Varianten"
 
-#: src/common/admin/setup/assets-setup.php:66
-#: src/product/admin/meta-box/product-meta-box.php:88
-#: src/product/admin/meta-box/product-meta-box.php:215
-#: src/product/admin/meta-box/product-meta-box.php:310
-#: src/product/admin/meta-box/product-meta-box.php:351
-#: src/product/customizer/universal-box-customizer.php:578
-#: src/shop/setup/shop-template-setup.php:27
-#: src/shop/setup/shop-template-setup.php:31
+#: src/common/admin/setup/assets-setup.php:69
+#: src/product/admin/meta-box/product-meta-box.php:119
+#: src/product/admin/meta-box/product-meta-box.php:246
+#: src/product/admin/meta-box/product-meta-box.php:341
+#: src/product/admin/meta-box/product-meta-box.php:382
+#: src/product/customizer/universal-box-customizer.php:581
+#: src/shop/setup/shop-template-setup.php:30
+#: src/shop/setup/shop-template-setup.php:34
 msgid "Shops"
 msgstr "Shops"
 
-#: src/common/admin/setup/assets-setup.php:72
+#: src/common/admin/setup/assets-setup.php:75
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: src/common/admin/setup/plugin-actions-setup.php:19
+#: src/common/admin/setup/plugin-actions-setup.php:26
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: src/common/admin/setup/plugin-actions-setup.php:23
+#: src/common/admin/setup/plugin-actions-setup.php:30
 msgid "Addons"
 msgstr "Erweiterungen"
 
-#: src/common/model/status.php:149
+#: src/common/model/status.php:193
 msgid "Publish"
 msgstr "Öffentlich"
 
-#: src/common/model/status.php:152
+#: src/common/model/status.php:196
 msgid "Future"
 msgstr "Geplant"
 
-#: src/common/model/status.php:155
+#: src/common/model/status.php:199
 msgid "Draft"
 msgstr "Entwurf"
 
-#: src/common/model/status.php:158
+#: src/common/model/status.php:202
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: src/common/model/status.php:161
+#: src/common/model/status.php:205
 msgid "Private"
 msgstr "Privat"
 
-#: src/common/model/status.php:164
+#: src/common/model/status.php:208
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: src/common/model/status.php:167
+#: src/common/model/status.php:211
 msgid "Auto draft"
 msgstr "Automatischer Entwurf"
 
-#: src/common/model/status.php:170
+#: src/common/model/status.php:214
 msgid "Inherit"
 msgstr "Vererben"
 
-#: src/detail/admin/meta-box/detail-template-meta-box.php:24
-#: src/detail/setup/detail-template-setup.php:21
+#: src/detail/admin/meta-box/detail-template-meta-box.php:27
+#: src/detail/setup/detail-template-setup.php:24
 msgid "Detail Template"
 msgstr "Detail-Vorlage"
 
-#: src/detail/admin/meta-box/detail-template-meta-box.php:32
-#: src/detail/model/type.php:161
+#: src/detail/admin/meta-box/detail-template-meta-box.php:35
+#: src/detail/model/type.php:187
 msgid "Boolean"
 msgstr "Boolean"
 
-#: src/detail/admin/meta-box/detail-template-meta-box.php:33
-#: src/detail/model/type.php:164
+#: src/detail/admin/meta-box/detail-template-meta-box.php:36
+#: src/detail/model/type.php:190
 msgid "File"
 msgstr "Datei"
 
-#: src/detail/setup/detail-template-setup.php:22
+#: src/detail/setup/detail-template-setup.php:25
 msgid "Detail Templates"
 msgstr "Detail-Vorlagen"
 
-#: src/detail/setup/detail-template-setup.php:27
-#: src/detail/setup/detail-template-setup.php:31
-#: src/product/admin/meta-box/product-meta-box.php:89
-#: src/product/customizer/universal-box-customizer.php:436
+#: src/detail/setup/detail-template-setup.php:30
+#: src/detail/setup/detail-template-setup.php:34
+#: src/product/admin/meta-box/product-meta-box.php:120
+#: src/product/customizer/universal-box-customizer.php:439
 msgid "Details"
 msgstr "Details"
 
-#: src/detail/setup/detail-template-setup.php:29
+#: src/detail/setup/detail-template-setup.php:32
 #, php-format
 msgctxt "Detail Template"
 msgid "%s Archives"
 msgstr "%s Archive"
 
-#: src/detail/setup/detail-template-setup.php:30
+#: src/detail/setup/detail-template-setup.php:33
 #, php-format
 msgctxt "Detail Template"
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/detail/setup/detail-template-setup.php:32
+#: src/detail/setup/detail-template-setup.php:35
 #, php-format
 msgctxt "Detail Template"
 msgid "Add New %s"
 msgstr "%s erstellen"
 
-#: src/detail/setup/detail-template-setup.php:33
+#: src/detail/setup/detail-template-setup.php:36
 #, php-format
 msgctxt "Detail Template"
 msgid "New %s"
 msgstr "Neue %s"
 
-#: src/detail/setup/detail-template-setup.php:34
+#: src/detail/setup/detail-template-setup.php:37
 #, php-format
 msgctxt "Detail Template"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: src/detail/setup/detail-template-setup.php:35
+#: src/detail/setup/detail-template-setup.php:38
 #, php-format
 msgctxt "Detail Template"
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
-#: src/detail/setup/detail-template-setup.php:36
+#: src/detail/setup/detail-template-setup.php:39
 #, php-format
 msgctxt "Detail Template"
 msgid "View %s"
 msgstr "%s ansehen"
 
-#: src/detail/setup/detail-template-setup.php:37
+#: src/detail/setup/detail-template-setup.php:40
 #, php-format
 msgctxt "Detail Template"
 msgid "Search %s"
 msgstr "%s suchen"
 
-#: src/detail/setup/detail-template-setup.php:38
+#: src/detail/setup/detail-template-setup.php:41
 #, php-format
 msgctxt "Detail Template"
 msgid "Insert Into %s"
 msgstr "In die %s einfügen"
 
-#: src/detail/setup/detail-template-setup.php:39
+#: src/detail/setup/detail-template-setup.php:42
 #, php-format
 msgctxt "Detail Template"
 msgid "Uploaded to this %s"
 msgstr "Zur %s hochladen"
 
-#: src/detail/setup/detail-template-setup.php:41
+#: src/detail/setup/detail-template-setup.php:44
 #, php-format
 msgctxt "Detail Template"
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
-#: src/detail/setup/detail-template-setup.php:42
+#: src/detail/setup/detail-template-setup.php:45
 #, php-format
 msgctxt "Detail Template"
 msgid "Filter %s"
 msgstr "%s filtern"
 
-#: src/product/admin/filter/menu-order-filter.php:27
-#: src/product/admin/setup/import-page-setup.php:44
+#: src/product/admin/filter/menu-order-filter.php:30
+#: src/product/admin/setup/import-page-setup.php:47
 #: templates/admin/page/imports.php:8
 msgid "Import"
 msgstr "Importieren"
 
-#: src/product/admin/filter/table-columns-filter.php:40
-#: src/product/admin/meta-box/product-meta-box.php:213
-#: src/shop/admin/filter/table-columns-filter.php:40
+#: src/product/admin/filter/table-columns-filter.php:43
+#: src/product/admin/meta-box/product-meta-box.php:244
+#: src/shop/admin/filter/table-columns-filter.php:43
 msgid "Thumbnail"
 msgstr "Beitragsbild"
 
-#: src/product/admin/filter/table-columns-filter.php:58
+#: src/product/admin/filter/table-columns-filter.php:61
 msgid "Product ID"
 msgstr "Produkt ID"
 
-#: src/product/admin/filter/table-columns-filter.php:76
-#: src/product/admin/meta-box/product-meta-box.php:370
-#: src/product/customizer/universal-box-customizer.php:296
+#: src/product/admin/filter/table-columns-filter.php:79
+#: src/product/admin/meta-box/product-meta-box.php:401
+#: src/product/customizer/universal-box-customizer.php:299
 msgid "Price"
 msgstr "Preis"
 
-#: src/product/admin/filter/table-columns-filter.php:94
-#: src/product/admin/meta-box/product-meta-box.php:364
+#: src/product/admin/filter/table-columns-filter.php:97
+#: src/product/admin/meta-box/product-meta-box.php:395
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
-#: src/product/admin/filter/table-rows-filter.php:100
-#: src/product/admin/meta-box/product-meta-box.php:367
-#: src/shop/model/availability.php:107
+#: src/product/admin/filter/table-rows-filter.php:103
+#: src/product/admin/meta-box/product-meta-box.php:398
+#: src/shop/model/availability.php:123
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/product/admin/filter/table-rows-filter.php:105
-#: src/shop/model/availability.php:110
+#: src/product/admin/filter/table-rows-filter.php:108
+#: src/shop/model/availability.php:126
 msgid "Out of stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/admin/meta-box/product-meta-box.php:86
-#: src/product/admin/options/product-options.php:23
-#: src/product/customizer/universal-box-customizer.php:72
+#: src/product/admin/meta-box/product-meta-box.php:117
+#: src/product/admin/options/product-options.php:35
+#: src/product/customizer/universal-box-customizer.php:75
 msgid "General"
 msgstr "Allgemein"
 
-#: src/product/admin/meta-box/product-meta-box.php:90
+#: src/product/admin/meta-box/product-meta-box.php:121
 msgid "Review"
 msgstr "Rezension"
 
-#: src/product/admin/meta-box/product-meta-box.php:91
+#: src/product/admin/meta-box/product-meta-box.php:122
 msgid "Relations"
 msgstr "Beziehungen"
 
-#: src/product/admin/meta-box/product-meta-box.php:109
-#: src/product/model/type.php:104
+#: src/product/admin/meta-box/product-meta-box.php:140
+#: src/product/model/type.php:125
 msgid "Simple"
 msgstr "Einfach"
 
-#: src/product/admin/meta-box/product-meta-box.php:110
-#: src/product/model/type.php:110
+#: src/product/admin/meta-box/product-meta-box.php:141
+#: src/product/model/type.php:131
 msgid "Complex"
 msgstr "Komplex"
 
-#: src/product/admin/meta-box/product-meta-box.php:112
-#: src/product/admin/meta-box/product-meta-box.php:210
-#: src/product/customizer/universal-box-customizer.php:152
+#: src/product/admin/meta-box/product-meta-box.php:143
+#: src/product/admin/meta-box/product-meta-box.php:241
+#: src/product/customizer/universal-box-customizer.php:155
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: src/product/admin/meta-box/product-meta-box.php:114
-#: src/product/admin/meta-box/product-meta-box.php:212
+#: src/product/admin/meta-box/product-meta-box.php:145
+#: src/product/admin/meta-box/product-meta-box.php:243
 msgid "Custom product tags like \"test winner\" or \"best price\"."
 msgstr "Eigene Produktschlagwörter wie „Testsieger“ oder „Bester Preis“."
 
-#: src/product/admin/meta-box/product-meta-box.php:162
+#: src/product/admin/meta-box/product-meta-box.php:193
 msgid "Enabled Attributes"
 msgstr "Aktivierte Attribute"
 
-#: src/product/admin/meta-box/product-meta-box.php:166
+#: src/product/admin/meta-box/product-meta-box.php:197
 #, php-format
 msgid ""
 "Add the names of some <a href=\"%s\" target=\"_blank\">attribute templates</"
@@ -593,29 +593,29 @@ msgstr ""
 "Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Attribut-"
 "Vorlagen</a> hinzu um sie bei den Produktvarianten anzuzeigen."
 
-#: src/product/admin/meta-box/product-meta-box.php:174
-#: src/product/model/type.php:107
+#: src/product/admin/meta-box/product-meta-box.php:205
+#: src/product/model/type.php:128
 msgid "Variant"
 msgstr "Variante"
 
-#: src/product/admin/meta-box/product-meta-box.php:200
+#: src/product/admin/meta-box/product-meta-box.php:231
 msgid "Name"
 msgstr "Name"
 
-#: src/product/admin/meta-box/product-meta-box.php:203
+#: src/product/admin/meta-box/product-meta-box.php:234
 msgid "Default Variant"
 msgstr "Standartvariante"
 
-#: src/product/admin/meta-box/product-meta-box.php:205
+#: src/product/admin/meta-box/product-meta-box.php:236
 msgid "This variant will be shown as default for the parent product."
 msgstr "Diese Variante wird als Standart für das Elternprodukt angezeigt."
 
-#: src/product/admin/meta-box/product-meta-box.php:214
-#: src/product/meta-box/meta-box-manager.php:40
+#: src/product/admin/meta-box/product-meta-box.php:245
+#: src/product/meta-box/meta-box-manager.php:42
 msgid "Image Gallery"
 msgstr "Bildergallerie"
 
-#: src/product/admin/meta-box/product-meta-box.php:283
+#: src/product/admin/meta-box/product-meta-box.php:314
 #, php-format
 msgid ""
 "<b>No attribute templates available!</b> Please create one <a href=\"%s\" "
@@ -624,7 +624,7 @@ msgstr ""
 "<b>Keine Attribut-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a "
 "href=\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/admin/meta-box/product-meta-box.php:325
+#: src/product/admin/meta-box/product-meta-box.php:356
 #, php-format
 msgid ""
 "<b>No shop templates available!</b> Please create one <a href=\"%s\" target="
@@ -633,49 +633,49 @@ msgstr ""
 "<b>Keine Shop-Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/admin/meta-box/product-meta-box.php:352
+#: src/product/admin/meta-box/product-meta-box.php:383
 msgid "Shop"
 msgstr "Shop"
 
-#: src/product/admin/meta-box/product-meta-box.php:357
+#: src/product/admin/meta-box/product-meta-box.php:388
 msgid "Shop Template ID"
 msgstr "Shop-Vorlage ID"
 
-#: src/product/admin/meta-box/product-meta-box.php:360
+#: src/product/admin/meta-box/product-meta-box.php:391
 msgid "Affiliate Link"
 msgstr "Affiliate Link"
 
-#: src/product/admin/meta-box/product-meta-box.php:362
+#: src/product/admin/meta-box/product-meta-box.php:393
 msgid "Affiliate Product ID"
 msgstr "Affiliate Produkt ID"
 
-#: src/product/admin/meta-box/product-meta-box.php:363
+#: src/product/admin/meta-box/product-meta-box.php:394
 msgid "Unique Product ID like Amazon ASIN, Affilinet ID, Ebay ID and etc."
 msgstr ""
 "Einmalige Produkt ID des Shops wie Amazon ASIN, Affilinet ID, Ebay ID und "
 "usw."
 
-#: src/product/admin/meta-box/product-meta-box.php:368
+#: src/product/admin/meta-box/product-meta-box.php:399
 msgid "Out Of Stock"
 msgstr "Nicht verfügbar"
 
-#: src/product/admin/meta-box/product-meta-box.php:372
+#: src/product/admin/meta-box/product-meta-box.php:403
 msgid "Old Price"
 msgstr "Alter Preis"
 
-#: src/product/admin/meta-box/product-meta-box.php:374
+#: src/product/admin/meta-box/product-meta-box.php:405
 msgid "Currency"
 msgstr "Währung"
 
-#: src/product/admin/meta-box/product-meta-box.php:377
+#: src/product/admin/meta-box/product-meta-box.php:408
 msgid "Updated At"
 msgstr "Aktualisiert am"
 
-#: src/product/admin/meta-box/product-meta-box.php:412
+#: src/product/admin/meta-box/product-meta-box.php:443
 msgid "Enabled Details"
 msgstr "Aktivierte Details"
 
-#: src/product/admin/meta-box/product-meta-box.php:417
+#: src/product/admin/meta-box/product-meta-box.php:448
 #, php-format
 msgid ""
 "Add the names of some <a href=\"%s\" target=\"_blank\">detail templates</a> "
@@ -684,15 +684,15 @@ msgstr ""
 "Füge die Namen von einigen <a href=\"%s\" target=\"_blank\">Detail-Vorlagen</"
 "a> hinzu um sie bei den Produkten anzuzeigen."
 
-#: src/product/admin/meta-box/product-meta-box.php:460
+#: src/product/admin/meta-box/product-meta-box.php:491
 msgid "Yes"
 msgstr "Ja"
 
-#: src/product/admin/meta-box/product-meta-box.php:461
+#: src/product/admin/meta-box/product-meta-box.php:492
 msgid "No"
 msgstr "Nein"
 
-#: src/product/admin/meta-box/product-meta-box.php:478
+#: src/product/admin/meta-box/product-meta-box.php:509
 #, php-format
 msgid ""
 "<b>No detail templates available!</b> Please create one <a href=\"%s\" "
@@ -701,72 +701,72 @@ msgstr ""
 "<b>Keine Detail Vorlagen verfügbar.</b> Bitte erstelle eine Vorlage <a href="
 "\"%s\" target=\"_blank\">hier</a>."
 
-#: src/product/admin/meta-box/product-meta-box.php:497
+#: src/product/admin/meta-box/product-meta-box.php:528
 msgid "Rating"
 msgstr "Bewertung"
 
-#: src/product/admin/meta-box/product-meta-box.php:499
-#: src/shop/admin/meta-box/shop-template-meta-box.php:85
+#: src/product/admin/meta-box/product-meta-box.php:530
+#: src/shop/admin/meta-box/shop-template-meta-box.php:90
 msgid "None"
 msgstr "Keine"
 
-#: src/product/admin/meta-box/product-meta-box.php:500
-#: src/product/admin/meta-box/product-meta-box.php:501
-#: src/product/admin/meta-box/product-meta-box.php:503
-#: src/product/admin/meta-box/product-meta-box.php:504
-#: src/product/admin/meta-box/product-meta-box.php:505
-#: src/product/admin/meta-box/product-meta-box.php:506
-#: src/product/admin/meta-box/product-meta-box.php:507
-#: src/product/admin/meta-box/product-meta-box.php:508
-#: src/product/admin/meta-box/product-meta-box.php:509
-#: src/product/admin/meta-box/product-meta-box.php:510
+#: src/product/admin/meta-box/product-meta-box.php:531
+#: src/product/admin/meta-box/product-meta-box.php:532
+#: src/product/admin/meta-box/product-meta-box.php:534
+#: src/product/admin/meta-box/product-meta-box.php:535
+#: src/product/admin/meta-box/product-meta-box.php:536
+#: src/product/admin/meta-box/product-meta-box.php:537
+#: src/product/admin/meta-box/product-meta-box.php:538
+#: src/product/admin/meta-box/product-meta-box.php:539
+#: src/product/admin/meta-box/product-meta-box.php:540
+#: src/product/admin/meta-box/product-meta-box.php:541
 #, php-format
 msgid "%s stars"
 msgstr "%s Sterne"
 
-#: src/product/admin/meta-box/product-meta-box.php:502
+#: src/product/admin/meta-box/product-meta-box.php:533
 #, php-format
 msgid "%s star"
 msgstr "%s Stern"
 
-#: src/product/admin/meta-box/product-meta-box.php:512
+#: src/product/admin/meta-box/product-meta-box.php:543
 msgid "Votes"
 msgstr "Stimmen"
 
-#: src/product/admin/meta-box/product-meta-box.php:513
+#: src/product/admin/meta-box/product-meta-box.php:544
 msgid "If you want to hide the votes, just leave it empty."
 msgstr ""
 "Wenn du die Anzahl der Stimmen verstecken möchtest, dann lasse dieses Feld "
 "leer."
 
-#: src/product/admin/meta-box/product-meta-box.php:536
+#: src/product/admin/meta-box/product-meta-box.php:567
 msgid "Related Products"
 msgstr "Ähnliche Produkte"
 
-#: src/product/admin/meta-box/product-meta-box.php:539
+#: src/product/admin/meta-box/product-meta-box.php:570
 msgid "Related Accessories"
 msgstr "Ähnliches Zubehör"
 
-#: src/product/admin/options/product-options.php:21
-#: src/product/setup/product-setup.php:21
+#: src/product/admin/options/product-options.php:33
+#: src/product/setup/product-setup.php:24
 msgid "Products"
 msgstr "Produkte"
 
-#: src/product/admin/options/product-options.php:24
-#: src/product/customizer/universal-box-customizer.php:44
+#: src/product/admin/options/product-options.php:36
+#: src/product/customizer/universal-box-customizer.php:47
 msgid "Universal box"
 msgstr "Universal Box"
 
-#: src/product/admin/options/product-options.php:25
+#: src/product/admin/options/product-options.php:37
 msgid "Custom Taxonomies"
 msgstr "Eigene Taxonomien"
 
-#: src/product/admin/options/product-options.php:41
-#: src/product/admin/options/product-options.php:94
+#: src/product/admin/options/product-options.php:53
+#: src/product/admin/options/product-options.php:108
 msgid "Slug"
 msgstr "Titelform"
 
-#: src/product/admin/options/product-options.php:42
+#: src/product/admin/options/product-options.php:54
 msgid ""
 "Used as the slug for a nicer product URL (eg \"http://example.com/products/"
 "xyz\"), where \"products\" in the middle part of the product URL is the "
@@ -779,33 +779,46 @@ msgstr ""
 "in deine Sprache übersetzen möchtest, musst du die neue Titelform in dieses "
 "Eingabefeld schreiben."
 
-#: src/product/admin/options/product-options.php:61
+#: src/product/admin/options/product-options.php:55
+msgid "Disable public visibility"
+msgstr "Deaktiviere öffentliche Sichtbarkeit"
+
+#: src/product/admin/options/product-options.php:56
+msgid ""
+"Disable the public visibility of product pages and archives in the frontend. "
+"Other components like product comparisons and boxes stay untouched."
+msgstr ""
+"Deaktiviere die öffentliche Sichtbarkeit von Produkt-Seiten & Archiven im "
+"Frontend. Andere Komponenten wie Produktvergleiche und Boxen bleiben "
+"unberührt."
+
+#: src/product/admin/options/product-options.php:75
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/product/admin/options/product-options.php:62
+#: src/product/admin/options/product-options.php:76
 msgid "Whether to disable the universal box or not."
 msgstr "Bestimmt ob die Universal Box angezeigt wird oder nicht."
 
-#: src/product/admin/options/product-options.php:63
+#: src/product/admin/options/product-options.php:77
 msgid "Position"
 msgstr "Position"
 
-#: src/product/admin/options/product-options.php:64
+#: src/product/admin/options/product-options.php:78
 msgid ""
 "Whether the position of the universal box is above or below the content."
 msgstr ""
 "Bestimmt ob die Position der Universal Box über oder unter dem Inhalt ist."
 
-#: src/product/admin/options/product-options.php:66
+#: src/product/admin/options/product-options.php:80
 msgid "Below the content"
 msgstr "Unter dem Inhalt"
 
-#: src/product/admin/options/product-options.php:67
+#: src/product/admin/options/product-options.php:81
 msgid "Above the content"
 msgstr "Über dem Inhalt"
 
-#: src/product/admin/options/product-options.php:85
+#: src/product/admin/options/product-options.php:99
 #, php-format
 msgid ""
 "Create custom taxonomies to group products together. See this <a href=\"%s"
@@ -814,15 +827,15 @@ msgstr ""
 "Erstelle eigene Taxonomien um Produkte logisch zu gruppieren. Klicke auf "
 "diesen <a href=\"%s\">Link</a> für eine bessere Beschreibung."
 
-#: src/product/admin/options/product-options.php:86
+#: src/product/admin/options/product-options.php:100
 msgid "Taxonomies"
 msgstr "Taxonomien"
 
-#: src/product/admin/options/product-options.php:88
+#: src/product/admin/options/product-options.php:102
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: src/product/admin/options/product-options.php:90
+#: src/product/admin/options/product-options.php:104
 #, php-format
 msgid ""
 "The database name of the taxonomy like \"your_category\". Name should only "
@@ -839,7 +852,7 @@ msgstr ""
 "öffentlichen und privaten Anfragenvariablen in Konflikt stehen darf. Hier "
 "findest du eine komplette Liste der <a href=\"%s\"> reservierten Wörter</a>."
 
-#: src/product/admin/options/product-options.php:95
+#: src/product/admin/options/product-options.php:109
 msgid ""
 "Used as pretty permalink text for your URL like \"http://example.com/your-"
 "categories/product-name\"."
@@ -847,23 +860,23 @@ msgstr ""
 "Wird als hübscherer Permalink-Text für deine URL wie \"http://beispiel.de/"
 "deine-kategorien/produkt-name\" verwendet."
 
-#: src/product/admin/options/product-options.php:97
+#: src/product/admin/options/product-options.php:111
 msgid "Singular Name"
 msgstr "Name im Singular"
 
-#: src/product/admin/options/product-options.php:98
+#: src/product/admin/options/product-options.php:112
 msgid "The singular name like \"Your category\"."
 msgstr "The Name im Singular wie „Deine Kategorie“."
 
-#: src/product/admin/options/product-options.php:100
+#: src/product/admin/options/product-options.php:114
 msgid "Plural Name"
 msgstr "Name im Plural"
 
-#: src/product/admin/options/product-options.php:101
+#: src/product/admin/options/product-options.php:115
 msgid "The plural name like \"Your categories\"."
 msgstr "Der Name im Plural wie „Deine Kategorien“."
 
-#: src/product/admin/setup/import-page-setup.php:38
+#: src/product/admin/setup/import-page-setup.php:41
 #, php-format
 msgid ""
 "The import page has to contain the key \"%s\" to call the Wordpress function "
@@ -872,370 +885,370 @@ msgstr ""
 "Die Import-Seite muss den Schlüssel \"%s\" enthalten, damit die Wordpress "
 "Funktion \"add_submenu_page\" aufgerufen werden kann."
 
-#: src/product/customizer/universal-box-customizer.php:78
+#: src/product/customizer/universal-box-customizer.php:81
 msgid "Box Background Color"
 msgstr "Box Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:90
+#: src/product/customizer/universal-box-customizer.php:93
 msgid "Box Border Color"
 msgstr "Box Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:122
+#: src/product/customizer/universal-box-customizer.php:125
 msgid "Title"
 msgstr "Titel"
 
-#: src/product/customizer/universal-box-customizer.php:128
+#: src/product/customizer/universal-box-customizer.php:131
 msgid "Color"
 msgstr "Farbe"
 
-#: src/product/customizer/universal-box-customizer.php:158
+#: src/product/customizer/universal-box-customizer.php:161
 msgid "Tag Text Color"
 msgstr "Schlagwort Textfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:170
+#: src/product/customizer/universal-box-customizer.php:173
 msgid "Tag Text Color (Hover)"
 msgstr "Schlagwort Textfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:186
-#: src/product/customizer/universal-box-customizer.php:214
+#: src/product/customizer/universal-box-customizer.php:189
+#: src/product/customizer/universal-box-customizer.php:217
 msgid "Tag Background Color"
 msgstr "Schlagwort Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:198
-#: src/product/customizer/universal-box-customizer.php:226
+#: src/product/customizer/universal-box-customizer.php:201
+#: src/product/customizer/universal-box-customizer.php:229
 msgid "Tag Background Color (Hover)"
 msgstr "Schlagwort Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:254
+#: src/product/customizer/universal-box-customizer.php:257
 msgid "Reviews"
 msgstr "Bewertungen"
 
-#: src/product/customizer/universal-box-customizer.php:260
+#: src/product/customizer/universal-box-customizer.php:263
 msgid "Rating Color"
 msgstr "Rezension Bewertungsfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:272
+#: src/product/customizer/universal-box-customizer.php:275
 msgid "Votes Color"
 msgstr "Rezension Stimmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:302
-#: src/product/customizer/universal-box-customizer.php:584
+#: src/product/customizer/universal-box-customizer.php:305
+#: src/product/customizer/universal-box-customizer.php:587
 msgid "Price Color"
 msgstr "Preisfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:314
-#: src/product/customizer/universal-box-customizer.php:596
+#: src/product/customizer/universal-box-customizer.php:317
+#: src/product/customizer/universal-box-customizer.php:599
 msgid "Old Price Color"
 msgstr "Alte Preisfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:338
+#: src/product/customizer/universal-box-customizer.php:341
 msgid "Attribute choices"
 msgstr "Attribut-Auswahl"
 
-#: src/product/customizer/universal-box-customizer.php:344
+#: src/product/customizer/universal-box-customizer.php:347
 msgid "Attribute Choice Background Color"
 msgstr "Attributauswahl Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:356
+#: src/product/customizer/universal-box-customizer.php:359
 msgid "Attribute Choice Background Color (Hover)"
 msgstr "Attributauswahl Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:372
+#: src/product/customizer/universal-box-customizer.php:375
 msgid "Attribute Choice Background Color (Selected)"
 msgstr "Attributauswahl Hintergrundfarbe (Ausgewählt)"
 
-#: src/product/customizer/universal-box-customizer.php:384
+#: src/product/customizer/universal-box-customizer.php:387
 msgid "Attribute Choice Border Color"
 msgstr "Attributauswahl Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:396
+#: src/product/customizer/universal-box-customizer.php:399
 msgid "Attribute Choice Border Color (Hover)"
 msgstr "Attributauswahl Rahmenfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:412
+#: src/product/customizer/universal-box-customizer.php:415
 msgid "Attribute Choice Border Color (Selected)"
 msgstr "Attributauswahl Rahmenfarbe (Ausgewählt)"
 
-#: src/product/customizer/universal-box-customizer.php:442
+#: src/product/customizer/universal-box-customizer.php:445
 msgid "Background Color (Odd)"
 msgstr "Hintergrundfarbe (Ungerade)"
 
-#: src/product/customizer/universal-box-customizer.php:454
+#: src/product/customizer/universal-box-customizer.php:457
 msgid "Background Color (Even)"
 msgstr "Hintergrundfarbe (Gerade)"
 
-#: src/product/customizer/universal-box-customizer.php:466
+#: src/product/customizer/universal-box-customizer.php:469
 msgid "Name Color"
 msgstr "Farbe des Namens"
 
-#: src/product/customizer/universal-box-customizer.php:478
+#: src/product/customizer/universal-box-customizer.php:481
 msgid "Value Color"
 msgstr "Farbe des Wertes"
 
-#: src/product/customizer/universal-box-customizer.php:490
-#: src/product/customizer/universal-box-customizer.php:502
+#: src/product/customizer/universal-box-customizer.php:493
+#: src/product/customizer/universal-box-customizer.php:505
 msgid "File Link Color"
 msgstr "Datei Linkfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:518
+#: src/product/customizer/universal-box-customizer.php:521
 msgid "Boolean Check Color"
 msgstr "Boolsche Hackenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:530
+#: src/product/customizer/universal-box-customizer.php:533
 msgid "Boolean Cross Color"
 msgstr "Boolsche Kreuzfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:542
+#: src/product/customizer/universal-box-customizer.php:545
 msgid "Separator Color"
 msgstr "Trennlinie Farbe"
 
-#: src/product/customizer/universal-box-customizer.php:554
+#: src/product/customizer/universal-box-customizer.php:557
 msgid "No Details Color"
 msgstr "Keine Details Farbe"
 
-#: src/product/customizer/universal-box-customizer.php:608
+#: src/product/customizer/universal-box-customizer.php:611
 msgid "Price Indication Color"
 msgstr "Preishinweisfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:620
+#: src/product/customizer/universal-box-customizer.php:623
 msgid "Buy Text"
 msgstr "„Kaufen“ Text"
 
-#: src/product/customizer/universal-box-customizer.php:621
-#: src/product/customizer/universal-box-customizer.php:712
+#: src/product/customizer/universal-box-customizer.php:624
+#: src/product/customizer/universal-box-customizer.php:715
 #, php-format
 msgid "Use %s as a placeholder for the shop name."
 msgstr "Benutze %s als einen Platzhalter für den Namen des Shops."
 
-#: src/product/customizer/universal-box-customizer.php:627
+#: src/product/customizer/universal-box-customizer.php:630
 msgid "Buy Background Color"
 msgstr "„Kaufen“ Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:639
+#: src/product/customizer/universal-box-customizer.php:642
 msgid "Buy Background Color (Hover)"
 msgstr "„Kaufen“ Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:655
+#: src/product/customizer/universal-box-customizer.php:658
 msgid "Buy Border Color"
 msgstr "„Kaufen“ Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:667
+#: src/product/customizer/universal-box-customizer.php:670
 msgid "Buy Border Color (Hover)"
 msgstr "„Kaufen“ Rahmenfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:683
+#: src/product/customizer/universal-box-customizer.php:686
 msgid "Buy Text Color"
 msgstr "„Kaufen“ Textfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:695
+#: src/product/customizer/universal-box-customizer.php:698
 msgid "Buy Text Color (Hover)"
 msgstr "„Kaufen“ Textfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:711
+#: src/product/customizer/universal-box-customizer.php:714
 msgid "Not Available Text"
 msgstr "\"Nicht verfügbar\" Text"
 
-#: src/product/customizer/universal-box-customizer.php:714
+#: src/product/customizer/universal-box-customizer.php:717
 msgid "Unfortunately not available."
 msgstr "Leider nicht verfügbar."
 
-#: src/product/customizer/universal-box-customizer.php:718
+#: src/product/customizer/universal-box-customizer.php:721
 msgid "Not Available Background Color"
 msgstr "„Nicht verfügbar“ Hintergrundfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:730
+#: src/product/customizer/universal-box-customizer.php:733
 msgid "Not Available Background Color (Hover)"
 msgstr "„Nicht verfügbar“ Hintergrundfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:746
+#: src/product/customizer/universal-box-customizer.php:749
 msgid "Not Available Border Color"
 msgstr "„Nicht verfügbar“ Rahmenfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:758
+#: src/product/customizer/universal-box-customizer.php:761
 msgid "Not Available Border Color (Hover)"
 msgstr "„Nicht verfügbar“ Rahmenfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:774
+#: src/product/customizer/universal-box-customizer.php:777
 msgid "Not Available Text Color"
 msgstr "„Nicht verfügbar“ Textfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:786
+#: src/product/customizer/universal-box-customizer.php:789
 msgid "Not Available Text Color (Hover)"
 msgstr "„Nicht verfügbar“ Textfarbe (Hover)"
 
-#: src/product/customizer/universal-box-customizer.php:802
+#: src/product/customizer/universal-box-customizer.php:805
 msgid "Updated At Indication Color"
 msgstr "Preishinweisfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:814
+#: src/product/customizer/universal-box-customizer.php:817
 msgid "Separator color"
 msgstr "Trennlinie Farbe"
 
-#: src/product/customizer/universal-box-customizer.php:838
+#: src/product/customizer/universal-box-customizer.php:841
 msgid "Related products & accessories"
 msgstr "Ähnliche Produkte & Zubehör"
 
-#: src/product/customizer/universal-box-customizer.php:844
+#: src/product/customizer/universal-box-customizer.php:847
 msgid "Title Color"
 msgstr "Titelfarbe"
 
-#: src/product/customizer/universal-box-customizer.php:856
+#: src/product/customizer/universal-box-customizer.php:859
 msgid "Item Border Color"
 msgstr "Item Rahmenfarbe"
 
-#: src/product/meta-box/product-image-gallery-meta-box.php:53
-#: src/product/meta-box/product-image-gallery-meta-box.php:79
-#: src/product/meta-box/product-image-gallery-meta-box.php:80
+#: src/product/meta-box/product-image-gallery-meta-box.php:60
+#: src/product/meta-box/product-image-gallery-meta-box.php:86
+#: src/product/meta-box/product-image-gallery-meta-box.php:87
 msgid "Delete Image"
 msgstr "Bild löschen"
 
-#: src/product/meta-box/product-image-gallery-meta-box.php:54
+#: src/product/meta-box/product-image-gallery-meta-box.php:61
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/product/meta-box/product-image-gallery-meta-box.php:77
+#: src/product/meta-box/product-image-gallery-meta-box.php:84
 msgid "Add Images"
 msgstr "Bilder hinzufügen"
 
-#: src/product/meta-box/product-image-gallery-meta-box.php:78
+#: src/product/meta-box/product-image-gallery-meta-box.php:85
 msgid "Add Image"
 msgstr "Bild hinzufügen"
 
-#: src/product/meta-box/product-image-gallery-meta-box.php:81
+#: src/product/meta-box/product-image-gallery-meta-box.php:88
 msgid "Add Images To Image Gallery"
 msgstr "Bilder zur Bildergallerie hinzufügen"
 
-#: src/product/setup/custom-taxonomies-setup.php:57
-#: src/product/setup/custom-taxonomies-setup.php:58
-#: src/product/setup/custom-taxonomies-setup.php:67
+#: src/product/setup/custom-taxonomies-setup.php:60
+#: src/product/setup/custom-taxonomies-setup.php:61
+#: src/product/setup/custom-taxonomies-setup.php:70
 #, php-format
 msgid "%s"
 msgstr "%s"
 
-#: src/product/setup/custom-taxonomies-setup.php:59
+#: src/product/setup/custom-taxonomies-setup.php:62
 #, php-format
 msgid "Search %s"
 msgstr "Suche %s"
 
-#: src/product/setup/custom-taxonomies-setup.php:60
+#: src/product/setup/custom-taxonomies-setup.php:63
 #, php-format
 msgid "All %s"
 msgstr "Alle %s"
 
-#: src/product/setup/custom-taxonomies-setup.php:61
+#: src/product/setup/custom-taxonomies-setup.php:64
 #, php-format
 msgid "Parent %s"
 msgstr "Eltern %s"
 
-#: src/product/setup/custom-taxonomies-setup.php:62
+#: src/product/setup/custom-taxonomies-setup.php:65
 #, php-format
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/product/setup/custom-taxonomies-setup.php:63
+#: src/product/setup/custom-taxonomies-setup.php:66
 #, php-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: src/product/setup/custom-taxonomies-setup.php:64
+#: src/product/setup/custom-taxonomies-setup.php:67
 #, php-format
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
-#: src/product/setup/custom-taxonomies-setup.php:65
+#: src/product/setup/custom-taxonomies-setup.php:68
 #, php-format
 msgid "Add New %s"
 msgstr "%s erstellen"
 
-#: src/product/setup/custom-taxonomies-setup.php:66
+#: src/product/setup/custom-taxonomies-setup.php:69
 #, php-format
 msgid "New %s"
 msgstr "Neue %s"
 
-#: src/product/setup/product-setup.php:20
+#: src/product/setup/product-setup.php:23
 msgid "Product"
 msgstr "Produkt"
 
-#: src/product/setup/product-setup.php:28
+#: src/product/setup/product-setup.php:31
 #, php-format
 msgctxt "Product"
 msgid "%s Archives"
 msgstr "%s Archiv"
 
-#: src/product/setup/product-setup.php:29
+#: src/product/setup/product-setup.php:32
 #, php-format
 msgctxt "Product"
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/product/setup/product-setup.php:31
+#: src/product/setup/product-setup.php:34
 #, php-format
 msgctxt "Product"
 msgid "Add New %s"
 msgstr "%s erstellen"
 
-#: src/product/setup/product-setup.php:32
+#: src/product/setup/product-setup.php:35
 #, php-format
 msgctxt "Product"
 msgid "New %s"
 msgstr "%s erstellen"
 
-#: src/product/setup/product-setup.php:33
+#: src/product/setup/product-setup.php:36
 #, php-format
 msgctxt "Product"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: src/product/setup/product-setup.php:34
+#: src/product/setup/product-setup.php:37
 #, php-format
 msgctxt "Product"
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
-#: src/product/setup/product-setup.php:35
-#: src/product/setup/product-setup.php:36
+#: src/product/setup/product-setup.php:38
+#: src/product/setup/product-setup.php:39
 #, php-format
 msgctxt "Product"
 msgid "View %s"
 msgstr "%s ansehen"
 
-#: src/product/setup/product-setup.php:37
+#: src/product/setup/product-setup.php:40
 #, php-format
 msgctxt "Product"
 msgid "Search %s"
 msgstr "%s suchen"
 
-#: src/product/setup/product-setup.php:38
+#: src/product/setup/product-setup.php:41
 #, php-format
 msgctxt "Product"
 msgid "No %s found"
 msgstr "Keine %s gefunden"
 
-#: src/product/setup/product-setup.php:39
+#: src/product/setup/product-setup.php:42
 #, php-format
 msgctxt "Product"
 msgid "No %s found in trash"
 msgstr "Keine %s gefunden im Papierkorb"
 
-#: src/product/setup/product-setup.php:40
+#: src/product/setup/product-setup.php:43
 #, php-format
 msgctxt "Product"
 msgid "Insert Into %s"
 msgstr "In das %s einfügen"
 
-#: src/product/setup/product-setup.php:41
+#: src/product/setup/product-setup.php:44
 #, php-format
 msgctxt "Product"
 msgid "Uploaded to this %s"
 msgstr "Zum %s hochladen"
 
-#: src/product/setup/product-setup.php:43
+#: src/product/setup/product-setup.php:46
 #, php-format
 msgctxt "Product"
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
-#: src/product/setup/product-setup.php:44
+#: src/product/setup/product-setup.php:47
 #, php-format
 msgctxt "Product"
 msgid "Filter %s"
@@ -1256,37 +1269,37 @@ msgstr ""
 "eine kostenlose Multilizenz zusteht. Du kannst die Nachricht ignorieren, "
 "wenn du bereits eine Lizenz besitzt."
 
-#: src/shop/admin/filter/table-columns-filter.php:58
-#: src/shop/admin/meta-box/shop-template-meta-box.php:59
+#: src/shop/admin/filter/table-columns-filter.php:61
+#: src/shop/admin/meta-box/shop-template-meta-box.php:63
 msgid "Provider"
 msgstr "Provider"
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:41
-#: src/shop/setup/shop-template-setup.php:21
+#: src/shop/admin/meta-box/shop-template-meta-box.php:45
+#: src/shop/setup/shop-template-setup.php:24
 msgid "Shop Template"
 msgstr "Shop-Vorlage"
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:62
+#: src/shop/admin/meta-box/shop-template-meta-box.php:66
 msgid ""
 "The provider is used for the automatic updates for products using this shop."
 msgstr ""
 "Der Provider wird für automatische Aktualisierungen für Produkte benutzt, "
 "die diesen Shop nutzen."
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:63
+#: src/shop/admin/meta-box/shop-template-meta-box.php:67
 msgid "Logo"
 msgstr "Logo"
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:64
+#: src/shop/admin/meta-box/shop-template-meta-box.php:68
 msgid "The logo is used to show an image near the shop prices in products."
 msgstr ""
 "Das Logo wird benutzt um ein Bild bei den Shops in den Produkten anzuzeigen."
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:65
+#: src/shop/admin/meta-box/shop-template-meta-box.php:69
 msgid "Price indication"
 msgstr "Preishinweis"
 
-#: src/shop/admin/meta-box/shop-template-meta-box.php:67
+#: src/shop/admin/meta-box/shop-template-meta-box.php:72
 msgid "The price indication is used with the price."
 msgstr "Der Preishinweis wird mit dem Preis benutzt."
 
@@ -1335,89 +1348,89 @@ msgctxt "Default price indication"
 msgid "Incl. 19 % VAT and excl. shipping costs."
 msgstr "Inkl. 19% MwSt und zzgl. Versandkosten."
 
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:50
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:67
 msgid "It's not allowed to delete a default Wordpress category"
 msgstr "Es ist nicht erlaubt eine Wordpress Standart-Category zu löschen"
 
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:227
-#: src/shop/repository/carbon/carbon-shop-template-repository.php:298
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:260
+#: src/shop/repository/carbon/carbon-shop-template-repository.php:331
 #, php-format
 msgid "Failed to store the shop template #%s (%s) into the database."
 msgstr ""
 "Die Speicherung der Shop-Vorlage #%s (%s) in die Datenbank ist "
 "fehlgeschlagen."
 
-#: src/shop/setup/shop-template-setup.php:22
+#: src/shop/setup/shop-template-setup.php:25
 msgid "Shop Templates"
 msgstr "Shop-Vorlagen"
 
-#: src/shop/setup/shop-template-setup.php:29
+#: src/shop/setup/shop-template-setup.php:32
 #, php-format
 msgctxt "Shop Template"
 msgid "%s Archives"
 msgstr "%s Archiv"
 
-#: src/shop/setup/shop-template-setup.php:30
+#: src/shop/setup/shop-template-setup.php:33
 #, php-format
 msgctxt "Shop Template"
 msgid "Parent %s:"
 msgstr "Eltern %s:"
 
-#: src/shop/setup/shop-template-setup.php:32
+#: src/shop/setup/shop-template-setup.php:35
 #, php-format
 msgctxt "Shop Template"
 msgid "Add New %s"
 msgstr "%s erstellen"
 
-#: src/shop/setup/shop-template-setup.php:33
+#: src/shop/setup/shop-template-setup.php:36
 #, php-format
 msgctxt "Shop Template"
 msgid "New %s"
 msgstr "%s erstellen"
 
-#: src/shop/setup/shop-template-setup.php:34
+#: src/shop/setup/shop-template-setup.php:37
 #, php-format
 msgctxt "Shop Template"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: src/shop/setup/shop-template-setup.php:35
+#: src/shop/setup/shop-template-setup.php:38
 #, php-format
 msgctxt "Shop Template"
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
-#: src/shop/setup/shop-template-setup.php:36
+#: src/shop/setup/shop-template-setup.php:39
 #, php-format
 msgctxt "Shop Template"
 msgid "View %s"
 msgstr "%s ansehen"
 
-#: src/shop/setup/shop-template-setup.php:37
+#: src/shop/setup/shop-template-setup.php:40
 #, php-format
 msgctxt "Shop Template"
 msgid "Search %s"
 msgstr "%s suchen"
 
-#: src/shop/setup/shop-template-setup.php:38
+#: src/shop/setup/shop-template-setup.php:41
 #, php-format
 msgctxt "Shop Template"
 msgid "Insert Into %s"
 msgstr "In die %s einfügen"
 
-#: src/shop/setup/shop-template-setup.php:39
+#: src/shop/setup/shop-template-setup.php:42
 #, php-format
 msgctxt "Shop Template"
 msgid "Uploaded to this %s"
 msgstr "Zur %s hochladen"
 
-#: src/shop/setup/shop-template-setup.php:41
+#: src/shop/setup/shop-template-setup.php:44
 #, php-format
 msgctxt "Shop Template"
 msgid "%s Navigation"
 msgstr "%s Navigation"
 
-#: src/shop/setup/shop-template-setup.php:42
+#: src/shop/setup/shop-template-setup.php:45
 #, php-format
 msgctxt "Shop Template"
 msgid "Filter %s"

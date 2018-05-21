@@ -217,4 +217,19 @@ class Product_Helper
 
         return $product_ids;
     }
+
+	/**
+	 * Check whether product pages and archives are publicly visible or not.
+	 * Other components like product comparisons and boxes stay untouched.
+	 *
+	 * @since 0.10.3
+	 * @return bool Whether they are publicly visible or not.
+	 */
+    public static function are_publicly_visible()
+    {
+    	$disable_public_visibility = carbon_get_theme_option('affilicious_options_product_container_general_tab_disable_public_visibility_field');
+    	$publicly_visible = $disable_public_visibility == 'yes' ? false : true;
+
+    	return $publicly_visible;
+    }
 }

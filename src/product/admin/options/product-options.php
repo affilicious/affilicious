@@ -52,6 +52,8 @@ class Product_Options
         $fields = array(
             Carbon_Field::make('text', 'affilicious_options_product_container_general_tab_slug_field', __('Slug', 'affilicious'))
                 ->help_text(__('Used as the slug for a nicer product URL (eg "http://example.com/products/xyz"), where "products" in the middle part of the product URL is the default. If you want to translate the slug into your language instead of "products", you have to write the new slug into this input field.', 'affilicious')),
+	        Carbon_Field::make('checkbox', 'affilicious_options_product_container_general_tab_disable_public_visibility_field', __('Disable public visibility', 'affilicious'))
+	            ->help_text(__('Disable the public visibility of product pages and archives in the frontend. Other components like product comparisons and boxes stay untouched.', 'affilicious')),
         );
 
         return apply_filters('aff_admin_options_render_products_container_general_fields', $fields);

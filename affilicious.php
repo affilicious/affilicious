@@ -864,6 +864,10 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Product\Filter\Universal_Box_Filter();
 			};
 
+			$this->container['affilicious.product.filter.public_visibility'] = function () {
+				return new Affilicious\Product\Filter\Public_Visibility_Filter();
+			};
+
 			$this->container['affilicious.product.filter.product_shops_meta_like_query'] = function () {
 				return new Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
 			};
@@ -1215,6 +1219,10 @@ if(!class_exists('Affilicious')) {
 			add_action('delete_aff_shop_tmpl', array($deleted_shop_template_listener, 'delete'), 10, 3);
 			add_action('delete_aff_attribute_tmpl', array($deleted_attribute_template_listener, 'delete'), 10, 3);
 			add_action('delete_aff_detail_tmpl', array($deleted_detail_template_listener, 'delete'), 10, 3);
+
+			// Hook the product public visibility filter.
+			$product_public_visibility_filter = $this->container['affilicious.product.filter.public_visibility'];
+			add_filter('aff_product_init_args', array($product_public_visibility_filter, 'filter'));
 
 			// Hook the canonical tags to improve SEO with product variants.
 			$canonical_setup = $this->container['affilicious.product.setup.canonical'];

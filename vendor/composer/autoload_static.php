@@ -199,6 +199,7 @@ class ComposerStaticInita8e2e259656945bd783170b4fff1f94b
         'Affilicious\\Product\\Factory\\Simple_Product_Factory_Interface' => __DIR__ . '/../..' . '/src/product/factory/simple-product-factory-interface.php',
         'Affilicious\\Product\\Filter\\Disable_Complex_Products_For_Query_Filter' => __DIR__ . '/../..' . '/src/product/filter/disable-complex-products-for-query-filter.php',
         'Affilicious\\Product\\Filter\\Product_Shops_Meta_Like_Query_Filter' => __DIR__ . '/../..' . '/src/product/filter/product-shops-meta-like-query-filter.php',
+        'Affilicious\\Product\\Filter\\Public_Visibility_Filter' => __DIR__ . '/../..' . '/src/product/filter/public-visibility-filter.php',
         'Affilicious\\Product\\Filter\\Universal_Box_Filter' => __DIR__ . '/../..' . '/src/product/filter/universal-box-filter.php',
         'Affilicious\\Product\\Helper\\Product_Helper' => __DIR__ . '/../..' . '/src/product/helper/product-helper.php',
         'Affilicious\\Product\\Helper\\Review_Helper' => __DIR__ . '/../..' . '/src/product/helper/review-helper.php',

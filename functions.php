@@ -3367,3 +3367,17 @@ function aff_get_product_cheapest_shop($product_or_id = null, $output = 'array')
 {
     return aff_get_product_shop($product_or_id, null, $output);
 }
+
+/**
+ * Check whether product pages and archives are publicly visible or not.
+ * Other components like product comparisons and boxes stay untouched.
+ *
+ * @since 0.10.3
+ * @return bool Whether they are publicly visible or not.
+ */
+function aff_are_products_publicly_visible()
+{
+	$publicly_visible = Product_Helper::are_publicly_visible();
+
+	return $publicly_visible;
+}

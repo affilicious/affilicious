@@ -145,6 +145,7 @@ return array(
     'Affilicious\\Product\\Factory\\Simple_Product_Factory_Interface' => $baseDir . '/src/product/factory/simple-product-factory-interface.php',
     'Affilicious\\Product\\Filter\\Disable_Complex_Products_For_Query_Filter' => $baseDir . '/src/product/filter/disable-complex-products-for-query-filter.php',
     'Affilicious\\Product\\Filter\\Product_Shops_Meta_Like_Query_Filter' => $baseDir . '/src/product/filter/product-shops-meta-like-query-filter.php',
+    'Affilicious\\Product\\Filter\\Public_Visibility_Filter' => $baseDir . '/src/product/filter/public-visibility-filter.php',
     'Affilicious\\Product\\Filter\\Universal_Box_Filter' => $baseDir . '/src/product/filter/universal-box-filter.php',
     'Affilicious\\Product\\Helper\\Product_Helper' => $baseDir . '/src/product/helper/product-helper.php',
     'Affilicious\\Product\\Helper\\Review_Helper' => $baseDir . '/src/product/helper/review-helper.php',

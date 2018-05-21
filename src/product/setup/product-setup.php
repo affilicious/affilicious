@@ -57,7 +57,7 @@ class Product_Setup
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
             'supports' => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions'),
-            'hierarchical' => false,
+            'rewrite' => array('slug' => $slug),
             'public' => true,
             'show_ui' => true,
             'show_in_menu' => true,
@@ -65,14 +65,12 @@ class Product_Setup
             'show_in_admin_bar' => true,
             'show_in_nav_menus' => true,
             'show_in_rest' => true,
-            'rest_base' => 'aff-products',
-            'rest_controller_class' => 'WP_REST_Posts_Controller',
+            'hierarchical' => false,
             'can_export' => true,
             'has_archive' => true,
-            'exclude_from_search' => false,
-            'publicly_queryable' => true,
             'capability_type' => 'page',
-	        'rewrite' => array('slug' => $slug)
+            'rest_base' => 'aff-products',
+            'rest_controller_class' => 'WP_REST_Posts_Controller',
         );
 
 	    $args = apply_filters('aff_product_init_args', $args);
