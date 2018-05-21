@@ -18,6 +18,11 @@ class Product_Setup
      */
     public function init()
     {
+	    /**
+	     * Called before the products are initiated.
+	     *
+	     * @since 0.6
+	     */
         do_action('aff_product_before_init');
 
         $singular = __('Product', 'affilicious');
@@ -47,17 +52,12 @@ class Product_Setup
             'filter_items_list'     => sprintf(_x('Filter %s', 'Product', 'affilicious'), $plural),
         );
 
-	    $slug = carbon_get_theme_option('affilicious_options_product_container_general_tab_slug_field');
-	    if(empty($slug)) {
-	    	$slug = Product::SLUG;
-	    }
-
         $args = array(
             'label' => $singular,
             'labels' => $labels,
             'menu_icon' => 'dashicons-products',
             'supports' => array('title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions'),
-            'rewrite' => array('slug' => $slug),
+            'rewrite' => array('slug' => Product::SLUG),
             'public' => true,
             'show_ui' => true,
             'show_in_menu' => true,
@@ -73,9 +73,22 @@ class Product_Setup
             'rest_controller_class' => 'WP_REST_Posts_Controller',
         );
 
+	    /**
+	     * Filter the product args used to init the product.
+	     *
+	     * @since 0.9
+	     * @param array $args The product args used to init the product.
+	     * @return array The product args used to init the product.
+	     */
 	    $args = apply_filters('aff_product_init_args', $args);
+
         register_post_type(Product::POST_TYPE, $args);
 
+	    /**
+	     * Called after the products were initiated.
+	     *
+	     * @since 0.6
+	     */
         do_action('aff_product_after_init');
     }
 }

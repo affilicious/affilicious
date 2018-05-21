@@ -868,6 +868,10 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Product\Filter\Public_Visibility_Filter();
 			};
 
+			$this->container['affilicious.product.filter.product_slug'] = function () {
+				return new Affilicious\Product\Filter\Product_Slug_Filter();
+			};
+
 			$this->container['affilicious.product.filter.product_shops_meta_like_query'] = function () {
 				return new Affilicious\Product\Filter\Product_Shops_Meta_Like_Query_Filter();
 			};
@@ -1179,6 +1183,10 @@ if(!class_exists('Affilicious')) {
 			// Hook the product update workers.
 			$update_worker_setup = $this->container['affilicious.product.setup.update_worker'];
 			add_action('init', array($update_worker_setup, 'init'), 5);
+
+			// Add the product slug filter.
+			$product_slug_filter = $this->container['affilicious.product.filter.product_slug'];
+			add_filter('aff_product_init_args', array($product_slug_filter, 'filter'));
 
 			// Hook the public assets.
 			$assets_setup = $this->container['affilicious.common.setup.assets'];
