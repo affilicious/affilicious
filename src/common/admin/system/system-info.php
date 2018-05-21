@@ -143,6 +143,7 @@ class System_Info
             'Multisite' => is_multisite() ? 'Yes' : 'No',
             'Site URL' => site_url(),
             'Home URL' => home_url(),
+	        'Locale' => get_locale(),
             'Wordpress Version' => get_bloginfo('version'),
             'Permalink Structure' => get_option('permalink_structure'),
             'Active Theme' =>  wp_get_theme(),
