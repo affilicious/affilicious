@@ -1,8 +1,8 @@
-# Miscellaneous
+# Miscellanea
 .DS_Store
 .idea
 
-# Assets
+# NodeJs
 node_modules/
 
 # Temp
