@@ -426,7 +426,7 @@ class Carbon_Shop_Template_Repository extends Abstract_Carbon_Repository impleme
      */
     public function find_one_by_name(Name $name)
     {
-        $shop_template = $this->find_one_by_name($name);
+        $shop_template = $this->find_by_name($name);
 
         return $shop_template;
     }
