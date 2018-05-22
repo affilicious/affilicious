@@ -265,6 +265,7 @@ class ComposerStaticInita8e2e259656945bd783170b4fff1f94b
         'Affilicious\\Product\\Setup\\Amazon_Update_Worker_Setup' => __DIR__ . '/../..' . '/src/product/setup/amazon-update-worker-setup.php',
         'Affilicious\\Product\\Setup\\Canonical_Setup' => __DIR__ . '/../..' . '/src/product/setup/canonical-setup.php',
         'Affilicious\\Product\\Setup\\Custom_Taxonomies_Setup' => __DIR__ . '/../..' . '/src/product/setup/custom-taxonomies-setup.php',
+        'Affilicious\\Product\\Setup\\Microdata_Setup' => __DIR__ . '/../..' . '/src/product/setup/microdata-setup.php',
         'Affilicious\\Product\\Setup\\Product_Setup' => __DIR__ . '/../..' . '/src/product/setup/product-setup.php',
         'Affilicious\\Product\\Setup\\Slug_Rewrite_Setup' => __DIR__ . '/../..' . '/src/product/setup/slug-rewrite-setup.php',
         'Affilicious\\Product\\Setup\\Update_Queue_Setup' => __DIR__ . '/../..' . '/src/product/setup/update-queue-setup.php',

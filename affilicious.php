@@ -832,6 +832,10 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Product\Setup\Product_Setup();
 			};
 
+			$this->container['affilicious.product.setup.microdata'] = function () {
+				return new Affilicious\Product\Setup\Microdata_Setup();
+			};
+
 			$this->container['affilicious.product.repository.product'] = function ($c) {
 				return new Affilicious\Product\Repository\Carbon\Carbon_Product_Repository(
 					$c['affilicious.common.generator.slug'],
@@ -1150,6 +1154,7 @@ if(!class_exists('Affilicious')) {
 			$image_size_setup = $this->container['affilicious.common.setup.image_size'];
 			$admin_bar_setup = $this->container['affilicious.product.setup.admin_bar'];
 			$license_handler_setup = $this->container['affilicious.common.admin.setup.license_handler'];
+			$microdata_setup = $this->container['affilicious.product.setup.microdata'];
 			add_action('init', array($product_setup, 'init'), 0);
 			add_action('init', array($custom_product_taxonomies_setup, 'init'), 0);
 			add_action('init', array($shop_template_setup, 'init'), 0);
@@ -1168,6 +1173,7 @@ if(!class_exists('Affilicious')) {
 			add_action('init', array($image_size_setup, 'init'));
 			add_action('admin_bar_menu', array($admin_bar_setup, 'init'), 99);
 			add_action('init', array($license_handler_setup, 'init'), 15);
+			add_action('wp_head', array($microdata_setup, 'init'));
 
 			// Filters
 			$product_slug_filter = $this->container['affilicious.product.filter.product_slug'];
