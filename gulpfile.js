@@ -26,6 +26,9 @@ let modules = {
         'carbon-fields',
         'import',
         'amazon-import'
+    ],
+    github: [
+        'browserstack'
     ]
 };
 
@@ -159,5 +162,33 @@ gulp.task('admin-watch', function() {
     });
 });
 
-gulp.task('default', ['public-css', 'public-js', 'public-img', 'public-svg', 'admin-css', 'admin-js', 'admin-img', 'admin-svg']);
-gulp.task('watch', ['default', 'public-watch', 'admin-watch']);
+gulp.task('github-img', function() {
+    modules.github.map(function(module) {
+        gulp.src(`assets/github/src/${module}/img/**`)
+            .pipe(plumber())
+            .pipe(imageMin())
+            .pipe(gulp.dest('assets/github/dist/img/'))
+        ;
+    });
+});
+
+gulp.task('github-svg', function() {
+    modules.github.map(function(module) {
+        gulp.src(`assets/github/src/${module}/svg/**`)
+            .pipe(plumber())
+            .pipe(gulp.dest('assets/github/dist/svg/'))
+        ;
+    });
+});
+
+gulp.task('github-watch', function() {
+    livereload.listen();
+
+    modules.github.map(function(module) {
+        gulp.watch(`assets/github/src/${module}/img/**`, ['github-img']);
+        gulp.watch(`assets/github/src/${module}/svg/**`, ['github-svg']);
+    });
+});
+
+gulp.task('default', ['public-css', 'public-js', 'public-img', 'public-svg', 'admin-css', 'admin-js', 'admin-img', 'admin-svg', 'github-img', 'github-svg']);
+gulp.task('watch', ['default', 'public-watch', 'admin-watch', 'github-watch']);

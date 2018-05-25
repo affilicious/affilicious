@@ -1,4 +1,4 @@
-# [Affilicious](https://affilicious.de) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicious.de) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/affilicious-theme/affilicious/blob/master/LICENSE) #
+# [Affilicious](https://affilicious.de) [![Build Status](https://travis-ci.org/affilicious/affilicious.svg?branch=master)](https://travis-ci.org/affilicious/affilicious) [![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://affilicious.de) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/affilicious/affilicious/blob/master/LICENSE) #
 Affilicious ist eine Affiliate Platform basierend auf Wordpress. Es erlaubt Affiliate Marketeren Webseiten mit Produkten und Varianten, automatischen Preisupdates, Preisvergleichen, Details, Attributen und vielem mehr zu versehen. Natürlich alles kostenlos.
 
 Für weitere Informationen kannst du gerne auf unserer Homepage unter [https://affilicious.de](https://affilicious.de) vorbeischauen.
@@ -24,32 +24,32 @@ Für die letzte stabile Master Version:
 
 Für die letzte stabile Entwickler Version über Git:
 
-1. Klone das Plugin in das Wordpress Plugin Verzeichnis: `https://github.com/affilicious-theme/affilicious.git`
+1. Klone das Plugin in das Wordpress Plugin Verzeichnis: `https://github.com/affilicious/affilicious.git`
 2. Wechsel den Branch auf `develop`.
 3. Aktiviere das Plugin im Adminbereich.
  
 ### Über eine einfache ZIP-Datei ###
 Für die letzte stabile Master Version über ZIP:
 
-1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious-theme/affilicious/archive/master.zip](https://github.com/affilicious-theme/affilicious/archive/master.zip)
+1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious/affilicious/archive/master.zip](https://github.com/affilicious/affilicious/archive/master.zip)
 2. Lade das Plugin auf deine Wordpress Seite hoch.
 3. Aktiviere das Plugin im Adminbereich.
 
 Für die letzte stabile Entwickler Version über ZIP:
 
-1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious-theme/affilicious/archive/develop.zip](https://github.com/affilicious-theme/affilicious/archive/develop.zip)
+1. Lade dir das Plugin als ZIP-Datei herunter: [https://github.com/affilicious/affilicious/archive/develop.zip](https://github.com/affilicious/affilicious/archive/develop.zip)
 2. Lade das Plugin auf deine Wordpress Seite hoch.
 3. Aktiviere das Plugin im Adminbereich.
 
 Eine ausführliche Anleitung für die Installation und viele weitere hilfreiche Tipps im Umgang mit dem Affilicious, findest du auf unserer offiziellen [Dokumentation](http://docs.affilicious.de).
 
 ## Bugs ##
-Solltest du einen Bug finden, kannst du diesen gerne [hier](https://github.com/affilicious-theme/affilicious/issues?state=open) melden!
+Solltest du einen Bug finden, kannst du diesen gerne [hier](https://github.com/affilicious/affilicious/issues?state=open) melden!
 
 ## Wie kann ich helfen? ##
 Jeder ist Willkommen um zur Entwicklung vom Affilicious Plugin beizutragen. Es gibt viele Wege sich zu beteiligen:
 
 1. Schicke uns deinen Pull Request mit deinem Bug Fix oder Feature.
-2. Erstelle ein [Problem](https://github.com/affilicious-theme/affilicious/issues) auf Github.
+2. Erstelle ein [Problem](https://github.com/affilicious/affilicious/issues) auf Github.
 3. Übersetze Affilicious in ein andere Sprache.
-4. Sende einen Vorschlag oder Feedback auf [Verbesserungen](https://github.com/affilicious-theme/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
+4. Sende einen Vorschlag oder Feedback auf [Verbesserungen](https://github.com/affilicious/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
