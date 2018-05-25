@@ -59,5 +59,5 @@ Anyone is welcome to contribute to Affilicious. There are various ways you can c
 
 ## BrowserStack ##
 
-![BrowserStack](assets/github/dist/img/browserstack-logo.png)
+![BrowserStack](assets/github/dist/img/browserstack.png)
 http://browserstack.com/
