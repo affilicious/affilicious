@@ -57,7 +57,8 @@ Anyone is welcome to contribute to Affilicious. There are various ways you can c
 3. Translate Affilicious into different languages.
 4. Provide suggestions and feedback on [enhancements](https://github.com/affilicious/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
 
-## BrowserStack ##
+## We are using BrowserStack ##
+We are proud to announce that we are using [BrowserStack](https://browserstack.com) for real cross browser testing.
+With the help of BrowserStack, we can now guarantee an overall user experience in the browser for our community.
 
 ![BrowserStack](assets/github/dist/img/browserstack.png)
-http://browserstack.com/

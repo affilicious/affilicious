@@ -53,3 +53,9 @@ Jeder ist Willkommen um zur Entwicklung vom Affilicious Plugin beizutragen. Es g
 2. Erstelle ein [Problem](https://github.com/affilicious/affilicious/issues) auf Github.
 3. Übersetze Affilicious in ein andere Sprache.
 4. Sende einen Vorschlag oder Feedback auf [Verbesserungen](https://github.com/affilicious/affilicious/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
+
+## Wir benutzen BrowserStack ##
+Wir sind stolz verkünden zu können, dass wir [BrowserStack](https://browserstack.com) für echte Cross-Browser-Tests verwenden.
+Mit der Hilfe von BrowserStack könnenn wir unserer Community ein übergreifendes Nutzererlebnis im Browser garantieren.
+
+![BrowserStack](assets/github/dist/img/browserstack.png)
