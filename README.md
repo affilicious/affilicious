@@ -59,6 +59,6 @@ Anyone is welcome to contribute to Affilicious. There are various ways you can c
 
 ## We are using BrowserStack ##
 We are proud to announce that we are using [BrowserStack](https://browserstack.com) for real cross browser testing.
-With the help of BrowserStack, we can now guarantee an overall user experience in the browser for our community.
+With the help of BrowserStack, we can now guarantee an overall user experience in all browsers for our community.
 
 ![BrowserStack](assets/github/dist/img/browserstack.png)

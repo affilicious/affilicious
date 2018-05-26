@@ -56,6 +56,6 @@ Jeder ist Willkommen um zur Entwicklung vom Affilicious Plugin beizutragen. Es g
 
 ## Wir benutzen BrowserStack ##
 Wir sind stolz verkünden zu können, dass wir [BrowserStack](https://browserstack.com) für echte Cross-Browser-Tests verwenden.
-Mit der Hilfe von BrowserStack könnenn wir unserer Community ein übergreifendes Nutzererlebnis im Browser garantieren.
+Mit der Hilfe von BrowserStack könnenn wir unserer Community ein übergreifendes Nutzererlebnis für alle Browser garantieren.
 
 ![BrowserStack](assets/github/dist/img/browserstack.png)
