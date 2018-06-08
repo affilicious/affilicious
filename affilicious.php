@@ -237,7 +237,6 @@ if(!class_exists('Affilicious')) {
 			$this->load_functions();
 			$this->load_services();
 			$this->load_legacy();
-			$this->migrate();
 			$this->register_public_hooks();
 			$this->register_admin_hooks();
 		}
@@ -396,91 +395,6 @@ if(!class_exists('Affilicious')) {
 			// Uninstall the update semaphore.
 			$product_update_semaphore = $this->container['affilicious.product.update.semaphore'];
 			$product_update_semaphore->uninstall($network_wide);
-		}
-
-		/**
-		 * Migrate the old code to the new version.
-		 *
-		 * @since 0.8
-		 */
-		public function migrate()
-		{
-			add_action('admin_init', function() {
-				$migrated = get_option('_affilicious_migrated_to_beta');
-				if($migrated !== 'yes') {
-					$product_post_type_migration = $this->container['affilicious.product.migration.post_type'];
-					$product_post_type_migration->migrate();
-
-					$shop_post_type_migration = $this->container['affilicious.shop.migration.post_type'];
-					$shop_post_type_migration->migrate();
-
-					$currency_code_migration = $this->container['affilicious.shop.migration.currency_code'];
-					$currency_code_migration->migrate();
-
-					$shop_post_to_term_migration = $this->container['affilicious.shop.migration.post_to_term'];
-					$shop_post_to_term_migration->migrate();
-
-					$detail_post_to_term_migration = $this->container['affilicious.detail.migration.post_to_term'];
-					$detail_post_to_term_migration->migrate();
-
-					$attribute_post_to_term_migration = $this->container['affilicious.attribute.migration.post_to_term'];
-					$attribute_post_to_term_migration->migrate();
-
-					$product_details_migration = $this->container['affilicious.product.migration.details'];
-					$product_details_migration->migrate();
-
-					$product_shops_migration = $this->container['affilicious.product.migration.shops'];
-					$product_shops_migration->migrate();
-
-					$product_variants_migration = $this->container['affilicious.product.migration.variants'];
-					$product_variants_migration->migrate();
-
-					add_option('_affilicious_migrated_to_beta', 'yes');
-				}
-
-				$cleaned_variants = get_option('_affilicious_migrated_to_beta_with_cleaned_variants');
-				if($cleaned_variants !== 'yes') {
-					$clean_variants_migration = $this->container['affilicious.product.migration.clean_variants'];
-					$clean_variants_migration->migrate();
-
-					add_option('_affilicious_migrated_to_beta_with_cleaned_variants', 'yes');
-				}
-
-				$inherit_status = get_option('_affilicious_migrated_to_beta_with_variant_status_inherit');
-				if($inherit_status !== 'yes') {
-					$variant_inherit_status_migration = $this->container['affilicious.product.migration.variant_inherit_status'];
-					$variant_inherit_status_migration->migrate();
-
-					add_option('_affilicious_migrated_to_beta_with_variant_status_inherit', 'yes');
-				}
-
-				$product_slug_migration = $this->container['affilicious.product.migration.product_slug'];
-				$product_slug_migration->migrate();
-
-				$affiliate_product_id_to_090_migration = $this->container['affilicious.product.migration.affiliate_product_id_to_090'];
-				$affiliate_product_id_to_090_migration->migrate();
-
-				$tags_to_090_migration = $this->container['affilicious.product.migration.tags_to_090'];
-				$tags_to_090_migration->migrate();
-
-				$product_variant_terms_to_0820_migration = $this->container['affilicious.product.migration.product_variant_terms_to_0820'];
-				$product_variant_terms_to_0820_migration->migrate();
-
-				$product_slugs_to_0818_migration = $this->container['affilicious.product.migration.product_slugs_to_0818'];
-				$product_slugs_to_0818_migration->migrate();
-
-				$product_updates_to_0920_migration = $this->container['affilicious.product.migration.product_updates_to_0920'];
-				$product_updates_to_0920_migration->migrate();
-
-				$non_existing_logs_table_to_0920_migration = $this->container['affilicious.common.migration.non_existing_logs_table_to_0920'];
-				$non_existing_logs_table_to_0920_migration->migrate();
-
-				$logs_cleaner_timer_to_0922_migration = $this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'];
-				$logs_cleaner_timer_to_0922_migration->migrate();
-
-				$orphaned_product_variants_timer_migration = $this->container['affilicious.product.migration.orphaned_product_variants_timer_to_0922'];
-				$orphaned_product_variants_timer_migration->migrate();
-			}, 9999);
 		}
 
 		/**
@@ -732,21 +646,6 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
-			$this->container['affilicious.shop.migration.post_to_term'] = function ($c) {
-				return new Affilicious\Shop\Migration\Post_To_Term_Migration(
-					$c['affilicious.shop.factory.shop_template'],
-					$c['affilicious.shop.repository.shop_template']
-				);
-			};
-
-			$this->container['affilicious.shop.migration.post_type'] = function () {
-				return new Affilicious\Shop\Migration\Post_Type_Migration();
-			};
-
-			$this->container['affilicious.shop.migration.currency_code'] = function () {
-				return new Affilicious\Shop\Migration\Currency_Code_Migration();
-			};
-
 			$this->container['affilicious.shop.admin.meta_box.shop_template'] = function($c) {
 				return new Affilicious\Shop\Admin\Meta_Box\Shop_Template_Meta_Box(
 					$c['affilicious.provider.repository.provider']
@@ -778,13 +677,6 @@ if(!class_exists('Affilicious')) {
 				return new Affilicious\Detail\Repository\Carbon\Carbon_Detail_Template_Repository();
 			};
 
-			$this->container['affilicious.detail.migration.post_to_term'] = function ($c) {
-				return new Affilicious\Detail\Migration\Post_To_Term_Migration(
-					$c['affilicious.detail.factory.detail_template'],
-					$c['affilicious.detail.repository.detail_template']
-				);
-			};
-
 			$this->container['affilicious.detail.admin.meta_box.detail_template'] = function() {
 				return new Affilicious\Detail\Admin\Meta_Box\Detail_Template_Meta_Box();
 			};
@@ -809,13 +701,6 @@ if(!class_exists('Affilicious')) {
 			$this->container['affilicious.attribute.factory.attribute_template'] = function ($c) {
 				return new Affilicious\Attribute\Factory\In_Memory\In_Memory_Attribute_Template_Factory(
 					$c['affilicious.common.generator.slug']
-				);
-			};
-
-			$this->container['affilicious.attribute.migration.post_to_term'] = function ($c) {
-				return new Affilicious\Attribute\Migration\Post_To_Term_Migration(
-					$c['affilicious.attribute.factory.attribute_template'],
-					$c['affilicious.attribute.repository.attribute_template']
 				);
 			};
 
@@ -1333,6 +1218,20 @@ if(!class_exists('Affilicious')) {
 			add_filter('custom_menu_order', array($product_admin_menu_order_filter, 'filter'));
 			add_filter('admin_footer_text', array($admin_footer_text_filter, 'filter'));
 			add_filter('plugin_action_links_' . AFFILICIOUS_BASE_NAME, array($plugin_actions_filter, 'filter'));
+
+			// Migrations
+			$affiliate_product_id_to_090_migration = $this->container['affilicious.product.migration.affiliate_product_id_to_090'];
+			$tags_to_090_migration = $this->container['affilicious.product.migration.tags_to_090'];
+			$product_updates_to_0920_migration = $this->container['affilicious.product.migration.product_updates_to_0920'];
+			$non_existing_logs_table_to_0920_migration = $this->container['affilicious.common.migration.non_existing_logs_table_to_0920'];
+			$logs_cleaner_timer_to_0922_migration = $this->container['affilicious.common.migration.logs_cleaner_timer_to_0922'];
+			$orphaned_product_variants_timer_to_0922_migration = $this->container['affilicious.product.migration.orphaned_product_variants_timer_to_0922'];
+			add_action('admin_init', array($affiliate_product_id_to_090_migration, 'migrate'), 9999);
+			add_action('admin_init', array($tags_to_090_migration, 'migrate'), 9999);
+			add_action('admin_init', array($product_updates_to_0920_migration, 'migrate'), 9999);
+			add_action('admin_init', array($non_existing_logs_table_to_0920_migration, 'migrate'), 9999);
+			add_action('admin_init', array($logs_cleaner_timer_to_0922_migration, 'migrate'), 9999);
+			add_action('admin_init', array($orphaned_product_variants_timer_to_0922_migration, 'migrate'), 9999);
 
 			// Options
 			$affilicious_options = $this->container['affilicious.common.admin.options.affilicious'];
