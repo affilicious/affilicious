@@ -1,5 +1,65 @@
 [
     {
+        "name": "aristath/kirki",
+        "version": "v3.0.33",
+        "version_normalized": "3.0.33.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aristath/kirki.git",
+            "reference": "d2ddc07158cd2e09bb1e3b057a9a98d52b8ec467"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aristath/kirki/zipball/d2ddc07158cd2e09bb1e3b057a9a98d52b8ec467",
+            "reference": "d2ddc07158cd2e09bb1e3b057a9a98d52b8ec467",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "require-dev": {
+            "codacy/coverage": "dev-master",
+            "composer/installers": "*",
+            "dealerdirect/phpcodesniffer-composer-installer": "*",
+            "php-coveralls/php-coveralls": "^2.0",
+            "phpunit/phpunit": "*",
+            "wimg/php-compatibility": "*",
+            "wp-coding-standards/wpcs": "*"
+        },
+        "time": "2018-05-17T17:26:03+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "kirki.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "aristath",
+                "email": "aristath@gmail.com",
+                "homepage": "https://aristath.github.io",
+                "role": "Developer"
+            },
+            {
+                "name": "fovoc",
+                "email": "kalliris.d@gmail.com",
+                "homepage": "https://github.com/fovoc",
+                "role": "Developer"
+            }
+        ],
+        "description": "Extending the WordPress customizer",
+        "homepage": "https://aristath.github.io/kirki",
+        "keywords": [
+            "customizer",
+            "wordpress"
+        ]
+    },
+    {
         "name": "htmlburger/carbon-fields",
         "version": "1.4.3",
         "version_normalized": "1.4.3.0",

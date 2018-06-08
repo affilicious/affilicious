@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ff94b54cc49d91067b6c55e8792511c4' => $vendorDir . '/aristath/kirki/kirki.php',
     '74704c95e6224e3a13dba163dbbb87fa' => $vendorDir . '/htmlburger/carbon-fields/carbon-fields.php',
     '1c3af1f7c867149c2eb8dfa733be2e98' => $vendorDir . '/htmlburger/carbon-fields/core/functions.php',
 );
