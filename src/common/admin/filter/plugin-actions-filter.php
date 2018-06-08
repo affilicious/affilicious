@@ -1,27 +1,27 @@
 <?php
-namespace Affilicious\Common\Admin\Setup;
+namespace Affilicious\Common\Admin\Filter;
 
 if (!defined('ABSPATH')) {
     exit('Not allowed to access pages directly.');
 }
 
 /**
- * @since 0.9.16
+ * @since 0.10.4
  */
-class Plugin_Actions_Setup
+class Plugin_Actions_Filter
 {
 	/**
-	 * @since 0.9.16
+	 * @since 0.10.4
 	 * @var string
 	 */
     const ADDONS_URL = 'https://affilicious.com/downloads/category/erweiterungen/?utm_campaign=addons&utm_source=wordpress-installation&utm_medium=plugin-actions';
 
     /**
-     * @since 0.9.16
+     * @since 0.10.4
      * @param array $links
      * @return array
      */
-    public function init(array $links)
+    public function filter(array $links)
     {
         $settings_link = sprintf('<a href="%s">%s</a>', admin_url('admin.php?page=crbn-affilicious.php'), __('Settings', 'affilicious'));
 

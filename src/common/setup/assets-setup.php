@@ -6,43 +6,38 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @since 0.9.9
+ * @since 0.10.4
  */
 class Assets_Setup
 {
-    /**
-     * Add the admin styles.
-     *
-     * @hook wp_enqueue_scripts
-     * @since 0.9.9
-     */
-    public function add_styles()
-    {
-        $base_public_url = \Affilicious::get_root_url() . 'assets/public/dist/';
-        $base_vendor_url = \Affilicious::get_root_url() . 'assets/vendor/';
-
-	    // Register Lightslider styles
-	    wp_enqueue_style('lightslider', $base_vendor_url . 'lightslider/css/lightslider.min.css', [], '1.1.6');
-
-        // Register universal box styles
-        wp_enqueue_style('aff-universal-box', $base_public_url . 'css/universal-box.min.css', ['lightslider'], \Affilicious::VERSION);
-    }
+	/**
+	 * @since 0.10.4
+	 * @var string
+	 */
+	const VENDOR_URL = AFFILICIOUS_ROOT_URL . 'assets/vendor/';
 
     /**
-     * Add the admin scripts.
+     * Enqueue or register styles and scripts.
      *
      * @hook wp_enqueue_scripts
-     * @since 0.9.9
+     * @since 0.10.4
      */
-    public function add_scripts()
+    public function init()
     {
-	    $base_public_url = \Affilicious::get_root_url() . 'assets/public/dist/';
-	    $base_vendor_url = \Affilicious::get_root_url() . 'assets/vendor/';
+	    // Styles
+	    wp_register_style('selectize', self::VENDOR_URL . 'selectize/css/selectize.css', [], '0.12.4');
 
-		// Register Lightslider scripts
-	    wp_enqueue_script('lightslider', $base_vendor_url . 'lightslider/js/lightslider.min.js', ['jquery'], '1.1.6', true);
+	    wp_register_style('slick', self::VENDOR_URL . 'slick/slick.css', [], '1.8.0');
 
-	    // Register universal box scripts
-	    wp_enqueue_script('aff-universal-box', $base_public_url . 'js/universal-box.min.js', ['lightslider'], \Affilicious::VERSION, true);
+	    wp_register_style('slick-theme', self::VENDOR_URL . 'slick/slick-theme.css', ['slick'], '1.8.0');
+
+	    wp_register_style('lightslider', self::VENDOR_URL . 'lightslider/css/lightslider.min.css', [], '1.1.6');
+
+	    // Scripts
+	    wp_register_script('selectize', self::VENDOR_URL . 'selectize/js/selectize.min.js', ['jquery'], '0.12.4', true);
+
+	    wp_register_script('slick', self::VENDOR_URL . 'slick/slick.min.js', ['jquery'], '1.8.0', true);
+
+	    wp_register_script('lightslider', self::VENDOR_URL . 'lightslider/js/lightslider.min.js', ['jquery'], '1.1.6', true);
     }
 }
