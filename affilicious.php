@@ -627,10 +627,6 @@ if(!class_exists('Affilicious')) {
 				);
 			};
 
-			$this->container['affilicious.provider.admin.notice.amazon_not_included_anymore'] = function () {
-				return new Affilicious\Provider\Admin\Notice\Amazon_Not_Included_Anymore_Notice();
-			};
-			
 			// Shop services
 			$this->container['affilicious.shop.setup.shop_template'] = function () {
 				return new Affilicious\Shop\Setup\Shop_Template_Setup();
@@ -1181,9 +1177,7 @@ if(!class_exists('Affilicious')) {
 
 			// Notices
 			$download_recommendation_notice = $this->container['affilicious.common.admin.notice.download_recommendation'];
-			$amazon_not_included_anymore = $this->container['affilicious.provider.admin.notice.amazon_not_included_anymore'];
 			add_action('admin_notices', array($download_recommendation_notice, 'render'));
-			add_action('admin_notices', array($amazon_not_included_anymore, 'render'));
 
             // Actions
             $download_system_info_action = $this->container['affilicious.common.admin.action.download_system_info'];
