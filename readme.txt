@@ -4,7 +4,7 @@ Author URI: https://affilicious.com
 Plugin URI: https://affilicious.com/downloads/affilicious
 Requires at least: 4.5
 Tested up to: 4.9.6
-Stable tag: 0.10.3
+Stable tag: 0.10.4
 Tags: Affiliate, SEO, Products
 License: GPL-2.0
 License URI: https://opensource.org/licenses/GPL-2.0
@@ -98,6 +98,10 @@ If you want to get support, check out this [page](https://affilicious.com/suppor
 4. Optionally, put a rating and some votes for your products.
 
 == Changelog ==
+= 0.10.4 =
+* Improvement: Removed some old notifications.
+* Improvement: Cleaned up styles & scripts and some services.
+
 = 0.10.3 =
 * New: Added possibility to disable product pages and archives in the frontend.
 * New: Added possibility to render JSON-LD product microdata.
