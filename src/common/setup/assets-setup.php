@@ -27,16 +27,10 @@ class Assets_Setup
 	    // Styles
 	    wp_register_style('selectize', self::VENDOR_URL . 'selectize/css/selectize.css', [], '0.12.4');
 
-	    wp_register_style('slick', self::VENDOR_URL . 'slick/slick.css', [], '1.8.0');
-
-	    wp_register_style('slick-theme', self::VENDOR_URL . 'slick/slick-theme.css', ['slick'], '1.8.0');
-
 	    wp_register_style('lightslider', self::VENDOR_URL . 'lightslider/css/lightslider.min.css', [], '1.1.6');
 
 	    // Scripts
 	    wp_register_script('selectize', self::VENDOR_URL . 'selectize/js/selectize.min.js', ['jquery'], '0.12.4', true);
-
-	    wp_register_script('slick', self::VENDOR_URL . 'slick/slick.min.js', ['jquery'], '1.8.0', true);
 
 	    wp_register_script('lightslider', self::VENDOR_URL . 'lightslider/js/lightslider.min.js', ['jquery'], '1.1.6', true);
     }

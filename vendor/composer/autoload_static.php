@@ -4,10 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita8e2e259656945bd783170b4fff1f94b
+class ComposerStaticInit84a68edb0ef2b8abc578001b3efe812d
 {
     public static $files = array (
-        'ff94b54cc49d91067b6c55e8792511c4' => __DIR__ . '/..' . '/aristath/kirki/kirki.php',
         '74704c95e6224e3a13dba163dbbb87fa' => __DIR__ . '/..' . '/htmlburger/carbon-fields/carbon-fields.php',
         '1c3af1f7c867149c2eb8dfa733be2e98' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/functions.php',
     );
@@ -391,10 +390,10 @@ class ComposerStaticInita8e2e259656945bd783170b4fff1f94b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita8e2e259656945bd783170b4fff1f94b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit84a68edb0ef2b8abc578001b3efe812d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit84a68edb0ef2b8abc578001b3efe812d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit84a68edb0ef2b8abc578001b3efe812d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit84a68edb0ef2b8abc578001b3efe812d::$classMap;
 
         }, null, ClassLoader::class);
     }
